@@ -480,22 +480,666 @@
     {
       "type": "annex",
       "label": "Anlage 1 (zu § 4 Absatz 2 Satz 2 Nummer 1)",
+      "title": "Höchstzahl schulbezogener Anrechnungsstunden",
       "children": [
         {
           "type": "item",
           "label": "1.",
-          "text": "Für Grundschulen:\nGrundschulen\nAnzahl der Klassen\nAnrechnungsstunden\nAnzahl der Klassen\n(ohne Vorbereitungsklassen)\nAnrechnungsstunden\nbis 4\n10\n5\n13\n6\n17\n7\n19\n8\n20\n9\n22\n10\n23\n11 und 12\n25\n13 und 14\n28\n15\n30\n16\n32\n17\n33\n18 und 19\n34\n20\n35\n21\n36\n22 und 23\n37\n24 und 25\n38",
+          "text": "Für Grundschulen:",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "table",
+              "title": "Grundschulen",
+              "columns": 2,
+              "children": [
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anzahl der Klassen",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anrechnungsstunden",
+                      "scope": "col"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "Anzahl der Klassen\n(ohne Vorbereitungsklassen)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Anrechnungsstunden"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "bis 4"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "10"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "5"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "13"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "6"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "17"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "7"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "19"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "8"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "20"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "9"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "22"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "10"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "23"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "11 und 12"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "25"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "13 und 14"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "28"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "15"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "30"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "16"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "32"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "17"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "33"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "18 und 19"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "34"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "20"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "35"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "21"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "36"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "22 und 23"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "37"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "24 und 25"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "38"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "Für Förderschulen, Oberschulen, Abendoberschulen:\nFörderschulen, Oberschulen, Abendoberschulen\nAnzahl der Klassen\nAnrechnungsstunden\nAnzahl der Klassen\n(ohne Vorbereitungsklassen)\nAnrechnungsstunden\nbis 4\n10\n5\n13\n6\n19\n7\n21\n8\n22\n9\n24\n10\n25\n11 und 12\n27\n13 und 14\n29\n15\n30\n16\n32\n17\n33\n18\n34\n19\n36\n20 bis 22\n37\n23\n40\n24\n41\n25\n43\n26 und 27\n44\n28 und 29\n45\n30\n46\n31\n47\n32 und 33\n48\n34 und 35\n49\n36\n50\n37 und 38\n51\n39 und 40\n52",
+          "text": "Für Förderschulen, Oberschulen, Abendoberschulen:",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
+            {
+              "type": "table",
+              "title": "Förderschulen, Oberschulen, Abendoberschulen",
+              "columns": 2,
+              "children": [
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anzahl der Klassen",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anrechnungsstunden",
+                      "scope": "col"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "Anzahl der Klassen\n(ohne Vorbereitungsklassen)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Anrechnungsstunden"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "bis 4"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "10"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "5"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "13"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "6"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "19"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "7"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "21"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "8"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "22"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "9"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "24"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "10"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "25"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "11 und 12"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "27"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "13 und 14"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "29"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "15"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "30"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "16"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "32"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "17"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "33"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "18"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "34"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "19"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "36"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "20 bis 22"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "37"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "23"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "40"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "24"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "41"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "25"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "43"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "26 und 27"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "44"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "28 und 29"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "45"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "30"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "46"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "31"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "47"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "32 und 33"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "48"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "34 und 35"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "49"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "36"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "50"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "37 und 38"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "51"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "39 und 40"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "52"
+                    }
+                  ]
+                }
+              ]
+            },
             {
               "type": "paragraphText",
               "text": "Der schulbezogene Anrechnungsumfang erhöht sich an Förderschulen je zugewiesener Leitungsstelle eines Fachbe-reichs um bis zu vier Anrechnungsstunden."
@@ -505,10 +1149,448 @@
         {
           "type": "item",
           "label": "3.",
-          "text": "Für Gymnasien, Abendgymnasien, Kollegs und Gemeinschaftsschulen:\nGymnasien, Abendgymnasien, Kollegs\nAnzahl der Klassen\nAnrechnungsstunden\nAnzahl der Klassen\n(ohne Vorbereitungsklassen)\nAnrechnungsstunden\nbis 4\n20\n5\n21\n6 und 7\n27\n8\n28\n9\n29\n10\n30\n11 und 12\n32\n13 und 14\n34\n15\n35\n16\n37\n17\n38\n18\n39\n19\n41\n20\n42\n21\n43\n22 und 23\n44\n24\n45\n25\n47\n26\n48\n27 und 28\n49\n29 und 30\n51\n31\n52\n32\n53\n33\n55\n34 und 35\n56\n36\n57\n37 und 38\n58\n39 und 40\n59\n41 und 42\n60\n43 bis 47\n61\n48 bis 54\n62",
+          "text": "Für Gymnasien, Abendgymnasien, Kollegs und Gemeinschaftsschulen:",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
+            {
+              "type": "table",
+              "title": "Gymnasien, Abendgymnasien, Kollegs",
+              "columns": 2,
+              "children": [
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anzahl der Klassen",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anrechnungsstunden",
+                      "scope": "col"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "Anzahl der Klassen\n(ohne Vorbereitungsklassen)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Anrechnungsstunden"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "bis 4"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "20"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "5"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "21"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "6 und 7"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "27"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "8"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "28"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "9"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "29"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "10"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "30"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "11 und 12"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "32"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "13 und 14"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "34"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "15"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "35"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "16"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "37"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "17"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "38"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "18"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "39"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "19"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "41"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "20"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "42"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "21"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "43"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "22 und 23"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "44"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "24"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "45"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "25"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "47"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "26"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "48"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "27 und 28"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "49"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "29 und 30"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "51"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "31"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "52"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "32"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "53"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "33"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "55"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "34 und 35"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "56"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "36"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "57"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "37 und 38"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "58"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "39 und 40"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "59"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "41 und 42"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "60"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "43 bis 47"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "61"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "48 bis 54"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "62"
+                    }
+                  ]
+                }
+              ]
+            },
             {
               "type": "paragraphText",
               "text": "Ab 55 Klassen erhöht sich der Umfang für je angefangene weitere zehn Klassen um eine Anrechnungsstunde."
@@ -522,10 +1604,448 @@
         {
           "type": "item",
           "label": "4.",
-          "text": "Für berufsbildende Schulen:\nberufsbildende Schulen\nAnzahl der Klassen\nAnrechnungsstunden\nAnzahl der Klassen\n(ohne Vorbereitungsklassen mit berufspraktischen\nAspekten)\nAnrechnungsstunden\nbis 5\n17\n6\n21\n7\n23\n8\n24\n9\n27\n10\n28\n11 und 12\n30\n13 und 14\n32\n15\n33\n16\n35\n17\n36\n18\n37\n19\n39\n20\n40\n21\n41\n22 und 23\n42\n24\n43\n25\n45\n26\n46\n27 und 28\n47\n29 und 30\n48\n31\n49\n32\n50\n33\n51\n34 und 35\n52\n36\n53\n37 und 38\n54\n39 und 40\n55\n41 und 42\n56\n43 bis 47\n57\n48 bis 54\n58",
+          "text": "Für berufsbildende Schulen:",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
+            {
+              "type": "table",
+              "title": "berufsbildende Schulen",
+              "columns": 2,
+              "children": [
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anzahl der Klassen",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Anrechnungsstunden",
+                      "scope": "col"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "Anzahl der Klassen\n(ohne Vorbereitungsklassen mit berufspraktischen\nAspekten)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Anrechnungsstunden"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "bis 5"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "17"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "6"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "21"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "7"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "23"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "8"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "24"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "9"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "27"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "10"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "28"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "11 und 12"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "30"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "13 und 14"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "32"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "15"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "33"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "16"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "35"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "17"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "36"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "18"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "37"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "19"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "39"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "20"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "40"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "21"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "41"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "22 und 23"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "42"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "24"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "43"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "25"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "45"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "26"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "46"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "27 und 28"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "47"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "29 und 30"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "48"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "31"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "49"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "32"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "50"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "33"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "51"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "34 und 35"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "52"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "36"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "53"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "37 und 38"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "54"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "39 und 40"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "55"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "41 und 42"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "56"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "43 bis 47"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "57"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "48 bis 54"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "58"
+                    }
+                  ]
+                }
+              ]
+            },
             {
               "type": "paragraphText",
               "text": "Ab 55 Klassen erhöht sich der Umfang für je angefangene weitere zehn Klassen um eine Anrechnungsstunde."
@@ -549,6 +2069,7 @@
     {
       "type": "annex",
       "label": "Anlage 2 (zu § 4 Absatz 3 Nummer 2)",
+      "title": "Personenbezogener Anrechnungsumfang für Lehrbeauftragte im Vorbereitungsdienst und in der schulpraktischen Ausbildung für Seiteneinsteigerinnen und Seiteneinsteiger",
       "children": [
         {
           "type": "item",
@@ -584,36 +2105,505 @@
                 {
                   "type": "item",
                   "label": "aa)",
-                  "text": "für die Fächer Deutsch oder Mathematik\nDeutsch oder Mathematik\nPersonen pro\nFachgruppe\nAnrechnungsstunden\nPersonen pro Fachgruppe\nAnrechnungsstunden\n2 und 3\n4\n4 und 5\n5\n6 und 7\n6\n8 und 9\n7\n10\n8",
+                  "text": "für die Fächer Deutsch oder Mathematik",
                   "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "table",
+                      "title": "Deutsch oder Mathematik",
+                      "columns": 2,
+                      "children": [
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Personen pro\nFachgruppe",
+                              "scope": "col"
+                            },
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Anrechnungsstunden",
+                              "scope": "col"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Personen pro Fachgruppe"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "Anrechnungsstunden"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "2 und 3"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "4"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "4 und 5"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "5"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "6 und 7"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "8 und 9"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "7"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "8"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "item",
                   "label": "bb)",
-                  "text": "für das Fach Sachunterricht oder das Wahlfach\nSachunterricht oder das Wahlfach\nPersonen pro Fachgruppe\nAnrechnungsstunden\nPersonen pro Fachgruppe\nAnrechnungsstunden\n2\n3\n3 und 4\n4\n5 bis 7\n5\n8 und 9\n6\n10\n7",
+                  "text": "für das Fach Sachunterricht oder das Wahlfach",
                   "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "table",
+                      "title": "Sachunterricht oder das Wahlfach",
+                      "columns": 2,
+                      "children": [
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Personen pro Fachgruppe",
+                              "scope": "col"
+                            },
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Anrechnungsstunden",
+                              "scope": "col"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Personen pro Fachgruppe"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "Anrechnungsstunden"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "2"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "3"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "3 und 4"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "4"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "5 bis 7"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "5"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "8 und 9"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "7"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "item",
                   "label": "cc)",
-                  "text": "für die Fächer Deutsch oder Mathematik in Verbindung mit Sachunterricht oder dem Wahlfach\nDeutsch oder Mathematik in Verbindung mit Sachunterricht oder dem Wahlfach\nPersonen pro Fachgruppe\nAnrechnungsstunden\nPersonen pro Fachgruppe\nAnrechnungsstunden\n2\n6\n3\n7\n4 und 5\n8\n6\n9\n7\n10\n8\n11\n9\n12\n10\n13",
+                  "text": "für die Fächer Deutsch oder Mathematik in Verbindung mit Sachunterricht oder dem Wahlfach",
                   "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "table",
+                      "title": "Deutsch oder Mathematik in Verbindung mit Sachunterricht oder dem Wahlfach",
+                      "columns": 2,
+                      "children": [
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Personen pro Fachgruppe",
+                              "scope": "col"
+                            },
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Anrechnungsstunden",
+                              "scope": "col"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Personen pro Fachgruppe"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "Anrechnungsstunden"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "2"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "3"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "7"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "4 und 5"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "8"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "6"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "9"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "7"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "8"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "11"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "9"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "12"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "13"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
             {
               "type": "item",
               "label": "b)",
-              "text": "Fachausbildungsleiterin und Fachausbildungsleiter für das Lehramt an Oberschulen, an Gymnasien oder an berufsbildenden Schulen\nFachausbildungsleiter für das Lehramt an Oberschulen, an Gymnasien oder an berufsbildenden Schulen\nPersonen pro Fachgruppe\nAnrechnungsstunden\nPersonen pro Fachgruppe\nAnrechnungsstunden\n2\n5\n3\n6\n4\n7\n5 und 6\n8\n7\n9\n8\n10\n9 und 10\n11",
+              "text": "Fachausbildungsleiterin und Fachausbildungsleiter für das Lehramt an Oberschulen, an Gymnasien oder an berufsbildenden Schulen",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "table",
+                  "title": "Fachausbildungsleiter für das Lehramt an Oberschulen, an Gymnasien oder an berufsbildenden Schulen",
+                  "columns": 2,
+                  "children": [
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableHeaderCell",
+                          "text": "Personen pro Fachgruppe",
+                          "scope": "col"
+                        },
+                        {
+                          "type": "tableHeaderCell",
+                          "text": "Anrechnungsstunden",
+                          "scope": "col"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "Personen pro Fachgruppe"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "Anrechnungsstunden"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "2"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "5"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "3"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "6"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "4"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "7"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "5 und 6"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "8"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "7"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "9"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "8"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "10"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableRow",
+                      "children": [
+                        {
+                          "type": "tableCell",
+                          "text": "9 und 10"
+                        },
+                        {
+                          "type": "tableCell",
+                          "text": "11"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
@@ -625,18 +2615,298 @@
                 {
                   "type": "item",
                   "label": "aa)",
-                  "text": "für den ersten Förderschwerpunkt mit Unterrichtsbesuchen\nfür den ersten Förderschwerpunkt mit Unterrichtsbesuchen\nPersonen pro Fachgruppe\nAnrechnungsstunden\nPersonen pro Fachgruppe\nAnrechnungsstunden\n2\n6\n3\n7\n4\n8\n5\n9\n6\n10\n7 und 8\n11\n9\n12\n10\n13",
+                  "text": "für den ersten Förderschwerpunkt mit Unterrichtsbesuchen",
                   "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "table",
+                      "title": "für den ersten Förderschwerpunkt mit Unterrichtsbesuchen",
+                      "columns": 2,
+                      "children": [
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Personen pro Fachgruppe",
+                              "scope": "col"
+                            },
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Anrechnungsstunden",
+                              "scope": "col"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Personen pro Fachgruppe"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "Anrechnungsstunden"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "2"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "3"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "7"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "4"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "8"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "5"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "9"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "6"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "7 und 8"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "11"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "9"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "12"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "13"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "item",
                   "label": "bb)",
-                  "text": "für das studierte Fach\nfür das studierte Fach\nPersonen pro Fachgruppe\nAnrechnungsstunden\nPersonen pro Fachgruppe\nAnrechnungsstunden\n2\n6\n3\n7\n4\n8\n5 und 6\n9\n7\n10\n8\n11\n9\n12\n10\n13",
+                  "text": "für das studierte Fach",
                   "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "table",
+                      "title": "für das studierte Fach",
+                      "columns": 2,
+                      "children": [
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Personen pro Fachgruppe",
+                              "scope": "col"
+                            },
+                            {
+                              "type": "tableHeaderCell",
+                              "text": "Anrechnungsstunden",
+                              "scope": "col"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Personen pro Fachgruppe"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "Anrechnungsstunden"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "2"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "6"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "3"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "7"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "4"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "8"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "5 und 6"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "9"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "7"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "8"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "11"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "9"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "12"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "10"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": "13"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "item",

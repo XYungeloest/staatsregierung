@@ -683,16 +683,12 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraph",
-                  "label": "§ 99",
-                  "title": "(weggefallen)",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "„§ 99 (weggefallen)"
                 },
                 {
-                  "type": "paragraph",
-                  "label": "§ 100",
-                  "title": "(weggefallen)“.",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "§ 100 (weggefallen)“."
                 }
               ]
             }
@@ -780,20 +776,44 @@
             {
               "type": "item",
               "label": "a.",
-              "text": "Absatz 1 wird wie folgt gefasst: „(1) Die Dienst- und Fachaufsicht über die Polizeidienststellen der Volkspolizei richtet sich nach § 3 Absatz 1 des Volkspolizeiorganisationsgesetzes. Die Dienst- und Fachaufsicht über die Kasernierte Grenzpolizei übt die oberste Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes aus. § 3 Absatz 2 des Volkspolizeiorganisationsgesetzes gilt auch für die Kasernierte Grenzpolizei.“",
+              "text": "Absatz 1 wird wie folgt gefasst:",
               "level": 1,
               "listId": "hgi6hda017a9",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Die Dienst- und Fachaufsicht über die Polizeidienststellen der Volkspolizei richtet sich nach § 3 Absatz 1 des Volkspolizeiorganisationsgesetzes. Die Dienst- und Fachaufsicht über die Kasernierte Grenzpolizei übt die oberste Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes aus. § 3 Absatz 2 des Volkspolizeiorganisationsgesetzes gilt auch für die Kasernierte Grenzpolizei.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
               "label": "b.",
-              "text": "Absatz 3 wird wie folgt gefasst: „(3) Die oberste Polizeibehörde kann Polizeidienststellen der Volkspolizei vorübergehend sich oder einer anderen Polizeidienststelle der Volkspolizei unmittelbar unterstellen, wenn die Erfüllung der polizeilichen Aufgaben dies erfordert. Ist bei Gefahr im Verzug ein rechtzeitiges Tätigwerden der obersten Polizeibehörde nicht zu erreichen, kann das Landeskriminalamt Maßnahmen nach Satz 1 treffen; die oberste Polizeibehörde ist unverzüglich zu unterrichten.“",
+              "text": "Absatz 3 wird wie folgt gefasst:",
               "level": 1,
               "listId": "hgi6hda017a9",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(3)",
+                      "text": "Die oberste Polizeibehörde kann Polizeidienststellen der Volkspolizei vorübergehend sich oder einer anderen Polizeidienststelle der Volkspolizei unmittelbar unterstellen, wenn die Erfüllung der polizeilichen Aufgaben dies erfordert. Ist bei Gefahr im Verzug ein rechtzeitiges Tätigwerden der obersten Polizeibehörde nicht zu erreichen, kann das Landeskriminalamt Maßnahmen nach Satz 1 treffen; die oberste Polizeibehörde ist unverzüglich zu unterrichten.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

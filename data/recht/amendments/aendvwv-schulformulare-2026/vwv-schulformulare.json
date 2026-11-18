@@ -6,7 +6,7 @@
   "resultCitation": "VwV Schulformulare, geändert durch Verwaltungsvorschrift vom 16. August 2026 (StAnzO. 2026 Nr. 23 S. 2)",
   "changeNote": "Formularbezeichnungen, Kursbuchregel und Anlage 2 aktualisiert.",
   "commandCoverage": [
-    "Nummern 1 bis 4; Übergangsregelung in Nummer 5 verbleibt in der Änderungsvorschrift"
+    "Nummern 1 bis 3; Nummer 4 ändert das Formular der Anlage 2 (Streichung der Zeile „Religionszugehörigkeit: nein/ja“, Neufassung der Fußnote 4, Anfügung eines Satzes nach Fußnote 5), das wie in der Ausgangsfassung nicht textlich wiedergegeben wird; Übergangsregelung in Nummer 5 verbleibt in der Änderungsvorschrift"
   ],
   "sourceReferences": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliche REVOSax-Anlage 2 (Ausgangsformular)",
+      "label": "Amtliche REVOSax-Anlage 2 (Ausgangsformular ohne die Änderungen nach Nummer 4 der Verwaltungsvorschrift vom 16. August 2026)",
       "availability": "versioned",
       "localSource": "data/recht/sources/revosax/vwv-schulformulare/anlage-2.pdf",
       "url": "https://www.revosax.sachsen.de/attachments/33341",
@@ -62,76 +62,6 @@
       "value": "Für jeden Kurs ist in den Jahrgangsstufen 11 und 12 der Erweiterten Oberschule, des Abendgymnasiums und des Kollegs ein Kursbuch zu führen, das den erteilten Unterricht und die Ergebnisse der Leistungsbewertungen dokumentiert. Für die wissenschaftlich-praktische Arbeit werden die nach der VwV Durchführung der Qualifikationsphase und Abiturprüfung vorgeschriebenen Formulare als Bestandteil des Kursbuchs geführt.",
       "source": "Gesetze/StAnzO. 2026 Nr. 23.html",
       "sourceProvision": "Nummer 3",
-      "effectiveDate": "2026-09-01"
-    },
-    {
-      "op": "replaceProvision",
-      "target": {
-        "type": "annex",
-        "label": "Anlage"
-      },
-      "expectedHash": "88c3e2bec372e45179171b02b6d5d6d0ad1c29d6c06fe560631b9b63eb8b324f",
-      "expectedMatches": 1,
-      "value": {
-        "type": "annex",
-        "label": "Anlage",
-        "title": "n",
-        "children": [
-          {
-            "type": "paragraphText",
-            "text": "Anlage 1a"
-          },
-          {
-            "type": "paragraphText",
-            "text": "Anlage 1b"
-          },
-          {
-            "type": "paragraphText",
-            "text": "Anlage 1c"
-          },
-          {
-            "type": "section",
-            "label": "Anlage 2",
-            "title": "Schülerkartei",
-            "children": [
-              {
-                "type": "paragraphText",
-                "text": "Amtlicher Formularvordruck; die Zeile „Religionszugehörigkeit: nein/ja“ entfällt."
-              },
-              {
-                "type": "item",
-                "label": "4",
-                "text": "Nur in der Primarstufe der Polytechnischen Oberschule nach § 5 Absatz 2 SOPOS und an Förderschulen nach § 14 Absatz 1 Satz 6 Nummer 10 SOFS.",
-                "level": 0,
-                "numberingStyle": "decimal",
-                "children": []
-              },
-              {
-                "type": "paragraphText",
-                "text": "Anmeldung, Abmeldung und Teilnahme an freiwilligem Religions- oder Weltanschauungsunterricht werden nicht in der allgemeinen Schülerkartei, sondern ausschließlich in den Formularen ERW-1 und ERW-2 nach der VwV Ethik sowie Religions- und Weltanschauungsunterricht dokumentiert."
-              }
-            ]
-          },
-          {
-            "type": "paragraphText",
-            "text": "Anlage 3"
-          },
-          {
-            "type": "paragraphText",
-            "text": "Anlage 4a"
-          },
-          {
-            "type": "paragraphText",
-            "text": "Anlage 4b"
-          },
-          {
-            "type": "paragraphText",
-            "text": "Anlage 4c"
-          }
-        ]
-      },
-      "source": "Gesetze/StAnzO. 2026 Nr. 23.html",
-      "sourceProvision": "Nummer 4",
       "effectiveDate": "2026-09-01"
     }
   ]

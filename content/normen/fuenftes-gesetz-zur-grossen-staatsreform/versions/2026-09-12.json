@@ -26,25 +26,26 @@
           "level": 0,
           "listId": "emvtpggqad7a",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "Nach den Wörtern „der Gerechtigkeit, dem Frieden und der Bewahrung der natürlichen Lebensgrundlagen zu dienen,“ werden die Wörter „entschlossen, den Weg des demokratischen Sozialismus, des Friedens, der Demokratie, der internationalen Solidarität und der Völkerfreundschaft zu gehen,“ eingefügt.",
-          "level": 0,
-          "listId": "cf1vdwlomkdo",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b)",
-          "text": "Die Wörter „diese Verfassung“ werden durch die Wörter „diese sozialistische Staatsverfassung“ ersetzt.",
-          "level": 0,
-          "listId": "cf1vdwlomkdo",
-          "numberingStyle": "lower-latin",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Nach den Wörtern „der Gerechtigkeit, dem Frieden und der Bewahrung der natürlichen Lebensgrundlagen zu dienen,“ werden die Wörter „entschlossen, den Weg des demokratischen Sozialismus, des Friedens, der Demokratie, der internationalen Solidarität und der Völkerfreundschaft zu gehen,“ eingefügt.",
+              "level": 1,
+              "listId": "cf1vdwlomkdo",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Wörter „diese Verfassung“ werden durch die Wörter „diese sozialistische Staatsverfassung“ ersetzt.",
+              "level": 1,
+              "listId": "cf1vdwlomkdo",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -58,15 +59,28 @@
         {
           "type": "item",
           "label": "3.",
-          "text": "Artikel 1 wird wie folgt gefasst: „Artikel 1 Verfassungsgrundsätze",
+          "text": "Artikel 1 wird wie folgt gefasst:",
           "level": 0,
           "listId": "emvtpggqad7a",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Ostdeutschland ist ein sozialistischer Freistaat.“"
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "article",
+                  "label": "Artikel 1",
+                  "title": "Verfassungsgrundsätze",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Ostdeutschland ist ein sozialistischer Freistaat.“"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -88,8 +102,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(1a) Sie sichert ein friedliches Leben, schützt die demokratisch-sozialistische Gesellschaft, gewährleistet die freie Entwicklung des Menschen, wahrt seine Würde und verwirklicht die in dieser Verfassung verbürgten Rechte.“"
+                      "type": "subparagraph",
+                      "label": "„(1a)",
+                      "text": "Sie sichert ein friedliches Leben, schützt die demokratisch-sozialistische Gesellschaft, gewährleistet die freie Entwicklung des Menschen, wahrt seine Würde und verwirklicht die in dieser Verfassung verbürgten Rechte.“",
+                      "children": []
                     }
                   ]
                 }
@@ -107,8 +123,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(2) Die Gesetzgebung und die vollziehende Gewalt sind an die verfassungsmäßige Ordnung und die Rechtsprechung an Gesetz und Recht gebunden.“"
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Die Gesetzgebung und die vollziehende Gewalt sind an die verfassungsmäßige Ordnung und die Rechtsprechung an Gesetz und Recht gebunden.“",
+                      "children": []
                     }
                   ]
                 }
@@ -309,8 +327,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(1) Energie, Wärme, Wasser, Abwasser, Wohnen, Gesundheit, Pflege, Bildung, Mobilität, Telekommunikation, digitale Infrastruktur, Kreislaufwirtschaft, Kultur, Sport und öffentliche Sicherheit sind Aufgaben der öffentlichen Daseinsvorsorge und der gesellschaftlichen Grundversorgung.“"
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Energie, Wärme, Wasser, Abwasser, Wohnen, Gesundheit, Pflege, Bildung, Mobilität, Telekommunikation, digitale Infrastruktur, Kreislaufwirtschaft, Kultur, Sport und öffentliche Sicherheit sind Aufgaben der öffentlichen Daseinsvorsorge und der gesellschaftlichen Grundversorgung.“",
+                      "children": []
                     }
                   ]
                 }
@@ -328,8 +348,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(2) Der Freistaat gewährleistet die flächendeckende, bedarfsgerechte, bezahlbare, hochwertige, gemeinwohlorientierte, diskriminierungsfreie und ökologisch nachhaltige Erbringung der öffentlichen Daseinsvorsorge. Diese Leistungen sind allen Menschen unabhängig von ihrer persönlichen Lebenslage zugänglich zu machen.“"
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Der Freistaat gewährleistet die flächendeckende, bedarfsgerechte, bezahlbare, hochwertige, gemeinwohlorientierte, diskriminierungsfreie und ökologisch nachhaltige Erbringung der öffentlichen Daseinsvorsorge. Diese Leistungen sind allen Menschen unabhängig von ihrer persönlichen Lebenslage zugänglich zu machen.“",
+                      "children": []
                     }
                   ]
                 }
@@ -366,8 +388,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(3a) Wesentliche Einrichtungen und Infrastrukturen der öffentlichen Daseinsvorsorge sollen sich in Volkseigentum oder Gemeinwirtschaft befinden.“"
+                      "type": "subparagraph",
+                      "label": "„(3a)",
+                      "text": "Wesentliche Einrichtungen und Infrastrukturen der öffentlichen Daseinsvorsorge sollen sich in Volkseigentum oder Gemeinwirtschaft befinden.“",
+                      "children": []
                     }
                   ]
                 }
@@ -385,8 +409,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(4) Für ihre Veräußerung, Privatisierung oder Übertragung auf privatwirtschaftliche Unternehmen gilt Artikel 95a.“"
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Für ihre Veräußerung, Privatisierung oder Übertragung auf privatwirtschaftliche Unternehmen gilt Artikel 95a.“",
+                      "children": []
                     }
                   ]
                 }
@@ -414,8 +440,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(1) Jeder Mensch hat das Recht auf angemessenen, dauerhaft gesicherten und bezahlbaren Wohnraum. Der Freistaat wirkt auf eine ausreichende und sozial ausgewogene Versorgung mit Wohnraum hin.“"
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Jeder Mensch hat das Recht auf angemessenen, dauerhaft gesicherten und bezahlbaren Wohnraum. Der Freistaat wirkt auf eine ausreichende und sozial ausgewogene Versorgung mit Wohnraum hin.“",
+                      "children": []
                     }
                   ]
                 }
@@ -433,8 +461,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(2) Niemand darf durch eine staatliche Maßnahme oder die Vollstreckung eines Räumungstitels wohnungslos gemacht werden.“"
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Niemand darf durch eine staatliche Maßnahme oder die Vollstreckung eines Räumungstitels wohnungslos gemacht werden.“",
+                      "children": []
                     }
                   ]
                 }
@@ -452,8 +482,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(3) Jeder Mensch hat das Recht auf Zugang zu einer bedarfsgerechten gesundheitlichen und pflegerischen Versorgung. Die medizinische Grundversorgung darf nicht von der wirtschaftlichen Leistungsfähigkeit des Einzelnen abhängen.“"
+                      "type": "subparagraph",
+                      "label": "„(3)",
+                      "text": "Jeder Mensch hat das Recht auf Zugang zu einer bedarfsgerechten gesundheitlichen und pflegerischen Versorgung. Die medizinische Grundversorgung darf nicht von der wirtschaftlichen Leistungsfähigkeit des Einzelnen abhängen.“",
+                      "children": []
                     }
                   ]
                 }
@@ -566,8 +598,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(5) Für die Veräußerung von Boden, Wald, Mooren, Gewässern oder Naturschätzen im öffentlichen Eigentum gilt Artikel 95a.“"
+                  "type": "subparagraph",
+                  "label": "„(5)",
+                  "text": "Für die Veräußerung von Boden, Wald, Mooren, Gewässern oder Naturschätzen im öffentlichen Eigentum gilt Artikel 95a.“",
+                  "children": []
                 }
               ]
             }
@@ -602,8 +636,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(3a) Die demokratisch-sozialistische Kultur gehört zu den Grundlagen der Gesellschaft. Sie dient dem Frieden, dem Humanismus, der Solidarität, der freien Entwicklung des Menschen und der Teilhabe des gesamten Volkes am kulturellen Leben.“"
+                      "type": "subparagraph",
+                      "label": "„(3a)",
+                      "text": "Die demokratisch-sozialistische Kultur gehört zu den Grundlagen der Gesellschaft. Sie dient dem Frieden, dem Humanismus, der Solidarität, der freien Entwicklung des Menschen und der Teilhabe des gesamten Volkes am kulturellen Leben.“",
+                      "children": []
                     }
                   ]
                 }
@@ -621,8 +657,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(4) Der Freistaat fördert Breiten-, Schul-, Nachwuchs- und Spitzensport und pflegt die humanistischen, demokratischen, antifaschistischen und sozialen Werte des regionalen, nationalen und internationalen Kulturerbes.“"
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Der Freistaat fördert Breiten-, Schul-, Nachwuchs- und Spitzensport und pflegt die humanistischen, demokratischen, antifaschistischen und sozialen Werte des regionalen, nationalen und internationalen Kulturerbes.“",
+                      "children": []
                     }
                   ]
                 }
@@ -900,12 +938,12 @@
               "listId": "emvtpggqad7a",
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "ersetzt."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "ersetzt."
         },
         {
           "type": "item",
@@ -1032,27 +1070,53 @@
                       "type": "subparagraph",
                       "label": "(2)",
                       "text": "Dieses Recht umfasst insbesondere das Recht,",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "a. an Wahlen und Abstimmungen teilzunehmen,"
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "b. an der Leitung, Planung und Gestaltung des gesellschaftlichen Lebens nach Maßgabe dieser Verfassung und der Gesetze mitzuwirken,"
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "c. von den Volksvertretungen, ihren Abgeordneten sowie den Leitungen öffentlicher Einrichtungen und Unternehmen Rechenschaft über ihre Tätigkeit zu verlangen,"
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "d. sich in Gewerkschaften, Genossenschaften und anderen gesellschaftlichen Vereinigungen zusammenzuschließen und durch diese an der gesellschaftlichen Willensbildung mitzuwirken,"
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "e. Vorschläge, Eingaben und Beschwerden an staatliche und wirtschaftliche Organe zu richten und eine begründete Antwort zu erhalten."
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "a.",
+                          "text": "an Wahlen und Abstimmungen teilzunehmen,",
+                          "level": 1,
+                          "listId": "printed-outline",
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "b.",
+                          "text": "an der Leitung, Planung und Gestaltung des gesellschaftlichen Lebens nach Maßgabe dieser Verfassung und der Gesetze mitzuwirken,",
+                          "level": 1,
+                          "listId": "printed-outline",
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "c.",
+                          "text": "von den Volksvertretungen, ihren Abgeordneten sowie den Leitungen öffentlicher Einrichtungen und Unternehmen Rechenschaft über ihre Tätigkeit zu verlangen,",
+                          "level": 1,
+                          "listId": "printed-outline",
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "d.",
+                          "text": "sich in Gewerkschaften, Genossenschaften und anderen gesellschaftlichen Vereinigungen zusammenzuschließen und durch diese an der gesellschaftlichen Willensbildung mitzuwirken,",
+                          "level": 1,
+                          "listId": "printed-outline",
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "e.",
+                          "text": "Vorschläge, Eingaben und Beschwerden an staatliche und wirtschaftliche Organe zu richten und eine begründete Antwort zu erhalten.",
+                          "level": 1,
+                          "listId": "printed-outline",
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        }
+                      ]
                     },
                     {
                       "type": "subparagraph",
@@ -1204,8 +1268,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(1) Die Rechtspflege dient dem Schutz der demokratisch-sozialistischen Verfassungsordnung, der Freiheit, des friedlichen Lebens, der Rechte und der Würde des Menschen.“"
+                  "type": "subparagraph",
+                  "label": "„(1)",
+                  "text": "Die Rechtspflege dient dem Schutz der demokratisch-sozialistischen Verfassungsordnung, der Freiheit, des friedlichen Lebens, der Rechte und der Würde des Menschen.“",
+                  "children": []
                 }
               ]
             }
@@ -1291,8 +1357,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(4) Gemeinden, Landkreise und Bezirke wirken im Rahmen ihrer Selbstverwaltung an der staatlichen Gesellschafts- und Wirtschaftsplanung mit. Sie können für ihren Aufgabenbereich örtliche und regionale Entwicklungspläne beschließen.“"
+                  "type": "subparagraph",
+                  "label": "„(4)",
+                  "text": "Gemeinden, Landkreise und Bezirke wirken im Rahmen ihrer Selbstverwaltung an der staatlichen Gesellschafts- und Wirtschaftsplanung mit. Sie können für ihren Aufgabenbereich örtliche und regionale Entwicklungspläne beschließen.“",
+                  "children": []
                 }
               ]
             }
@@ -1366,8 +1434,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(2) Bei Aufstellung und Ausführung des Haushaltsplanes sind der Gesellschafts- und Wirtschaftsplan, die sozialen und ökologischen Staatsziele, die Sicherung und Mehrung des Volkseigentums sowie die Grundsätze der Wirtschaftlichkeit und nachhaltigen Haushaltsführung zu berücksichtigen.“"
+                  "type": "subparagraph",
+                  "label": "„(2)",
+                  "text": "Bei Aufstellung und Ausführung des Haushaltsplanes sind der Gesellschafts- und Wirtschaftsplan, die sozialen und ökologischen Staatsziele, die Sicherung und Mehrung des Volkseigentums sowie die Grundsätze der Wirtschaftlichkeit und nachhaltigen Haushaltsführung zu berücksichtigen.“",
+                  "children": []
                 }
               ]
             }
@@ -1489,8 +1559,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(1) Das Bildungswesen dient der Entwicklung allseitig gebildeter, harmonisch entwickelter, selbständig urteilender, solidarischer und gesellschaftlich verantwortungsbewusster Persönlichkeiten. Es vermittelt demokratisches Verantwortungsbewusstsein, Internationalismus, Friedensliebe, Antifaschismus, wissenschaftliche Bildung, berufliches Können und Achtung vor der Arbeit.“"
+                  "type": "subparagraph",
+                  "label": "„(1)",
+                  "text": "Das Bildungswesen dient der Entwicklung allseitig gebildeter, harmonisch entwickelter, selbständig urteilender, solidarischer und gesellschaftlich verantwortungsbewusster Persönlichkeiten. Es vermittelt demokratisches Verantwortungsbewusstsein, Internationalismus, Friedensliebe, Antifaschismus, wissenschaftliche Bildung, berufliches Können und Achtung vor der Arbeit.“",
+                  "children": []
                 }
               ]
             }
@@ -1516,8 +1588,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(2) Polytechnische Bildung ist Bestandteil der allgemeinen Bildung. Sie verbindet wissenschaftliche, technische, gesellschaftliche und praktische Bildung und vermittelt Verständnis für Arbeits-, Wirtschafts- und Produktionsprozesse.“"
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Polytechnische Bildung ist Bestandteil der allgemeinen Bildung. Sie verbindet wissenschaftliche, technische, gesellschaftliche und praktische Bildung und vermittelt Verständnis für Arbeits-, Wirtschafts- und Produktionsprozesse.“",
+                      "children": []
                     }
                   ]
                 }
@@ -1630,8 +1704,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(1) Der Staatsrat kann in Angelegenheiten, die der Gesetzgebung des Freistaates unterliegen, gesetzesvertretende Rechtsverordnungen erlassen. Sie haben Gesetzeskraft und stehen, soweit diese Verfassung nichts anderes bestimmt, den Landesgesetzen in Rang, Bindungswirkung und Regelungsbefugnis gleich. Gesetzesvertretende Rechtsverordnungen dürfen die Verfassung oder bestehende Gesetze weder ändern, aufheben, außer Kraft setzen noch ihnen widersprechen. Sie können durch Gesetz geändert oder aufgehoben werden. Sie dürfen die Rechtsstellung eines Mitglieds eines Staatsorgans nicht berühren..“"
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Der Staatsrat kann in Angelegenheiten, die der Gesetzgebung des Freistaates unterliegen, gesetzesvertretende Rechtsverordnungen erlassen. Sie haben Gesetzeskraft und stehen, soweit diese Verfassung nichts anderes bestimmt, den Landesgesetzen in Rang, Bindungswirkung und Regelungsbefugnis gleich. Gesetzesvertretende Rechtsverordnungen dürfen die Verfassung oder bestehende Gesetze weder ändern, aufheben, außer Kraft setzen noch ihnen widersprechen. Sie können durch Gesetz geändert oder aufgehoben werden. Sie dürfen die Rechtsstellung eines Mitglieds eines Staatsorgans nicht berühren..“",
+                      "children": []
                     }
                   ]
                 }
@@ -1657,43 +1733,90 @@
           "level": 0,
           "listId": "57dcwcaomhlf",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "Die Überschrift wird wie folgt gefasst: „§ 4 Vorrang öffentlicher und gemeinwohlgebundener Aufgabenerfüllung“",
-          "level": 0,
-          "listId": "valb5s7o1vqa",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b)",
-          "text": "Absatz 1 wird wie folgt gefasst: „(1) Leistungen der öffentlichen Daseinsvorsorge sollen vorrangig durch öffentliche, kommunale, genossenschaftliche oder andere dauerhaft gemeinwohlgebundene Träger erbracht werden. Der Freistaat soll eigene Einrichtungen und Unternehmen insbesondere dort vorhalten oder schaffen, wo dies zur Sicherung einer flächendeckenden, bedarfsgerechten, bezahlbaren und dauerhaft gemeinwohlgebundenen Versorgung erforderlich ist.“",
-          "level": 0,
-          "listId": "valb5s7o1vqa",
-          "numberingStyle": "lower-latin",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Die Überschrift wird wie folgt gefasst:",
+              "level": 1,
+              "listId": "valb5s7o1vqa",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "„§ 4 Vorrang öffentlicher und gemeinwohlgebundener Aufgabenerfüllung“"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Absatz 1 wird wie folgt gefasst:",
+              "level": 1,
+              "listId": "valb5s7o1vqa",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Leistungen der öffentlichen Daseinsvorsorge sollen vorrangig durch öffentliche, kommunale, genossenschaftliche oder andere dauerhaft gemeinwohlgebundene Träger erbracht werden. Der Freistaat soll eigene Einrichtungen und Unternehmen insbesondere dort vorhalten oder schaffen, wo dies zur Sicherung einer flächendeckenden, bedarfsgerechten, bezahlbaren und dauerhaft gemeinwohlgebundenen Versorgung erforderlich ist.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "§ 14 wird folgender Absatz 6 angefügt: „(6) Bei öffentlichen Einrichtungen und öffentlichen Unternehmen der Daseinsvorsorge ist eine wirksame Beteiligung der Beschäftigten an Leitung und Kontrolle nach Maßgabe der Staatsverfassung und der besonderen gesetzlichen Vorschriften sicherzustellen. Weitergehende Beteiligungs- und Mitbestimmungsrechte bleiben unberührt.“",
+          "text": "§ 14 wird folgender Absatz 6 angefügt:",
           "level": 0,
           "listId": "57dcwcaomhlf",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "„(6)",
+                  "text": "Bei öffentlichen Einrichtungen und öffentlichen Unternehmen der Daseinsvorsorge ist eine wirksame Beteiligung der Beschäftigten an Leitung und Kontrolle nach Maßgabe der Staatsverfassung und der besonderen gesetzlichen Vorschriften sicherzustellen. Weitergehende Beteiligungs- und Mitbestimmungsrechte bleiben unberührt.“",
+                  "children": []
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
           "label": "3.",
-          "text": "§ 15 Absatz 4 wird wie folgt gefasst: „(4) Die Einbeziehung eines nicht öffentlichen Trägers nach dieser Vorschrift stellt keine Ermächtigung für eine Maßnahme dar, die nach Artikel 95a der Staatsverfassung eines besonderen Gesetzes bedarf.“",
+          "text": "§ 15 Absatz 4 wird wie folgt gefasst:",
           "level": 0,
           "listId": "57dcwcaomhlf",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "„(4)",
+                  "text": "Die Einbeziehung eines nicht öffentlichen Trägers nach dieser Vorschrift stellt keine Ermächtigung für eine Maßnahme dar, die nach Artikel 95a der Staatsverfassung eines besonderen Gesetzes bedarf.“",
+                  "children": []
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1714,10 +1837,8 @@
           "type": "quotedProvision",
           "children": [
             {
-              "type": "article",
-              "label": "Artikel 95a",
-              "title": "der Ostdeutschen Staatsverfassung bleibt unberührt.“",
-              "children": []
+              "type": "paragraphText",
+              "text": "Artikel 95a der Ostdeutschen Staatsverfassung bleibt unberührt.“"
             }
           ]
         }
@@ -1820,8 +1941,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(2) Die Überführung von Grund und Boden, Naturschätzen und Produktionsmitteln in Gemeineigentum oder in andere Formen der Gemeinwirtschaft erfolgt nur durch ein gesondertes Vergesellschaftungsgesetz (Anwendungsgesetz) oder durch eine gesetzesvertretende Vergesellschaftungsverordnung nach Absatz 5.“"
+                  "type": "subparagraph",
+                  "label": "„(2)",
+                  "text": "Die Überführung von Grund und Boden, Naturschätzen und Produktionsmitteln in Gemeineigentum oder in andere Formen der Gemeinwirtschaft erfolgt nur durch ein gesondertes Vergesellschaftungsgesetz (Anwendungsgesetz) oder durch eine gesetzesvertretende Vergesellschaftungsverordnung nach Absatz 5.“",
+                  "children": []
                 }
               ]
             }
@@ -1839,8 +1962,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(5) Eine gesetzesvertretende Vergesellschaftungsverordnung ist eine gesetzesvertretende Rechtsverordnung nach Artikel 75a Absatz 1 der Ostdeutschen Staatsverfassung, die eine Überführung nach Absatz 2 anordnet und Art und Ausmaß der Entschädigung regelt. Soweit dieses Gesetz für die Anordnung oder Ausgestaltung einer Vergesellschaftung ein Gesetz, Anwendungsgesetz oder Trägergesetz voraussetzt oder an eine gesetzliche Vergesellschaftung anknüpft, steht die gesetzesvertretende Vergesellschaftungsverordnung diesem gleich. Die für Anwendungsgesetze geltenden materiellen, verfahrensrechtlichen und rechtsstaatlichen Anforderungen dieses Gesetzes gelten für sie uneingeschränkt. Absatz 4 findet auf gesetzesvertretende Vergesellschaftungsverordnungen keine Anwendung. Eine gesetzesvertretende Vergesellschaftungsverordnung darf von diesem Gesetz nicht abweichen.“"
+                  "type": "subparagraph",
+                  "label": "„(5)",
+                  "text": "Eine gesetzesvertretende Vergesellschaftungsverordnung ist eine gesetzesvertretende Rechtsverordnung nach Artikel 75a Absatz 1 der Ostdeutschen Staatsverfassung, die eine Überführung nach Absatz 2 anordnet und Art und Ausmaß der Entschädigung regelt. Soweit dieses Gesetz für die Anordnung oder Ausgestaltung einer Vergesellschaftung ein Gesetz, Anwendungsgesetz oder Trägergesetz voraussetzt oder an eine gesetzliche Vergesellschaftung anknüpft, steht die gesetzesvertretende Vergesellschaftungsverordnung diesem gleich. Die für Anwendungsgesetze geltenden materiellen, verfahrensrechtlichen und rechtsstaatlichen Anforderungen dieses Gesetzes gelten für sie uneingeschränkt. Absatz 4 findet auf gesetzesvertretende Vergesellschaftungsverordnungen keine Anwendung. Eine gesetzesvertretende Vergesellschaftungsverordnung darf von diesem Gesetz nicht abweichen.“",
+                  "children": []
                 }
               ]
             }

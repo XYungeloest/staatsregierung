@@ -16,7 +16,7 @@ Vor einem neuen Gesetzesentwurf immer prüfen, ob das Vorhaben bereits ganz oder
 
 ## Wahlkontext 2026
 
-Zur Wahl zur 8. Ostdeutschen Volkskammer am 5. und 6. September 2026 treten Volksfront und Bündnis Demokratie Europa (DEMOS) gemeinsam auf der Wahlliste **Roter Aufbruch (RA)** an. Die Parteien behalten ihre eigenständigen politischen Identitäten; RA ist in diesem Kontext als gemeinsame Wahlliste zu behandeln und nicht als automatische dauerhafte Umbenennung beider Parteien.
+Zur Wahl zur 8. Ostdeutschen Volkskammer am 5. und 6. September 2026 traten Volksfront und Bündnis Demokratie Europa (DEMOS) gemeinsam auf der Wahlliste **Roter Aufbruch (RA)** an. Die Parteien behalten ihre eigenständigen politischen Identitäten; RA ist in diesem Kontext als gemeinsame Wahlliste zu behandeln und nicht als automatische dauerhafte Umbenennung beider Parteien.
 
 Der vollständige Programmtext liegt unter `../context/programme/roter-aufbruch-2026/regierungsprogramm-roter-aufbruch-2026.md`; die redaktionelle Erschließung unter `../context/programme/roter-aufbruch-2026/README.md`. Die gegen den Rechtsbestand bereinigte strukturierte Vorhabenliste steht in `agenda.json`, die Arbeitsübersicht in `AGENDA.md`.
 

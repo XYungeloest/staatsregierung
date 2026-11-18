@@ -80,4 +80,10 @@ test('die Zitierbezeichnung eines Eintrags muss zum Normtyp passen', () => {
   // Einleitende Zusätze der amtlichen Zitierung bleiben zulässig.
   assert.equal(citationLabelMatchesNormType('Geändert durch Abschnitt I der Bekanntmachung vom 1. Januar 2026 (StAnzO. 2026 Nr. 1)', 'bekanntmachung'), true);
   assert.equal(citationLabelMatchesNormType('Richtlinie vom 1. Januar 2026 (OABl. 2026 Nr. 1)', 'foerderrichtlinie'), true);
+  // Die Verfassung wird als Gesetz geführt und als Verfassung zitiert.
+  assert.equal(citationLabelMatchesNormType('Verfassung vom 1. Januar 2030 (OGVBl. 2030 Nr. 1 S. 5)', 'gesetz'), true);
+  assert.equal(citationLabelMatchesNormType('Verfassung vom 1. Januar 2030 (OGVBl. 2030 Nr. 1 S. 5)', 'verordnung'), false);
+  // Bei ungeklärtem Dokumentdatum steht die Bezeichnung unmittelbar vor der Fundstelle.
+  assert.equal(citationLabelMatchesNormType('Verwaltungsvorschrift (StAnzO. 2026 Nr. 1 S. 2)', 'verwaltungsvorschrift'), true);
+  assert.equal(citationLabelMatchesNormType('Gesetz (StAnzO. 2026 Nr. 1 S. 2)', 'verwaltungsvorschrift'), false);
 });

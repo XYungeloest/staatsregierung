@@ -344,6 +344,9 @@ export function normQueries(norm, context, now, { full = false, registerKeywords
     ...(wants('subjects') ? [q('DELETE FROM law_norm_subjects WHERE norm_id = ?', [meta.id])] : []),
     ...(wants('keywords') ? [q('DELETE FROM law_norm_keywords WHERE norm_id = ?', [meta.id])] : []),
     ...(wants('history') ? [q('DELETE FROM law_norm_history WHERE norm_id = ?', [meta.id])] : []),
+    // Suchdokumente liegen je Fassung vor; ohne vorherige Löschung blieben die Dokumente einer
+    // entfernten Fassung stehen.
+    ...(wants('searchDocuments') ? [q('DELETE FROM law_search_documents WHERE norm_id = ?', [meta.id])] : []),
     ...(wants('versions') ? [
       q('DELETE FROM law_source_objects WHERE norm_id = ?', [meta.id]),
       q('DELETE FROM law_version_blocks WHERE norm_id = ?', [meta.id]),
@@ -1092,12 +1095,22 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
   if (args.includes('--assume-narrow-logic-change')) throw new Error('--assume-narrow-logic-change gibt es nicht mehr: eine enge Logikprojektion wird mit --prove-equivalence oder --equivalence-proof <Datei> nachgewiesen, nicht angenommen');
   const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, logicPaths, logicChange, portalProjectionChanged, metaFieldsChanged });
   if (referenceDateSlugs && paths.includes(REFERENCE_DATE_PATH)) scope.referenceDate = { from: previousReferenceDate, to: EDITORIAL_REFERENCE_DATE };
-  if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) {
-    for (const slug of normsCitingPublications(publications, scope.publicationSlugs)) {
-      if (existingSlugs.has(slug) && !scope.slugs.includes(slug)) scope.slugs.push(slug);
-    }
-    scope.slugs.sort();
+  if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) addNormsCitingPublications(scope, publications, existingSlugs);
+  return scope;
+}
+
+/**
+ * Nimmt die Normen geänderter Verkündungen in den Umfang auf. Der Verkündungsbezug steht in
+ * law_versions (publication_ref_json); eine nur aus meta.json-Feldern abgeleitete Zielmenge
+ * (Metadata-only) erfasst ihn nicht, solche Normen werden deshalb vollständig neu geschrieben.
+ */
+export function addNormsCitingPublications(scope, publications, existingSlugs) {
+  for (const slug of normsCitingPublications(publications, scope.publicationSlugs)) {
+    if (!existingSlugs.has(slug)) continue;
+    if (!scope.slugs.includes(slug)) scope.slugs.push(slug);
+    if (scope.metadataOnly && Array.isArray(scope.metadataOnly[slug])) delete scope.metadataOnly[slug];
   }
+  scope.slugs.sort();
   return scope;
 }
 

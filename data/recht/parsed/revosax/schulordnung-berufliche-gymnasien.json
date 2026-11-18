@@ -1014,11 +1014,12 @@
                 {
                   "type": "subparagraph",
                   "label": "(1)",
-                  "text": "1Die Leistungen der Schüler werden mit den Noten von „sehr gut“ bis „ungenügend“ bewertet. 2Die Noten haben folgende Bedeutung:",
+                  "text": "Die Leistungen der Schüler werden mit den Noten von „sehr gut“ bis „ungenügend“ bewertet. Die Noten haben folgende Bedeutung:",
                   "children": []
                 },
                 {
                   "type": "table",
+                  "title": "Notenbewertung",
                   "columns": 3,
                   "children": [
                     {
@@ -1166,10 +1167,11 @@
               "children": [
                 {
                   "type": "paragraphText",
-                  "text": "1Alle Bewertungen der Schülerleistungen erfolgen mit den herkömmlichen Noten und den ihnen zugeordneten Punkten. 2In den Jahrgangsstufen 12 und 13 erfolgt die Bewertung sämtlicher Schülerleistungen nach einem Punktesystem, welches den Noten „sehr gut“ bis „ungenügend“ entsprechend der Notentendenz wie folgt zugeordnet ist:"
+                  "text": "Alle Bewertungen der Schülerleistungen erfolgen mit den herkömmlichen Noten und den ihnen zugeordneten Punkten. In den Jahrgangsstufen 12 und 13 erfolgt die Bewertung sämtlicher Schülerleistungen nach einem Punktesystem, welches den Noten „sehr gut“ bis „ungenügend“ entsprechend der Notentendenz wie folgt zugeordnet ist:"
                 },
                 {
                   "type": "table",
+                  "title": "Notengebung",
                   "columns": 2,
                   "children": [
                     {
@@ -1269,7 +1271,7 @@
                 },
                 {
                   "type": "paragraphText",
-                  "text": "3Es dürfen nur ganze Noten erteilt und volle Punkte gegeben werden."
+                  "text": "Es dürfen nur ganze Noten erteilt und volle Punkte gegeben werden."
                 }
               ]
             }
@@ -2039,6 +2041,7 @@
                 },
                 {
                   "type": "table",
+                  "title": "Formel",
                   "columns": 2,
                   "children": [
                     {
@@ -3293,6 +3296,7 @@
                 },
                 {
                   "type": "table",
+                  "title": "Gesamtqualifikation",
                   "columns": 4,
                   "children": [
                     {
@@ -4081,6 +4085,7 @@
             },
             {
               "type": "table",
+              "title": "Errechnung der Durchschnittsnote",
               "columns": 2,
               "children": [
                 {
@@ -4542,6 +4547,7 @@
             },
             {
               "type": "table",
+              "title": "Zuordnung der anerkannten Ausbildungsberufe zu den Fachrichtungen des Beruflichen Gymnasiums",
               "columns": 4,
               "children": [
                 {

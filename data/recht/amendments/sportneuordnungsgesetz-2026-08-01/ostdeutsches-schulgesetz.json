@@ -1,0 +1,57 @@
+{
+  "amendmentAct": "sportneuordnungsgesetz",
+  "effectiveDate": "2026-08-01",
+  "versionId": "2026-08-01",
+  "sameDayOrder": 2,
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+  "resultCitation": "Ostdeutsches Schulgesetz in der Fassung der Bekanntmachung vom 27. September 2018 (SächsGVBl. S. 648), geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 27 S. 2) und Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+  "changeNote": "Die Ergänzungen des Sportneuordnungsgesetzes in § 34 Absatz 2 (besondere sportliche Bildungsgänge) und § 64 Absatz 4 (vorläufige Ostdeutsche Sportschulen) gelten in der neu geordneten Fassung fort.",
+  "commandCoverage": [
+    "Artikel 6 Nummer 3 und Nummer 4 auf der durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 27) geänderten Fassung, die Artikel 6 nach seinem Eingangssatz voraussetzt. Nummer 3 nennt „§ 34 Absatz 2 Satz 2“; das Wort „Bildungswege“ steht in dieser Fassung nur in Satz 1 und wird dort ergänzt. Nummer 4 Buchstabe a fügt Absatz 4 nach Absatz 3 ein; Nummer 4 Buchstabe b („Der bisherige Absatz 4 wird Absatz 5.“) findet keinen bisherigen Absatz 4 und geht ins Leere (Redaktionsentscheidung schulgesetz-sportneuordnung-2026)."
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 52",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34"
+      },
+      "field": "text",
+      "expectedOld": "Die Polytechnische Oberschule berät die Eltern und den Schüler über geeignete Bildungswege. Sie erstellt in der Klassenstufe 10 eine schriftliche Empfehlung zum Übergang in die Erweiterte Oberschule oder in berufs- oder studienqualifizierende Bildungsgänge.",
+      "value": "Die Polytechnische Oberschule berät die Eltern und den Schüler über geeignete Bildungswege einschließlich besonderer sportlicher Bildungsgänge. Sie erstellt in der Klassenstufe 10 eine schriftliche Empfehlung zum Übergang in die Erweiterte Oberschule oder in berufs- oder studienqualifizierende Bildungsgänge.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sourceProvision": "Artikel 6 Nummer 3",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "§ 64"
+      },
+      "expectedHash": "10a3abc293513cc6ed6d31c258ffa7c1489b9f8db142acf162b8808026e44010",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Schulen, die bei Inkrafttreten des Ostdeutschen Sportneuordnungsgesetzes als Schulen mit vertiefter sportlicher Ausbildung, Eliteschulen des Sports, sportbetonte Schulen oder vergleichbare Einrichtungen geführt werden, gelten bis zum Ablauf des 31. August 2026 als vorläufige Ostdeutsche Sportschulen. Die oberste Schulaufsichtsbehörde entscheidet bis zu diesem Zeitpunkt über ihre Anerkennung nach § 8.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sourceProvision": "Artikel 6 Nummer 4 Buchstabe a",
+      "effectiveDate": "2026-08-01"
+    }
+  ]
+}

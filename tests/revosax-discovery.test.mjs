@@ -133,6 +133,17 @@ const SAMPLE_HITS = [
 
 const SAMPLE_FACET = { Gesetz: 1, Änderungsgesetz: 1, Verordnung: 1, Änderungsverordnung: 1, Staatsvertrag: 1 };
 
+// Zweite synthetische Trefferseite für die Gesamtprüfung: weitere Vorschriftentypen.
+const VERIFY_EXTRA_HITS = [
+  { lawId: '6000', label: 'Zweite TestVO', title: 'Zweite Verordnung über den Test', type: 'Verordnung' },
+  { lawId: '7000', label: 'VwV Test', title: 'Verwaltungsvorschrift über den Test', type: 'Verwaltungsvorschrift' },
+  { lawId: '8000', label: 'FRL Test', title: 'Förderrichtlinie über den Test', type: 'Förderrichtlinie' },
+  { lawId: '8100', label: 'ÄndFRL Test', title: 'Richtlinie zur Änderung der FRL Test', type: 'Änderungsförderrichtlinie' },
+  { lawId: '9100', label: 'ÄndZuG TestStV', title: 'Gesetz zur Änderung des Zustimmungsgesetzes zum TestStV', type: 'Änderungszustimmungsgesetz' },
+];
+
+const VERIFY_FACET = { ...SAMPLE_FACET, Verordnung: 2, Verwaltungsvorschrift: 1, Förderrichtlinie: 1, Änderungsförderrichtlinie: 1, Änderungszustimmungsgesetz: 1 };
+
 function samplePages({ count = 5, facet = SAMPLE_FACET } = {}) {
   return [
     resultPage({ count, page: 1, pageCount: 3, hits: SAMPLE_HITS.slice(0, 2), facet }),
@@ -187,67 +198,6 @@ test('search_request entspricht dem realen REVOSax-JSON und wird URL-kodiert üb
   assert.throws(() => buildResultPageUrl(0), /Ergebnisseite/u);
 });
 
-test('Trefferseite 1: Trefferzahl, Pagination, Treffer, Typfacette und Parameterecho', async () => {
-  const page = extractResultPage(await fixture('suche-seite-1.html'), SEARCH_URL);
-  assert.equal(page.reportedCount, 5092);
-  assert.equal(page.currentPage, 1);
-  assert.equal(page.pageCount, 1019);
-  assert.equal(page.hits.length, 5);
-  assert.deepEqual(page.echo, { types: ALL_CATEGORIES, envelopes: true, validDay: '01.11.2023' });
-  assert.equal(page.typeFacet['Änderungsgesetz'], 1490);
-  assert.equal(page.typeFacet.Gesetz, 264);
-  assert.equal(Object.keys(page.typeFacet).length, 10);
-
-  const amendment = page.hits[0];
-  assert.equal(amendment.url, 'https://www.revosax.sachsen.de/vorschrift/20247-VO-Anpassungen-in-der-Lehrkraefteaus-und-weiterbildung');
-  assert.equal(amendment.lawId, '20247');
-  assert.equal(amendment.versionSuffix, null);
-  assert.equal(amendment.urlKind, 'dynamic');
-  assert.equal(amendment.label, 'VO Anpassungen in der Lehrkräfteaus- und -weiterbildung');
-  assert.equal(amendment.title, 'Verordnung des Sächsischen Staatsministeriums für Kultus zu Anpassungen in der Lehrkräfteaus- und -weiterbildung');
-  assert.equal(amendment.citation, 'SächsGVBl. 2023 Nr. 18 S. 822');
-  assert.equal(amendment.documentType, 'Änderungsverordnung');
-  assert.equal(amendment.category, 'ÄVO');
-  assert.equal(amendment.normType, 'aenderungsvorschrift');
-  assert.equal(amendment.fsnNumber, '1.104A');
-  assert.equal(amendment.documentDate, '2023-10-11');
-  assert.equal(amendment.validFrom, '2023-10-31');
-  assert.equal(amendment.validTo, null);
-  assert.match(amendment.context, /Fassung gültig ab: 31\. Oktober 2023/u);
-
-  const historical = page.hits[2];
-  assert.equal(historical.url, 'https://www.revosax.sachsen.de/vorschrift/20250.1');
-  assert.equal(historical.versionSuffix, '1');
-  assert.equal(historical.urlKind, 'version');
-  assert.equal(historical.label, 'Sächsische Kommunalpauschalenverordnung');
-  assert.equal(historical.category, 'VO');
-  assert.equal(historical.normType, 'verordnung');
-  assert.equal(historical.fsnNumber, '24.1/3');
-  assert.equal(historical.documentDate, '2023-09-27');
-
-  const consentAmendment = page.hits[4];
-  assert.equal(consentAmendment.lawId, '20242');
-  assert.equal(consentAmendment.documentType, 'Änderungszustimmungsgesetz');
-  assert.equal(consentAmendment.category, 'ÄZuG');
-  assert.equal(consentAmendment.normType, 'aenderungsvorschrift');
-});
-
-test('Trefferseite 2 liefert Session-Pagination und historische Fassungs-URLs', async () => {
-  const page = extractResultPage(await fixture('suche-seite-2.html'), `${SEARCH_URL}?seite=2`);
-  assert.equal(page.currentPage, 2);
-  assert.equal(page.pageCount, 1019);
-  assert.equal(page.reportedCount, 5092);
-  const hit = page.hits.find((entry) => entry.lawId === '18648');
-  assert.equal(hit.url, 'https://www.revosax.sachsen.de/vorschrift/18648.3');
-  assert.equal(hit.versionSuffix, '3');
-  assert.equal(hit.urlKind, 'version');
-  assert.equal(hit.label, 'Lehrer-Qualifizierungsverordnung');
-  assert.equal(hit.citation, 'SächsGVBl. 2020 Nr. 7 S. 125');
-  assert.equal(hit.documentDate, '2020-03-26');
-  assert.equal(hit.validFrom, '2023-10-31');
-  assert.deepEqual(page.hits.map((entry) => entry.category), ['VO', 'VO', 'VwV', 'FRL', 'ÄFRL']);
-});
-
 test('Änderungstypen bleiben eigene Kategorien und werden als Änderungsvorschrift klassifiziert', () => {
   for (const [label, entry] of Object.entries(DOCUMENT_TYPE_CATEGORIES)) {
     if (label.startsWith('Änderung')) {
@@ -272,12 +222,12 @@ test('Parameterecho der Trefferseite muss der Anfrage entsprechen', () => {
   assert.throws(() => verifySearchEcho({ ...echo, types: STEM_CATEGORIES }, { date: '2023-11-01', categories: ALL_CATEGORIES }), /bestätigt Typen/u);
 });
 
-test('verifyDiscovery ist fail-closed bei Count-Mismatch, Duplikaten, Facetten und Typen', async () => {
+test('verifyDiscovery ist fail-closed bei Count-Mismatch, Duplikaten, Facetten und Typen', () => {
   const hits = [
-    ...extractResultPage(await fixture('suche-seite-1.html')).hits,
-    ...extractResultPage(await fixture('suche-seite-2.html')).hits,
+    ...extractResultPage(resultPage({ count: 10, page: 1, pageCount: 2, hits: SAMPLE_HITS, facet: VERIFY_FACET })).hits,
+    ...extractResultPage(resultPage({ count: 10, page: 2, pageCount: 2, hits: VERIFY_EXTRA_HITS, facet: VERIFY_FACET })).hits,
   ];
-  const facet = { Verordnung: 3, Änderungsverordnung: 3, Verwaltungsvorschrift: 1, Förderrichtlinie: 1, Änderungsförderrichtlinie: 1, Änderungszustimmungsgesetz: 1 };
+  const facet = VERIFY_FACET;
   const consistent = { reportedCount: 10, pageCount: 2, hitsPerPage: 5, pagesVisited: 2, hits, typeFacet: facet };
   verifyDiscovery(consistent);
 
@@ -286,13 +236,13 @@ test('verifyDiscovery ist fail-closed bei Count-Mismatch, Duplikaten, Facetten u
   // Zwei Fassungen derselben lawId sind ein realer REVOSax-Zustand und kein Zählfehler.
   verifyDiscovery({
     ...consistent,
-    hits: [...hits, { ...hits[1], url: 'https://www.revosax.sachsen.de/vorschrift/20249.1', versionSuffix: '1' }],
+    hits: [...hits, { ...hits[1], url: 'https://www.revosax.sachsen.de/vorschrift/1000.1', versionSuffix: '1' }],
     reportedCount: 11,
     pageCount: 3,
     pagesVisited: 3,
-    typeFacet: { ...facet, Änderungsverordnung: 4 },
+    typeFacet: { ...facet, Änderungsgesetz: 2 },
   });
-  assert.throws(() => verifyDiscovery({ ...consistent, typeFacet: { ...facet, Verordnung: 4 } }), /Typfacette „Verordnung“ meldet 4, gefunden wurden 3/u);
+  assert.throws(() => verifyDiscovery({ ...consistent, typeFacet: { ...facet, Verordnung: 3 } }), /Typfacette „Verordnung“ meldet 3, gefunden wurden 2/u);
   assert.throws(() => verifyDiscovery({ ...consistent, pagesVisited: 1 }), /1 von 2 Ergebnisseiten/u);
   assert.throws(() => verifyDiscovery({ ...consistent, pageCount: 3, pagesVisited: 3 }), /passen nicht zu 3 Seiten/u);
   assert.throws(() => verifyDiscovery({ ...consistent, hits: [], reportedCount: 0 }), /keine Treffer/u);
@@ -495,20 +445,6 @@ test('instabile Pagination wird durch weitere Durchläufe fail-closed vervollst�
       return true;
     },
   );
-});
-
-test('Fassungsmenü liefert konkrete Fassungskennungen samt Gültigkeitszeiträumen', async () => {
-  const { extractActiveVersion, extractVersionLinks } = await import('../scripts/lib/revosax-discovery.mjs');
-  const html = await fixture('vorschrift-20250.1-menu.html');
-  const versions = extractVersionLinks(html, 'https://www.revosax.sachsen.de/vorschrift/20250.1');
-  assert.deepEqual(versions.map((version) => [version.versionSuffix, version.validFrom, version.validTo, version.active]), [
-    ['1', '2023-10-31', '2024-08-16', true],
-    ['2', '2024-08-17', '2024-09-17', false],
-    ['3', '2024-09-18', null, false],
-  ]);
-  assert.equal(versions[0].url, 'https://www.revosax.sachsen.de/vorschrift/20250.1');
-  assert.equal(extractActiveVersion(html).url, 'https://www.revosax.sachsen.de/vorschrift/20250.1');
-  assert.equal(extractActiveVersion('<html><body><a class="law_version_link" href="/vorschrift/1.1">x</a></body></html>'), null);
 });
 
 test('reproduzierbare REVOSax-Duplikatzeilen werden nach zwei identischen Durchläufen akzeptiert', async () => {

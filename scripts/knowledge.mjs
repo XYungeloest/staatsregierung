@@ -180,6 +180,29 @@ export function validateCurrentNormReference(section, version, sourceById, refer
   return errors;
 }
 
+export function validateCurrentNormRefs(section, loadVersion, referenceDate) {
+  const location = `knowledge/current-state.json:${section.id}`;
+  const errors = [];
+  for (const [index, ref] of (section.normRefs ?? []).entries()) {
+    if (!/^[a-z0-9-]+$/.test(ref?.normSlug ?? '') || !/^[a-z0-9-]+$/.test(ref?.versionId ?? '')) {
+      errors.push(`${location}.normRefs[${index}]: normSlug und versionId müssen gültige Kennungen sein.`);
+      continue;
+    }
+    const version = loadVersion(ref.normSlug, ref.versionId);
+    if (!version || version.versionId !== ref.versionId) {
+      errors.push(`${location}.normRefs[${index}]: gespeicherte Normfassung ${ref.normSlug}/${ref.versionId} fehlt.`);
+    } else if (version.validFrom > referenceDate || (version.validTo && version.validTo < referenceDate)) {
+      errors.push(`${location}.normRefs[${index}]: Normfassung ${ref.normSlug}/${ref.versionId} gilt nicht am redaktionellen Stichtag ${referenceDate}.`);
+    }
+  }
+  return errors;
+}
+
+function loadStoredVersion(normSlug, versionId) {
+  const versionPath = `content/normen/${normSlug}/versions/${versionId}.json`;
+  return fs.existsSync(path.join(root, versionPath)) ? readJson(versionPath) : null;
+}
+
 function validateModel(model, compareGenerated) {
   const errors = [];
   validateDate(model.editorial.referenceDate, 'packages/shared/src/config/editorial.json:referenceDate', errors);
@@ -286,11 +309,11 @@ function validateModel(model, compareGenerated) {
       if (!/^[a-z0-9-]+$/.test(section.normSlug ?? '') || !/^[a-z0-9-]+$/.test(section.versionId ?? '')) {
         errors.push(`knowledge/current-state.json:${section.id}: normSlug und versionId müssen gültige Kennungen sein.`);
       } else {
-        const versionPath = `content/normen/${section.normSlug}/versions/${section.versionId}.json`;
-        const version = fs.existsSync(path.join(root, versionPath)) ? readJson(versionPath) : null;
+        const version = loadStoredVersion(section.normSlug, section.versionId);
         errors.push(...validateCurrentNormReference(section, version, sourceById, model.editorial.referenceDate));
       }
     }
+    errors.push(...validateCurrentNormRefs(section, loadStoredVersion, model.editorial.referenceDate));
     if (['unverified', 'unresolved', 'planned', 'disputed'].includes(section.status)) {
       errors.push(`knowledge/current-state.json:${section.id}: unzulässiger Status ${section.status}.`);
     }

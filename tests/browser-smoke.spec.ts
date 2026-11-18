@@ -293,22 +293,34 @@ siteTest(['portal'])('Statistikeinwilligung ist gleichwertig, widerrufbar und ta
   expect(stored).toBe('rejected');
 });
 
-siteTest(['portal'])('200-Prozent-Zoom und reduzierte Bewegung bewahren die Kernfunktionen', async ({ page, browserName }) => {
-  test.skip(browserName === 'webkit', 'WebKit misst den Dokumentumbruch unter CSS-zoom anders; der Reflow wird in Chromium und Firefox geprüft.');
-  await prepareFunctionalPage(page);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.setViewportSize({ width: 640, height: 720 });
-  await page.goto('/kreisreform/');
-  await page.evaluate(() => {
-    document.documentElement.style.zoom = '2';
+/**
+ * 200 % Browserzoom eines Fensters von 640 × 720 Pixeln ist für das Layout ein Viewport von
+ * 320 × 360 CSS-Pixeln bei Gerätepixelverhältnis 2 (WCAG 1.4.10); so schalten auch die Media
+ * Queries um. Nicht über CSS-`zoom` auf dem Wurzelelement messen: Chromium übernimmt ihn erst in
+ * einem späteren Frame und löst `cqw` im ersten gezoomten Frame noch gegen die alte Containerbreite
+ * auf. Die Messung sah je nach Frame-Takt den ungezoomten Stand oder diesen Zwischenframe.
+ */
+test.describe('200-Prozent-Zoom', () => {
+  test.use({ viewport: { width: 320, height: 360 }, deviceScaleFactor: 2, reducedMotion: 'reduce' });
+
+  siteTest(['portal'])('200-Prozent-Zoom und reduzierte Bewegung bewahren die Kernfunktionen', async ({ page }) => {
+    await prepareFunctionalPage(page);
+    await page.goto('/kreisreform/');
+    await page.evaluate(() => document.fonts.ready);
+    const dimensions = await page.evaluate(() => ({
+      innerWidth: window.innerWidth,
+      devicePixelRatio: window.devicePixelRatio,
+      reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+      clientWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    expect(dimensions.innerWidth, 'Layoutviewport eines 640-px-Fensters bei 200 %').toBe(320);
+    expect(dimensions.devicePixelRatio, 'Gerätepixelverhältnis bei 200 %').toBe(2);
+    expect(dimensions.reducedMotion, 'reduzierte Bewegung aktiv').toBe(true);
+    expect(dimensions.scrollWidth, 'Reflow bei 200 % Zoom ohne horizontales Scrollen').toBeLessThanOrEqual(dimensions.clientWidth);
+    await expect(page.locator('[data-map-load]')).toBeVisible();
+    await expect(page.locator('#kreisreform-table-query')).toBeVisible();
   });
-  const dimensions = await page.evaluate(() => ({
-    clientWidth: document.documentElement.clientWidth,
-    scrollWidth: document.documentElement.scrollWidth,
-  }));
-  expect(dimensions.scrollWidth, 'Reflow bei 200 % Zoom ohne horizontales Scrollen').toBeLessThanOrEqual(dimensions.clientWidth);
-  await expect(page.locator('[data-map-load]')).toBeVisible();
-  await expect(page.locator('#kreisreform-table-query')).toBeVisible();
 });
 
 siteTest(['portal'])('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) => {

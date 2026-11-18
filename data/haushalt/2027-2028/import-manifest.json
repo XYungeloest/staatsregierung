@@ -3,20 +3,22 @@
   "periode": "2027-2028",
   "quelle": {
     "repository": "osthaushalt-2027-2028",
-    "commit": "84f4e322ae0ed05a8fef34a6888efd10b3d65667",
-    "commit_kurz": "84f4e32",
-    "commitdatum": "2026-11-11T22:13:36+01:00",
+    "commit": "662c0d7f08f91567b3ca8aac8023a9992b7e0ec5",
+    "commit_kurz": "662c0d7",
+    "commitdatum": "2026-11-18T15:39:54+01:00",
     "fassung": "haushalt-2027-2028",
     "pfad": "haushalt/2027-2028",
     "basisrun": "c0-20261108-v2",
-    "stand": "2026-11-11",
+    "stand": "2026-11-16",
     "korrekturvorlagen": [
       "K-01",
-      "K-02"
+      "K-02",
+      "K-03",
+      "K-04"
     ],
     "pruefstand": {
-      "bestanden": 128,
-      "gesamt": 128
+      "bestanden": 306,
+      "gesamt": 306
     }
   },
   "quelldateien": [
@@ -27,72 +29,117 @@
     },
     {
       "pfad": "haushalt/2027-2028/MANIFEST.json",
-      "sha256": "cbdc654c2693f041087145bb432fcdcc74f8817d85c813b47cb527ab6d6a99ab",
+      "sha256": "920ad34a5a814d339a7505c7918004e45cbb95450b3364bfd5fc2cbfc19794c0",
       "pruefung": "git"
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028.pdf",
-      "sha256": "ad9807218be70b0057e4fbec7eb17c2c5c2a6be26e1357d661078474da6a0978",
+      "sha256": "5e4a157be110fa39568b97b79bca60b91618ff85151505a7670e8e5ae71b3f29",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028.xlsx",
-      "sha256": "ef561f624081e8f535072802387938928acad5a3381a7878832357ac673351e3",
+      "sha256": "637b2b1c9923a3f23eb278db659d796a3dd869d4f6c32416f39ee06a6f915cd0",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028_oeffentlich.pdf",
-      "sha256": "72d2f15ef2e78d3f58d46bdc7da498a189ef854f5fc7e208b1d3502fd12a206e",
+      "sha256": "01ba629827e401a7a3c812c0fb5d9173143e39d9fe583aba1949b32418ccbbc7",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028_oeffentlich.xlsx",
-      "sha256": "38cd0f20e87eff5921789972d6816397982e70c14d87397f0956459af52be399",
+      "sha256": "8ddb78dc37d41d51ff492f1994022e05dd3c004348660e08a847201da637d9cf",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/einzelplaene.csv",
-      "sha256": "e741e613d8cb0f34c0eb0562f845e829b46a0cc4bdc28adde2162f16915c8d4e",
+      "sha256": "c52f2d534a58da13e4925b563ecb5d3175cb6d8541aab282a7a9b8a93cfdd73c",
       "pruefung": "daten/manifest.json"
     },
     {
+      "pfad": "haushalt/2027-2028/daten/endfassung/bestaende_lose.csv",
+      "sha256": "7eb43f7a9eb1540fb23f17a459fb65f27c0119f5cf766be05f33c4187895e0b2",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/endfassung/bestaende_versorgungsfonds.csv",
+      "sha256": "53df113378125ecb83cf85e758a6e8c306e503941f4a0b55bcb1ac672eccda3d",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/endfassung/entnahmen_bedarf.csv",
+      "sha256": "98815cb060c16e5e09b26f1fd033a3c9f26a89bb6eda6dd20908ab9a64a15d61",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/endfassung/entschaedigungen.csv",
+      "sha256": "3c4bf45b0be7da2c20fd40050fa913fed4c397c4f40d9ef734581819e87fc6c3",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/endfassung/k04_journal.csv",
+      "sha256": "41361f2274410aac6710ecf44d2d9451ca2b2f428879f532d7c3412dc25a67e6",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/endfassung/restansaetze.csv",
+      "sha256": "c46b01493303df040f393f6dfbed9ccb021102ff1a865a6d3baf2fbfe9766751",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/endfassung/ueberleitung_k03_endfassung.csv",
+      "sha256": "fb3556c3b3f7be17103375e684994793fceec116d6ff2f19bc91ad0ab8b24414",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/endfassung/versorgungspauschale.csv",
+      "sha256": "c5352ec4daa33ad54c3197edd4b71d341e1f737a6aff7287ecc563c58a598169",
+      "pruefung": "MANIFEST.json"
+    },
+    {
       "pfad": "haushalt/2027-2028/daten/finanzierung.json",
-      "sha256": "ce51d804e5239af8d14d49a7ab013a88b0f9a48a13f7f961e0b57be630083e3f",
+      "sha256": "e0c141c0c978b4d0c303d78baf5b662c336619093e499c1bb4d00288a3e17f37",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/finanzplan_2027_2035.csv",
-      "sha256": "f20dc9213dac58c78fc0a0ddad7c379f1a4623b3de6aa1c3df55b8e2df441bb4",
+      "sha256": "0a0a49bd697e2eeb476bde943ed95df4a73d7163202ca18204d3837cb3d93f40",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/fonds_gegenposten.csv",
-      "sha256": "7dd2663747e2ada85c0e84944eed42b6d346c0ad101fd2c99479cb7d19cfc94e",
+      "sha256": "c5656ca6c7308c5cace0166f0f3ef17fd62a8b21a54bf109c3ff08d4d3c961dc",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/funktionen.csv",
-      "sha256": "82be4efdd73b664169ab6889d30789a5c05be1229fb3b90050a9f4d45466b585",
+      "sha256": "3d0fcd5acd03b8a3c04ffbd8248de68285ff5d14df9350aa8bd7650643184838",
       "pruefung": "daten/manifest.json"
     },
     {
+      "pfad": "haushalt/2027-2028/daten/geheim/titel_1306.csv",
+      "sha256": "9807d9f514add9297d356b31d10494ced4f9ba834e8865de91971f48618d3510",
+      "pruefung": "MANIFEST.json"
+    },
+    {
       "pfad": "haushalt/2027-2028/daten/gesamtplan.json",
-      "sha256": "1c9625fa67d25503f4c42587fcca38cfc20c15ee6770e026b6a5d370713fc3cb",
+      "sha256": "df476e1765956c4d984b7a47c6b99afee8b8dd82b9b7ada8de886a6b689c81b0",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/gruppierung.csv",
-      "sha256": "5b2c49480e56160476ca43e684d9aec948081bb25a1ec7bf405fec971aa2f0d4",
+      "sha256": "39a131609de9645a096574e30d86d2772224b9e1b17cff78eaed04b42943b81b",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/kapitel.csv",
-      "sha256": "ff19f7973894c348656c95e35dfc66e748629457bc70a053a00834e554c6e7a8",
+      "sha256": "0ce808b73bf948ab469311d1dd4a5b8befe951b5ab64651cc64f3be8b0dbff6a",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/korrekturen.json",
-      "sha256": "309fca79638f8c88824abbb4476d917497c6080fd05aa33bba2b56069885c92f",
+      "sha256": "d087f373d251dcfb593e781ea3f0181495d97f0a47df7ff5db6be5e97d815999",
       "pruefung": "daten/manifest.json"
     },
     {
@@ -102,17 +149,17 @@
     },
     {
       "pfad": "haushalt/2027-2028/daten/manifest.json",
-      "sha256": "9e54db04898d0125ca890a3ea7e98eeaf2edbe061af90d306593bc5ff32a78ca",
+      "sha256": "129bdc0769f014fe5296672a6bd57b21874b07341989bfe74b0773388b9571d5",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/massnahmen.csv",
-      "sha256": "35d1b71aa1eac3b9076f12d927d9a0c892ccfb5fa0576ea1e39c8c964a6d4816",
+      "sha256": "14a74f681f14e5bda2fdd009decfeb871a275892979f5b468b1da042db9701db",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/meta.json",
-      "sha256": "c35e8981ab23f93841eb1861f3f56b5e672f97c4ad0d150a33a9309cf63fadbf",
+      "sha256": "5a9be7be55b848a52fd54d1e8bdb0ea995ef902f4db0ebbee3e18d3d3bc54510",
       "pruefung": "daten/manifest.json"
     },
     {
@@ -142,7 +189,7 @@
     },
     {
       "pfad": "haushalt/2027-2028/daten/personal/kapitelwirkung.csv",
-      "sha256": "b3e26225d6e32b4c3a78ee724df00566c42a035e3c7a552ec18bc339343376c2",
+      "sha256": "baffe654c32bf7671358d6914c18e6cb7cc18f3b7a47f4423493bf4872c10e76",
       "pruefung": "MANIFEST.json"
     },
     {
@@ -167,7 +214,7 @@
     },
     {
       "pfad": "haushalt/2027-2028/daten/personal/reformwirkung.json",
-      "sha256": "1655bd60f8b16cdf25e6a62ee806a9fc4acb59ba388337a75468aa1f22fa64d8",
+      "sha256": "f9083edbe22028103fee9771dd28e2dacce4ae40a6dfcba2b3dfa835100fcc71",
       "pruefung": "MANIFEST.json"
     },
     {
@@ -202,7 +249,7 @@
     },
     {
       "pfad": "haushalt/2027-2028/daten/personal/versorgungsfonds_erstattung.csv",
-      "sha256": "05cb08aeb45ad5205727ca261cb026b84c54b0cf2b670feb27a1b68f8d251a8e",
+      "sha256": "ad85f933f095851a3e1aa114ef8ec738125693883d4fa93217bb1a0b4bf24a46",
       "pruefung": "MANIFEST.json"
     },
     {
@@ -217,37 +264,67 @@
     },
     {
       "pfad": "haushalt/2027-2028/daten/pruefungen.csv",
-      "sha256": "7629d1b1ce8f41fe7d67bc1d9f95a6cb87afe074ccb9b4cc6157a1eb915c1d07",
+      "sha256": "a61bd3142ad324b8d355f4e217c63344e5c272e1eb1d576943880d83d1398da7",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/qualitaet.json",
-      "sha256": "25b00e8cfd59b3f8a863e4fd67f39f3fb6e4be7a46459f48c25ed5aee85f6bc6",
+      "sha256": "5a42f66255ae431fba152bf50ea84707705c72f5a27fa5f74abde461258c28cb",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/ruecklagen.json",
-      "sha256": "af1ee4f2004b340b27670491e97bebba2ff94f5b505d0dd957655f870cda9998",
+      "sha256": "cf85e9c086f83c33b27406f6763126fff4f8768af11e3c09fb2d9a074d32fd27",
+      "pruefung": "daten/manifest.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/sicherheitsreform/deckung.csv",
+      "sha256": "754d52540109c21d2acaa2994594193e75cceee45ce9b77fb936639a35828f05",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/sicherheitsreform/k03_journal.csv",
+      "sha256": "e9c5f7e4b8dd475985601d6ec5ecc81bf6c19ecbc306af658306c61cb50aed22",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/sicherheitsreform/stellen.csv",
+      "sha256": "cbb68b494a7fd48e0b6bbc87d498e738c1a12b9be9d4f21cde37245dc88a113c",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/sicherheitsreform/verpflichtungen.csv",
+      "sha256": "0cc6246bb0389e69b132adc9abf391eaf9984fef9429adce11a6e09e2ccab5b7",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/sicherheitsreform/vollzugsmatrix.csv",
+      "sha256": "2e2b9e25307d6f19b224519139cd8f4eed9904b968564a81d365942c8d33d55c",
+      "pruefung": "MANIFEST.json"
+    },
+    {
+      "pfad": "haushalt/2027-2028/daten/sondervermoegen.json",
+      "sha256": "6110acea1582a31124d8147ad44bd369495a5be227d0024fea0397403a09f1a1",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/stellen.csv",
-      "sha256": "88982367c1b0441a582303251c2bfece7ce86d3aad86af1bdbfbea52618ee3d9",
+      "sha256": "41c858e8ef0575fe7947ff67c5651f6a99355cf701ac507596f5bc4bb60e291e",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/titel.csv",
-      "sha256": "20550c9710f3862e5bd459ec239a46731bde03fb49a7be01d4974e69dbf4820d",
+      "sha256": "217d8d6d2957294b00755e016da079d0e8cce3bde214b5b242ba8d9b8417618e",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/titel.json",
-      "sha256": "606a51c5d51b2cc789583a155e835cf74a161628fb5d0c9683e8e0240e294f6c",
+      "sha256": "b440ea19e88076618e44c787c18a02b737efbffd0d06533f9f4bf898155a1310",
       "pruefung": "daten/manifest.json"
     },
     {
       "pfad": "haushalt/2027-2028/daten/ueberleitung.json",
-      "sha256": "dc6f3b5921af8c0c4bf193010ce6993b5c25bd44812ecc51156560decba6e12b",
+      "sha256": "cbb24b33858347d5200917874da40c8cc2f2e718cedef8e37d23653cd9da86a1",
       "pruefung": "daten/manifest.json"
     },
     {
@@ -262,7 +339,7 @@
     },
     {
       "pfad": "haushalt/2027-2028/daten/verpflichtungen.csv",
-      "sha256": "c37e08bcc9506473c322be46646ab0c7247b2e93c906a1ce076939d5f553ebb0",
+      "sha256": "7e179119230fe65ef9244d919dec15639d35c3305ab37a8b9f4817ae0e97a7e3",
       "pruefung": "daten/manifest.json"
     },
     {
@@ -272,120 +349,120 @@
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/01_HAUSHALTSGESETZ_2027_2028.md",
-      "sha256": "7b985740acf5f6bec7d13fc697277b8a9ea6ef737b6a6504e40c07beb3c4012f",
+      "sha256": "001e74d7bfbc44304aeac249d78391a46c6f7423ad15f168d70673cd46d2ae0e",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/02_HAUSHALTSBEGLEITGESETZ_2027_2028.md",
-      "sha256": "fbed2bd883b43783707b9aef7f036c26aa107d23a1d4c167eee0aaf27ca1d6a4",
+      "sha256": "3edf701440cbe06017f65daf03a0d5dc3f5c562df21ce02576c99c7bc59fff94",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/03_RUECKLAGEN_UND_FONDSNEUORDNUNGSGESETZ.md",
-      "sha256": "6ec9ac01811df21216b5aec5941ee5a5a47d7d09ad66af9e0ebbe04f86cbcd51",
+      "sha256": "264da969cfc149166e1f4bf7c04356e301b2ef61b8ba594b691aba0f33e34a61",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/04_SYNOPSE_VERSORGUNGSFONDSGESETZ.md",
-      "sha256": "231fe094e0f9ae81185aa14ee759c6109862702f8c6fd0d64ac8364ab0fba5a3",
+      "sha256": "b6d293081ef48c1e657a25b9292a8d987eafb0f177e5665f4fae93f78e74128d",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/05_UNTERNEHMENS_UND_BETEILIGUNGSBESCHLUESSE.md",
-      "sha256": "c82469ecfa621910d21eba275c05730e738f96bab9e6ea62b1d981b2de49707c",
+      "sha256": "e4e4f03bc2607892f7fa1a692862e2d277bd5cea6022cf04aa0a43b0ed68d079",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/06_VERORDNUNGSENTWUERFE.md",
-      "sha256": "2f3749c5d3f93105e4a476ea9b41e97dc75a78253c249c745ef3d76cd1220347",
+      "sha256": "d0a7a7b08b6500908cd393ec4ef87359a8dcf693ff582ff2ba0db7ab443bc866",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/07_VERWALTUNGSVEREINBARUNGEN.md",
-      "sha256": "fe5ea61028667c979ef4437db4c4b94d1abcaf2eb89bd97ef407f0c1d639d92c",
+      "sha256": "09b8b561fd740c69b50cfb14e7cae6834a02875a2147e2fca27cb3d8a823ffd2",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/08_BESCHLUSSVORLAGE_STAATSRAT.md",
-      "sha256": "b72f6cc6ec5fe98c0af82b4860d2b1cc4824b1524961d2d7d066960970067ed4",
+      "sha256": "19d3b623130ce3b5c2907c22e878ea6572246ccf8d14a91613eb916f0aa40a9f",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/09_BESCHLUESSE_DER_VOLKSKAMMER.md",
-      "sha256": "96d0864c849aee028c4a1642a7d69d020a78b83c12bcac3ae62ce430715c73fd",
+      "sha256": "0e7c99250f28645c16a9e00846f013b26c570ab0cf317a4e774dc4be99b28855",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/10_VOLLZUGS_UND_BESCHLUSSMATRIX.md",
-      "sha256": "d4529f3c5668ba3323b6627152a894541f6c9a2065522333f1f87dbd141baaf0",
+      "sha256": "8bd83a1b0e2e4e16b7cdefff0112040063d39c98eed158655a08647bf53b2765",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/11_AENDERUNGSEMPFEHLUNGEN_DIENSTRECHT.md",
-      "sha256": "c8dadb8fd790c22a58d6278ddcaaa453fdc4ce82af9f8c0e8d833c1d1a7ca743",
+      "sha256": "7a845f6a9c66e65fb564bbecb4723d62b5d94193dea5392eea3d7365d9195172",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/12_VORBLATT_KOSTEN_DIENSTRECHT.md",
-      "sha256": "aedc1575c53ca220a68feab3b4134ab275e26c74710edc6f6e28f0bd64fa7273",
+      "sha256": "13640d4523041c5ff77439dabc2f835e294e039219ffc7183e4b111f3ec26334",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/gesetze/README.md",
-      "sha256": "9eeca333d920183c202b31d599b284e1a39eea23a2ad79669d3c317b0bae68a8",
+      "sha256": "ba346c1268c92f05f9fd44033d6e206fee6564d5e0bebf1a780a5c111ba5d042",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/VERSIONEN.json",
-      "sha256": "9c1752fcc0a4121c226a36dedebd634313c2139c72a4841549976f8d419531b5",
+      "sha256": "688374394dc310f104ca53aa28363563913e7809c2af88e6cfdea63cdcf454e5",
       "pruefung": "git"
     }
   ],
   "snapshotdateien": [
     {
       "pfad": "ausgabe/Haushalt_2027_2028.pdf",
-      "sha256": "72d2f15ef2e78d3f58d46bdc7da498a189ef854f5fc7e208b1d3502fd12a206e",
-      "bytes": 658989
+      "sha256": "01ba629827e401a7a3c812c0fb5d9173143e39d9fe583aba1949b32418ccbbc7",
+      "bytes": 706562
     },
     {
       "pfad": "ausgabe/Haushalt_2027_2028.xlsx",
-      "sha256": "38cd0f20e87eff5921789972d6816397982e70c14d87397f0956459af52be399",
-      "bytes": 364251
+      "sha256": "8ddb78dc37d41d51ff492f1994022e05dd3c004348660e08a847201da637d9cf",
+      "bytes": 376780
     },
     {
       "pfad": "einzelplaene.json",
-      "sha256": "571fafb8ab48c650f988fbcebf1b865d8a5dd6e6e8cbe1f12298031f09572143",
-      "bytes": 24302
+      "sha256": "c6f219fb2a81d0ba7c5aab9d8fb18da43163406c1dda3604ece830bc969eb5c6",
+      "bytes": 24313
     },
     {
       "pfad": "finanzierung.json",
-      "sha256": "4b021277a21630b3cad0a8cf79bedcddb6b050e4de7a1838db410d839f1618db",
-      "bytes": 29034
+      "sha256": "ddadb6d883a89209e0c8fa48e8fa492c9b8edda2932b427390678b1fea529f66",
+      "bytes": 43813
     },
     {
       "pfad": "gesamtplan.json",
-      "sha256": "7637a1d3115780ab3cc22c70156e28a25c8702adc52cb772a9b90e8e1c820563",
-      "bytes": 46070
+      "sha256": "78d877d786744414ed4b6e3cecb1b43bff5d9857a2b2800bc85b7837571ee112",
+      "bytes": 46615
     },
     {
       "pfad": "gesetze.json",
-      "sha256": "73c2665a73037a1817f3fcc3ecf76ec45391d66fedc936b6a84c4885e6449d8d",
+      "sha256": "1e121130f053ebaf9e57130a5ad7a61612e1b62f33e7ab05f3fe10820c740b69",
       "bytes": 1261
     },
     {
       "pfad": "kapitel.json",
-      "sha256": "d84427520ebb38a5d6ab983fec1b7d67c622340d21c993bdf2978fa9e7288db1",
-      "bytes": 211580
+      "sha256": "1d7fec99265c8381d9ee67eecf3177b5b5ed18c2fc526405dd529a3910d8ef45",
+      "bytes": 213539
     },
     {
       "pfad": "periode.json",
-      "sha256": "d12aade0152874684f51ce99721feae523aea85c4f40f223ff908932e458d1f9",
-      "bytes": 2621
+      "sha256": "030af8cd3f416faa728dc35b3a0777f3711348a1ede64708f8254420dad1a525",
+      "bytes": 3345
     },
     {
       "pfad": "personal.json",
-      "sha256": "340da5688810d9849f4454b9c73ab83ac457008d3da32d9436b443b3fc4b733a",
-      "bytes": 489396
+      "sha256": "94b990a54765cbb578fde8ee26f97a64cdf75a671b33c6d74a0996ad20abd572",
+      "bytes": 569463
     },
     {
       "pfad": "projekte.json",
@@ -394,18 +471,18 @@
     },
     {
       "pfad": "qualitaet.json",
-      "sha256": "0e6c855c8b9beea9cc3c1f444fdf06cf0e42347e146a2e23059169ede3ed531a",
-      "bytes": 21899
+      "sha256": "55d1569f589a0b78601c004cfeb34a5c3cb22ecdb7f22082ac0fe4839c43983a",
+      "bytes": 42730
     },
     {
       "pfad": "ruecklagen.json",
-      "sha256": "1ff1563743f5d2c10e2b04291ce40963738321ca253a28183202e1b63097938a",
-      "bytes": 46040
+      "sha256": "1994c4cb18f1b4f9db081c3713243f3327ad80b8fd898e36bb7e7874f6f87c8b",
+      "bytes": 54477
     },
     {
       "pfad": "titel/01.json",
-      "sha256": "64b69ef04329ef4cfc6599a646c4fc438808eb93f1437bfda8a1654692cd06ef",
-      "bytes": 39310
+      "sha256": "a8fd7e1398ce6790ef0d88ff7b6af9e918efe9e66a2b2bf146b04d9f323686d3",
+      "bytes": 50970
     },
     {
       "pfad": "titel/02.json",
@@ -424,8 +501,8 @@
     },
     {
       "pfad": "titel/05.json",
-      "sha256": "09d5ce0ec904ff8acc1877a527c87a09893799ad9cd1c0f91e4be546b36e05f3",
-      "bytes": 139097
+      "sha256": "16f596aa42dc40771166b1a664f8c1d7a77ee3aef7cb78bacaea76a970d0f042",
+      "bytes": 141224
     },
     {
       "pfad": "titel/06.json",
@@ -434,8 +511,8 @@
     },
     {
       "pfad": "titel/07.json",
-      "sha256": "43e7a32cc8603f9e1cc206898b88791374b19f993316be3c0b986390f3ad59f3",
-      "bytes": 164159
+      "sha256": "47028e45829c00e16f6ab9858b75fe5590c5bb30475bc58d6f396fe4615ff25d",
+      "bytes": 165759
     },
     {
       "pfad": "titel/08.json",
@@ -464,8 +541,8 @@
     },
     {
       "pfad": "titel/13.json",
-      "sha256": "2f93bcd4b1b97fbf6f2996297dd5012fa4e587dac4cdfe433d5b588015c8e069",
-      "bytes": 131729
+      "sha256": "f8fb158b411edb7bce665bac09ab688cf5ef014f22002ca9c410359bf6b0df15",
+      "bytes": 172672
     },
     {
       "pfad": "titel/14.json",
@@ -484,13 +561,13 @@
     },
     {
       "pfad": "titel/17.json",
-      "sha256": "a5daa8ac40d4183252530a3adc3ef26d93d591c91c753d2206d82af0404e106c",
-      "bytes": 77724
+      "sha256": "fdc9cd08f9c7ce0e61143215fb6e77d5180d8bce4aec35881f551dcf8ba22223",
+      "bytes": 77722
     },
     {
       "pfad": "titel/18.json",
-      "sha256": "a809c4d17b8a7b40c83010b52cc88368b9df7aec6cfa508e8feef856b797cad5",
-      "bytes": 23367
+      "sha256": "92fe998b6f3378f99d2637733f0f2ba4e1a8b63ef870fb5cd69c37baf4aab4ac",
+      "bytes": 25382
     },
     {
       "pfad": "titel/19.json",
@@ -499,24 +576,24 @@
     },
     {
       "pfad": "titel/20.json",
-      "sha256": "55d65f1c3d2f7ed06d9a74a32b05a734b43fff27b574a83fd2fc251ee6dc23a9",
-      "bytes": 91777
+      "sha256": "d4d9cce7ab300519041ab022ccfff47339819a4fc776089a4f5131eb8c34d4da",
+      "bytes": 95035
     }
   ],
   "kontrollsummen": {
     "2027": {
-      "einnahmen": 140900866242,
-      "ausgaben": 140900866242,
+      "einnahmen": 139620549022,
+      "ausgaben": 139620549022,
       "einzelplaene": 20,
-      "kapitel": 206,
-      "titel": 2321
+      "kapitel": 208,
+      "titel": 2382
     },
     "2028": {
-      "einnahmen": 140040550384,
-      "ausgaben": 140040550384,
+      "einnahmen": 140149153791,
+      "ausgaben": 140149153791,
       "einzelplaene": 20,
-      "kapitel": 206,
-      "titel": 2321
+      "kapitel": 208,
+      "titel": 2382
     }
   },
   "titel_jahresfelder": [
@@ -530,28 +607,28 @@
     {
       "quelldatei": "Haushalt_2027_2028.pdf",
       "status": "gesperrt",
-      "sha256": "ad9807218be70b0057e4fbec7eb17c2c5c2a6be26e1357d661078474da6a0978",
+      "sha256": "5e4a157be110fa39568b97b79bca60b91618ff85151505a7670e8e5ae71b3f29",
       "grund": "enthält nicht öffentliche Abschnitte: Finanzierungsbrücke, Vergleichsrechnungen, Kurzfassung für den Staatsrat, Risiko- und Sensitivitätsanalyse, Auffälligkeiten der Reformtabellen, Quellenverzeichnis, Vollzugs- und Beschlussmatrix, Änderungsempfehlungen, Verweise auf interne Dateien des Datenpakets, Kennung des Finanzrahmens (C0), Kennungen des Entscheidungsprotokolls (D-…), Prüfkennungen (Q…), Kennungen von Korrekturvorlagen (K-0…), interne Maßnahmenkennungen (F…), Bezug auf das Simulationsbundesrecht, Herleitung aus dem sächsischen Vorbild, Verweis auf die Quellenmatrix, Verhandlungsposition, Modellannahme („Modell: …“), interner Nachweisstand („nicht belegt“), Begriff der Datenaufbereitung (Mapping), Referenzdaten (Referenzvektor), interne Rechenschritte (Basisrun, Basisbereinigung), unbelegter Staatsratsbeschluss zur Planungsfassung, Name eines realen Handelsunternehmens"
     },
     {
       "quelldatei": "Haushalt_2027_2028.xlsx",
       "status": "gesperrt",
-      "sha256": "ef561f624081e8f535072802387938928acad5a3381a7878832357ac673351e3",
+      "sha256": "637b2b1c9923a3f23eb278db659d796a3dd869d4f6c32416f39ee06a6f915cd0",
       "grund": "enthält nicht öffentliche Abschnitte: Auffälligkeiten der Reformtabellen, Quellenverzeichnis, Kennung des Finanzrahmens (C0), Kennungen des Entscheidungsprotokolls (D-…), Prüfkennungen (Q…), Kennungen von Korrekturvorlagen (K-0…), interne Maßnahmenkennungen (F…), Bezug auf das Simulationsbundesrecht, Herleitung aus dem sächsischen Vorbild, Verweis auf die Quellenmatrix, Verhandlungsposition, Modellannahme („Modell: …“), interner Nachweisstand („nicht belegt“), Begriff der Datenaufbereitung (Mapping), Referenzdaten (Referenzvektor), interne Rechenschritte (Basisrun, Basisbereinigung), Name eines realen Handelsunternehmens, 18 nicht freigegebene Titeltexte (freitexte.json: anzeige null)"
     },
     {
       "datei": "Haushalt_2027_2028.pdf",
       "quelldatei": "Haushalt_2027_2028_oeffentlich.pdf",
       "status": "uebernommen",
-      "sha256": "72d2f15ef2e78d3f58d46bdc7da498a189ef854f5fc7e208b1d3502fd12a206e",
-      "bytes": 658989
+      "sha256": "01ba629827e401a7a3c812c0fb5d9173143e39d9fe583aba1949b32418ccbbc7",
+      "bytes": 706562
     },
     {
       "datei": "Haushalt_2027_2028.xlsx",
       "quelldatei": "Haushalt_2027_2028_oeffentlich.xlsx",
       "status": "uebernommen",
-      "sha256": "38cd0f20e87eff5921789972d6816397982e70c14d87397f0956459af52be399",
-      "bytes": 364251
+      "sha256": "8ddb78dc37d41d51ff492f1994022e05dd3c004348660e08a847201da637d9cf",
+      "bytes": 376780
     }
   ],
   "befunde": [
@@ -576,37 +653,37 @@
           "jahr": 2027,
           "einnahmetitel": "23273",
           "zeilen": 1,
-          "konsolidierungseliminierung": 611477790
+          "konsolidierungseliminierung": 0
         },
         {
           "jahr": 2027,
           "einnahmetitel": "35920",
           "zeilen": 18,
-          "konsolidierungseliminierung": 2936118006
+          "konsolidierungseliminierung": 2356795234
         },
         {
           "jahr": 2027,
           "einnahmetitel": "35930",
           "zeilen": 9,
-          "konsolidierungseliminierung": 1433004975
+          "konsolidierungseliminierung": 1343488317
         },
         {
           "jahr": 2028,
           "einnahmetitel": "23273",
           "zeilen": 1,
-          "konsolidierungseliminierung": 598759052
+          "konsolidierungseliminierung": 38523029
         },
         {
           "jahr": 2028,
           "einnahmetitel": "35920",
-          "zeilen": 4,
-          "konsolidierungseliminierung": 553822728
+          "zeilen": 6,
+          "konsolidierungseliminierung": 1133145500
         },
         {
           "jahr": 2028,
           "einnahmetitel": "35930",
-          "zeilen": 4,
-          "konsolidierungseliminierung": 609872935
+          "zeilen": 7,
+          "konsolidierungseliminierung": 699389593
         }
       ]
     }
@@ -661,6 +738,14 @@
       "grund": "interner Nachweisstatus"
     },
     {
+      "quelle": "haushalt/2027-2028/daten/fonds_gegenposten.csv",
+      "felder": [
+        "amount_eur",
+        "consolidation_elimination_basis_eur"
+      ],
+      "grund": "Ausgangswerte des Finanzrahmens vor der Veranschlagung nach Bedarf; nur geprüft (amount_eur = Planbetrag + übertragener Teil bzw. 0 bei übertragenen Zeilen, consolidation_elimination_basis_eur = amount_eur), nicht übernommen"
+    },
+    {
       "quelle": "haushalt/2027-2028/daten/wirtschaftsplaene.csv",
       "felder": [
         "status",
@@ -695,6 +780,38 @@
     {
       "quelle": "haushalt/2027-2028/daten/ueberleitungsbruecke.csv",
       "grund": "interne Überleitungsrechnung"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/sicherheitsreform/stellen.csv",
+      "grund": "Jahresdurchschnitte der Stellen der Sicherheitsreform (auf 0,1 VZÄ gerundet); nur zur Prüfung der Planäquivalente verwendet"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/sicherheitsreform/k03_journal.csv",
+      "grund": "internes Buchungsjournal"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/sicherheitsreform/deckung.csv",
+      "grund": "interne Deckungsrechnung"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/sicherheitsreform/vollzugsmatrix.csv",
+      "grund": "interne Vollzugs- und Kostenmatrix"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/sicherheitsreform/verpflichtungen.csv",
+      "grund": "interne Herleitung der Verpflichtungsermächtigungen (Ergebnis in daten/verpflichtungen.csv)"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/endfassung",
+      "grund": "internes Buchungsjournal und Herleitungstabellen der Endfassung (Bestände, Entnahmen, Entschädigungen, Restansätze, Pauschale)"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/geheim/titel_1306.csv",
+      "grund": "Titelgliederung des Kapitels 13 06; veröffentlicht wird nur die Ausweisung nach Hauptgruppen"
+    },
+    {
+      "quelle": "haushalt/2027-2028/daten/sondervermoegen.json",
+      "grund": "Wirtschaftspläne der Sondervermögen; nicht Teil des Snapshots"
     },
     {
       "quelle": "haushalt/2027-2028/gesetze/05_UNTERNEHMENS_UND_BETEILIGUNGSBESCHLUESSE.md",

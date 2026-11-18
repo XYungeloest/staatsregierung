@@ -11,10 +11,15 @@ const write = args.includes('--write');
 const all = args.includes('--all');
 const correctionIndex = args.indexOf('--correction');
 const correction = correctionIndex >= 0 ? args[correctionIndex + 1] : null;
+// Optional nur die Berichtigungsrezepte einer Zielnorm anwenden; die übrigen Ziele derselben
+// Berichtigung bleiben unberührt (gezielter Schreiblauf statt Neuerzeugung aller Ziele).
+const targetIndex = args.indexOf('--target');
+const targetSlug = targetIndex >= 0 ? args[targetIndex + 1] : null;
 
 if ((all ? 1 : 0) + (correction ? 1 : 0) !== 1) {
   throw new Error('Genau eines von --all oder --correction <slug> ist erforderlich.');
 }
+if (targetIndex >= 0 && !targetSlug) throw new Error('--target benötigt den Slug der berichtigten Norm.');
 
 async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
@@ -25,7 +30,7 @@ async function writeJson(path, value) {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
-async function applyRecipe({ recipe, correctionMeta, path }) {
+async function applyRecipe({ recipe, correctionMeta, path }, siblingRecipes) {
   const correctionDirectory = resolve(ROOT, 'content/normen', recipe.correctionAct);
   const targetDirectory = resolve(ROOT, 'content/normen', recipe.targetSlug);
   const [targetMeta, targetHistory, targetVersion] = await Promise.all([
@@ -37,7 +42,7 @@ async function applyRecipe({ recipe, correctionMeta, path }) {
     meta: targetMeta,
     history: targetHistory,
     versions: [targetVersion],
-  }, recipe, correctionMeta);
+  }, recipe, correctionMeta, { siblingRecipes });
   if (!result.applied) {
     throw new Error(`${recipe.targetSlug}: Berichtigungswert fehlt und es sind keine anwendbaren Patch-Operationen hinterlegt`);
   }
@@ -57,5 +62,9 @@ async function applyRecipe({ recipe, correctionMeta, path }) {
   ]);
 }
 
-const bundles = await loadCorrectionBundles(ROOT, all ? null : correction);
-for (const bundle of bundles) await applyRecipe(bundle);
+const loadedBundles = await loadCorrectionBundles(ROOT, all ? null : correction);
+const bundles = loadedBundles.filter((bundle) => !targetSlug || bundle.recipe.targetSlug === targetSlug);
+if (targetSlug && bundles.length === 0) throw new Error(`${targetSlug}: keine Berichtigungsrezepte für diese Zielnorm gefunden`);
+// Alle geladenen Rezepte, damit Hinweise anderer Rezepte derselben Berichtigung erhalten bleiben.
+const siblingRecipes = loadedBundles.map(({ recipe }) => recipe);
+for (const bundle of bundles) await applyRecipe(bundle, siblingRecipes);

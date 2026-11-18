@@ -31,10 +31,6 @@
               "label": "Abschnitt 1",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "Allgemeine Bestimmungen"
-                },
-                {
                   "type": "paragraph",
                   "label": "§ 1",
                   "title": "Transparenzanspruch",
@@ -360,16 +356,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Allgemeine Bestimmungen"
             },
             {
               "type": "section",
               "label": "Abschnitt 2",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Transparenzportal und Veröffentlichungspflichten"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 6",
@@ -836,12 +829,12 @@
                           "listId": "obim39t2lyr8",
                           "numberingStyle": "decimal",
                           "children": []
+                        },
+                        {
+                          "type": "paragraphText",
+                          "text": "Nach Abschluss des Verfahrens überwiegt regelmäßig das Transparenzinteresse, soweit nicht besondere Geheimhaltungsgründe fortbestehen."
                         }
                       ]
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "Nach Abschluss des Verfahrens überwiegt regelmäßig das Transparenzinteresse, soweit nicht besondere Geheimhaltungsgründe fortbestehen."
                     },
                     {
                       "type": "subparagraph",
@@ -962,16 +955,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Transparenzportal und Veröffentlichungspflichten"
             },
             {
               "type": "section",
               "label": "Abschnitt 3",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Informationszugang auf Antrag"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 12",
@@ -1168,12 +1158,12 @@
                           "listId": "3uu62slupg0p",
                           "numberingStyle": "decimal",
                           "children": []
+                        },
+                        {
+                          "type": "paragraphText",
+                          "text": "Die Fristverlängerung ist innerhalb der Frist nach Absatz 1 zu begründen."
                         }
                       ]
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "Die Fristverlängerung ist innerhalb der Frist nach Absatz 1 zu begründen."
                     },
                     {
                       "type": "subparagraph",
@@ -1409,16 +1399,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Informationszugang auf Antrag"
             },
             {
               "type": "section",
               "label": "Abschnitt 4",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Die oder der Ostdeutsche Datenschutz- und Transparenzbeauftragte"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 20",
@@ -1703,16 +1690,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Die oder der Ostdeutsche Datenschutz- und Transparenzbeauftragte"
             },
             {
               "type": "section",
               "label": "Abschnitt 5",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Kommunale Transparenz, Verordnungsermächtigung, Übergangs- und Schlussvorschriften"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 25",
@@ -1900,7 +1884,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Kommunale Transparenz, Verordnungsermächtigung, Übergangs- und Schlussvorschriften"
             }
           ]
         }
@@ -1952,7 +1937,7 @@
               "children": [
                 {
                   "type": "item",
-                  "label": "3.",
+                  "label": "„3.",
                   "text": "Erteilung von Informationen durch Auskunft oder durch Gewährung von Einsicht nach § 15 Absatz 3 in Verbindung mit § 12 Absatz 3 OstTranspIFG: 14 bis 24 Euro je angefangene Viertelstunde.",
                   "level": 0,
                   "listId": "printed-outline",

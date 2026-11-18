@@ -28,7 +28,8 @@ was lokal beweisbar ist und was nicht.
 3. **Nicht direkt auf `main` arbeiten.** Branch, Commit, Pull Request. Direkte Pushes umgehen alle
    vier Pflichtchecks — genau so ist der Zustand entstanden, den Kapitel 12 beschreibt.
 4. **Nie raten.** Passt eine Quelle nicht eindeutig auf den Bestand, wird abgebrochen und gemeldet
-   (Kapitel 11), nicht heuristisch importiert.
+   (Kapitel 11), nicht heuristisch importiert. Für Änderungsbefehle, die nicht wörtlich auf die
+   Vorfassung passen, gilt die Auslegungsregel in 4.3.
 5. **Redaktionelle Normfelder werden nur über die Importkonfiguration geändert**, nie von Hand in
    `content/normen/*/meta.json` — sonst meldet der strikte Audit dauerhaft `would-update`.
 6. **Der Stichtag ist eine geschlossene Kette, kein einzelner Befehl** (Kapitel 6). Wer ihn
@@ -207,16 +208,28 @@ ist ein Verkündungsblatt, aber **keine Normimportquelle**.
 `--write`-Lauf ist für diese Datei ein No-op und darf **nicht** als Erledigung gelesen werden. Der
 strikte Lauf bleibt dabei grün — Grün heißt hier „nichts getan“, nicht „fertig“.
 
+**B1a — Ausgabe nur als PDF.** Liegt keine HTML-Fassung vor, ist `norms:workflow` nicht anwendbar
+(„Nicht unterstütztes Quellformat“), und der strikte Importlauf sieht das PDF gar nicht. Das PDF
+wird mit identischem Dateinamen nach `Gesetze/` kopiert und bleibt die einzige Quelle; eine eigene
+HTML- oder Markdown-Transkription wird nicht angelegt, ein Normdatensatz entsteht nicht. Der
+Eintragstitel folgt der Überschrift im Dokumentkörper; Abweichungen des Inhaltsverzeichnisses
+werden in `CONTENT_GAPS.md` vermerkt. `pdf` und `sourceReferences` setzt erst B4: Ohne
+Transkription erzeugt `norms:publications:pdf-sync` eine `primary-pdf`-Referenz mit
+`sourceRole: structure-bearing` und `verifiedAt` gleich dem redaktionellen Stichtag.
+
 **B2 — Kein Eintrag in `NEW_PUBLICATION_CONFIG`.** Ein Konfigurationseintrag für eine
 nichtnormative Ausgabe macht den strikten Lauf rot.
 
 **B3 — Verkündungsdatensatz von Hand anlegen**, Vorlage `content/verkuendungen/stanzo-2026-41.json`.
 Dateiname = `slug`. Pflichtfelder der Ausgabe: `slug`, `title`, `year`, `issue`, `date`,
-`publication`, `place`, `publisher`, `sourceReferences`, `entries`.
+`publication`, `place`, `publisher`, `sourceReferences`, `entries`; `sourceReferences` und `pdf`
+entstehen über B4.
 
 Der Eintrag in `entries[]`:
 
-- `type: 'sonstiges'` (kein `normSlug`, keine `versionId`)
+- `type` folgt der Dokumentbezeichnung (`bekanntmachung` für eine Bekanntmachung, `sonstiges` nur,
+  wenn keine Eintragsart aus `scripts/lib/publication-entry-types.mjs` passt); kein `normSlug`,
+  keine `versionId`
 - `id`, `title`
 - `citation` im Muster `<Art> vom <T>. <Monat> <JJJJ> (StAnzO. JJJJ Nr. NN S. X)` — bei gesetztem
   `documentDate` muss `vom <T>. <Monat> <JJJJ> (` wörtlich enthalten sein
@@ -224,18 +237,16 @@ Der Eintrag in `entries[]`:
 - `startPage` und `pages` schließen sich aus
 - `pageRange`/`pageCount` nicht von Hand pflegen
 
-**Bekannte Lücke:** `entries[].type` wird von `scripts/check-content.mjs` **nicht** gegen das Enum
-geprüft (nur auf „nicht leer“). Ein falscher Wert passiert `content:check` und `import-normen
---strict` und bricht erst im Build (`loadAllVerkuendungen`). Der Wert ist deshalb von Hand gegen
-`scripts/lib/publication-entry-types.mjs:10` abzugleichen.
-
 **Weitere Fallen dieses Zweigs:**
 
 - `issue` und der Nummernteil des Slugs sind **nicht** gleich formatiert: der Slug polstert auf zwei
   Stellen (`oabl-2026-01`), `issue` nicht (`"1"`).
 - Die strukturtragende Quelle der Ausgabe muss auch in den `sourceReferences` der verknüpften Normen
   stehen — bei einer normlosen Ausgabe entfällt das.
-- `sourceRole` ist kein erzwungenes Enum; ein erfundener Wert passiert alle Prüfungen.
+- `sourceRole` einer `primary-pdf`-Referenz ist an die Transkription gebunden: neben einer
+  Transkription `visual-control`, ohne sie `structure-bearing`. Der Prüflauf von
+  `norms:publications:pdf-sync` meldet nur neu verknüpfte Ausgaben, nicht geänderte Referenzen
+  bereits verknüpfter Datensätze; nach dem Schreiblauf `git status` lesen.
 - Die Quelldatei unter `Gesetze/` darf nach dem Import **nie** mehr geändert werden, auch nicht im
   Leerraum: `content:check` wird sofort rot.
 
@@ -298,6 +309,13 @@ Ziel `status: 'complete'` und das neue Wirksamkeitsdatum führt.
 
 Mehrere Änderungen am selben Tag: identische `versionId`, paarweise verschiedene ganzzahlige
 `sameDayOrder`; ein `repealsLaw`-Rezept steht allein an seinem Tag.
+Wirkt derselbe Änderungsakt an verschiedenen Tagen auf dieselbe Zielnorm, liegen die Rezepte in
+getrennten Verzeichnissen mit identischem `amendmentAct` (`<akt>-<jahr>` beziehungsweise
+`<akt>-<datum>`, etwa `data/recht/amendments/sportneuordnungsgesetz-2026-08-01/`).
+Setzt die Schlussbestimmung einer eigenständigen Vorschrift nur Teile einer anderen Norm außer
+Kraft („gleichzeitig treten die Ziffern … außer Kraft“), trägt ihr Rezept `partialRepeal: true`: Es
+enthält nur `repealProvision` oder `deleteProvision`, und die aufhebende Vorschrift behält ihren
+Normtyp, statt zur Änderungsvorschrift zu werden.
 
 **Gültigkeitsintervalle** müssen lückenlos **und** überlappungsfrei aneinandergrenzen.
 
@@ -311,10 +329,14 @@ Reststellen zuerst inhaltlich beseitigen. Nur wörtlich in der amtlichen Quelle 
 PDF-Hash geprüfte Bezüge mit `--update-backlog` in `data/recht/ost-residual-backlog.json`
 fortschreiben und committen.
 
-**Abbruchregel.** Passt ein Änderungsbefehl nicht eindeutig auf die Ausgangsfassung, wird nicht
-geraten: entweder ein `blockedTargets`-Eintrag mit `reason` und `effectiveDate` plus Eintrag in
-`CONTENT_GAPS.md`, oder eine dokumentierte `editorialSourceResolution` mit Entscheidung,
-verkündetem Wortlaut, Zielanker, Begründung, Datum und Belegen. Danach
+**Auslegungsregel.** Passt ein Änderungsbefehl nicht wörtlich auf die Ausgangsfassung, wird er
+sinngemäß nach dem erkennbar gemeinten Inhalt angewandt: ein `editorialResolutions`-Eintrag am Ziel
+(`status: 'resolved-source-conflict'`, `decisionDate`, `issue`, `publishedText`,
+`resolvedApplication`, `rationale`, `evidence`) plus Redaktionsentscheidung in `CONTENT_GAPS.md`
+(Fundstelle, wörtlicher Befehl, Abweichung, gewählte Auslegung). Ist kein Inhalt eindeutig
+erkennbar, bleibt der Befehl unangewandt und wird ebenso dokumentiert. Nur wenn keine verlässliche
+Folgefassung entstehen kann: `blockedTargets`-Eintrag mit `reason` und `effectiveDate` plus Eintrag
+in `CONTENT_GAPS.md`. Danach
 `npm run norms:consolidation:audit`, Manifest und Bericht committen.
 
 **Berichtigungen** sind etwas anderes als Änderungen: eigene Verkündung mit `type: 'berichtigung'`
@@ -993,7 +1015,8 @@ Kein Bericht-, Status- oder Handoff-Markdown anlegen. Offene Quellenlücken geh�
 In diesen Fällen wird **nicht** weitergearbeitet, sondern gemeldet:
 
 - PDF und HTML widersprechen sich strukturell.
-- Ein Änderungsbefehl passt nicht eindeutig auf die Ausgangsfassung.
+- Bei einem Änderungsbefehl ist kein Inhalt erkennbar eindeutig gemeint, oder es kann keine
+  verlässliche Folgefassung entstehen (siehe Auslegungsregel in 4.3).
 - Der REVOSax-Snapshot einer Zielnorm fehlt und ist nicht beschaffbar.
 - Ein Bildmotiv widerspricht dem Text oder trägt sichtbare Beschriftungsfehler.
 - Ein neuer Wert bräuchte eine Allowlist-Ergänzung ohne Beleg.

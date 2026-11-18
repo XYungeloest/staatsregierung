@@ -1,2 +1,3 @@
-asset_id,year,chapter,hg,title,amount_eur,name,kind,origin,counterparty,fund_expense_type,core_revenue_title,consolidation_elimination_eur,certificate,legal_change,new_target_chapters
-TEST-fonds,2027,0102,6,TG71,300,Testfonds,special_fund,S/D,Kernhaushalt,Erstattung,35930,300,False,True,"0101,0102"
+asset_id,year,chapter,hg,title,amount_eur,name,kind,origin,counterparty,fund_expense_type,core_revenue_title,consolidation_elimination_eur,certificate,legal_change,new_target_chapters,planbetrag_eur,kuerzung_k04_eur,betrag_aktiv_eur,uebertragen_nach_2028_eur,uebertragen_aus,consolidation_elimination_basis_eur
+TEST-fonds,2027,0102,6,TG71,300,Testfonds,special_fund,S/D,Kernhaushalt,Erstattung,35930,150,False,True,"0101,0102",200,50,150,100,,300
+TEST-fonds,2028,0102,6,TG71,0,Testfonds,special_fund,S/D,Kernhaushalt,Erstattung,35930,100,False,True,"0101,0102",100,0,100,0,2027,0

@@ -1,7 +1,7 @@
 /**
  * PDF-geprüfte Strukturmerkmale amtlicher HTML-Quellen unter Gesetze/ (unveränderliche
  * Verkündungen). Jeder Eintrag beschreibt nur Struktur (Gliederungsebenen, Zitate, Tabellen,
- * Listenhierarchie), keine Wortlaute; tests/norm-html-parser.test.mjs prüft sie gegen den Parser.
+ * Listenhierarchie), keine Wortlaute; tests/corpus/norm-html-structure.test.mjs prüft sie gegen den Parser.
  *
  * Schlüssel: outerArticles/outerParagraphs (äußere Gliederung), introducedLastStructures und
  * introducedAbbreviations (eingeführte Stammnormen), quotedStructure/quotedLabel/quotedArticle mit

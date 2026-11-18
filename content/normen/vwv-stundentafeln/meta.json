@@ -40,16 +40,38 @@
       "sha256": "041623078af24baf092782aa259fb47eef30de89f01251b40bf2d84f77a58f21",
       "lawId": "17744",
       "sourceValidFrom": "2024-08-02",
-      "sourceValidTo": "2026-07-31"
+      "sourceValidTo": "2026-07-31",
+      "fsnNumber": "710-V18.6"
     },
     {
       "kind": "amendment-source",
-      "label": "StAnzO. 2026 Nr. 12",
+      "label": "StAnzO. 2026 Nr. 14, VwV Stundentafeln POS, Ziffer V",
       "availability": "versioned",
-      "localSource": "Gesetze/StAnzO. 2026 Nr. 12.html"
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 14.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "StAnzO. 2026 Nr. 14",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 14.html"
     }
   ],
   "affectedByNorms": [
-    "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf"
+    "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf",
+    "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "vwv-stundentafeln-ziffer-iii-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-18",
+      "issue": "Ziffer V Satz 2 der VwV Stundentafeln POS (StAnzO. 2026 Nr. 14 S. 3) setzt die Ziffern III, V, VI und VII der VwV Stundentafeln am 1. August 2026 außer Kraft; am selben Tag fasst die Änderungsverwaltungsvorschrift (StAnzO. 2026 Nr. 14 S. 7, Ziffer I Nummer 4) die Ziffer III neu.",
+      "publishedText": "Gleichzeitig treten die Ziffern III, V, VI und VII der VwV Stundentafeln vom 20. Juni 2018 (MBl. SMK S. 347), die zuletzt durch die Verwaltungsvorschrift vom 9. Juli 2024 (MBl. SMK S. 78) geändert worden ist, außer Kraft. – 4. Ziffer III wird wie folgt gefasst: „III. Ethik sowie Religions- und Weltanschauungsunterricht …“",
+      "resolvedApplication": "Zuerst tritt der bisherige Inhalt der Ziffern III, V, VI und VII (Stundentafeln der bisherigen Schularten) außer Kraft, danach wird die Änderungsverwaltungsvorschrift angewandt. Ab 1. August 2026 gilt die neu gefasste Ziffer III; die Ziffern V bis VII sind aufgehoben.",
+      "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+      "evidence": [
+        "Gesetze/StAnzO. 2026 Nr. 14.pdf"
+      ]
+    }
   ]
 }

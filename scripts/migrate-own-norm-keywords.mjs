@@ -13,6 +13,13 @@
  * scripts/lib/norm-title-rules.mjs — wer entfernt, muss dasselbe Muster treffen, das erzeugt wurde,
  * sonst verschwinden redaktionelle Begriffe mit.
  *
+ * Ebenso entfernt werden die Spuren früherer Erzeuger, die `generatedKeywordProblem` aus
+ * scripts/lib/norm-title-rules.mjs erkennt: Bruchstücke der Kennung („ministerprasidenten“),
+ * Funktionswörter und Zahlen aus dem Titel („über“), Bruchstücke von Wortverbindungen
+ * („Weidetierund“), im Text nicht belegte Initialenfolgen des Titels und Themenwörter des früheren
+ * Erzeugers ohne Bezug im Titel oder Normtext der Vorschrift. Belegt ist nur, was in der
+ * Vorschrift selbst steht; dafür werden alle gespeicherten Fassungen gelesen.
+ *
  * Vorschriften mit REVOSax-Provenienz (`sourceReferences[].lawId`) bleiben unberührt: dort ist das
  * Schlagwort die amtliche Bezeichnung der Trefferliste, die im Langtitel in Klammern wiederkehrt.
  *
@@ -32,7 +39,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { keywordCore, titleWords } from './lib/norm-title-rules.mjs';
+import { generatedKeywordProblem, keywordCore, normBodyText, titleWords } from './lib/norm-title-rules.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const NORMS_DIR = join(ROOT, 'content/normen');
@@ -41,6 +48,21 @@ const NORMS_DIR = join(ROOT, 'content/normen');
 function hasRevosaxProvenance(meta) {
   return (meta.sourceReferences ?? [])
     .some((reference) => typeof reference?.lawId === 'string' && reference.lawId);
+}
+
+/** Titel und Normkörper aller gespeicherten Fassungen: der Text, in dem ein Schlagwort belegt sein muss. */
+function normSourceText(slug) {
+  const directory = join(NORMS_DIR, slug, 'versions');
+  let files = [];
+  try {
+    files = readdirSync(directory).filter((name) => name.endsWith('.json')).sort();
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+  return files.map((name) => {
+    const version = JSON.parse(readFileSync(join(directory, name), 'utf8'));
+    return `${version.title ?? ''} ${normBodyText(version.body ?? [])}`;
+  }).join(' ');
 }
 
 function main() {
@@ -66,9 +88,11 @@ function main() {
     // Verglichen wird die randbereinigte Form: „Abendgymnasien-“ ist derselbe Titelbestandteil wie
     // „Abendgymnasien“, nur mit dem Bindestrich einer aufgetrennten Wortverbindung. Ein Wert mit
     // Bindestrich am Rand ist nie eine Bezeichnung, unter der jemand sucht.
+    const sourceText = normSourceText(slug);
     const after = before.filter((value) => !names.has(value)
       && !words.has(keywordCore(value))
-      && !/^-|-$/u.test(value));
+      && !/^-|-$/u.test(value)
+      && generatedKeywordProblem(value, meta, sourceText) === null);
     stats.kept += after.length;
     if (after.length === before.length) continue;
 
@@ -81,7 +105,7 @@ function main() {
 
   console.log(`Normen: ${stats.norms}, davon eigener Bestand: ${stats.own}`);
   console.log(`geänderte Dateien: ${stats.changed}${write ? '' : ' (Probelauf, nichts geschrieben)'}`);
-  console.log(`entfernte Titelbestandteile: ${stats.removed}, verbleibende Schlagwörter: ${stats.kept}`);
+  console.log(`entfernte Titelbestandteile und Erzeugerspuren: ${stats.removed}, verbleibende Schlagwörter: ${stats.kept}`);
   console.log(`danach ohne Schlagwort: ${stats.withoutKeyword}`);
 }
 

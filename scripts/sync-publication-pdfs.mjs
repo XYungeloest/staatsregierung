@@ -5,6 +5,7 @@ import { basename, dirname, join, resolve } from 'node:path';
 
 import {
   HISTORICAL_PUBLICATION_PAGE_RANGE_MAP,
+  hasPublicationTranscription,
   pageRangeForPublication,
   pdfPageCount,
   preserveVerifiedAt,
@@ -22,6 +23,9 @@ const publicationRoot = resolve(ROOT, 'content/verkuendungen');
 const normRoot = resolve(ROOT, 'content/normen');
 const sourceRoot = resolve(ROOT, 'Gesetze');
 const publicRoot = resolve(ROOT, 'public/assets/recht');
+// Neu verknüpfte Quellen gelten zum redaktionellen Stichtag als geprüft; ein bereits
+// dokumentiertes Prüfdatum bleibt unverändert (preserveVerifiedAt).
+const { referenceDate } = JSON.parse(await readFile(resolve(ROOT, 'packages/shared/src/config/editorial.json'), 'utf8'));
 
 async function writeJson(path, value) {
   await mkdir(dirname(path), { recursive: true });
@@ -108,14 +112,16 @@ for (const fileName of publicationFiles.filter((name) => name.endsWith('.json'))
     .find((reference) =>
       ['structured-html-transcription', 'primary-pdf'].includes(reference.kind) &&
       reference.verifiedAt
-    )?.verifiedAt;
+    )?.verifiedAt ?? referenceDate;
+  const soleSource = !hasPublicationTranscription(publication.sourceReferences, htmlFileName);
   const modernReferences = preserveVerifiedAt(publicationSourceReferences({
     htmlFileName,
     htmlBytes,
     pdfFileName: resolved.fileName,
     pdfBytes,
     pageRange,
-    ...(verifiedAt ? { verifiedAt } : {}),
+    verifiedAt,
+    soleSource,
   }), publication.sourceReferences);
   const updated = {
     ...publicationWithCorrectedEntries,
@@ -151,7 +157,8 @@ for (const fileName of publicationFiles.filter((name) => name.endsWith('.json'))
           pdfFileName: resolved.fileName,
           pdfBytes,
           pageRange: entryRange,
-          ...(verifiedAt ? { verifiedAt } : {}),
+          verifiedAt,
+          soleSource,
         }), meta.sourceReferences);
         await writeJson(metaPath, {
           ...meta,

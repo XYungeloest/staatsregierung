@@ -589,6 +589,80 @@ export function normOfType(type: NormType, overrides: Record<string, unknown> = 
   });
 }
 
+const ENACTING_CITATION = 'Gesetz vom 10. Juni 2026 (OGVBl. 2026 Nr. 30 S. 2)';
+
+/** Stammgesetz, das ein Artikel des Einführungsgesetzes einführt. */
+function enactedTestLaw(slug: string, title: string, shortTitle: string, abbr: string, meta: Record<string, unknown> = {}): NormRecord {
+  return norm({
+    slug,
+    meta: {
+      title, shortTitle, abbr, type: 'gesetz', status: 'in-force', subjects: ['Verfassungsrecht'], initialCitation: ENACTING_CITATION,
+      summary: `Eingeführtes Testgesetz (${abbr}).`, enactingBody: 'Landtag des Freistaates Ostdeutschland', documentDate: '2026-06-10', effectiveDate: '2026-06-11', ...meta,
+    },
+    history: { initialVersionId: '2026-06-11', entries: [{ date: '2026-06-11', type: 'initial', title: 'Erlass', citation: ENACTING_CITATION, affectingVersionId: '2026-06-11' }] },
+    versions: [{ versionId: '2026-06-11', validFrom: '2026-06-11', validTo: null, isCurrent: true, citation: ENACTING_CITATION, changeNote: 'Stammfassung.', body: [paragraph('§ 1', 'Zweck', `Zweck des ${shortTitle}.`)] }],
+  });
+}
+
+/**
+ * Einführungsgesetz mit den drei Formen eines Einführungsartikels (REVOSax-Darstellung als Verweis
+ * auf den Stammeintrag): Artikel 1 mit Einleitungssatz und Zitatkopf, Artikel 2 mit dem Gesetzestitel
+ * als Artikeltitel, Artikel 3 mit dem Gesetzestitel als Einleitungszeile vor dem Zitat; dazu ein
+ * Änderungsartikel mit Änderungsbefehl und Zitat, eine Neufassung eines nicht eingeführten Gesetzes
+ * und das Inkrafttreten. Die Bezüge stehen wie im Bestand teils am Einführungsgesetz
+ * (`enactedNorms`), teils an der Stammnorm (`enactingNorm`). Nicht Teil von buildFixtureNorms():
+ * das D1-Testfixture (data/recht/runtime-fixture.json) bleibt unverändert.
+ */
+export function buildEnactingActFixture(): NormRecord[] {
+  const quotedLaw = (head: string | undefined, prefix: string): NormBodyBlock => ({
+    type: 'quotedProvision',
+    children: [
+      ...(head ? [{ type: 'paragraphText' as const, text: head }] : []),
+      { type: 'section', label: 'Abschnitt 1', title: 'Allgemeines', children: [paragraph('§ 1', 'Zweck', `${prefix} regelt den Testzweck.`), paragraph('§ 2', 'Begriffe', `${prefix} bestimmt Testbegriffe.`)] },
+      paragraph('§ 3', 'Inkrafttreten', `${prefix} gilt ab Verkündung.`),
+    ],
+  });
+  return [
+    norm({
+      slug: 'testeinfuehrungsgesetz',
+      meta: {
+        title: 'Gesetz zur Neuordnung des Testwesens', shortTitle: 'Testneuordnungsgesetz', abbr: 'TestNOG', type: 'aenderungsvorschrift', status: 'one-time-act',
+        subjects: ['Verfassungsrecht'], initialCitation: ENACTING_CITATION, summary: 'Führt drei Testgesetze ein und ändert das Testgesetz.',
+        enactingBody: 'Landtag des Freistaates Ostdeutschland', documentDate: '2026-06-10', publicationDate: '2026-06-10', effectiveDate: '2026-06-11',
+        enactedNorms: ['testpruefgesetz', 'testregistergesetz'],
+      },
+      history: { initialVersionId: '2026-06-10', entries: [{ date: '2026-06-10', type: 'initial', title: 'Verkündung', citation: ENACTING_CITATION, affectingVersionId: '2026-06-10' }] },
+      versions: [{
+        versionId: '2026-06-10', validFrom: '2026-06-10', validTo: null, isCurrent: true, citation: ENACTING_CITATION, changeNote: 'Verkündete Fassung.',
+        body: [
+          { type: 'paragraphText', text: 'Der Landtag hat das folgende Gesetz beschlossen:' },
+          { type: 'article', label: 'Artikel 1', title: 'Einführung eines Testprüfgesetzes', children: [
+            { type: 'paragraphText', text: 'Das nachstehende wird Gesetz:' },
+            quotedLaw('Gesetz über die Prüfung von Testvorhaben (Testprüfgesetz – TestPrG)', 'Das Testprüfgesetz'),
+          ] },
+          { type: 'article', label: 'Artikel 2', title: 'Gesetz über das Testregister (Testregistergesetz – TestRegG)', children: [quotedLaw(undefined, 'Das Testregistergesetz')] },
+          { type: 'article', label: 'Artikel 3', title: 'Einführung eines Testaufsichtsgesetzes', children: [
+            { type: 'paragraphText', text: 'Gesetz über die Aufsicht über Testvorhaben (Testaufsichtsgesetz – TestAufsG)' },
+            quotedLaw(undefined, 'Das Testaufsichtsgesetz'),
+          ] },
+          { type: 'article', label: 'Artikel 4', title: 'Änderung des Testgesetzes', children: [
+            { type: 'paragraphText', text: 'Das Testgesetz wird wie folgt geändert:' },
+            { type: 'item', label: '1.', text: 'Nach § 2a wird folgender § 2b eingefügt:', children: [{ type: 'quotedProvision', children: [paragraph('§ 2b', 'Testprüfung', 'Testvorhaben werden nach dem Testprüfgesetz geprüft.')] }] },
+          ] },
+          { type: 'article', label: 'Artikel 5', title: 'Neufassung der Testordnung', children: [
+            { type: 'paragraphText', text: 'Die Testordnung wird wie folgt neu gefasst:' },
+            quotedLaw('Testordnung (TestO)', 'Die Testordnung'),
+          ] },
+          { type: 'article', label: 'Artikel 6', title: 'Inkrafttreten', children: [{ type: 'paragraphText', text: 'Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft.' }] },
+        ],
+      }],
+    }),
+    enactedTestLaw('testpruefgesetz', 'Gesetz über die Prüfung von Testvorhaben', 'Testprüfgesetz', 'TestPrG'),
+    enactedTestLaw('testregistergesetz', 'Gesetz über das Testregister', 'Testregistergesetz', 'TestRegG'),
+    enactedTestLaw('testaufsichtsgesetz', 'Gesetz über die Aufsicht über Testvorhaben', 'Testaufsichtsgesetz', 'TestAufsG', { enactingNorm: 'testeinfuehrungsgesetz' }),
+  ];
+}
+
 /**
  * Portalgrundlagen des Fixtures (Themen und Pressemitteilungen mit Normbezügen), aus denen der Seed
  * die Staatsportal-Bezüge in law_norm_derived ableitet; die Adressen bildet der Seed über

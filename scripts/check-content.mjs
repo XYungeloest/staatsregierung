@@ -1,10 +1,14 @@
 import { access, readdir, readFile, stat } from 'node:fs/promises';
 import {
   abbreviationProblem,
+  generatedKeywordProblem,
   isAbbreviationLikeLabel,
   isDerivedSummary,
+  isOwnTitleQuotingSummary,
+  isPlaceholderSummary,
   isTitleFormulaSummary,
   keywordCore,
+  normBodyText,
   titleWords,
   UNVERIFIED_GENERATED_ABBREVIATIONS as unverifiedGeneratedAbbreviations,
 } from './lib/norm-title-rules.mjs';
@@ -14,10 +18,14 @@ import { createHash } from 'node:crypto';
 import { promisify } from 'node:util';
 
 import { hasSpacedLetters } from './lib/norm-html-parser.mjs';
+import { normStatusProblems } from './lib/norm-status-rules.mjs';
 import {
   citationLabelMatchesNormType,
   isCompatiblePublicationEntryType,
+  PUBLICATION_ENTRY_TYPES,
 } from './lib/publication-entry-types.mjs';
+import { hasPublicationTranscription } from './lib/publication-pdf.mjs';
+import { entrySharesIssueSource, publicationEntryPageProblems } from './lib/publication-entry-fields.mjs';
 
 const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
@@ -68,6 +76,7 @@ const allowedNormMinistries = new Set([
   'Staatsministerium für Umwelt, Energie und Klimaschutz',
   'Staatsministerium für Völkerfreundschaft und Nachbarschaftspolitik',
   'Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität',
+  'Staatsministerium für Grenzschutz, Faschismusbekämpfung und für die bewaffneten Organe',
   'Staatssekretariat des Innern und für Wohnungswirtschaft',
   'Staatssekretariat der Finanzen',
   'Staatssekretariat für Wirtschaft und Arbeit',
@@ -912,9 +921,20 @@ for (const { file, json } of records) {
           }
           if (typeof source.verifiedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source.verifiedAt)) {
             addProblem(file, `${sourcePath}.verifiedAt muss als ISO-Datum dokumentiert sein`);
+          } else if (source.verifiedAt < json.date || source.verifiedAt > referenceDate) {
+            addProblem(file, `${sourcePath}.verifiedAt ${source.verifiedAt} liegt nicht zwischen Ausgabedatum ${json.date} und Stichtag ${referenceDate}`);
           }
           if (!['structure-bearing', 'visual-control'].includes(source.sourceRole)) {
             addProblem(file, `${sourcePath}.sourceRole muss structure-bearing oder visual-control sein`);
+          }
+          if (source.kind === 'primary-pdf') {
+            const transcribed = hasPublicationTranscription(json.sourceReferences);
+            if (source.sourceRole === 'visual-control' && !transcribed) {
+              addProblem(file, `${sourcePath}: visual-control setzt eine Transkription derselben Ausgabe voraus; ein einziges PDF ist structure-bearing`);
+            }
+            if (source.sourceRole === 'structure-bearing' && transcribed) {
+              addProblem(file, `${sourcePath}: ein PDF ist neben einer Transkription nur visual-control`);
+            }
           }
           if (source.kind === 'primary-pdf' && (!Number.isInteger(source.pageCount) || source.pageCount < 1)) {
             addProblem(file, `${sourcePath}.pageCount muss die Seitenzahl des PDFs enthalten`);
@@ -964,6 +984,10 @@ for (const { file, json } of records) {
       if (requiredKinds.size > 0) addProblem(file, `GMBl.-Ausgabe enthält nicht alle drei Quellenrollen: ${[...requiredKinds].join(', ')}`);
     }
 
+    // Den Seitenbereich der ganzen Ausgabe trägt nur die Mantelvorschrift; eingeführte
+    // Stammnormen erhalten nur einen eigens belegten Bereich ihres Artikels.
+    for (const problem of publicationEntryPageProblems(json.entries)) addProblem(file, problem);
+
     const entryIds = new Set();
     const startPageOwners = new Map();
     for (const [index, entry] of (json.entries ?? []).entries()) {
@@ -988,6 +1012,8 @@ for (const { file, json } of records) {
 
       if (typeof entry.type !== 'string' || entry.type.trim().length === 0) {
         addProblem(file, `${entryPath}.type fehlt oder ist leer`);
+      } else if (!PUBLICATION_ENTRY_TYPES.includes(entry.type)) {
+        addProblem(file, `${entryPath}.type „${entry.type}“ ist keine zulässige Eintragsart (${PUBLICATION_ENTRY_TYPES.join(', ')})`);
       }
 
       if (entry.startPage && entry.pages) {
@@ -1143,18 +1169,7 @@ for (const { file, json } of normMetaRecords) {
   if (json.publicationDate && !json.documentDate && !json.dateNote) {
     addProblem(file, 'publicationDate ist gesetzt, aber documentDate oder eine begründete dateNote fehlt');
   }
-  if (json.status === 'future-effective' && (!json.effectiveDate || json.effectiveDate <= referenceDate)) {
-    addProblem(file, 'future-effective setzt ein Inkrafttreten nach dem Stichtag voraus');
-  }
-  if (json.status === 'in-force' && json.effectiveDate && json.effectiveDate > referenceDate) {
-    addProblem(file, 'in-force setzt ein Inkrafttreten am oder vor dem Stichtag voraus');
-  }
-  if (json.status === 'pending-effective' && json.effectiveDate) {
-    addProblem(file, 'pending-effective darf kein unbelegtes konkretes Inkrafttretensdatum enthalten');
-  }
-  if (json.status === 'repealed' && (!json.expiryDate || json.expiryDate > referenceDate)) {
-    addProblem(file, 'repealed setzt ein Außerkrafttreten am oder vor dem Stichtag voraus');
-  }
+  for (const problem of normStatusProblems(json, referenceDate)) addProblem(file, problem);
   // Eine befristete Allgemeinverfügung nennt ihr Ende im Titel oder im Wortlaut; das
   // Außerkrafttreten wird als expiryDate geführt (validTo der letzten Fassung prüft die
   // allgemeine Fassungsregel weiter unten).
@@ -1242,6 +1257,25 @@ for (const { file, json: meta } of normMetaRecords) {
   }
   if (meta.summarySource === 'derived' && !formula) {
     addProblem(file, 'summarySource "derived" ohne eine der abgeleiteten Formeln');
+  }
+  // Eine Kurzfassung, die nur den eigenen Titel zitiert („regelt den in „<Titel>“ bezeichneten
+  // Gegenstand“), sagt nichts über den Inhalt; sie ist eine Formel aus Typ und Titel.
+  if (isPlaceholderSummary(summary)) {
+    addProblem(file, 'summary ist eine Platzhalterformel ohne Inhaltsaussage; die Vorschrift braucht eine Kurzbeschreibung aus ihrem Inhalt');
+  }
+  if (summary && !isDerivedSummary(summary) && isOwnTitleQuotingSummary(summary, meta)) {
+    addProblem(file, 'summary zitiert nur den eigenen Titel; die Vorschrift braucht eine Kurzbeschreibung aus ihrem Inhalt');
+  }
+  // Schlagwörter eigener Vorschriften tragen keine Spuren früherer Erzeuger (Slug-Bruchstücke,
+  // Funktionswörter, Wortbruchstücke, unbelegte Initialenfolgen, Themenwörter ohne Bezug im Text).
+  const hasLawIdProvenance = (meta.sourceReferences ?? [])
+    .some((reference) => typeof reference?.lawId === 'string' && reference.lawId);
+  if (!hasLawIdProvenance && Array.isArray(meta.keywords) && meta.keywords.length > 0) {
+    const sourceText = versionRecords.map(({ json }) => `${json.title ?? ''} ${normBodyText(json.body ?? [])}`).join(' ');
+    for (const keyword of meta.keywords) {
+      const problem = typeof keyword === 'string' ? generatedKeywordProblem(keyword, meta, sourceText) : null;
+      if (problem) addProblem(file, `keywords: „${keyword}“ ${problem}`);
+    }
   }
 
   for (const { file: versionFile, json: version } of versionRecords) {
@@ -1349,7 +1383,14 @@ for (const { file, json } of byPrefix('verkuendungen/')) {
   for (const [index, entry] of (json.entries ?? []).entries()) {
     const meta = normMetaBySlug.get(entry.normSlug);
     if (!meta) continue;
-    if (!meta.sourceReferences?.some((source) => source.localSource === structuredSource)) {
+    // Die verknüpfte Fassung kann ihre Quelle selbst tragen, etwa eine gesondert strukturierte
+    // Ursprungsfassung, deren Normdatensatz inzwischen eine spätere Quelle nennt.
+    const linkedVersion = entry.versionId
+      ? byPrefix(`normen/${entry.normSlug}/versions/`).find(({ relativePath, json: version }) =>
+        (version?.versionId ?? basename(relativePath, '.json')) === entry.versionId)?.json
+      : undefined;
+    const normReferences = [...(meta.sourceReferences ?? []), ...(linkedVersion?.sourceReferences ?? [])];
+    if (!entrySharesIssueSource(json.sourceReferences, normReferences)) {
       addProblem(file, `entries[${index}] und Normdatensatz ${entry.normSlug} verweisen nicht auf dieselbe strukturtragende Quelle`);
     }
   }

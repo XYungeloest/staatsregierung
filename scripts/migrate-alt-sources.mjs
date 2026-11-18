@@ -6,6 +6,26 @@ import { dirname, resolve } from 'node:path';
 
 import { parseConsolidatedHtml } from './lib/norm-html-parser.mjs';
 
+/**
+ * Abgeschlossene Einmalmigration der Altquellen (OGVBl. II/2024, OGVBl. I/2025,
+ * Verfassungsquelle). Die erzeugten Datensätze sind seitdem redaktionell weitergepflegt
+ * (Berichtigungen, Aufhebungen, Kurzbezeichnungen, Gliederungen); dieses Skript bildet diesen
+ * Stand nicht nach und überschreibt die Zieldateien vollständig. Es bricht deshalb ab, solange
+ * die Überschreibung nicht ausdrücklich mit `--overwrite-maintained-content` freigegeben ist.
+ */
+const OVERWRITE_FLAG = '--overwrite-maintained-content';
+if (!process.argv.slice(2).includes(OVERWRITE_FLAG)) {
+  console.error(
+    [
+      'norms:alt-sources:migrate ist eine abgeschlossene Einmalmigration und schreibt nichts.',
+      'Ein Lauf würde gepflegte Norm- und Verkündungsdatensätze mit dem Migrationsstand überschreiben',
+      '(u. a. Berichtigungshinweise, Aufhebungseinträge, Kurzbezeichnungen und Gliederungen).',
+      `Nur nach ausdrücklicher Freigabe und anschließendem Abgleich mit \`git diff\`: ${OVERWRITE_FLAG}`,
+    ].join('\n'),
+  );
+  process.exit(1);
+}
+
 const ROOT = process.cwd();
 const VERIFIED_AT = '2026-07-23';
 const CONSTITUTION_SLUG = 'staatsverfassung-des-freistaates-ostdeutschland';
@@ -98,6 +118,10 @@ const sub = (label, text, children = []) => ({
 const paragraph = (label, title, children) => ({ type: 'paragraph', label, title, children });
 const article = (label, title, children) => ({ type: 'article', label, ...(title ? { title } : {}), children });
 const quote = (children) => ({ type: 'quotedProvision', children });
+const signature = (title, text) => ({ type: 'signature', title, text });
+const ii24Signatures = [signature('Die Landtagspräsidentin', 'Frau Julia Murzako'), signature('Der Ministerpräsident', 'Herr Liam Flüsterbein')];
+const i25Signatures = [signature('Der Landtagspräsident', 'Herr Wolfgang Schmidt'), signature('Der Ministerpräsident', 'Herr Liam Flüsterbein')];
+const i25InteriorSignature = signature('Der Staatsminister des Innern & der Justiz', 'Herr Liam Flüsterbein');
 
 async function json(path) {
   return JSON.parse(await readFile(resolve(ROOT, path), 'utf8'));
@@ -488,6 +512,16 @@ const ii24 = {
       normSlug: 'gesetz-zur-einsetzung-einer-neuen-landesverfassung',
       versionId: '2024-10-14',
     },
+    {
+      id: CONSTITUTION_SLUG,
+      title: 'Verfassung des Freistaates Ostdeutschland',
+      type: 'gesetz',
+      citation: 'Verfassung vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5)',
+      startPage: '5',
+      documentDate: '2024-10-15',
+      normSlug: CONSTITUTION_SLUG,
+      versionId: '2024-10-15',
+    },
   ],
   sourceReferences: issueReferences('Gesetze/OGVBl II-24.html', SOURCES.ii24Pdf),
 };
@@ -564,6 +598,16 @@ const i25 = {
       versionId: '2025-03-06',
     },
     {
+      id: DISTRICT_SLUG,
+      title: 'Ostdeutsche Bezirksordnung',
+      type: 'gesetz',
+      citation: 'Gesetz vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–13)',
+      pages: '7-13',
+      documentDate: '2025-03-06',
+      normSlug: DISTRICT_SLUG,
+      versionId: '2025-03-12',
+    },
+    {
       id: 'gesetz-zur-aenderung-der-landesverfassung-2025',
       title: 'Gesetz zur Änderung der Landesverfassung',
       type: 'gesetz',
@@ -624,10 +668,12 @@ await writeSingleVersionNorm({
       ])]),
       item('2.', 'Dem Paragraphen werden die folgenden Absätze 5 und 6 angefügt:', [quote([
         sub('(5)', 'Sollte eine Schule weniger als fünfzig Lehrer in Vollzeit angestellt haben, so finden die Buchstaben 4, 5, 10 und 13 des Absatzes 1 keine Anwendung.'),
-        sub('(6)', 'Die Vorgaben aus Absatz 1 Buchstaben 5, 6, 11, 12 und 13 treten zum Beginn des Schuljahres 2025/2026 in Kraft.'),
+        sub('(6)', 'Die Vorgaben aus Absatz 1 Buchstaben 5, 6 11, 12 und 13 treten zum Beginn des Schuljahres 2025/2026 in Kraft.'),
       ])]),
     ]),
     paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage der Verkündung in Kraft.')]),
+    ...ii24Signatures,
+    signature('Der Staatsminister für Bildung, Forschung & Kultur', 'Herr Tobias Hoffmann'),
   ],
 });
 
@@ -650,6 +696,7 @@ await writeSingleVersionNorm({
     p('Die Ostdeutsche Staatsregierung hat am 23. September 2024 die folgende Verordnung erlassen:'),
     paragraph('§ 1', 'Änderung der Fachbereichszuteilungen', [p('Der Fachbereich „Angelegenheiten der nationalen Minderheit der Sorbinnen und Sorben“ wird der Staatskanzlei zugeordnet.')]),
     paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage der Verkündung in Kraft.')]),
+    ...ii24Signatures,
   ],
 });
 
@@ -674,6 +721,7 @@ await writeSingleVersionNorm({
     p('Die Ostdeutsche Staatsregierung hat am 2. Oktober 2024 die folgende Verordnung erlassen:'),
     paragraph('§ 1', 'Schutz von Mitarbeitern der Staatsregierung', [p('Alle Mitarbeiter der Staatsregierung werden dazu angewiesen aufgrund der imminenten Terrorgefahr gegen staatliche Einrichtungen von Zuhause zu arbeiten.')]),
     paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage der Verkündung in Kraft und mit Ablauf des 06. Oktober 2024 außer Kraft.')]),
+    ...ii24Signatures,
   ],
   sourceNotes: [{
     label: 'Abweichende Datumsangaben',
@@ -702,13 +750,15 @@ await writeSingleVersionNorm({
     responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
   }),
   body: [
-    p('Der Ostdeutsche Landtag hat am 14. Oktober 2024 folgendes Gesetz beschlossen:'),
-    article('Artikel 1', null, [p('Die bisherige Verfassung des Freistaates Ostdeutschland, zuletzt geändert am 11. Juli 2013, wird aufgehoben.')]),
-    article('Artikel 2', null, [
-      p('Der nachstehende Entwurf wird als neue Landesverfassung eingesetzt:'),
-      quote(constitution2024Body),
+    p('Der Ostdeutsche Landtag hat am 14.10.2024 folgendes Gesetz beschlossen'),
+    article('Artikel 1', 'Aussetzung der bisherigen Landesverfassung', [p('Die Verfassung des Ostdeutschen Freistaates, zuletzt geändert am 11. Juli 2013 wird außer Kraft gesetzt.')]),
+    article('Artikel 2', 'Einsetzung einer neuen Landesverfassung', [
+      p('Der dem Gesetz angehängte Entwurf wird als neue Landesverfassung des Ostdeutschen Freistaates eingesetzt.'),
+      quote([p('Verfassung des Ostdeutschen Freistaates'), ...constitution2024Body]),
     ]),
-    article('Artikel 3', null, [p('Das Gesetz tritt am Tage seiner Verkündung in Kraft.')]),
+    article('Artikel 3', 'Inkrafttreten', [p('Das Gesetz tritt am Tage seiner Verkündung in Kraft.')]),
+    ...ii24Signatures,
+    signature('Der Staatsminister des Innern & der Justiz', 'Herr Egon Urlaub'),
   ],
 });
 
@@ -721,7 +771,7 @@ await writeSingleVersionNorm({
     documentDate: '2024-11-08',
     publicationDate: '2025-03-12',
     effectiveDate: '2024-11-08',
-    expiryDate: '2025-01-22',
+    expiryDate: '2025-01-21',
     dateNote: 'Das direkte Original und der aufhebende Organisationserlass vom 22. Januar 2025 belegen den 8. November 2024. Die Angabe 8. Oktober 2024 in der späteren Sammelausgabe wird als Übertragungsfehler behandelt.',
     summary: 'Löst das Umwelt-, Landwirtschafts- und Klimaschutzressort auf, überträgt seine Fachbereiche und benennt das Infrastrukturressort um.',
     subjects: ['Staatliche Organisation'],
@@ -734,6 +784,7 @@ await writeSingleVersionNorm({
     paragraph('§ 1', 'Neueinteilung der Fachbereiche', [p('Das Staatsministerium für Umwelt, Landwirtschaft & Klimaschutz wird aufgelöst. Die Fachbereiche werden dem Staatsministerium Infrastruktur & Verkehr zugeteilt.')]),
     paragraph('§ 2', 'Umbenennung des Staatsministeriums für Infrastruktur & Verkehr', [p('Das Staatsministerium für Infrastruktur & Verkehr wird in Staatsministerium für Infrastruktur, Verkehr & Umweltschutz umbenannt.')]),
     paragraph('§ 3', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage ihrer Verkündung in Kraft.')]),
+    ...i25Signatures,
   ],
   sourceNotes: [{
     label: 'Spätere Aufhebung',
@@ -770,6 +821,7 @@ await writeSingleVersionNorm({
       item('7.', 'Forderungen und Sachen Dritter werden beschlagnahmt und eingezogen, soweit der Berechtigte durch Überlassung der Sachen an die Vereinigung oder einer ihrer Teilorganisationen deren verfassungswidrige Bestreben vorsätzlich gefördert hat oder die Sachen zur Förderung dieser Bestrebungen bestimmt hat.'),
     ]),
     paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Diese Verfügung tritt sofort in Kraft und ist sofort vollziehbar.')]),
+    ...i25Signatures,
   ],
 });
 
@@ -782,7 +834,7 @@ await writeSingleVersionNorm({
     documentDate: '2024-11-20',
     publicationDate: '2025-03-12',
     effectiveDate: '2024-11-21',
-    expiryDate: '2025-01-20',
+    expiryDate: '2025-01-19',
     dateNote: 'Das Dokument trägt das Datum 20. November 2024 und wurde am 21. November 2024 einzeln veröffentlicht. Die spätere Sammelausgabe bleibt als zusätzliche Fundstelle erhalten; eine Verlängerung über den 20. Januar 2025 ist nicht belegt.',
     summary: 'Ordnet Polizeipräsenz und eine Waffenverbotszone an Geflüchtetenunterkünften an und nennt den 20. Januar 2025 als Außerkrafttretensdatum.',
     subjects: ['Sicherheitsrecht und Polizeirecht', 'Aus dem Ausland stammende Personen'],
@@ -803,6 +855,7 @@ await writeSingleVersionNorm({
       item('3.', 'In einem Umkreis von 100 Metern um die gesamte Unterkunft gilt nach § 42 Absatz 5 des Waffengesetzes ein generelles Verbot Waffen zu führen.'),
     ]),
     paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage der Verkündung in Kraft und am 20.01.2025 außer Kraft. Sollte sich die besondere Gefahrenlage über einen längeren oder kürzeren Zeitraum erstrecken als eigentlich durch das Außerkrafttreten geregelt, kann das Staatsministerium diese Dienstanordnung verkürzen oder verlängern.')]),
+    ...i25Signatures,
   ],
 });
 
@@ -835,6 +888,7 @@ await writeSingleVersionNorm({
       item('2.', 'Die genaue Festlegung der Zahlen und Räume obliegt den kommunalen Entscheidungsträgern.'),
     ]),
     paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am 31.12.2024 um 20:00 Uhr in Kraft und am 01.01.2025 um 08:00 Uhr in Kraft.')]),
+    ...i25Signatures,
   ],
 });
 
@@ -855,9 +909,10 @@ await writeSingleVersionNorm({
   }),
   body: [
     p('Die Ostdeutsche Staatsregierung hat am 22. Januar 2025 folgende Verordnung verkündet.'),
-    paragraph('§ 1', 'Aussetzung eines Erlasses', [p('Der Organisationserlass über die Neueinteilung der Fachbereiche von Staatsministerien vom 8. November 2024 wird außer Kraft gesetzt.')]),
+    paragraph('§ 1', 'Aussetzung eines Erlasses', [p('Der Organisationserlass über die Neueinteilung der Fachbereiche von Staatsministerien vom 08. November 2024 wird außer Kraft gesetzt.')]),
     paragraph('§ 2', 'Ausgliederung eines Fachbereiches', [p('Es wird ein neues Staatsministerium der Gesundheit gegründet, der Gesundheitsbereich wird aus dem Staatsministerium für Arbeit, Soziales, Gesellschaft & Gesundheit ausgegliedert, womit dieses künftig den Titel Staatsministerium für Arbeit, Soziales & Gesellschaft trägt.')]),
     paragraph('§ 3', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage der Verkündung in Kraft.')]),
+    ...i25Signatures,
   ],
 });
 
@@ -883,8 +938,8 @@ await writeSingleVersionNorm({
     responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
   }),
   body: [
-    p('Der Ostdeutsche Landtag hat am 6. März 2025 folgendes Gesetz beschlossen:'),
-    article('Artikel 1', null, [quote(district2025Body)]),
+    p('Der Ostdeutsche Landtag hat am 06.03.2025 folgendes Gesetz beschlossen'),
+    article('Artikel 1', 'Bezirksordnung des ostdeutschen Freistaates (Ostdeutsche Bezirksordnung – BzO)', [quote(district2025Body)]),
     article('Artikel 2', 'Änderung der Landkreisordnung des ostdeutschen Freistaates', [
       p('Die Landkreisordnung des Ostdeutschen Freistaates vom 9. März 2018 wird wie folgt geändert:'),
       item('1.', 'Im § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.'),
@@ -902,6 +957,8 @@ await writeSingleVersionNorm({
       item('2.', 'Der § 6 wird in „Bezirke“ umbenannt.'),
     ]),
     article('Artikel 5', 'Inkrafttreten', [p('Das Gesetz tritt am Tage seiner Verkündung in Kraft.')]),
+    ...i25Signatures,
+    i25InteriorSignature,
   ],
 });
 
@@ -922,23 +979,25 @@ await writeSingleVersionNorm({
     responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
   }),
   body: [
-    p('Der Ostdeutsche Landtag hat am 6. März 2025 folgendes Gesetz beschlossen.'),
+    p('Der Ostdeutsche Landtag hat am 06.03.2025 folgendes Gesetz beschlossen'),
     article('Artikel 1', 'Änderung der Verfassung des Ostdeutschen Freistaates', [
       p('Die Verfassung des Ostdeutschen Freistaates vom 15.10.2024, wird wie folgt geändert:'),
       item('1.', 'Der Artikel 114 wird wie folgt geändert:', [
         item('a.', 'Der Artikel wird in „Artikel 114 Demokratiegebot“ umbenannt.'),
         item('b.', 'Der Absatz 1 wird wie folgt neu gefasst:', [quote([
-          sub('(1)', 'Keinerlei Verfassungs- oder Gesetzes- oder Verordnungsänderung oder -einführung darf den Grundgedanken des demokratischen, republikanischen Rechtsstaates und der parlamentarischen Staatsform antasten.'),
+          p('Keinerlei Verfassungs- oder Gesetzes- oder Verordnungsänderung oder -einführung darf den Grundgedanken des demokratischen, republikanischen Rechtsstaates und der parlamentarischen Staatsform antasten.'),
         ])]),
         item('c.', 'Dem Artikel wird ein folgender Absatz 2 angefügt:', [quote([
-          sub('(2)', 'Die Errichtung einer Diktatur, unabhängig der Form, ist verboten.'),
+          p('Die Errichtung einer Diktatur, unabhängig der Form, ist verboten.'),
         ])]),
         item('d.', 'Dem Artikel wird ein folgender Absatz 3 angefügt:', [quote([
-          sub('(3)', 'Den in Absatz 1 und 2 genannten Vorschriften widersprechende Gesetze, Verordnungen und Beschlüsse sind nicht auszuarbeiten, nicht zu verkünden, oder, bei vorausgegangener Verkündung, nicht zu befolgen.'),
+          p('Den in Absatz 1 und 2 genannten Vorschriften widersprechende Gesetze, Verordnungen und Beschlüsse sind nicht auszuarbeiten, nicht zu verkünden, oder, bei vorausgegangener Verkündung, nicht zu befolgen.'),
         ])]),
       ]),
     ]),
     article('Artikel 2', 'Inkrafttreten', [p('Das Gesetz tritt am Tage seiner Verkündung in Kraft.')]),
+    ...i25Signatures,
+    i25InteriorSignature,
   ],
 });
 

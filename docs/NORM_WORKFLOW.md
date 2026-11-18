@@ -31,7 +31,7 @@ einschließlich der Schritte, die `npm run norms:workflow` nicht ausführt (`doc
    geltende REVOSax-Fassung mit `npm run norms:revosax:fetch` sichern und parsen. Die gespeicherte
    HTML-Datei unter `data/recht/sources/revosax/` ist unveränderliche Quellenbeweissicherung.
    Beim Parsen werden ausschließlich die semantischen REVOSax-Anzeigeelemente
-   `<sup class="satzzahl">…</sup>` verworfen; gewöhnliche Hochstellungen und der übrige
+   `<sup class="satzzahl">…</sup>` und `<sup class="satzzahl_manuell">…</sup>` verworfen; gewöhnliche Hochstellungen und der übrige
    Quelltext bleiben erhalten. Nach einer Parseränderung werden alle abgeleiteten Snapshots
    kontrolliert mit `npm run norms:revosax:parse -- --all` neu erzeugt. Eine Folgefassung darf
    nur über ein geprüftes Rezept unter `data/recht/amendments/` entstehen; die daraus abgeleiteten
@@ -90,12 +90,24 @@ Verkündungsquelle das Gültigkeitsende einer so fortgeschriebenen Ausgangsfassu
 (`reconcileVersionIntervals`). Nach einer Änderung an einem solchen Ziel ist
 `data/recht/consolidation-manifest.json` gegenzuprüfen.
 
+Eine nichtamtliche konsolidierte Lesefassung unter `Gesetze/` ist keine Verkündung. Führt
+`data/recht/consolidation-sources.json` eine gespeicherte Fassung als `existingVersionSeed`,
+überschreibt ein Neueinlesen der Lesefassung deren geprüften Normtext nicht
+(`preferReviewedSeedBodies` in `scripts/lib/import-reviewed-versions.mjs`, derzeit für die
+Lesefassung der Staatsverfassung). Der Titel eines Verkündungseintrags folgt der über `versionId`
+verknüpften Fassung; eine spätere Umbenennung der Norm wird nicht in frühere Ausgaben
+zurückgetragen (`publicationEntryTitle`).
+
 Trägt eine amtliche Ausgabe selbst eine Nummerierungslücke (HTML und PDF stimmen überein, etwa
 eine Artikelzählung 1., 3., 4.), lässt der Parser genau diesen
 wörtlich hinterlegten Befund zu: `ACCEPTED_SEQUENCE_ISSUES` in
 `scripts/lib/norm-parser-contract.mjs` nennt je Datei die Befunde und den PDF-Nachweis; jeder
 andere Nummerierungsbefund bleibt ein Abbruchgrund. Die Ausgabe erhält dazu einen
-`sourceNotes`-Hinweis in der Importkonfiguration.
+`sourceNotes`-Hinweis in der Importkonfiguration (`ACCEPTED_FINDING_SOURCE_NOTES` in
+`scripts/import-normen.mjs`, je Datei und Norm); fehlt er, bricht der Import ab.
+Dasselbe gilt für Tabellenzellen, deren Inhalt in der Quelle nur als Abbildung ohne
+Textalternative vorliegt: Der Parser übernimmt einen vorhandenen `alt`-Text, meldet eine Zelle
+ohne Textalternative aber als Befund, statt sie still leer zu speichern.
 
 Nach einer Änderung am HTML- oder Markdown-Parser werden die betroffenen eigenen Verkündungen
 gezielt neu eingelesen:
@@ -117,6 +129,18 @@ erkannt wird, ein notwendiger REVOSax-Snapshot fehlt, ein Patch keinen eindeutig
 Gültigkeitsintervalle überlappen, eine fassungsspezifische Bezeichnung widersprüchlich ist oder
 die Konsolidierung einen Sperrstatus meldet. Vorhandene Fassungsdateien werden nicht nachträglich
 umgeschrieben; jede neue Rechtslage erhält eine neue, unveränderliche Fassung.
+
+Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt (falsche Satz-, Absatz-, Nummern-
+oder Paragraphenangabe, fehlender Einfügungsbefehl, Bezug auf eine erst später geltende Fassung),
+ist kein Sperrgrund: Er wird sinngemäß nach dem erkennbar gemeinten Inhalt angewandt. Das Rezept
+nennt den tatsächlich gemeinten, eindeutigen Zielanker; das Ziel in
+`data/recht/consolidation-sources.json` trägt die Entscheidung als `editorialResolutions`-Eintrag
+(`status: "resolved-source-conflict"`, `decisionDate`, `issue`, `publishedText`,
+`resolvedApplication`, `rationale`, `evidence`), und `CONTENT_GAPS.md` belegt sie unter
+„Rechtskonsolidierung“ mit Fundstelle, wörtlichem Befehl, Abweichung und gewählter Auslegung. Die
+Änderungsvorschrift selbst bleibt wörtlich gespeichert. Ist kein Inhalt eindeutig erkennbar, bleibt
+der Befehl unangewandt und wird ebenso dokumentiert. Ein Sperrstatus (`blockedTargets`) bleibt
+Fällen vorbehalten, in denen keine verlässliche Folgefassung entstehen kann.
 
 ## Redaktionellen Stichtag fortschreiben
 

@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w",
+  "effectiveDate": "2026-01-27",
+  "versionId": "2026-01-27",
+  "amendmentCitation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 5 S. 2)",
+  "resultCitation": "Ostdeutsche Kindertagesbetreuung-Finanzierungsverordnung in der Fassung der Bekanntmachung vom 23. November 2015 (SächsGVBl. S. 695)",
+  "changeNote": "Aufhebung durch Artikel 2 des Gesetzes zur Änderung des Kindertagesbetreuungsgesetzes.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 5, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 5.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "6c73bb7fd1aecf0798c2fdd29b74a78d6d84c694b5cbc0577453eed293c2e0da",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 5.html",
+      "effectiveDate": "2026-01-27"
+    }
+  ],
+  "repealsLaw": true
+}

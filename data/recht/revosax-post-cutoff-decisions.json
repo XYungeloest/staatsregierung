@@ -3,26 +3,6 @@
   "baselineDate": "2023-11-01",
   "note": "Redaktionelle Entscheidungen zu sächsischen Rechtsakten, deren Erlassdatum oder Fassungsbeginn nach dem Rechtsüberleitungsstichtag liegt. „adopted“ nennt die ostdeutsche Änderungsvorschrift, die den späteren Zwischenstand als Ausgangsfassung übernimmt; „discard“ entfernt den Rechtsakt aus der Ausgangsmenge; „open“ hält den Fall begründet offen (CONTENT_GAPS.md).",
   "decisions": {
-    "aend-ostbeamtvg-20120": {
-      "slug": "aend-ostbeamtvg-20120",
-      "revosaxLawId": "20120",
-      "sourceId": "20120",
-      "resolution": "discard",
-      "adoptingNorm": null,
-      "basis": "Mantelvorschrift 20116 gilt erst ab 1. Januar 2024",
-      "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Mantelvorschrift 20116 gilt erst ab 1. Januar 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt.",
-      "decidedAt": "2026-09-06"
-    },
-    "aend-ostbesg-20119": {
-      "slug": "aend-ostbesg-20119",
-      "revosaxLawId": "20119",
-      "sourceId": "20119",
-      "resolution": "discard",
-      "adoptingNorm": null,
-      "basis": "Mantelvorschrift 20116 gilt erst ab 1. Januar 2024",
-      "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Mantelvorschrift 20116 gilt erst ab 1. Januar 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt.",
-      "decidedAt": "2026-09-06"
-    },
     "aend-ostbesg-20826": {
       "slug": "aend-ostbesg-20826",
       "revosaxLawId": "20826",
@@ -73,16 +53,6 @@
       "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Erlassdatum 8. Juli 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt.",
       "decidedAt": "2026-09-06"
     },
-    "aend-saechs-beamtvg": {
-      "slug": "aend-saechs-beamtvg",
-      "revosaxLawId": "20118",
-      "sourceId": "20118",
-      "resolution": "discard",
-      "adoptingNorm": null,
-      "basis": "Mantelvorschrift 20116 gilt erst ab 1. Januar 2024",
-      "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Mantelvorschrift 20116 gilt erst ab 1. Januar 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt.",
-      "decidedAt": "2026-09-06"
-    },
     "aend-zuschussvo-20931": {
       "slug": "aend-zuschussvo-20931",
       "revosaxLawId": "20931",
@@ -129,6 +99,15 @@
       "reason": "Der sächsische Zwischenstand ab 2025-08-01 ist Ausgangsfassung einer ostdeutschen Änderungsvorschrift; die Folgefassung entsteht aus dem geprüften Patch-Rezept der Konsolidierung. Die Quelle bleibt deshalb im Bestand.",
       "decidedAt": "2026-09-06"
     },
+    "ostdeutsches-hochschulgesetz": {
+      "slug": "ostdeutsches-hochschulgesetz",
+      "revosaxLawId": "19986",
+      "resolution": "adopted",
+      "adoptingNorm": "gesetz-zur-anderung-des-hochschulmedizingesetzes",
+      "basis": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 6)",
+      "reason": "Der sächsische Zwischenstand ab 2024-01-01 (Änderung durch Artikel 8 Absatz 9 des Gesetzes vom 6. Juli 2023) ist Ausgangsfassung einer ostdeutschen Änderungsvorschrift; die Folgefassung entsteht aus dem geprüften Patch-Rezept der Konsolidierung. Die Quelle bleibt deshalb im Bestand.",
+      "decidedAt": "2026-11-18"
+    },
     "ostdeutsches-justizgesetz": {
       "slug": "ostdeutsches-justizgesetz",
       "revosaxLawId": "3393",
@@ -138,12 +117,21 @@
       "reason": "Der sächsische Zwischenstand ab 2024-01-01 ist Ausgangsfassung einer ostdeutschen Änderungsvorschrift; die Folgefassung entsteht aus dem geprüften Patch-Rezept der Konsolidierung. Die Quelle bleibt deshalb im Bestand.",
       "decidedAt": "2026-09-06"
     },
+    "ostdeutsches-schulgesetz": {
+      "slug": "ostdeutsches-schulgesetz",
+      "revosaxLawId": "4192",
+      "resolution": "adopted",
+      "adoptingNorm": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
+      "basis": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 27)",
+      "reason": "Der sächsische Zwischenstand ab 2024-01-01 (Änderung durch Artikel 8 Absatz 8 des Gesetzes vom 6. Juli 2023) ist Ausgangsfassung einer ostdeutschen Änderungsvorschrift; die Folgefassung entsteht aus dem geprüften Patch-Rezept der Konsolidierung. Die Quelle bleibt deshalb im Bestand.",
+      "decidedAt": "2026-11-18"
+    },
     "saechsische-bauordnung": {
       "slug": "saechsische-bauordnung",
       "revosaxLawId": "1779",
       "resolution": "adopted",
-      "adoptingNorm": "erstes-gesetz-betreffend-die-bereinigung-ostdeutschen-landesrechts",
-      "basis": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 22)",
+      "adoptingNorm": "gesetz-zur-verbesserung-des-stadtbilds",
+      "basis": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 38)",
       "reason": "Der sächsische Zwischenstand ab 2024-03-19 ist Ausgangsfassung einer ostdeutschen Änderungsvorschrift; die Folgefassung entsteht aus dem geprüften Patch-Rezept der Konsolidierung. Die Quelle bleibt deshalb im Bestand.",
       "decidedAt": "2026-09-06"
     },
@@ -152,9 +140,9 @@
       "revosaxLawId": "2754",
       "resolution": "adopted",
       "adoptingNorm": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo",
-      "basis": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 19)",
-      "reason": "Der sächsische Zwischenstand ab 2023-12-31 ist Ausgangsfassung einer ostdeutschen Änderungsvorschrift; die Folgefassung entsteht aus dem geprüften Patch-Rezept der Konsolidierung. Die Quelle bleibt deshalb im Bestand.",
-      "decidedAt": "2026-09-06"
+      "basis": "Gesetze vom 23. März 2026 (OGVBl. 2026 Nr. 19 und Nr. 26)",
+      "reason": "Die sächsischen Zwischenstände ab 2023-12-31 (Artikel 5 des Gesetzes vom 28. November 2023, bezeichnet in OGVBl. 2026 Nr. 19) und ab 2024-01-01 (Artikel 5 des Gesetzes vom 19. Oktober 2023, bezeichnet in OGVBl. 2026 Nr. 26, gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb) sind Ausgangsfassungen ostdeutscher Änderungsvorschriften; die Folgefassungen entstehen aus den geprüften Patch-Rezepten der Konsolidierung. Die Quellen bleiben deshalb im Bestand.",
+      "decidedAt": "2026-11-18"
     },
     "saechsische-haushaltsordnung": {
       "slug": "saechsische-haushaltsordnung",

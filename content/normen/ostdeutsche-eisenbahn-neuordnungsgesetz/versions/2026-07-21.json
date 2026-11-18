@@ -5,6 +5,12 @@
   "isCurrent": true,
   "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 47 S. 2)",
   "changeNote": "Verkündete Fassung.",
+  "sourceNotes": [
+    {
+      "label": "Nummerierung in der Originalquelle",
+      "text": "Artikel 4 zählt die Änderungen des Ostdeutschen Personennahverkehrsgesetzes im amtlichen Blatt (S. 38–42) mit 1., 2., 3. und erneut 3.; die Änderung zu § 7 trägt dieselbe Nummer wie die vorangehende Änderung. Die Zählung bleibt unverändert."
+    }
+  ],
   "body": [
     {
       "type": "paragraphText",
@@ -3998,10 +4004,28 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraph",
-                  "label": "§ 4b",
-                  "title": "Ostdeutsche Eisenbahn § 4c Landesnetz Ost § 4d Systemintegration kommunaler und öffentlicher Verkehrsunternehmen § 4e Öffentlicher Fahrzeug- und Infrastrukturpool § 4f Direktvergabe und interne Betreiber § 4g Daten-, Vertriebs- und Qualitätsstandards“",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "„§ 4b Ostdeutsche Eisenbahn"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "§ 4c Landesnetz Ost"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "§ 4d Systemintegration kommunaler und öffentlicher Verkehrsunternehmen"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "§ 4e Öffentlicher Fahrzeug- und Infrastrukturpool"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "§ 4f Direktvergabe und interne Betreiber"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "§ 4g Daten-, Vertriebs- und Qualitätsstandards“"
                 }
               ]
             }
@@ -4387,7 +4411,7 @@
         },
         {
           "type": "item",
-          "label": "4.",
+          "label": "3.",
           "text": "§ 7 wird wie folgt geändert:",
           "level": 0,
           "listId": "h7kedfaj6rvo",
@@ -4405,8 +4429,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(8) Der Freistaat kann Mittel zur Kapitalausstattung der Ostdeutschen Eisenbahn, zur Finanzierung des öffentlichen Fahrzeug- und Infrastrukturpools, zur Finanzierung von Direktvergaben, zur Systemintegration und zur Erfüllung von Entschädigungsverpflichtungen bereitstellen.“"
+                      "type": "subparagraph",
+                      "label": "„(8)",
+                      "text": "Der Freistaat kann Mittel zur Kapitalausstattung der Ostdeutschen Eisenbahn, zur Finanzierung des öffentlichen Fahrzeug- und Infrastrukturpools, zur Finanzierung von Direktvergaben, zur Systemintegration und zur Erfüllung von Entschädigungsverpflichtungen bereitstellen.“",
+                      "children": []
                     }
                   ]
                 }

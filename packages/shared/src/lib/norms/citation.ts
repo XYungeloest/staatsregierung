@@ -66,18 +66,47 @@ function primaryCitationForNorm(norm: NormRecord): string {
   return normalizeGenericDocumentLead(norm, stripChangeClause(norm.meta.initialCitation));
 }
 
+/** „vom 13. November 2026 (OGVBl. 2026 Nr. 9)“ ohne Seitenangabe als Vergleichsschlüssel. */
+function publicationKey(value: string | undefined): string | undefined {
+  const reference = value ? latestDatedReference(toDisplayText(value)) : undefined;
+  return reference
+    ?.replace(/,?\s+S\.\s*[\d\s,–-]+(?=\))/u, '')
+    .replace(/\s+/gu, ' ')
+    .trim();
+}
+
+function changeClausePublicationKey(citation: string): string | undefined {
+  const marker = citation.search(CHANGE_CLAUSE);
+  return marker >= 0 ? publicationKey(citation.slice(marker)) : undefined;
+}
+
+/**
+ * Letzte Änderung, die die Fassung nachweislich enthält. Nennt das gespeicherte Zitat der Fassung
+ * die Fundstelle der letzten Änderung, gilt die Historie mit genau dieser Fundstelle; sie kann
+ * eine frühere Fassung betroffen haben, wenn sie später verkündet, aber früher wirksam wurde.
+ * Ohne passende Fundstelle bleibt es beim jüngsten Historieneintrag der Fassung.
+ */
 function latestAmendmentForVersion(
   norm: NormRecord,
   version: NormVersion,
+  recordsBySlug: NormRecordLookup,
 ): NormHistoryEntry | undefined {
-  return norm.history.entries
-    .filter((entry) =>
-      entry.type === 'amendment'
-      && entry.affectingVersionId === version.versionId
-      && entry.relatedNorm,
-    )
-    .toSorted((left, right) => left.date.localeCompare(right.date))
-    .at(-1);
+  const amendments = norm.history.entries
+    .filter((entry) => entry.type === 'amendment' && entry.relatedNorm)
+    .toSorted((left, right) => left.date.localeCompare(right.date));
+  const own = amendments.filter((entry) => entry.affectingVersionId === version.versionId);
+  const citedKey = changeClausePublicationKey(toDisplayText(version.citation));
+  if (citedKey) {
+    const cited = amendments.filter((entry) => {
+      if (entry.date > version.validFrom && entry.affectingVersionId !== version.versionId) return false;
+      const amendment = entry.relatedNorm ? recordsBySlug.get(entry.relatedNorm) : undefined;
+      return publicationKey(entry.citation) === citedKey
+        || (amendment !== undefined && publicationKey(amendment.meta.initialCitation) === citedKey);
+    });
+    const match = cited.filter((entry) => own.includes(entry)).at(-1) ?? cited.at(-1);
+    if (match) return match;
+  }
+  return own.at(-1);
 }
 
 function splitCitationTitle(value: string): { title: string; dateAndSource: string } | undefined {
@@ -168,7 +197,7 @@ export function buildNormFullCitation(
   version: NormVersion,
   recordsBySlug: NormRecordLookup = new Map(),
 ): string {
-  const amendmentEntry = latestAmendmentForVersion(norm, version);
+  const amendmentEntry = latestAmendmentForVersion(norm, version, recordsBySlug);
   const amendment = amendmentEntry?.relatedNorm
     ? recordsBySlug.get(amendmentEntry.relatedNorm)
     : undefined;

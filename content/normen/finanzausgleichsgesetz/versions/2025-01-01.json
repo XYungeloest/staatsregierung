@@ -3,7 +3,7 @@
   "title": "Gesetz über den Finanzausgleich mit den Gemeinden und Landkreisen im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Finanzausgleichsgesetz",
   "validFrom": "2025-01-01",
-  "validTo": "2026-07-20",
+  "validTo": "2026-07-31",
   "isCurrent": false,
   "citation": "Ostdeutsches Finanzausgleichsgesetz in der Fassung der Bekanntmachung vom 23. April 2021 (SächsGVBl. S. 487), das zuletzt durch Artikel 2 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 296) geändert worden ist",
   "changeNote": "Vom ostdeutschen Änderungsbefehl ausdrücklich bezeichnete Ausgangsfassung des übernommenen Rechts.",
@@ -616,6 +616,7 @@
                 },
                 {
                   "type": "table",
+                  "title": "Schülerzahlen",
                   "columns": 4,
                   "children": [
                     {
@@ -1011,6 +1012,7 @@
                 },
                 {
                   "type": "table",
+                  "title": "frühkindliche Bildung",
                   "columns": 3,
                   "children": [
                     {
@@ -1293,6 +1295,7 @@
                 },
                 {
                   "type": "table",
+                  "title": "Nivellierungshebesätze",
                   "columns": 3,
                   "children": [
                     {
@@ -1630,7 +1633,7 @@
             {
               "type": "item",
               "label": "1.",
-              "text": "den kreisangehörigen Gemeinden, Kreisfreien Städten und Landkreisen für die Straßenbaulasten (§§ 18 bis 20). 2Die dafür erforderliche Ausgleichsmasse berechnet sich aus den Zuweisungsbeträgen nach § 18 Absatz 3, § 19 Absatz 3 und § 20 Absatz 2,",
+              "text": "den kreisangehörigen Gemeinden, Kreisfreien Städten und Landkreisen für die Straßenbaulasten (§§ 18 bis 20). Die dafür erforderliche Ausgleichsmasse berechnet sich aus den Zuweisungsbeträgen nach § 18 Absatz 3, § 19 Absatz 3 und § 20 Absatz 2,",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []
@@ -2876,10 +2879,11 @@
     {
       "type": "annex",
       "label": "Anlage 1",
-      "title": "Übersicht über die Prozentsätze (Gewichtungsfaktoren) nach Einwohnern der kreisangehörigen Gemeinden",
+      "title": "Übersicht über die Prozentsätze (Gewichtungsfaktoren) nach Einwohnerinnen und Einwohnern der kreisangehörigen Gemeinden",
       "children": [
         {
           "type": "table",
+          "title": "Anlage 1",
           "columns": 3,
           "children": [
             {

@@ -113,8 +113,13 @@ export function publicationSourceReferences({
   pdfBytes,
   pageRange,
   verifiedAt = PDF_AUDIT_VERIFIED_AT,
+  // Liegt weder eine HTML- noch eine andere Transkription derselben Ausgabe vor, ist das PDF
+  // die einzige amtliche Quelle: Es trägt die Angaben des Datensatzes selbst und kontrolliert
+  // keine abgeleitete Fassung.
+  soleSource = false,
 }) {
   const htmlSource = htmlFileName ? `Gesetze/${htmlFileName}` : null;
+  if (soleSource && htmlSource) throw new Error(`${pdfFileName}: einzige Quelle trotz HTML-Fassung ${htmlFileName}`);
   const references = [];
   if (htmlSource && htmlBytes) {
     references.push({
@@ -132,7 +137,7 @@ export function publicationSourceReferences({
   if (pdfFileName && pdfBytes) {
     references.push({
       kind: 'primary-pdf',
-      label: 'Amtliche visuelle Veröffentlichungsfassung',
+      label: soleSource ? 'Amtliche Veröffentlichungsfassung' : 'Amtliche visuelle Veröffentlichungsfassung',
       availability: 'versioned',
       localSource: `Gesetze/${pdfFileName}`,
       sha256: sha256(pdfBytes),
@@ -140,11 +145,23 @@ export function publicationSourceReferences({
       pageCount: pdfPageCount(pdfBytes),
       ...(pageRange ? { pageRange } : {}),
       verifiedAt,
-      sourceRole: 'visual-control',
+      sourceRole: soleSource ? 'structure-bearing' : 'visual-control',
       ...(htmlSource ? { derivedSource: htmlSource } : {}),
     });
   }
   return references;
+}
+
+const TRANSCRIPTION_KINDS = new Set([
+  'structured-html-transcription',
+  'legacy-markdown-transcription',
+  'supplementary-markdown-transcription',
+  'structured-docx-source',
+]);
+
+/** Führt die Ausgabe neben dem PDF eine Transkription? Sonst ist das PDF die einzige Quelle. */
+export function hasPublicationTranscription(references = [], htmlFileName = null) {
+  return Boolean(htmlFileName) || (references ?? []).some((reference) => TRANSCRIPTION_KINDS.has(reference?.kind));
 }
 
 // Prüfdaten dürfen bei einer Neuableitung nie hinter einen bereits dokumentierten

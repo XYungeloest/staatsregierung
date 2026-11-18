@@ -505,6 +505,132 @@
           "nettoentlastung": 2150309271
         }
       }
+    },
+    {
+      "id": "P02",
+      "bezeichnung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99)",
+      "bedingung": "Gesetze vom 13.11.2026 (OGVBl. 2026 Nr. 85–99) in Kraft; Hauptfall K-03",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 85–99; Korrekturvorlage K-03",
+      "status": "Simulationsannahme (S), politische Festlegung vom 16.11.2026 (P)",
+      "jahre": {
+        "2027": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 52248095,
+          "nettoentlastung": -52248095
+        },
+        "2028": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 119283826,
+          "nettoentlastung": -119283826
+        },
+        "2029": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 130547408,
+          "nettoentlastung": -130547408
+        },
+        "2030": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 101102254,
+          "nettoentlastung": -101102254
+        },
+        "2031": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 90049259,
+          "nettoentlastung": -90049259
+        },
+        "2032": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 92112402,
+          "nettoentlastung": -92112402
+        },
+        "2033": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 96941269,
+          "nettoentlastung": -96941269
+        },
+        "2034": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 99151840,
+          "nettoentlastung": -99151840
+        },
+        "2035": {
+          "einnahmen": 0,
+          "einsparungen": 0,
+          "kosten": 98121125,
+          "nettoentlastung": -98121125
+        }
+      }
+    },
+    {
+      "id": "P03",
+      "bezeichnung": "Endfassung Regierungsentwurf: Versorgungspauschale, freie Restansätze, Entnahmen nach Bedarf (K-04)",
+      "bedingung": "§ 4 VersFOG (Pauschale ab 01.01.2027); Aufhebung OstGFG im RFNG; Einvernehmen Volkskammer (EP 01); Entnahmen nur nach Bedarf",
+      "rechtsgrundlage": "VersFOG §§ 4, 6 (OGVBl. 2026 Nr. 82); RFNG-E; LHO §§ 28, 29; Korrekturvorlage K-04",
+      "status": "Ableitung (D) und Simulationsannahmen (S), politische Festlegung vom 16.11.2026 (P)",
+      "jahre": {
+        "2027": {
+          "einnahmen": -1280317220,
+          "einsparungen": 52706455,
+          "kosten": 588124233,
+          "nettoentlastung": -1815734998
+        },
+        "2028": {
+          "einnahmen": 108603407,
+          "einsparungen": 52756123,
+          "kosten": 2209497677,
+          "nettoentlastung": -2048138147
+        },
+        "2029": {
+          "einnahmen": -586304864,
+          "einsparungen": 0,
+          "kosten": 2181755236,
+          "nettoentlastung": -2768060100
+        },
+        "2030": {
+          "einnahmen": -574109723,
+          "einsparungen": 0,
+          "kosten": 2148468628,
+          "nettoentlastung": -2722578351
+        },
+        "2031": {
+          "einnahmen": -562168240,
+          "einsparungen": 0,
+          "kosten": 2118940282,
+          "nettoentlastung": -2681108522
+        },
+        "2032": {
+          "einnahmen": -550475141,
+          "einsparungen": 0,
+          "kosten": 2094061387,
+          "nettoentlastung": -2644536528
+        },
+        "2033": {
+          "einnahmen": -539025258,
+          "einsparungen": 0,
+          "kosten": 2056159821,
+          "nettoentlastung": -2595185079
+        },
+        "2034": {
+          "einnahmen": -527813533,
+          "einsparungen": 0,
+          "kosten": 2017564499,
+          "nettoentlastung": -2545378032
+        },
+        "2035": {
+          "einnahmen": -516835011,
+          "einsparungen": 0,
+          "kosten": 1988251816,
+          "nettoentlastung": -2505086827
+        }
+      }
     }
   ],
   "kreditfinanzierungsplan": [
@@ -611,16 +737,18 @@
   "finanzplan": [
     {
       "jahr": 2027,
-      "einnahmen": 140900866242,
-      "ausgaben": 139032883149,
-      "haushaltsvolumen": 140900866242,
+      "einnahmen": 139620549022,
+      "ausgaben": 139620549022,
+      "haushaltsvolumen": 139620549022,
       "ungedeckt": 0,
       "zinsen": 3170260314,
       "ruecklage_ende": 1000000000,
-      "liquiditaet_ende": 1867983093,
+      "liquiditaet_ende": 0,
       "schuldenstand": 149954077700,
       "status": "Haushaltsjahr",
       "personalreform_netto": 1896740250,
+      "sicherheitsreform_netto": -52248095,
+      "endfassung_netto": -1815734998,
       "haushaltsvolumen_baseline": 141139043496,
       "liquiditaet_ende_baseline": 0,
       "ruecklage_ende_baseline": 1000000000,
@@ -628,16 +756,18 @@
     },
     {
       "jahr": 2028,
-      "einnahmen": 140040550384,
-      "ausgaben": 137873128411,
-      "haushaltsvolumen": 140040550384,
+      "einnahmen": 140149153791,
+      "ausgaben": 140149153791,
+      "haushaltsvolumen": 140149153791,
       "ungedeckt": 0,
       "zinsen": 3442950653,
       "ruecklage_ende": 1000000000,
-      "liquiditaet_ende": 4035405066,
+      "liquiditaet_ende": 0,
       "schuldenstand": 149498477700,
       "status": "Haushaltsjahr",
       "personalreform_netto": 1855280621,
+      "sicherheitsreform_netto": -119283826,
+      "endfassung_netto": -2048138147,
       "haushaltsvolumen_baseline": 140254332224,
       "liquiditaet_ende_baseline": 311191306,
       "ruecklage_ende_baseline": 1000000000,
@@ -645,16 +775,18 @@
     },
     {
       "jahr": 2029,
-      "einnahmen": 146768815856,
-      "ausgaben": 145873102097,
-      "haushaltsvolumen": 145873102097,
+      "einnahmen": 146182510992,
+      "ausgaben": 146182510992,
+      "haushaltsvolumen": 146182510992,
       "ungedeckt": 0,
       "zinsen": 3428143653,
-      "ruecklage_ende": 6039046889,
-      "liquiditaet_ende": 4931118825,
+      "ruecklage_ende": 4036153140,
+      "liquiditaet_ende": 0,
       "schuldenstand": 149042877700,
       "status": "Finanzplanung (Projektion)",
       "personalreform_netto": 1861365454,
+      "sicherheitsreform_netto": -130547408,
+      "endfassung_netto": -2768060100,
       "haushaltsvolumen_baseline": 146994420360,
       "liquiditaet_ende_baseline": 311191306,
       "ruecklage_ende_baseline": 5072445148,
@@ -662,16 +794,18 @@
     },
     {
       "jahr": 2030,
-      "einnahmen": 155109967358,
-      "ausgaben": 143951617599,
-      "haushaltsvolumen": 143951617599,
+      "einnahmen": 154535857635,
+      "ausgaben": 148204082230,
+      "haushaltsvolumen": 148204082230,
       "ungedeckt": 0,
       "zinsen": 3413336653,
       "ruecklage_ende": 6039046889,
-      "liquiditaet_ende": 16089468584,
+      "liquiditaet_ende": 6331775405,
       "schuldenstand": 148587277700,
       "status": "Finanzplanung (Projektion)",
       "personalreform_netto": 1867172572,
+      "sicherheitsreform_netto": -101102254,
+      "endfassung_netto": -2722578351,
       "haushaltsvolumen_baseline": 147023497465,
       "liquiditaet_ende_baseline": 8634816706,
       "ruecklage_ende_baseline": 6039046889,
@@ -679,16 +813,18 @@
     },
     {
       "jahr": 2031,
-      "einnahmen": 163586463536,
-      "ausgaben": 147097919587,
-      "haushaltsvolumen": 147097919587,
+      "einnahmen": 163024295296,
+      "ausgaben": 149306909128,
+      "haushaltsvolumen": 149306909128,
       "ungedeckt": 0,
       "zinsen": 3398529653,
       "ruecklage_ende": 6039046889,
-      "liquiditaet_ende": 32578012533,
+      "liquiditaet_ende": 20049161573,
       "schuldenstand": 148131677700,
       "status": "Finanzplanung (Projektion)",
       "personalreform_netto": 1922482039,
+      "sicherheitsreform_netto": -90049259,
+      "endfassung_netto": -2681108522,
       "haushaltsvolumen_baseline": 149272183138,
       "liquiditaet_ende_baseline": 23199928570,
       "ruecklage_ende_baseline": 6039046889,
@@ -696,16 +832,18 @@
     },
     {
       "jahr": 2032,
-      "einnahmen": 171890935627,
-      "ausgaben": 151111158165,
-      "haushaltsvolumen": 151111158165,
+      "einnahmen": 171340460486,
+      "ausgaben": 153297331954,
+      "haushaltsvolumen": 153297331954,
       "ungedeckt": 0,
       "zinsen": 3227109703,
       "ruecklage_ende": 6039046889,
-      "liquiditaet_ende": 53357789995,
+      "liquiditaet_ende": 38092290105,
       "schuldenstand": 147676077700,
       "status": "Finanzplanung (Projektion)",
       "personalreform_netto": 1983041766,
+      "sicherheitsreform_netto": -92112402,
+      "endfassung_netto": -2644536528,
       "haushaltsvolumen_baseline": 153357272343,
       "liquiditaet_ende_baseline": 41995714220,
       "ruecklage_ende_baseline": 6039046889,
@@ -713,16 +851,18 @@
     },
     {
       "jahr": 2033,
-      "einnahmen": 180746052610,
-      "ausgaben": 155264033697,
-      "haushaltsvolumen": 155264033697,
+      "einnahmen": 180207027352,
+      "ausgaben": 157417134787,
+      "haushaltsvolumen": 157417134787,
       "ungedeckt": 0,
       "zinsen": 3055689753,
       "ruecklage_ende": 6039046889,
-      "liquiditaet_ende": 78839808908,
+      "liquiditaet_ende": 60882182670,
       "schuldenstand": 147220477700,
       "status": "Finanzplanung (Projektion)",
       "personalreform_netto": 2029947490,
+      "sicherheitsreform_netto": -96941269,
+      "endfassung_netto": -2595185079,
       "haushaltsvolumen_baseline": 157567005470,
       "liquiditaet_ende_baseline": 65446835597,
       "ruecklage_ende_baseline": 6039046889,
@@ -730,16 +870,18 @@
     },
     {
       "jahr": 2034,
-      "einnahmen": 190178498830,
-      "ausgaben": 159529113424,
-      "haushaltsvolumen": 159529113424,
+      "einnahmen": 189650685297,
+      "ausgaben": 161645829763,
+      "haushaltsvolumen": 161645829763,
       "ungedeckt": 0,
       "zinsen": 2884269803,
       "ruecklage_ende": 6039046889,
-      "liquiditaet_ende": 109489194314,
+      "liquiditaet_ende": 88887038204,
       "schuldenstand": 146764877700,
       "status": "Finanzplanung (Projektion)",
       "personalreform_netto": 2091332201,
+      "sicherheitsreform_netto": -99151840,
+      "endfassung_netto": -2545378032,
       "haushaltsvolumen_baseline": 161904974835,
       "liquiditaet_ende_baseline": 94003938756,
       "ruecklage_ende_baseline": 6039046889,
@@ -747,16 +889,18 @@
     },
     {
       "jahr": 2035,
-      "einnahmen": 200221844324,
-      "ausgaben": 163928791241,
-      "haushaltsvolumen": 163928791241,
+      "einnahmen": 199705009313,
+      "ausgaben": 166015164182,
+      "haushaltsvolumen": 166015164182,
       "ungedeckt": 0,
       "zinsen": 2712849853,
       "ruecklage_ende": 6039046889,
-      "liquiditaet_ende": 145782247397,
+      "liquiditaet_ende": 122576883335,
       "schuldenstand": 146309277700,
       "status": "Finanzplanung (Projektion)",
       "personalreform_netto": 2150309271,
+      "sicherheitsreform_netto": -98121125,
+      "endfassung_netto": -2505086827,
       "haushaltsvolumen_baseline": 166374884495,
       "liquiditaet_ende_baseline": 128145732522,
       "ruecklage_ende_baseline": 6039046889,
@@ -776,6 +920,7 @@
         "2028": 504402500
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 328000000,
         "2030": 336200000,
         "2031": 344605000
@@ -795,6 +940,7 @@
         "2028": 567452812
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 369000000,
         "2030": 378225000,
         "2031": 387680625
@@ -814,6 +960,7 @@
         "2028": 312099047
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 202950000,
         "2030": 208023750,
         "2031": 213224344
@@ -833,6 +980,7 @@
         "2028": 94575469
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 61500000,
         "2030": 63037500,
         "2031": 64613438
@@ -852,6 +1000,7 @@
         "2028": 56745281
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 36900000,
         "2030": 37822500,
         "2031": 38768062
@@ -871,6 +1020,7 @@
         "2028": 245896219
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 159900000,
         "2030": 163897500,
         "2031": 167994938
@@ -890,6 +1040,7 @@
         "2028": 165507070
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 107625000,
         "2030": 110315625,
         "2031": 113073516
@@ -909,6 +1060,7 @@
         "2028": 358319610
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 238879740,
         "2030": 238879740,
         "2031": 238879740
@@ -928,6 +1080,7 @@
         "2028": 14186320
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 9225000,
         "2030": 9455625,
         "2031": 9692016
@@ -947,12 +1100,233 @@
         "2028": 47287734
       },
       "faelligkeiten": {
+        "2028": 0,
         "2029": 30750000,
         "2030": 31518750,
         "2031": 32306719
       },
       "herkunft": "S",
       "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Barrierefreier oder gleichwertiger Zugang der Reviere und Posten",
+      "kapitel": "2093",
+      "titel": "71202",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Einzelbaumaßnahmen je Standort (VOB/A, Lose je Bezirkspolizeidirektion) in Jahrestranchen; ein Drittel je Tranche im Folgejahr (Schlussrechnung); Tranche 2027: Zuschläge bis 30.09.2027; Tranche 2028: bis 30.09.2028; Rest ab 2029 (Haushalt 2029/2030)",
+      "ve": {
+        "2027": 2000000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 2000000,
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Barrierefreier oder gleichwertiger Zugang der Reviere und Posten",
+      "kapitel": "2093",
+      "titel": "71202",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Einzelbaumaßnahmen je Standort (VOB/A, Lose je Bezirkspolizeidirektion) in Jahrestranchen; ein Drittel je Tranche im Folgejahr (Schlussrechnung); Tranche 2027: Zuschläge bis 30.09.2027; Tranche 2028: bis 30.09.2028; Rest ab 2029 (Haushalt 2029/2030)",
+      "ve": {
+        "2027": 0,
+        "2028": 2000000
+      },
+      "faelligkeiten": {
+        "2028": 0,
+        "2029": 2000000,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Geschützte Anzeigenräume",
+      "kapitel": "2093",
+      "titel": "71202",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Kleine Umbauten je Revier (VOB/A-Einzelaufträge) in zwei Jahrestranchen; letzte Tranche im Zuschlagsjahr fertiggestellt und bezahlt; Tranche 2027: Zuschläge bis 30.06.2027; Tranche 2028: bis 31.03.2028",
+      "ve": {
+        "2027": 1875000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 1875000,
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Einheitliches Vorgangsbearbeitungssystem: Migration der sechs Vorgängersysteme, Parallelbetrieb, Lizenzen",
+      "kapitel": "1313",
+      "titel": "81280",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Ein Systemvertrag (Lizenzen, Migration der sechs Vorgängersysteme, Parallelbetrieb) mit Festpreis-Meilensteinen; volle Bindung mit Zuschlag; Vergabeverfahren ab Dezember 2026 unter Haushaltsvorbehalt; Zuschlag spätestens 31.03.2027 (einheitliches VBS ab 01.01.2027, § 4 Abs. 1 PolDigG)",
+      "ve": {
+        "2027": 31500000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 20250000,
+        "2029": 11250000,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Einheitliches Einsatzleitsystem mit Ortung und Leitstellenvernetzung",
+      "kapitel": "1313",
+      "titel": "81280",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Ein Liefer- und Einführungsvertrag (Kernsystem, Lizenzen, Ortung, Leitstellenvernetzung); volle Bindung mit Zuschlag; Zuschlag spätestens 31.03.2027 (§ 6 Abs. 1 PolDigG ab 01.01.2027)",
+      "ve": {
+        "2027": 20000000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 12500000,
+        "2029": 7500000,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Elektronische Ermittlungsakte und Justizanbindung",
+      "kapitel": "1313",
+      "titel": "81280",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Ein Erstellungs- und Einführungsvertrag (Ermittlungsakte, Justizanbindung) mit Abnahme bis 30.09.2028; Zuschlag spätestens 30.06.2027 (rd. 18 Monate bis zur Pflicht ab 01.01.2029, § 15 Abs. 1 PolDigG)",
+      "ve": {
+        "2027": 14000000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 14000000,
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Zwei-Faktor-Zugang und Identitätsmanagement für rd. 72.500 Beschäftigte",
+      "kapitel": "1313",
+      "titel": "81280",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Plattform als Einzelvertrag mit Abnahmerate 25 % im Folgejahr; Token über Rahmenvereinbarung ohne Mindestabnahme (Abrufe 2027 und 2028); Plattform und Rahmenvereinbarung: Zuschlag bis 30.06.2027; letzter Abruf bis 30.06.2028",
+      "ve": {
+        "2027": 750000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 750000,
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Anpassung oder Ablösung der Bestandssysteme: Vollprotokollierung, Prüf- und Löschautomatik, ISMS, EU-RZ (VP und KGP); zugleich Protokollierungsbasis für § 8 OstSZG",
+      "kapitel": "1313",
+      "titel": "81280",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Änderungs- und Anpassungsaufträge je Bestandssystem in zwei Wellen; Welle 2027 mit Abnahmerate 25 % in 2028, Welle 2028 im Zuschlagsjahr abgenommen; Welle 2027: Zuschläge bis 30.09.2027; Welle 2028: bis 31.03.2028 (Frist 31.12.2028, § 15 Abs. 3 PolDigG)",
+      "ve": {
+        "2027": 2000000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 2000000,
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Gemeinsamer Lageraum mit getrennter LfS-Einheit, VS-IT (einmalig; Plattform für GLAZ-Projektdateien nach § 5 OstSZG mitgenutzt)",
+      "kapitel": "1311",
+      "titel": "81273",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Ein Liefer- und Installationsvertrag Lageraum und VS-IT (zugelassene Produkte); Zuschlag spätestens 31.03.2027; Übergangsbetrieb in vorhandenen LKA-Räumen",
+      "ve": {
+        "2027": 1400000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 1400000,
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Land als Betreiber: Resilienzmaßnahmen (Objektschutz, Notstrom, Zuverlässigkeitsprüfung, Schulung)",
+      "kapitel": "1301",
+      "titel": "81272",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Einzelaufträge je landeseigener Anlage nach Resilienzplan in Jahrestranchen; ein Drittel je Tranche im Folgejahr; Tranche 2027: Zuschläge ab Vorlage der Resilienzpläne (30.06.2027) bis 30.11.2027; Tranche 2028: bis 30.09.2028",
+      "ve": {
+        "2027": 600000,
+        "2028": 0
+      },
+      "faelligkeiten": {
+        "2028": 600000,
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "",
+      "bezeichnung": "Land als Betreiber: Resilienzmaßnahmen (Objektschutz, Notstrom, Zuverlässigkeitsprüfung, Schulung)",
+      "kapitel": "1301",
+      "titel": "81272",
+      "quote": 1,
+      "begruendung": "Vollzug der Sicherheitsreform (OGVBl. 2026 Nr. 85–99): Einzelaufträge je landeseigener Anlage nach Resilienzplan in Jahrestranchen; ein Drittel je Tranche im Folgejahr; Tranche 2027: Zuschläge ab Vorlage der Resilienzpläne (30.06.2027) bis 30.11.2027; Tranche 2028: bis 30.09.2028",
+      "ve": {
+        "2027": 0,
+        "2028": 900000
+      },
+      "faelligkeiten": {
+        "2028": 0,
+        "2029": 900000,
+        "2030": 0,
+        "2031": 0
+      },
+      "herkunft": "S",
+      "hinweis": "§ 38 Abs. 1 LHO: Bindung im Haushaltsjahr der VE, Zahlungen in späteren Jahren einschließlich 2028; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
     }
   ]
 }

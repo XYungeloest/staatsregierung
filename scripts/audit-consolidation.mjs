@@ -397,7 +397,9 @@ async function main() {
     const source = config.targets[target.canonicalSlug] ?? {};
     const historicalNonConsolidatable = source.historicalNonConsolidatable === true;
     const blocked = config.blockedTargets[target.canonicalSlug];
-    const stem = existingStemFor(target, norms, { allowAmendmentStem: Boolean(source.existingVersionSeed) });
+    // Ein Ziel mit eigener Ausgangsquelle (Snapshot oder versionierte Fassung) ist unter seinem
+    // kanonischen Slug die Stammnorm, auch wenn es selbst ein Einführungs- oder Änderungsgesetz ist.
+    const stem = existingStemFor(target, norms, { allowAmendmentStem: Boolean(source.existingVersionSeed || source.snapshot) });
     const enactingActs = stem?.meta.enactingNorm
       ? target.amendmentActs.filter((act) => act.slug === stem.meta.enactingNorm)
       : target.amendmentActs.filter((act) =>

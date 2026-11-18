@@ -209,6 +209,9 @@ lawA11yTest('Der geöffnete Verlauf einer Einheit ist zugänglich', async ({ pag
   await expect(details).toHaveCount(1);
   await details.locator('summary').click();
   await expect(details.locator('.norm-unit__history-list li').first()).toBeVisible();
+  // Geprüft wird die geöffnete Einheit, nicht die zufällige Scrollposition nach dem Klick: liegt
+  // ihre Werkzeugzeile unter dem fixierten Kopf, meldet axe sie sonst als verdeckt.
+  await details.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
   await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
   expect(results.violations).toEqual([]);

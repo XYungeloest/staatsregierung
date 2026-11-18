@@ -12,6 +12,7 @@ import {
 } from '@ostrecht/shared/lib/norms/schema.ts';
 import { validateVersionIntervals } from '@ostrecht/shared/lib/norms/versions.ts';
 
+import { resolveSunsetDates } from './lib/consolidation-engine.mjs';
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
 import {
   BASELINE_DATE,
@@ -131,22 +132,26 @@ function checkSummary(summary, context) {
  * Befristung aus data/recht/revosax-sunset-decisions.json anwenden (resolution sunset-applies):
  * das Außerkrafttreten steht im übernommenen Text und gilt in Ostdeutschland fort. Modelliert
  * als expiryDate, validTo der Ausgangsfassung, Status (repealed, sobald das Datum verstrichen
- * ist; sonst in-force mit künftigem Ende) und Historieneintrag mit dem wörtlichen Beleg.
+ * ist; sonst in-force mit künftigem Ende) und Historieneintrag mit dem wörtlichen Beleg. Die Daten
+ * folgen der Außerkrafttretensregel (resolveSunsetDates): „tritt am <Datum> außer Kraft“ steht als
+ * ceasesOn mit dem Vortag als expiryDate, „mit Ablauf des <Datum>“ als expiryDate; der
+ * Historieneintrag steht am ersten Tag, an dem die Norm nicht mehr gilt.
  */
 export function applySunsetDecision({ meta, history, version }, sunset, { citation }) {
   if (!sunset || sunset.resolution !== 'sunset-applies') return { meta, history, version };
   if (!/^\d{4}-\d{2}-\d{2}$/u.test(sunset.expiryDate ?? '')) throw new Error(`${meta.slug}: Befristungsentscheidung ohne gültiges expiryDate`);
   if (!['repealed', 'in-force'].includes(sunset.status)) throw new Error(`${meta.slug}: Befristungsentscheidung mit unzulässigem Status ${sunset.status}`);
   if (sunset.expiryDate < version.validFrom) throw new Error(`${meta.slug}: Befristung ${sunset.expiryDate} liegt vor dem Beginn der Ausgangsfassung`);
+  const { expiryDate, historyDate } = resolveSunsetDates(sunset, `${meta.slug}: Befristungsentscheidung`);
   const repealed = sunset.status === 'repealed';
   return {
-    meta: { ...meta, status: sunset.status, expiryDate: sunset.expiryDate },
+    meta: { ...meta, status: sunset.status, expiryDate },
     history: {
       ...history,
       entries: [
         ...history.entries,
         {
-          date: sunset.expiryDate,
+          date: historyDate,
           type: 'repeal',
           title: repealed
             ? 'Außer Kraft getreten durch Befristung im übernommenen Text.'
@@ -157,7 +162,7 @@ export function applySunsetDecision({ meta, history, version }, sunset, { citati
         },
       ],
     },
-    version: { ...version, validTo: sunset.expiryDate, isCurrent: !repealed },
+    version: { ...version, validTo: expiryDate, isCurrent: !repealed },
   };
 }
 

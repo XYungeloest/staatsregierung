@@ -23,6 +23,9 @@ const ROMAN_OUTLINE_RANK = 2.75;
 // Überschriften ohne Gliederungskennzeichen gelten als eigenständige Abschnitte auf Dokumentebene.
 const GENERIC_SECTION_RANK = 2.5;
 const SATZZAHL_MARKER = '\uE000';
+// REVOSax kennzeichnet Satznummern als <sup class="satzzahl">, in Absätzen mit
+// data-satzzahl="manuell" als <sup class="satzzahl_manuell">; beide sind reine Anzeigeelemente.
+const SATZZAHL_CLASSES = ['satzzahl', 'satzzahl_manuell'];
 const STRUCTURE_RANK = {
   part: 1,
   chapter: 2,
@@ -46,6 +49,10 @@ function attributes(node) {
 
 function hasClass(node, className) {
   return (attributes(node).class ?? '').split(/\s+/u).includes(className);
+}
+
+function isSentenceNumber(node) {
+  return node.tagName === 'sup' && SATZZAHL_CLASSES.some((className) => hasClass(node, className));
 }
 
 function elementChildren(node, tagName) {
@@ -106,7 +113,7 @@ function nodeText(node, { breaks = false, skipFootnoteLinks = true } = {}) {
   if (node.tagName === 'br') return breaks ? '\n' : ' ';
   const nodeAttributes = attributes(node);
   if (skipFootnoteLinks && node.tagName === 'a' && FOOTNOTE_LINK.test(nodeAttributes.href ?? '')) return '';
-  if (node.tagName === 'sup' && hasClass(node, 'satzzahl')) {
+  if (isSentenceNumber(node)) {
     return SATZZAHL_MARKER;
   }
   return (node.childNodes ?? [])
@@ -132,8 +139,53 @@ function directHeading(section) {
   return elementChildren(section).find((child) => /^h[1-6]$/u.test(child.tagName));
 }
 
+// Das title-Attribut einer REVOSax-Einheit ist ein Metadatum: Es kann veraltet sein (z. B.
+// „§ 30 Übergangsregelungen“ über einem aufgehobenen Paragrafen), vertauschte Wörter oder
+// maskierte Zeilenumbrüche („&lt;br&gt;“) enthalten. Es bestimmt weiterhin Art und Kennzeichen
+// der Einheit; ihre Überschrift folgt aber der sichtbaren amtlichen Überschrift, sobald diese
+// dasselbe Kennzeichen trägt und einen eigenen Titel nennt. Nennt die Kopfzeile nur Kennzeichen
+// und Bezug (Anlagen), gilt die folgende sichtbare Überschriftenzeile. Zeilenumbrüche zählen als
+// Leerzeichen.
+function titleAttribute(section) {
+  const value = attributes(section).title;
+  return value === undefined ? undefined : value.replace(/<br\s*\/?>/giu, ' ');
+}
+
+function comparableLabel(value) {
+  return String(value ?? '').replace(/\s+/gu, ' ').trim();
+}
+
+// Kennzeichen ohne angehängten Bezug: „Anlage 1 (zu § 7 Absatz 3)“ und „Anlage 1“ bezeichnen
+// dieselbe Einheit.
+function labelWithoutReference(value) {
+  return comparableLabel(value).replace(/\s*\([^()]*\)$/u, '');
+}
+
+// Nennt die sichtbare Kopfzeile nur Kennzeichen und Bezug („Anlage 1<br>(zu § 7 Absatz 3)“),
+// steht die Überschrift in der unmittelbar folgenden Überschriftenzeile (REVOSax: <h5>).
+function followingHeadingTitle(section, heading) {
+  const children = elementChildren(section);
+  const next = children[children.indexOf(heading) + 1];
+  if (!next || !/^h[1-6]$/u.test(next.tagName)) return undefined;
+  const title = textOf(next);
+  return title && !parseStructureMarker(title) ? title : undefined;
+}
+
 function markerFromSection(section) {
-  const source = attributes(section).title ?? textOf(directHeading(section), { breaks: true });
+  const marker = markerFromSource(titleAttribute(section) ?? textOf(directHeading(section), { breaks: true }));
+  const heading = directHeading(section);
+  if (!marker?.label || !heading) return marker;
+  const visible = parseStructureMarker(textOf(heading));
+  if (!visible || visible.type !== marker.type) return marker;
+  if (visible.title) {
+    return comparableLabel(visible.label) === comparableLabel(marker.label) ? { ...marker, title: visible.title } : marker;
+  }
+  if (labelWithoutReference(visible.label) !== labelWithoutReference(marker.label)) return marker;
+  const title = followingHeadingTitle(section, heading);
+  return title ? { ...marker, title } : marker;
+}
+
+function markerFromSource(source) {
   const parsed = parseStructureMarker(source);
   if (parsed) {
     return /^[IVXLCDM]+\.$/u.test(parsed.label ?? '') && parsed.type === 'section'
@@ -236,7 +288,11 @@ function parseTable(table) {
       });
     }
   }
-  return { type: 'table', columns: width, children: rows };
+  // Die Tabellenbeschriftung (<caption>) ist die Bezeichnung der Tabelle; sie wird als Tabellentitel
+  // übernommen, nicht als Zeile oder Fließtext. Das gilt für Tabellen im Abschnitt wie im Listeneintrag.
+  const caption = elementChildren(table, 'caption')[0];
+  const title = caption ? textOf(caption) : '';
+  return { type: 'table', ...(title ? { title } : {}), columns: width, children: rows };
 }
 
 function definitionLevel(node) {
@@ -255,6 +311,21 @@ function definitionNumberingStyle(label) {
   if (/^(?:[ivxlcdm]+\.?|\([ivxlcdm]+\))$/u.test(label)) return 'lower-roman';
   if (/^(?:[IVXLCDM]+\.?|\([IVXLCDM]+\))$/u.test(label)) return 'upper-roman';
   return 'decimal';
+}
+
+// Tabellen innerhalb eines Listeneintrags (z. B. eine angefügte Tarifstelle in einem
+// Änderungsbefehl) bleiben als eigener Tabellenblock erhalten, statt als Fließtext in den
+// Eintrag zu laufen. Der Text des Eintrags wird ohne die Tabelle gelesen.
+function withoutTables(node) {
+  if (!node?.childNodes) return node;
+  return {
+    ...node,
+    childNodes: node.childNodes.filter((child) => child.tagName !== 'table').map(withoutTables),
+  };
+}
+
+function nestedTables(node) {
+  return (node?.childNodes ?? []).flatMap((child) => (child.tagName === 'table' ? [child] : nestedTables(child)));
 }
 
 function parseDefinitionList(list) {
@@ -287,29 +358,33 @@ function parseDefinitionList(list) {
     return item;
   };
 
-  const finishRow = (text) => {
+  const finishRow = (text, tables = []) => {
     if (pendingMarkers.length > 0) {
+      let item = null;
       for (const [index, marker] of pendingMarkers.entries()) {
-        appendItem(marker, index === pendingMarkers.length - 1 ? text : '');
+        item = appendItem(marker, index === pendingMarkers.length - 1 ? text : '');
       }
-    } else if (text) {
+      item.children.push(...tables);
+    } else if (text || tables.length > 0) {
       const continuationParent = rowMaxLevel >= 0 ? anchors[rowMaxLevel] : null;
-      if (continuationParent) continuationParent.children.push({ type: 'paragraphText', text });
-      else result.push({ type: 'paragraphText', text });
+      const blocks = [...(text ? [{ type: 'paragraphText', text }] : []), ...tables];
+      if (continuationParent) continuationParent.children.push(...blocks);
+      else result.push(...blocks);
     }
     pendingMarkers = [];
     rowMaxLevel = -1;
   };
 
   for (const node of children) {
-    const text = textOf(node, { breaks: true });
+    const tables = node.tagName === 'dd' ? nestedTables(node).map(parseTable) : [];
+    const text = textOf(tables.length > 0 ? withoutTables(node) : node, { breaks: true });
     if (hasClass(node, 'last')) {
-      finishRow(text);
+      finishRow(text, tables);
       continue;
     }
     const level = definitionLevel(node);
     if (level === null) {
-      if (text) finishRow(text);
+      if (text || tables.length > 0) finishRow(text, tables);
       continue;
     }
     rowMaxLevel = Math.max(rowMaxLevel, level);
@@ -449,7 +524,7 @@ function parseSections(container, notes = [], { hoistTextBearingWrappers = false
     let marker = markerFromSection(section);
     if (!marker) {
       const sectionTitle = normalizeText(
-        attributes(section).title ?? textOf(directHeading(section), { breaks: true }),
+        titleAttribute(section) ?? textOf(directHeading(section), { breaks: true }),
       ).replace(/\n+/gu, ' ');
       // REVOSax stellt Bekanntmachungs- und Identitätsblöcke im selben Container
       // wie den Normkörper bereit. Sie gehören zur unveränderten Rohquelle und
@@ -497,8 +572,10 @@ function parseSections(container, notes = [], { hoistTextBearingWrappers = false
  * amtliche Sachgebietszuordnung; ältere Fassungsseiten führen den Kasten ohne sie.
  */
 function parseFsnNumber(document) {
+  // Kastenüberschrift: im älteren Layout <h3>, seit der Styleguide-Umstellung <div class="box-header">.
   const box = findElement(document, (node) => hasClass(node, 'box')
-    && elementChildren(node, 'h3').some((heading) => textOf(heading) === 'Fundstelle und systematische Gliederungsnummer'));
+    && elementChildren(node).some((heading) => (heading.tagName === 'h3' || hasClass(heading, 'box-header'))
+      && textOf(heading) === 'Fundstelle und systematische Gliederungsnummer'));
   if (!box) return null;
   const match = textOf(box, { breaks: true }).match(/Fsn-Nr\.:\s*(\S+)/u);
   return match ? match[1] : null;
@@ -529,7 +606,9 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
   } catch (error) {
     throw new RevosaxParseError(`HTML5-Parserfehler: ${error.message}`);
   }
-  const content = findElement(document, (node) => attributes(node).id === 'content');
+  // Älteres Layout: <div id="content">; seit der Styleguide-Umstellung <main id="main-content">.
+  const content = findElement(document, (node) => attributes(node).id === 'content')
+    ?? findElement(document, (node) => node.tagName === 'main' && attributes(node).id === 'main-content');
   const lawShow = content && findElement(content, (node) => hasClass(node, 'law_show'));
   const article = lawShow && findElement(lawShow, (node) => node.tagName === 'article' && attributes(node).id === 'lesetext');
   if (!lawShow || !article) throw new RevosaxParseError('amtlicher REVOSax-Lesetext #lesetext fehlt');
@@ -559,7 +638,9 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
   const validityDates = [...stateText.matchAll(DATE_DOTTED_GLOBAL)].map((match) =>
     parseFlexibleDate(match[0]),
   );
-  const quickbar = findElement(document, (node) => attributes(node).id === 'quickbar');
+  // Gültigkeitsangaben: älteres Layout #quickbar, neueres Layout rechte Seitenleiste.
+  const quickbar = findElement(document, (node) => attributes(node).id === 'quickbar')
+    ?? findElement(document, (node) => attributes(node).id === 'main-sidebar-right');
   const quickbarText = textOf(quickbar);
   const validFrom = parseGermanDate(quickbarText.match(/Fassung gültig ab:\s*.{0,80}?\d{4}/iu)?.[0])
     ?? validityDates[0]

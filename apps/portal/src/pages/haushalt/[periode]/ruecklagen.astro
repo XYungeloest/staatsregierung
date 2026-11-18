@@ -30,6 +30,7 @@ import {
   getUnternehmen,
   INSTRUMENT_STATUS_LABELS,
   loadFondsOverlay,
+  type FondsZeile,
   type InstrumentStatus,
   type TitelInfo,
 } from '../../../components/haushalt/ruecklagen/fonds.ts';
@@ -78,8 +79,17 @@ const versorgung = fonds.find((zeile) => zeile.overlay.art === 'versorgungsfonds
 const versorgungJahre = versorgung
   ? Object.keys(versorgung.betraege).sort().map((jahr) => ({ jahr: Number(jahr), art: jahresart(periode, jahr) }))
   : [];
+const versorgungErsteProjektion = versorgungJahre.find((eintrag) => eintrag.art === 'projektion')?.jahr;
 const eliminierungGesamt = (jahr: string) => fonds.reduce((summe, zeile) => summe + (zeile.eliminierung[jahr] ?? 0), 0);
 const verwendungGesamt = (jahr: string) => fonds.reduce((summe, zeile) => summe + (zeile.betraege[jahr] ?? 0), 0);
+// Spalten je Position wie im Verwendungsplan: Planbetrag und veranschlagter Betrag je Haushaltsjahr,
+// nach dem ersten Jahr der in das zweite Haushaltsjahr übertragene Teil des Planbetrags.
+const positionsSpalten: Array<{ key: string; label: string; wert: (zeile: FondsZeile) => number }> = jahre.flatMap((jahr, index) => [
+  { key: `planbetrag_${jahr}`, label: `Planbetrag ${jahr}`, wert: (zeile: FondsZeile) => zeile.planbetraege[jahr] ?? 0 },
+  { key: `veranschlagt_${jahr}`, label: `Veranschlagt ${jahr}`, wert: (zeile: FondsZeile) => zeile.betraege[jahr] ?? 0 },
+  ...(index < jahre.length - 1 ? [{ key: `uebertragen_${jahr}`, label: `Nach ${j2} übertragen`, wert: (zeile: FondsZeile) => zeile.uebertragung[jahr] ?? 0 }] : []),
+]);
+const positionsSumme = (wert: (zeile: FondsZeile) => number) => fonds.reduce((summe, zeile) => summe + wert(zeile), 0);
 
 const bereiche = [...new Set(fonds.filter((zeile) => zeile.overlay.art !== 'versorgungsfonds').map((zeile) => zeile.overlay.bereich))]
   .map((bereich) => ({
@@ -550,10 +560,11 @@ const exportMeta = { Periode: id, Status: status.label, Datenversion: seite.date
     />
 
     <h3 class="hh-rl-h3" id="positionen">Positionen des Verwendungsplans</h3>
+    <p class="hh-rl-hinweis">Der Planbetrag ist der Höchstbetrag der zweckgleichen Verwendung im Haushaltsjahr; veranschlagt ist nur der Deckungsbedarf. {jahre.length > 1 ? `${j1} nicht benötigte, übertragbare Planbeträge stehen im Jahr ${j2}. ` : ''}Der nicht veranschlagte Teil eines Planbetrags ist nach dem Entwurf des Haushaltsgesetzes eine Entnahmereserve.</p>
     <DataTableFrame
       id="tabelle-fonds"
       label="Positionen des Verwendungsplans"
-      caption={`Positionen des Verwendungsplans mit Verwendung ${jahrePaar}, Beträge in Euro`}
+      caption={`Positionen des Verwendungsplans mit Planbetrag und veranschlagtem Betrag ${jahrePaar}, Beträge in Euro`}
       nomenSingular="Position"
       nomenPlural="Positionen"
       exportFilename={`fonds-${id}.csv`}
@@ -582,7 +593,7 @@ const exportMeta = { Periode: id, Status: status.label, Datenversion: seite.date
             <th scope="col" data-sort="text" data-export-key="position">Position</th>
             <th scope="col" data-sort="text" data-export-key="bereich_text">Bereich</th>
             <th scope="col" data-export-key="fachkapitel">Fachkapitel</th>
-            {jahre.map((jahr) => <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`verwendung_${jahr}`}>{jahr}</th>)}
+            {positionsSpalten.map((spalte) => <th scope="col" class="hh-zahl" data-sort="number" data-export-key={spalte.key}>{spalte.label}</th>)}
             <th scope="col" data-export-key="status">Status</th>
           </tr>
         </thead>
@@ -615,8 +626,8 @@ const exportMeta = { Periode: id, Status: status.label, Datenversion: seite.date
                     </ul>
                   ) : <abbr title="keine Angabe">–</abbr>}
                 </td>
-                {jahre.map((jahr) => (
-                  <td class="hh-zahl" data-export-value={zeile.betraege[jahr] ?? 0}><Amount value={zeile.betraege[jahr] ?? 0} exakt /></td>
+                {positionsSpalten.map((spalte) => (
+                  <td class="hh-zahl" data-export-value={spalte.wert(zeile)}><Amount value={spalte.wert(zeile)} exakt /></td>
                 ))}
                 <td data-export-value={`${INSTRUMENT_STATUS_LABELS.entwurf}${zeile.rechtsaenderung ? ', Rechtsänderung erforderlich' : ''}`}>
                   <StatusBadge tone="entwurf" label={INSTRUMENT_STATUS_LABELS.entwurf} />
@@ -624,7 +635,7 @@ const exportMeta = { Periode: id, Status: status.label, Datenversion: seite.date
                 </td>
               </tr>
               <tr data-folgezeile data-erlaeuterung class="hh-rl-folgezeile">
-                <td colspan={4 + jahre.length}>
+                <td colspan={4 + positionsSpalten.length}>
                   <dl class="hh-rl-details">
                     <div><dt>Zweck</dt><dd>{zeile.overlay.zweck}</dd></div>
                     {zeile.zielkapitel.length > 4 && zusammenhaengend(zeile.zielkapitel) ? (
@@ -656,7 +667,7 @@ const exportMeta = { Periode: id, Status: status.label, Datenversion: seite.date
         <tfoot>
           <tr>
             <th scope="row" colspan="3">Summe aller Positionen</th>
-            {jahre.map((jahr) => <td class="hh-zahl"><Amount value={verwendungGesamt(jahr)} exakt /></td>)}
+            {positionsSpalten.map((spalte) => <td class="hh-zahl"><Amount value={positionsSumme(spalte.wert)} exakt /></td>)}
             <td></td>
           </tr>
         </tfoot>
@@ -694,8 +705,14 @@ const exportMeta = { Periode: id, Status: status.label, Datenversion: seite.date
         id="diagramm-versorgungsfonds"
         caption={`Erstattung aus dem ${versorgung.overlay.name} an den Kernhaushalt ${versorgungJahre[0]?.jahr} bis ${versorgungJahre[versorgungJahre.length - 1]?.jahr}`}
         jahre={versorgungJahre}
-        series={[{ label: 'Erstattung', values: versorgungJahre.map((eintrag) => versorgung.betraege[String(eintrag.jahr)] ?? null) }]}
-        hinweis="Die Jahre nach den Haushaltsjahren sind Finanzplanung (Projektion) und nicht bewilligt."
+        series={[
+          { label: 'Veranschlagte Erstattung', values: versorgungJahre.map((eintrag) => versorgung.betraege[String(eintrag.jahr)] ?? null) },
+          {
+            label: versorgungErsteProjektion ? `Planbetrag, ab ${versorgungErsteProjektion} rechnerischer Höchstrahmen` : 'Planbetrag',
+            values: versorgungJahre.map((eintrag) => versorgung.planbetraege[String(eintrag.jahr)] ?? null),
+          },
+        ]}
+        hinweis={`Veranschlagt ist nur der Deckungsbedarf; in den Haushaltsjahren ist der Planbetrag der Höchstbetrag der Erstattung.${versorgungErsteProjektion ? ' Für die Jahre der Finanzplanung zeigt die Reihe den rechnerischen Höchstrahmen der Erstattung; Planbeträge und Bewilligungen bestehen dort nicht.' : ''}`}
       />
     </section>
   ) : null}

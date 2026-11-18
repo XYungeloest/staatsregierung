@@ -47,8 +47,10 @@
                       "type": "quotedProvision",
                       "children": [
                         {
-                          "type": "paragraphText",
-                          "text": "“(2) Durch ein besonderes Gesetz werden die Hoheitszeichen des Freistaates bestimmt.”"
+                          "type": "subparagraph",
+                          "label": "“(2)",
+                          "text": "Durch ein besonderes Gesetz werden die Hoheitszeichen des Freistaates bestimmt.”",
+                          "children": []
                         }
                       ]
                     }
@@ -671,8 +673,10 @@
                       "type": "quotedProvision",
                       "children": [
                         {
-                          "type": "paragraphText",
-                          "text": ",,(4) Die Ausschüsse tagen öffentlich. Sie können die Öffentlichkeit in einer nichtöffentlichen Sitzung ausschließen.”"
+                          "type": "subparagraph",
+                          "label": ",,(4)",
+                          "text": "Die Ausschüsse tagen öffentlich. Sie können die Öffentlichkeit in einer nichtöffentlichen Sitzung ausschließen.”",
+                          "children": []
                         }
                       ]
                     }
@@ -816,8 +820,10 @@
                       "type": "quotedProvision",
                       "children": [
                         {
-                          "type": "paragraphText",
-                          "text": ",,(2) Der Staatsrat besteht aus dem Staatspräsidenten und den weiteren Mitgliedern des Staatsrates. Der Staatsrat kann zur Erledigung seiner Aufgaben Staatssekretäre bestellen oder sie einem Mitglied beiordnen.”"
+                          "type": "subparagraph",
+                          "label": ",,(2)",
+                          "text": "Der Staatsrat besteht aus dem Staatspräsidenten und den weiteren Mitgliedern des Staatsrates. Der Staatsrat kann zur Erledigung seiner Aufgaben Staatssekretäre bestellen oder sie einem Mitglied beiordnen.”",
+                          "children": []
                         }
                       ]
                     }
@@ -921,11 +927,21 @@
                 {
                   "type": "item",
                   "label": "i.",
-                  "text": "Die Überschrift wird wie folgt gefasst: „Rechtsstellung der Mitglieder des Staatsrates“.",
+                  "text": "Die Überschrift wird wie folgt gefasst:",
                   "level": 2,
                   "listId": "eh0huh29fua8",
                   "numberingStyle": "lower-roman",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "quotedProvision",
+                      "children": [
+                        {
+                          "type": "paragraphText",
+                          "text": "„Rechtsstellung der Mitglieder des Staatsrates“."
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "item",
@@ -1285,8 +1301,28 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": ",,(2) Der Volksantrag ist beim Präsidenten der Volkskammer einzureichen. Er entscheidet nach Stellungnahme des Staatsrates unverzüglich über die Zulässigkeit. (2a) Hält der Präsident der Volkskammer oder der Staatsrat den Volksantrag mit der Staatsverfassung für nicht vereinbar, so ist unverzüglich die Entscheidung der Volkskammer zu dieser Sache einzuholen. Gegen die Entscheidung der Volkskammer ist Beschwerde zum Verfassungsgerichtshof statthaft. (3) Der Präsident der Volkskammer veröffentlicht den zulässigen Volksantrag mit Begründung. (4) Die Volkskammer gibt den Antragstellern Gelegenheit zur Anhörung.”"
+                      "type": "subparagraph",
+                      "label": ",,(2)",
+                      "text": "Der Volksantrag ist beim Präsidenten der Volkskammer einzureichen. Er entscheidet nach Stellungnahme des Staatsrates unverzüglich über die Zulässigkeit.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2a)",
+                      "text": "Hält der Präsident der Volkskammer oder der Staatsrat den Volksantrag mit der Staatsverfassung für nicht vereinbar, so ist unverzüglich die Entscheidung der Volkskammer zu dieser Sache einzuholen. Gegen die Entscheidung der Volkskammer ist Beschwerde zum Verfassungsgerichtshof statthaft.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Der Präsident der Volkskammer veröffentlicht den zulässigen Volksantrag mit Begründung.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die Volkskammer gibt den Antragstellern Gelegenheit zur Anhörung.”",
+                      "children": []
                     }
                   ]
                 }
@@ -1362,8 +1398,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": ",,(2) Über dieselbe Sache kann nur einmal im Kalenderjahr ein Volksentscheid stattfinden.”"
+                      "type": "subparagraph",
+                      "label": ",,(2)",
+                      "text": "Über dieselbe Sache kann nur einmal im Kalenderjahr ein Volksentscheid stattfinden.”",
+                      "children": []
                     }
                   ]
                 }
@@ -1591,8 +1629,10 @@
                       "type": "quotedProvision",
                       "children": [
                         {
-                          "type": "paragraphText",
-                          "text": ",,(1) Die verfassungsmäßig beschlossenen Gesetze werden vom Staatspräsidenten und dem zuständigen Mitglied des Staatsrates ausgefertigt und vom Staatspräsidenten binnen vierzehn Tagen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet. Wenn die Volkskammer die Dringlichkeit beschließt, müssen sie unverzüglich ausgefertigt und verkündet werden.”"
+                          "type": "subparagraph",
+                          "label": ",,(1)",
+                          "text": "Die verfassungsmäßig beschlossenen Gesetze werden vom Staatspräsidenten und dem zuständigen Mitglied des Staatsrates ausgefertigt und vom Staatspräsidenten binnen vierzehn Tagen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet. Wenn die Volkskammer die Dringlichkeit beschließt, müssen sie unverzüglich ausgefertigt und verkündet werden.”",
+                          "children": []
                         }
                       ]
                     }
@@ -1610,8 +1650,10 @@
                       "type": "quotedProvision",
                       "children": [
                         {
-                          "type": "paragraphText",
-                          "text": ",,(2) Rechtsverordnungen werden von der Stelle ausgefertigt, die sie erlässt. Rechtsverordnungen des Staatsrates werden vom Staatsrat ausgefertigt. Soweit das Gesetz nichts anderes bestimmt, werden Rechtsverordnungen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet.”"
+                          "type": "subparagraph",
+                          "label": ",,(2)",
+                          "text": "Rechtsverordnungen werden von der Stelle ausgefertigt, die sie erlässt. Rechtsverordnungen des Staatsrates werden vom Staatsrat ausgefertigt. Soweit das Gesetz nichts anderes bestimmt, werden Rechtsverordnungen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet.”",
+                          "children": []
                         }
                       ]
                     }
@@ -1661,61 +1703,62 @@
                           "level": 0,
                           "listId": "89lu6dtyi72p",
                           "numberingStyle": "decimal",
-                          "children": []
-                        },
-                        {
-                          "type": "item",
-                          "label": "a.",
-                          "text": "über die Auslegung dieser Verfassung aus Anlass von Streitigkeiten über den Umfang der Rechte und Pflichten eines Staatsorgans oder anderer Beteiligter, die am Verfassungsleben teilnehmen und durch die Verfassung oder eine Geschäftsordnung eines Staatsorgans mit eigenen Rechten und Pflichten ausgestattet sind, auf Antrag eines Staatsorgans oder eines anderen Beteiligten (Organstreitverfahren),",
-                          "level": 0,
-                          "listId": "wk58vjswb4h4",
-                          "numberingStyle": "lower-latin",
-                          "children": []
-                        },
-                        {
-                          "type": "item",
-                          "label": "b.",
-                          "text": "bei Zweifeln oder Meinungsverschiedenheiten über die Vereinbarkeit von Landesrecht mit dieser Verfassung auf Antrag eines Viertels der Mitglieder der Volkskammer oder auf Antrag des Staatsrates (Abstrakte Normenkontrolle),",
-                          "level": 0,
-                          "listId": "wk58vjswb4h4",
-                          "numberingStyle": "lower-latin",
-                          "children": []
-                        },
-                        {
-                          "type": "item",
-                          "label": "c.",
-                          "text": "über die Vereinbarkeit eines Landesgesetzes mit dieser Verfassung, nachdem ein Gericht das Verfahren gemäß Artikel 100 Absatz 1 des Grundgesetzes ausgesetzt hat (Konkrete Normenkontrolle),",
-                          "level": 0,
-                          "listId": "wk58vjswb4h4",
-                          "numberingStyle": "lower-latin",
-                          "children": []
-                        },
-                        {
-                          "type": "item",
-                          "label": "d.",
-                          "text": "über Verfassungsbeschwerden, die von jeder Person erhoben werden können, die sich durch die öffentliche Gewalt in einem ihrer in dieser Verfassung niedergelegten Grundrechte verletzt fühlt (Verfassungsbeschwerde),",
-                          "level": 0,
-                          "listId": "wk58vjswb4h4",
-                          "numberingStyle": "lower-latin",
-                          "children": []
-                        },
-                        {
-                          "type": "item",
-                          "label": "e.",
-                          "text": "in den weiteren in dieser Verfassung ihm zugewiesenen Angelegenheiten und",
-                          "level": 0,
-                          "listId": "wk58vjswb4h4",
-                          "numberingStyle": "lower-latin",
-                          "children": []
-                        },
-                        {
-                          "type": "item",
-                          "label": "f.",
-                          "text": "in den ihm durch Gesetz zugewiesenen Angelegenheiten.",
-                          "level": 0,
-                          "listId": "wk58vjswb4h4",
-                          "numberingStyle": "lower-latin",
-                          "children": []
+                          "children": [
+                            {
+                              "type": "item",
+                              "label": "a.",
+                              "text": "über die Auslegung dieser Verfassung aus Anlass von Streitigkeiten über den Umfang der Rechte und Pflichten eines Staatsorgans oder anderer Beteiligter, die am Verfassungsleben teilnehmen und durch die Verfassung oder eine Geschäftsordnung eines Staatsorgans mit eigenen Rechten und Pflichten ausgestattet sind, auf Antrag eines Staatsorgans oder eines anderen Beteiligten (Organstreitverfahren),",
+                              "level": 1,
+                              "listId": "wk58vjswb4h4",
+                              "numberingStyle": "lower-latin",
+                              "children": []
+                            },
+                            {
+                              "type": "item",
+                              "label": "b.",
+                              "text": "bei Zweifeln oder Meinungsverschiedenheiten über die Vereinbarkeit von Landesrecht mit dieser Verfassung auf Antrag eines Viertels der Mitglieder der Volkskammer oder auf Antrag des Staatsrates (Abstrakte Normenkontrolle),",
+                              "level": 1,
+                              "listId": "wk58vjswb4h4",
+                              "numberingStyle": "lower-latin",
+                              "children": []
+                            },
+                            {
+                              "type": "item",
+                              "label": "c.",
+                              "text": "über die Vereinbarkeit eines Landesgesetzes mit dieser Verfassung, nachdem ein Gericht das Verfahren gemäß Artikel 100 Absatz 1 des Grundgesetzes ausgesetzt hat (Konkrete Normenkontrolle),",
+                              "level": 1,
+                              "listId": "wk58vjswb4h4",
+                              "numberingStyle": "lower-latin",
+                              "children": []
+                            },
+                            {
+                              "type": "item",
+                              "label": "d.",
+                              "text": "über Verfassungsbeschwerden, die von jeder Person erhoben werden können, die sich durch die öffentliche Gewalt in einem ihrer in dieser Verfassung niedergelegten Grundrechte verletzt fühlt (Verfassungsbeschwerde),",
+                              "level": 1,
+                              "listId": "wk58vjswb4h4",
+                              "numberingStyle": "lower-latin",
+                              "children": []
+                            },
+                            {
+                              "type": "item",
+                              "label": "e.",
+                              "text": "in den weiteren in dieser Verfassung ihm zugewiesenen Angelegenheiten und",
+                              "level": 1,
+                              "listId": "wk58vjswb4h4",
+                              "numberingStyle": "lower-latin",
+                              "children": []
+                            },
+                            {
+                              "type": "item",
+                              "label": "f.",
+                              "text": "in den ihm durch Gesetz zugewiesenen Angelegenheiten.",
+                              "level": 1,
+                              "listId": "wk58vjswb4h4",
+                              "numberingStyle": "lower-latin",
+                              "children": []
+                            }
+                          ]
                         },
                         {
                           "type": "subparagraph",
@@ -1799,8 +1842,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": ",,(2) Die Einrichtung der staatlichen Behörden im Einzelnen obliegt dem Staatsrat. Er kann einzelne Staatsräte hierzu ermächtigen."
+                      "type": "subparagraph",
+                      "label": ",,(2)",
+                      "text": "Die Einrichtung der staatlichen Behörden im Einzelnen obliegt dem Staatsrat. Er kann einzelne Staatsräte hierzu ermächtigen.",
+                      "children": []
                     },
                     {
                       "type": "subparagraph",
@@ -1934,8 +1979,16 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": ",,(3) Der Präsident des Rechnungshofes wird von der Volkskammer auf Vorschlag des Staatsrates mit einer Mehrheit von zwei Dritteln der abgegebenen Stimmen gewählt. Der Vizepräsident wird vom Staatsrat auf Vorschlag des Präsidenten des Rechnungshofes mit Zustimmung der Volkskammer ernannt. (4) Der Rechnungshof berichtet jährlich unmittelbar der Volkskammer und unterrichtet gleichzeitig den Staatsrat.”"
+                      "type": "subparagraph",
+                      "label": ",,(3)",
+                      "text": "Der Präsident des Rechnungshofes wird von der Volkskammer auf Vorschlag des Staatsrates mit einer Mehrheit von zwei Dritteln der abgegebenen Stimmen gewählt. Der Vizepräsident wird vom Staatsrat auf Vorschlag des Präsidenten des Rechnungshofes mit Zustimmung der Volkskammer ernannt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Der Rechnungshof berichtet jährlich unmittelbar der Volkskammer und unterrichtet gleichzeitig den Staatsrat.”",
+                      "children": []
                     }
                   ]
                 }
@@ -2091,8 +2144,16 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": ",,(1a) Landesrecht im Sinne des Absatz 1 ist das Recht des Sächsischen Freistaates, das bis zum 1. Dezember 2023 im Sächsischen Gesetzes- und Verordnungsblatt nach den Bestimmungen der Sächsischen Verfassung zustande gekommen und verkündet wurde. (1b) Landesrecht im Sinne des Absatzes 1 ist abweichend von Absatz 1a auch das Recht eines ehemaligen ostdeutschen Landes, dessen Fortbestand wegen seiner engen örtlichen, organisatorischen oder kulturellen Verbindung mit diesem Land für die Rechtsordnung des Freistaates unabdingbar ist.. Über das Bestehen oder Nichtbestehen einer Rechtsvorschrift nach Satz 1 entscheidet im Zweifel die Volkskammer.”"
+                      "type": "subparagraph",
+                      "label": ",,(1a)",
+                      "text": "Landesrecht im Sinne des Absatz 1 ist das Recht des Sächsischen Freistaates, das bis zum 1. Dezember 2023 im Sächsischen Gesetzes- und Verordnungsblatt nach den Bestimmungen der Sächsischen Verfassung zustande gekommen und verkündet wurde.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(1b)",
+                      "text": "Landesrecht im Sinne des Absatzes 1 ist abweichend von Absatz 1a auch das Recht eines ehemaligen ostdeutschen Landes, dessen Fortbestand wegen seiner engen örtlichen, organisatorischen oder kulturellen Verbindung mit diesem Land für die Rechtsordnung des Freistaates unabdingbar ist.. Über das Bestehen oder Nichtbestehen einer Rechtsvorschrift nach Satz 1 entscheidet im Zweifel die Volkskammer.”",
+                      "children": []
                     }
                   ]
                 }
@@ -2184,7 +2245,7 @@
   "sourceReferences": [
     {
       "kind": "amendment-source",
-      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl.2026Nr.68.html",
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
@@ -2195,7 +2256,7 @@
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
       "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
@@ -2210,7 +2271,7 @@
   "sourceNotes": [
     {
       "label": "Amtliche Berichtigung",
-      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3): Der Wahltermin in Artikel 121a Absatz 1 der eingefügten Verfassungsregelung wurde amtlich berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2026-07-21."
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4): Der Wahltermin in Artikel 121a Absatz 1 der eingefügten Verfassungsregelung wurde amtlich berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2026-07-21."
     }
   ]
 }

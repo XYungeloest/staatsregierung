@@ -20,10 +20,12 @@ const OFFICE_SMALL_WORDS = new Set([
 ]);
 const PAGE_FURNITURE_PATTERN = /^(?:Seite\s*\d*|(?:OABl|OGVBl|StAnzO|OVertrBl|GMBl)\.\s*(?:Nr\.\s*\d+\s+)?\d{1,2}\.\s*\p{L}+\s+\d{4}(?:\s+Seite\s*\d*)?)$/u;
 const CONTAMINATION_PATTERN = /data:image|;base64,|@font-face|@import\s+url|<style|Inhaltsverzeichnis|Nichtamtliches Inhaltsverzeichnis/iu;
-const QUOTE_TRIGGER_PATTERN = /(?:(?:wird|werden)\s+(?:wie folgt|durch folgende|durch die nachstehende)\s+(?:neu\s*)?(?:gefasst|eingefügt)|(?:wird|werden)\s+[^:]*?(?:eingefügt|angefügt|(?:neu\s*)?gefasst)|(?:wird|werden)\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+(?:Fassung|Anlage)\s+(?:ersetzt|abgelöst)|(?:erhält|erhalten)\s+folgende\s+Bezeichnung|(?:wird|werden)\s+wie\s+folgt\s+ersetzt)\s*:\s*$/iu;
+const QUOTE_TRIGGER_PATTERN = /(?:(?:wird|werden)\s+(?:wie folgt|durch folgende|durch die nachstehende)\s+(?:neu\s*)?(?:gefasst|eingefügt)|(?:wird|werden)\s+[^:]*?(?:eingefügt|angefügt|vorangestellt|(?:neu\s*)?gefasst)|(?:wird|werden)\s+[^:]*?durch\s+(?:die\s+|den\s+)?(?:folgende|nachstehende)[nrs]?\s+(?:Fassung|Anlage|Satz|Sätze|Wortlaut|Lernbereich|Abschnitt|Absatz|Absätze|Nummer|Nummern|Buchstabe|Buchstaben)\s+(?:ersetzt|abgelöst)|(?:erhält|erhalten)\s+folgende\s+(?:Bezeichnung|Fassung)|(?:wird|werden)\s+wie\s+folgt\s+ersetzt|(?:wird|werden)\s+ersetzt\s+durch)\s*:\s*$/iu;
 const AMENDMENT_REFERENCE_PATTERN = /\b(?:wird|werden)\b[^:]*\b(?:geändert|aufgehoben|ersetzt|gefasst|eingefügt|angefügt|verschoben|umbenannt)\b\s*:?\s*$/iu;
 const INTRODUCTION_PATTERN = /^(?:Das\s+nachstehende\s+wird\s+(Gesetz|Verordnung):|.+?wird\s+durch\s+die\s+nachstehende\s+(.+?)\s+abgelöst:)$/iu;
 const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
+// Ein Text, der auf Artikel, Hilfsverb oder Präposition endet, setzt sich im nächsten Absatz fort.
+const OPEN_SENTENCE_END_PATTERN = /\b(?:der|die|das|den|dem|des|ein|eine|einer|einem|einen|ist|sind|bei|durch|für|mit|nach|von|vor|zu|zur|zum)\s*$/iu;
 const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
 const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Besonderes|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Berichtigung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
 const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Folgeänderungen?|Neufassung|Übergangsbestimmungen?|Übergangsrecht|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Bereinigung|Rechtsbereinigung)/iu;
@@ -74,16 +76,29 @@ function descendants(node, predicate, output = []) {
   return output;
 }
 
-export function normalizeHtmlText(value) {
+export function normalizeHtmlText(value, { joinHyphenation = true } = {}) {
   // Gesperrter Satz wird vor der Vereinheitlichung der Leerzeichen aufgelöst, solange die
   // Wortgrenzen (geschützte Leerzeichen) der Quelle noch erkennbar sind.
-  return collapseSpacedLetters(String(value ?? '').replace(/\r\n?/gu, '\n'))
+  const normalized = collapseSpacedLetters(String(value ?? '').replace(/\r\n?/gu, '\n'))
     .replace(/[\u00a0\u202f]/gu, ' ')
     .replace(/[\u200b\u200c\u200d\u2060\ufeff]/gu, '')
     .replace(/[\t\f\v ]+/gu, ' ')
     .replace(/ *\n */gu, '\n')
-    .replace(/\n{3,}/gu, '\n\n')
-    .trim();
+    .replace(/\n{3,}/gu, '\n\n');
+  return (joinHyphenation ? normalized.replace(LINE_END_HYPHENATION, joinLineEndHyphenation) : normalized).trim();
+}
+
+// Silbentrennung am Zeilenende: „Kindertages-<br>betreuungsgesetzes“ ist ein Wort. Verbunden wird
+// nur vor einem Kleinbuchstaben oder innerhalb eines Worts in Versalschreibung; Ergänzungsstriche
+// vor einer Konjunktion („Daten-<br>und“) und gewöhnliche Bindestrichwörter bleiben erhalten.
+const LINE_END_HYPHENATION = /(\p{L}+)-\n(\p{L}+)/gu;
+const HYPHENATION_KEEP_WORDS = new Set(['und', 'oder', 'sowie', 'bzw', 'beziehungsweise', 'als', 'bis']);
+
+function joinLineEndHyphenation(match, before, after) {
+  if (HYPHENATION_KEEP_WORDS.has(after.toLocaleLowerCase('de'))) return match;
+  const lowerContinuation = /^\p{Ll}/u.test(after) && /\p{Ll}$/u.test(before);
+  const capitalWord = before.length >= 4 && /^\p{Lu}+$/u.test(before) && /^\p{Lu}+$/u.test(after);
+  return lowerContinuation || capitalWord ? `${before}${after}` : match;
 }
 
 /**
@@ -151,7 +166,23 @@ export function normalizeOfficeTitle(value) {
     // Zusammengesetzte Eigennamen stehen in gesperrter Versalschreibung mit Gedankenstrich
     // („N I E D E R S A C H S E N – H O L S T E I N“); in Normalschreibung ist es ein Bindestrich.
     .replace(/(\p{L})\s*[–—]\s*(\p{L})/gu, '$1-$2')
-    .trim();
+    .trim()
+    .replace(/\bfür\b.*$/u, (department) => lowercaseDepartmentAdjectives(department));
+}
+
+// In der Ressortbezeichnung hinter „für“ sind Adjektive klein zu schreiben („für Bildung und
+// sportliche Ertüchtigung“, „für die bewaffneten Organe“). Erkannt werden nur eindeutige
+// Adjektivendungen vor einem großgeschriebenen Wort oder einer Konjunktion.
+const DEPARTMENT_ADJECTIVE = /^\p{Lu}\p{Ll}*(?:lich|isch|al|ig|et)e[nmrs]?$/u;
+
+function lowercaseDepartmentAdjectives(department) {
+  const words = department.split(' ');
+  return words.map((word, index) => {
+    const next = words[index + 1] ?? '';
+    const core = word.replace(/[,;.]$/u, '');
+    if (index === 0 || core !== word || !DEPARTMENT_ADJECTIVE.test(core)) return word;
+    return /^(?:\p{Lu}|und\b|oder\b)/u.test(next) ? word.toLocaleLowerCase('de') : word;
+  }).join(' ');
 }
 
 function textWithBreaks(node) {
@@ -240,15 +271,27 @@ export function parseGoogleDocsCss(css) {
   for (const match of String(css).matchAll(beforeRule)) {
     const declaration = parseDeclarations(match[3]);
     const content = declaration.content ?? '';
-    const counter = content.match(/counter\([^,]+,\s*([a-z-]+)\s*\)/iu);
-    const counterIndex = counter?.index ?? -1;
+    // Mehrstufige Gliederungszeichen („2.1.“) nennen die Zähler übergeordneter Ebenen vor dem
+    // eigenen Zähler; maßgeblich für Stil und Zählung ist der Zähler der eigenen Ebene.
+    const counters = [...content.matchAll(/counter\(\s*lst-ctn-kix_([a-z0-9_]+)-(\d+)\s*,\s*([a-z-]+)\s*\)|counter\([^,]+,\s*([a-z-]+)\s*\)/giu)];
+    const own = counters.find((entry) => entry[1] === match[1] && entry[2] === match[2]) ?? counters.at(-1);
+    const counterIndex = own?.index ?? -1;
     const before = counterIndex >= 0 ? content.slice(0, counterIndex) : content;
-    const after = counterIndex >= 0 ? content.slice(counterIndex + counter[0].length) : '';
+    const after = counterIndex >= 0 ? content.slice(counterIndex + own[0].length) : '';
+    const parentCounters = counters.filter((entry) => entry !== own && entry.index < counterIndex && entry[1] === match[1]);
     listStyles.set(`${match[1]}:${match[2]}`, {
-      numberingStyle: counter?.[1]?.toLocaleLowerCase('en') ?? 'literal',
-      prefix: counter ? quotedCssText(before) : '',
-      suffix: counter ? quotedCssText(after).trimEnd() : '',
-      literal: counter ? undefined : quotedCssText(content).trim(),
+      numberingStyle: (own?.[3] ?? own?.[4])?.toLocaleLowerCase('en') ?? 'literal',
+      prefix: own ? quotedCssText(before) : '',
+      suffix: own ? quotedCssText(after).trimEnd() : '',
+      literal: own ? undefined : quotedCssText(content).trim(),
+      ...(parentCounters.length > 0 ? {
+        prefixParts: parentCounters.map((entry, index) => ({
+          level: Number.parseInt(entry[2], 10),
+          numberingStyle: entry[3].toLocaleLowerCase('en'),
+          text: quotedCssText(content.slice(entry.index + entry[0].length, counters[counters.indexOf(entry) + 1]?.index ?? counterIndex)),
+          leading: index === 0 ? quotedCssText(content.slice(0, entry.index)) : '',
+        })),
+      } : {}),
     });
   }
 
@@ -417,8 +460,21 @@ function sourceTypeFromHeading(heading, title) {
   return 'gesetz';
 }
 
+/**
+ * Gliederungszeichen einer Zeile. Die exportierte Fassung behält die Erkennung, auf der die
+ * REVOSax-Snapshots beruhen; eigene HTML-Ausgaben verwenden die erweiterte Erkennung
+ * (Silbentrennung, Ordnungswörter, Buchstabenabschnitte, nummerierte Anhänge).
+ */
 export function parseStructureMarker(value) {
-  const original = normalizeHtmlText(value);
+  return structureMarker(value, false);
+}
+
+function parseHtmlStructureMarker(value) {
+  return structureMarker(value, true);
+}
+
+function structureMarker(value, extended) {
+  const original = normalizeHtmlText(value, { joinHyphenation: extended });
   // Google Docs combines label, title and sometimes a short title in one
   // paragraph with several <br> elements. Structure matching must therefore
   // treat these visual line breaks as spaces while preserving the wording.
@@ -429,9 +485,20 @@ export function parseStructureMarker(value) {
     const type = { teil: 'part', kapitel: 'chapter', abschnitt: 'section', unterabschnitt: 'subsection' }[prefix];
     return { type, label: match[1], title: match[2] || undefined };
   }
+  // „Sechster Abschnitt<br>Hinweisgeberstellen“: Ordnungswort und Gliederungsart bilden die
+  // Bezeichnung, wenn die Überschrift in eigener Zeile folgt oder ganz fehlt.
+  const ordinalLines = original.replace(/^[„“”'`,.]+/u, '').trim().split('\n');
+  match = !extended ? null : ordinalLines[0].match(/^((?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft)er\s+(Teil|Kapitel|Abschnitt|Unterabschnitt))$/u);
+  if (match) {
+    const type = { teil: 'part', kapitel: 'chapter', abschnitt: 'section', unterabschnitt: 'subsection' }[match[2].toLocaleLowerCase('de')];
+    const title = ordinalLines.slice(1).join(' ').trim();
+    return { type, label: match[1], title: title || undefined };
+  }
   match = text.match(/^([IVXLCDM]+\.\s*Abschnitt)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'section', label: match[1], title: match[2] || undefined };
-  match = text.match(/^([IVXLCDM]+\.)(?:\s|\n)*(.*)$/u);
+  // Einzelbuchstaben „C.“, „D.“, „L.“, „M.“ gliedern als Buchstaben („A. … B. … C. …“), nicht als
+  // römische Zahlen.
+  match = text.match(extended ? /^((?![CDLM]\.)[IVXLCDM]+\.)(?:\s|\n)*(.*)$/u : /^([IVXLCDM]+\.)(?:\s|\n)*(.*)$/u);
   if (match) return { type: 'section', label: match[1], title: match[2] || undefined };
   match = text.match(/^(Präambel)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'section', label: 'Präambel', title: match[2] || undefined };
@@ -441,8 +508,11 @@ export function parseStructureMarker(value) {
   if (match) return { type: 'article', label: match[1], title: match[2] || undefined };
   match = text.match(/^(§{1,2}\s*\d+[a-z]?(?:\s*(?:,|und)\s*\d+[a-z]?)?(?:\s+bis\s+\d+[a-z]?)?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'paragraph', label: match[1], title: match[2] || undefined };
-  match = text.match(/^((?:Anlage(?:\s+\d+[a-z]?)?|Anhang)(?:\s*\([^)]*\))?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
-  if (match) return { type: 'annex', label: match[1], title: match[2] || undefined };
+  // „Anlage 2“, „ANLAGE IV“, „Anhang 3“; „Anlagen:“ ist kein Anlagenkopf.
+  match = extended
+    ? text.match(/^((?:Anlage|ANLAGE)\s+[IVXLCDM]+(?![\p{L}\d])|(?:Anlage|Anhang)(?:\s+\d+[a-z]?)?(?![\p{L}\d]))((?:\s*\([^)]*\))?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu)
+    : text.match(/^((?:Anlage(?:\s+\d+[a-z]?)?|Anhang))((?:\s*\([^)]*\))?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
+  if (match) return { type: 'annex', label: `${match[1]}${match[2]}`.trim(), title: match[3] || undefined };
   match = text.match(/^((?:Annex|Appendix)\s+(?:\d+[a-z]?|[IVXLCDM]+))\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'annex', label: match[1], title: match[2] || undefined };
   match = text.match(/^(Regulation\s+\d+[a-z]?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
@@ -451,24 +521,32 @@ export function parseStructureMarker(value) {
 }
 
 function parsePrintedListItem(value) {
-  const text = normalizeHtmlText(value).replace(/^[„“”'`,]+/u, '').trim();
-  let match = text.match(/^(\d+(?:\.\d+)*\.?)\s+(.*)$/u);
+  const normalized = normalizeHtmlText(value);
+  // Das öffnende Anführungszeichen eines zitierten Punkts („„e) …“) steht vor dem
+  // Gliederungszeichen und bleibt dort erhalten.
+  const openingQuote = normalized.match(/^(?:„|“|,,|")/u)?.[0] ?? '';
+  const text = normalized.replace(/^[„“”'`,]+/u, '').trim();
+  // Eine einfache Zahl ohne Punkt („70 Kilowattstunden …“) ist eine Mengenangabe, keine Nummer;
+  // mehrstufige Ziffern („4.1 …“) dürfen ohne Schlusspunkt stehen.
+  let match = text.match(/^(\d+(?:\.\d+)+\.?|\d+\.)\s+(.*)$/u);
   if (match) {
     const segments = match[1].replace(/\.$/u, '').split('.');
     return {
-      label: match[1],
+      label: `${openingQuote}${match[1]}`,
       text: match[2],
       level: Math.max(0, segments.length - 1),
       numberingStyle: 'decimal',
+      ...(openingQuote ? { opensQuote: true } : {}),
     };
   }
   match = text.match(/^([a-z]{1,2})\)\s+(.*)$/iu);
   if (match) {
     return {
-      label: `${match[1]})`,
+      label: `${openingQuote}${match[1]})`,
       text: match[2],
       level: match[1].length > 1 ? 1 : 0,
       numberingStyle: 'lower-latin',
+      ...(openingQuote ? { opensQuote: true } : {}),
     };
   }
   return null;
@@ -491,17 +569,39 @@ function parsePositiveSpan(value, fallback = 1) {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
 }
 
-function tableBlock(node, css, fileName) {
-  const rowEntries = directRowEntries(node);
+function cellShading(cell, css) {
+  const color = String(nodeStyle(cell, css)['background-color'] ?? '').trim().toLocaleLowerCase('en');
+  return color && !['#ffffff', '#fff', 'white', 'transparent', 'inherit', 'initial'].includes(color) ? color : null;
+}
+
+// Tabellenzellen, deren einziger Inhalt eine Abbildung ohne Textalternative ist.
+const IMAGE_ONLY_CELLS = new WeakSet();
+
+function tableBlock(node, css, fileName, allRowEntries = directRowEntries(node)) {
+  const rowEntries = allRowEntries;
   const firstContentRow = rowEntries.findIndex(({ node: row }) => elementChildren(row).some((cell) => textOf(cell)));
+  // Eine farbig hinterlegte erste Zeile über ungefärbten Zeilen ist die Kopfzeile.
+  const rowShading = (row) => {
+    const cells = elementChildren(row).filter((cell) => cell.tagName === 'td' || cell.tagName === 'th');
+    const colors = cells.map((cell) => cellShading(cell, css));
+    return cells.length > 1 && colors.every(Boolean) && new Set(colors).size === 1 ? colors[0] : null;
+  };
+  const shadedHeader = firstContentRow >= 0 && rowShading(rowEntries[firstContentRow].node) &&
+    rowShading(rowEntries[firstContentRow].node) !== rowShading(rowEntries[firstContentRow + 1]?.node ?? { childNodes: [] });
   const children = rowEntries.map(({ node: row, section }, rowIndex) => {
     const cells = elementChildren(row).filter((cell) => cell.tagName === 'td' || cell.tagName === 'th');
-    const rowIsHeader = cells.length > 0 && cells.every((cell) => cell.tagName === 'th' || isBold(cell, css));
+    const rowIsHeader = cells.length > 0 && (cells.every((cell) => cell.tagName === 'th' || isBold(cell, css)) ||
+      (shadedHeader && rowIndex === firstContentRow));
     return {
       type: 'tableRow',
       children: cells.map((cell, cellIndex) => {
         const paragraphs = descendants(cell, (entry) => entry.tagName === 'p').map(textOf).filter(Boolean);
-        const cellText = paragraphs.length > 0 ? paragraphs.join('\n') : textOf(cell);
+        let cellText = paragraphs.length > 0 ? paragraphs.join('\n') : textOf(cell);
+        // Eine Zelle, die nur aus einer Abbildung besteht, übernimmt deren Textalternative; ohne
+        // Textalternative wird sie als Quellbefund gemeldet (validateBody), nicht still leer gespeichert.
+        const images = cellText ? [] : descendants(cell, (entry) => entry.tagName === 'img');
+        const imageAlternative = images.map((image) => normalizeHtmlText(attrs(image).alt ?? '')).filter(Boolean).join('\n');
+        if (imageAlternative) cellText = imageAlternative;
         const cellAttrs = attrs(cell);
         const explicitScope = cellAttrs.scope?.toLocaleLowerCase('en');
         if (explicitScope && !TABLE_HEADER_SCOPES.has(explicitScope)) {
@@ -514,7 +614,7 @@ function tableBlock(node, css, fileName) {
         if (!scope && header && section === 'thead') scope = colspan > 1 ? 'colgroup' : 'col';
         if (!scope && header && rowIndex === firstContentRow && rowIsHeader) scope = colspan > 1 ? 'colgroup' : 'col';
         if (!scope && cell.tagName === 'th' && section === 'tbody' && cellIndex === 0 && rowspan === 1 && colspan === 1) scope = 'row';
-        return {
+        const cellBlock = {
           type: header ? 'tableHeaderCell' : 'tableCell',
           text: cellText,
           ...(scope ? { scope } : {}),
@@ -522,6 +622,8 @@ function tableBlock(node, css, fileName) {
           ...(colspan > 1 ? { colspan } : {}),
           ...(paragraphs.length > 1 ? { children: paragraphs.map((text) => ({ type: 'paragraphText', text })) } : {}),
         };
+        if (images.length > 0 && !imageAlternative) IMAGE_ONLY_CELLS.add(cellBlock);
+        return cellBlock;
       }),
     };
   });
@@ -587,12 +689,14 @@ function textWithoutNestedLists(node) {
 // Gedruckte Buchstaben „a.“, „b.“ … als einfache Absätze unter einer Nummer, deren Text mit
 // einem Doppelpunkt endet: Sie bilden die Unterpunkte dieser Nummer. Erkannt wird nur die
 // lückenlose Folge ab „a.“ unmittelbar nach der Nummer; sonst bleibt der Absatz Fließtext.
-function printedLetterItem(text, previousToken) {
+function printedLetterItem(text, previousToken, indent = 0) {
   const match = normalizeHtmlText(text).match(/^([a-z])\.\s+(.+)$/u);
-  if (!match || previousToken?.kind !== 'listItem') return null;
+  const underSubparagraph = previousToken?.kind === 'paragraph' && /^\(\d+[a-z]?\)\s/u.test(previousToken.text ?? '') &&
+    indent > (previousToken.indent ?? 0) + 0.5;
+  if (!match || (previousToken?.kind !== 'listItem' && !underSubparagraph)) return null;
   const letter = match[1];
-  const opensPrintedSublist = letter === 'a' && previousToken.numberingStyle === 'decimal' &&
-    /:\s*$/u.test(previousToken.text ?? '');
+  const opensPrintedSublist = letter === 'a' && (underSubparagraph || (previousToken.numberingStyle === 'decimal' &&
+    /:\s*$/u.test(previousToken.text ?? '')));
   const continuesPrintedSublist = previousToken.printedLetter &&
     letter.charCodeAt(0) === previousToken.printedLetter.charCodeAt(0) + 1;
   if (!opensPrintedSublist && !continuesPrintedSublist) return null;
@@ -606,10 +710,137 @@ function printedLetterItem(text, previousToken) {
   };
 }
 
+const PRINTED_LETTER_LINE = /^([a-z]{1,2})([.)])\s+(\S.*)$/u;
+
+// Zerlegt einen mit <br> umbrochenen Absatz oder Listenpunkt an Zeilen, die mit einem
+// gedruckten Buchstabenzeichen („a)“, „aa)“, „a.“) beginnen. Erkannt werden nur lückenlose
+// Folgen ab „a“ bzw. „aa“; Zeilen mit öffnendem Anführungszeichen nach einem Doppelpunkt
+// bleiben eigene Absätze (zitierter Wortlaut), alle anderen Zeilen setzen den Vorsatz fort.
+function splitPrintedLetterLines(rawText) {
+  const lines = String(rawText ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 2) return null;
+  const segments = [];
+  const runs = new Map();
+  for (const line of lines) {
+    const match = OPENING_QUOTE_PATTERN.test(line) ? null : line.match(PRINTED_LETTER_LINE);
+    const letters = match?.[1];
+    const double = letters?.length === 2;
+    const value = !letters ? null : double ? (letters[0] === letters[1] ? letters.charCodeAt(0) - 96 : null) : letters.charCodeAt(0) - 96;
+    const kind = letters ? `${double ? 2 : 1}${match[2]}` : null;
+    if (value && (value === 1 || runs.get(kind) === value - 1)) {
+      runs.set(kind, value);
+      segments.push({ label: true, letters, punctuation: match[2], value, double, lines: [match[3]] });
+    } else if (segments.length > 0 && OPENING_QUOTE_PATTERN.test(line) && QUOTE_TRIGGER_PATTERN.test(segments.at(-1).lines.at(-1))) {
+      segments.push({ label: false, quote: true, lines: [line] });
+    } else if (segments.length === 0) {
+      segments.push({ label: false, lines: [line] });
+    } else {
+      segments.at(-1).lines.push(line);
+    }
+  }
+  const labelCount = segments.filter((segment) => segment.label).length;
+  if (labelCount === 0 || (segments[0].label && labelCount < 2)) return null;
+  return segments;
+}
+
+// „Artikel 1 wird wie folgt gefasst:<br>„Artikel 1<br>Verfassungsgrundsätze“ – setzt ein
+// Listenpunkt den zitierten Wortlaut nach dem ersten Zeilenumbruch hinter den Änderungsbefehl,
+// beginnt dort die zitierte Neufassung. Der Befehl bleibt der Text des Listenpunkts.
+function splitQuotedLinesAfterCommand(rawText) {
+  const lines = String(rawText ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 2 || !QUOTE_TRIGGER_PATTERN.test(lines[0]) || !OPENING_QUOTE_PATTERN.test(lines[1])) return null;
+  return { command: lines[0], lines: lines.slice(1) };
+}
+
+// Zeilen eines im Listenpunkt umbrochenen Zitats: Eine allein stehende Gliederungsbezeichnung
+// bildet mit der folgenden Zeile ihre Überschrift, jede andere Zeile ist ein eigener Absatz.
+function quotedLineTokens(lines, indent) {
+  const output = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const marker = parseHtmlStructureMarker(lines[index]);
+    if (marker && !marker.title && index + 1 < lines.length) {
+      const rawText = `${lines[index]}\n${lines[index + 1]}`;
+      output.push({
+        kind: 'structure', marker: parseHtmlStructureMarker(rawText), text: rawText.replace(/\n/gu, ' '), rawText,
+        tagName: 'p', bold: false, centered: false, opensQuote: OPENING_QUOTE_PATTERN.test(rawText),
+      });
+      index += 1;
+      continue;
+    }
+    output.push({ kind: 'paragraph', text: lines[index], rawText: lines[index], tagName: 'p', bold: false, centered: false, indent });
+  }
+  return output;
+}
+
 function makeAtomicTokens(nodes, css, fileName) {
   const counters = new Map();
+  // Untergeordnete Listenebenen, die ein Punkt der übergeordneten Ebene beendet hat, und die Zahl
+  // der je Ebene ungebrochen weitergezählten Punkte (Zählung des Google-Docs-Exports).
+  const restartedLevels = new Set();
+  const exportCounts = new Map();
   const tokens = [];
   let standardListSequence = 0;
+  let lastStandardList = null;
+  let romanRun = null;
+  const letterRunLevels = new Map();
+
+  // Ebene eines gedruckten Buchstabenpunkts innerhalb der gedruckten Gliederung: „a)“ nach
+  // einer gedruckten Nummer liegt eine Ebene tiefer, Folgebuchstaben bleiben auf dieser Ebene.
+  const printedLetterLevel = (double, value, fallback, indent = null) => {
+    const kind = double ? 2 : 1;
+    const previous = tokens.at(-1);
+    if (value === 1) {
+      let level = fallback;
+      // Ein eigener Absatz „a) …“ wird nur bei sichtbar tieferem Einzug untergeordnet; bei
+      // <br>-Zerlegung (indent === null) trägt der gemeinsame Absatz die Zugehörigkeit.
+      const visiblyDeeper = indent === null || indent > (previous?.indent ?? 0) + 0.5;
+      if (visiblyDeeper && previous?.kind === 'listItem' && previous.listId === 'printed-outline') {
+        if (!double && previous.numberingStyle === 'decimal') level = previous.level + 1;
+        if (double && previous.numberingStyle === 'lower-latin' && previous.printedLetterKind === 1) level = previous.level + 1;
+      }
+      letterRunLevels.set(kind, { level, index: tokens.length });
+      return level;
+    }
+    const run = letterRunLevels.get(kind);
+    if (!run || tokens.slice(run.index).some((entry) => entry.kind !== 'listItem')) return fallback;
+    return run.level;
+  };
+
+  const printedLetterToken = (segment, indent) => {
+    const level = printedLetterLevel(segment.double, segment.value, segment.double ? 1 : 0);
+    return {
+      kind: 'listItem',
+      listId: 'printed-outline',
+      label: `${segment.letters}${segment.punctuation}`,
+      text: segment.lines.join(' '),
+      level,
+      numberingStyle: 'lower-latin',
+      counterValue: segment.value,
+      numberingPrefix: '',
+      numberingSuffix: segment.punctuation,
+      printedLetterKind: segment.double ? 2 : 1,
+      startsList: segment.value === 1,
+      indent,
+    };
+  };
+
+  const emitPrintedSegments = (segments, baseIndent, { skipFirst = false } = {}) => {
+    const labelIndent = segments[0].label ? baseIndent : baseIndent + 36;
+    for (const [index, segment] of segments.entries()) {
+      if (index === 0 && skipFirst) continue;
+      const text = segment.lines.join(' ');
+      if (segment.label) {
+        tokens.push(printedLetterToken(segment, labelIndent));
+      } else if (index === 0) {
+        const printed = parsePrintedListItem(text);
+        tokens.push(printed
+          ? { kind: 'listItem', listId: 'printed-outline', ...printed, startsList: printed.level === 0, indent: baseIndent }
+          : { kind: 'paragraph', text, rawText: text, tagName: 'p', bold: false, centered: false, indent: baseIndent });
+      } else {
+        tokens.push({ kind: 'paragraph', text, rawText: text, tagName: 'p', bold: false, centered: false, indent: labelIndent });
+      }
+    }
+  };
 
   const emitStandardList = (node, listId, level = 0) => {
     const nodeAttrs = attrs(node);
@@ -663,15 +894,46 @@ function makeAtomicTokens(nodes, css, fileName) {
     const text = textOf(node);
     if (!text && node.tagName !== 'table') continue;
     if (node.tagName === 'table') {
-      tokens.push({ kind: 'table', block: tableBlock(node, css, fileName), text });
+      // Beschriftung über und Hinweise unter einer Tabelle, die als eine einzige Zelle über alle
+      // Spalten gesetzt sind, sind Absätze vor beziehungsweise nach der Tabelle.
+      const entries = directRowEntries(node);
+      const width = Math.max(0, ...entries.map(({ node: row }) => elementChildren(row)
+        .filter((cell) => cell.tagName === 'td' || cell.tagName === 'th')
+        .reduce((sum, cell) => sum + parsePositiveSpan(attrs(cell).colspan), 0)));
+      const spanning = (entry) => {
+        const cells = elementChildren(entry.node).filter((cell) => cell.tagName === 'td' || cell.tagName === 'th');
+        return width > 2 && cells.length === 1 && parsePositiveSpan(attrs(cells[0]).colspan) === width &&
+          parsePositiveSpan(attrs(cells[0]).rowspan) === 1 && Boolean(textOf(cells[0]));
+      };
+      let first = 0;
+      let last = entries.length;
+      while (first < last - 2 && spanning(entries[first])) first += 1;
+      while (last > first + 2 && spanning(entries[last - 1])) last -= 1;
+      const captionToken = (entry) => {
+        const cellText = textOf(entry.node);
+        return { kind: 'paragraph', text: cellText, rawText: cellText, tagName: 'p', bold: false, centered: false, indent: 0 };
+      };
+      tokens.push(...entries.slice(0, first).map(captionToken));
+      tokens.push({ kind: 'table', block: tableBlock(node, css, fileName, entries.slice(first, last)), text });
+      tokens.push(...entries.slice(last).map(captionToken));
       continue;
     }
     if (node.tagName === 'ol' || node.tagName === 'ul') {
       const classes = attrs(node).class ?? '';
       const listMatch = classes.match(LIST_CLASS_PATTERN);
       if (!listMatch) {
-        standardListSequence += 1;
+        // Eine Standardliste mit Startwert, der die unmittelbar vorangehende gleichartige Liste
+        // fortsetzt („<ol start="2">“ nach einem Zitat), bleibt dieselbe Liste.
+        const start = Number.parseInt(attrs(node).start ?? '1', 10);
+        const previousList = lastStandardList;
+        const continues = previousList && start > 1 && previousList.type === (attrs(node).type ?? '1') &&
+          previousList.lastValue === start - 1 && node.tagName === 'ol';
+        if (!continues) standardListSequence += 1;
         emitStandardList(node, `standard-${standardListSequence}`);
+        lastStandardList = {
+          type: attrs(node).type ?? '1',
+          lastValue: start + elementChildren(node, 'li').length - 1,
+        };
         continue;
       }
       const [, listId, rawLevel] = listMatch;
@@ -682,13 +944,35 @@ function makeAtomicTokens(nodes, css, fileName) {
       const nodeAttrs = attrs(node);
       const hasStartClass = classes.split(/\s+/u).includes('start');
       const explicitStart = nodeAttrs.start ? Number.parseInt(nodeAttrs.start, 10) : null;
-      let counter = Number.isInteger(explicitStart)
-        ? explicitStart
-        : hasStartClass
-          ? (css.resets.get(key) ?? 0) + 1
-          : (counters.get(key) ?? 0) + 1;
+      // Google Docs beginnt eine untergeordnete Ebene nach einem Punkt der übergeordneten Ebene
+      // derselben Liste sichtbar neu („a)“), exportiert aber als start die ungebrochen
+      // weitergezählte Nummer („start="3"“). Nur genau diese Fortzählung wird als Neubeginn gelesen.
+      const restartedAfterParent = level > 0 && Number.isInteger(explicitStart) && explicitStart > 1 &&
+        restartedLevels.has(key) && (exportCounts.get(key) ?? 0) + 1 === explicitStart;
+      let counter = restartedAfterParent
+        ? 1
+        : Number.isInteger(explicitStart)
+          ? explicitStart
+          : hasStartClass
+            ? (css.resets.get(key) ?? 0) + 1
+            : (counters.get(key) ?? 0) + 1;
+      // Ein ausdrücklicher Startwert über 1 steht für die gedruckte Nummer der Quelle.
+      const explicitCounter = Number.isInteger(explicitStart) && explicitStart > 1 && !restartedAfterParent;
+      restartedLevels.delete(key);
       const items = elementChildren(node, 'li');
+      exportCounts.set(key, (restartedAfterParent || !Number.isInteger(explicitStart)
+        ? (hasStartClass && !Number.isInteger(explicitStart) ? 0 : exportCounts.get(key) ?? 0)
+        : explicitStart - 1) + items.length);
       if (items.length === 0) throw new NormHtmlParseError(fileName, `leere Liste ${listId}, Ebene ${level}`);
+      // Präfix mehrstufiger Gliederungszeichen aus den aktuellen Zählern der übergeordneten Ebenen.
+      const prefix = style.prefixParts
+        ? style.prefixParts.map((part) => {
+          const parentValue = counters.get(`${listId}:${part.level}`);
+          const parentVisible = Number.isInteger(parentValue) ? formatCounter(parentValue, part.numberingStyle) : null;
+          if (!parentVisible) throw new NormHtmlParseError(fileName, `übergeordneter Listenzähler ${listId}, Ebene ${part.level} fehlt`);
+          return `${part.leading}${parentVisible}${part.text}`;
+        }).join('')
+        : style.prefix;
       for (const item of items) {
         const visible = style.literal ?? formatCounter(counter, style.numberingStyle);
         if (!visible) throw new NormHtmlParseError(fileName, `nicht auflösbarer Listenzähler ${listId}, Ebene ${level} (${style.numberingStyle})`);
@@ -698,19 +982,34 @@ function makeAtomicTokens(nodes, css, fileName) {
           level,
           numberingStyle: style.numberingStyle,
           counterValue: counter,
-          numberingPrefix: style.prefix,
+          numberingPrefix: prefix,
           numberingSuffix: style.suffix,
-          label: `${style.prefix}${visible}${style.suffix}`.trim(),
+          label: `${prefix}${visible}${style.suffix}`.trim(),
           text: textOf(item),
           startsList: hasStartClass,
           indent: visualIndent(item, css, level * 36),
+          ...(explicitCounter ? { explicitCounter: true } : {}),
         });
+        const itemSegments = splitPrintedLetterLines(normalizeHtmlText(textWithBreaks(item)));
+        if (itemSegments && !itemSegments[0].label) {
+          tokens.at(-1).text = itemSegments[0].lines.join(' ');
+          emitPrintedSegments(itemSegments, tokens.at(-1).indent, { skipFirst: true });
+        } else if (!itemSegments) {
+          const quoted = splitQuotedLinesAfterCommand(normalizeHtmlText(textWithBreaks(item)));
+          if (quoted) {
+            tokens.at(-1).text = quoted.command;
+            tokens.push(...quotedLineTokens(quoted.lines, tokens.at(-1).indent + 36));
+          }
+        }
         counter += 1;
       }
       counters.set(key, counter - 1);
       for (const counterKey of [...counters.keys()]) {
         const [otherId, otherLevel] = counterKey.split(':');
-        if (otherId === listId && Number.parseInt(otherLevel, 10) > level) counters.delete(counterKey);
+        if (otherId === listId && Number.parseInt(otherLevel, 10) > level) {
+          restartedLevels.add(counterKey);
+          counters.delete(counterKey);
+        }
       }
       continue;
     }
@@ -748,20 +1047,35 @@ function makeAtomicTokens(nodes, css, fileName) {
         ...(nodeAttrs['data-structure-title'] ? { title: nodeAttrs['data-structure-title'] } : {}),
       }
       : null;
-    const marker = numberedHeading
+    const parsedMarker = numberedHeading
       ? { type: 'section', label: `${numberedHeading[1]}.`, title: numberedHeading[2] }
-      : explicitMarker ?? parseStructureMarker(rawText);
-    const inlineParagraphReference = marker?.type === 'paragraph' &&
+      : explicitMarker ?? parseHtmlStructureMarker(rawText);
+    const leadSentence = !explicitMarker && !numberedHeading ? romanSectionLeadSentence(parsedMarker) : null;
+    const marker = leadSentence ? { type: parsedMarker.type, label: parsedMarker.label } : parsedMarker;
+    // „§ 5 gilt entsprechend.“ oder „Artikel 95a der Staatsverfassung bleibt unberührt.“ ist ein
+    // Satz, der mit einer Verweisung beginnt; ein Artikel nur dann, wenn der Satz kleingeschrieben
+    // weiterläuft (Artikelüberschriften beginnen großgeschrieben).
+    const inlineParagraphReference = (marker?.type === 'paragraph' ||
+      (['article', 'section', 'part', 'chapter', 'subsection'].includes(marker?.type) && /^\p{Ll}/u.test(marker.title ?? ''))) &&
       !/^h[1-6]$/u.test(node.tagName) &&
       !rawText.includes('\n') &&
       !isBold(node, css) &&
       !isCentered(node, css) &&
       /\b(?:gilt|gelten|findet|finden|bleibt|bleiben|ist|sind|tritt|treten|wird|werden)\b/iu.test(marker.title ?? '');
     const markerLooksLikeHeading = marker && !inlineParagraphReference;
+    const letterSegments = !markerLooksLikeHeading ? splitPrintedLetterLines(rawText) : null;
+    if (letterSegments) {
+      emitPrintedSegments(letterSegments, visualIndent(node, css));
+      continue;
+    }
     const amendmentInstruction = QUOTE_TRIGGER_PATTERN.test(text);
     const amendmentReference = marker && ['article', 'paragraph'].includes(marker.type) && AMENDMENT_REFERENCE_PATTERN.test(marker.title ?? '');
-    const printedItem = !markerLooksLikeHeading ? parsePrintedListItem(text) : null;
-    const printedLetter = !markerLooksLikeHeading && !printedItem ? printedLetterItem(text, tokens.at(-1)) : null;
+    const romanItem = !markerLooksLikeHeading ? printedRomanItem(text, tokens.at(-1), romanRun) : null;
+    const printedItem = !romanItem && !markerLooksLikeHeading && !ordinalNameLine(text, tokens.at(-1), visualIndent(node, css))
+      ? parsePrintedListItem(text)
+      : romanItem;
+    romanRun = romanItem ? { value: romanItem.counterValue, level: romanItem.level } : (printedItem ? romanRun : null);
+    const printedLetter = !markerLooksLikeHeading && !printedItem ? printedLetterItem(text, tokens.at(-1), visualIndent(node, css)) : null;
     if (markerLooksLikeHeading && !amendmentReference && !(amendmentInstruction && ['article', 'paragraph'].includes(marker.type))) {
       const embeddedTitle = embeddedIntroducedNormTitle(marker, rawText);
       const headingText = embeddedTitle ? rawText.split('\n').slice(0, 2).join('\n') : rawText;
@@ -771,7 +1085,15 @@ function makeAtomicTokens(nodes, css, fileName) {
         text: headingText, rawText: headingText,
         tagName: node.tagName, bold: isBold(node, css), centered: isCentered(node, css),
         opensQuote: OPENING_QUOTE_PATTERN.test(rawText),
+        ...(numberedHeading ? { numberedHeading: true } : {}),
       });
+      // Der Satz hinter einer römischen Ordnungszahl wird ihr erster Absatz.
+      if (leadSentence) {
+        tokens.push({
+          kind: 'paragraph', text: leadSentence, rawText: leadSentence, tagName: node.tagName,
+          bold: false, centered: false, indent: visualIndent(node, css),
+        });
+      }
       // Der in derselben Überschrift gesetzte Stammnormtitel bleibt eine eigene Titelzeile
       // unter der Artikelüberschrift, wie bei getrennt gesetzten Einführungsartikeln.
       if (embeddedTitle) {
@@ -782,6 +1104,16 @@ function makeAtomicTokens(nodes, css, fileName) {
         });
       }
     } else if (printedItem) {
+      if (printedItem.numberingStyle === 'lower-latin' && !romanItem) {
+        const letters = printedItem.label.replace(/^(?:„|“|,,|")/u, '').slice(0, -1);
+        const double = letters.length === 2;
+        const value = double ? (letters[0] === letters[1] ? letters.charCodeAt(0) - 96 : null) : letters.charCodeAt(0) - 96;
+        if (value) {
+          printedItem.level = printedLetterLevel(double, value, printedItem.level, visualIndent(node, css));
+          printedItem.counterValue = value;
+          printedItem.printedLetterKind = double ? 2 : 1;
+        }
+      }
       tokens.push({
         kind: 'listItem',
         listId: 'printed-outline',
@@ -797,15 +1129,162 @@ function makeAtomicTokens(nodes, css, fileName) {
         startsList: printedLetter.opensPrintedSublist,
         indent: visualIndent(node, css),
       });
+    } else if (splitSubparagraphLines(rawText) ?? splitParallelLines(rawText) ?? splitHeadingBodyLines(rawText, tokens.at(-1))) {
+      for (const line of splitSubparagraphLines(rawText) ?? splitParallelLines(rawText) ?? splitHeadingBodyLines(rawText, tokens.at(-1))) {
+        tokens.push({
+          kind: 'paragraph', text: line, rawText: line, tagName: node.tagName,
+          bold: isBold(node, css), centered: isCentered(node, css), indent: visualIndent(node, css),
+        });
+      }
     } else {
+      const ordinal = ordinalNameLine(text, tokens.at(-1), visualIndent(node, css));
       tokens.push({
         kind: 'paragraph', text, rawText, tagName: node.tagName,
         bold: isBold(node, css), centered: isCentered(node, css),
         indent: visualIndent(node, css),
+        ...(ordinal ? { ordinalName: Number.parseInt(text, 10) } : {}),
       });
     }
   }
-  return tokens;
+  return closingFormulaTokens(tokens);
+}
+
+const CLOSING_FORMULA_PATTERN = /^Zu\s+Urkund\s+dessen\b/iu;
+
+// Schlussformel eines Vertrags („Zu Urkund dessen …“, „Geschehen zu …“, Unterzeichnung und
+// Anlagenverzeichnis) steht hinter dem letzten Artikel und nicht in ihm. Am Zeilenende umbrochene
+// Sätze werden verbunden, jede Vertragspartei und jede unterzeichnende Person bildet eine eigene
+// Zeile; Verzeichniszeilen „Anhang 1: …“ sind Text, keine Anlagen.
+function closingFormulaTokens(tokens) {
+  const output = [];
+  let closing = false;
+  for (let index = 0; index < tokens.length; index += 1) {
+    const token = tokens[index];
+    if (!closing && token.kind === 'paragraph' && CLOSING_FORMULA_PATTERN.test(token.text ?? '')) closing = true;
+    if (!closing) {
+      output.push(token);
+      continue;
+    }
+    const listedAnnex = token.kind === 'structure' && token.marker.type === 'annex' &&
+      tokens[index + 1]?.kind === 'structure' && tokens[index + 1].marker.type === 'annex';
+    if (token.kind === 'structure' && !listedAnnex) {
+      closing = false;
+      output.push(token);
+      continue;
+    }
+    if (token.kind !== 'paragraph' && !listedAnnex) {
+      output.push(token);
+      continue;
+    }
+    const lines = String(token.rawText ?? token.text ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+    for (const line of lines) {
+      const previous = output.at(-1);
+      const continuesSentence = previous?.closing && !previous.lineStart &&
+        !/[.:;!?]\s*$/u.test(previous.text) && /^\p{Ll}/u.test(line);
+      const continuesParty = previous?.closing && /^Für\s+(?:den|die|das)$/u.test(previous.text);
+      if (continuesSentence || continuesParty) {
+        previous.text = `${previous.text} ${line}`;
+        previous.rawText = previous.text;
+        continue;
+      }
+      output.push({
+        kind: 'paragraph', text: line, rawText: line, tagName: token.tagName ?? 'p',
+        bold: false, centered: false, indent: token.indent ?? 0, closing: true,
+      });
+    }
+  }
+  return output;
+}
+
+// „„(1a) …<br>(1b) …“ – mit Zeilenumbruch in einem Absatz gesetzte Absätze bleiben eigene Absätze.
+// Zerlegt wird nur ein Absatz, der selbst mit einer Absatznummer beginnt; Zeilen ohne eigene
+// Absatznummer setzen den vorangehenden Absatz fort.
+function splitSubparagraphLines(rawText) {
+  const lines = String(rawText ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+  const label = /^\(\d+[a-z]?\)\s/u;
+  if (lines.length < 2 || !label.test(lines[0].replace(OPENING_QUOTE_PATTERN, '')) || !lines.slice(1).some((line) => label.test(line))) return null;
+  const segments = [];
+  for (const line of lines) {
+    if (segments.length === 0 || label.test(line)) segments.push(line);
+    else segments[segments.length - 1] = `${segments.at(-1)} ${line}`;
+  }
+  return segments;
+}
+
+// Gedruckte römische Ziffern „i)“, „ii)“, „iii)“ unter einem Buchstabenpunkt. „i)“ beginnt die
+// Folge nur, wenn kein Buchstabe „h)“ vorangeht; jede weitere Ziffer setzt eine laufende Folge fort.
+function printedRomanItem(text, previousToken, run) {
+  const normalized = normalizeHtmlText(text);
+  const openingQuote = normalized.match(/^(?:„|“|,,|")/u)?.[0] ?? '';
+  const match = normalized.replace(/^(?:„|“|,,|")/u, '').match(/^([ivx]+)\)\s+(\S.*)$/u);
+  if (!match) return null;
+  const value = parseRomanCounter(match[1].toLocaleUpperCase('de'));
+  if (!value) return null;
+  let level;
+  if (value === 1) {
+    if (previousToken?.kind !== 'listItem' || previousToken.listId !== 'printed-outline') return null;
+    if (previousToken.numberingStyle === 'lower-latin' && previousToken.counterValue === 8) return null;
+    level = previousToken.numberingStyle === 'lower-roman' ? previousToken.level : (previousToken.level ?? 0) + 1;
+  } else {
+    if (!run || run.value !== value - 1) return null;
+    level = run.level;
+  }
+  return {
+    label: `${openingQuote}${match[1]})`,
+    text: match[2],
+    level,
+    numberingStyle: 'lower-roman',
+    counterValue: value,
+    ...(openingQuote ? { opensQuote: true } : {}),
+  };
+}
+
+// „Modul M1 …<br>Modul M2 …<br>Modul M3 …“ – mit Zeilenumbruch gesetzte gleich gebaute Zeilen,
+// die alle mit demselben großgeschriebenen Wort und einer laufenden Kennung beginnen, bleiben
+// getrennte Zeilen.
+function splitParallelLines(rawText) {
+  const lines = String(rawText ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 3) return null;
+  const heads = lines.map((line) => line.match(/^(\p{Lu}\p{L}+)\s+(\S+)/u));
+  if (heads.some((head) => !head) || new Set(heads.map((head) => head[1])).size !== 1) return null;
+  const keys = heads.map((head) => head[2].replace(/\d+/gu, '#'));
+  return new Set(keys).size === 1 && /#/u.test(keys[0]) ? lines : null;
+}
+
+// „3. Aufgabenprofil“ / „Navigation: …<br>Unterstützung …<br>Feedbackkanal: …“ – unter einem gedruckten
+// Gliederungspunkt, der nur eine Überschrift trägt (kurz, ohne Satzzeichen am Ende), ist ein mit
+// Zeilenumbruch gesetzter Absatz eine zeilenweise Aufzählung; jede Zeile bleibt eine eigene Zeile.
+// Am Zeilenende getrennte Wörter („Prüf-<br>stelle“) sind schon beim Einlesen verbunden.
+function splitHeadingBodyLines(rawText, previousToken) {
+  const lines = String(rawText ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 2) return null;
+  if (previousToken?.kind !== 'listItem' || previousToken.listId !== 'printed-outline') return null;
+  const heading = String(previousToken.text ?? '').trim();
+  if (!heading || /[.,;:!?“”"]$/u.test(heading) || heading.split(/\s+/u).length > 8) return null;
+  // „Antragsstelle ist die“ ist ein offener Satz, den der Absatz fortsetzt, keine Überschrift.
+  if (OPEN_SENTENCE_END_PATTERN.test(heading)) return null;
+  return lines;
+}
+
+// „Tag der Friedlichen Revolution (9. November), / 1. Weihnachtstag (25. Dezember),“ – in einer
+// ungezählten Aufzählung von Zeilen gleichen Einzugs ist eine Ordnungszahl vor einem großgeschriebenen
+// Wort Bestandteil des Namens und keine Gliederungsnummer. Die nächste Zahl derselben Folge bleibt
+// ebenfalls Fließtext.
+function ordinalNameLine(text, previousToken, indent) {
+  const match = normalizeHtmlText(text).match(/^(\d+)\.\s+\p{Lu}/u);
+  if (!match || previousToken?.kind !== 'paragraph' || Math.abs((previousToken.indent ?? 0) - indent) > 0.5) return false;
+  const value = Number.parseInt(match[1], 10);
+  if (value === 1) return /,\s*$/u.test(previousToken.text ?? '') && !/^\d+\.\s/u.test(previousToken.text ?? '');
+  return previousToken.ordinalName === value - 1;
+}
+
+// „I. Im Zeitraum … wird … untersagt:“ – folgt auf eine römische Ordnungszahl im selben Absatz ein
+// ganzer Satz, ist er der erste Text der Gliederungseinheit und keine Überschrift.
+function romanSectionLeadSentence(marker) {
+  if (marker?.type !== 'section' || !/^[IVXLCDM]+\.$/u.test(marker.label ?? '')) return null;
+  const title = marker.title ?? '';
+  if (!/[.:;]$/u.test(title) || title.split(/\s+/u).length < 8) return null;
+  return title;
 }
 
 // „Artikel 1 / Einführung eines …gesetzes / Gesetz über …“ in einer einzigen Überschrift:
@@ -877,23 +1356,215 @@ function endsAmendmentQuote(token) {
     (token?.kind === 'structure' && /(?:“|”|’|''|")\s*\.\s*$/u.test(text));
 }
 
+// Der Listenpunkt, dem ein Änderungsbefehl gehört: der Befehl selbst oder bei einem
+// Fortsetzungsabsatz der unmittelbar vorangehende Punkt auf derselben oder geringerer Einrückung.
+function quoteOwnerItem(tokens, index) {
+  const trigger = tokens[index];
+  if (trigger.kind === 'listItem') return trigger;
+  for (let back = index - 1; back >= 0; back -= 1) {
+    const candidate = tokens[back];
+    if (candidate.kind === 'structure' || candidate.kind === 'quotedGroup') return null;
+    if (candidate.kind === 'listItem') return (candidate.indent ?? 0) <= (trigger.indent ?? 0) + 0.5 ? candidate : null;
+  }
+  return null;
+}
+
+function isNextVisualSibling(candidate, owner) {
+  return candidate.kind === 'listItem' &&
+    !OPENING_QUOTE_PATTERN.test(candidate.text ?? '') &&
+    candidate.numberingStyle === owner.numberingStyle &&
+    listLabelShape(candidate.label) === listLabelShape(owner.label) &&
+    Number.isInteger(owner.counterValue) && candidate.counterValue === owner.counterValue + 1 &&
+    (candidate.indent ?? 0) <= (owner.indent ?? 0) + 0.5;
+}
+
+const QUOTE_TRIGGER_WITHOUT_COLON_PATTERN = new RegExp(QUOTE_TRIGGER_PATTERN.source.replace(/\\s\*:\\s\*\$$/u, '\\s*$'), 'iu');
+
+function opensQuotation(token) {
+  return token?.kind === 'structure' || token?.opensQuote
+    ? Boolean(token.opensQuote)
+    : OPENING_QUOTE_PATTERN.test(token?.rawText ?? token?.text ?? '');
+}
+
+function isQuoteTrigger(token, nextToken, followingToken) {
+  if (QUOTE_TRIGGER_PATTERN.test(token.text)) {
+    // „… wird wie folgt gefasst:“ vor eigenen Unterpunkten derselben Liste ohne Anführung ist ein
+    // Änderungsbefehl mit Untergliederung, keine zitierte Neufassung.
+    if (nextToken?.kind === 'listItem' && nextToken.counterValue === 1 && !opensQuotation(nextToken) &&
+      opensQuotation(followingToken)) return false;
+    return !(nextToken?.kind === 'listItem' && token.kind === 'listItem' && nextToken.listId === token.listId &&
+      token.listId !== 'printed-outline' && nextToken.level > token.level && !opensQuotation(nextToken));
+  }
+  // „Die Bezeichnung der Verordnung wird wie folgt geändert:“ unmittelbar vor zitiertem Wortlaut
+  // ohne eigene Gliederungsnummer leitet ebenfalls eine Neufassung ein.
+  if (/\bwie\s+folgt\s+geändert\s*:\s*$/iu.test(token.text) && nextToken?.kind === 'paragraph' &&
+    opensQuotation(nextToken)) return true;
+  return QUOTE_TRIGGER_WITHOUT_COLON_PATTERN.test(token.text) && opensQuotation(nextToken);
+}
+
+// Übergeordnete Listenpunkte des Befehls: vorangehende Punkte höheren Gliederungsrangs auf
+// gleicher oder geringerer Einrückung, bis zur nächsten Gliederungsüberschrift.
+function listAncestorTokens(tokens, ownerIndex, owner) {
+  const chain = [];
+  let rank = numberingRank(owner.numberingStyle);
+  let indent = owner.indent ?? 0;
+  for (let back = ownerIndex - 1; back >= 0 && rank > 1; back -= 1) {
+    const candidate = tokens[back];
+    if (candidate.kind === 'structure') break;
+    if (candidate.kind !== 'listItem') continue;
+    const candidateRank = numberingRank(candidate.numberingStyle);
+    if (candidateRank < rank && (candidate.indent ?? 0) <= indent + 0.5) {
+      chain.push(candidate);
+      rank = candidateRank;
+      indent = candidate.indent ?? 0;
+    }
+  }
+  return chain;
+}
+
+function enclosingStructureToken(tokens, index) {
+  for (let back = index - 1; back >= 0; back -= 1) {
+    if (tokens[back].kind === 'structure' && !tokens[back].opensQuote) return tokens[back];
+  }
+  return null;
+}
+
+function structureLabelValue(label) {
+  const last = String(label ?? '').trim().replace(/[.:]$/u, '').split(/\s+/u).at(-1) ?? '';
+  if (/^\d+$/u.test(last)) return { shape: String(label).replace(last, '#'), value: Number.parseInt(last, 10) };
+  const roman = parseRomanCounter(last);
+  return roman ? { shape: String(label).replace(last, '#'), value: roman } : null;
+}
+
+function isNextStructureSibling(candidate, structure) {
+  if (candidate.kind !== 'structure' || candidate.opensQuote || candidate.marker.type !== structure.marker.type) return false;
+  // Artikel und Paragraphen kommen in zitierten Neufassungen regelmäßig mit fortlaufender Zählung vor.
+  if (['article', 'paragraph'].includes(candidate.marker.type)) return false;
+  const current = structureLabelValue(structure.marker.label);
+  const next = structureLabelValue(candidate.marker.label);
+  return Boolean(current && next && current.shape === next.shape && next.value === current.value + 1);
+}
+
+// „Artikel 3 / Das … Gesetz wird wie folgt gefasst: / § 1 … § 3 … / Artikel 4 …“ – eine ohne
+// Anführungszeichen gesetzte Neufassung aus Paragraphen endet vor dem Artikel, der die Zählung
+// des äußeren Mantelartikels fortsetzt. Enthält das Zitat selbst Artikel, bleibt es offen.
+function continuesOuterArticleCount(candidate, outerStructure, quotedTokens) {
+  if (candidate.kind !== 'structure' || candidate.opensQuote || candidate.marker.type !== 'article') return false;
+  if (outerStructure?.marker.type !== 'article') return false;
+  if (quotedTokens.some((token) => token.kind === 'structure' && token.marker.type === 'article')) return false;
+  const current = structureLabelValue(outerStructure.marker.label);
+  const next = structureLabelValue(candidate.marker.label);
+  return Boolean(current && next && current.shape === next.shape && next.value === current.value + 1);
+}
+
+// „§ 4 … eingeschränkt.“ § 4a … eingeschränkt.“ – folgt auf ein geschlossenes Zitat eine nicht
+// geöffnete Gliederungseinheit, deren Text erneut mit einem schließenden Anführungszeichen unmittelbar
+// vor dem nächsten Geschwister des Änderungsbefehls endet, gehört sie noch zur Neufassung; das erste
+// schließende Zeichen ist ein Setzfehler der Quelle.
+function continuesAfterStrayClosingQuote(tokens, index, owner) {
+  if (!owner || tokens[index]?.kind !== 'structure' || tokens[index].opensQuote) return false;
+  for (let ahead = index + 1; ahead < tokens.length; ahead += 1) {
+    const candidate = tokens[ahead];
+    if (candidate.kind === 'structure' || opensQuotation(candidate)) return false;
+    if (candidate.kind === 'listItem' && (isNextVisualSibling(candidate, owner) ||
+      (candidate.listId === owner.listId && candidate.level <= owner.level))) return false;
+    if (endsAmendmentQuote(candidate)) {
+      const next = tokens[ahead + 1];
+      return !next || (next.kind === 'listItem' && isNextVisualSibling(next, owner)) || isOuterArticleToken(next);
+    }
+  }
+  return false;
+}
+
+const TABLE_OF_CONTENTS_PATTERN = /\b(?:Inhaltsübersicht|Inhaltsverzeichnis)\b/iu;
+
+// Der Befehl fügt Angaben einer Inhaltsübersicht ein, selbst oder unter einem übergeordneten
+// Punkt „Die Inhaltsübersicht wird wie folgt geändert:“. Die Suche nach dem übergeordneten Punkt
+// überspringt vorangehende Zitate und endet am äußeren Artikel.
+function quotesTableOfContents(tokens, index, owner) {
+  const trigger = tokens[index];
+  if (!/\bAngaben?\b/iu.test(trigger.text ?? '')) return false;
+  if (TABLE_OF_CONTENTS_PATTERN.test(trigger.text ?? '')) return true;
+  if (owner.kind !== 'listItem') return false;
+  let rank = numberingRank(owner.numberingStyle);
+  for (let back = tokens.indexOf(owner) - 1; back >= 0 && rank > 1; back -= 1) {
+    const candidate = tokens[back];
+    if (isOuterArticleToken(candidate)) return false;
+    if (candidate.kind !== 'listItem' || opensQuotation(candidate)) continue;
+    const candidateRank = numberingRank(candidate.numberingStyle);
+    if (candidateRank >= rank || (candidate.indent ?? 0) > (owner.indent ?? 0) + 0.5) continue;
+    if (TABLE_OF_CONTENTS_PATTERN.test(candidate.text ?? '')) return true;
+    rank = candidateRank;
+  }
+  return false;
+}
+
+// Zitierte Angaben einer Inhaltsübersicht („„§ 11a Nutzung privater mobiler Endgeräte“.“) sind
+// Textzeilen, keine Gliederungseinheiten mit Überschrift; jede Angabe bleibt eine eigene Zeile.
+// Steht die Bezeichnung allein in einer Zeile, gehört die folgende Zeile als Überschrift zu ihr.
+function tableOfContentsLineTokens(tokens) {
+  const output = [];
+  for (let index = 0; index < tokens.length; index += 1) {
+    const token = tokens[index];
+    if (token.kind !== 'structure') {
+      output.push(token);
+      continue;
+    }
+    const lines = token.rawText.split('\n').map((line) => line.trim()).filter(Boolean);
+    const next = tokens[index + 1];
+    if (lines.length === 1 && !token.marker.title && next?.kind === 'paragraph') {
+      lines[0] = `${lines[0]} ${next.text}`;
+      index += 1;
+    }
+    output.push(...lines.map((line) => ({
+      kind: 'paragraph', text: line, rawText: line, tagName: token.tagName,
+      bold: false, centered: false, indent: token.indent ?? 0,
+    })));
+  }
+  return output;
+}
+
+// „Die Lernbereiche 1 bis 4 erhalten folgende Fassung: / a) Lernbereich 1 / „Lernbereich 1: …“ /
+// b) Lernbereich 2 / „…““ – der Befehl ist untergliedert (isQuoteTrigger); jeder Unterpunkt, dem
+// unmittelbar zitierter Wortlaut folgt, ist dann selbst der Träger seiner Neufassung.
+function subdividedTriggerList(token, nextToken, followingToken) {
+  if (!['listItem', 'paragraph'].includes(token.kind) || !QUOTE_TRIGGER_PATTERN.test(token.text ?? '')) return null;
+  if (nextToken?.kind !== 'listItem' || nextToken.counterValue !== 1 || opensQuotation(nextToken) ||
+    !opensQuotation(followingToken)) return null;
+  return { listId: nextToken.listId, level: nextToken.level };
+}
+
 function groupAmendmentQuotes(tokens) {
   const grouped = [];
+  let subdivided = null;
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
     grouped.push(token);
-    if (!['listItem', 'paragraph'].includes(token.kind) || !QUOTE_TRIGGER_PATTERN.test(token.text)) continue;
+    if (token.kind === 'structure') subdivided = null;
+    const subdividedItem = subdivided && token.kind === 'listItem' && token.listId === subdivided.listId &&
+      token.level === subdivided.level && !opensQuotation(token) && opensQuotation(tokens[index + 1]);
+    subdivided = subdividedTriggerList(token, tokens[index + 1], tokens[index + 2]) ?? subdivided;
+    if (!['listItem', 'paragraph'].includes(token.kind) ||
+      (!subdividedItem && !isQuoteTrigger(token, tokens[index + 1], tokens[index + 2]))) continue;
     let end = index + 1;
     let sawContent = false;
+    const owner = quoteOwnerItem(tokens, index);
+    const ownerChain = owner ? listAncestorTokens(tokens, tokens.indexOf(owner), owner) : [];
+    const outerStructure = enclosingStructureToken(tokens, index);
     while (end < tokens.length) {
       const candidate = tokens[end];
-      if (candidate.kind === 'listItem' && candidate.listId === token.listId && candidate.level <= token.level) break;
+      if (sawContent && owner && isNextVisualSibling(candidate, owner)) break;
+      if (sawContent && ownerChain.some((ancestor) => isNextVisualSibling(candidate, ancestor))) break;
+      if (sawContent && outerStructure && isNextStructureSibling(candidate, outerStructure)) break;
+      if (sawContent && continuesOuterArticleCount(candidate, outerStructure, tokens.slice(index + 1, end))) break;
+      if (candidate.kind === 'listItem' && candidate.listId === token.listId && candidate.level <= token.level &&
+        !(!sawContent && opensQuotation(candidate))) break;
       if (
         sawContent &&
         candidate.kind === 'structure' &&
         ['article', 'paragraph'].includes(candidate.marker.type) &&
         (
-          endsAmendmentQuote(tokens[end - 1]) ||
+          (endsAmendmentQuote(tokens[end - 1]) && !continuesAfterStrayClosingQuote(tokens, end, owner)) ||
           OUTER_ARTICLE_TITLE_PATTERN.test(candidate.marker.title ?? '')
         )
       ) break;
@@ -910,7 +1581,9 @@ function groupAmendmentQuotes(tokens) {
     if (end > index + 1) {
       grouped.push({
         kind: 'quotedGroup',
-        tokens: tokens.slice(index + 1, end),
+        tokens: quotesTableOfContents(tokens, index, owner ?? token)
+          ? tableOfContentsLineTokens(tokens.slice(index + 1, end))
+          : tokens.slice(index + 1, end),
         attachToPrevious: token.kind === 'listItem',
         introduction: false,
       });
@@ -930,6 +1603,10 @@ function numberingRank(style) {
   if (style === 'lower-roman' || style === 'upper-roman') return 3;
   if (style === 'bullet' || style === 'literal') return 4;
   return 0;
+}
+
+function listLabelShape(label) {
+  return String(label ?? '').trim().replace(/\p{L}/gu, 'a').replace(/\d+/gu, '1');
 }
 
 function standaloneListMarkerToken(token, nextToken) {
@@ -1001,6 +1678,42 @@ function standaloneListMarkerToken(token, nextToken) {
   };
 }
 
+// „1.2.1 Nötigkeit“: eine gedruckte Gliederungsnummer mit kurzer Überschrift ohne Satzzeichen.
+// Einfache Nummern („1. Artikel 98 …“) gelten nur in einer mehrstufig gedruckten Gliederung als
+// Überschrift; sonst („1. Polytechnische Oberschule“) bleiben sie Aufzählungspunkte.
+function isOutlineHeadingItem(token, multilevelOutline) {
+  const text = String(token.text ?? '').trim();
+  const multilevel = /^\d+(?:\.\d+)+\.?$/u.test(token.label ?? '');
+  return token.numberingStyle === 'decimal' && !token.opensQuote && (multilevel || (multilevelOutline && /^\d+\.$/u.test(token.label ?? ''))) &&
+    /^[\p{Lu}§]/u.test(text) && text.length <= 160 && !/[.,;:!?“”"]$/u.test(text);
+}
+
+// Ein mit Satzzeichen abgeschlossener Text aus mindestens sechs Wörtern ist ein Satz; Überschriften
+// enden ohne Satzzeichen oder nur mit dem schließenden Zeichen eines Zitats („Übergangsregelung“.“).
+function isSentenceText(value) {
+  const core = String(value ?? '').replace(/^[„“”'`,.]+/u, '').trim();
+  return /[\p{L}\p{N})][.!?]$/u.test(core) && core.split(/\s+/u).length >= 6;
+}
+
+const SEPARATE_TITLE_TYPES = new Set(['part', 'chapter', 'section', 'subsection', 'annex']);
+
+// „I.“ / „Zuwendungszweck, Rechtsgrundlagen“ oder „Anlage 1 (zu § 2)“ / „Zuordnung …“: Steht die
+// Überschrift einer Gliederungseinheit ohne eigene Überschrift im unmittelbar folgenden, gleich
+// gesetzten Absatz, ist dieser Absatz ihre Überschrift und kein Normtext. Erkannt wird nur eine
+// kurze Zeile ohne Satzzeichen am Ende, ohne Absatznummer und mit der Auszeichnung der
+// Gliederungszeile (Überschriftenelement, Zentrierung, Fettdruck) oder innerhalb eines Zitats.
+function separateHeadingTitle(structure, next, inQuote) {
+  if (!SEPARATE_TITLE_TYPES.has(structure.marker.type) || next?.kind !== 'paragraph' || next.ordinalName) return null;
+  const text = String(next.text ?? '').trim();
+  const core = text.replace(CLOSING_QUOTE_PATTERN, '').trim();
+  if (!core || core.length > 160 || /[.;:,!?]$/u.test(core) || /^\(\d/u.test(core) || parseHtmlStructureMarker(core)) return null;
+  if (OPENING_QUOTE_PATTERN.test(text)) return null;
+  const headingElements = /^h[1-6]$/u.test(structure.tagName ?? '') && /^h[1-6]$/u.test(next.tagName ?? '');
+  const samePresentation = (structure.centered && next.centered) || (structure.bold && next.bold);
+  if (!headingElements && !samePresentation && !inQuote) return null;
+  return inQuote ? text : core;
+}
+
 function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes = true } = {}) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
@@ -1009,11 +1722,68 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
   const listCounterOffsets = new WeakMap();
   let lastBlock = null;
   let lastListState = null;
+  // Gedruckte Gliederungsnummer mit Überschrift („1.2.1 Nötigkeit“): Die folgenden Absätze und
+  // Listen bis zur nächsten Gliederungsnummer bilden ihren Inhalt.
+  let outlineHeading = null;
+  const multilevelOutline = tokens.some((entry) => entry.kind === 'listItem' && entry.listId === 'printed-outline' &&
+    /^\d+(?:\.\d+)+\.?$/u.test(entry.label ?? ''));
 
   const append = (block) => {
     currentChildren(stack).push(block);
     lastBlock = block;
     return block;
+  };
+  // Listenpunkt, dem ein Kinderfeld gehört; trägt die Satzstruktur über mehrere Ebenen.
+  const childrenOwner = new WeakMap();
+  // Kinderfeld, in dem ein Listenpunkt steht (für den Aufstieg zum übergeordneten Punkt).
+  const itemContainer = new WeakMap();
+  const blockIndent = new WeakMap();
+  const sentenceClosingOwner = (text, indent) => {
+    if (!lastListState || lastBlock !== lastListState.block) return null;
+    if (/[.!?;:]\s*$/u.test(lastListState.block.text ?? '')) return null;
+    const owner = childrenOwner.get(lastListState.destination);
+    if (!owner || owner.type !== 'item' || /[.!?;:]\s*$/u.test(owner.text ?? '')) return null;
+    // Kleingeschrieben setzt der Schlussteil den Satz fort; großgeschrieben nur mit dem Texteinzug
+    // des übergeordneten Punkts („3. … so festzulegen, dass / a) … / b) … / Bestandteil … ist.“).
+    const alignedWithOwner = (indent ?? 0) > 0.5 && Math.abs((indent ?? 0) - (blockIndent.get(owner) ?? -1)) <= 0.5;
+    if (!/^\p{Ll}/u.test(text ?? '') && !(alignedWithOwner && /^\p{Lu}/u.test(text ?? ''))) return null;
+    // Ein Schlussteil, der den Satz beendet („übertragen.“), vollendet auch jeden offenen
+    // übergeordneten Punkt, dessen letzter Unterpunkt der Eigentümer ist („2. Dem … wird aus dem
+    // Geschäftsbereich / a. … / b. … die Geschäftsbereiche / i. … / iv. … / übertragen.“).
+    let closingOwner = owner;
+    while (/[.!?]\s*$/u.test(text ?? '')) {
+      const container = itemContainer.get(closingOwner);
+      const parentOwner = container ? childrenOwner.get(container) : null;
+      if (!parentOwner || parentOwner.type !== 'item' || container.at(-1) !== closingOwner ||
+        /[.!?;:]\s*$/u.test(parentOwner.text ?? '')) break;
+      closingOwner = parentOwner;
+    }
+    return closingOwner;
+  };
+
+  // Der Einleitungssatz vor einer Liste der obersten Ebene endet offen („… in Einnahmen und
+  // Ausgaben auf / 1. … / 2. … / festgestellt.“): Ein kleingeschriebener Folgeabsatz mit dem
+  // Einzug dieses Einleitungssatzes vollendet ihn und gehört nicht in den letzten Punkt. Mit
+  // tieferem Einzug („Sitz / 1. in Berlin / mit Zuständigkeit für …;“) setzt er den Punkt fort.
+  const closesOpenListIntro = (state, token) => {
+    const text = token.text ?? '';
+    if (!state || state.semanticLevel !== 0 || !/^\p{Ll}/u.test(text)) return false;
+    const first = state.destination.findIndex((entry) => entry.type === 'item' && entry.listId === state.block.listId);
+    const intro = first > 0 ? state.destination[first - 1] : null;
+    return Boolean(intro && ['paragraphText', 'subparagraph'].includes(intro.type) &&
+      intro.text && !/[.!?;:]\s*$/u.test(intro.text) && blockIndent.has(intro) &&
+      Math.abs((token.indent ?? 0) - blockIndent.get(intro)) <= 0.5);
+  };
+
+  const ownerAlignedAfterSublist = (token) => {
+    if (!lastListState || lastBlock !== lastListState.block || lastListState.contextInterrupted) return null;
+    if (lastListState.semanticLevel < 1 || !/[.!?;]\s*$/u.test(lastListState.block.text ?? '')) return null;
+    const owner = childrenOwner.get(lastListState.destination);
+    if (!owner || !['item', 'subparagraph'].includes(owner.type)) return null;
+    const indent = token.indent ?? 0;
+    if (indent <= 0.5 || Math.abs(indent - (blockIndent.get(owner) ?? -1)) > 0.5) return null;
+    if (!/^\p{Lu}/u.test(token.text ?? '') || OPENING_QUOTE_PATTERN.test(token.text ?? '')) return null;
+    return owner;
   };
 
   const groupedTokens = parseAmendmentQuotes
@@ -1024,12 +1794,41 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
     const token = standaloneListMarkerToken(originalToken, groupedTokens[tokenIndex + 1]) ?? originalToken;
     if (token.kind === 'structure') {
       const block = { type: token.marker.type, label: token.marker.label, ...(token.marker.title ? { title: token.marker.title } : {}), children: [] };
-      const rank = STRUCTURE_RANK[block.type];
+      const separateTitle = !block.title ? separateHeadingTitle(token, groupedTokens[tokenIndex + 1], inQuote) : null;
+      if (separateTitle) {
+        block.title = separateTitle;
+        tokenIndex += 1;
+      }
+      // Paragraphen innerhalb eines Artikels („Artikel 2 Übergangsbestimmungen / § 1 …“) gliedern
+      // diesen Artikel weiter und beenden ihn nicht.
+      // Innerhalb einer Anlage gliedern Teile, Kapitel und Abschnitte die Anlage weiter.
+      // Eine Präambel endet vor dem ersten Artikel; sie enthält keine Artikel.
+      const insideAnnex = block.type !== 'annex' && stack.some((frame) => frame.type === 'annex');
+      // „III. Änderung … / 1. Allgemeine Ziele / 2. Grundkurs“: Als Überschrift gesetzte Nummern
+      // innerhalb einer offenen römisch bezeichneten Gliederung gliedern diese weiter und stehen
+      // nicht neben ihr. Ohne offene römische Gliederung bleiben sie Gliederungseinheiten der
+      // obersten Ebene.
+      const romanFrame = !token.numberedHeading
+        ? null
+        : stack.at(-1).roman
+          ? stack.at(-1)
+          : stack.at(-1).numberedHeading && stack.at(-2)?.roman ? stack.at(-2) : null;
+      const rank = romanFrame
+        ? romanFrame.rank + 1
+        : block.type === 'paragraph' && stack.some((frame) => frame.type === 'article')
+          ? STRUCTURE_RANK.article + 1
+          : STRUCTURE_RANK[block.type] + (insideAnnex ? 1 : 0);
       while (stack.length > 1 && stack.at(-1).rank >= rank) stack.pop();
       currentChildren(stack).push(block);
-      stack.push({ rank, children: block.children });
+      const frameRank = block.type === 'section' && block.label === 'Präambel' ? STRUCTURE_RANK.article : rank;
+      stack.push({
+        rank: frameRank, type: block.type, children: block.children,
+        ...(block.type === 'section' && /^[IVXLCDM]+\.$/u.test(block.label ?? '') ? { roman: true } : {}),
+        ...(romanFrame ? { numberedHeading: true } : {}),
+      });
       lastBlock = block;
       lastListState = null;
+      outlineHeading = null;
       listParents.clear();
       listBaselines.clear();
       continue;
@@ -1046,29 +1845,58 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         ...(token.name ? { text: token.name } : {}),
       });
       lastListState = null;
+      outlineHeading = null;
+      listParents.clear();
+      listBaselines.clear();
+      continue;
+    }
+    if (token.kind === 'paragraph' && token.closing) {
+      stack.length = 1;
+      append({ type: 'paragraphText', text: token.text });
+      lastListState = null;
+      outlineHeading = null;
       listParents.clear();
       listBaselines.clear();
       continue;
     }
     if (token.kind === 'paragraph') {
-      const subparagraph = token.text.match(/^\((\d+[a-z]?)\)\s*(.*)$/iu);
-      if (inQuote && !subparagraph && ['article', 'paragraph'].includes(lastBlock?.type) && !lastBlock.title) {
+      // Ein zitierter Absatz behält seine Absatznummer auch hinter dem öffnenden Anführungszeichen
+      // („„(3) …“). Das öffnende Zeichen steht wie bei zitierten Punkten („„1.“, siehe
+      // parsePrintedListItem) vor der Absatznummer und bleibt in der Bezeichnung erhalten („„(3)“);
+      // das schließende Zeichen bleibt am Textende, die Anführung ist damit ausgeglichen.
+      const subparagraphQuote = inQuote ? token.text.match(OPENING_QUOTE_PATTERN)?.[0] ?? '' : '';
+      const subparagraph = token.text.slice(subparagraphQuote.length).match(/^\((\d+[a-z]?)\)\s*(.*)$/iu);
+      // Ein vollständiger Satz („Dem … Staatsvertrag … wird zugestimmt.“) ist Normtext, keine Überschrift.
+      if (inQuote && !subparagraph && ['article', 'paragraph'].includes(lastBlock?.type) && !lastBlock.title &&
+        !isSentenceText(token.text)) {
         lastBlock.title = token.text.replace(/^[„“”'`,.]+/u, '').trim();
         continue;
       }
       const paragraphBlock = subparagraph
-        ? { type: 'subparagraph', label: `(${subparagraph[1]})`, text: subparagraph[2], children: [] }
+        ? { type: 'subparagraph', label: `${subparagraphQuote}(${subparagraph[1]})`, text: subparagraph[2], children: [] }
         : { type: 'paragraphText', text: token.text };
+      blockIndent.set(paragraphBlock, token.indent ?? 0);
       const syntacticallyOpenListItem = lastListState &&
         lastBlock === lastListState.block &&
         !lastListState.contextInterrupted &&
         !/[.!?;:]\s*$/u.test(lastListState.block.text ?? '') &&
-        /\b(?:der|die|das|den|dem|des|ein|eine|einer|einem|einen|ist|sind|bei|durch|für|mit|nach|von|vor|zu|zur|zum)\s*$/iu
-          .test(lastListState.block.text ?? '');
-      const continuationOfListItem = !inQuote && !subparagraph && lastListState &&
+        OPEN_SENTENCE_END_PATTERN.test(lastListState.block.text ?? '');
+      // Ein Absatz mit dem Texteinzug des unmittelbar vorangehenden Punkts, dessen Text ohne
+      // Satzzeichen endet („1. Polytechnische Oberschule“ / „An allen Schulen …“), ist dessen Inhalt.
+      const alignedWithOpenListItem = lastListState && lastBlock === lastListState.block &&
+        !lastListState.contextInterrupted && (token.indent ?? 0) > 0.5 &&
+        Math.abs((token.indent ?? 0) - (lastListState.indent ?? 0)) <= 0.5 &&
+        (!/[.!?;:,]\s*$/u.test(lastListState.block.text ?? '') || QUOTE_TRIGGER_PATTERN.test(token.text ?? '')) &&
+        !/^\d+\./u.test(token.text ?? '') && !closesOpenListIntro(lastListState, token) &&
+        // Ein Zitat gehört nur dann dazu, wenn es im selben Absatz schließt („„Lehrplan …“.“).
+        (!OPENING_QUOTE_PATTERN.test(token.text ?? '') || /(?:“|”|")[.,;]?\s*$/u.test(token.text ?? ''));
+      // „F. Kontrollen“ – eine mit Großbuchstaben bezeichnete Zwischenüberschrift setzt keinen Punkt fort.
+      const letteredHeading = /^\p{Lu}\.\s+\p{Lu}/u.test(token.text ?? '') && !/[.;:,]\s*$/u.test(token.text ?? '');
+      const continuationOfListItem = !subparagraph && !letteredHeading && lastListState &&
         !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
         !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
-        (lastListState.continuationOpen || /:\s*$/u.test(lastListState.block.text ?? '') || syntacticallyOpenListItem) &&
+        (lastListState.continuationOpen || /:\s*$/u.test(lastListState.block.text ?? '') || syntacticallyOpenListItem ||
+          alignedWithOpenListItem) &&
         token.indent >= (lastListState.indent ?? 0) - 0.5;
       const continuationAfterNestedCorrectionList = !parseAmendmentQuotes && !subparagraph && lastListState?.semanticLevel > 0 &&
         token.indent >= (lastListState.indent ?? 0) - 0.5;
@@ -1082,6 +1910,24 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         lastListState.block.children.push(paragraphBlock);
         lastListState.continuationOpen = true;
         lastBlock = paragraphBlock;
+      } else if (!subparagraph && sentenceClosingOwner(paragraphBlock.text, token.indent)) {
+        // „In der Überschrift wird / a) … und / b) … / ersetzt.“ – der Schlussteil vollendet den
+        // Satz des übergeordneten Punkts hinter dessen Unterpunkten.
+        const owner = sentenceClosingOwner(paragraphBlock.text, token.indent);
+        owner.children.push(paragraphBlock);
+        lastBlock = paragraphBlock;
+        lastListState.contextInterrupted = true;
+      } else if (!subparagraph && ownerAlignedAfterSublist(token)) {
+        // „(3) … folgende Vorgaben: / 1. … / 10. … / Weitere Vorgaben … .“ – ein Absatz mit dem
+        // Texteinzug des übergeordneten Punkts hinter dessen Unterpunkten ist dessen nächster Satz.
+        const owner = ownerAlignedAfterSublist(token);
+        owner.children.push(paragraphBlock);
+        lastBlock = paragraphBlock;
+        lastListState.contextInterrupted = true;
+      } else if (outlineHeading) {
+        outlineHeading.children.push(paragraphBlock);
+        lastBlock = paragraphBlock;
+        if (lastListState) lastListState.contextInterrupted = true;
       } else {
         append(paragraphBlock);
         if (lastListState) lastListState.contextInterrupted = true;
@@ -1089,6 +1935,11 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       continue;
     }
     if (token.kind === 'table') {
+      if (outlineHeading) {
+        outlineHeading.children.push(token.block);
+        lastBlock = token.block;
+        continue;
+      }
       append(token.block);
       continue;
     }
@@ -1106,7 +1957,24 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       }
       let semanticLevel = token.level - baseline;
       let destination = currentChildren(stack);
-      if (token.opensPrintedSublist && lastListState && lastBlock === lastListState.block) {
+      if (token.opensPrintedSublist && lastBlock?.type === 'subparagraph' && !lastBlock.listId) {
+        // Gedruckte Buchstabenfolge unter einem als Absatz gesetzten „(n)“.
+        semanticLevel = 1;
+        lastBlock.children ??= [];
+        destination = lastBlock.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+        parents.set(0, lastBlock);
+      } else if (token.listId === 'printed-outline' && token.printedLetterKind === 2 && token.counterValue === 1 &&
+        lastListState && lastBlock === lastListState.block && /^[a-z][.)]$/u.test(lastListState.block.label ?? '')) {
+        // Doppelbuchstaben „aa)“ unmittelbar nach einem Buchstabenpunkt bilden dessen Unterpunkte.
+        semanticLevel = lastListState.semanticLevel + 1;
+        lastListState.block.children ??= [];
+        destination = lastListState.block.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+        parents.set(semanticLevel - 1, lastListState.block);
+      } else if (token.opensPrintedSublist && lastListState && lastBlock === lastListState.block) {
         // Gedruckte Buchstabenfolge unter der unmittelbar vorangehenden Nummer.
         semanticLevel = lastListState.semanticLevel + 1;
         destination = lastListState.block.children;
@@ -1124,6 +1992,21 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
           destination = parent.children;
         }
       }
+      if (outlineHeading && token.listId !== 'printed-outline' && destination === currentChildren(stack)) {
+        // Eine Liste im Inhalt einer gedruckten Gliederungsnummer: unter einem unmittelbar
+        // vorangehenden, als Absatz gesetzten „(n)“ mit tieferem Einzug, sonst unter der Nummer.
+        const subparagraphOwner = lastBlock?.type === 'subparagraph' && !lastBlock.listId &&
+          outlineHeading.children.includes(lastBlock) && token.indent > (blockIndent.get(lastBlock) ?? 0) + 0.5
+          ? lastBlock
+          : null;
+        const owner = subparagraphOwner ?? outlineHeading;
+        semanticLevel = 1;
+        owner.children ??= [];
+        destination = owner.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+        parents.set(0, owner);
+      }
       if (
         !parseAmendmentQuotes && semanticLevel > 0 && lastListState &&
         token.indent < (lastListState.indent ?? 0) - 0.5 &&
@@ -1134,25 +2017,52 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         listBaselines.set(token.listId, token.level);
         parents.clear();
       }
+      const visualSibling = lastListState && token.listId !== lastListState.semanticListId &&
+        Math.abs((token.indent ?? 0) - (lastListState.indent ?? 0)) <= 0.5 &&
+        token.numberingStyle === lastListState.numberingStyle &&
+        listLabelShape(token.label) === listLabelShape(lastListState.block.label) &&
+        Number.isInteger(token.counterValue) && token.counterValue === lastListState.counterValue + 1;
+      if (visualSibling) {
+        semanticLevel = lastListState.semanticLevel;
+        destination = lastListState.destination;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+      }
       const deeperVisualIndent = token.indent > (lastListState?.indent ?? 0) + 0.5;
       const continuedAtSameIndent = !parseAmendmentQuotes && token.level > 0 &&
         token.indent >= (lastListState?.indent ?? 0) - 0.5 &&
         LIST_INTRO_END_PATTERN.test(lastListState?.block.text ?? '');
-      const mayUseVisualParent = !inQuote && (semanticLevel === 0 || continuedAtSameIndent) && lastListState &&
+      const directlyAfterItem = Boolean(lastListState) && lastBlock === lastListState.block && !lastListState.contextInterrupted;
+      // Eine neue Liste „1.“ unmittelbar nach einer mehrstufigen Ziffer („4.2“) gliedert diese weiter.
+      const opensUnderMultilevelNumber = directlyAfterItem && token.counterValue === 1 &&
+        /^\d+\.$/u.test(token.label ?? '') && /^\d+(?:\.\d+)+\.?$/u.test(lastListState.block.label ?? '');
+      // Eine Buchstabenliste ab „a“ unmittelbar nach einem Nummernpunkt gliedert diesen, auch bei
+      // gleichem Einzug.
+      // Das gilt auch hinter einem Einleitungssatz des Punkts, der mit Doppelpunkt endet
+      // („5. Klassenstufe 10 / Die Lernbereiche 1 bis 4 erhalten folgende Fassung: / a) …“).
+      const afterItemIntroduction = Boolean(lastListState) && !lastListState.contextInterrupted &&
+        lastListState.continuationOpen && lastBlock?.type === 'paragraphText' &&
+        lastListState.block.children?.at(-1) === lastBlock && /:\s*$/u.test(lastBlock.text ?? '');
+      const lettersOpenUnderNumber = (directlyAfterItem || afterItemIntroduction) && token.counterValue === 1 &&
+        lastListState.block.type === 'item' &&
+        numberingRank(token.numberingStyle) === 2 && numberingRank(lastListState.numberingStyle) === 1;
+      // Eine tiefer eingerückte neue Liste ab ihrem ersten Wert unmittelbar nach einem Punkt bildet
+      // dessen Unterpunkte.
+      const opensDeeperUnderItem = directlyAfterItem && deeperVisualIndent && token.counterValue === 1 &&
+        lastListState.block.type === 'item';
+      const mayUseVisualParent = !visualSibling && (semanticLevel === 0 || continuedAtSameIndent) && lastListState &&
         !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
-        !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
         token.listId !== lastListState.semanticListId &&
-        (deeperVisualIndent || continuedAtSameIndent || lastListState.opensSublist) &&
+        (deeperVisualIndent || continuedAtSameIndent || lastListState.opensSublist || opensUnderMultilevelNumber || lettersOpenUnderNumber) &&
         (
           continuedAtSameIndent ||
           lastListState.opensSublist ||
+          opensUnderMultilevelNumber ||
+          lettersOpenUnderNumber ||
+          opensDeeperUnderItem ||
           lastListState.continuationOpen ||
           /:\s*$/u.test(lastListState.block.text ?? '') ||
-          (
-            !lastListState.contextInterrupted &&
-            lastBlock === lastListState.block &&
-            numberingRank(token.numberingStyle) > numberingRank(lastListState.numberingStyle)
-          )
+          (directlyAfterItem && numberingRank(token.numberingStyle) > numberingRank(lastListState.numberingStyle))
         );
       if (mayUseVisualParent) {
         semanticLevel = lastListState.semanticLevel + 1;
@@ -1193,6 +2103,14 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
           destinationOffsets.set(counterKey, 0);
           semanticCounterValue = token.counterValue;
           label = token.label;
+        } else if (token.explicitCounter && token.counterValue === lastListState.counterValue &&
+          token.counterValue === lastListState.sourceCounterValue) {
+          // Eine ausdrücklich gesetzte Wiederholung der vorangehenden Nummer („1., 2., 3., 3.“) ist
+          // die gedruckte Zählung der Quelle; sie wird nicht stillschweigend weitergezählt.
+          existingCounterOffset = 0;
+          destinationOffsets.set(counterKey, 0);
+          semanticCounterValue = token.counterValue;
+          label = token.label;
         } else if (Number.isInteger(token.counterValue) && semanticCounterValue !== expectedCounterValue && token.counterValue <= lastListState.counterValue) {
           semanticCounterValue = expectedCounterValue;
           existingCounterOffset = semanticCounterValue - token.counterValue;
@@ -1215,12 +2133,19 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         children: [],
       };
       destination.push(block);
+      childrenOwner.set(block.children, block);
+      itemContainer.set(block, destination);
+      blockIndent.set(block, token.indent ?? 0);
       parents.set(semanticLevel, block);
       for (const level of [...parents.keys()]) if (level > semanticLevel) parents.delete(level);
       lastBlock = block;
+      if (token.listId === 'printed-outline') {
+        outlineHeading = !inQuote && parseAmendmentQuotes && isOutlineHeadingItem(token, multilevelOutline) ? block : null;
+      }
       lastListState = {
         block,
         counterValue: semanticCounterValue,
+        sourceCounterValue: token.counterValue,
         destination,
         numberingStyle: token.numberingStyle,
         semanticLevel,
@@ -1242,6 +2167,10 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         if (!lastBlock) throw new NormHtmlParseError(fileName, 'zitierte Neufassung kann keiner Änderungsanweisung zugeordnet werden');
         lastBlock.children ??= [];
         lastBlock.children.push(quote);
+      } else if (lastListState?.continuationOpen && lastListState.block.children?.at(-1) === lastBlock) {
+        // Der Änderungsbefehl ist Fortsetzungsabsatz eines Punkts; sein Zitat gehört in denselben Punkt.
+        lastListState.block.children.push(quote);
+        lastBlock = quote;
       } else {
         append(quote);
       }
@@ -1287,6 +2216,36 @@ export function validateListSequences(body) {
   return issues;
 }
 
+/**
+ * Quellbefunde eines Normkörpers, die nur mit wörtlich hinterlegtem Nachweis importiert werden:
+ * Nummerierungsbefunde und Tabellenzellen, die nur aus einer Abbildung ohne Textalternative bestehen.
+ */
+export function sourceFindingIssues(body) {
+  return [...validateListSequences(body), ...imageOnlyCellIssues(body)];
+}
+
+// Befund je Tabellenzelle, die nur eine Abbildung ohne Textalternative enthält: Der Wortlaut der
+// Zelle steht dann nur im Bild und fehlt im gespeicherten Text.
+function imageOnlyCellIssues(body) {
+  const issues = [];
+  const visit = (children, path = []) => {
+    for (const [index, block] of (children ?? []).entries()) {
+      const blockPath = [...path, block.label ?? `${block.type}[${index}]`];
+      if (block.type === 'table') {
+        block.children.forEach((row, rowIndex) => row.children.forEach((cell, cellIndex) => {
+          if (IMAGE_ONLY_CELLS.has(cell)) {
+            issues.push(`${blockPath.join(' > ')} > Zeile ${rowIndex + 1}, Zelle ${cellIndex + 1}: Abbildung ohne Textalternative`);
+          }
+        }));
+        continue;
+      }
+      visit(block.children, blockPath);
+    }
+  };
+  visit(body);
+  return issues;
+}
+
 function flattenBlocks(blocks, output = [], insideQuote = false) {
   for (const block of blocks ?? []) {
     output.push({ block, insideQuote });
@@ -1317,18 +2276,25 @@ function validateBody(fileName, title, body, { acceptedSequenceIssues = [] } = {
   if (spaced) {
     throw new NormHtmlParseError(fileName, `gesperrt gesetzter Text im Normkörper von „${title}“: Unterschriften gehören in einen Unterschriftenblock, Hervorhebungen werden ohne Sperrung gespeichert (${[spaced.block.label, spaced.block.title, spaced.block.text].filter(Boolean).join(' ').slice(0, 80)})`);
   }
-  const sequenceIssues = validateListSequences(body).filter((issue) => !acceptedSequenceIssues.includes(issue));
+  const sequenceIssues = sourceFindingIssues(body).filter((issue) => !acceptedSequenceIssues.includes(issue));
   if (sequenceIssues.length > 0) {
     throw new NormHtmlParseError(fileName, `needs-review: ${sequenceIssues.join('; ')}`);
   }
 }
 
-function inferEffectiveDate(text, publicationDate) {
+/**
+ * Inkrafttreten aus der Inkrafttretensformel. Verwaltungsvorschriften und Förderrichtlinien
+ * knüpfen an die Veröffentlichung oder Bekanntmachung statt an die Verkündung an; maßgeblich ist
+ * jeweils das Ausgabedatum. „Tag nach …“ wird nur in der gefundenen Formel ausgewertet, nicht im
+ * übrigen Normtext.
+ */
+export function inferEffectiveDate(text, publicationDate) {
   if (/tritt\s+am\s+ersten\s+Tag\s+des\s+ersten\s+Monats\s+nach\s+(?:(?:seiner|der)\s+)?Verkündung\s+in\s+Kraft/iu.test(text)) {
     return firstDayOfNextMonth(publicationDate);
   }
-  if (/tritt\s+(?:am|mit dem)\s+Tag(?:e)?\s+(?:nach\s+)?(?:seiner|ihrer|der)\s+Verkündung\s+in\s+Kraft/iu.test(text)) {
-    return /Tag\s+nach/iu.test(text) ? addUtcDays(publicationDate, 1) : publicationDate;
+  const relative = text.match(/tritt\s+(?:am|mit\s+dem)\s+Tag(?:e)?\s+(nach\s+)?(?:seiner|ihrer|der)\s+(?:Verkündung|Veröffentlichung|Bekanntmachung|Bekanntgabe)\s+in\s+Kraft/iu);
+  if (relative) {
+    return relative[1] ? addUtcDays(publicationDate, 1) : publicationDate;
   }
   const explicit = text.match(/tritt\s+am\s+(\d{1,2}\.\s*[A-ZÄÖÜa-zäöüß]+\s+\d{4})\s+in\s+Kraft/iu);
   return explicit ? parseGermanDate(explicit[1]) : null;
@@ -1345,7 +2311,7 @@ function sanitizeNormNodes(nodes) {
   let signature = false;
   for (const node of nodes) {
     const text = textOf(node);
-    const marker = parseStructureMarker(normalizeHtmlText(textWithBreaks(node)));
+    const marker = parseHtmlStructureMarker(normalizeHtmlText(textWithBreaks(node)));
     if (SIGNATURE_PATTERN.test(text)) {
       signature = true;
       continue;
@@ -1445,6 +2411,22 @@ function extractIntroducedNorms(tokens, publication, fileName, options = {}) {
   return introduced;
 }
 
+// Anlagen hinter dem letzten Artikel eines Mantelgesetzes, deren Bezeichnung auf Paragraphen
+// verweist („Anlage 1 (Staatswappen, § 3)“), gehören zur einzigen eingeführten Stammnorm: Der
+// Mantel selbst hat keine Paragraphen. Die Anlagen bleiben an der abgedruckten Stelle im Mantel.
+function assignTrailingAnnexesToIntroducedNorm(publication) {
+  const introduced = publication.introducedNorms;
+  if (introduced.length !== 1 || introduced[0].kind !== 'introduced' ||
+    publication.body.some((block) => block.type === 'paragraph')) return;
+  const trailing = [];
+  for (let index = publication.body.length - 1; index >= 0 && publication.body[index].type === 'annex'; index -= 1) {
+    trailing.unshift(publication.body[index]);
+  }
+  if (trailing.length === 0 || !trailing.every((annex) => /§\s*\d/u.test(`${annex.label ?? ''} ${annex.title ?? ''}`))) return;
+  if (introduced[0].body.some((block) => block.type === 'annex')) return;
+  introduced[0].body.push(...structuredClone(trailing));
+}
+
 function parsedDocument(fileName, html) {
   let document;
   try {
@@ -1455,7 +2437,29 @@ function parsedDocument(fileName, html) {
   const body = findElement(document, 'body');
   if (!body) throw new NormHtmlParseError(fileName, 'HTML-Dokument besitzt keinen body');
   const css = parseGoogleDocsCss(styleTexts(document));
+  raiseSuperscriptDigits(body, css);
   return { document, body, css, nodes: flowNodes(body), documentText: textOf(body) };
+}
+
+const SUPERSCRIPT_DIGITS = { 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+
+// Hochgestellte Ziffern („m<sup>2</sup>“ oder eine Klasse mit vertical-align:super) sind Teil des
+// Wortlauts („150 m²“). Sie werden als hochgestellte Zeichen übernommen, damit die Textextraktion
+// sie nicht zur Grundlinie abflacht („150 m2“). Andere hochgestellte Inhalte bleiben unverändert.
+function raiseSuperscriptDigits(node, css) {
+  for (const child of node.childNodes ?? []) {
+    if (!child.tagName) continue;
+    const superscript = child.tagName === 'sup' || /^super$/iu.test(nodeStyle(child, css)['vertical-align'] ?? '');
+    if (superscript && /^\d+$/u.test(textWithBreaks(child).trim())) {
+      const raise = (entry) => {
+        if (entry.nodeName === '#text') entry.value = entry.value.replace(/\d/gu, (digit) => SUPERSCRIPT_DIGITS[digit]);
+        for (const nested of entry.childNodes ?? []) raise(nested);
+      };
+      raise(child);
+      continue;
+    }
+    raiseSuperscriptDigits(child, css);
+  }
 }
 
 /**
@@ -1680,6 +2684,7 @@ export function parsePublicationHtml(fileName, html, options = {}) {
     ...(startPage ? { startPage } : {}), body,
   };
   publication.introducedNorms = extractIntroducedNorms(rawTokens, publication, fileName, options);
+  assignTrailingAnnexesToIntroducedNorm(publication);
   for (let rangeIndex = 1; rangeIndex < ranges.length; rangeIndex += 1) {
     const range = ranges[rangeIndex];
     const nextStart = ranges[rangeIndex + 1]?.start ?? nodes.length;
@@ -1735,7 +2740,7 @@ export function parseConsolidatedHtml(fileName, html, identity = {}) {
   if (bodyStart < 0) {
     const markerCounts = new Map();
     bodyStart = nodes.findIndex((node) => {
-      const marker = parseStructureMarker(normalizeHtmlText(textWithBreaks(node)));
+      const marker = parseHtmlStructureMarker(normalizeHtmlText(textWithBreaks(node)));
       if (!marker) return false;
       const count = (markerCounts.get(marker.label) ?? 0) + 1;
       markerCounts.set(marker.label, count);

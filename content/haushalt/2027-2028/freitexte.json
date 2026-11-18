@@ -1,10 +1,82 @@
 {
   "rechtsgrundlage": {
+    "§ 1 OstLVSG (Luftsicherheitsbehörde, Fortgeltung LuftZuVO); § 2 OstLVSG (Zentralstelle Drohnenabwehr beim LKA); § 3 OstLVSG (Vereinbarungen je Verkehrsflughafen, Soll) (OGVBl. 2026 Nr. 95, 96)": {
+      "anzeige": "Ostdeutsches Luftverkehrssicherungsgesetz (OstLVSG), § 1 (Luftsicherheitsbehörde), § 2 (Zentralstelle Drohnenabwehr beim Landeskriminalamt) und § 3 (Zusammenarbeit an Verkehrsflughäfen), OGVBl. 2026 Nr. 95 und 96",
+      "normSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
+      "art": "verkuendet"
+    },
+    "§ 11 LfStErrG": {
+      "anzeige": "Staatsschutzamt-Errichtungsgesetz (LfStErrG), § 11 (Haushalt)",
+      "normSlug": "staatsschutzamt-errichtungsgesetz",
+      "art": "verkuendet"
+    },
+    "§ 15 VPOG; § 22d Abs. 2 OstPolFHG (Veröffentlichung); §§ 3, 13 PolDigG (OGVBl. 2026 Nr. 87, 86, 89, 90, 92, 93, 97)": {
+      "anzeige": "Volkspolizeiorganisationsgesetz (VPOG), § 15 (Personal- und Ausstattungsbericht); Berichts- und Veröffentlichungspflichten der Sicherheitsreform (OGVBl. 2026 Nr. 86, 87, 89, 90, 92, 93 und 97)",
+      "normSlug": "volkspolizeiorganisationsgesetz",
+      "art": "verkuendet",
+      "weitere": [
+        {
+          "anzeige": "Ostdeutsches Polizeifachhochschulgesetz, § 22d Abs. 2 (Veröffentlichung), eingefügt durch OGVBl. 2026 Nr. 87",
+          "normSlug": "ostdeutsches-polizeifachhochschulgesetz",
+          "art": "verkuendet"
+        },
+        {
+          "anzeige": "Polizeidigitalisierungsgesetz (PolDigG), §§ 3 und 13 (OGVBl. 2026 Nr. 89)",
+          "normSlug": "polizeidigitalisierungsgesetz",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "§ 2 DemFG (Landesprogramm bis 30.06.2027); § 3 DemFG (Trägerförderung nach Maßgabe des Haushalts, bis 4 Jahre); § 4 DemFG (Ausstiegsprogramm, alle Extremismen) (OGVBl. 2026 Nr. 97, 99)": {
+      "anzeige": "Demokratieförderungsgesetz (DemFG), § 2 (Landesprogramm), § 3 (Förderung freier Träger) und § 4 (Ausstiegsprogramm), OGVBl. 2026 Nr. 97 und 99",
+      "normSlug": "demokratiefoerderungsgesetz",
+      "art": "verkuendet"
+    },
+    "§ 22a OstPolFHG (Kompetenzen, Trainerqualifikation); § 22b OstPolFHG (Fortbildungspflicht VP und KGP); § 22c OstPolFHG (Führungsqualifizierung) (OGVBl. 2026 Nr. 87)": {
+      "anzeige": "Ostdeutsches Polizeifachhochschulgesetz, § 22a (Pflichtkompetenzen), § 22b (Fortbildungspflicht) und § 22c (Führungsqualifizierung), eingefügt durch OGVBl. 2026 Nr. 87",
+      "normSlug": "ostdeutsches-polizeifachhochschulgesetz",
+      "art": "verkuendet"
+    },
+    "§ 3 Abs. 2 OstKRITISG (Verordnungsermächtigung, ab 14.11.2026); §§ 4–8 OstKRITISG (Registrierung, Risikoanalyse, Resilienzplan, Meldung, Übungen); § 9 OstKRITISG (Zentrale KRITIS-Stelle) (OGVBl. 2026 Nr. 94)": {
+      "anzeige": "Ostdeutsches KRITIS-Gesetz (OstKRITISG), § 3 Abs. 2 (Verordnungsermächtigung), §§ 4–8 (Pflichten der Betreiber:innen) und § 9 (Zentrale KRITIS-Stelle), OGVBl. 2026 Nr. 94",
+      "normSlug": "ostdeutsches-kritis-gesetz",
+      "art": "verkuendet"
+    },
+    "§ 3 PolDigG (Digitalisierungsplan); § 4 PolDigG (Vorgangsbearbeitung, E-Akte); § 5 PolDigG (Online-Wache, Endgeräte, Verbot privater Geräte) (OGVBl. 2026 Nr. 89)": {
+      "anzeige": "Polizeidigitalisierungsgesetz (PolDigG), § 3 (Digitalisierungsplan), § 4 (elektronische Vorgangsbearbeitung und Ermittlungsakte) und § 5 (Online-Wache und mobile Anzeigenaufnahme), OGVBl. 2026 Nr. 89",
+      "normSlug": "polizeidigitalisierungsgesetz",
+      "art": "verkuendet"
+    },
+    "§ 5 Abs. 4 OstSNDG (Anordnung Stufe 2 durch Kommission); § 8 OstSNDG (Vertrauenspersonen); § 11 OstSNDG (Benachrichtigung) (OGVBl. 2026 Nr. 92)": {
+      "anzeige": "Staatsschutz- und Nachrichtendienstgesetz (OstSNDG), § 5 Abs. 4 (Anordnung durch die Staatsschutzkommission), § 8 (Vertrauenspersonen) und § 11 (Benachrichtigung), OGVBl. 2026 Nr. 92",
+      "normSlug": "staatsschutz-und-nachrichtendienstgesetz",
+      "art": "verkuendet"
+    },
+    "§ 8 Abs. 1 VPOG (Reviere ständig besetzt); § 9 VPOG (KBB und Vertretung je Gemeinde/Kontaktbereich); § 17 Abs. 1 VPOG (Bestellung bis 31.12.2026) (OGVBl. 2026 Nr. 86)": {
+      "anzeige": "Volkspolizeiorganisationsgesetz (VPOG), § 8 Abs. 1 (ständig besetzte Reviere), § 9 (Kontaktbereichsbeamt:innen) und § 17 Abs. 1 (Übergangsbestimmung), OGVBl. 2026 Nr. 86",
+      "normSlug": "volkspolizeiorganisationsgesetz",
+      "art": "verkuendet"
+    },
+    "§§ 1–8 OstSKG (Kontrollgremium, vierteljährlich, Bevollmächtigte:r, Jahresbericht); §§ 9–12 OstSKG (Kommission 5 + 5, Anordnung Stufe 2); § 13 OstSKG (Ausstattung im EP der Volkskammer) (OGVBl. 2026 Nr. 93, 99)": {
+      "anzeige": "Staatsschutz-Kontrollgesetz (OstSKG), §§ 1–8 (Parlamentarisches Kontrollgremium), §§ 9–12 (Staatsschutzkommission) und § 13 (Ausstattung im Einzelplan der Volkskammer), OGVBl. 2026 Nr. 93 und 99",
+      "normSlug": "staatsschutz-kontrollgesetz",
+      "art": "verkuendet"
+    },
+    "§§ 3, 4 OstSichG (Sicherheitskabinett); § 5 OstSichG (GLAZ Ost, Geschäftsstelle LKA, getrennte LfS-Einheit); §§ 6, 7 OstSichG (Austausch, Lagebild vierteljährlich) (OGVBl. 2026 Nr. 90)": {
+      "anzeige": "Ostdeutsches Sicherheitsgesetz, §§ 3, 4 (Sicherheitskabinett), § 5 (Gemeinsames Lage- und Abwehrzentrum Ost) und §§ 6, 7 (Aufgaben und Arbeitsweise, Landeslagebild), OGVBl. 2026 Nr. 90",
+      "normSlug": "ostdeutsches-sicherheitsgesetz",
+      "art": "verkuendet"
+    },
+    "Art. 3 Abs. 1 EG-PolBeschSt (Fortbestand); § 1 PolBeschStG (oberste Landesbehörde, Sitz Delitzsch); § 5 PolBeschStG (eigenes Kapitel im EP der Volkskammer, Fachpersonal) (OGVBl. 2026 Nr. 88)": {
+      "anzeige": "Polizeibeschwerdestellengesetz (PolBeschStG), § 1 (Rechtsstellung) und § 5 (Personal und Haushalt); Fortbestand der Stelle nach Artikel 3 Abs. 1 des Einführungsgesetzes (OGVBl. 2026 Nr. 88)",
+      "normSlug": "polizeibeschwerdestellengesetz",
+      "art": "verkuendet"
+    },
     "BGBl. I 2026 Nr. 55": {
       "anzeige": "Bundesrecht (Fundstelle BGBl. I 2026 Nr. 55)"
     },
-    "Doppelhaushaltsgesetz § 4 Abs. 3, § 7 Abs. 4": {
-      "anzeige": "Entwurf des Haushaltsgesetzes 2027/2028, § 4 Abs. 3 und § 7 Abs. 4",
+    "Doppelhaushaltsgesetz § 4 Abs. 5, § 7 Abs. 4": {
+      "anzeige": "Entwurf des Haushaltsgesetzes 2027/2028, § 4 Abs. 5 und § 7 Abs. 4",
       "art": "entwurf"
     },
     "Doppelhaushaltsgesetz 2027/2028 § 3 Abs. 2; LHO § 18": {
@@ -63,7 +135,7 @@
       ]
     },
     "KHSRKFG §§ 2, 4, 6; OGVBl. 2026 Nr. 34/77": {
-      "anzeige": "KHSRKFG §§ 2, 4, 6; OGVBl. 2026 Nr. 34/77",
+      "anzeige": "OstKHFondsG §§ 2, 4, 6; OGVBl. 2026 Nr. 34/77",
       "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
       "art": "geltend"
     },
@@ -76,12 +148,12 @@
       "art": "geltend"
     },
     "LandesbankG §§ 1, 2, 4; Beschluss der Trägerversammlung (Gewinnverwendung)": {
-      "anzeige": "LandesbankG §§ 1, 2, 4; Beschluss der Trägerversammlung (Gewinnverwendung)",
+      "anzeige": "OstLBGe §§ 1, 2, 4; Beschluss der Trägerversammlung (Gewinnverwendung)",
       "normSlug": "ostdeutsches-landesbankgesetz",
       "art": "geltend"
     },
     "LandesbankG§§1/2/4; WPGG§§52/53": {
-      "anzeige": "LandesbankG §§ 1, 2, 4",
+      "anzeige": "OstLBGe §§ 1, 2, 4",
       "normSlug": "ostdeutsches-landesbankgesetz",
       "art": "geltend",
       "weitere": [
@@ -107,6 +179,17 @@
       "anzeige": "LHO § 18; bestehende Kreditverträge und Wertpapiere",
       "normSlug": "saechsische-haushaltsordnung",
       "art": "haushaltsregelung"
+    },
+    "LHO § 18; Doppelhaushaltsgesetz § 2 Abs. 2": {
+      "anzeige": "LHO § 18",
+      "normSlug": "saechsische-haushaltsordnung",
+      "art": "haushaltsregelung",
+      "weitere": [
+        {
+          "anzeige": "Entwurf des Haushaltsgesetzes 2027/2028, § 2 Abs. 2",
+          "art": "entwurf"
+        }
+      ]
     },
     "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen": {
       "anzeige": null
@@ -153,7 +236,7 @@
       ]
     },
     "OstPNVG § 4a Abs. 2, 4, 5 und § 7": {
-      "anzeige": "OstPNVG § 4a Abs. 2, 4, 5 und § 7",
+      "anzeige": "ÖPNVG § 4a Abs. 2, 4, 5 und § 7",
       "normSlug": "ostdeutsches-personennahverkehrsgesetz",
       "art": "geltend"
     },
@@ -230,6 +313,11 @@
       "anzeige": "Vermögensteuergesetz (Inkrafttreten am 1. Januar 2027)",
       "art": "verkuendet"
     },
+    "Versorgungsfondsgesetz Ost § 4 (OGVBl. 2026 Nr. 82 Art. 5, Art. 12)": {
+      "anzeige": "Versorgungsfondsgesetz Ost, § 4 (OGVBl. 2026 Nr. 82)",
+      "normSlug": "versorgungsfondsgesetz-ost",
+      "art": "verkuendet"
+    },
     "Versorgungsfondsgesetz Ost § 6 Abs. 6 bis 8 in der Fassung des RFNG Art. 2": {
       "anzeige": "Versorgungsfondsgesetz Ost",
       "normSlug": "versorgungsfondsgesetz-ost",
@@ -247,6 +335,23 @@
     },
     "Voraussetzungen der Finanzierungsakte": {
       "anzeige": null
+    },
+    "ZinnVG §§ 6, 7; LKVG §§ 5, 6, 8; OhmVG §§ 5, 7 (OGVBl. 2026 Nr. 73 und 82)": {
+      "anzeige": "Zinnwald-Vergesellschaftungsgesetz (ZinnVG), §§ 6, 7 (OGVBl. 2026 Nr. 73)",
+      "normSlug": "zinnwald-vergesellschaftungsgesetz",
+      "art": "geltend",
+      "weitere": [
+        {
+          "anzeige": "Lausitzer Kupfervergesellschaftungsgesetz (LKVG), §§ 5, 6, 8 (OGVBl. 2026 Nr. 82)",
+          "normSlug": "lausitzer-kupfervergesellschaftungsgesetz",
+          "art": "geltend"
+        },
+        {
+          "anzeige": "Ohmgebirge-Vergesellschaftungsgesetz (OhmVG), §§ 5, 7 (OGVBl. 2026 Nr. 82)",
+          "normSlug": "ohmgebirge-vergesellschaftungsgesetz",
+          "art": "geltend"
+        }
+      ]
     }
   },
   "finanzierung": {
@@ -309,8 +414,8 @@
     "Beschaffung von zehn Löschflugzeugen nach bestehendem Vertrag: sechs Agrar-/Löschflugzeuge AT-802F, zwei Dash 8-400AT (Mehrzweck-Löschflugzeuge) und zwei umgebaute Boeing 737. Gesamtkosten 105,5 Mio. EUR (Flugzeuge 90,2 Mio., Erstausstattung 10,8 Mio., Risikovorsorge 4,5 Mio. EUR). Bis 2026 geleistete Zahlungen sind nicht belegt; veranschlagt ist vorsichtig der volle Restbetrag (70 Mio. EUR 2027, 35,5 Mio. EUR 2028) abzüglich eingeplanter EU-Kofinanzierung. Nach 2028 entstehen keine weiteren Vertragsraten; eine zweite Erstbeschaffung ist ausgeschlossen.\n": {
       "anzeige": "Beschaffung von zehn Löschflugzeugen nach bestehendem Vertrag: sechs Agrar- und Löschflugzeuge AT-802F, zwei Dash 8-400AT (Mehrzweck-Löschflugzeuge) und zwei umgebaute Boeing 737. Gesamtkosten 105,5 Mio. EUR (Flugzeuge 90,2 Mio. EUR, Erstausstattung 10,8 Mio. EUR, Risikovorsorge 4,5 Mio. EUR). Veranschlagt ist vorsichtig der volle Restbetrag (70 Mio. EUR 2027, 35,5 Mio. EUR 2028) abzüglich eingeplanter EU-Kofinanzierung. Nach 2028 entstehen keine weiteren Vertragsraten; eine zweite Erstbeschaffung ist ausgeschlossen."
     },
-    "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben (D-34). 2027: 2,186 Mrd. EUR, 2028: 1,005 Mrd. EUR. Die Mittel werden der allgemeinen Rücklage zugeführt, soweit sie nicht für gesetzliche Vorsorgezuführungen benötigt werden; eine Verwendung für neue Ausgabeprogramme ist ausgeschlossen.\n": {
-      "anzeige": "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben. 2027: 2,186 Mrd. EUR, 2028: 1,005 Mrd. EUR. Die Mittel werden der allgemeinen Rücklage zugeführt, soweit sie nicht für gesetzliche Vorsorgezuführungen benötigt werden; eine Verwendung für neue Ausgabeprogramme ist ausgeschlossen."
+    "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben (D-34), bisher 2,186 Mrd. EUR (2027) und 1,005 Mrd. EUR (2028). Der Sammelansatz enthielt zudem die planmäßige Tilgung (HG 9 der Herkunftshaushalte einschließlich Tilgung); sie ist im Kapitel 2005 Titel 595 01 veranschlagt. Die übrigen Mittel werden für die gesetzliche Vorsorgezuführung benötigt und gehen vollständig in der Versorgungspauschale nach § 4 VersFOG auf (Kapitel 2070 Titel 634 01, HG § 4 Abs. 3a); kein Ansatz mehr.\n": {
+      "anzeige": "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben, bisher 2,186 Mrd. EUR (2027) und 1,005 Mrd. EUR (2028). Der Ansatz enthielt zudem die planmäßige Tilgung der Herkunftshaushalte; sie ist im Kapitel 20 05 Titel 595 01 veranschlagt. Die übrigen Mittel werden für die gesetzliche Vorsorgezuführung benötigt und gehen vollständig in der Versorgungspauschale nach § 4 VersFOG auf (Kapitel 20 70 Titel 634 01, HG § 4 Abs. 3a); ein Ansatz ist nicht mehr veranschlagt."
     },
     "Betriebliche Unterhaltung, Winterdienst und kleine Instandsetzungen auf rd. 25.000 km Landes- und übernommenen Kreisstraßen zu 36.000 EUR/km (2028: +2 %).": {
       "anzeige": "Betriebliche Unterhaltung, Winterdienst und kleine Instandsetzungen auf rd. 25.000 km Landes- und übernommenen Kreisstraßen zu 36.000 EUR/km (2028: +2 %)."
@@ -351,8 +456,8 @@
     "Erneuerung und Erweiterung des landeseigenen Fahrzeugparks (Elektro- und Batterietriebzüge). Planungsgröße: rd. 9,5 Mio. EUR je Triebzug; die Jahresraten entsprechen damit rechnerisch etwa 30 (2027) bzw. 35 (2028) Fahrzeugen. Typen und Stückzahlen werden erst mit der Vergabe festgelegt; die Planungsgröße begründet keine Beschaffungsverpflichtung. Keine Projektkredite der Eisenbahn.\n": {
       "anzeige": "Erneuerung und Erweiterung des landeseigenen Fahrzeugparks (Elektro- und Batterietriebzüge). Planungsgröße: rd. 9,5 Mio. EUR je Triebzug; die Jahresraten entsprechen damit rechnerisch etwa 30 (2027) bzw. 35 (2028) Fahrzeugen. Typen und Stückzahlen werden erst mit der Vergabe festgelegt; die Planungsgröße begründet keine Beschaffungsverpflichtung. Keine Projektkredite der Eisenbahn."
     },
-    "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten (611,5 Mio. EUR 2027, 598,8 Mio. EUR 2028); jährliche Obergrenze 750 Mio. EUR. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt.\n": {
-      "anzeige": "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten (611,5 Mio. EUR 2027, 598,8 Mio. EUR 2028); jährliche Obergrenze 750 Mio. EUR. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt."
+    "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten, nur in Höhe des Deckungsbedarfs des Haushaltsjahres (HG § 4 Abs. 2 und 3); nur als letztes Mittel, wenn übertragbare Rücklagen- und Fondsmittel nicht ausreichen (HG § 4 Abs. 3). Höchstens 750 Mio. EUR und die zugeordneten Ausgaben der Kohorte; nach geltendem Recht (§ 6 Abs. 1 VersFOG) bis 2035 ausgeschlossen. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt. Erstattungen gehen nur zu Lasten des übergeleiteten Altvermögens.\n": {
+      "anzeige": "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten, nur in Höhe des Deckungsbedarfs des Haushaltsjahres (HG § 4 Abs. 2 und 3); nur als letztes Mittel, wenn übertragbare Rücklagen- und Fondsmittel nicht ausreichen (Begründung zu § 4 HG). Höchstens 750 Mio. EUR und die zugeordneten Ausgaben der Kohorte; nach geltendem Recht (§ 6 Abs. 1 VersFOG) bis 2035 ausgeschlossen. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt. Erstattungen gehen nur zu Lasten des übergeleiteten Altvermögens."
     },
     "Erstattungen aus übergeleiteten Sondervermögen (u. a. Schulbau-, Investitions- und Breitbandsondervermögen) für zweckgleiche, im Kernhaushalt veranschlagte Ausgaben; doppelte Verausgabung ist durch Sperre des Kernhaushaltsansatzes bei unmittelbarer Zahlung ausgeschlossen.": {
       "anzeige": "Erstattungen aus übergeleiteten Sondervermögen (u. a. Schulbau-, Investitions- und Breitbandsondervermögen) für zweckgleiche, im Kernhaushalt veranschlagte Ausgaben; doppelte Verausgabung ist durch Sperre des Kernhaushaltsansatzes bei unmittelbarer Zahlung ausgeschlossen."
@@ -380,6 +485,9 @@
     },
     "Freier Eintritt an jedem ersten Sonntag im Monat und an Feiertagssonntagen in den Museen des Freistaates und den geförderten kommunalen Museen; Ausgleich entgangener Eintrittserlöse (52 Öffnungstage × durchschnittlich 150.000 EUR landesweit).": {
       "anzeige": "Freier Eintritt an jedem ersten Sonntag im Monat und an Feiertagssonntagen in den Museen des Freistaates und den geförderten kommunalen Museen; Ausgleich entgangener Eintrittserlöse (52 Öffnungstage × durchschnittlich 150.000 EUR landesweit)."
+    },
+    "Gesetzliche Entschädigung der bisherigen Inhaber; Schuldner ist der Freistaat, nicht die Ostdeutschen Rohstoffwerke. Zinsanteil nachrichtlich in der Anlage Entschädigungen. Keine Verpflichtungsermächtigung (Zahlungspflicht kraft Gesetzes und Bescheides).": {
+      "anzeige": "Gesetzliche Entschädigung der bisherigen Berechtigten einschließlich der gesetzlichen Verzinsung; Schuldner ist der Freistaat, nicht die Ostdeutschen Rohstoffwerke. Keine Verpflichtungsermächtigung (Zahlungspflicht kraft Gesetzes und Bescheides)."
     },
     "Gesetzliche Finanzhilfe für Ersatzschulen; Ansatz 2026 (790,8 Mio. EUR) × 1,04/1,08 Tarif- und Preisfortschreibung.": {
       "anzeige": "Gesetzliche Finanzhilfe für Ersatzschulen; Ansatz 2026 (790,8 Mio. EUR) × 1,04/1,08 Tarif- und Preisfortschreibung."
@@ -450,6 +558,9 @@
     "Nach Aufhebung erledigter landesrechtlicher Zweckbindungen frei gewordene Reste (Fondsneuordnung); Freigabe nach schriftlicher Feststellung und Zustimmung des Haushaltsausschusses.": {
       "anzeige": "Nach Aufhebung erledigter landesrechtlicher Zweckbindungen frei gewordene Reste (Fondsneuordnung); Freigabe nach schriftlicher Feststellung und Zustimmung des Haushaltsausschusses."
     },
+    "Nach K-04 verbleibt der fortgeschriebene Bestand 2026 des Althaushalts (vorwiegend Zuschüsse an die Fraktionen, § 3 FraktG; Höhe nach Voranschlag der Volkskammer festzusetzen).": {
+      "anzeige": "Veranschlagt ist der fortgeschriebene Bestand 2026 des bisherigen Haushalts (vorwiegend Zuschüsse an die Fraktionen nach § 3 des Fraktionsrechtsstellungsgesetzes); die Höhe ist nach dem Voranschlag der Volkskammer festzusetzen."
+    },
     "Neu-, Um- und Erweiterungsbauten für Gerichte, Justizvollzug, Polizei und Grenzsicherheit. Die Mittel werden nach Genehmigung der Bauunterlagen (LHO § 24) in die Fachkapitel umgesetzt.": {
       "anzeige": "Neu-, Um- und Erweiterungsbauten für Gerichte, Justizvollzug, Polizei und Grenzsicherheit. Die Mittel werden nach Genehmigung der Bauunterlagen (LHO § 24) in die Fachkapitel umgesetzt."
     },
@@ -471,6 +582,12 @@
     "Pauschalierte Erstattung der Unterbringungs- und Versorgungsleistungen nach dem Asylbewerberleistungsgesetz an die Bezirke und kreisfreien Städte (sächsisches Vorbild Kapitel 03 04 Titel 633 52).": {
       "anzeige": "Pauschalierte Erstattung der Unterbringungs- und Versorgungsleistungen nach dem Asylbewerberleistungsgesetz an die Bezirke und kreisfreien Städte."
     },
+    "Pflichtzuführung für alle aktiven Beamtinnen, Beamten, Richterinnen und Richter ab 1. Januar 2027 (§ 4 Abs. 1 VersFOG, Art. 12 OGVBl. 2026 Nr. 82). Bemessung nach den Normalkosten der ab 2027 erdienten Anwartschaften einschließlich Beihilfe (§ 4 Abs. 2 VersFOG) auf Grundlage der Dienstrechtsneuordnung (Drs. 08/13: 1,5 % je Dienstjahr, höchstens 60 %). Die fortgeführten Vorsorgezuführungen der Herkunftshaushalte (bisher 2007/919 01) gehen in der Pauschale auf.": {
+      "anzeige": "Pflichtzuführung für alle aktiven Beamt:innen und Richter:innen ab 1. Januar 2027 (§ 4 Abs. 1 VersFOG; Art. 12 des Gesetzes in OGVBl. 2026 Nr. 82). Bemessung nach den Normalkosten der ab 2027 erdienten Anwartschaften einschließlich Beihilfe (§ 4 Abs. 2 VersFOG) auf Grundlage des Gesetzentwurfs zur Neuordnung des öffentlichen Dienstrechts (Drs. 08/13: 1,5 % je Dienstjahr, höchstens 60 %). Die fortgeführten Vorsorgezuführungen der Herkunftshaushalte (bisher Kapitel 20 07 Titel 919 01) gehen in der Pauschale auf."
+    },
+    "Planmäßige Tilgung der übergegangenen Kreditmarktverbindlichkeiten; sie wird aus laufenden Einnahmen geleistet (Nettotilgung). Eine Anschlussfinanzierung ist nicht veranschlagt (Kapitel 2007 Titel 325 01); die gewöhnliche Umschuldung fälliger Altkredite steht nachrichtlich im Kreditfinanzierungsplan.": {
+      "anzeige": "Planmäßige Tilgung der übergegangenen Kreditmarktverbindlichkeiten; sie wird aus laufenden Einnahmen geleistet (Nettotilgung). Eine Anschlussfinanzierung ist nicht veranschlagt (Kapitel 20 07 Titel 325 01); die gewöhnliche Umschuldung fälliger Altkredite steht nachrichtlich im Kreditfinanzierungsplan."
+    },
     "Prognose der investiven Bundesmittel aus fortgeführten Programmen der Herkunftsgebiete Berlin, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach Abzug bereits im Basishaushalt enthaltener Mittel (Altfinanzierung). Politisch akzeptierte Planungsgrundlage; die Zahlung setzt Verwaltungsvereinbarungen, Programmfortführung und förderfähige Mittelabrufe voraus (Verhandlungsrahmen im Gesetzgebungspaket). Den Einnahmen stehen bereits veranschlagte Investitionen gegenüber (Schulbau, Krankenhausfonds, Straßen); keine zweite Ausgabe.\n": {
       "anzeige": "Erwartete investive Bundesmittel aus fortgeführten Programmen der Herkunftsgebiete Berlin, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen, soweit sie nicht bereits an anderer Stelle veranschlagt sind. Die Zahlung setzt Verwaltungsvereinbarungen, die Fortführung der Programme und förderfähige Mittelabrufe voraus. Den Einnahmen stehen bereits veranschlagte Investitionen gegenüber (Schulbau, Krankenhausfonds, Straßen); sie werden nicht ein zweites Mal ausgegeben."
     },
@@ -486,8 +603,8 @@
     "Rest der investiven Zuweisungen und Kapitalzuführungen der Herkunfts-Finanzverwaltungen ohne titelgenaue Originaldaten; 80 % gegenüber C0 v2 aufgelöst, verbleibender Betrag gesperrt.": {
       "anzeige": "Rest der investiven Zuweisungen und Kapitalzuführungen der Finanzverwaltungen der Herkunftsländer, die noch keinem Einzeltitel zugeordnet sind; der überwiegende Teil wurde auf die Fachkapitel verteilt, der verbleibende Betrag ist gesperrt."
     },
-    "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfängerinnen und -empfänger aller Herkunftsländer. Basis sind die Versorgungsansätze der Herkunftshaushalte (Basisbereinigung K-02a). Die Neuberechnung nach dem Entwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist im Versorgungsmodell enthalten (K-02b); die bisherige pauschale 60-%-Vorbuchung ist ersetzt, nicht zusätzlich abgezogen. Ein Teil wird zweckgleich aus dem Versorgungsfonds Ost erstattet (Kapitel 2007).\n": {
-      "anzeige": "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfänger:innen aller Herkunftsländer auf Grundlage der Versorgungsansätze der Herkunftshaushalte. Die Neuberechnung nach dem Gesetzentwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist berücksichtigt. Ein Teil wird zweckgleich aus dem Versorgungsfonds Ost erstattet (Kapitel 20 07)."
+    "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfängerinnen und -empfänger aller Herkunftsländer. Basis sind die Versorgungsansätze der Herkunftshaushalte (Basisbereinigung K-02a). Die Neuberechnung nach dem Entwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist im Versorgungsmodell enthalten (K-02b); die bisherige pauschale 60-%-Vorbuchung ist ersetzt, nicht zusätzlich abgezogen. Eine Erstattung aus dem Versorgungsfonds Ost (Kapitel 2007 Titel 234 01) ist nur als letztes Mittel nach Bedarf veranschlagt (HG § 4 Abs. 3; § 6 Abs. 6 bis 8 VersFOG in der Fassung des RFNG).\n": {
+      "anzeige": "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfänger:innen aller Herkunftsländer auf Grundlage der Versorgungsansätze der Herkunftshaushalte. Die Neuberechnung nach dem Gesetzentwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist berücksichtigt. Eine Erstattung aus dem Versorgungsfonds Ost (Kapitel 20 07 Titel 234 01) ist nur als letztes Mittel nach Bedarf veranschlagt (HG § 4 Abs. 3 und Begründung zu § 4; § 6 Abs. 6 bis 8 VersFOG in der Fassung des Entwurfs des RFNG)."
     },
     "Sachausgabenanteil der Herkunftshaushalte im Straßenwesen, der noch keinem Leistungsbereich zugeordnet ist (u. a. Betriebsstoffe, Gerätevorhaltung, Fremdpersonal der Straßenmeistereien). Der Betrag ist gegenüber C0 v2 um die Zinsanteile und die modellierten Leistungsbereiche vermindert.": {
       "anzeige": "Sachausgabenanteil der Herkunftshaushalte im Straßenwesen, der noch keinem Leistungsbereich zugeordnet ist (u. a. Betriebsstoffe, Gerätevorhaltung, Fremdpersonal der Straßenmeistereien). Zinsanteile und die einzeln veranschlagten Leistungsbereiche sind nicht enthalten."
@@ -537,8 +654,8 @@
     "Zinsausgaben für die Kreditmarktverschuldung des Kernhaushalts (Schuldenstand Ende 2027 rd. 150,0 Mrd. EUR, Ende 2028 rd. 149,5 Mrd. EUR). Grundlage sind die Zinsausgaben der sechs Herkunftshaushalte (3,308/3,797 Mrd. EUR), vermindert um die Wirkung der im Plan vermiedenen Anschlusskredite und um die Einsparung aus der gemeinsamen Liquiditäts- und Zinssteuerung (F12: 7,2 Mio. EUR jährlich). Die Zinsen wurden bisher anteilig in den Sachausgaben der Fachressorts geführt und sind mit der Umgliederung K-01 vollständig hier veranschlagt.\nDer Anstieg 2028 beruht auf den Zinsprofilen der Herkunftsländer (Anschlussfinanzierung zu höheren Marktzinsen); strukturelle Neuverschuldung entsteht nicht.\n": {
       "anzeige": "Zinsausgaben für die Kreditmarktverschuldung des Kernhaushalts (Schuldenstand Ende 2027 rd. 150,0 Mrd. EUR, Ende 2028 rd. 149,5 Mrd. EUR). Grundlage sind die Zinsausgaben der sechs Herkunftshaushalte (3,308 Mrd. EUR 2027, 3,797 Mrd. EUR 2028), vermindert um die Wirkung der vermiedenen Anschlusskredite und um die Einsparung aus der gemeinsamen Liquiditäts- und Zinssteuerung (7,2 Mio. EUR jährlich). Die Zinsen wurden bisher anteilig in den Sachausgaben der Fachressorts geführt und sind vollständig hier veranschlagt. Der Anstieg 2028 beruht auf den Zinsprofilen der Herkunftsländer (Anschlussfinanzierung zu höheren Marktzinsen); eine strukturelle Neuverschuldung entsteht nicht."
     },
-    "Zuführung des rechnerischen Planüberschusses an die Liquiditätsrücklage nach der Finanzierungsregel des Finanzrahmens (c0-v2: 311.191.306 EUR 2028). Die Entlastung aus der Personalneuberechnung (K-02) erhöht die Zuführung; sie dient bis zur verfassungsrechtlichen Klärung als Risikovorsorge und ist keine Einnahmefiktion. Über eine weitergehende Verwendung (Kürzung der Rücklagenentnahme, Tilgung) entscheidet die Volkskammer.": {
-      "anzeige": "Zuführung des rechnerischen Planüberschusses an die Liquiditätsrücklage nach der Finanzierungsregel des Finanzrahmens. Die Entlastung aus der Neuberechnung der Personalausgaben erhöht die Zuführung; sie dient bis zur verfassungsrechtlichen Klärung als Risikovorsorge. Über eine weitergehende Verwendung (Kürzung der Rücklagenentnahme, Tilgung) entscheidet die Volkskammer."
+    "Zuführung eines rechnerischen Planüberschusses an die Liquiditätsrücklage nach der Finanzierungsregel des Finanzrahmens (c0-v2: 311.191.306 EUR 2028). Weil Entnahmen aus Rücklagen, Sondervermögen und dem Versorgungsfonds nur in Höhe des Deckungsbedarfs veranschlagt sind (HG § 4 Abs. 2 und 3), entsteht 2027 und 2028 kein aus Entnahmen finanzierter Überschuss; die Risikovorsorge nach § 7 Abs. 4 HG bilden die nicht veranschlagten Entnahmereserven (§ 4 Abs. 2a HG).": {
+      "anzeige": "Zuführung eines rechnerischen Planüberschusses an die Liquiditätsrücklage nach der Finanzierungsregel des Finanzrahmens. Weil Entnahmen aus Rücklagen, Sondervermögen und dem Versorgungsfonds nur in Höhe des Deckungsbedarfs veranschlagt sind (HG § 4 Abs. 2 und 3), entsteht 2027 und 2028 kein aus Entnahmen finanzierter Überschuss; die Risikovorsorge nach § 7 Abs. 4 HG bilden die nicht veranschlagten Entnahmereserven (§ 4 Abs. 2a HG)."
     },
     "Zuschläge im Rahmen der Umsatzsteuerverteilung (Finanzkraftausgleich) nach dem Referenzvektor 2025 der Herkunftsländer; die Herkunftsländer-FAG-Methode bleibt als politische Planungsannahme bestehen. Eine Änderung setzt eine Regelung des Simulationsbundes voraus.": {
       "anzeige": "Zuschläge im Rahmen der Umsatzsteuerverteilung (Finanzkraftausgleich) auf Grundlage der Werte der Herkunftsländer für 2025; ihre Fortführung ist eine Planungsannahme. Eine Änderung setzt eine Regelung des Bundes voraus."
@@ -548,6 +665,12 @@
     }
   },
   "vermerk": {
+    "Ausgabebefugnis nach der Rechtsverordnung nach § 4 Abs. 3 VersFOG; bis zu ihrem Erlass nach der Quote dieses Ansatzes. Interne Zuweisung, in der konsolidierten Darstellung zu eliminieren (Gegenposten Wirtschaftsplan Versorgungsfonds Ost).": {
+      "anzeige": "Ausgabebefugnis nach der Rechtsverordnung nach § 4 Abs. 3 VersFOG; bis zu ihrem Erlass nach der Quote dieses Ansatzes. Interne Zuweisung, in der konsolidierten Darstellung zu eliminieren (Gegenposten Wirtschaftsplan Versorgungsfonds Ost)."
+    },
+    "Ausgaben dürfen nur aufgrund eines bekanntgegebenen Entschädigungsbescheides nach § 7 ZinnVG, § 8 LKVG oder § 7 OhmVG geleistet werden. Die Mittel sind übertragbar. Mehrausgaben bei höheren Festsetzungen sind nach § 37 LHO zu leisten (HG § 6 Abs. 4). Zahlungen an Pfand- oder Sicherungsgläubiger sind auf die Entschädigung anzurechnen; bei unklarer Berechtigung wird hinterlegt.": {
+      "anzeige": "Ausgaben dürfen nur aufgrund eines bekanntgegebenen Entschädigungsbescheides nach § 7 ZinnVG, § 8 LKVG oder § 7 OhmVG geleistet werden. Die Mittel sind übertragbar. Mehrausgaben bei höheren Festsetzungen sind nach § 37 LHO zu leisten (HG § 6 Abs. 4). Zahlungen an Pfand- oder Sicherungsgläubiger sind auf die Entschädigung anzurechnen; bei unklarer Berechtigung wird hinterlegt."
+    },
     "Ausgaben setzen den Abschluss des Generalvertrags mit dem Sanierungsträger voraus.": {
       "anzeige": "Ausgaben setzen den Abschluss des Generalvertrags mit dem Sanierungsträger voraus."
     },
@@ -557,8 +680,8 @@
     "Bestehende Verträge gehen vor; aus diesem Titel werden 100/120 Mio. EUR für die Fahrzeugtranche (Kapitel 1008 Titel 891 01) nicht nochmals verausgabt.": {
       "anzeige": "Bestehende Verträge gehen vor; aus diesem Titel werden 100/120 Mio. EUR für die Fahrzeugtranche (Kapitel 1008 Titel 891 01) nicht nochmals verausgabt."
     },
-    "Die Einnahme ist mit den Titeln 432 01 und 446 01 des Kapitels 2070/2071 verbunden; Vollzug erst nach Vorlage des versicherungsmathematischen Gutachtens (§ 6 Abs. 7 VFOG-E).": {
-      "anzeige": "Die Einnahme ist mit den Titeln 432 01 und 446 01 des Kapitels 2070/2071 verbunden; Vollzug erst nach Vorlage des versicherungsmathematischen Gutachtens (§ 6 Abs. 7 VFOG-E)."
+    "Die Einnahme ist mit den Titeln 432 01 und 446 01 des Kapitels 2070/2071 verbunden; Vollzug erst nach Inkrafttreten des RFNG Art. 2 und Vorlage des versicherungsmathematischen Gutachtens (§ 6 Abs. 7 VFOG-E).": {
+      "anzeige": "Die Einnahme ist mit den Titeln 432 01 (Kapitel 20 70) und 446 01 (Kapitel 20 71) verbunden; Vollzug erst nach Inkrafttreten von Artikel 2 des Rücklagen- und Fondsneuordnungsgesetzes (Entwurf) und Vorlage des versicherungsmathematischen Gutachtens (§ 6 Abs. 7 VersFOG in der Fassung des Entwurfs)."
     },
     "Die Mittel dürfen zur Verstärkung der Personalausgaben (Hauptgruppe 4) in allen Einzelplänen verwendet werden. Neue Stellen werden dadurch nicht geschaffen; Stellenmehrungen bedürfen der Änderung der Stellenübersicht.": {
       "anzeige": "Die Mittel dürfen zur Verstärkung der Personalausgaben (Hauptgruppe 4) in allen Einzelplänen verwendet werden. Neue Stellen werden dadurch nicht geschaffen; Stellenmehrungen bedürfen der Änderung der Stellenübersicht."
@@ -572,8 +695,11 @@
     "Die Verteilung auf die Bezirke richtet sich nach dem Bezirksfinanzierungsschlüssel (Anlage Bezirke); bis zu dessen Feststellung nach den fortgeschriebenen Ansätzen 2026.": {
       "anzeige": "Die Verteilung auf die Bezirke richtet sich nach dem Bezirksfinanzierungsschlüssel (Anlage Bezirke); bis zu dessen Feststellung nach den fortgeschriebenen Ansätzen 2026."
     },
-    "Die Zuführung vermindert sich um Mehrausgaben, die entstehen, wenn das Gesetz zur Neuordnung des öffentlichen Dienstrechts nicht wie veranschlagt in Kraft tritt (HG § 7 Abs. 4).": {
-      "anzeige": "Die Zuführung vermindert sich um Mehrausgaben, die entstehen, wenn das Gesetz zur Neuordnung des öffentlichen Dienstrechts nicht wie veranschlagt in Kraft tritt (HG § 7 Abs. 4)."
+    "Ein im Vollzug entstehender Überschuss vermindert vorrangig die Entnahmen nach § 4 Abs. 2 und 3 HG (§ 4 Abs. 5 HG).": {
+      "anzeige": "Mehreinnahmen und Minderausgaben vermindern vorrangig die Entnahmen nach § 4 Abs. 1 bis 3 HG und dienen der Tilgung; ein verbleibender Überschuss wird der Liquiditätsrücklage zugeführt (§ 4 Abs. 5 HG)."
+    },
+    "Geheimhaltung nach § 11 Abs. 2 des Staatsschutzamt-Errichtungsgesetzes: Einzelveranschlagung nur für das Parlamentarische Kontrollgremium und den Rechnungshof.": {
+      "anzeige": "Geheimhaltung nach § 11 Abs. 2 des Staatsschutzamt-Errichtungsgesetzes: Einzelveranschlagung nur für das Parlamentarische Kontrollgremium und den Rechnungshof."
     },
     "Gesperrt bis zum Nachweis der Zuordnung zu den Kapiteln 2090/2091.": {
       "anzeige": "Gesperrt bis zum Nachweis der Zuordnung zu den Kapiteln 2090/2091."
@@ -637,6 +763,13 @@
     "Fachpersonal für Präsident des Rechnungshofes": "Fachpersonal der Leitung des Rechnungshofes",
     "Stadterneuerung Thüringen: direkte staatliche Baulose innerhalb0304; kommunale Drittansprüche bleiben geschützt": "Stadterneuerung Thüringen: direkte staatliche Baulose innerhalb 0304; kommunale Drittansprüche bleiben geschützt",
     "Abwasserbaumaßnahmen Thüringen innerhalb0902": "Abwasserbaumaßnahmen Thüringen innerhalb 0902",
-    "Zuweisungen für Sonstiger staatlicher Hochbau": "Zuweisungen für sonstigen staatlichen Hochbau"
+    "Zuweisungen für Sonstiger staatlicher Hochbau": "Zuweisungen für sonstigen staatlichen Hochbau",
+    "Endfassung Regierungsentwurf: Versorgungspauschale, freie Restansätze, Entnahmen nach Bedarf (K-04)": "Versorgungspauschale, freie Restansätze und Entnahmen nach Bedarf",
+    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Ausgaben für Aufträge und Dienstleistungen": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Ausgaben für Aufträge und Dienstleistungen",
+    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Bezüge und Nebenleistungen der Beamt:innen, Richter:innen": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Bezüge und Nebenleistungen der Beamt:innen, Richter:innen",
+    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Entgelte der Arbeitnehmer:innen": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Entgelte der Arbeitnehmer:innen",
+    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Erwerb von Geräten und sonstigen beweglichen Sachen": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Erwerb von Geräten und sonstigen beweglichen Sachen",
+    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Nicht aufteilbare sächliche Verwaltungsausgaben": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Nicht aufteilbare sächliche Verwaltungsausgaben"
   }
 }

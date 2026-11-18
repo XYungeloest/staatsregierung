@@ -56,7 +56,7 @@ function version(versionId: string, validFrom: string, validTo: string | null): 
     validFrom,
     validTo,
     isCurrent: false,
-    citation: `Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)`,
+    citation: `Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901)`,
     changeNote: versionId,
     body: [
       {
@@ -79,7 +79,7 @@ function record(versions: NormVersion[], status: NormRecord['meta']['status'] = 
       type: 'gesetz',
       subjects: ['Verwaltungsrecht'],
       keywords: [],
-      initialCitation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)',
+      initialCitation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901)',
       predecessor: null,
       successor: null,
       summary: 'Test',
@@ -541,7 +541,7 @@ test('Rechtsherkunft trennt neue, unveränderte, geänderte und ungeklärte Norm
   const amendmentAct = record([version('2026-01-01', '2026-01-01', null)]);
   amendmentAct.meta.slug = 'ostdeutsches-aenderungsgesetz';
   amendmentAct.meta.id = amendmentAct.meta.slug;
-  amendmentAct.meta.initialCitation = 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)';
+  amendmentAct.meta.initialCitation = 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901)';
   const amended = structuredClone(inherited);
   amended.meta.slug = 'geaenderte-norm';
   amended.meta.id = amended.meta.slug;
@@ -549,7 +549,7 @@ test('Rechtsherkunft trennt neue, unveränderte, geänderte und ungeklärte Norm
     date: '2026-01-02',
     type: 'amendment',
     title: 'Geändert',
-    citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)',
+    citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901)',
     affectingVersionId: baseline.versionId,
     relatedNorm: amendmentAct.meta.slug,
   });
@@ -579,23 +579,23 @@ test('Rechtsherkunft trennt neue, unveränderte, geänderte und ungeklärte Norm
   treaty.meta.slug = 'altes-uebereinkommen';
   treaty.meta.id = treaty.meta.slug;
   treaty.meta.type = 'staatsvertrag';
-  treaty.meta.initialCitation = 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)';
+  treaty.meta.initialCitation = 'Übereinkommen vom 2. Mai 1991 (OVertrBl. 2026 Nr. 901)';
   treaty.meta.effectiveDate = '2026-01-27';
-  treaty.versions[0].citation = 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)';
+  treaty.versions[0].citation = 'Übereinkommen vom 2. Mai 1991 (OVertrBl. 2026 Nr. 901)';
   treaty.history.initialVersionId = '1992-07-14';
   treaty.history.entries = [{
     date: '1992-07-14',
     type: 'initial',
     title: 'Übereinkommen',
-    citation: 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)',
+    citation: 'Übereinkommen vom 2. Mai 1991 (OVertrBl. 2026 Nr. 901)',
     affectingVersionId: '1992-07-14',
   }];
   // Dieselbe Norm ohne eigenes Verkündungsorgan bleibt ungeklärt; eine vor dem Stichtag
   // geltende Fassung ebenfalls.
   const treatyWithoutEvidence = structuredClone(treaty);
-  treatyWithoutEvidence.meta.initialCitation = 'Übereinkommen vom 9. April 1992';
-  treatyWithoutEvidence.versions[0].citation = 'Übereinkommen vom 9. April 1992';
-  treatyWithoutEvidence.history.entries[0].citation = 'Übereinkommen vom 9. April 1992';
+  treatyWithoutEvidence.meta.initialCitation = 'Übereinkommen vom 2. Mai 1991';
+  treatyWithoutEvidence.versions[0].citation = 'Übereinkommen vom 2. Mai 1991';
+  treatyWithoutEvidence.history.entries[0].citation = 'Übereinkommen vom 2. Mai 1991';
   const treatyBeforeBaseline = structuredClone(treaty);
   treatyBeforeBaseline.versions[0].validFrom = '1994-01-01';
   treatyBeforeBaseline.meta.effectiveDate = '1994-01-01';
@@ -627,7 +627,7 @@ test('gerichtete Normrelationen werden aus einer Richtung und mehreren Historien
     date: '2026-07-21',
     type: 'amendment' as const,
     title: `${act.meta.shortTitle} berücksichtigt`,
-    citation: 'Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 53)',
+    citation: 'Gesetz vom 17. Juli 2026 (OGVBl. 2026 Nr. 953)',
     affectingVersionId: '2026-07-21',
     relatedNorm: act.meta.slug,
   }));
@@ -660,12 +660,12 @@ function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchInd
     status: 'in-force',
     statusLabel: 'in Kraft',
     summary: 'Regelt die Versorgung.',
-    initialCitation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)',
-    citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1 S. 3)',
-    publication: 'OGVBl. 2026 Nr. 1',
+    initialCitation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901)',
+    citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901 S. 3)',
+    publication: 'OGVBl. 2026 Nr. 901',
     publicationSource: 'OGVBl.',
     publicationYear: '2026',
-    publicationIssue: '1',
+    publicationIssue: '901',
     publicationPage: '3',
     changeNote: 'Stammfassung',
     validFrom: '2026-01-01',
@@ -743,7 +743,7 @@ test('Standardsortierung richtet sich nach Suchkontext und respektiert eine ausd
   assert.equal(getDefaultSearchSort(searchState()), 'activity');
   assert.equal(getDefaultSearchSort(searchState({ types: ['gesetz'], origins: ['inherited-amended'] })), 'activity');
   assert.equal(getDefaultSearchSort(searchState({ q: 'Allgemeinverfügung' })), 'relevance');
-  assert.equal(getDefaultSearchSort(searchState({ citation: 'OVertrBl. 2026 Nr. 4' })), 'relevance');
+  assert.equal(getDefaultSearchSort(searchState({ citation: 'OVertrBl. 2026 Nr. 904' })), 'relevance');
   const browseResults = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'activity', sortExplicit: false }));
   assert.deepEqual(browseResults.map((entry) => entry.documentEntry.slug), ['neu', 'alt']);
   const explicitPublication = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'publication', sortExplicit: true }));
@@ -825,8 +825,8 @@ test('Textausschnitte beginnen beim Wortlaut, nicht bei der eigenen Überschrift
 test('Rechtsänderung und Aktivität sind getrennt: ein bloßer Hinweis zählt nur als Aktivität', () => {
   const norm = record([version('2024-05-01', '2024-05-01', null)]);
   norm.history.entries = [
-    { type: 'initial', date: '2024-05-01', title: 'Stammfassung', citation: 'Verordnung vom 1. Mai 2024 (OGVBl. 2024 Nr. 12)', affectingVersionId: '2024-05-01' },
-    { type: 'notice', date: '2026-08-27', title: 'Berichtigungshinweis', citation: 'Hinweis vom 27. August 2026 (OGVBl. 2026 Nr. 70)' },
+    { type: 'initial', date: '2024-05-01', title: 'Stammfassung', citation: 'Verordnung vom 1. Mai 2024 (OGVBl. 2024 Nr. 912)', affectingVersionId: '2024-05-01' },
+    { type: 'notice', date: '2026-08-27', title: 'Berichtigungshinweis', citation: 'Hinweis vom 27. August 2026 (OGVBl. 2026 Nr. 970)' },
   ] as typeof norm.history.entries;
   assert.equal(getNormLastChangeDate(norm, '2026-09-04'), '2024-05-01', 'ein Hinweis ist keine Rechtsänderung');
   assert.equal(getNormLastActivityDate(norm, '2026-09-04'), '2026-08-27', 'als Aktivität zählt er weiterhin');
@@ -841,8 +841,8 @@ test('Rechtsänderung und Aktivität sind getrennt: ein bloßer Hinweis zählt n
 test('jüngste Aktivität einer Norm: Erlass zählt, künftige Fassungen und Ereignisse nicht', () => {
   const norm = record([version('2026-01-01', '2026-01-01', '2026-09-30'), version('2026-10-01', '2026-10-01', null)]);
   norm.history.entries = [
-    { type: 'initial', date: '2026-01-01', title: 'Stammfassung', citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)', affectingVersionId: '2026-01-01' },
-    { type: 'amendment', date: '2026-10-01', title: 'Künftige Änderung', citation: 'Gesetz vom 1. Oktober 2026 (OGVBl. 2026 Nr. 80)', affectingVersionId: '2026-10-01' },
+    { type: 'initial', date: '2026-01-01', title: 'Stammfassung', citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901)', affectingVersionId: '2026-01-01' },
+    { type: 'amendment', date: '2026-10-01', title: 'Künftige Änderung', citation: 'Gesetz vom 1. Oktober 2026 (OGVBl. 2026 Nr. 980)', affectingVersionId: '2026-10-01' },
   ] as typeof norm.history.entries;
   assert.equal(getNormLastActivityDate(norm, '2026-09-04'), '2026-01-01');
   assert.equal(getNormLastActivityDate(norm, '2026-10-01'), '2026-10-01');
@@ -856,32 +856,32 @@ test('jüngste Aktivität einer Norm: Erlass zählt, künftige Fassungen und Ere
 
 test('eine Fundstellensuche zeigt auch Änderungsvorschriften der zitierten Ausgabe, ohne den Standardfilter zu berühren', () => {
   const treatyAmendment = searchDocument({
-    id: 'ndr:1', slug: 'staatsvertrag-ndr-aenderung', title: 'Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk',
-    shortTitle: 'NDR-Änderungsstaatsvertrag', abbr: '', isAmendment: true, type: 'staatsvertrag', typeLabel: 'Staatsvertrag',
-    citation: 'Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)', publication: 'OVertrBl. 2026 Nr. 4', publicationSlug: 'overtrbl-2026-04',
-    publicationTitle: 'Ostdeutsches Vertragsblatt 2026 Nr. 4', publicationSource: 'OVertrBl.', publicationYear: '2026', publicationIssue: '4', publicationPage: '2',
+    id: 'test-stv:1', slug: 'teststaatsvertrag-aenderung', title: 'Staatsvertrag zur Änderung des Teststaatsvertrages',
+    shortTitle: 'Test-Änderungsstaatsvertrag', abbr: '', isAmendment: true, type: 'staatsvertrag', typeLabel: 'Staatsvertrag',
+    citation: 'Staatsvertrag vom 6. März 2026 (OVertrBl. 2026 Nr. 904 S. 2)', publication: 'OVertrBl. 2026 Nr. 904', publicationSlug: 'overtrbl-2026-904',
+    publicationTitle: 'Ostdeutsches Vertragsblatt 2026 Nr. 904', publicationSource: 'OVertrBl.', publicationYear: '2026', publicationIssue: '904', publicationPage: '2',
   });
-  const other = searchDocument({ id: 'other:1', slug: 'other', publicationSlug: 'ogvbl-2026-01' });
-  const byCitation = runNormSearch([treatyAmendment, other], searchState({ q: 'OVertrBl. 2026 Nr. 4' }));
-  assert.deepEqual(byCitation.map((entry) => entry.documentEntry.slug), ['staatsvertrag-ndr-aenderung']);
+  const other = searchDocument({ id: 'other:1', slug: 'other', publicationSlug: 'ogvbl-2026-901' });
+  const byCitation = runNormSearch([treatyAmendment, other], searchState({ q: 'OVertrBl. 2026 Nr. 904' }));
+  assert.deepEqual(byCitation.map((entry) => entry.documentEntry.slug), ['teststaatsvertrag-aenderung']);
   assert.equal(byCitation[0]?.matchKind, 'publication');
   // Ohne Fundstelle bleibt die Änderungsvorschrift beim Stöbern ausgeblendet.
   assert.deepEqual(runNormSearch([treatyAmendment, other], searchState()).map((entry) => entry.documentEntry.slug), ['other']);
 });
 
 test('Fundstellen des Ostdeutschen Vertragsblatts werden wie die anderen Verkündungsorgane erkannt', () => {
-  for (const query of ['OVertrBl. 2026 Nr. 4', 'OVertrBl 2026 Nr 4', 'Staatsvertrag OVertrBl. 2026 Nr. 4 S. 2', 'OGVBl. 2026 Nr. 1', 'StAnzO. 2026 Nr. 39']) {
+  for (const query of ['OVertrBl. 2026 Nr. 904', 'OVertrBl 2026 Nr 904', 'Staatsvertrag OVertrBl. 2026 Nr. 904 S. 2', 'OGVBl. 2026 Nr. 901', 'StAnzO. 2026 Nr. 939']) {
     const parsed = parseNormSearchQuery(query);
     assert.equal(parsed.hasPublicationReference, true, query);
   }
-  for (const query of ['Vertragsblatt 2026', 'OVertrBl.', 'Nr. 4', 'Ostdeutsches Vertragsblatt Nr. 4', 'ABC 2026 Nr. 4']) {
+  for (const query of ['Vertragsblatt 2026', 'OVertrBl.', 'Nr. 904', 'Ostdeutsches Vertragsblatt Nr. 904', 'ABC 2026 Nr. 904']) {
     assert.equal(parseNormSearchQuery(query).hasPublicationReference, false, query);
   }
 });
 
 test('Änderungsvorschriften werden auch bei historisch grobem Normtyp erkannt', () => {
   const amendment = record([version('a', '2026-01-01', null)]);
-  amendment.meta.title = 'Elftes Gesetz zur Änderung des Bestattungsgesetzes';
+  amendment.meta.title = 'Elftes Gesetz zur Änderung des Beispielgesetzes';
   assert.equal(amendment.meta.type, 'gesetz');
   assert.equal(isAmendmentRecord(amendment), true);
 
@@ -903,20 +903,20 @@ test('ein primäres Sachgebiet muss Teil der belegten Mehrfachzuordnung sein', (
 test('Fundstellenparser erhält Nummern- und Seitenbereiche vollständig', () => {
   const citations = [
     {
-      citation: 'Gesetz vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–14)',
-      expected: { source: 'OGVBl.', year: '2025', issue: '1–7', page: '7–14' },
+      citation: 'Gesetz vom 5. März 2025 (OGVBl. 2025 Nr. 901–907 S. 7–14)',
+      expected: { source: 'OGVBl.', year: '2025', issue: '901–907', page: '7–14' },
     },
     {
-      citation: 'Bundesrecht (BGBl. 2026 I Nr. 64–74)',
-      expected: { source: 'BGBl.', year: '2026', part: 'I', issue: '64–74' },
+      citation: 'Bundesrecht (BGBl. 2026 I Nr. 964–974)',
+      expected: { source: 'BGBl.', year: '2026', part: 'I', issue: '964–974' },
     },
     {
-      citation: 'Verwaltungsabkommen vom 28. Juli 2026 (GMBl. 2026 Nr. 14 S. 2)',
-      expected: { source: 'GMBl.', year: '2026', issue: '14', page: '2' },
+      citation: 'Verwaltungsabkommen vom 27. Juli 2026 (GMBl. 2026 Nr. 914 S. 2)',
+      expected: { source: 'GMBl.', year: '2026', issue: '914', page: '2' },
     },
     {
-      citation: 'Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 50 S. 2)',
-      expected: { source: 'OGVBl.', year: '2026', issue: '50', page: '2' },
+      citation: 'Gesetz vom 17. Juli 2026 (OGVBl. 2026 Nr. 950 S. 2)',
+      expected: { source: 'OGVBl.', year: '2026', issue: '950', page: '2' },
     },
   ];
 
@@ -928,11 +928,11 @@ test('Fundstellenparser erhält Nummern- und Seitenbereiche vollständig', () =>
 test('Fundstellenparser unterstützt Bindestrich, Gedankenstriche und Schrägstrich', () => {
   for (const separator of ['-', '–', '—', '/']) {
     assert.deepEqual(
-      parseCitation(`Gesetz (OGVBl. 2025 Nr. 1${separator}7 S. 7${separator}14)`),
+      parseCitation(`Gesetz (OGVBl. 2025 Nr. 901${separator}907 S. 7${separator}14)`),
       {
         source: 'OGVBl.',
         year: '2025',
-        issue: `1${separator}7`,
+        issue: `901${separator}907`,
         page: `7${separator}14`,
       },
     );

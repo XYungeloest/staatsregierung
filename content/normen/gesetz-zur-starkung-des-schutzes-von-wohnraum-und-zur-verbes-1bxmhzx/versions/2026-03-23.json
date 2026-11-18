@@ -69,7 +69,31 @@
                   "level": 2,
                   "listId": "gc68ermjwoc8",
                   "numberingStyle": "lower-roman",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "quotedProvision",
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "“1.",
+                          "text": "für überwiegend gewerbliche oder freiberufliche Zwecke verwendet wird,",
+                          "level": 0,
+                          "listId": "printed-outline",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "2.",
+                          "text": "verändert, unbrauchbar gemacht oder verwahrlost wird, sodass er nicht mehr zu Wohnzwecken geeignet ist,”",
+                          "level": 0,
+                          "listId": "printed-outline",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "item",
@@ -149,7 +173,7 @@
                       "children": [
                         {
                           "type": "item",
-                          "label": "3.",
+                          "label": "„3.",
                           "text": "Wohnraum zügig umgebaut, instandgesetzt oder modernisiert wird und deshalb unbewohnbar ist oder aus anderen objektiven Gründen nicht vermietet werden kann; die Ausnahme nach Halbsatz 1 gilt längstens für zwölf Monate, soweit nicht die Gemeinde im Einzelfall aufgrund der Art und des Umfangs der Maßnahmen eine längere Frist zulässt.“",
                           "level": 0,
                           "listId": "printed-outline",
@@ -166,24 +190,6 @@
         },
         {
           "type": "item",
-          "label": "1.",
-          "text": "für überwiegend gewerbliche oder freiberufliche Zwecke verwendet wird,",
-          "level": 0,
-          "listId": "printed-outline",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "verändert, unbrauchbar gemacht oder verwahrlost wird, sodass er nicht mehr zu Wohnzwecken geeignet ist,”",
-          "level": 0,
-          "listId": "printed-outline",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.",
           "text": "Dem § 2 werden folgende Absätze angefügt:",
           "level": 0,
@@ -194,8 +200,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "“(7) Besteht eine weitere Haupt- oder Nebenwohnung der Antragstellerin oder des Antragstellers in derselben Gemeinde, soll in der Regel keine Genehmigung erteilt werden."
+                  "type": "subparagraph",
+                  "label": "“(7)",
+                  "text": "Besteht eine weitere Haupt- oder Nebenwohnung der Antragstellerin oder des Antragstellers in derselben Gemeinde, soll in der Regel keine Genehmigung erteilt werden.",
+                  "children": []
                 },
                 {
                   "type": "subparagraph",
@@ -325,8 +333,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(2) Die Rückführung zu Wohnzwecken ist so zu leisten, dass der ursprüngliche Zustand wiederhergestellt oder ein zumindest gleichwertiger Zustand hergestellt wird."
+                      "type": "subparagraph",
+                      "label": "“(2)",
+                      "text": "Die Rückführung zu Wohnzwecken ist so zu leisten, dass der ursprüngliche Zustand wiederhergestellt oder ein zumindest gleichwertiger Zustand hergestellt wird.",
+                      "children": []
                     },
                     {
                       "type": "subparagraph",
@@ -535,6 +545,12 @@
           "text": "Dieses Gesetz tritt am Tag nach der Verkündung in Kraft."
         }
       ]
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "Nummerierung in der Originalquelle",
+      "text": "In Artikel 1 ist Nummer 6 im amtlichen Blatt (S. 5) ohne Text abgedruckt; auf Nummer 5 folgt deshalb unmittelbar Nummer 7. Die Zählung bleibt unverändert."
     }
   ]
 }

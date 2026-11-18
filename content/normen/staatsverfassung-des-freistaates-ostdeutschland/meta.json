@@ -3,14 +3,12 @@
   "slug": "staatsverfassung-des-freistaates-ostdeutschland",
   "title": "Verfassung des Freistaates Ostdeutschland",
   "shortTitle": "Ostdeutsche Staatsverfassung",
-  "abbr": "OstVerf",
   "shortTitleSource": "official",
   "type": "gesetz",
   "responsibleMinistry": "Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation",
   "subjects": [
     "Verfassungsrecht"
   ],
-  "primarySubject": "Verfassungsrecht",
   "keywords": [
     "Volkskammer",
     "Staatsrat",
@@ -100,7 +98,7 @@
     },
     {
       "kind": "amendment-source",
-      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl.2026Nr.68.html",
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
@@ -111,7 +109,7 @@
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
       "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
@@ -134,5 +132,32 @@
     "berichtigung-verschiedener-verkuendungen-2026",
     "fuenftes-gesetz-zur-grossen-staatsreform"
   ],
-  "enactingNorm": "gesetz-zur-einsetzung-einer-neuen-landesverfassung"
+  "primarySubject": "Verfassungsrecht",
+  "enactingNorm": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
+  "editorialResolutions": [
+    {
+      "id": "staatsverfassung-artikel-2-landesfarben-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-18",
+      "issue": "Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 17 S. 2) fügt in Artikel 2 Absatz 2 „nach dem Wort ‚nach‘“ die Angabe „Blau, “ ein; der Ausgangswortlaut „Die Landesfarben sind Weiß und Grün.“ enthält kein Wort „nach“.",
+      "publishedText": "In Artikel 2 Absatz 2 der Ostdeutschen Staatsverfassung … wird nach dem Wort „nach“ die Angabe „Blau, “ eingefügt.",
+      "resolvedApplication": "„Blau, “ wird vor dem Wort „Weiß“ eingefügt; Artikel 2 Absatz 2 lautet „Die Landesfarben sind Blau, Weiß und Grün.“ (Fassung vom 24. März 2026).",
+      "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+      "evidence": [
+        "Gesetze/OGVBl. 2026 Nr. 17.pdf"
+      ]
+    },
+    {
+      "id": "staatsverfassung-artikel-48-staatsrat-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-18",
+      "issue": "Artikel 1 Nummer 3 Buchstabe k Ziffer i des Ersten Gesetzes zur Großen Staatsreform vom 20. Juli 2026 (OGVBl. 2026 Nr. 53 S. 8) ersetzt in Artikel 48 „Mitglied der Staatsregierung“ durch „Staatsrates“; Artikel 48 Absatz 1 Satz 2 der Vorfassung lautet „auf Antrag von zwei Abgeordneten oder eines Mitgliedes der Staatsregierung“.",
+      "publishedText": "k. Artikel 48 wird wie folgt geändert: i. Es werden jeweils „des Landtages“ durch „der Volkskammer“, „der Landtag“ durch „die Volkskammer“, „Mitglied der Staatsregierung“ durch „Staatsrates“, je „Landtag“ durch „Volkskammer“, „vom Landtag“ durch „von der Volkskammer“ und je „Der Landtag“ durch „Die Volkskammer“ ersetzt.",
+      "resolvedApplication": "Die Wörter „Mitgliedes der Staatsregierung“ in Artikel 48 Absatz 1 Satz 2, die einzige Stelle des Artikels mit dieser Wendung, werden durch „Staatsrates“ ersetzt: „auf Antrag von zwei Abgeordneten oder eines Staatsrates“ (Fassung vom 21. Juli 2026).",
+      "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+      "evidence": [
+        "Gesetze/OGVBl. 2026 Nr. 53.pdf"
+      ]
+    }
+  ]
 }

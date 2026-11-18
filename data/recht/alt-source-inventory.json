@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-29",
+  "checkedAt": "2026-07-23",
   "sources": [
     {
       "id": "ogvbl-ii-2024",
@@ -31,6 +31,10 @@
           "normSlug": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
           "title": "Gesetz zur Einsetzung einer neuen Landesverfassung",
           "pages": "5-32"
+        },
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "title": "Verfassung des Freistaates Ostdeutschland"
         }
       ]
     },
@@ -76,6 +80,11 @@
           "pages": "7-14"
         },
         {
+          "normSlug": "ostdeutsche-bezirksordnung",
+          "title": "Ostdeutsche Bezirksordnung",
+          "pages": "7-13"
+        },
+        {
           "normSlug": "gesetz-zur-aenderung-der-landesverfassung-2025",
           "title": "Gesetz zur Änderung der Landesverfassung",
           "pages": "15"
@@ -112,202 +121,6 @@
       "notes": [
         "Die ungewöhnliche äußere Gliederung Artikel 1, Artikel 2, Artikel 3 und Artikel 6 wurde gegen das Original bestätigt."
       ]
-    },
-    {
-      "id": "gmbl-2026-14",
-      "title": "Gemeinsames Ministerialblatt 2026 Nr. 14",
-      "localSource": "Gesetze/GMBl-14-2026.pdf",
-      "mediaType": "application/pdf",
-      "sha256": "e361abb85f2bfdbd7828383b3a010de5335ff6a883d3f07dd744addccfbe69dc",
-      "pageCount": 6,
-      "sourceRole": "visual-control",
-      "derivedSource": "Gesetze/GMBl-14-2026.html",
-      "derivedSourceSha256": "439fa5db34e577b60e93bb0beb46b745ae427cd1b124553415986b83537c562f",
-      "supplementarySources": [
-        {
-          "localSource": "Gesetze/GMBl-14-2026.md",
-          "mediaType": "text/markdown",
-          "sha256": "b38ce507aa9d8b3487569e718401c21142669b6aa5127ab79c1cfe16e8be452f",
-          "sourceRole": "supplementary-transcription"
-        }
-      ],
-      "verifiedAt": "2026-07-29",
-      "documents": [
-        {
-          "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
-          "title": "Verwaltungsabkommen zur Kasernierten Grenzpolizei",
-          "pages": "2-6"
-        }
-      ],
-      "notes": [
-        "Die vollständige HTML-Fassung ist strukturtragend; das PDF wurde auf allen sechs Seiten visuell geprüft.",
-        "§ 7 enthält trotz der Überschrift „Inkrafttreten“ ausschließlich die Kündigungsregel.",
-        "Abweichende Amtsbezeichnungen bleiben im Originalwortlaut erhalten und werden in den strukturierten Metadaten dokumentiert."
-      ]
-    },
-    {
-      "id": "ogvbl-2026-59",
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 59",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 59.pdf",
-      "mediaType": "application/pdf",
-      "sha256": "d5ce883378a5b35c5641649e51bf0468632ed6c3e85dbebf4bf507adcfe423b1",
-      "pageCount": 7,
-      "sourceRole": "visual-control",
-      "derivedSource": "Gesetze/OGVBl.2026Nr.59.html",
-      "derivedSourceSha256": "a1d509c069aab78a3e851aed95af09941e2229af10415e2cc0ae3796240beeef",
-      "supplementarySources": [
-        {
-          "localSource": "Gesetze/OGVBl. 2026 Nr. 59.md",
-          "mediaType": "text/markdown",
-          "sha256": "b104ff9399357b22509f17dcb45c479ada909c17562c9f73ed80985f6af15a30",
-          "sourceRole": "supplementary-transcription"
-        }
-      ],
-      "verifiedAt": "2026-08-09",
-      "documents": [
-        {
-          "normSlug": "volksbefragungsverordnung-2026",
-          "title": "Volksbefragungsverordnung 2026",
-          "pages": "2-7"
-        }
-      ],
-      "notes": [
-        "Die HTML-Fassung ist strukturtragend; alle sieben PDF-Seiten wurden visuell kontrolliert.",
-        "HTML und Markdown ergeben nach dem strukturierten Parservergleich denselben vollständigen Normtext mit den §§ 1 bis 11.",
-        "Die Markdown-Fassung ist nur ergänzende Transkription und wird bei vorhandener HTML-Ausgabe nicht importiert."
-      ]
-    }
-  ],
-  "legacyMarkdownDependencies": [
-    {
-      "publication": "OABl. 2025 Nr. 1",
-      "norms": ["forderrichtlinie-zur-vergabe-zum-meisterkredit"],
-      "markdownSource": "Gesetze/OABl. 2025 Nr. 1.md",
-      "matchingHtml": "Gesetze/OABl. 2025 Nr. 1.html",
-      "primaryPdf": "Gesetze/OABl. 2025 Nr. 1.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OABl. 2025 Nr. 3",
-      "norms": ["anordnung-uber-die-auflosung-des-5-ostdeutschen-landtages"],
-      "markdownSource": "Gesetze/OABl. 2025 Nr. 3.md",
-      "matchingHtml": "Gesetze/OABl. 2025 Nr. 3.html",
-      "primaryPdf": "Gesetze/OABl. 2025 Nr. 3.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OABl. 2025 Nr. 4",
-      "norms": ["verwaltungsvorschrift-des-ministerprasidenten-fur-den-betrie-12aov3j"],
-      "markdownSource": "Gesetze/OABl. 2025 Nr. 4.md",
-      "matchingHtml": "Gesetze/OABl. 2025 Nr. 4.html",
-      "primaryPdf": "Gesetze/OABl. 2025 Nr. 4.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OABl. 2025 Nr. 5",
-      "norms": ["verwaltungsvorschrift-des-ministerprasidenten-uber-die-befla-5f4v7g"],
-      "markdownSource": "Gesetze/OABl. 2025 Nr. 5.md",
-      "matchingHtml": "Gesetze/OABl. 2025 Nr. 5.html",
-      "primaryPdf": "Gesetze/OABl 2025 Nr 5.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OABl. 2025 Nr. 6",
-      "norms": ["verwaltungsvorschrift-des-ministerprasidenten-uber-die-bezei-1dnj8yc"],
-      "markdownSource": "Gesetze/OABl. 2025 Nr. 6.md",
-      "matchingHtml": "Gesetze/OABl. 2025 Nr. 6.html",
-      "primaryPdf": "Gesetze/OABl 2025 Nr 6.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OGVBl. 2025 Nr. 8",
-      "norms": ["erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-09-2025"],
-      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 8.md",
-      "matchingHtml": "Gesetze/OGVBl. 2025 Nr. 8.html",
-      "primaryPdf": "Gesetze/GVBl. 2025 Nr. 8.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OGVBl. 2025 Nr. 9",
-      "norms": ["verordnung-zur-aufhebung-verfassungswidrig-erlassener-verordnungen"],
-      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 9.md",
-      "matchingHtml": "Gesetze/OGVBl. 2025 Nr. 9.html",
-      "primaryPdf": "Gesetze/OGVBl. 2025 Nr. 9.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OGVBl. 2025 Nr. 10",
-      "norms": ["erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-12-2025"],
-      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 10.md",
-      "matchingHtml": null,
-      "primaryPdf": "Gesetze/OGVBl. 2025 Nr 10.pdf",
-      "classification": "blocked-source-conflict",
-      "migration": "blocked",
-      "blocker": "Die Markdownquelle bezeichnet eine Ausgabe OGVBl. 2025 Nr. 10 vom 20. Dezember 2025 mit einem Organisationserlass; die vorhandene PDF-Datei trägt intern OABl. Nr. 10 vom 31. Dezember 2025 und enthält einen anderen Inhalt. Ohne passende Primärquelle darf keine HTML-Transkription abgeleitet werden."
-    },
-    {
-      "publication": "OGVBl. 2025 Nr. 11",
-      "norms": ["verordnung-zur-bestimmung-der-gebiete-mit-mietpreisbegrenzung-bei-mietbeginn"],
-      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 11.md",
-      "matchingHtml": "Gesetze/OGVBl. 2025 Nr. 11.html",
-      "primaryPdf": "Gesetze/OGVBl 2025 Nr 11.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OGVBl. 2025 Nr. 12",
-      "norms": ["ostdeutsche-kappungsgrenzen-verordnung"],
-      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 12.md",
-      "matchingHtml": "Gesetze/OGVBl. 2025 Nr. 12.html",
-      "primaryPdf": "Gesetze/OGVBl 2025 Nr 12.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OGVBl. 2026 Nr. 12",
-      "norms": ["verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k"],
-      "markdownSource": "Gesetze/OGVBl. 2026 Nr. 12.md",
-      "matchingHtml": "Gesetze/OGVBl. 2026 Nr. 12.html",
-      "primaryPdf": "Gesetze/GVBl. 2026 Nr. 12.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OGVBl. 2026 Nr. 44",
-      "norms": ["verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n"],
-      "markdownSource": "Gesetze/OGVBl. 2026 Nr. 44.md",
-      "matchingHtml": "Gesetze/OGVBl. 2026 Nr. 44.html",
-      "primaryPdf": "Gesetze/OGVBl. 2026 Nr. 44.pdf",
-      "classification": "transcribable",
-      "migration": "migrated",
-      "controlCheck": "Markdown-Struktur, erzeugte HTML-Fassung und PDF-Ausgabe wurden gegeneinander geprüft."
-    },
-    {
-      "publication": "OGVBl. 2024 Nr. 2 S. 2",
-      "norms": ["oberstufenund-abiturprufungsverordnung"],
-      "markdownSource": "Gesetze/OGVBl. 2024 Nr. 2 S. 2.md",
-      "matchingHtml": null,
-      "primaryPdf": null,
-      "classification": "blocked-missing-control-source",
-      "migration": "blocked",
-      "blocker": "Die Markdownquelle enthält eine vollständige konsolidierte Oberstufen- und Abiturprüfungsverordnung, aber die vorhandene OGVBl.-II/24-Sammelausgabe belegt nur die Änderungsbekanntmachung auf Seite 2; eine vollständige Kontrollquelle für diese Fassung fehlt."
     }
   ]
 }

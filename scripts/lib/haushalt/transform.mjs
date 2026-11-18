@@ -17,10 +17,12 @@ import {
   sumBy,
 } from './common.mjs';
 import {
+  STELLEN_SICHERHEITSREFORM,
   fehlendeFondsEinnahmetitel,
   projektsummenAbweichungen,
   pruefeQuerbezuege,
   pruefeRechenidentitaeten,
+  pruefeSicherheitsreformStellen,
 } from './invarianten.mjs';
 import {
   BESOLDUNG_RECHTSSTAENDE,
@@ -847,7 +849,19 @@ export function transformSource(context) {
 
   const ruecklagenQuelle = json('daten/ruecklagen.json');
   const gegenpostenCsv = csv('daten/fonds_gegenposten.csv');
-  const gegenpostenFelder = ['asset_id', 'year', 'chapter', 'hg', 'title', 'amount_eur', 'name', 'kind', 'origin', 'counterparty', 'fund_expense_type', 'core_revenue_title', 'consolidation_elimination_eur', 'certificate', 'legal_change', 'new_target_chapters'];
+  // Verwendungsplan (Anlage 2 RFNG-E) nach der Endfassung, Bedeutung laut Haushaltsrepo
+  // (scripts/haushaltsplan/anlagen.py, ruecklagen()): amount_eur = ursprünglicher Planbetrag des
+  // Finanzrahmens, planbetrag_eur = Planbetrag des Jahres nach Übertragung, betrag_aktiv_eur =
+  // veranschlagt (Deckungsbedarf, = Entnahmetitel im Kernhaushalt), kuerzung_<kv>_eur = Planbetrag −
+  // veranschlagt, uebertragen_nach_<zweites Jahr>_eur = in das zweite Haushaltsjahr übertragener Teil
+  // des Planbetrags, uebertragen_aus = Jahr, aus dem ein Planbetrag übertragen wurde (eigene Zeile).
+  const uebertragungsjahr = years[years.length - 1];
+  const uebertragungsfeld = `uebertragen_nach_${uebertragungsjahr}_eur`;
+  const gegenpostenFelder = [
+    'asset_id', 'year', 'chapter', 'hg', 'title', 'amount_eur', 'name', 'kind', 'origin', 'counterparty', 'fund_expense_type', 'core_revenue_title',
+    'consolidation_elimination_eur', 'certificate', 'legal_change', 'new_target_chapters',
+    'planbetrag_eur', 'kuerzung_k04_eur', 'betrag_aktiv_eur', uebertragungsfeld, 'uebertragen_aus', 'consolidation_elimination_basis_eur',
+  ];
   requireColumns(gegenpostenCsv, gegenpostenFelder, 'daten/fonds_gegenposten.csv');
   compareJsonWithCsv(problems, ruecklagenQuelle.gegenposten, gegenpostenCsv, 'daten/ruecklagen.json gegenposten ↔ daten/fonds_gegenposten.csv');
   const allgemeineRuecklage = (ruecklagenQuelle.allgemeine_ruecklage ?? []).map((row) => {
@@ -865,13 +879,41 @@ export function transformSource(context) {
       else if (!kapitelIndex.has(code)) unbekannteKapitel.add(code);
     }
     if (!kapitelIndex.has(record.chapter)) unbekannteKapitel.add(record.chapter);
+    const jahr = parseIntegerField(record.year, `${label} year`);
+    const ursprung = parseIntegerField(record.amount_eur, `${label} amount_eur`);
+    const planbetrag = parseIntegerField(record.planbetrag_eur, `${label} planbetrag_eur`);
+    const uebertragung = parseIntegerField(record[uebertragungsfeld], `${label} ${uebertragungsfeld}`);
+    const eliminierungBasis = parseIntegerField(record.consolidation_elimination_basis_eur, `${label} consolidation_elimination_basis_eur`);
+    let uebertragenAus = null;
+    if (record.uebertragen_aus !== '') {
+      uebertragenAus = parseIntegerField(record.uebertragen_aus, `${label} uebertragen_aus`);
+      if (!years.includes(uebertragenAus) || uebertragenAus >= jahr) {
+        problems.add(`${label}: uebertragen_aus ${uebertragenAus} ist kein früheres Haushaltsjahr der Periode (Zeile ${jahr})`);
+      }
+      // Übertragen wird nur in das Jahr, das die Übertragungsspalte nennt (zweites Haushaltsjahr).
+      if (jahr !== uebertragungsjahr) {
+        problems.add(`${label}: übertragene Zeile steht im Jahr ${jahr}, ${uebertragungsfeld} überträgt aber in das Jahr ${uebertragungsjahr}`);
+      }
+      // Eine übertragene Zeile trägt keinen eigenen ursprünglichen Planbetrag und keine Ausgangseliminierung.
+      problems.equal(ursprung, `${label} amount_eur`, 0, 'erwartet für eine übertragene Zeile', `Fondsgegenposten ${record.asset_id} ${jahr}`);
+      problems.equal(eliminierungBasis, `${label} consolidation_elimination_basis_eur`, 0, 'erwartet für eine übertragene Zeile', `Fondsgegenposten ${record.asset_id} ${jahr}`);
+    } else {
+      // Ursprünglicher Planbetrag = Planbetrag des Jahres + in das zweite Haushaltsjahr übertragener Teil;
+      // die Eliminierung vor der Veranschlagung nach Bedarf entsprach dem ursprünglichen Planbetrag.
+      problems.equal(planbetrag + uebertragung, 'planbetrag_eur + übertragener Teil', ursprung, `${label} amount_eur`, `Fondsgegenposten ${record.asset_id} ${jahr}`);
+      problems.equal(eliminierungBasis, `${label} consolidation_elimination_basis_eur`, ursprung, `${label} amount_eur`, `Fondsgegenposten ${record.asset_id} ${jahr}`);
+    }
     return {
       fonds_id: record.asset_id,
-      jahr: parseIntegerField(record.year, `${label} year`),
+      jahr,
       kapitel: record.chapter,
       hauptgruppe: record.hg,
       titelgruppe: record.title,
-      betrag: parseIntegerField(record.amount_eur, `${label} amount_eur`),
+      betrag: parseIntegerField(record.betrag_aktiv_eur, `${label} betrag_aktiv_eur`),
+      planbetrag,
+      kuerzung: parseIntegerField(record.kuerzung_k04_eur, `${label} kuerzung_k04_eur`),
+      uebertragung,
+      uebertragen_aus: uebertragenAus,
       bezeichnung: record.name,
       art: record.kind,
       herkunft: record.origin,
@@ -924,6 +966,11 @@ export function transformSource(context) {
   ausschluesse.push(
     { quelle: 'daten/ruecklagen.json', felder: ['lose'], grund: 'interne Finanzierungslose' },
     { quelle: 'daten/fonds_gegenposten.csv', felder: ['certificate'], grund: 'interner Nachweisstatus' },
+    {
+      quelle: 'daten/fonds_gegenposten.csv',
+      felder: ['amount_eur', 'consolidation_elimination_basis_eur'],
+      grund: 'Ausgangswerte des Finanzrahmens vor der Veranschlagung nach Bedarf; nur geprüft (amount_eur = Planbetrag + übertragener Teil bzw. 0 bei übertragenen Zeilen, consolidation_elimination_basis_eur = amount_eur), nicht übernommen',
+    },
     { quelle: 'daten/wirtschaftsplaene.csv', felder: ['status', 'statistik'], grund: 'interne Status- und Statistiknotizen' },
   );
   problems.throwIfAny('Rücklagen, Fonds und Wirtschaftspläne sind nicht widerspruchsfrei:');
@@ -932,7 +979,14 @@ export function transformSource(context) {
   // Personal (nur aggregierte, öffentlich geeignete Teile)
 
   const stellenCsv = csv('daten/stellen.csv');
-  const stellenFelder = ['beamte_bestand', 'anwaerter', 'auszubildende', 'beamte_neu_o_r', 'arbeitnehmer', 'beamte', 'summe', 'beamte_bisheriges_recht', 'kostenaequivalent_beamte', 'kostenaequivalent_arbeitnehmer'];
+  // sicherheitsreform_<art>_<jahr>: Stellen aus dem Vollzug der Sicherheitsreform, bereits enthalten in
+  // beamte_neu_o_r (beamte), arbeitnehmer (tarif) und anwaerter (anwaerter); Teile und Gesamtzahl
+  // sicherheitsreform_<jahr> rundet das Haushaltsrepo je für sich auf ganze VZÄ
+  // (scripts/haushaltsplan/anlagen.py, stellen()). beamte_bisheriges_recht enthält sie nicht.
+  const stellenFelder = [
+    'beamte_bestand', 'anwaerter', 'auszubildende', 'beamte_neu_o_r', 'arbeitnehmer', 'beamte', 'summe', 'beamte_bisheriges_recht',
+    'kostenaequivalent_beamte', 'kostenaequivalent_arbeitnehmer', ...STELLEN_SICHERHEITSREFORM,
+  ];
   requireColumns(stellenCsv, ['kapitel', 'einzelplan', 'bezeichnung', 'bereich', 'herkunft', ...years.flatMap((year) => stellenFelder.map((field) => `${field}_${year}`))], 'daten/stellen.csv');
   const stellenKapitel = new Set();
   const stellen = stellenCsv.records.map((record) => {
@@ -956,9 +1010,24 @@ export function transformSource(context) {
     };
   }).sort((left, right) => compareCodes(left.kapitel, right.kapitel));
 
+  // Stellen der Sicherheitsreform gegen die Jahresdurchschnitte der Quelle (VZÄ, dort auf 0,1 gerundet):
+  // jeder Teil und die Gesamtzahl müssen eine mögliche Rundung innerhalb des Rundungsbereichs sein.
+  const sicherheitsreformCsv = csv('daten/sicherheitsreform/stellen.csv');
+  requireColumns(sicherheitsreformCsv, ['kapitel', 'stellenart', 'jahr', 'vzae_jahresdurchschnitt'], 'daten/sicherheitsreform/stellen.csv');
+  pruefeSicherheitsreformStellen(problems, stellen, sicherheitsreformCsv.records, years, 'daten/sicherheitsreform/stellen.csv');
+
+  // Kapitelwirkung der Personalreform (Dienstrechtsneuordnung): nachher_eur ist der Stand nach der
+  // Dienstrechtsneuordnung; k03_eur (Vollzug der Sicherheitsreform) und k04_eur (Endfassung des
+  // Regierungsentwurfs) sind die Änderungen späterer Stufen derselben Gruppe. Erst ihre Summe ergibt
+  // den Ansatz der Titel (Haushaltsrepo, scripts/haushaltsplan/personal/ausgabe.py).
   const kapitelwirkungCsv = csv('daten/personal/kapitelwirkung.csv');
   const kapitelwirkungFelder = ['vorher', 'basisbereinigung', 'reformwirkung', 'finanzfolge', 'nachher'];
-  requireColumns(kapitelwirkungCsv, ['jahr', 'einzelplan', 'kapitel', 'kapitel_bezeichnung', 'bereich', 'gruppe', ...kapitelwirkungFelder.map((field) => `${field}_eur`)], 'daten/personal/kapitelwirkung.csv');
+  const kapitelwirkungStufen = [['sicherheitsreform', 'k03_eur'], ['endfassung', 'k04_eur']];
+  requireColumns(
+    kapitelwirkungCsv,
+    ['jahr', 'einzelplan', 'kapitel', 'kapitel_bezeichnung', 'bereich', 'gruppe', ...kapitelwirkungFelder.map((field) => `${field}_eur`), ...kapitelwirkungStufen.map(([, column]) => column)],
+    'daten/personal/kapitelwirkung.csv',
+  );
   const kapitelwirkungSchluessel = new Set();
   const kapitelwirkung = kapitelwirkungCsv.records.map((record, index) => {
     const label = `daten/personal/kapitelwirkung.csv Zeile ${index + 1}`;
@@ -976,7 +1045,14 @@ export function transformSource(context) {
     if (!gruppenIndex.has(record.gruppe)) problems.add(`${label}: Gruppe ${record.gruppe} fehlt in daten/gruppierung.csv`);
     const entry = { jahr, einzelplan: record.einzelplan, kapitel: record.kapitel, bereich: record.bereich, gruppe: record.gruppe };
     for (const field of kapitelwirkungFelder) entry[field] = parseIntegerField(record[`${field}_eur`], `${label} ${field}_eur`);
-    problems.equal(entry.nachher, 'daten/personal/kapitelwirkung.csv nachher_eur', sum(`kg|${record.kapitel}|${record.gruppe}|${jahr}`), 'Summe der Titel der Gruppe (daten/titel.json)', `Kapitelwirkung ${record.kapitel}/${record.gruppe} ${jahr}`);
+    for (const [field, column] of kapitelwirkungStufen) entry[field] = parseIntegerField(record[column], `${label} ${column}`);
+    problems.equal(
+      entry.nachher + entry.sicherheitsreform + entry.endfassung,
+      'nachher_eur + k03_eur + k04_eur (daten/personal/kapitelwirkung.csv)',
+      sum(`kg|${record.kapitel}|${record.gruppe}|${jahr}`),
+      'Summe der Titel der Gruppe (daten/titel.json)',
+      `Kapitelwirkung ${record.kapitel}/${record.gruppe} ${jahr}`,
+    );
     return entry;
   }).sort((left, right) => left.jahr - right.jahr || compareCodes(left.kapitel, right.kapitel) || compareCodes(left.gruppe, right.gruppe));
 
@@ -1069,10 +1145,14 @@ export function transformSource(context) {
   problems.equal(barwerte.gesamt_b - barwerte.gesamt_c, 'gesamt B − gesamt C', barwerte.minderung, 'versorgung.barwerte minderung', 'Barwerte');
 
   const fondsErstattungCsv = csv('daten/personal/versorgungsfonds_erstattung.csv');
-  requireColumns(fondsErstattungCsv, ['jahr', 'geplant', 'tatsaechlich', 'minderung'], 'daten/personal/versorgungsfonds_erstattung.csv');
+  // geplant = bisherige Planung, tatsaechlich = Erstattung nach dem Dienstrechtsentwurf (vor der
+  // Endfassung), kohorte = zugeordnete Versorgungsausgaben der gedeckten Jahrgänge,
+  // veranschlagt_endfassung = veranschlagte Erstattung (nur nach Bedarf; = Verwendungsplan).
+  const fondsErstattungSpalten = [['jahr', 'jahr'], ['geplant', 'geplant'], ['tatsaechlich', 'tatsaechlich'], ['minderung', 'minderung'], ['kohorte', 'ausgaben_kohorte'], ['veranschlagt_endfassung', 'veranschlagt']];
+  requireColumns(fondsErstattungCsv, fondsErstattungSpalten.map(([column]) => column), 'daten/personal/versorgungsfonds_erstattung.csv');
   const versorgungsfondsErstattung = fondsErstattungCsv.records.map((record, index) => {
     const entry = {};
-    for (const column of fondsErstattungCsv.header) entry[column] = parseIntegerField(record[column], `daten/personal/versorgungsfonds_erstattung.csv Zeile ${index + 1} ${column}`);
+    for (const [column, field] of fondsErstattungSpalten) entry[field] = parseIntegerField(record[column], `daten/personal/versorgungsfonds_erstattung.csv Zeile ${index + 1} ${column}`);
     return entry;
   });
 
@@ -1128,20 +1208,31 @@ export function transformSource(context) {
     { quelle: 'daten/personal/quellen.csv', grund: 'Quellenliste mit internen Dateipfaden' },
     { quelle: 'daten/politische_entscheidungen.csv', grund: 'interne Konsolidierungsentscheidungen' },
     { quelle: 'daten/ueberleitungsbruecke.csv', grund: 'interne Überleitungsrechnung' },
+    { quelle: 'daten/sicherheitsreform/stellen.csv', grund: 'Jahresdurchschnitte der Stellen der Sicherheitsreform (auf 0,1 VZÄ gerundet); nur zur Prüfung der Planäquivalente verwendet' },
+    { quelle: 'daten/sicherheitsreform/k03_journal.csv', grund: 'internes Buchungsjournal' },
+    { quelle: 'daten/sicherheitsreform/deckung.csv', grund: 'interne Deckungsrechnung' },
+    { quelle: 'daten/sicherheitsreform/vollzugsmatrix.csv', grund: 'interne Vollzugs- und Kostenmatrix' },
+    { quelle: 'daten/sicherheitsreform/verpflichtungen.csv', grund: 'interne Herleitung der Verpflichtungsermächtigungen (Ergebnis in daten/verpflichtungen.csv)' },
+    { quelle: 'daten/endfassung', grund: 'internes Buchungsjournal und Herleitungstabellen der Endfassung (Bestände, Entnahmen, Entschädigungen, Restansätze, Pauschale)' },
+    { quelle: 'daten/geheim/titel_1306.csv', grund: 'Titelgliederung des Kapitels 13 06; veröffentlicht wird nur die Ausweisung nach Hauptgruppen' },
+    { quelle: 'daten/sondervermoegen.json', grund: 'Wirtschaftspläne der Sondervermögen; nicht Teil des Snapshots' },
   );
   problems.throwIfAny('Die Personaldaten sind nicht widerspruchsfrei:');
 
-  pruefeRechenidentitaeten(problems, { massnahmen, kreditfinanzierungsplan, allgemeineRuecklage, stellen, reformwirkungJahre: reformJahre, kapitelwirkung }, {
+  pruefeRechenidentitaeten(problems, { years, massnahmen, kreditfinanzierungsplan, allgemeineRuecklage, fondsGegenposten, stellen, reformwirkungJahre: reformJahre, kapitelwirkung }, {
     massnahmen: 'daten/massnahmen.csv',
     kreditfinanzierungsplan: 'daten/kreditfinanzierungsplan.csv',
     ruecklage: 'daten/ruecklagen.json allgemeine_ruecklage',
+    fonds: 'daten/fonds_gegenposten.csv',
     stellen: 'daten/stellen.csv',
     reformwirkung: 'daten/personal/reformwirkung_jahre.csv',
     kapitelwirkung: 'daten/personal/kapitelwirkung.csv',
   });
   problems.throwIfAny('Rechnerische Identitäten der Quelldaten sind verletzt (es wird nichts korrigiert):');
-  pruefeQuerbezuege(problems, { years, gesamtplanJahre, finanzplan, kreditfinanzierungsplan, allgemeineRuecklage, reformwirkungJahre: reformJahre, komponenten }, {
+  pruefeQuerbezuege(problems, { years, gesamtplanJahre, finanzplan, kreditfinanzierungsplan, allgemeineRuecklage, fondsGegenposten, versorgungsfondsErstattung, reformwirkungJahre: reformJahre, komponenten }, {
     gesamtplan: 'daten/gesamtplan.json',
+    fonds: 'daten/fonds_gegenposten.csv',
+    versorgungsfonds: 'daten/personal/versorgungsfonds_erstattung.csv',
     finanzplan: finanzplanDateien[0],
     kreditfinanzierungsplan: 'daten/kreditfinanzierungsplan.csv',
     ruecklage: 'daten/ruecklagen.json allgemeine_ruecklage',

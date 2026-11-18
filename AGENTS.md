@@ -20,7 +20,8 @@ Kanonische Dokumentation (Übersicht in `README.md`, Abschnitt „Dokumentation�
 - `README.md` – Einstieg und Struktur
 - `AGENTS.md` – Arbeits- und Redaktionsregeln
 - `CONTENT.md` – Inhaltsformate und Pflegewege
-- `CONTENT_GAPS.md` – nur tatsächlich offene Quellenlücken
+- `CONTENT_GAPS.md` – nur tatsächlich offene Quellenlücken und belegte Redaktionsentscheidungen zu
+  Quellkonflikten
 - `TODO.md` – nur offene technische Arbeiten
 - `DESIGN.md` – dauerhafte Gestaltungsregeln
 - `docs/` – Runbooks (Deployment, Normworkflow, REVOSax-Import und D1, Haushalt, Kreisreform-Karte, Zuarbeit)
@@ -129,8 +130,8 @@ einmal gebaut; die `*:run`-Varianten arbeiten auf dem vorhandenen Build.
 - Der Hinweis auf die politische Simulation bleibt sichtbar in der oberen Hinweisleiste und im Footer. Außerhalb dieser festen Hinweise bleiben öffentliche Texte frei von Wiederholungen; das Impressum enthält die erforderliche ausführliche Einordnung des fiktiven Internetangebots.
 - Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote wird ausschließlich aus `packages/shared/src/config/editorial.json` gelesen. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote. Der Stichtag wird mit `npm run norms:advance-reference-date -- --to <Datum> --write` fortgeschrieben (zieht die Statusfelder betroffener Normen mit; ohne `--write` nur Audit).
 - Operative technische Begriffe sind in interner Doku und Code zulässig.
-- Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor. Max Peterson leitet als Staatsrat das Staatssekretariat für Wirtschaft und Arbeit.
-- Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle leitet seit dem 21. Juli 2026 sowohl Nachhaltigkeit und Energie als auch Staats- und Grenzsicherheit.
+- Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor; seit dem 7. September 2026 amtiert der zweite Staatsrat. Im ersten Staatsrat leitete Max Peterson Wirtschaft und Arbeit, Yannik Schmäle Nachhaltigkeit und Energie sowie Staats- und Grenzsicherheit.
+- Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle ist seit dem 7. September 2026 Stellvertreter des Staatspräsidenten und Staatsrat für Frieden.
 - Kein neues Profil für Gerhardt Lehrmann anlegen.
 - Regierungschef, Stellvertretung, Mitgliedschaft, Ämter und Ressortleitungen werden ausschließlich
   aus `content/organisation/` abgeleitet. Personen- und Ressortprofile enthalten diese Felder nicht.
@@ -182,8 +183,13 @@ Ein späterer sächsischer Zwischenstand darf nur übernommen werden, wenn ihn e
 Änderungsvorschrift wörtlich als Ausgangsfassung bezeichnet; der Adoptionsbeleg wird mit dem
 zusätzlichen Snapshot gespeichert. Gleichzeitige Änderungen brauchen eine explizite Reihenfolge
 und führen zu einer gemeinsamen Folgefassung mit getrennten Historieneinträgen.
-Konsolidierung und Build bleiben offline. Quellkonflikte erhalten einen Sperrstatus; sie werden
-nicht heuristisch aufgelöst. Die Konsolidierung wendet Patch-Rezepte auf den unveränderten
+Konsolidierung und Build bleiben offline. Passt ein Änderungsbefehl nicht wörtlich auf die
+Vorfassung, wird er sinngemäß nach dem erkennbar gemeinten Inhalt angewandt und als
+Redaktionsentscheidung in `CONTENT_GAPS.md` belegt (Fundstelle, wörtlicher Befehl, Abweichung,
+gewählte Auslegung; maschinenlesbar als `editorialResolutions` des Ziels in
+`data/recht/consolidation-sources.json`). Ist kein Inhalt eindeutig erkennbar, bleibt der Befehl
+unangewandt und wird ebenso dokumentiert. Ein Sperrstatus (`blockedTargets`) bleibt Fällen
+vorbehalten, in denen keine verlässliche Folgefassung entstehen kann. Die Konsolidierung wendet Patch-Rezepte auf den unveränderten
 sächsischen Ausgangstext an und leitet erst das Ergebnis mit dem Rechtsüberleitungsadapter über;
 `npm run norms:ost:residual-audit` verlangt 0 Reststellen im übergeleiteten Recht und lässt
 Sachsen-Bezüge in eigenen ostdeutschen Erlassen nur zu, wenn sie wörtlich in der amtlichen Quelle

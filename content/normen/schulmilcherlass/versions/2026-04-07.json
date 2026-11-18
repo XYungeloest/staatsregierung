@@ -139,18 +139,54 @@
               "level": 1,
               "listId": "printed-outline",
               "numberingStyle": "decimal",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "pasteurisierte Frischmilch als Vollmilch oder fettarme Milch, b) H-Milch, soweit Frischmilch im Einzelfall nicht wirtschaftlich oder organisatorisch verlässlich bereitgestellt werden kann, c) ungesüßte Milchmischgetränke, d) vegane Pflanzendrinks sowie e) Naturjoghurt in portionsgerechter Form.",
-          "level": 0,
-          "listId": "printed-outline",
-          "numberingStyle": "lower-latin",
-          "children": [
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "pasteurisierte Frischmilch als Vollmilch oder fettarme Milch,",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "H-Milch, soweit Frischmilch im Einzelfall nicht wirtschaftlich oder organisatorisch verlässlich bereitgestellt werden kann,",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "ungesüßte Milchmischgetränke,",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "d)",
+                  "text": "vegane Pflanzendrinks sowie",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "e)",
+                  "text": "Naturjoghurt in portionsgerechter Form.",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
             {
               "type": "item",
               "label": "4.2",
@@ -475,18 +511,45 @@
               "level": 1,
               "listId": "printed-outline",
               "numberingStyle": "decimal",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "die Zahl der ausgegebenen Portionen, b) wesentliche Lieferstörungen, c) Qualitätsmängel sowie d) sonstige für den Vollzug bedeutsame Vorkommnisse.",
-          "level": 0,
-          "listId": "printed-outline",
-          "numberingStyle": "lower-latin",
-          "children": [
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "die Zahl der ausgegebenen Portionen,",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "wesentliche Lieferstörungen,",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Qualitätsmängel sowie",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "d)",
+                  "text": "sonstige für den Vollzug bedeutsame Vorkommnisse.",
+                  "level": 2,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
             {
               "type": "item",
               "label": "12.2",
@@ -512,11 +575,12 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Diese Verwaltungsvorschrift tritt am Tage ihrer Verkündung in Kraft."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Verwaltungsvorschrift tritt am Tage ihrer Verkündung in Kraft."
+            }
+          ]
         }
       ]
     },

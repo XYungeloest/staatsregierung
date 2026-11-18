@@ -2,18 +2,19 @@
   "amendmentAct": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf",
   "effectiveDate": "2026-08-01",
   "versionId": "2026-08-01",
-  "amendmentCitation": "Verwaltungsvorschrift vom 17. Juli 2026 (StAnzO. 2026 Nr. 12)",
-  "resultCitation": "VwV Stundentafeln, geändert durch Verwaltungsvorschrift vom 17. Juli 2026 (StAnzO. 2026 Nr. 12)",
+  "sameDayOrder": 2,
+  "amendmentCitation": "Verwaltungsvorschrift vom 13. Juli 2026 (StAnzO. 2026 Nr. 14 S. 6)",
+  "resultCitation": "VwV Stundentafeln, geändert durch Verwaltungsvorschrift vom 13. Juli 2026 (StAnzO. 2026 Nr. 14 S. 6)",
   "changeNote": "Geltungsbereich, Lehrplan- und Unterrichtsregelungen wurden an die Schulreform angepasst; überholte Schulartabschnitte und Anlagen wurden aufgehoben.",
   "commandCoverage": [
-    "I. Nummern 1 bis 6"
+    "I. Nummern 1 bis 6. Die Neufassung der Ziffer III (Nummer 4) und die Aufhebung der Ziffern V bis VII (Nummer 5) setzen auf der am selben Tag nach Ziffer V Satz 2 der VwV Stundentafeln POS außer Kraft gesetzten Fassung auf (sameDayOrder 1); die neu gefasste Ziffer III gilt (Redaktionsentscheidung vwv-stundentafeln-ziffer-iii-2026)."
   ],
   "sourceReferences": [
     {
       "kind": "amendment-source",
-      "label": "StAnzO. 2026 Nr. 12",
+      "label": "StAnzO. 2026 Nr. 14",
       "availability": "versioned",
-      "localSource": "Gesetze/StAnzO. 2026 Nr. 12.html"
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 14.html"
     }
   ],
   "operations": [
@@ -22,7 +23,7 @@
       "expectedOld": "VwV Stundentafeln",
       "value": "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft über Lehrpläne und Stundentafeln für Förderschulen, Abendoberschulen, Abendgymnasien und Kollegs im Freistaat Ostdeutschland (VwV Stundentafeln)",
       "expectedMatches": 1,
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 1",
       "effectiveDate": "2026-08-01"
     },
@@ -41,11 +42,11 @@
         "children": [
           {
             "type": "paragraphText",
-            "text": "Diese Verwaltungsvorschrift gilt für die Erteilung des Unterrichts an Förderschulen, Abendoberschulen, Abendgymnasien und Kollegs, bei Abendgymnasien und Kollegs jeweils im Vorkurs und in der Einführungsphase, in öffentlicher Trägerschaft im Freistaat Ostdeutschland."
+            "text": "Diese Verwaltungsvorschrift gilt für die Erteilung des Unterrichts an Förderschulen, Abendoberschulen, Abendgymnasien und Kollegs, bei Abendgymnasien und Kollegs jeweils im Vorkurs und in der Einführungsphase, in öffentlicher Trägerschaft im Freistaat Ostdeutschland"
           }
         ]
       },
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 2",
       "effectiveDate": "2026-08-01"
     },
@@ -64,11 +65,11 @@
         "children": [
           {
             "type": "paragraphText",
-            "text": "Im Unterricht sind die Lehrpläne anzuwenden, die in der Landesliste der Lehrpläne für Förderschulen, Abendoberschulen, Abendgymnasien und Kollegs, bei Abendgymnasien und Kollegs jeweils für den Vorkurs und die Einführungsphase, im Freistaat Ostdeutschland in der jeweils geltenden Fassung ausgewiesen sind. Die Landesliste wird jährlich von der obersten Schulaufsichtsbehörde herausgegeben."
+            "text": "Im Unterricht sind die Lehrpläne anzuwenden, die in der Landesliste der Lehrpläne für Förderschulen, Abendoberschulen, Abendgymnasien und Kollegs, bei Abendgymnasien und Kollegs jeweils für den Vorkurs und die Einführungsphase, im Freistaat Ostdeutschland in der jeweils geltenden Fassung ausgewiesen sind.\nDie Landesliste wird jährlich von der obersten Schulaufsichtsbehörde herausgegeben"
           }
         ]
       },
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 3",
       "effectiveDate": "2026-08-01"
     },
@@ -78,7 +79,7 @@
         "type": "section",
         "label": "III."
       },
-      "expectedHash": "04298aa47fec26bc8d79fe816d3069982444e0f6d8c43f1ebd6b70145ae96590",
+      "expectedHash": "1d215bd88770e518c751d42828205fb541267a2d1aed78ffffc8ac44dd1c5b83",
       "expectedMatches": 1,
       "value": {
         "type": "section",
@@ -87,11 +88,11 @@
         "children": [
           {
             "type": "paragraphText",
-            "text": "Für das Pflichtfach Ethik gilt in den Anlagen 2a bis 2s, 5, 6a und 6b jeweils die in der Zeile „Ethik“ ausgewiesene Wochenstundenzahl. Die in den Anlagen 2a bis 2s, 5, 6a und 6b enthaltenen Zeilen für Evangelische Religion, Katholische Religion und Jüdische Religion sowie die Fußnoten und sonstigen Bestimmungen über eine Wahl zwischen Religionsunterricht und Ethik sind nicht anzuwenden. Religions- und Weltanschauungsunterricht nach den §§ 19 und 20 des Ostdeutschen Schulgesetzes kann zusätzlich zur jeweiligen Pflichtwochenstundenzahl erteilt werden. Die hierfür erteilten Unterrichtsstunden sind nicht Bestandteil der in den Anlagen ausgewiesenen Pflichtwochenstunden oder Gesamtstundenzahlen."
+            "text": "Für das Pflichtfach Ethik gilt in den Anlagen 2a bis 2s, 5, 6a und 6b jeweils die in der Zeile „Ethik“ ausgewiesene Wochenstundenzahl.\nDie in den Anlagen 2a bis 2s, 5, 6a und 6b enthaltenen Zeilen für Evangelische Religion, Katholische Religion und Jüdische Religion sowie die Fußnoten und sonstigen Bestimmungen über eine Wahl zwischen Religionsunterricht und Ethik sind nicht anzuwenden.\nReligions- und Weltanschauungsunterricht nach den §§ 19 und 20 des Ostdeutschen Schulgesetzes kann zusätzlich zur jeweiligen Pflichtwochenstundenzahl erteilt werden. Die hierfür erteilten Unterrichtsstunden sind nicht Bestandteil der in den Anlagen ausgewiesenen Pflichtwochenstunden oder Gesamtstundenzahlen."
           }
         ]
       },
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 4",
       "effectiveDate": "2026-08-01"
     },
@@ -101,9 +102,9 @@
         "type": "section",
         "label": "V."
       },
-      "expectedHash": "a3f63a29548b3c50a05a286c5bd98ea8283dadbf28d32a0a25d8da25b5422a9e",
+      "expectedHash": "cfce0b6cc58b3509a09d009ca017257706dccd49d5ec7cd9a7d1bde1ddb5c9be",
       "expectedMatches": 1,
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 5",
       "effectiveDate": "2026-08-01"
     },
@@ -113,9 +114,9 @@
         "type": "section",
         "label": "VI."
       },
-      "expectedHash": "6d3883040e086167077ba1564513fedec48c0dad7884121a6132bc27577244ce",
+      "expectedHash": "f17fc0f7d645f52f15beed72f30019ef1c9d974b6bdc3af0d2c447d8d1ec8eb7",
       "expectedMatches": 1,
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 5",
       "effectiveDate": "2026-08-01"
     },
@@ -125,9 +126,9 @@
         "type": "section",
         "label": "VII."
       },
-      "expectedHash": "9c504c2387b58fc125a5e711ce24fa57956769e79839eecf13cc76f421d622a5",
+      "expectedHash": "962e3083106226f66416b048b9c0713c25c1cf85e8ca08357c6c5bf0c4b3b9ef",
       "expectedMatches": 1,
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 5",
       "effectiveDate": "2026-08-01"
     },
@@ -238,7 +239,7 @@
           }
         ]
       },
-      "source": "Gesetze/StAnzO. 2026 Nr. 12.html",
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
       "sourceProvision": "I. Nummer 6",
       "effectiveDate": "2026-08-01"
     }

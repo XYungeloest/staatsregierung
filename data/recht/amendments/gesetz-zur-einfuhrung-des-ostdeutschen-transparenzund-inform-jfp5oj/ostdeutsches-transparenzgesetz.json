@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+  "effectiveDate": "2026-07-01",
+  "versionId": "2026-07-01",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 32 S. 2)",
+  "resultCitation": "Ostdeutsches Transparenzgesetz vom 19. August 2022 (SächsGVBl. S. 486)",
+  "changeNote": "Aufhebung durch Artikel 6 Absatz 1 des Gesetzes zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes.",
+  "commandCoverage": [
+    "Artikel 6 Absatz 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 32, Artikel 6",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 32.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "c1e22ac6449dc313c5d37faa51103b11046ed3345fd9627bcce77b7b62375726",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 6 Absatz 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 32.html",
+      "effectiveDate": "2026-07-01"
+    }
+  ],
+  "repealsLaw": true
+}

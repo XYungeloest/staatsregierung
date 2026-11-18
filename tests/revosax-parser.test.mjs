@@ -82,6 +82,21 @@ test('REVOSax-Satznummern werden semantisch verworfen und korrekt getrennt', () 
   assert.doesNotMatch(JSON.stringify(body), /[⁰¹²³⁴⁵⁶⁷⁸⁹]/u);
 });
 
+test('manuell gesetzte REVOSax-Satznummern werden wie automatische verworfen', () => {
+  const body = parsedBody(`
+    <section title="§ 1 Fristen"><h3>§ 1 Fristen</h3>
+      <p data-satzzahl="manuell">(1) <sup class="satzzahl_manuell">1</sup>Abweichend von Satz 2 gilt eine Frist.<sup class="satzzahl_manuell">2</sup>Sie beträgt einen Monat. <sup class="satzzahl_manuell">13</sup>Das Nähere regelt die Behörde.</p>
+      <p data-satzzahl="manuell">(2) <sup class="satzzahl">1</sup>Gemischte Kennzeichnung. <sup class="satzzahl_manuell">2</sup>Der Rest folgt. <sup class="satzzahl satzzahl_manuell">3</sup>Die Doppelklasse zählt ebenso.</p>
+      <dl class="cf"><dt class="td_1">1.</dt><dd class="last">für die Straßen (§§ 2 bis 4). <sup class="satzzahl_manuell">2</sup>Die Summe ergibt sich aus Absatz 1,</dd></dl>
+    </section>`);
+  const paragraph = findBlock(body, 'paragraph');
+  assert.equal(paragraph.children[0].label, '(1)');
+  assert.equal(paragraph.children[0].text, 'Abweichend von Satz 2 gilt eine Frist. Sie beträgt einen Monat. Das Nähere regelt die Behörde.');
+  assert.equal(paragraph.children[1].text, 'Gemischte Kennzeichnung. Der Rest folgt. Die Doppelklasse zählt ebenso.');
+  assert.match(JSON.stringify(body), /für die Straßen \(§§ 2 bis 4\)\. Die Summe ergibt sich aus Absatz 1,/u);
+  assert.doesNotMatch(JSON.stringify(body), /(?:^|[\s.])\d{1,2}(?:Abweichend|Sie|Das|Der|Die)\b/u);
+});
+
 test('normale Hochstellungen bleiben erhalten und Satznummern in Tabellen werden entfernt', () => {
   const body = parsedBody(`
     <section title="§ 1 Maße"><h3>§ 1 Maße</h3>
@@ -162,6 +177,24 @@ test('REVOSax-Tabellenparser erhält leere Zellen und die Spaltenzahl', () => {
   ]);
 });
 
+test('die Tabellenbeschriftung wird Tabellentitel, weder Zeile noch Fließtext', () => {
+  const body = parsedBody(`
+    <section title="§ 1 Tabellen"><h4>§ 1 Tabellen</h4>
+      <p>(1) Es gilt:</p>
+      <table><caption>Stufen  der <a class="fussnote_link" href="#FNID_1"><sup>1</sup></a>Bewertung
+      </caption><tr><th scope="col">A</th></tr><tr><td>1</td></tr></table>
+      <table><caption>   </caption><tr><td>ohne Beschriftung</td></tr></table>
+      <table><tr><td>ohne caption<table><caption>innen</caption><tr><td>x</td></tr></table></td></tr></table>
+    </section>`);
+  const tables = findLabel(body, '§ 1').children.filter((block) => block.type === 'table');
+  assert.equal(tables.length, 3);
+  assert.equal(tables[0].title, 'Stufen der Bewertung');
+  assert.deepEqual(tables[0].children.map((row) => row.children.map((cell) => cell.text)), [['A'], ['1']]);
+  assert.equal(Object.hasOwn(tables[1], 'title'), false);
+  assert.equal(Object.hasOwn(tables[2], 'title'), false);
+  assert.equal(JSON.stringify(body).split('Stufen').length - 1, 1);
+});
+
 test('historische Zitierungen verwerfen spätere Änderungsfundstellen im REVOSax-Seitenkopf', () => {
   const currentPageCitation = 'VwV vom 20. Juni 2018, die zuletzt durch Ziffer II der Verwaltungsvorschrift vom 23. Juli 2026 geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025';
   assert.deepEqual(amendmentDatesFromCitation(currentPageCitation), ['2026-07-23']);
@@ -179,21 +212,21 @@ test('historische Zitierungen verwerfen spätere Änderungsfundstellen im REVOSa
 });
 
 test('historische Zitierungen erkennen Abkürzungspunkte und trennen spätere Seitenkopfänderungen ab', () => {
-  const currentPageCitation = 'Sächsisches Verwaltungsorganisationsgesetz vom 25. November 2003 (SächsGVBl. S. 899), das zuletzt durch Artikel 8 des Gesetzes vom 24. Juni 2026 (SächsGVBl. S. 190) geändert worden ist';
+  const currentPageCitation = 'Sächsisches Beispielorganisationsgesetz vom 25. November 2003 (SächsGVBl. S. 9899), das zuletzt durch Artikel 8 des Gesetzes vom 24. Juni 2026 (SächsGVBl. S. 190) geändert worden ist';
   assert.deepEqual(amendmentDatesFromCitation(currentPageCitation), ['2026-06-24']);
   assert.deepEqual(futureAmendmentDates(currentPageCitation, '2025-07-09'), ['2026-06-24']);
   assert.equal(historicalBaselineCitation({
     pageFullCitation: currentPageCitation,
     sourceValidTo: '2025-07-09',
     citationValidAt: '2023-11-01',
-    context: 'SächsVwOrgG',
-  }), 'Sächsisches Verwaltungsorganisationsgesetz vom 25. November 2003 (SächsGVBl. S. 899)');
+    context: 'SächsBspOrgG',
+  }), 'Sächsisches Beispielorganisationsgesetz vom 25. November 2003 (SächsGVBl. S. 9899)');
   assert.throws(() => historicalBaselineCitation({
     pageFullCitation: currentPageCitation,
     sourceValidTo: '2025-07-09',
     citationValidAt: '2023-11-01',
     baselineCitation: currentPageCitation,
-    context: 'SächsVwOrgG',
+    context: 'SächsBspOrgG',
   }), /historischem Rechtsstand/u);
 });
 
@@ -252,8 +285,8 @@ test('bekannte Gliederungen bleiben ohne Strukturhinweise und ohne Buchstabenfeh
 
 test('Alt-Layout ohne Gliederungscontainer, HTML-Listen und Wrapper mit alleinigem Text werden erfasst', () => {
   const legacy = parseRevosaxSnapshot(`<!doctype html><html><body><div id="content"><div class="law_show">
-    <h1>Änderung der Alarmierungsrichtlinie</h1>
-    <p>Vollzitat: Änderung der Alarmierungsrichtlinie vom 1. Dezember 2000 (SächsABl. 2001 S. 4)</p>
+    <h1>Änderung der Beispielalarmrichtlinie</h1>
+    <p>Vollzitat: Änderung der Beispielalarmrichtlinie vom 1. Dezember 2000 (SächsABl. 2001 S. 4)</p>
     <article id="lesetext"><nav data-level="1" title="Verwaltungsvorschrift"><div id="lesetext">
       <h3 class="centre">Verwaltungsvorschrift</h3>
       <p class="centre"><strong>Vom 1. Dezember 2000</strong></p>
@@ -301,7 +334,7 @@ test('Bekanntmachungen als eigene Vorschrift und Abschnitte außerhalb von .sect
   assert.deepEqual(notice.structureNotes, [{ kind: 'hoisted-wrapper', title: 'Bekanntmachung' }, { kind: 'no-provisions' }]);
 
   const modern = parseRevosaxSnapshot(`<!doctype html><html><body><div id="content"><div class="law_show">
-    <h1>VwV Religion und Ethik</h1><p>Vollzitat: VwV Religion und Ethik vom 26. März 2026 (MBl. SMK S. 38)</p>
+    <h1>VwV Beispielunterricht</h1><p>Vollzitat: VwV Beispielunterricht vom 26. März 2026 (MBl. SMK S. 9038)</p>
     <article id="lesetext"><header title="Eingangsformel"><h3 class="centre">Verwaltungsvorschrift</h3><p class="centre"><b>Vom 26. März 2026</b></p></header>
       <div id="_idContainer000" class="Einfacher-Textrahmen">
         <section data-level="1" title="I. Geltungsbereich"><h4 class="centre">I.<br>Geltungsbereich</h4><p class="FLIESSTEXT">Diese Verwaltungsvorschrift gilt für alle Schulen.</p></section>
@@ -358,6 +391,81 @@ test('Überschriften aus Gliederungszeichen- und Titelzeile werden nur bei volls
   ]);
 });
 
+test('die sichtbare Überschrift geht einem abweichenden oder maskierten title-Attribut vor', () => {
+  const body = parsedBody(`
+    <section title="§ 1 Zuschuss für Betreuung nach dem Gesetz über Einrichtungen"><h4>§ 1<br>Zuschuss für Einrichtungen nach dem Gesetz über Betreuung</h4>
+      <p>(1) Der Zuschuss wird jährlich gezahlt.</p></section>
+    <section title="§ 2 Voraussetzungen&lt;br&gt;für Prüfungen"><h4>§ 2<br>Voraussetzungen<br>für Prüfungen</h4>
+      <p>(1) Erforderlich ist ein Abschluss.</p></section>
+    <section title="§ 3 Übergangsregelungen"><h4>§ 3 <br><i>(aufgehoben)</i></h4></section>
+    <section title="§ 4 Voraussetzungen&lt;br&gt;für Ausnahmen"><p>(1) Ausnahmen sind zulässig.</p></section>
+    <section title="Anlage 1 Gebührensätze"><h4>Anlage 1</h4><p>Gebühren nach Stufen.</p></section>
+    <section title="Anlage 2 Gebührenstufen"><h4>Anlage 3<br>Abweichende Zählung</h4><p>Stufen.</p></section>`);
+  const units = body.filter((block) => block.label);
+  assert.deepEqual(units.map((block) => [block.type, block.label, block.title]), [
+    // Sichtbare Überschrift statt veralteter Metadaten, Zeilenumbrüche als Leerzeichen.
+    ['paragraph', '§ 1', 'Zuschuss für Einrichtungen nach dem Gesetz über Betreuung'],
+    ['paragraph', '§ 2', 'Voraussetzungen für Prüfungen'],
+    ['paragraph', '§ 3', '(aufgehoben)'],
+    // Ohne sichtbare Überschrift bleibt das Attribut maßgeblich, ein maskierter Umbruch wird Leerzeichen.
+    ['paragraph', '§ 4', 'Voraussetzungen für Ausnahmen'],
+    // Nennt die sichtbare Überschrift keinen eigenen Titel oder ein anderes Kennzeichen, bleibt das Attribut.
+    ['annex', 'Anlage 1', 'Gebührensätze'],
+    ['annex', 'Anlage 2', 'Gebührenstufen'],
+  ]);
+  assert.ok(units.every((block) => !/<br/iu.test(block.title ?? '')));
+});
+
+test('nennt die Kopfzeile nur Kennzeichen und Bezug, gilt die folgende sichtbare Überschriftenzeile', () => {
+  const body = parsedBody(`
+    <section title="Anlage 1 Übersicht über die Sätze nach Teilnehmern"><h4>Anlage 1<br>(zu § 2 Absatz 1)<a class="fussnote_link" href="#FNID_1"><sup>1</sup></a></h4>
+      <h5>Übersicht über die Sätze<br>nach Teilnehmerinnen und Teilnehmern</h5><p>Sätze nach Stufen.</p></section>
+    <section title="Anlage 2"><h4>Anlage 2 (zu § 3)</h4><h5>Verfahrensstufen</h5><p>Stufen.</p></section>
+    <section title="Anlage 3 (zu § 4)"><h4>Anlage 3 (zu § 4)</h4><h5>Prüfpunkte</h5><p>Punkte.</p></section>
+    <section title="Anlage 4 Zuordnung"><h4>Anlage 4<br>(zu § 5)</h4><p>Ohne eigene Überschriftenzeile.</p></section>
+    <section title="Anlage 5 Grenzwerte"><h4>Anlage 6<br>(zu § 6)</h4><h5>Abweichende Zählung</h5><p>Werte.</p></section>
+    <section title="Anlage 7 Tabellen"><h4>Anlage 7</h4><h5>Anlage 8</h5><p>Tabellen.</p></section>`);
+  const units = body.filter((block) => block.label);
+  assert.deepEqual(units.map((block) => [block.type, block.label, block.title]), [
+    // Sichtbare Überschrift aus der folgenden Zeile statt des veralteten Attributs; der Bezug
+    // bleibt beim Kennzeichen so, wie das Attribut ihn führt.
+    ['annex', 'Anlage 1', 'Übersicht über die Sätze nach Teilnehmerinnen und Teilnehmern'],
+    ['annex', 'Anlage 2', 'Verfahrensstufen'],
+    ['annex', 'Anlage 3 (zu § 4)', 'Prüfpunkte'],
+    // Ohne folgende Überschriftenzeile, bei abweichendem Kennzeichen oder wenn die folgende Zeile
+    // selbst ein Gliederungskennzeichen ist, bleibt das Attribut maßgeblich.
+    ['annex', 'Anlage 4', 'Zuordnung'],
+    ['annex', 'Anlage 5', 'Grenzwerte'],
+    ['annex', 'Anlage 7', 'Tabellen'],
+  ]);
+  // Die Überschriftenzeile wird nicht zusätzlich als Normtext übernommen.
+  assert.deepEqual(units[0].children.map((block) => block.text), ['Sätze nach Stufen.']);
+});
+
+test('eine Tabelle in einem Listeneintrag bleibt als Tabellenblock des Eintrags erhalten', () => {
+  const body = definitionBody(`
+    <dt class="td_1">1.</dt><dd class="last">Die Angabe wird gestrichen.</dd>
+    <dt class="td_1">2.</dt><dd class="last">Folgende Stufe wird angefügt:
+      <table><caption>Stufe 3</caption>
+        <thead><tr><th scope="col">Nr.</th><th scope="col">Betrag<br>EUR</th></tr></thead>
+        <tbody><tr><td>„3.</td><td>10 bis 20“</td></tr></tbody>
+      </table>
+    </dd>`);
+  const paragraph = findLabel(body, '§ 1');
+  const item = paragraph.children.find((block) => block.label === '2.');
+  assert.equal(item.text, 'Folgende Stufe wird angefügt:');
+  assert.equal(item.children.length, 1);
+  const [table] = item.children;
+  assert.equal(table.type, 'table');
+  assert.equal(table.title, 'Stufe 3');
+  assert.equal(table.columns, 2);
+  assert.deepEqual(table.children.map((row) => row.children.map((cell) => [cell.type, cell.text])), [
+    [['tableHeaderCell', 'Nr.'], ['tableHeaderCell', 'Betrag\nEUR']],
+    [['tableCell', '„3.'], ['tableCell', '10 bis 20“']],
+  ]);
+  assert.equal(paragraph.children.find((block) => block.label === '1.').children.length, 0);
+});
+
 test('unbetitelte technische Abschnitte werden auf die aktuelle Ebene gehoben', () => {
   const parsed = parseRevosaxSnapshot(snapshot(`
     <section title="Artikel 1 Grundsätze"><h4>Artikel 1 Grundsätze</h4><p>(1) Der Freistaat ist ein Land.</p></section>
@@ -368,18 +476,18 @@ test('unbetitelte technische Abschnitte werden auf die aktuelle Ebene gehoben', 
 });
 
 test('historische Zitierung entfernt spätere Änderungsklauseln auch bei gleichem Erlassjahr', () => {
-  const citation = 'RL preisgünstiger Mietwohnraum vom 31. Mai 2023 (SächsABl. S. 677), die durch Großbuchstabe B der Richtlinie vom 20. Dezember 2023 (SächsABl. 2024 S. 110) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)';
+  const citation = 'RL Beispielwohnraum vom 31. Mai 2023 (SächsABl. S. 9677), die durch Großbuchstabe B der Richtlinie vom 20. Dezember 2023 (SächsABl. 2024 S. 110) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)';
   assert.equal(
     historicalBaselineCitation({ pageFullCitation: citation, sourceValidTo: '2023-11-30' }),
-    'RL preisgünstiger Mietwohnraum vom 31. Mai 2023 (SächsABl. S. 677)',
+    'RL Beispielwohnraum vom 31. Mai 2023 (SächsABl. S. 9677)',
   );
   assert.equal(
     historicalBaselineCitation({
-      pageFullCitation: 'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931), die durch die Richtlinie vom 27.11.2023 (SächsABl. S. 1568) geändert worden ist',
+      pageFullCitation: 'Förderrichtlinie Beispielzucht vom 27. Juni 2023 (SächsABl. S. 9931), die durch die Richtlinie vom 27.11.2023 (SächsABl. S. 1568) geändert worden ist',
       sourceValidTo: '2023-12-14',
       citationValidAt: '2023-11-01',
     }),
-    'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931)',
+    'Förderrichtlinie Beispielzucht vom 27. Juni 2023 (SächsABl. S. 9931)',
   );
 });
 
@@ -474,16 +582,16 @@ test('die amtliche Fundstellennummer wird aus der Marginalspalte gelesen', () =>
 });
 
 test('sächsische Fundstellenpflege nach dem Stichtag gehört nicht in die übernommene Zitierung', () => {
-  const citation = 'Anordnung über die Ausübung des Begnadigungsrechts vom 8. Oktober 1997 (SächsABl. S. 1124), zuletzt enthalten in der Verwaltungsvorschrift vom 27. November 2025 (SächsABl. SDr. S. S 209)';
+  const citation = 'Anordnung über die Ausübung des Beispielrechts vom 8. Oktober 1997 (SächsABl. S. 9124), zuletzt enthalten in der Verwaltungsvorschrift vom 27. November 2025 (SächsABl. SDr. S. S 209)';
   assert.deepEqual(containmentDatesFromCitation(citation), ['2025-11-27']);
   assert.deepEqual(futureContainmentDates(citation, '2023-11-01'), ['2025-11-27']);
   assert.equal(
     stripFutureContainmentClause(citation, '2023-11-01'),
-    'Anordnung über die Ausübung des Begnadigungsrechts vom 8. Oktober 1997 (SächsABl. S. 1124)',
+    'Anordnung über die Ausübung des Beispielrechts vom 8. Oktober 1997 (SächsABl. S. 9124)',
   );
   assert.equal(
     historicalBaselineCitation({ pageFullCitation: citation, sourceValidTo: null, citationValidAt: '2023-11-01', context: 'Test' }),
-    'Anordnung über die Ausübung des Begnadigungsrechts vom 8. Oktober 1997 (SächsABl. S. 1124)',
+    'Anordnung über die Ausübung des Beispielrechts vom 8. Oktober 1997 (SächsABl. S. 9124)',
   );
 });
 
@@ -516,4 +624,28 @@ test('die historische Zitierung misst spätere Änderungen am Tag der Ausgangsfa
     historicalBaselineCitation({ pageFullCitation, sourceValidTo: '2024-09-30', citationValidAt: '2023-11-01' }),
     'Testgesetz vom 1. Januar 2020 (SächsGVBl. S. 1)',
   );
+});
+
+test('REVOSax-Seiten im neueren Layout ohne #content und #quickbar werden gleich gelesen', () => {
+  const html = `<!doctype html><html><body><div id="main" class="main"><main class="content" id="main-content">
+    <div class="law_show" data-controller="law-version">
+      <h1 id="page-title">Testverordnung</h1><p class="vollzitat">Vollzitat: Testverordnung vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)</p>
+      <article id="lesetext">
+        <header><h3 class="centre">Verordnung über Testfälle<br> (Testverordnung – TestVO)</h3><p class="centre"><strong>Vom 1. Januar 2020</strong></p></header>
+        <div class="sections"><section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Die Verordnung regelt ihren Zweck.</p></section></div>
+      </article>
+    </div>
+  </main>
+  <div class="sidebar sidebar-right" id="main-sidebar-right">
+    <div class="box"><div class="box-header">Fundstelle und systematische Gliederungsnummer</div><div class="box-body"><p>OGVBl. 2020 Nr. 1, S. 1<br>Fsn-Nr.: 123-4.5</p></div></div>
+    <div class="box"><div class="box-header">Gültigkeitszeitraum</div><div class="box-body"><p>Fassung gültig ab: 2. Januar 2020</p><p>Fassung gültig bis: 31. Dezember 2023</p></div></div>
+  </div></div></body></html>`;
+  const parsed = parseRevosaxSnapshot(html, { url: 'https://www.revosax.sachsen.de/vorschrift/1.1' });
+  assert.equal(parsed.sourceTitle, 'Testverordnung');
+  assert.equal(parsed.fullCitation, 'Testverordnung vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)');
+  assert.equal(parsed.fsnNumber, '123-4.5');
+  assert.equal(parsed.documentDate, '2020-01-01');
+  assert.equal(parsed.sourceValidFrom, '2020-01-02');
+  assert.equal(parsed.sourceValidTo, '2023-12-31');
+  assert.equal(findLabel(parsed.body, '§ 1')?.title, 'Zweck');
 });

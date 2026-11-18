@@ -1,9 +1,259 @@
 {
   "schemaVersion": 1,
   "baselineDate": "2023-11-01",
-  "description": "Entscheidungen zu Quellen, die in REVOSax nach dem Stichtag ohne Nachfolgefassung enden (Prüfmarke source-ended-without-successor, Typen B/unklar im Import-Audit). Typ A (spätere rein sächsische Rechtsänderung) hat keine Wirkung in Ostdeutschland und braucht keine Entscheidung. resolution sunset-applies: die Befristung steht im übernommenen Text und gilt in Ostdeutschland; scripts/materialize-revosax-baseline.mjs setzt expiryDate, validTo und einen Historieneintrag (Außerkrafttreten) und den Status (repealed, wenn das Datum verstrichen ist). resolution open: fachlich nicht auflösbar, Norm bleibt unverändert, Fall bleibt dokumentiert. basis ist das wörtliche Zitat der Befristung aus dem übernommenen Text.",
+  "description": "Entscheidungen zu Quellen, die in REVOSax nach dem Stichtag ohne Nachfolgefassung enden (Prüfmarke source-ended-without-successor, Typen B/unklar im Import-Audit), sowie Befristungen im übernommenen Text von Konsolidierungszielen. Typ A (spätere rein sächsische Rechtsänderung) hat keine Wirkung in Ostdeutschland und braucht keine Entscheidung. resolution sunset-applies: die Befristung steht im übernommenen Text und gilt in Ostdeutschland; scripts/materialize-revosax-baseline.mjs (Ausgangsfassung) bzw. scripts/consolidate-norms.mjs (letzte Folgefassung eines Konsolidierungsziels, Zuordnung über slug) setzen expiryDate, validTo und einen Historieneintrag (Außerkrafttreten) und den Status (repealed, wenn das Datum verstrichen ist). Außerkrafttretensregel: „tritt am <Datum> außer Kraft“ wird als ceasesOn = Datum mit expiryDate = Vortag geführt, „tritt mit Ablauf des <Datum> außer Kraft“ als expiryDate = Datum. Der Historieneintrag steht am ersten Tag ohne Geltung (expiryDate + 1 Tag): bei „am <Datum>“ am genannten Datum, bei „mit Ablauf des <Datum>“ am Folgetag. resolution open: fachlich nicht auflösbar, Norm bleibt unverändert, Fall bleibt dokumentiert. basis ist das wörtliche Zitat der Befristung aus dem übernommenen Text.",
   "decidedAt": "2026-09-03",
   "decisions": {
+    "17302": {
+      "slug": "esf-richtlinie-berufliche-bildung",
+      "revosaxLawId": "17302",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed",
+      "basis": "Sie tritt mit Ablauf des 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "Teil III",
+      "reason": "Befristung im übernommenen Text (Teil III); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2024."
+    },
+    "17768": {
+      "slug": "gesetz-ueber-die-gewaehrung-pauschaler-zuweisungen-zur-staerkung-des-laendlichen-raumes-im",
+      "revosaxLawId": "17768",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed",
+      "basis": "Dieses Gesetz tritt am Tag nach der Verkündung in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "§ 3",
+      "reason": "Befristung im übernommenen Text (§ 3); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2024."
+    },
+    "17963": {
+      "slug": "gesetz-errichtung-sondervermoegen-kommunaler-strukturfonds",
+      "revosaxLawId": "17963",
+      "resolution": "sunset-applies",
+      "expiryDate": "2024-12-31",
+      "status": "repealed",
+      "basis": "Dieses Gesetz tritt mit Ablauf des 31. Dezember 2024 außer Kraft.",
+      "basisLocation": "§ 8",
+      "reason": "Befristung im übernommenen Text (§ 8); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2024 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2025."
+    },
+    "18464": {
+      "slug": "polizeiverordnung-der-landesdirektion-ostdeutschland-zur-verhuetung-von-gefahren-durch",
+      "revosaxLawId": "18464",
+      "resolution": "sunset-applies",
+      "expiryDate": "2029-11-27",
+      "status": "in-force",
+      "basis": "Diese Verordnung tritt am Tag nach der Verkündung in Kraft und mit Ablauf des 27. November 2029 außer Kraft.",
+      "basisLocation": "§ 3",
+      "reason": "Befristung im übernommenen Text (§ 3); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 27. November 2029 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 28. November 2029."
+    },
+    "18583": {
+      "slug": "ostdeutsche-kampfmittelverordnung",
+      "revosaxLawId": "18583",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-01-31",
+      "status": "in-force",
+      "basis": "Diese Verordnung tritt am Tag nach der Verkündung in Kraft und mit Ablauf des 31. Januar 2030 außer Kraft.",
+      "basisLocation": "§ 6",
+      "reason": "Befristung im übernommenen Text (§ 6); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Januar 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Februar 2030."
+    },
+    "18814": {
+      "slug": "frl-validierungsfoerderung-efre-2021-2027",
+      "revosaxLawId": "18814",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2029-12-31",
+      "expiryDate": "2029-12-30",
+      "status": "in-force",
+      "basis": "Diese Förderrichtlinie tritt am 1. September 2020 in Kraft und am 31. Dezember 2029 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2029 außer Kraft, letzter Geltungstag ist der 30. Dezember 2029. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2029."
+    },
+    "18845": {
+      "slug": "esf-richtlinie-unternehmensgruendungen-aus-der-wissenschaft",
+      "revosaxLawId": "18845",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed",
+      "basis": "Sie tritt mit Ablauf des 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "D.",
+      "reason": "Befristung im übernommenen Text (D.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2024."
+    },
+    "18887": {
+      "slug": "foerderrichtlinie-kinderbetreuungsfinanzierung-bund",
+      "revosaxLawId": "18887",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2023-12-31",
+      "expiryDate": "2023-12-30",
+      "status": "repealed",
+      "basis": "Diese Förderrichtlinie tritt mit ihrer Unterzeichnung in Kraft und am 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 31. Dezember 2023 außer Kraft getreten, letzter Geltungstag ist der 30. Dezember 2023. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2023."
+    },
+    "19011": {
+      "slug": "personalratswahlgesetz-2021",
+      "revosaxLawId": "19011",
+      "resolution": "sunset-applies",
+      "expiryDate": "2026-05-31",
+      "status": "repealed",
+      "basis": "Dieses Gesetz tritt mit Ablauf des 31. Mai 2026 außer Kraft.",
+      "basisLocation": "§ 4 (2)",
+      "reason": "Befristung im übernommenen Text (§ 4 (2)); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Mai 2026 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Juni 2026."
+    },
+    "19052": {
+      "slug": "vwv-ostdeutscher-normenkontrollrat",
+      "revosaxLawId": "19052",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2026-12-31",
+      "expiryDate": "2026-12-30",
+      "status": "in-force",
+      "basis": "Diese Verwaltungsvorschrift tritt am Tag nach der Veröffentlichung in Kraft und am 31. Dezember 2026 außer Kraft.",
+      "basisLocation": "IV.",
+      "reason": "Befristung im übernommenen Text (IV.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Artikel 5 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 32) ändert nur das Normenkontrollratsgesetz, nicht diese Verwaltungsvorschrift. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2026 außer Kraft, letzter Geltungstag ist der 30. Dezember 2026. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2026."
+    },
+    "19552": {
+      "slug": "ostdeutsche-hohlraumverordnung",
+      "revosaxLawId": "19552",
+      "resolution": "sunset-applies",
+      "expiryDate": "2032-03-15",
+      "status": "in-force",
+      "basis": "Diese Verordnung tritt mit Ablauf des 15. März 2032 außer Kraft.",
+      "basisLocation": "§ 9 (2)",
+      "reason": "Befristung im übernommenen Text (§ 9 (2)); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 15. März 2032 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 16. März 2032."
+    },
+    "19632": {
+      "slug": "frl-neustart-tourismus-2022",
+      "revosaxLawId": "19632",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2023-12-31",
+      "expiryDate": "2023-12-30",
+      "status": "repealed",
+      "basis": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft und am 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "VII.",
+      "reason": "Befristung im übernommenen Text (VII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 31. Dezember 2023 außer Kraft getreten, letzter Geltungstag ist der 30. Dezember 2023. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2023."
+    },
+    "19633": {
+      "slug": "frl-kulturerhalt",
+      "revosaxLawId": "19633",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2023-12-31",
+      "expiryDate": "2023-12-30",
+      "status": "repealed",
+      "basis": "Diese Richtlinie tritt am Tag nach ihrer Unterzeichnung in Kraft und am 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 31. Dezember 2023 außer Kraft getreten, letzter Geltungstag ist der 30. Dezember 2023. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2023."
+    },
+    "19647": {
+      "slug": "esf-plus-richtlinie-sms",
+      "revosaxLawId": "19647",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt am Tag nach der Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "III.",
+      "reason": "Befristung im übernommenen Text (III.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "19656": {
+      "slug": "ostdeutsche-mietpreisbegrenzungsverordnung",
+      "revosaxLawId": "19656",
+      "resolution": "sunset-applies",
+      "expiryDate": "2025-12-31",
+      "status": "repealed",
+      "basis": "Diese Verordnung tritt am Tag nach ihrer Verkündung in Kraft und mit Ablauf des 31. Dezember 2025 außer Kraft.",
+      "basisLocation": "§ 2",
+      "reason": "Befristung im übernommenen Text (§ 2); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die eigene Mietpreisbegrenzungsverordnung vom 30. Dezember 2025 (OGVBl. 2025 Nr. 11) schließt ab 1. Januar 2026 an, ändert diese Verordnung aber nicht. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2025 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2026."
+    },
+    "19666": {
+      "slug": "rl-corona-billigkeitsleistungen-oepnv-2022",
+      "revosaxLawId": "19666",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2024-06-30",
+      "expiryDate": "2024-06-29",
+      "status": "repealed",
+      "basis": "Diese Richtlinie tritt am Tag nach der Veröffentlichung in Kraft und am 30. Juni 2024 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 30. Juni 2024 außer Kraft getreten, letzter Geltungstag ist der 29. Juni 2024. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 30. Juni 2024."
+    },
+    "19680": {
+      "slug": "ostdeutsche-heizkostenzuschussverordnung",
+      "revosaxLawId": "19680",
+      "resolution": "sunset-applies",
+      "expiryDate": "2032-05-31",
+      "status": "in-force",
+      "basis": "Sie tritt mit Ablauf des 31. Mai 2032 außer Kraft.",
+      "basisLocation": "§ 2",
+      "reason": "Befristung im übernommenen Text (§ 2); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Mai 2032 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Juni 2032."
+    },
+    "19872": {
+      "slug": "frl-regioplan",
+      "revosaxLawId": "19872",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2027-12-31",
+      "expiryDate": "2027-12-30",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt mit Wirkung vom 1. Februar 2023 in Kraft und am 31. Dezember 2027 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2027 außer Kraft, letzter Geltungstag ist der 30. Dezember 2027. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2027."
+    },
+    "19880": {
+      "slug": "ostdeutsches-energiepreispauschale-gesetz",
+      "revosaxLawId": "19880",
+      "resolution": "sunset-applies",
+      "expiryDate": "2024-12-31",
+      "status": "repealed",
+      "basis": "Es tritt mit Ablauf des 31. Dezember 2024 außer Kraft.",
+      "basisLocation": "§ 5",
+      "reason": "Befristung im übernommenen Text (§ 5); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2024 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2025."
+    },
+    "19902": {
+      "slug": "ostdeutsche-studierenden-energiepreispauschalenverordnung",
+      "revosaxLawId": "19902",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2024-06-30",
+      "expiryDate": "2024-06-29",
+      "status": "repealed",
+      "basis": "Diese Verordnung tritt am Tag nach der Verkündung in Kraft und am 30. Juni 2024 außer Kraft.",
+      "basisLocation": "§ 11",
+      "reason": "Befristung im übernommenen Text (§ 11); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 30. Juni 2024 außer Kraft getreten, letzter Geltungstag ist der 29. Juni 2024. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 30. Juni 2024."
+    },
+    "20050": {
+      "slug": "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-ueber-ergaenzende-zuweisungen-zur",
+      "revosaxLawId": "20050",
+      "resolution": "sunset-applies",
+      "expiryDate": "2025-06-30",
+      "status": "repealed",
+      "basis": "Sie tritt mit Ablauf des 30. Juni 2025 außer Kraft.",
+      "basisLocation": "§ 8",
+      "reason": "Befristung im übernommenen Text (§ 8); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 30. Juni 2025 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Juli 2025."
+    },
+    "20084": {
+      "slug": "esf-plus-foerderrichtlinie-gruendungsinitiativen",
+      "revosaxLawId": "20084",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Diese Förderrichtlinie tritt mit Ablauf des 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "8. 8.3",
+      "reason": "Befristung im übernommenen Text (8. 8.3); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "20201": {
+      "slug": "vwv-efre-slub",
+      "revosaxLawId": "20201",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2029-12-31",
+      "expiryDate": "2029-12-30",
+      "status": "in-force",
+      "basis": "Diese Verwaltungsvorschrift tritt mit Wirkung vom 23. August 2023 in Kraft und am 31. Dezember 2029 außer Kraft.",
+      "basisLocation": "VI.",
+      "reason": "Befristung im übernommenen Text (VI.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2029 außer Kraft, letzter Geltungstag ist der 30. Dezember 2029. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2029."
+    },
+    "20202": {
+      "slug": "efre-jtf-rl-forschung-infrapronet-2021-2027",
+      "revosaxLawId": "20202",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2029-12-31",
+      "expiryDate": "2029-12-30",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt am Tag nach der Unterzeichnung in Kraft und am 31. Dezember 2029 außer Kraft.",
+      "basisLocation": "B. C.",
+      "reason": "Befristung im übernommenen Text (B. C.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2029 außer Kraft, letzter Geltungstag ist der 30. Dezember 2029. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2029."
+    },
     "14110.1": {
       "slug": "esf-richtlinie-qualifizierung-gefangener-2014-2020",
       "revosaxLawId": "14110",
@@ -38,21 +288,23 @@
       "slug": "smk-esf-richtlinie-2014-2020",
       "revosaxLawId": "16696",
       "resolution": "sunset-applies",
-      "expiryDate": "2023-12-31",
+      "ceasesOn": "2023-12-31",
+      "expiryDate": "2023-12-30",
       "status": "repealed",
       "basis": "Diese Richtlinie tritt am 31. Dezember 2023 außer Kraft.",
       "basisLocation": "F. III.",
-      "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
+      "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland am 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt), letzter Geltungstag ist der 30. Dezember 2023. REVOSax führt die Fassung abweichend bis zum 31. Dezember 2023. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
     },
     "16734.3": {
       "slug": "esf-technologiefoerderung-2014-bis-2020",
       "revosaxLawId": "16734",
       "resolution": "sunset-applies",
-      "expiryDate": "2023-12-31",
+      "ceasesOn": "2023-12-31",
+      "expiryDate": "2023-12-30",
       "status": "repealed",
       "basis": "Diese Richtlinie tritt am 31. Dezember 2023 außer Kraft.",
       "basisLocation": "B. III.",
-      "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
+      "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland am 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt), letzter Geltungstag ist der 30. Dezember 2023. REVOSax führt die Fassung abweichend bis zum 31. Dezember 2023. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
     },
     "16965.1": {
       "slug": "rl-verkehrsinfrastruktur",
@@ -68,11 +320,12 @@
       "slug": "rl-esf-hochschule-und-forschung-2014-bis-2020",
       "revosaxLawId": "17642",
       "resolution": "sunset-applies",
-      "expiryDate": "2023-12-31",
+      "ceasesOn": "2023-12-31",
+      "expiryDate": "2023-12-30",
       "status": "repealed",
       "basis": "Diese Richtlinie tritt am 31. Dezember 2023 außer Kraft.",
       "basisLocation": "B. III.",
-      "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
+      "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland am 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt), letzter Geltungstag ist der 30. Dezember 2023. REVOSax führt die Fassung abweichend bis zum 31. Dezember 2023. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
     },
     "20009.1": {
       "slug": "massnahmekatalog-bienen",
@@ -93,6 +346,246 @@
       "basis": "Sie tritt mit Ablauf des 31. Dezember 2015 außer Kraft.",
       "basisLocation": "VI.",
       "reason": "Widersprüchliche Belege: der übernommene Text befristet die Richtlinie auf den 31. Dezember 2015, REVOSax führt die Fassung jedoch bis zum 31. Dezember 2023 als geltend (Stichtagstreffer 1. November 2023). Ob eine spätere Verlängerung nur in der Datenbank oder eine nicht dokumentierte Änderung vorliegt, ist ohne weitere amtliche Quelle nicht entscheidbar; die Norm bleibt unverändert (Status in-force der Stichtagsquelle) und der Fall dokumentiert offen."
+    },
+    "14060.5": {
+      "slug": "ostdeutsches-normenkontrollratsgesetz",
+      "revosaxLawId": "14060",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2026-12-31",
+      "expiryDate": "2026-12-30",
+      "status": "in-force",
+      "basis": "Es tritt am 31. Dezember 2026 außer Kraft.",
+      "basisLocation": "§ 8 Satz 2",
+      "reason": "Konsolidierungsziel: Befristung im übernommenen Text (§ 8 Satz 2), von der ostdeutschen Änderung durch Artikel 5 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 32) nicht berührt; gilt in Ostdeutschland fort. Letzter Geltungstag ist der 30. Dezember 2026 (REVOSax: außer Kraft mit Ablauf des 30. Dezember 2026). Modelliert an der letzten Folgefassung."
+    },
+    "20147.1": {
+      "slug": "deutschlandticket-finanzierungsverordnung-2023",
+      "revosaxLawId": "20147",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2025-06-30",
+      "expiryDate": "2025-06-29",
+      "status": "repealed",
+      "basis": "Diese Verordnung tritt am Tag nach der Verkündung in Kraft und am 30. Juni 2025 außer Kraft.",
+      "basisLocation": "§ 8",
+      "reason": "Befristung im übernommenen Text (§ 8); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 30. Juni 2025 außer Kraft getreten, letzter Geltungstag ist der 29. Juni 2025. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 30. Juni 2025."
+    },
+    "15101.2": {
+      "slug": "efre-technologiefoerderung-2014-bis-2020",
+      "revosaxLawId": "15101",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2023-12-31",
+      "expiryDate": "2023-12-30",
+      "status": "repealed",
+      "basis": "Diese Förderrichtlinie tritt am 1. Januar 2015 in Kraft und am 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 31. Dezember 2023 außer Kraft getreten, letzter Geltungstag ist der 30. Dezember 2023. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2023."
+    },
+    "19911.1": {
+      "slug": "esf-plus-foerderrichtlinie-technologiegruendungsstipendium",
+      "revosaxLawId": "19911",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "7. 7.1",
+      "reason": "Befristung im übernommenen Text (7. 7.1); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "20082.1": {
+      "slug": "esf-plus-richtlinie-fachkraeftesicherungslotse",
+      "revosaxLawId": "20082",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt mit Ablauf des 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "19717.2": {
+      "slug": "esf-plus-richtlinie-gleichstellung-im-erwerbsleben-2021-2027",
+      "revosaxLawId": "19717",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt am Tag nach der Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "E. III.",
+      "reason": "Befristung im übernommenen Text (E. III.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "19456.1": {
+      "slug": "esf-plus-richtlinie-qualifizierung-und-reintegration-gefangener-2021-2027",
+      "revosaxLawId": "19456",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Sie tritt am 1. Januar 2022 in Kraft und mit Ablauf des 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "IX.",
+      "reason": "Befristung im übernommenen Text (IX.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "19718.2": {
+      "slug": "esf-plus-rl-2021-2027-hochschule-und-forschung",
+      "revosaxLawId": "19718",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Die Richtlinie tritt am Tag nach der Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "B. III.",
+      "reason": "Befristung im übernommenen Text (B. III.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "19953.1": {
+      "slug": "foerderrichtlinie-akzeleratoren-efre2021-2027",
+      "revosaxLawId": "19953",
+      "resolution": "sunset-applies",
+      "expiryDate": "2029-12-31",
+      "status": "in-force",
+      "basis": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2029 außer Kraft.",
+      "basisLocation": "8.",
+      "reason": "Befristung im übernommenen Text (8.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2029 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2030."
+    },
+    "19952.1": {
+      "slug": "foerderrichtlinie-business-angel-bonus-jtf-2021-2027",
+      "revosaxLawId": "19952",
+      "resolution": "sunset-applies",
+      "expiryDate": "2029-12-31",
+      "status": "in-force",
+      "basis": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2029 außer Kraft.",
+      "basisLocation": "8.",
+      "reason": "Befristung im übernommenen Text (8.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2029 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2030."
+    },
+    "18888.2": {
+      "slug": "foerderrichtlinie-kitabau",
+      "revosaxLawId": "18888",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2024-12-31",
+      "expiryDate": "2024-12-30",
+      "status": "repealed",
+      "basis": "Diese Förderrichtlinie tritt am 1. Januar 2021 in Kraft und am 31. Dezember 2024 außer Kraft.",
+      "basisLocation": "IX. 1.",
+      "reason": "Befristung im übernommenen Text (IX. 1.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 31. Dezember 2024 außer Kraft getreten, letzter Geltungstag ist der 30. Dezember 2024. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2024."
+    },
+    "20083.1": {
+      "slug": "foerderrichtlinie-regionales-wachstum",
+      "revosaxLawId": "20083",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2029-12-31",
+      "expiryDate": "2029-12-30",
+      "status": "in-force",
+      "basis": "Sie tritt am 31. Dezember 2029 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2029 außer Kraft, letzter Geltungstag ist der 30. Dezember 2029. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2029."
+    },
+    "19834.2": {
+      "slug": "frl-efre-jtf-technologiefoerderung-2021-bis-2027",
+      "revosaxLawId": "19834",
+      "resolution": "sunset-applies",
+      "expiryDate": "2030-12-31",
+      "status": "in-force",
+      "basis": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft und gilt bis zum 31. Dezember 2030.",
+      "basisLocation": "C.",
+      "reason": "Befristung im übernommenen Text (C.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2030 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2031."
+    },
+    "19723.2": {
+      "slug": "frl-mint-fachkraefteprogramm-esf-plus-2021-2027",
+      "revosaxLawId": "19723",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2030-12-31",
+      "expiryDate": "2030-12-30",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt mit ihrer Veröffentlichung in Kraft und am 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "III.",
+      "reason": "Befristung im übernommenen Text (III.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2030 außer Kraft, letzter Geltungstag ist der 30. Dezember 2030. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2030."
+    },
+    "19811.1": {
+      "slug": "gesetz-ueber-das-kommunale-energie-und-klimabudget",
+      "revosaxLawId": "19811",
+      "resolution": "sunset-applies",
+      "expiryDate": "2026-12-31",
+      "status": "in-force",
+      "basis": "Dieses Gesetz tritt mit Ablauf des 31. Dezember 2026 außer Kraft.",
+      "basisLocation": "§ 8",
+      "reason": "Befristung im übernommenen Text (§ 8); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland mit Ablauf des 31. Dezember 2026 außer Kraft. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2027."
+    },
+    "16905.2": {
+      "slug": "ostdeutsche-lehrkraeftezulagenverordnung",
+      "revosaxLawId": "16905",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed",
+      "basis": "Diese Verordnung tritt mit Wirkung vom 1. Januar 2016 in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft.",
+      "basisLocation": "§ 4",
+      "reason": "Befristung im übernommenen Text (§ 4); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2024."
+    },
+    "18660.3": {
+      "slug": "ostdeutsches-coronabewaeltigungsfondsgesetz",
+      "revosaxLawId": "18660",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2031-12-31",
+      "expiryDate": "2031-12-30",
+      "status": "in-force",
+      "basis": "Dieses Gesetz tritt am Tag nach der Verkündung in Kraft und am 31. Dezember 2031 außer Kraft.",
+      "basisLocation": "§ 9",
+      "reason": "Befristung im übernommenen Text (§ 9); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2031 außer Kraft, letzter Geltungstag ist der 30. Dezember 2031. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2031."
+    },
+    "19795.1": {
+      "slug": "ostdeutsches-kommunaleigenverantwortungs-staerkungsgesetz",
+      "revosaxLawId": "19795",
+      "resolution": "sunset-applies",
+      "expiryDate": "2025-12-31",
+      "status": "repealed",
+      "basis": "Dieses Gesetz tritt mit Ablauf des 31. Dezember 2025 außer Kraft.",
+      "basisLocation": "§ 3 (2)",
+      "reason": "Befristung im übernommenen Text (§ 3 (2)); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland mit Ablauf des 31. Dezember 2025 außer Kraft getreten. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 1. Januar 2026."
+    },
+    "20205.1": {
+      "slug": "richtlinie-digitale-offensive-ostdeutschland-2023",
+      "revosaxLawId": "20205",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2026-06-30",
+      "expiryDate": "2026-06-29",
+      "status": "repealed",
+      "basis": "Diese Richtlinie tritt am 30. Juni 2026 außer Kraft.",
+      "basisLocation": "VIII. 2.",
+      "reason": "Befristung im übernommenen Text (VIII. 2.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift ist in Ostdeutschland am 30. Juni 2026 außer Kraft getreten, letzter Geltungstag ist der 29. Juni 2026. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 30. Juni 2026."
+    },
+    "20239.1": {
+      "slug": "richtlinie-ganztagsinvestitionen",
+      "revosaxLawId": "20239",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2028-06-30",
+      "expiryDate": "2028-06-29",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt mit ihrer Unterzeichnung in Kraft und am 30. Juni 2028 außer Kraft.",
+      "basisLocation": "VIII.",
+      "reason": "Befristung im übernommenen Text (VIII.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 30. Juni 2028 außer Kraft, letzter Geltungstag ist der 29. Juni 2028. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 30. Juni 2028."
+    },
+    "19621.3": {
+      "slug": "smk-esf-plus-richtlinie-bildungspotenziale-lebenslanges-lernen-2021-2027",
+      "revosaxLawId": "19621",
+      "resolution": "sunset-applies",
+      "ceasesOn": "2030-12-31",
+      "expiryDate": "2030-12-30",
+      "status": "in-force",
+      "basis": "Diese Richtlinie tritt am Tag ihrer Unterzeichnung in Kraft und am 31. Dezember 2030 außer Kraft.",
+      "basisLocation": "III.",
+      "reason": "Befristung im übernommenen Text (III.); keine ostdeutsche Änderung oder Verlängerung im Bestand. Die Vorschrift tritt in Ostdeutschland am 31. Dezember 2030 außer Kraft, letzter Geltungstag ist der 30. Dezember 2030. Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten am 31. Dezember 2030."
+    },
+    "17836.2": {
+      "slug": "richtlinie-digitale-offensive-ostdeutschland",
+      "revosaxLawId": "17836",
+      "resolution": "open",
+      "expiryDate": null,
+      "status": null,
+      "basis": "Diese Richtlinie tritt am Tag nach der Unterzeichnung in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft, mit Ausnahme von Ziffer IV, die mit Außerkrafttreten der Richtlinie „Förderung zur Unterstützung des Breitbandausbaus in der Bundesrepublik Deutschland“ des Bundesministeriums für Verkehr und digitale Infrastruktur außer Kraft tritt.",
+      "basisLocation": "VI. 1.",
+      "reason": "Teilbefristung: Die Richtlinie tritt mit Ablauf des 31. Dezember 2023 außer Kraft, Ziffer IV jedoch erst mit dem Außerkrafttreten einer Bundesrichtlinie, dessen Datum der übernommene Text nicht nennt. Eine Befristung der ganzen Norm wäre unzutreffend, ein Teilaußerkrafttreten ohne Folgefassung nicht modellierbar; die Norm bleibt unverändert und der Fall dokumentiert offen."
+    },
+    "12482.2": {
+      "slug": "staatsvertrag-zum-gluecksspielwesen-in-deutschland",
+      "revosaxLawId": "12482",
+      "resolution": "open",
+      "expiryDate": null,
+      "status": null,
+      "basis": "Dieser Staatsvertrag tritt mit Ablauf des 30. Juni 2021 außer Kraft, sofern nicht die Ministerpräsidentenkonferenz mit mindestens 13 Stimmen das Fortgelten des Staatsvertrages beschließt.",
+      "basisLocation": "§ 35 Absatz 2",
+      "reason": "Bedingte Befristung vor dem Rechtsüberleitungsstichtag: Das Außerkrafttreten mit Ablauf des 30. Juni 2021 steht unter dem Vorbehalt eines Fortgeltungsbeschlusses, den der übernommene Text nicht belegt; REVOSax führt die Fassung zum Stichtag 1. November 2023 als geltend. Ohne weitere amtliche Quelle nicht entscheidbar; die Norm bleibt unverändert und der Fall dokumentiert offen."
     }
   }
 }

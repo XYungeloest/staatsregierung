@@ -14,22 +14,30 @@
   "initialCitation": "Gesetz zum Staatsvertrag über den Mitteldeutschen Rundfunk (MDR) vom 24. März 2021 (SächsGVBl. S. 396)",
   "predecessor": null,
   "successor": null,
-  "status": "in-force",
+  "status": "repealed",
+  "expiryDate": "2026-04-30",
   "documentDate": "2021-03-24",
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 19074.1, gültig ab 2021-04-17",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/19074.html",
-      "url": "https://www.revosax.sachsen.de/vorschrift/19074",
-      "retrievedAt": "2026-09-03",
-      "sha256": "297004f2c196a373f1935e7246b8641db8bc0dd40ae37ea24d503e61f5fb1018",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2021-04-17",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/g-zum-stv-mdr/19074.1.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19074.1",
+      "retrievedAt": "2026-11-18",
+      "sha256": "18a553afc0210b62b7acb4281fc80c2006c34082bcff77a6d29278e1b5e350f6",
       "lawId": "19074",
       "sourceValidFrom": "2021-04-17",
-      "fsnNumber": "72-1/2",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "fsnNumber": "72-1/2"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 36, Artikel 5",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 36.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w"
   ]
 }

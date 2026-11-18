@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-11-13",
   "editorialAsOf": "2026-11-13",
-  "count": 1298,
+  "count": 1299,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -256,7 +256,7 @@
     },
     {
       "id": "event-culturepass",
-      "title": "Kulturpassgesetz tritt in Kraft",
+      "title": "Kulturpassgesetz beschlossen",
       "type": "timeline-event",
       "aliases": [],
       "tags": [
@@ -274,8 +274,8 @@
       "tags": [
         "timeline"
       ],
-      "validFrom": "2026-03-24",
-      "validTo": "2026-03-24",
+      "validFrom": "2026-05-01",
+      "validTo": "2026-05-01",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1270,8 +1270,8 @@
       "tags": [
         "timeline"
       ],
-      "validFrom": "2026-03-24",
-      "validTo": "2026-03-24",
+      "validFrom": "2026-05-01",
+      "validTo": "2026-05-01",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1512,6 +1512,20 @@
       ],
       "validFrom": "2026-03-23",
       "validTo": "2026-03-23",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-vereinsverbote-2026-10-28",
+      "title": "Vereinsverbote gegen „Chemnitz Revolte“ und „Deutsche Jugend Voran“",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "security",
+        "associations"
+      ],
+      "validFrom": "2026-10-28",
+      "validTo": "2026-10-28",
       "target": "knowledge/timeline.json"
     },
     {
@@ -13574,18 +13588,6 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-missing-revosax-snapshots",
-      "title": "Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": "2026-09-12",
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "question-ode-ueberfuehrungsprogramm-2026",
       "title": "Wurde das Überführungsprogramm zur Eisenbahnvergesellschaftung fristgerecht erstellt?",
       "type": "open-question",
@@ -13609,21 +13611,6 @@
         "open-question"
       ],
       "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-sofs-aenderungsbefehle-2026",
-      "title": "Wie sind Artikel 1 Nummer 18 Buchstabe b und Nummer 30 der Änderungsverordnung zur Schulordnung Förderschulen zu verstehen?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question",
-        "law",
-        "education",
-        "consolidation"
-      ],
-      "validFrom": "2026-09-01",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -16918,6 +16905,32 @@
         "security"
       ],
       "validFrom": "2026-09-08",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-46",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 46",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "security",
+        "associations"
+      ],
+      "validFrom": "2026-10-28",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-47",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 47",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "security",
+        "associations"
+      ],
+      "validFrom": "2026-10-28",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

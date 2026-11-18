@@ -59,6 +59,34 @@ Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.
   assert.doesNotMatch(text, /unterzeichnende Person|Ministerpräsident|Inhaltsverzeichnis/u);
 });
 
+test('Unterschriften ohne Orts- und Datumszeile bleiben als Unterschriftenblöcke auf Dokumentebene erhalten', () => {
+  const parsed = parsePublicationMarkdown('OGVBl. 2026 Nr. 99.md', issue(`
+Der Ostdeutsche Landtag hat das folgende Gesetz beschlossen:
+
+## § 1 Regelung
+
+1. Der Test wird geregelt.
+
+## § 2 Inkrafttreten
+
+Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.
+
+**Eine unterzeichnende Person**
+D e r   M I N I S T E R P R Ä S I D E N T
+
+**Eine weitere Person**
+D e r   S T A A T S M I N I S T E R   des Innern &
+der Prüfung
+`));
+  const signatures = parsed.body.filter((block) => block.type === 'signature');
+  assert.deepEqual(signatures, [
+    { type: 'signature', title: 'Der Ministerpräsident', text: 'Eine unterzeichnende Person' },
+    { type: 'signature', title: 'Der Staatsminister des Innern & der Prüfung', text: 'Eine weitere Person' },
+  ]);
+  assert.equal(parsed.body.at(-3).label, '§ 2');
+  assert.doesNotMatch(JSON.stringify(parsed.body.at(-3)), /Person|MINISTER|Staatsminister/u);
+});
+
 test('Absatzmarker und Fortsetzungszeilen bleiben als eigene Absätze verbunden', () => {
   const parsed = parsePublicationMarkdown('OGVBl. 2026 Nr. 99.md', issue(`
 ## § 1 Regelung

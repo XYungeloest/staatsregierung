@@ -14,7 +14,7 @@
     },
     "liquiditaetsruecklage": {
       "name": "Liquiditätsrücklage",
-      "zweck": "Rücklage, der die veranschlagten Planüberschüsse zugeführt werden. Die Zuführung dient zugleich als Vorsorge für Mehrausgaben, falls die Neuordnung des öffentlichen Dienstrechts nicht wie veranschlagt in Kraft tritt.",
+      "zweck": "Rücklage, der rechnerische Planüberschüsse zugeführt werden. Die Vorsorge für Mehrausgaben, falls die Neuordnung des öffentlichen Dienstrechts nicht wie veranschlagt in Kraft tritt, bilden im Regierungsentwurf die nicht veranschlagten Entnahmereserven des Versorgungsfonds Ost (§ 4 Absatz 2a des Entwurfs des Haushaltsgesetzes); sie setzen die im Entwurf vorgesehene Änderung des Versorgungsfondsgesetzes Ost voraus.",
       "rechtstraeger": "Freistaat Ostdeutschland; Verwaltung durch das Staatssekretariat der Finanzen",
       "rechtsbezuege": [
         { "label": "Haushaltsgesetz 2027/2028, § 1 Absatz 2 und § 4 Absatz 5", "art": "entwurf" },
@@ -22,7 +22,7 @@
       ],
       "kernhaushaltTitel": [{ "kapitel": "2007", "titel": "91902" }],
       "status": "entwurf",
-      "statusText": "Zuführung im Regierungsentwurf veranschlagt."
+      "statusText": "Planüberschüsse sind im Regierungsentwurf nicht veranschlagt. Mehreinnahmen und Minderausgaben im Vollzug vermindern vorrangig die Entnahmen aus Rücklagen, Fonds und Sondervermögen und dienen der Tilgung; ein danach verbleibender Überschuss wird der Liquiditätsrücklage zugeführt (§ 4 Absatz 5 des Entwurfs des Haushaltsgesetzes)."
     }
   },
   "arten": {
@@ -57,7 +57,7 @@
         { "label": "Entwurf des Rücklagen- und Fondsneuordnungsgesetzes, Artikel 2 (Änderung des Versorgungsfondsgesetzes Ost)", "art": "entwurf" },
         { "label": "Entwurf des Haushaltsgesetzes 2027/2028, § 4 Absatz 3", "art": "entwurf" }
       ],
-      "statusText": "Zweckgleiche Erstattung laufender Versorgungs- und Beihilfeausgaben. Sie ist jährlich auf 750 Millionen Euro begrenzt und an ein versicherungsmathematisches Gutachten mit Sicherheitsmarge gebunden.",
+      "statusText": "Zweckgleiche Erstattung laufender Versorgungs- und Beihilfeausgaben. Nach dem Entwurf ist sie jährlich der Höhe nach begrenzt und an ein versicherungsmathematisches Gutachten mit Sicherheitsmarge gebunden. Veranschlagt wird sie nur als letztes Mittel in Höhe des Deckungsbedarfs.",
       "rechtsaenderungText": "Die Erstattung setzt die im Entwurf vorgesehene Änderung des Versorgungsfondsgesetzes Ost voraus; nach der verkündeten Fassung sind Entnahmen erst ab dem 1. Januar 2036 vorgesehen."
     }
   },
@@ -306,7 +306,7 @@
       "name": "Versorgungsfonds Ost",
       "art": "versorgungsfonds",
       "bereich": "Versorgung und Beihilfe",
-      "zweck": "Kapitalgedeckte Vorsorge für Versorgungs- und Beihilfeaufwendungen des Freistaates. Vorgesehen ist die zweckgleiche Erstattung laufender Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungsjahrgänge.",
+      "zweck": "Kapitalgedeckte Vorsorge für Versorgungs- und Beihilfeaufwendungen des Freistaates. Ab 2027 wird ihm die Versorgungspauschale nach § 4 des Versorgungsfondsgesetzes Ost zugeführt. Vorgesehen ist die zweckgleiche Erstattung laufender Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungsjahrgänge.",
       "einnahmetitel": { "kapitel": "2007", "titel": "23401" }
     }
   },

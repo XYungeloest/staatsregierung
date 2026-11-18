@@ -225,7 +225,9 @@ Erlass, Organisationserlass, Dienstanordnung) und einer Förderrichtlinie (Richt
 erhalten. `startPage` bezeichnet
 ausschließlich eine belastbar bekannte Anfangsseite; `pages` ist vollständigen, belegten Seitenbereichen
 vorbehalten. Eine Anfangsseite darf nicht als vollständiger Seitenbereich ausgegeben und bei Mantelgesetzen
-nicht pauschal auf eingeführte Stammnormen übertragen werden. Auch im verknüpften Normdatensatz bleibt das vollständige Normzitat erhalten, zum Beispiel
+nicht pauschal auf eingeführte Stammnormen übertragen werden; der Importer vergibt den Bereich der
+ganzen Ausgabe nur der Mantelvorschrift, eine eingeführte Stammnorm erhält `pages` nur aus dem belegten
+`pages`-Feld ihres Konfigurationseintrags. Auch im verknüpften Normdatensatz bleibt das vollständige Normzitat erhalten, zum Beispiel
 `Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 4)`.
 
 Normmetadaten trennen das erlassende Organ (`enactingBody`) vom fachlich zuständigen Geschäftsbereich
@@ -244,6 +246,14 @@ Schlagwörter (`keywords`) sind Zweitbezeichnungen und Nutzerbegriffe. Ein Titel
 Zeichen ist kein Schlagwort: Titel und Kurzbezeichnung stehen im Volltextindex als eigene Spalten.
 `content:check` weist ein solches Schlagwort zurück; übernommene Vorschriften bleiben ausgenommen,
 weil dort die amtliche Bezeichnung der REVOSax-Trefferliste im Langtitel in Klammern wiederkehrt.
+Schlagwörter eigener Vorschriften tragen außerdem keine Spuren früherer Erzeuger: keine Bruchstücke
+der Kennung (ein Glied des Slugs ist in jeder Schreibung nur zulässig, wenn es in Titel oder
+Normtext steht), keine Funktionswörter oder Zahlen aus dem Titel, keine Bruchstücke von
+Wortverbindungen, keine im Text nicht belegten Initialenfolgen des Titels und keine Themenwörter
+ohne Bezug im Normtext. Ein Themenwort gilt als belegt, wenn es gebeugt, als Anfang eines
+Kompositums oder ab acht Zeichen als Glied im Wortinneren in Titel oder Normtext steht. Die Regel
+(`generatedKeywordProblem` in `scripts/lib/norm-title-rules.mjs`) nutzen `content:check`, der
+Importer beim Zusammenführen und `scripts/migrate-own-norm-keywords.mjs`.
 
 Öffentlich gilt überall derselbe Titelblock (`getNormTitleBlock`): Überschrift ist die
 Kurzbezeichnung, sonst der Titel; der Langtitel steht darunter, wenn er von der Überschrift abweicht;
@@ -253,7 +263,11 @@ die Abkürzung steht daneben, wenn sie sich von der Überschrift unterscheidet.
 Formel des Massenimports, trägt sie `summarySource: "derived"`; solche Zusammenfassungen werden
 öffentlich nicht ausgespielt und nicht als Suchtext indexiert. Ohne Kennzeichnung gilt eine
 Zusammenfassung als redaktionell. Formeln ohne REVOSax-Herkunft sind unzulässig; eigene Vorschriften
-brauchen eine echte Kurzbeschreibung.
+brauchen eine echte Kurzbeschreibung. Als Formel gilt auch eine Kurzfassung, die nur den eigenen
+Titel oder die eigene Kurzbezeichnung in „…“ zitiert (`isOwnTitleQuotingSummary`); Platzhalterformeln
+ohne Inhaltsaussage (`isPlaceholderSummary`) sind für keine Vorschrift zulässig. `content:check`
+weist beide zurück. Eine gepflegte Kurzfassung, die keine Formel ist, bleibt bei jedem Reimport
+erhalten.
 
 Verwaltungsabkommen werden als eigener Normtyp `verwaltungsabkommen` geführt und nicht als
 Staatsvertrag oder Verwaltungsvorschrift klassifiziert. Vertragspartner, Unterzeichner,
@@ -307,7 +321,8 @@ vorhanden sein.
 Nicht jede Veröffentlichung eines Verkündungsblattes ist eine Rechtsvorschrift. Ein Bericht eines
 Verfassungsorgans oder eine vergleichbare nichtnormative Veröffentlichung wird als Eintragstyp
 `sonstiges` ohne `normSlug` geführt; ein Normtyp wird dafür nicht erfunden und kein Normdatensatz
-angelegt. Fundstelle, Dokumentdatum und Seitenbereich werden wie bei jedem anderen Eintrag gepflegt.
+angelegt. Eine Bekanntmachung, die nur als PDF vorliegt, wird als `bekanntmachung` ohne `normSlug`
+geführt; das PDF ist dann die strukturtragende Quelle (`primary-pdf` mit `structure-bearing`). Fundstelle, Dokumentdatum und Seitenbereich werden wie bei jedem anderen Eintrag gepflegt.
 Der Normimporter erkennt eine Ausgabe ohne Rechtsvorschrift als solche und lässt sie unberührt; sie
 erscheint im Quellenaudit als „ohne Rechtsvorschrift“ und nicht als mehrdeutige Quelle.
 
@@ -982,6 +997,18 @@ Format:
 `enactedNorm`, `enactedNorms` und `enactingNorm` kennzeichnen die wechselseitige Beziehung zwischen einem
 Einführungs- oder Mantelgesetz und der dadurch eingeführten Stammnorm. Diese Beziehung ist keine
 Vorgänger-/Nachfolgerbeziehung und keine Berechtigung, beide Rechtsakte zusammenzuführen.
+Gesetzt wird sie nur, wenn die amtliche Ausgabe belegt, dass ein Artikel die Stammnorm einführt
+(„Das nachstehende wird Gesetz:“ mit dem vollständigen Gesetz als Zitat); die eingeführte
+Stammnorm nennt das Einführungsgesetz zusätzlich als `relatedNorm` ihres Ersteintrags.
+Einführungsartikel zeigt OstRecht wie REVOSax nur mit Artikelbezeichnung und Titel des
+eingeführten Gesetzes als allgemeinem Link auf dessen Stammeintrag, ohne Einleitungssatz und
+Zitat; das gilt auch für Gliederung und Fassungsvergleich, die PDF nennt die Adresse des
+Stammeintrags. Der gespeicherte Normkörper behält das vollständige Zitat, die Sprungmarken
+richten sich weiter nach ihm. Die Zuordnung erfolgt zur Laufzeit und fail-closed
+(`packages/shared/src/lib/norms/enacted-articles.ts`): Der Titel der Stammnorm muss im
+Artikeltitel, in einer Einleitungszeile oder im Zitatkopf stehen; ersatzweise genügt es, wenn
+das Gesetz genau eine Norm einführt und genau einen Artikel hat, der ganze Gliederungseinheiten
+zitiert. Sonst und ohne die Beziehung bleibt der Artikel Volltext.
 `affectedNorms` und `affectedByNorms` kennzeichnen entsprechend die wechselseitige Beziehung
 zwischen Änderungsvorschrift und geänderter Stammnorm. Der Historieneintrag der Stammnorm nennt
 zusätzlich die Änderungsvorschrift und die betroffene Folgefassung; bei einer vollständigen
@@ -1063,6 +1090,22 @@ Regeln:
   Stichtag, ist der Status `repealed` und die Historie trägt einen Eintrag zum Außerkrafttreten.
   Der Import erzeugt diese Angaben deterministisch aus `PUBLICATION_EXPIRY_CONFIG` in
   `scripts/import-normen.mjs`, nicht von Hand.
+- Außerkrafttretensregel, einheitlich für `PUBLICATION_EXPIRY_CONFIG`,
+  `data/recht/revosax-sunset-decisions.json` und Konsolidierungsziele: „tritt am <Datum> außer
+  Kraft“ bedeutet, dass der Vortag der letzte Geltungstag ist (`ceasesOn` = Datum,
+  `expiryDate` und `validTo` = Vortag); „tritt mit Ablauf des <Datum> außer Kraft“ (ebenso „bis
+  einschließlich <Datum>“) bedeutet, dass das Datum selbst der letzte Geltungstag ist
+  (`expiryDate` = Datum). Endet die Geltung im Laufe eines Tages, ist dieser Tag der letzte
+  Geltungstag; die Uhrzeit nennt nur `dateNote`. Der Historieneintrag zum Außerkrafttreten steht
+  einheitlich am ersten Tag ohne Geltung (`expiryDate` + 1 Tag): bei „am <Datum>“ am genannten
+  Datum, bei „mit Ablauf des <Datum>“ am Folgetag. Aufgehoben ist die Norm erst, wenn der Stichtag
+  nach dem letzten Geltungstag liegt. `resolveSunsetDates` in `scripts/lib/consolidation-engine.mjs` prüft den wörtlichen
+  Beleg (`basis`) gegen diese Regel. Abweichende REVOSax-Gültigkeitsangaben bleiben
+  Provenienzinformation.
+- `expiryDate` und `validTo` sind letzte Geltungstage. Öffentliche Angaben „außer Kraft seit …“
+  oder „ab …“ nennen den Folgetag (`dayAfterLastValidDay` in
+  `packages/shared/src/lib/norms/display.ts`, `outOfForceSince` in
+  `apps/recht/src/lib/norm-head.ts`), Angaben „bis …“ den letzten Geltungstag.
 - Eine zukünftige Fassung wird aus `validFrom` nach dem redaktionellen Stichtag ermittelt und nie
   als historische Fassung bezeichnet.
 - Bei `pending-effective` wird die Fassung unabhängig vom Bestandsfeld als „Inkrafttreten nicht
@@ -1186,7 +1229,7 @@ tableCell
 signature
 ```
 
-Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `article` und `annex` brauchen mindestens `label` oder `title`; `children` sind bei `part`, `chapter`, `section`, `subsection`, `annex`, `paragraph`, `article`, `table` und `tableRow` erforderlich. `subparagraph` bildet einen Absatz („(1)“) ab; `subparagraph`, `item` und `subitem` brauchen `label`, `text` oder untergeordnete Blöcke. `paragraphText` braucht `text`. `level`, `listId` und `numberingStyle` sind nur bei `item`, `subitem` und `subparagraph` zulässig. `quotedProvision` fasst den in einer Änderungsvorschrift zitierten neuen Wortlaut zusammen und braucht mindestens ein Kind. `table` enthält ausschließlich `tableRow`-Kinder mit `tableHeaderCell`- oder `tableCell`-Zellen; jede Zelle braucht `text`. `columns` ist nur an `table`, `rowspan` und `colspan` nur an Zellen und `scope` (`col`, `row`, `colgroup`, `rowgroup`) nur an Kopfzellen zulässig. Spaltenzahl und überlappungsfreies Raster werden beim Einlesen der Fassung geprüft.
+Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `article` und `annex` brauchen mindestens `label` oder `title`; `children` sind bei `part`, `chapter`, `section`, `subsection`, `annex`, `paragraph`, `article`, `table` und `tableRow` erforderlich. `subparagraph` bildet einen Absatz („(1)“) ab; `subparagraph`, `item` und `subitem` brauchen `label`, `text` oder untergeordnete Blöcke. `paragraphText` braucht `text`. `level`, `listId` und `numberingStyle` sind nur bei `item`, `subitem` und `subparagraph` zulässig. `quotedProvision` fasst den in einer Änderungsvorschrift zitierten neuen Wortlaut zusammen und braucht mindestens ein Kind. Das öffnende Anführungszeichen eines zitierten Absatzes oder Punkts steht wie in der Quelle vor dessen Bezeichnung („„(3)“, „„1.“), das schließende am Textende; bei zitierten Gliederungsüberschriften (`§ 5`, `Artikel 2`) entfällt es. `table` enthält ausschließlich `tableRow`-Kinder mit `tableHeaderCell`- oder `tableCell`-Zellen; jede Zelle braucht `text`. `columns` ist nur an `table`, `rowspan` und `colspan` nur an Zellen und `scope` (`col`, `row`, `colgroup`, `rowgroup`) nur an Kopfzellen zulässig. Spaltenzahl und überlappungsfreies Raster werden beim Einlesen der Fassung geprüft.
 
 Der Blocktyp `signature` bildet den Unterschriftenblock am Ende einer eigenen Verkündung ab:
 `text` nennt die unterzeichnende Person, `title` die Amtsbezeichnung in Normalschreibung
@@ -1304,7 +1347,6 @@ Parserfall als `needs-review`.
 npm run norms:audit
 npm run norms:audit -- --strict
 npm run norms:alt-sources:build
-npm run norms:alt-sources:migrate
 npm run norms:import -- --write --file "Gesetze/OGVBl. 2026 Nr. 58.html"
 npm run norms:import -- --write --file "Gesetze/OGVBl.2026Nr.59.html"
 npm run norms:import -- --write --update-existing --file "Gesetze/OGVBl. 2026 Nr. 44.md"
@@ -1320,13 +1362,16 @@ Für OGVBl. 2026 Nr. 59 ist die vollständige HTML-Fassung die strukturtragende 
 Das amtliche PDF dient der visuellen Kontrolle; die inhaltlich identische Markdown-Fassung bleibt
 als zusätzliche Transkription versioniert und wird bei vorhandener HTML-Ausgabe nicht importiert.
 
-Die Altquellen-Befehle sind ein enger, reproduzierbarer Migrationspfad für OGVBl. II/2024,
-OGVBl. I/2025 und die dazugehörige Verfassungsquelle. Der Build-Befehl setzt die vollständigen
-Ausgaben aus redaktionell geprüften Teiltranskriptionen zusammen. Der Migrationsbefehl validiert
-zunächst Hashes, Seiteninventar und Struktur und aktualisiert dann die elf Einzelakte,
-Verkündungsdatensätze sowie die belegten Verfassungs- und Bezirksfassungen. Das dazugehörige
-Prüfinventar liegt unter `data/recht/alt-source-inventory.json`; weder Migration noch Content-Check
-benötigen Netzwerkzugriff.
+Für OGVBl. II/2024, OGVBl. I/2025 und die dazugehörige Verfassungsquelle setzt
+`npm run norms:alt-sources:build` die vollständigen Ausgaben aus redaktionell geprüften
+Teiltranskriptionen zusammen. Die Übernahme der elf Einzelakte, der Verkündungsdatensätze sowie
+der belegten Verfassungs- und Bezirksfassungen in `content/` ist eine abgeschlossene
+Einmalmigration (`npm run norms:alt-sources:migrate`, `scripts/migrate-alt-sources.mjs`). Diese
+Datensätze werden seitdem redaktionell weitergepflegt; das Skript bildet diesen Stand nicht nach und
+würde ihn vollständig überschreiben. Es bricht deshalb ohne ausdrückliche Freigabe
+(`--overwrite-maintained-content`) ab und ist kein Pflegeweg; Änderungen an diesen Akten laufen
+über die gezielten Normdateien beziehungsweise den Korrekturweg. Das Prüfinventar liegt unter
+`data/recht/alt-source-inventory.json`; der Content-Check benötigt keinen Netzwerkzugriff.
 
 ### Konsolidierung übernommener Stammnormen
 
@@ -1368,14 +1413,17 @@ data/recht/
 - `npm run norms:consolidation:audit` erkennt Änderungsvorschriften und Zielnormen rekursiv und
   erzeugt Manifest und Bericht. `npm run content:check` verwendet `--check` und schlägt fehl, wenn
   der gespeicherte Audit nicht mehr dem Content entspricht.
-- `blocked-source-conflict` ist eine fachliche Sperre. Eine gesperrte Norm wird erst
-  konsolidiert, wenn die im Manifest und in `CONTENT_GAPS.md` benannte Primärquellenfrage
-  eindeutig geklärt ist.
-- Eine verbindlich redaktionell geklärte Abweichung erhält dagegen den Status
-  `resolved-source-conflict`. Entscheidung, verkündeter Wortlaut, angewendeter Zielanker,
-  Begründung, Entscheidungsdatum und Belege stehen maschinenlesbar in Normmetadaten,
-  Quellenkonfiguration und Patch-Rezept. Die Änderungsvorschrift selbst wird dabei nicht
-  umgeschrieben. Eine solche Auflösung ist ausdrücklich keine konfliktfreie Quellenlage.
+- Passt ein Änderungsbefehl nicht wörtlich auf die Vorfassung, wird er sinngemäß nach dem
+  erkennbar gemeinten Inhalt angewandt und erhält den Status `resolved-source-conflict`.
+  Entscheidung, verkündeter Wortlaut, angewendeter Zielanker, Begründung, Entscheidungsdatum und
+  Belege stehen maschinenlesbar in Normmetadaten, Quellenkonfiguration (`editorialResolutions`)
+  und Patch-Rezept; `CONTENT_GAPS.md` belegt Fundstelle, wörtlichen Befehl, Abweichung und
+  gewählte Auslegung. Die Änderungsvorschrift selbst wird dabei nicht umgeschrieben. Ist kein
+  Inhalt eindeutig erkennbar, bleibt der Befehl unangewandt und wird ebenso dokumentiert. Eine
+  solche Auflösung ist ausdrücklich keine konfliktfreie Quellenlage.
+- `blocked-source-conflict` ist eine fachliche Sperre für Fälle, in denen keine verlässliche
+  Folgefassung entstehen kann. Eine gesperrte Norm wird erst konsolidiert, wenn die im Manifest
+  und in `CONTENT_GAPS.md` benannte Primärquellenfrage eindeutig geklärt ist.
 
 ## Seitengerüst und feste UI-Texte
 

@@ -1,4 +1,4 @@
-import { collapseSpacedLetters } from './norm-html-parser.mjs';
+import { collapseSpacedLetters, inferEffectiveDate, normalizeOfficeTitle } from './norm-html-parser.mjs';
 
 const ORDINAL_STEM = '(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)';
 const ORDINAL_LAW = `(?:${ORDINAL_STEM}(?:e|er|es|en))`;
@@ -182,31 +182,55 @@ function isOuterArticle(lines, index) {
   return marker?.type === 'article' && OUTER_ARTICLE_TITLE.test(marker.title ?? '');
 }
 
+// Amtszeile einer Unterschrift samt klein beginnender Folgezeilen („Der STAATSMINISTER des Innern &“ /
+// „der Justiz“); liefert die Amtsbezeichnung in Normalschreibung und den Index der letzten Zeile.
+function signatureOffice(lines, index, endIndex) {
+  const parts = [lines[index].text];
+  let last = index;
+  while (last + 1 < endIndex && !lines[last + 1].blank && /^\p{Ll}/u.test(lines[last + 1].text)) {
+    last += 1;
+    parts.push(lines[last].text);
+  }
+  return { title: normalizeOfficeTitle(parts.join(' ')), last };
+}
+
 function sanitizeBodyLines(lines, startIndex, endIndex) {
   const result = [];
-  let inSignatureBlock = false;
+  // „discarded“: Ausfertigungsblock mit eigener Orts- und Datumszeile, gehört nicht zum Normkörper.
+  // „kept“: Unterschriften ohne Orts- und Datumszeile, bleiben als Unterschriftenblöcke erhalten.
+  let signatureMode = null;
+  let pendingName = null;
   for (let index = startIndex; index < endIndex; index += 1) {
     const line = lines[index];
     if (SIGNATURE_START.test(line.text)) {
-      inSignatureBlock = true;
+      signatureMode = 'discarded';
       continue;
     }
-    if (SIGNATURE_OFFICE.test(line.text)) {
-      // Steht der Orts- und Datumsblock bereits vor der Unterschrift, wurden
-      // Name und Amtszeile noch gar nicht in den Normkörper übernommen. Nur
-      // Quellen ohne diesen Block benötigen die rückwärts gerichtete Entfernung
-      // der unmittelbar vorangestellten Namenszeile.
-      if (!inSignatureBlock) {
+    if (SIGNATURE_OFFICE.test(line.text) && signatureMode !== 'discarded') {
+      // Ohne vorangestellten Orts- und Datumsblock steht die Namenszeile unmittelbar vor
+      // der Amtszeile; sie wird zum Namen des Unterschriftenblocks.
+      let name = pendingName;
+      if (!signatureMode) {
         while (result.at(-1)?.blank) result.pop();
-        if (result.at(-1) && !parseStructureMarker(result.at(-1).raw)) result.pop();
+        if (result.at(-1) && !result.at(-1).signature && !parseStructureMarker(result.at(-1).raw)) name = result.pop().text;
       }
-      inSignatureBlock = true;
+      const office = signatureOffice(lines, index, endIndex);
+      result.push({ ...line, blank: false, signature: { ...(office.title ? { title: office.title } : {}), ...(name ? { text: name } : {}) } });
+      index = office.last;
+      signatureMode = 'kept';
+      pendingName = null;
       continue;
     }
-    if (inSignatureBlock) {
+    if (signatureMode) {
       const marker = parseStructureMarker(line.raw);
-      if (marker?.type !== 'annex') continue;
-      inSignatureBlock = false;
+      if (marker?.type !== 'annex') {
+        if (signatureMode === 'kept' && !line.blank && !BASE64_PATTERN.test(line.raw) && !/^\[image\d+\]:/iu.test(line.raw.trim())) {
+          pendingName = line.text;
+        }
+        continue;
+      }
+      signatureMode = null;
+      pendingName = null;
     }
     if (/^\[image\d+\]:/iu.test(line.raw.trim()) || /^!\[[^\]]*\]\[[^\]]+\]\s*$/u.test(line.raw.trim())) continue;
     if (/^\[\^[^\]]+\]:/u.test(line.raw.trim())) continue;
@@ -292,6 +316,14 @@ export function parseStructuredBody(inputLines) {
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
     if (line.blank) {
+      previousWasBlank = true;
+      continue;
+    }
+    if (line.signature) {
+      // Unterschriften stehen unter der letzten Gliederungseinheit, nicht in ihr.
+      stack.length = 1;
+      listStack = [];
+      root.push({ type: 'signature', ...line.signature });
       previousWasBlank = true;
       continue;
     }
@@ -444,14 +476,6 @@ function parseMainTitle(lines, headingIndex, fileName, fallbackDocumentDate = nu
   const identity = parseIdentity(heading, cleanTitleLines(titleLines));
   if (!identity.title || /^\|/u.test(identity.title)) throw new NormMarkdownParseError(fileName, lines[headingIndex].number, 'Normtitel fehlt oder besteht aus Kopf-/Tabellentext');
   return { heading, identity, documentDate, cursor };
-}
-
-function inferEffectiveDate(text, publicationDate) {
-  if (/tritt\s+(?:am|mit dem)\s+Tag\s+(?:nach\s+)?(?:seiner|ihrer|der)\s+Verkündung\s+in\s+Kraft/iu.test(text)) {
-    return /Tag\s+nach/iu.test(text) ? addUtcDays(publicationDate, 1) : publicationDate;
-  }
-  const explicit = text.match(/tritt\s+am\s+(\d{1,2}\.\s*[A-ZÄÖÜa-zäöüß]+\s+\d{4})\s+in\s+Kraft/iu);
-  return explicit ? parseGermanDate(explicit[1]) : null;
 }
 
 function extractIntroducedNorms(lines, bodyStart, bodyEnd, publication, fileName) {

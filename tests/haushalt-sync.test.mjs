@@ -468,6 +468,14 @@ test('haushalt:check prüft Querbezüge allein aus dem Snapshot, auch bei nachge
     ['personal.json', (value) => { value.reformwirkung.jahre[0].netto += 1; }, /Personalreform 2027/u],
     ['personal.json', (value) => { value.stellen.kapitel[0].jahre['2027'].summe += 1; }, /Planäquivalente Kapitel 0101 2027/u],
     ['ruecklagen.json', (value) => { value.allgemeine_ruecklage[0].ende += 1; }, /Allgemeine Rücklage 2027/u],
+    ['ruecklagen.json', (value) => { value.fonds_gegenposten[0].kuerzung += 1; }, /Fondsgegenposten TEST-fonds 2027: Planbetrag − veranschlagt/u],
+    ['ruecklagen.json', (value) => { value.fonds_gegenposten[1].planbetrag += 1; value.fonds_gegenposten[1].kuerzung += 1; }, /Planbetrag der übertragenen Zeilen im Folgejahr/u],
+    ['ruecklagen.json', (value) => { value.fonds_gegenposten[1].jahr = 2029; }, /übertragene Zeile \(aus 2027\) steht nicht im Haushaltsjahr 2028/u],
+    ['ruecklagen.json', (value) => { value.fonds_gegenposten[0].konsolidierungseliminierung += 1; }, /ruecklagen\.json fonds_gegenposten konsolidierungseliminierung = 151, aber veranschlagt \(betrag\) = 150/u],
+    ['personal.json', (value) => { value.stellen.kapitel[0].jahre['2027'].sicherheitsreform_tarif = 6; value.stellen.kapitel[0].jahre['2027'].sicherheitsreform = 7; }, /sicherheitsreform_tarif = 6 übersteigt Arbeitnehmer:innen/u],
+    ['personal.json', (value) => { value.stellen.kapitel[0].jahre['2027'].sicherheitsreform = 4; }, /weicht um mehr als die Rundung von der Summe der Teile/u],
+    ['personal.json', (value) => { value.kapitelwirkung[0].sicherheitsreform += 1; }, /Kapitelwirkung 0101\/422 2027: personal\.json kapitelwirkung nachher \+ sicherheitsreform \+ endfassung/u],
+    ['personal.json', (value) => { value.versorgung.versorgungsfonds_erstattung[0].veranschlagt = 5; }, /Versorgungsfonds 2027: personal\.json versorgung\.versorgungsfonds_erstattung veranschlagt/u],
     ['gesetze.json', (value) => { value.dokumente[0].titel += ' C:\\Users\\beispiel\\haushalt.xlsx'; }, /gesetze\.json: enthält lokale Pfade \(Windows-Laufwerkspfad\)/u],
   ];
   for (const [file, mutate, expected] of faelle) {
@@ -564,7 +572,7 @@ test('Fondsgegenposten mit nicht auflösbarem Einnahmetitel werden als Befund ve
   const manifest = JSON.parse(readFileSync(join(source.ziel, '2027-2028', 'import-manifest.json'), 'utf8'));
   const befund = manifest.befunde.find((entry) => entry.kennung === 'fonds-einnahmetitel');
   assert.ok(befund, 'Befund fonds-einnahmetitel fehlt');
-  assert.deepEqual(befund.abweichungen.map((entry) => [entry.jahr, entry.einnahmetitel, entry.zeilen]), [[2027, '35930', 1]]);
+  assert.deepEqual(befund.abweichungen.map((entry) => [entry.jahr, entry.einnahmetitel, entry.zeilen]), [[2027, '35930', 1], [2028, '35930', 1]]);
   const personal = JSON.parse(readFileSync(join(source.ziel, '2027-2028', 'personal.json'), 'utf8'));
   assert.deepEqual(personal.rechtsstaende.map((entry) => entry.code), ['R0', 'C']);
   assert.ok(personal.kapitelwirkung.length > 0);
@@ -869,4 +877,163 @@ test('Import warnt, wenn die Ausgabefassung auf einer anderen Fassung der Freite
   const aktuell = sync(source.repo, source.ziel, '--content', content, '--dry-run');
   assert.equal(aktuell.status, 0, aktuell.stderr);
   assert.doesNotMatch(aktuell.stdout, /anderen Fassung von content/u);
+});
+
+/** Ändert eine CSV-Datei der Quelle zeilenweise (Zeilenende wie vorgefunden). */
+function updateCsv(path, mutate) {
+  const text = readFileSync(path, 'utf8');
+  const ende = text.includes('\r\n') ? '\r\n' : '\n';
+  const { header, records } = parseCsv(text, path);
+  mutate(records);
+  writeFileSync(path, `${[header.join(','), ...records.map((record) => header.map((key) => csvField(record[key])).join(','))].join(ende)}${ende}`);
+}
+
+/** Ändert die Fondsgegenposten konsistent in daten/ruecklagen.json und daten/fonds_gegenposten.csv. */
+function updateGegenposten(repo, mutate) {
+  const jsonPath = join(repo, aktiv, 'daten', 'ruecklagen.json');
+  const csvPath = join(repo, aktiv, 'daten', 'fonds_gegenposten.csv');
+  const header = readFileSync(csvPath, 'utf8').split(/\r?\n/u)[0].split(',');
+  const ruecklagen = JSON.parse(readFileSync(jsonPath, 'utf8'));
+  mutate(ruecklagen.gegenposten);
+  writeFileSync(jsonPath, `${JSON.stringify(ruecklagen, null, 1)}\n`);
+  writeFileSync(csvPath, `${[header.join(','), ...ruecklagen.gegenposten.map((row) => header.map((key) => csvField(row[key])).join(','))].join('\r\n')}\r\n`);
+}
+
+test('Verwendungsplan nach Bedarf: veranschlagt als Betrag, Planbetrag und Übertragung geprüft übernommen', (t) => {
+  const source = createSourceRepo();
+  t.after(source.cleanup);
+  const result = sync(source.repo, source.ziel);
+  assert.equal(result.status, 0, result.stderr);
+  const target = join(source.ziel, '2027-2028');
+  const ruecklagen = JSON.parse(readFileSync(join(target, 'ruecklagen.json'), 'utf8'));
+  assert.deepEqual(
+    ruecklagen.fonds_gegenposten.map((row) => [row.jahr, row.betrag, row.planbetrag, row.kuerzung, row.uebertragung, row.uebertragen_aus, row.konsolidierungseliminierung]),
+    [[2027, 150, 200, 50, 100, null, 150], [2028, 100, 100, 0, 0, 2027, 100]],
+    'Betrag = veranschlagt (betrag_aktiv_eur), Planbetrag und Übertragung unverändert aus der Quelle',
+  );
+  const text = readFileSync(join(target, 'ruecklagen.json'), 'utf8');
+  for (const field of ['amount_eur', 'consolidation_elimination_basis_eur', 'kuerzung_k04', 'ursprung']) assert.equal(text.includes(field), false, `${field} wird nicht übernommen`);
+  const manifest = JSON.parse(readFileSync(join(target, 'import-manifest.json'), 'utf8'));
+  assert.ok(manifest.ausschluesse.some((entry) => entry.quelle.endsWith('daten/fonds_gegenposten.csv') && entry.felder?.includes('amount_eur')));
+
+  const personal = JSON.parse(readFileSync(join(target, 'personal.json'), 'utf8'));
+  const stellen2027 = personal.stellen.kapitel[0].jahre['2027'];
+  assert.deepEqual(
+    [stellen2027.sicherheitsreform, stellen2027.sicherheitsreform_beamte, stellen2027.sicherheitsreform_tarif, stellen2027.sicherheitsreform_anwaerter],
+    [1, 1, 1, 0],
+    'Teile und Gesamtzahl je für sich gerundet (0,5 + 0,5 VZÄ)',
+  );
+  assert.deepEqual(personal.kapitelwirkung.map((row) => [row.jahr, row.nachher, row.sicherheitsreform, row.endfassung]), [[2027, 4990, 10, 0], [2028, 5200, 0, 0]]);
+  assert.deepEqual(Object.keys(personal.versorgung.versorgungsfonds_erstattung[0]), ['jahr', 'geplant', 'tatsaechlich', 'minderung', 'ausgaben_kohorte', 'veranschlagt']);
+  assert.equal(check(source.ziel).status, 0);
+});
+
+test('Import bricht ab, wenn Planbetrag, Kürzung und Übertragung des Verwendungsplans nicht aufgehen', (t) => {
+  const faelle = [
+    [(rows) => { rows[0].kuerzung_k04_eur = 49; }, /Fondsgegenposten TEST-fonds 2027: Planbetrag − veranschlagt = 50, aber daten\/fonds_gegenposten\.csv kuerzung = 49/u],
+    [(rows) => { rows[1].planbetrag_eur = 90; rows[1].betrag_aktiv_eur = 90; rows[1].consolidation_elimination_eur = 90; }, /Planbetrag der übertragenen Zeilen im Folgejahr = 90, aber daten\/fonds_gegenposten\.csv uebertragung = 100/u],
+    [(rows) => { rows[0].amount_eur = '310'; }, /planbetrag_eur \+ übertragener Teil = 300, aber daten\/fonds_gegenposten\.csv Zeile 1 amount_eur = 310/u],
+    [(rows) => { rows[1].uebertragen_aus = '2028'; }, /uebertragen_aus 2028 ist kein früheres Haushaltsjahr/u],
+    // Übertragene Zeile außerhalb des zweiten Haushaltsjahres
+    [(rows) => { rows[1].year = '2029'; }, /übertragene Zeile steht im Jahr 2029, uebertragen_nach_2028_eur überträgt aber in das Jahr 2028/u],
+    // Eliminierung vor der Veranschlagung nach Bedarf: Ausgangszeile = amount_eur, übertragene Zeile 0
+    [(rows) => { rows[0].consolidation_elimination_basis_eur = '299'; }, /Fondsgegenposten TEST-fonds 2027: daten\/fonds_gegenposten\.csv Zeile 1 consolidation_elimination_basis_eur = 299, aber daten\/fonds_gegenposten\.csv Zeile 1 amount_eur = 300/u],
+    [(rows) => { rows[1].consolidation_elimination_basis_eur = '100'; }, /Fondsgegenposten TEST-fonds 2028: daten\/fonds_gegenposten\.csv Zeile 2 consolidation_elimination_basis_eur = 100, aber erwartet für eine übertragene Zeile = 0/u],
+    // Bei Konsolidierung entfällt genau der veranschlagte Betrag
+    [(rows) => { rows[0].consolidation_elimination_eur = 140; }, /Fondsgegenposten TEST-fonds 2027: daten\/fonds_gegenposten\.csv konsolidierungseliminierung = 140, aber veranschlagt \(betrag\) = 150/u],
+  ];
+  for (const [mutate, expected] of faelle) {
+    const source = createSourceRepo();
+    t.after(source.cleanup);
+    updateGegenposten(source.repo, mutate);
+    rehash(source.repo);
+    commitAll(source.repo, 'Widersprüchlicher Verwendungsplan');
+    const result = sync(source.repo, source.ziel, '--dry-run');
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, expected);
+  }
+});
+
+test('Import prüft die Stellen der Sicherheitsreform gegen den Rundungsbereich der Jahresdurchschnitte', (t) => {
+  const stellenPath = (repo) => join(repo, aktiv, 'daten', 'stellen.csv');
+  const faelle = [
+    // Summe der gerundeten Teile (2) statt Rundung der Summe (0,5 + 0,5 VZÄ, Bereich 0,9 bis 1,1)
+    [(repo) => updateCsv(stellenPath(repo), (rows) => { rows[0].sicherheitsreform_2027 = '2'; }), /Stellen der Sicherheitsreform Kapitel 0101 2027: daten\/stellen\.csv sicherheitsreform = 2, aber die Summe der Jahresdurchschnitte 1 VZÄ \(daten\/sicherheitsreform\/stellen\.csv\) ergibt gerundet 1/u],
+    // 0,4 VZÄ (Bereich 0,35 bis 0,45) kann nicht auf 1 gerundet sein
+    [(repo) => updateCsv(join(repo, aktiv, 'daten', 'sicherheitsreform', 'stellen.csv'), (rows) => { rows[1].vzae_jahresdurchschnitt = '0.4'; }), /daten\/stellen\.csv sicherheitsreform_tarif = 1, aber der Jahresdurchschnitt 0,4 VZÄ \(daten\/sicherheitsreform\/stellen\.csv\) ergibt gerundet 0/u],
+    // Rundung stimmt, aber die Stellen übersteigen die Neueinstellungen, in denen sie enthalten sein müssen
+    [(repo) => {
+      updateCsv(join(repo, aktiv, 'daten', 'sicherheitsreform', 'stellen.csv'), (rows) => { rows[0].vzae_jahresdurchschnitt = '2.0'; });
+      updateCsv(stellenPath(repo), (rows) => {
+        rows[0].sicherheitsreform_beamte_2027 = '2';
+        rows[0].sicherheitsreform_2027 = '3';
+      });
+    }, /sicherheitsreform_beamte = 2 übersteigt Neueinstellungen \(beamte_neu_o_r = 1\)/u],
+  ];
+  for (const [mutate, expected] of faelle) {
+    const source = createSourceRepo();
+    t.after(source.cleanup);
+    mutate(source.repo);
+    rehash(source.repo);
+    commitAll(source.repo, 'Widersprüchliche Stellen');
+    const result = sync(source.repo, source.ziel, '--dry-run');
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, expected);
+  }
+});
+
+test('Stellen der Sicherheitsreform: ein auf 0,1 VZÄ gerundeter Wert lässt beide möglichen Rundungen zu', (t) => {
+  const source = createSourceRepo();
+  t.after(source.cleanup);
+  // 0,5 VZÄ steht für einen exakten Wert zwischen 0,45 und 0,55; gerundet 0 oder 1.
+  updateCsv(join(source.repo, aktiv, 'daten', 'stellen.csv'), (rows) => {
+    rows[0].sicherheitsreform_tarif_2027 = '0';
+  });
+  rehash(source.repo);
+  commitAll(source.repo, 'Tarifteil abgerundet');
+  const result = sync(source.repo, source.ziel, '--dry-run');
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test('Kapitelwirkung: Stand nach der Dienstrechtsneuordnung zuzüglich späterer Stufen ergibt die Titelsumme', (t) => {
+  const source = createSourceRepo();
+  t.after(source.cleanup);
+  // Ohne Stufenwert entspricht der Stand nach der Dienstrechtsneuordnung nicht mehr dem Titelansatz.
+  updateCsv(join(source.repo, aktiv, 'daten', 'personal', 'kapitelwirkung.csv'), (rows) => {
+    rows[0].k03_eur = '0';
+  });
+  rehash(source.repo);
+  commitAll(source.repo, 'Stufenwert fehlt');
+  const result = sync(source.repo, source.ziel, '--dry-run');
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Kapitelwirkung 0101\/422 2027: nachher_eur \+ k03_eur \+ k04_eur \(daten\/personal\/kapitelwirkung\.csv\) = 4\.990, aber Summe der Titel der Gruppe \(daten\/titel\.json\) = 5\.000/u);
+});
+
+test('Veranschlagte Versorgungsfondserstattung muss dem Verwendungsplan entsprechen', (t) => {
+  const source = createSourceRepo();
+  t.after(source.cleanup);
+  updateCsv(join(source.repo, aktiv, 'daten', 'personal', 'versorgungsfonds_erstattung.csv'), (rows) => {
+    rows[1].veranschlagt_endfassung = '7';
+  });
+  rehash(source.repo);
+  commitAll(source.repo, 'Erstattung ohne Verwendungsplan');
+  const result = sync(source.repo, source.ziel, '--dry-run');
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Versorgungsfonds 2028: daten\/personal\/versorgungsfonds_erstattung\.csv veranschlagt = 7, aber Summe der veranschlagten Erstattung/u);
+});
+
+test('Versorgungsfonds: Zeilen des Verwendungsplans ohne Erstattungszeile werden erkannt', (t) => {
+  const source = createSourceRepo();
+  t.after(source.cleanup);
+  updateGegenposten(source.repo, (rows) => {
+    rows.push({
+      ...rows[0], asset_id: 'TEST-pension', year: '2036', kind: 'pension', core_revenue_title: '23273', amount_eur: '5', consolidation_elimination_eur: 5,
+      planbetrag_eur: 5, kuerzung_k04_eur: 0, betrag_aktiv_eur: 5, uebertragen_nach_2028_eur: 0, uebertragen_aus: '', consolidation_elimination_basis_eur: '5',
+    });
+  });
+  rehash(source.repo);
+  commitAll(source.repo, 'Versorgungsfonds ohne Erstattungszeile');
+  const result = sync(source.repo, source.ziel, '--dry-run');
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Versorgungsfonds 2036: daten\/personal\/versorgungsfonds_erstattung\.csv hat 0 Zeilen für das Jahr, der Verwendungsplan \(daten\/fonds_gegenposten\.csv\) 1 Zeilen des Versorgungsfonds/u);
 });

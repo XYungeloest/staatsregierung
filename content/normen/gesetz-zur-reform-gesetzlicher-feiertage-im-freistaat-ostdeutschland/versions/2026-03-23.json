@@ -39,8 +39,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(1) Gesetzliche Feiertage sind:"
+                      "type": "subparagraph",
+                      "label": "“(1)",
+                      "text": "Gesetzliche Feiertage sind:",
+                      "children": []
                     },
                     {
                       "type": "paragraphText",
@@ -83,22 +85,12 @@
                       "text": "Tag der Friedlichen Revolution (9. November),"
                     },
                     {
-                      "type": "item",
-                      "label": "1.",
-                      "text": "Weihnachtstag (25. Dezember),",
-                      "level": 0,
-                      "listId": "printed-outline",
-                      "numberingStyle": "decimal",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "1. Weihnachtstag (25. Dezember),"
                     },
                     {
-                      "type": "item",
-                      "label": "2.",
-                      "text": "Weihnachtstag (26. Dezember).”",
-                      "level": 0,
-                      "listId": "printed-outline",
-                      "numberingStyle": "decimal",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "2. Weihnachtstag (26. Dezember).”"
                     }
                   ]
                 }
@@ -116,8 +108,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(2) Die gesetzlichen Feiertage nach Absatz 1 sind Feiertage im Sinne bundes- und landesrechtlicher Vorschriften.“"
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Die gesetzlichen Feiertage nach Absatz 1 sind Feiertage im Sinne bundes- und landesrechtlicher Vorschriften.“",
+                      "children": []
                     }
                   ]
                 }
@@ -135,8 +129,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(3) Fallen die in Absatz 1 datumsfest bestimmten gesetzlichen Feiertage auf einen Sonnabend oder Sonntag wird für jeden dieser Tage am nächstmöglichen Wochenarbeitstag in der jeweiligen Folgewoche ein arbeitsfreier Tag gewährt (Ersatzfeiertag). Für den jeweiligen Ersatzfeiertag gelten die Bestimmungen des § 4.”"
+                      "type": "subparagraph",
+                      "label": "“(3)",
+                      "text": "Fallen die in Absatz 1 datumsfest bestimmten gesetzlichen Feiertage auf einen Sonnabend oder Sonntag wird für jeden dieser Tage am nächstmöglichen Wochenarbeitstag in der jeweiligen Folgewoche ein arbeitsfreier Tag gewährt (Ersatzfeiertag). Für den jeweiligen Ersatzfeiertag gelten die Bestimmungen des § 4.”",
+                      "children": []
                     }
                   ]
                 }
@@ -223,8 +219,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "“(1) Religiöse Feiertage im Sinne dieses Gesetzes sind: Erscheinungsfest (6. Januar),"
+                  "type": "subparagraph",
+                  "label": "“(1)",
+                  "text": "Religiöse Feiertage im Sinne dieses Gesetzes sind: Erscheinungsfest (6. Januar),",
+                  "children": []
                 },
                 {
                   "type": "paragraphText",

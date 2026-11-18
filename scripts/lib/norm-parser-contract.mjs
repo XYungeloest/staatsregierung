@@ -1,13 +1,54 @@
 /**
- * Nummerierungsbefunde, die eine amtliche Quelle nachweislich selbst trägt. Der Parser lässt
+ * Quellbefunde, die eine amtliche Quelle nachweislich selbst trägt: Nummerierungsbefunde und
+ * Tabellenzellen, deren Inhalt nur als Abbildung ohne Textalternative vorliegt. Der Parser lässt
  * genau diese Befunde je Datei zu (`parsePublicationHtml(…, { acceptedSequenceIssues })`); der
- * Nachweis nennt die PDF-Seite, auf der die Zählung sichtbar ist. Jeder andere Befund bleibt
+ * Nachweis nennt die PDF-Seite, auf der der Befund sichtbar ist. Jeder andere Befund bleibt
  * ein Abbruchgrund.
  */
-export const ACCEPTED_SEQUENCE_ISSUES = {};
+export const ACCEPTED_SEQUENCE_ISSUES = {
+  'OGVBl. 2026 Nr. 21.html': {
+    issues: ['Artikel 1 > 4.: lückenhafte Nummerierungsfolge oder nicht aufgelöster Listenwechsel (2. → 4.)'],
+    evidence: 'PDF S. 5 und HTML: Artikel 1 Nummer 3 steht als leere Nummer zwischen Nummer 2 und Nummer 4.',
+  },
+  'OGVBl. 2026 Nr. 47.html': {
+    issues: ['Artikel 4 > 3.: doppeltes Gliederungszeichen (3. → 3.)'],
+    evidence: 'PDF S. 39–42 und HTML (start="3"): Artikel 4 zählt die Änderungsbefehle 1., 2., 3., 3.; der Befehl zu § 7 trägt wie der vorangehende die Nummer 3.',
+  },
+  'StAnzO. 2026 Nr. 7.html': {
+    issues: [1, 2, 3, 4].map((row) =>
+      `I. > 2. > quotedProvision[0] > ANLAGE 8 (zu Nummer 6.4) > table[0] > Zeile ${row}, Zelle 2: Abbildung ohne Textalternative`),
+    evidence: 'PDF S. 2–3 und HTML: Die zweite Spalte der Anlage 8 zeigt je eine Kennzeichnungsgrafik der Geheimhaltungsstufe (Bilddateien ohne Textalternative); der Wortlaut der Grafiken ist nicht als Text verfügbar.',
+  },
+  'OGVBl. 2026 Nr. 18.html': {
+    issues: ['Artikel 1 > 7.: lückenhafte Nummerierungsfolge oder nicht aufgelöster Listenwechsel (5. → 7.)'],
+    evidence: 'PDF S. 5 und HTML: Artikel 1 Nummer 6 steht als leere Nummer zwischen Nummer 5 und Nummer 7.',
+  },
+};
 
 export function acceptedSequenceIssuesFor(fileName) {
   return ACCEPTED_SEQUENCE_ISSUES[fileName]?.issues ?? [];
+}
+
+/**
+ * Jede Ausgabe mit zugelassenem Quellbefund erhält in der Importkonfiguration einen
+ * nutzerorientierten `sourceNotes`-Hinweis (docs/NORM_WORKFLOW.md). Liefert die Dateien, für die
+ * `notesByFile` ({ [Datei]: { [Normslug]: Hinweise[] } }) keinen solchen Hinweis enthält.
+ */
+export function filesWithoutSourceNote(notesByFile, accepted = ACCEPTED_SEQUENCE_ISSUES) {
+  return Object.keys(accepted).filter((fileName) =>
+    !Object.values(notesByFile?.[fileName] ?? {}).some((notes) =>
+      Array.isArray(notes) && notes.some((note) => note?.label && note?.text)));
+}
+
+/**
+ * Ergänzt Quellhinweise einer Fassung um konfigurierte Hinweise. Ein gleichnamiger vorhandener
+ * Hinweis wird durch den konfigurierten ersetzt, damit ein erneutes Einlesen nichts verdoppelt.
+ */
+export function withSourceNotes(existingNotes, addedNotes) {
+  const added = (addedNotes ?? []).filter((note) => note?.label && note?.text);
+  if (!added.length) return existingNotes ?? undefined;
+  const addedLabels = new Set(added.map((note) => note.label));
+  return [...(existingNotes ?? []).filter((note) => !addedLabels.has(note?.label)), ...added];
 }
 
 function flatten(blocks, output = []) {

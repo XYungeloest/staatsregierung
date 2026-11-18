@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { dayAfterLastValidDay, formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { getNormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { formatSearchResultLabel } from '@ostrecht/recht-search/search-query.ts';
 
 import { formatShortDate } from '../apps/recht/src/lib/dates.ts';
-import { amendingCitation, buildNormHeadModel, normKicker, type NormHeadModel } from '../apps/recht/src/lib/norm-head.ts';
+import { amendingCitation, buildNormHeadModel, normKicker, outOfForceSince, type NormHeadModel } from '../apps/recht/src/lib/norm-head.ts';
 import { formatSourceLabel } from '../apps/recht/src/lib/source-labels.ts';
 import { referenceDateLabel } from '../apps/recht/src/lib/vocabulary.ts';
 import { buildFixtureNorms, FIXTURE_REFERENCE_DATE } from './helpers/fixture-corpus.ts';
@@ -38,7 +38,7 @@ function version(versionId: string, validFrom: string, validTo: string | null = 
     validFrom,
     validTo,
     isCurrent: false,
-    citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)',
+    citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 901)',
     changeNote: versionId,
     body: [],
   };
@@ -48,6 +48,7 @@ function norm(options: {
   versions: NormVersion[];
   initialVersionId?: string;
   effectiveDate?: string;
+  expiryDate?: string;
   status?: NormRecord['meta']['status'];
 }): NormRecord {
   return {
@@ -59,10 +60,11 @@ function norm(options: {
       status: options.status ?? 'in-force',
       subjects: ['Testsachgebiet'],
       keywords: [],
-      initialCitation: 'Gesetz vom 1. Januar 2024 (OGVBl. 2024 Nr. 1)',
+      initialCitation: 'Gesetz vom 1. Januar 2024 (OGVBl. 2024 Nr. 901)',
       predecessor: null,
       successor: null,
       ...(options.effectiveDate ? { effectiveDate: options.effectiveDate } : {}),
+      ...(options.expiryDate ? { expiryDate: options.expiryDate } : {}),
     } as NormRecord['meta'],
     history: {
       ...(options.initialVersionId ? { initialVersionId: options.initialVersionId } : {}),
@@ -162,11 +164,35 @@ test('Historischer Kopf aufgehobener Normen behauptet keine fortdauernde Geltung
   }
 });
 
+test('„außer Kraft seit“ nennt den Folgetag des letzten Geltungstags', () => {
+  // expiryDate und validTo sind letzte Geltungstage; der Folgetag ist der erste Tag ohne Geltung.
+  assert.equal(dayAfterLastValidDay('2026-04-30'), '2026-05-01');
+  assert.equal(dayAfterLastValidDay('2025-12-31'), '2026-01-01');
+  assert.equal(dayAfterLastValidDay('2028-02-28'), '2028-02-29');
+  assert.equal(dayAfterLastValidDay('2027-02-28'), '2027-03-01');
+  assert.equal(dayAfterLastValidDay('kein Datum'), 'kein Datum');
+
+  const only = version('2024-01-01', '2024-01-01', '2026-04-30');
+  for (const status of ['repealed', 'historical'] as const) {
+    const record = norm({ versions: [only], initialVersionId: only.versionId, effectiveDate: '2024-01-01', expiryDate: '2026-04-30', status });
+    assert.equal(outOfForceSince(record), '2026-05-01');
+    // Der Kopf nennt den letzten Geltungstag nur als Ende eines Zeitraums („– …“), nie als „seit …“.
+    const line = statusLine(headModel(record, only));
+    assert.ok(!line.includes(`seit ${formatShortDate('2026-04-30')}`), line);
+  }
+
+  // Befristete, noch geltende oder künftige Vorschriften nennen kein „seit“ ihres Ablaufs.
+  for (const status of ['in-force', 'future-effective', 'one-time-act'] as const) {
+    assert.equal(outOfForceSince(norm({ versions: [only], expiryDate: '2026-04-30', status })), undefined);
+  }
+  assert.equal(outOfForceSince(norm({ versions: [only], status: 'repealed' })), undefined);
+});
+
 test('die verkündete künftige Änderung nennt die Fundstelle der Änderungsvorschrift, nicht die Stammfundstelle', () => {
   // Konsolidiertes Vollzitat: erste Klammer Stammfundstelle, letzte Klammer die ändernde Vorschrift.
-  const consolidated = 'Synthetisches Prüfgesetz in der Fassung der Bekanntmachung vom 9. März 2018 (Testblatt A S. 99), die zuletzt durch Artikel 3 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2) geändert worden ist';
-  assert.equal(amendingCitation(consolidated), 'OGVBl. 2026 Nr. 46 S. 2');
-  assert.equal(amendingCitation('Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2)'), 'OGVBl. 2026 Nr. 70 S. 2', 'mit einer Klammer sind beide Fundstellen dieselbe');
+  const consolidated = 'Synthetisches Prüfgesetz in der Fassung der Bekanntmachung vom 9. März 2018 (Testblatt A S. 99), die zuletzt durch Artikel 3 des Gesetzes vom 17. Juli 2026 (OGVBl. 2026 Nr. 946 S. 2) geändert worden ist';
+  assert.equal(amendingCitation(consolidated), 'OGVBl. 2026 Nr. 946 S. 2');
+  assert.equal(amendingCitation('Gesetz vom 3. September 2026 (OGVBl. 2026 Nr. 970 S. 2)'), 'OGVBl. 2026 Nr. 970 S. 2', 'mit einer Klammer sind beide Fundstellen dieselbe');
   assert.equal(amendingCitation('Gesetz ohne Klammer'), 'Gesetz ohne Klammer');
 
   const next = new Date(`${FIXTURE_REFERENCE_DATE}T00:00:00Z`);
@@ -181,13 +207,13 @@ test('die verkündete künftige Änderung nennt die Fundstelle der Änderungsvor
   const model = headModel(record, current);
   const futurePart = model.parts.find((part) => part.tone === 'future');
   assert.ok(futurePart, 'die Statuszeile kündigt die verkündete Änderung an');
-  assert.equal(futurePart?.text, `Änderung zum ${formatShortDate(futureDate)} verkündet (OGVBl. 2026 Nr. 46 S. 2)`);
+  assert.equal(futurePart?.text, `Änderung zum ${formatShortDate(futureDate)} verkündet (OGVBl. 2026 Nr. 946 S. 2)`);
   assert.ok(!statusLine(model).includes('Testblatt A S. 99'), 'die Stammfundstelle steht nur in der Kopfzeile');
 
   // Liegt die Verkündung der künftigen Fassung vor, geht ihre Fundstelle vor.
   const withReference = buildNormHeadModel(record, current, {
     origin: getNormOriginInfo(record, [record]),
-    nextFutureReference: { publicationSlug: 'ogvbl-2026-72', publicationTitle: 'OGVBl. 2026 Nr. 72', publicationDate: '2026-09-15', publication: 'OGVBl.', issue: '72', entryId: 'x', entryTitle: 'Gesetz', citation: 'Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 72 S. 2)' },
+    nextFutureReference: { publicationSlug: 'ogvbl-2026-972', publicationTitle: 'OGVBl. 2026 Nr. 972', publicationDate: '2026-09-15', publication: 'OGVBl.', issue: '972', entryId: 'x', entryTitle: 'Gesetz', citation: 'Gesetz vom 11. September 2026 (OGVBl. 2026 Nr. 972 S. 2)' },
   });
-  assert.equal(withReference.parts.find((part) => part.tone === 'future')?.text, `Änderung zum ${formatShortDate(futureDate)} verkündet (OGVBl. 2026 Nr. 72 S. 2)`);
+  assert.equal(withReference.parts.find((part) => part.tone === 'future')?.text, `Änderung zum ${formatShortDate(futureDate)} verkündet (OGVBl. 2026 Nr. 972 S. 2)`);
 });

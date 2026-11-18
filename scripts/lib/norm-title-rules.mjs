@@ -46,23 +46,67 @@ export function titleInitials(title) {
 }
 
 /**
+ * Artikel, Präpositionen und Konjunktionen der Titelsprache. Sie tragen zur Initialenfolge bei
+ * („ü“ aus „über“), zählen aber nicht zu den Sachwörtern, deren Hälfte eine Initialenfolge abdecken
+ * muss: Sonst entgeht ein Kürzel wie „ÄTPS“ der Erkennung, nur weil der Titel viele „des“, „zur“
+ * oder „der“ enthält.
+ */
+const TITLE_FUNCTION_WORDS = new Set([
+  'der', 'die', 'das', 'des', 'dem', 'den', 'ein', 'eine', 'einer', 'eines', 'einem', 'einen',
+  'und', 'oder', 'sowie', 'zu', 'zur', 'zum', 'im', 'in', 'am', 'an', 'auf', 'aus', 'bei', 'beim',
+  'für', 'über', 'von', 'vom', 'mit', 'nach', 'gegen', 'ohne', 'um', 'unter', 'durch', 'als', 'bis',
+]);
+
+/** Anzahl der Titelwörter ohne Artikel, Präpositionen und Konjunktionen. */
+function titleContentWordCount(title) {
+  return text(title)
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((word) => word && !TITLE_FUNCTION_WORDS.has(word.toLocaleLowerCase('de')))
+    .length;
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+}
+
+/**
+ * True, wenn der amtliche Titel das Kürzel selbst als Klammerzusatz führt, etwa „… (TPO)“ oder
+ * „… (Testprüfungsordnung – TPO)“. Ein so belegtes Kürzel ist amtlich und keine redaktionell
+ * gebildete Initialenfolge, auch wenn seine Buchstaben den Wortanfängen des Titels folgen.
+ */
+export function isTitleDeclaredAbbreviation(abbr, title) {
+  const value = text(abbr);
+  const source = text(title);
+  if (!value || !source) return false;
+  const escaped = escapeRegExp(value);
+  // Klammer auf oder Gedankenstrich mit Leerraum davor, damit „(Ost-TPO)“ nicht „TPO“ belegt.
+  return new RegExp(`(?:\\(|\\s[–—-])\\s*${escaped}\\s*\\)`, 'u').test(source);
+}
+
+/**
  * Erkennt aus dem Titel gebildete Initialenfolgen wie „üKjEFO“: zusammengeschrieben, 3 bis 12
  * Zeichen, keine drei aufeinanderfolgenden Kleinbuchstaben (echte Abkürzungen enthalten Wortteile),
- * Zeichen in der Reihenfolge der Wortanfänge des Titels und mindestens die Hälfte davon abgedeckt.
+ * Zeichen in der Reihenfolge der Wortanfänge des Titels und mindestens die Hälfte der Sachwörter
+ * des Titels abgedeckt (Artikel, Präpositionen und Konjunktionen zählen dabei nicht mit).
  */
 export function isTitleInitialism(abbr, title) {
   const value = text(abbr);
   const length = characters(value).length;
   if (length < 3 || length > 12) return false;
   if (/\s/u.test(value)) return false;
-  if (/\p{Ll}{3}/u.test(value)) return false;
+  if (isTitleDeclaredAbbreviation(value, title)) return false;
   const initials = titleInitials(title);
   if (initials.length === 0) return false;
-  if (length * 2 < initials.length) return false;
+  if (length * 2 < titleContentWordCount(title)) return false;
+  // Drei Kleinbuchstaben in Folge sprechen für Wortteile („Sächs“, „Test“). Eine Initialenfolge
+  // bleibt es trotzdem, wenn auch die Kleinbuchstaben genau die kleingeschriebenen Wortanfänge
+  // des Titels sind („…kkpV“ aus „kommunal-, kultur- und polizeirechtlicher Vorschriften“).
+  const exactCase = /\p{Ll}{3}/u.test(value);
+  const fold = (character) => (exactCase ? character : character.toLocaleLowerCase('de'));
   let index = 0;
   for (const character of characters(value)) {
-    const lower = character.toLocaleLowerCase('de');
-    while (index < initials.length && initials[index].toLocaleLowerCase('de') !== lower) index += 1;
+    const wanted = fold(character);
+    while (index < initials.length && fold(initials[index]) !== wanted) index += 1;
     if (index >= initials.length) return false;
     index += 1;
   }
@@ -133,9 +177,27 @@ export function isTitleFormulaSummary(summary, title) {
   return Boolean(heading) && value === `Regelt ${heading}.`;
 }
 
-/** True, wenn die Zusammenfassung überhaupt eine Formel ist (abgeleitet oder Titelformel). */
+/**
+ * Platzhalterformeln früherer Erzeuger ohne Aussage über den Inhalt („ändert die im Titel
+ * bezeichneten Regelungen und dokumentiert den beschlossenen neuen Rechtsstand“, „sowie die Rechte
+ * und Pflichten der Vertragsparteien“ als Schluss einer Vertragsformel). Anders als die abgeleiteten
+ * Formeln des REVOSax-Bestands sind sie für keine Vorschrift zulässig.
+ */
+export const PLACEHOLDER_SUMMARY_PATTERNS = [
+  /\bim Titel (?:bezeichnete|genannte)/u,
+  /\bdokumentiert den beschlossenen neuen Rechtsstand\b/u,
+  /\bsowie die Rechte und Pflichten der Vertragsparteien\.$/u,
+];
+
+/** True, wenn die Zusammenfassung eine Platzhalterformel ohne Inhaltsaussage ist. */
+export function isPlaceholderSummary(summary) {
+  const value = text(summary);
+  return PLACEHOLDER_SUMMARY_PATTERNS.some((pattern) => pattern.test(value));
+}
+
+/** True, wenn die Zusammenfassung überhaupt eine Formel ist (abgeleitet, Titel- oder Platzhalterformel). */
 export function isFormulaSummary(summary, title) {
-  return isDerivedSummary(summary) || isTitleFormulaSummary(summary, title);
+  return isDerivedSummary(summary) || isTitleFormulaSummary(summary, title) || isPlaceholderSummary(summary);
 }
 
 /**
@@ -198,8 +260,31 @@ export function resolveIdentityFields({ title, shortTitle, abbr } = {}) {
  * keinem Erzeuger neu gebildet; ohne diese Übernahme verliert jeder Schreiblauf sie stillschweigend.
  */
 export function retainFsnNumber(reference, previousByLocalSource) {
-  const previous = previousByLocalSource?.get?.(reference?.localSource);
+  const previous = previousByLocalSource?.get?.(reference?.localSource)
+    ?? (reference?.kind === 'revosax-snapshot' && reference.lawId
+      ? previousByLocalSource?.get?.(`law:${reference.lawId}`)
+      : undefined);
   return previous?.fsnNumber ? { ...reference, fsnNumber: previous.fsnNumber } : reference;
+}
+
+/**
+ * Index der bisherigen Quellenangaben für retainFsnNumber: nach lokaler Quelle und, für amtliche
+ * REVOSax-Quellen, zusätzlich nach REVOSax-Kennung (`law:<lawId>`). So überlebt die Nummer auch den
+ * Wechsel von der nur in R2 archivierten Ausgangsquelle zum versionierten Snapshot derselben
+ * Vorschrift. Widersprechen sich Angaben derselben Kennung, entfällt der Kennungsschlüssel.
+ */
+export function fsnReferenceIndex(references = []) {
+  const index = new Map();
+  const byLaw = new Map();
+  for (const reference of references) {
+    if (typeof reference?.localSource === 'string') index.set(reference.localSource, reference);
+    if (reference?.kind === 'revosax-snapshot' && reference.lawId && reference.fsnNumber) {
+      const known = byLaw.get(reference.lawId);
+      byLaw.set(reference.lawId, known === undefined || known?.fsnNumber === reference.fsnNumber ? reference : null);
+    }
+  }
+  for (const [lawId, reference] of byLaw) if (reference) index.set(`law:${lawId}`, reference);
+  return index;
 }
 
 /** Ein Titelbestandteil ab dieser Länge ist kein Schlagwort. */
@@ -227,4 +312,122 @@ export function titleWords({ title, shortTitle } = {}) {
 /** Kernform eines Schlagworts für den Vergleich: ohne Randbindestriche. */
 export function keywordCore(value) {
   return text(value).replace(/^-+|-+$/gu, '');
+}
+
+/**
+ * Schlagwörter des früheren Themen-Erzeugers von scripts/import-normen.mjs: Er vergab feste
+ * Wortgruppen nach Mustern im Titel („grenz“ in „Mieterhöhungsbegrenzung“ ergab „Staatsvertrag“,
+ * „Abkommen“, „Nachbarschaft“). Der Erzeuger besteht nicht mehr; ein solches Wort bleibt nur, wenn
+ * es in Titel oder Normtext der Vorschrift selbst vorkommt.
+ */
+export const LEGACY_THEME_KEYWORDS = new Set([
+  'Polizei', 'Sicherheit', 'Waffen', 'Messer', 'Kommunen', 'Landkreise', 'Verwaltung', 'Wohnen',
+  'Vergesellschaftung', 'Wohnraum', 'Rundfunk', 'Fernsehfunk', 'Medien', 'Transparenz',
+  'Informationsfreiheit', 'Informationszugang', 'Bildung', 'Weiterbildung', 'Schule', 'Arbeit',
+  'Beschäftigte', 'Soziales', 'Förderung', 'Wirtschaft', 'Zuwendung', 'Umwelt', 'Energie', 'Klima',
+  'Hochwasser', 'Staatsvertrag', 'Abkommen', 'Nachbarschaft', 'Feiertage', 'Religion',
+  'Landesplanung', 'Raumordnung',
+]);
+
+const NON_TEXT_KEYS = new Set(['type', 'listId', 'numberingStyle', 'anchor', 'anchorId', 'id', 'level']);
+
+/** Sämtlicher Text eines Normkörpers (Bezeichnungen, Überschriften, Absätze, Tabellenzellen). */
+export function normBodyText(blocks) {
+  const parts = [];
+  const visit = (value, key) => {
+    if (typeof value === 'string') {
+      if (!NON_TEXT_KEYS.has(key)) parts.push(value);
+    } else if (Array.isArray(value)) {
+      for (const item of value) visit(item, key);
+    } else if (value && typeof value === 'object') {
+      for (const [childKey, child] of Object.entries(value)) visit(child, childKey);
+    }
+  };
+  visit(blocks, 'body');
+  return parts.join(' ');
+}
+
+/** Kommt der Wert als ganzes Wort (Groß- und Kleinschreibung egal) im Text vor? */
+function occursAsWord(value, source) {
+  const needle = text(value);
+  if (!needle || !source) return false;
+  return new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(needle)}(?![\\p{L}\\p{N}])`, 'iu').test(source);
+}
+
+/** Ab dieser Länge gilt ein Themenwort auch als Glied eines zusammengesetzten Worts als belegt. */
+export const THEME_WORD_COMPOUND_MIN_LENGTH = 8;
+
+/**
+ * Ist ein Themenwort im Text belegt? Es genügt eine gebeugte Form oder ein mit ihm beginnendes
+ * Kompositum („Wohnraum“ in „Wohnraums“, „Vergesellschaftung“ in „Vergesellschaftungswert“);
+ * ab THEME_WORD_COMPOUND_MIN_LENGTH Zeichen auch ein Glied im Wortinneren
+ * („Vergesellschaftung“ in „Wohnvergesellschaftungsgesetz“). Kürzere Wörter wie „Arbeit“ zählen im
+ * Wortinneren nicht, weil sie dort meist zu einem anderen Wort gehören („Bearbeitung“).
+ */
+export function occursAsThemeWord(value, source) {
+  const needle = text(value);
+  if (!needle || !source) return false;
+  const pattern = characters(needle).length >= THEME_WORD_COMPOUND_MIN_LENGTH
+    ? escapeRegExp(needle)
+    : `(?<![\\p{L}\\p{N}])${escapeRegExp(needle)}`;
+  return new RegExp(pattern, 'iu').test(source);
+}
+
+/**
+ * Prüft ein Schlagwort einer eigenen Vorschrift auf die Spuren früherer Erzeuger und liefert den
+ * Grund als deutschen Satzteil oder `null`. `sourceText` ist der Text der Vorschrift selbst
+ * (Titel und Normkörper, siehe normBodyText); nur was dort steht, gilt als belegt.
+ *
+ * - Bruchstück der Kennung: kleingeschrieben ohne Umlaute und ein Glied des Slugs
+ *   („ministerprasidenten“, „zustandigkeit“), oder in beliebiger Schreibung ein Glied des Slugs,
+ *   das weder im Titel noch im Normtext als Wort vorkommt.
+ * - Funktionswort oder Zahl aus dem Titel („über“, „2026“).
+ * - Bruchstück einer Wortverbindung des Titels („Weidetierund“ aus „Weidetier- und“, „Elektro- und“).
+ * - Initialenfolge des Titels, die im Text der Vorschrift nicht vorkommt („GüVB“).
+ * - Wort des früheren Themen-Erzeugers, das in Titel und Normtext nicht vorkommt, auch nicht gebeugt
+ *   oder als Glied eines zusammengesetzten Worts (occursAsThemeWord).
+ */
+export function generatedKeywordProblem(keyword, { slug, title, shortTitle } = {}, sourceText = '') {
+  const value = text(keyword);
+  if (!value) return 'ist leer';
+  const slugParts = text(slug).split('-').filter(Boolean);
+  if (/^[a-z0-9]+$/u.test(value) && slugParts.includes(value)) return 'ist ein Bruchstück der Kennung';
+  const headings = [text(title), text(shortTitle)].filter(Boolean);
+  const titleTokens = new Set(headings.flatMap((heading) => heading.split(/[^\p{L}\p{N}]+/u)).filter(Boolean));
+  if ((TITLE_FUNCTION_WORDS.has(value.toLocaleLowerCase('de')) || /^\p{N}+$/u.test(value)) && titleTokens.has(value)) {
+    return 'ist ein Funktionswort oder eine Zahl aus dem Titel';
+  }
+  if (/\S-\s+(?:und|oder|sowie|bis)$/u.test(value)) return 'ist ein Bruchstück einer Wortverbindung des Titels';
+  const glued = value.match(/^([\p{L}\p{N}-]+?)(und|oder)$/u);
+  if (glued && headings.some((heading) => heading.includes(`${glued[1]}- ${glued[2]}`))) {
+    return 'ist ein Bruchstück einer Wortverbindung des Titels';
+  }
+  const source = [...headings, text(sourceText)].join(' ');
+  // Auch großgeschrieben bleibt ein Glied des Slugs ein Bruchstück der Kennung, wenn es weder im
+  // Titel noch im Normtext als Wort steht („Polizeigesetzes“ aus einer älteren Kennung).
+  if (slugParts.includes(value.toLocaleLowerCase('de')) && !occursAsWord(value, source)) {
+    return 'ist ein Bruchstück der Kennung ohne Beleg in Titel und Text';
+  }
+  if (headings.some((heading) => isTitleInitialism(value, heading)) && !occursAsWord(value, text(sourceText))) {
+    return 'ist eine im Text nicht belegte Initialenfolge des Titels';
+  }
+  if (LEGACY_THEME_KEYWORDS.has(value) && !occursAsThemeWord(value, source)) {
+    return 'ist ein Themenwort des früheren Erzeugers ohne Bezug im Text der Vorschrift';
+  }
+  return null;
+}
+
+/**
+ * True, wenn die Zusammenfassung nur den eigenen Titel oder die eigene Kurzbezeichnung zitiert
+ * („Das Gesetz regelt den in „<Titel>“ bezeichneten Gegenstand …“): eine aus Typ und Titel
+ * gebildete Formel ohne eigene Aussage über den Inhalt.
+ */
+export function isOwnTitleQuotingSummary(summary, { title, shortTitle } = {}) {
+  const value = text(summary);
+  if (!value) return false;
+  // Das Zitat kann hinter dem Titel noch die Klammer mit Kurzbezeichnung und Abkürzung tragen
+  // („in „<Titel> (<Kurzbezeichnung> – <Abkürzung>)“ bezeichneten …“).
+  return [text(title), text(shortTitle)].filter(Boolean)
+    .flatMap((heading) => [heading, heading.replace(/\.$/u, '')])
+    .some((heading) => value.includes(`„${heading}“`) || value.includes(`„${heading} (`));
 }

@@ -7,19 +7,14 @@
   "type": "gesetz",
   "enactingBody": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
-    "Wohnungsbau, Wohnungswesen"
+    "Kultur"
   ],
-  "primarySubject": "Wohnungsbau, Wohnungswesen",
-  "keywords": [
-    "Wohnen",
-    "Vergesellschaftung",
-    "Wohnraum",
-    "über"
-  ],
+  "primarySubject": "Kultur",
+  "keywords": [],
   "initialCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 30)",
   "predecessor": null,
   "successor": null,
-  "summary": "Das Gesetz regelt den in „Ostdeutsches Kulturpassgesetz“ bezeichneten Gegenstand und bestimmt die maßgeblichen Rechte, Pflichten und Verfahren.",
+  "summary": "Gewährt Personen, die im jeweiligen Kalenderjahr 18 Jahre alt werden und ihre Hauptwohnung im Freistaat haben, einmalig einen personengebundenen Kulturpass mit 100 Euro Guthaben für zugelassene kulturelle Angebote. Das Gesetz regelt Geltungsdauer, Freischaltung, Kulturpartner, Rücknahme und Erstattung sowie den Datenschutz.",
   "status": "in-force",
   "enactingNorm": "gesetz-uber-den-kulturpass-fur-junge-erwachsene-im-freistaat-ostdeutschland",
   "documentDate": "2026-03-23",
@@ -59,5 +54,20 @@
   ],
   "affectedByNorms": [
     "kostenfreie-kindheit-und-soziale-teilhabe"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "kulturpass-paragraf-10-nummern-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-18",
+      "issue": "Artikel 6 Nummer 7 und 8 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 19) ändern „§ 10 Nummer 6“ und „§ 10 Nummer 7“. Nach dem amtlichen Blatt der Stammfassung (OGVBl. 2026 Nr. 30 S. 5–6) zählt § 10 die Nummern 1 bis 7; Nummer 6 und 7 betreffen dort die Datenverarbeitung und die zuständige Behörde.",
+      "publishedText": "7. In § 10 Nummer 6 wird das Wort „Antragsverfahren“ durch die Wörter „Verfahren der Feststellung der Anspruchsvoraussetzungen und der Freischaltung“ ersetzt. 8. In § 10 Nummer 7 wird die Angabe „§ 5 Absatz 2“ durch die Angabe „§ 5 Absatz 3“ ersetzt.",
+      "resolvedApplication": "Die Ersetzungen werden in § 10 Nummer 1 („das Antragsverfahren,“) und Nummer 2 („Art und Weise des Nachweises nach § 5 Absatz 2,“) vorgenommen, den einzigen Stellen, an denen die zu ersetzenden Angaben stehen.",
+      "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+      "evidence": [
+        "Gesetze/OGVBl. 2026 Nr. 30.pdf",
+        "Gesetze/OGVBl. 2026 Nr. 83.pdf"
+      ]
+    }
   ]
 }

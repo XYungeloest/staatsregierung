@@ -13,9 +13,9 @@ const hits = [
 ];
 
 test('Staging-Slugs transliterieren Umlaute deterministisch', () => {
-  assert.equal(slugify('Ostdeutsche Kommunalpauschalenverordnung'), 'ostdeutsche-kommunalpauschalenverordnung');
-  assert.equal(slugify('Änd. der Lehrer-Qualifizierungsverordnung'), 'aend-der-lehrer-qualifizierungsverordnung');
-  assert.equal(slugify('VwV Jahresabschluss 2023 (Größe/Übersicht)'), 'vwv-jahresabschluss-2023-groesse-uebersicht');
+  assert.equal(slugify('Ostdeutsche Beispielpauschalenverordnung'), 'ostdeutsche-beispielpauschalenverordnung');
+  assert.equal(slugify('Änd. der Beispiel-Qualifizierungsverordnung'), 'aend-der-beispiel-qualifizierungsverordnung');
+  assert.equal(slugify('VwV Beispielabschluss 2023 (Größe/Übersicht)'), 'vwv-beispielabschluss-2023-groesse-uebersicht');
   assert.equal(slugify(''), 'revosax-norm');
   assert.ok(slugify('x'.repeat(200)).length <= 96);
 });

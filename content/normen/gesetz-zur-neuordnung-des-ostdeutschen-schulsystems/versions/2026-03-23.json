@@ -69,8 +69,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(3) Schulen in öffentlicher Trägerschaft sind, soweit sie nicht als bekenntnisgebundene Schulen geführt werden, bekenntnisfreie Schulen; die Erteilung von Religions- und Weltanschauungsunterricht als freiwilliges Angebot nach Maßgabe der §§ 18 bis 20 bleibt unberührt.“"
+                  "type": "subparagraph",
+                  "label": "„(3)",
+                  "text": "Schulen in öffentlicher Trägerschaft sind, soweit sie nicht als bekenntnisgebundene Schulen geführt werden, bekenntnisfreie Schulen; die Erteilung von Religions- und Weltanschauungsunterricht als freiwilliges Angebot nach Maßgabe der §§ 18 bis 20 bleibt unberührt.“",
+                  "children": []
                 }
               ]
             }
@@ -592,8 +594,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(1) Der Schulträger kann von der fünften bis zur zehnten Klassenstufe an Polytechnischen Oberschulen außerunterrichtliche Betreuungsangebote vorhalten.“"
+                  "type": "subparagraph",
+                  "label": "„(1)",
+                  "text": "Der Schulträger kann von der fünften bis zur zehnten Klassenstufe an Polytechnischen Oberschulen außerunterrichtliche Betreuungsangebote vorhalten.“",
+                  "children": []
                 }
               ]
             }
@@ -703,8 +707,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(1) Jede Polytechnische Oberschule in der Primarstufe hat einen Schulbezirk.“"
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Jede Polytechnische Oberschule in der Primarstufe hat einen Schulbezirk.“",
+                      "children": []
                     }
                   ]
                 }
@@ -807,7 +813,7 @@
               "children": [
                 {
                   "type": "item",
-                  "label": "1.",
+                  "label": "„1.",
                   "text": "der allgemeinbildenden Schulen mit Ausnahme der Primarstufe,“",
                   "level": 0,
                   "listId": "printed-outline",

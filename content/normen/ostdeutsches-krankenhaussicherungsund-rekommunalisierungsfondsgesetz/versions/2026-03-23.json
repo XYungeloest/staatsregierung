@@ -11,10 +11,6 @@
       "label": "Abschnitt 1",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Allgemeine Bestimmungen"
-        },
-        {
           "type": "paragraph",
           "label": "§ 1",
           "title": "Errichtung des Fonds",
@@ -231,16 +227,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Allgemeine Bestimmungen"
     },
     {
       "type": "section",
       "label": "Abschnitt 2",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Fondsbewirtschaftung"
-        },
         {
           "type": "paragraph",
           "label": "§ 4",
@@ -471,16 +464,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Fondsbewirtschaftung"
     },
     {
       "type": "section",
       "label": "Abschnitt 3",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Leistungen des Fonds"
-        },
         {
           "type": "paragraph",
           "label": "§ 7",
@@ -988,16 +978,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Leistungen des Fonds"
     },
     {
       "type": "section",
       "label": "Abschnitt 4",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Verfahren und Bindungen"
-        },
         {
           "type": "paragraph",
           "label": "§ 13",
@@ -1457,16 +1444,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Verfahren und Bindungen"
     },
     {
       "type": "section",
       "label": "Abschnitt 5",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Schlussbestimmungen"
-        },
         {
           "type": "paragraph",
           "label": "§ 20",
@@ -1541,7 +1525,8 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Schlussbestimmungen"
     }
   ]
 }

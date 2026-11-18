@@ -41,7 +41,8 @@
       "retrievedAt": "2026-08-28",
       "sha256": "f61c191c0e4bf3c092aa9f7b65001b0d4e8d5aea66da6bbf38c7c17f4426cdc6",
       "lawId": "3393",
-      "sourceValidFrom": "2024-01-01"
+      "sourceValidFrom": "2024-01-01",
+      "fsnNumber": "300-14"
     },
     {
       "kind": "amendment-source",
@@ -59,5 +60,19 @@
   "affectedByNorms": [
     "gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh",
     "kreis-und-bezirksneuordnungsgesetz"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "justizgesetz-paragrafen-24-und-25-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-18",
+      "issue": "Artikel 1 Nummer 13 des Gesetzes vom 26. Januar 2026 (OGVBl. 2026 Nr. 3 S. 16) streicht in §§ 24 und 25 den Wortlaut „Sächsischen“. In der Ausgangsfassung steht diese Form nur in der Überschrift von § 25; § 24 Absatz 1 und 2 und der Text von § 25 nennen „das Sächsische Oberverwaltungsgericht“. Nummer 1 (S. 2) ersetzt in der Bezeichnung „Sächsische“, die Bezeichnung lautet „Sächsisches Justizgesetz“.",
+      "publishedText": "1. In der Bezeichnung des Gesetzes wird „Sächsische” durch „Ostdeutsche” ersetzt. 13. In §§ 24 und 25 wird der Wortlaut „Sächsischen“ ersatzlos gestrichen.",
+      "resolvedApplication": "Nummer 13 streicht die Herkunftsbezeichnung des Oberverwaltungsgerichts in §§ 24 und 25 in jeder grammatischen Form: in § 24 Absatz 1 und 2 und im Text von § 25 „Sächsische“, in der Überschrift von § 25 „Sächsischen“. Nummer 1 ersetzt den Wortbestandteil „Sächsische“ in „Sächsisches Justizgesetz“; die Bezeichnung lautet „Ostdeutsches Justizgesetz“.",
+      "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+      "evidence": [
+        "Gesetze/OGVBl. 2026 Nr. 3.pdf"
+      ]
+    }
   ]
 }

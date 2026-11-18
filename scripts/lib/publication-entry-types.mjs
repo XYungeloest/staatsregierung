@@ -60,12 +60,13 @@ export function isCompatiblePublicationEntryType(entryType, normType) {
 }
 
 /**
- * Zitierbezeichnungen, die zu einem Normtyp passen. Verwaltungsvorschriften erscheinen
- * amtlich auch als Anordnung, Erlass, Organisationserlass oder Dienstanordnung;
- * Änderungsvorschriften tragen die Bezeichnung des ändernden Rechtsakts.
+ * Zitierbezeichnungen, die zu einem Normtyp passen. Die Verfassung wird als Gesetz geführt
+ * und als Verfassung zitiert; Verwaltungsvorschriften erscheinen amtlich auch als Anordnung,
+ * Erlass, Organisationserlass oder Dienstanordnung; Änderungsvorschriften tragen die
+ * Bezeichnung des ändernden Rechtsakts.
  */
 const CITATION_LABELS_BY_NORM_TYPE = {
-  gesetz: ['Gesetz'],
+  gesetz: ['Gesetz', 'Verfassung'],
   verordnung: ['Verordnung'],
   verwaltungsvorschrift: ['Verwaltungsvorschrift', 'Anordnung', 'Erlass', 'Organisationserlass', 'Dienstanordnung'],
   foerderrichtlinie: ['Förderrichtlinie', 'Richtlinie'],
@@ -85,10 +86,12 @@ export function citationLabelsForNormType(normType) {
 /**
  * Trägt die Zitierung die Bezeichnung eines zum Normtyp passenden Rechtsakts?
  * Geprüft wird der Teil vor „vom <Datum>“; einleitende Zusätze („Geändert durch
- * Abschnitt I der Bekanntmachung vom …“) bleiben zulässig.
+ * Abschnitt I der Bekanntmachung vom …“) bleiben zulässig. Ist das Dokumentdatum
+ * ungeklärt und fehlt deshalb, steht die Bezeichnung unmittelbar vor der Fundstelle
+ * („Verwaltungsvorschrift (StAnzO. 2026 Nr. 1 S. 2)“).
  */
 export function citationLabelMatchesNormType(citation, normType) {
-  const lead = String(citation ?? '').split(/\s+vom\s+/u)[0].trim();
+  const lead = String(citation ?? '').split(/\s+vom\s+|\s+\(/u)[0].trim();
   if (!lead) return false;
   return citationLabelsForNormType(normType).some((label) => lead === label || lead.endsWith(` ${label}`));
 }

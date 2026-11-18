@@ -4,6 +4,7 @@ import NormHead from '../../../components/norms/NormHead.astro';
 import NormSectionTabs from '../../../components/norms/NormSectionTabs.astro';
 import { buildVersionComparison } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
+import { enactedNormReferences, presentEnactedVersions } from '@ostrecht/shared/lib/norms/enacted-articles.ts';
 import {
   formatDate,
   getLawPortalUrl,
@@ -41,15 +42,17 @@ if (!norm) return Astro.rewrite('/404');
 const versions = [...norm.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
 const defaultTo = versions.find((version) => version.versionId === defaultToSkeleton.versionId) ?? versions.at(-1)!;
 const defaultFrom = versions.find((version) => version.versionId === defaultFromSkeleton.versionId) ?? versions[0];
-const defaultComparison = buildVersionComparison(defaultFrom, defaultTo);
-const defaultProvisions = defaultComparison.provisions;
-const defaultUnitKind = getNormUnitKind([...defaultFrom.body, ...defaultTo.body]);
 // Der Kopf kommt aus denselben Ladeschritten wie Text- und Datenseite (Bezeichnungen der
 // Änderungsvorschriften, Fundstelle der nächsten künftigen Fassung): eine Quelle für alle Ansichten.
 const headerVersion = getCurrentVersion(norm);
 const view = await loadNormView(store, norm, headerVersion);
 if (!view) return Astro.rewrite('/404');
 const { derived, fullCitation, publicationReference, amendmentLabels, nextFutureReference } = view;
+// Wie die Fassungsseiten: eingeführte Gesetze erscheinen mit ihrer Bezeichnung statt als Zitat.
+const [comparedFrom, comparedTo] = presentEnactedVersions([defaultFrom, defaultTo], enactedNormReferences(derived.relations));
+const defaultComparison = buildVersionComparison(comparedFrom, comparedTo);
+const defaultProvisions = defaultComparison.provisions;
+const defaultUnitKind = getNormUnitKind([...comparedFrom.body, ...comparedTo.body]);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const model = buildNormHeadModel(norm, headerVersion, { origin: derived.origin, publicationReference, amendmentLabels, nextFutureReference });
 const currentIdentity = getNormVersionIdentity(norm, headerVersion);

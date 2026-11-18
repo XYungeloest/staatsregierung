@@ -3,7 +3,10 @@
   "effectiveDate": "2026-08-01",
   "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
   "resultCitation": "Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99), zuletzt geändert durch Artikel 3 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
-  "changeNote": "Die Rechtsaufsichtsregelung wurde als § 75 neu gefasst.",
+  "changeNote": "Gebietsbestand, Gebietsänderungen und Auseinandersetzung (§§ 6 bis 8), die Bürgereigenschaft bei Gebietsänderungen (§ 13 Absatz 3) und die Rechtsaufsichtsbehörden (§ 65) wurden neu gefasst.",
+  "commandCoverage": [
+    "Artikel 3 Nummern 1 bis 7. Nummer 1 betrifft die nicht als Normkörper gespeicherte Inhaltsübersicht. Nummer 2 fasst § 4 Absatz 1 Satz 1 und Absatz 2 Satz 1 mit dem bereits geltenden Wortlaut neu und ändert den Text nicht. Nummer 7 ordnet die Neufassung eines „§ 75“ an; die Landkreisordnung endet mit § 74. Die Neufassung „Rechtsaufsichtsbehörden“ regelt den Gegenstand des § 65 („Aufsicht, Rechtsaufsichtsbehörden“) und wird redaktionell als Neufassung des § 65 angewandt, so wie die Berichtigung OGVBl. 2026 Nr. 68 (Nummer 3) den ebenfalls auf „§ 75“ lautenden Änderungsbefehl in Artikel 2 Nummer 1 des Gesetzes vom 6. März 2025 auf § 65 richtiggestellt hat (Redaktionsentscheidung landkreisordnung-paragraf-65-2026)."
+  ],
   "sourceReferences": [
     {
       "kind": "amendment-source",
@@ -17,13 +20,164 @@
       "op": "replaceProvision",
       "target": {
         "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "dc27437b87c3166382ce510624cc9543910fefdac3e14f4884fdbb3445fc4b4e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 6",
+        "title": "Gebietsbestand",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Das Gebiet des Landkreises besteht aus den nach geltendem Recht zum Landkreis gehörenden Gemeinden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Das Gebiet des Landkreises soll so bemessen sein, dass die Verbundenheit der Einwohner und Gemeinden des Landkreises gewahrt und die Leistungsfähigkeit des Landkreises zur Erfüllung seiner Aufgaben gesichert ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Über Grenzstreitigkeiten entscheidet die Rechtsaufsichtsbehörde.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 3 Nummer 3",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 7"
+      },
+      "expectedHash": "dbee0006b54ec0b8e7e528718d24046b783deaa8d52801de4661c0061da267fd",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 7",
+        "title": "Gebietsänderungen und Neuordnung der Kreise",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Das Gebiet von Landkreisen kann aus Gründen des Wohls der Allgemeinheit geändert werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Auflösung und Neubildung eines Landkreises sowie die Änderung der Grenzen eines Landkreises infolge Eingliederung oder Ausgliederung von Gemeinden bedürfen eines Gesetzes. Dies gilt nicht für die Neubildung einer Gemeinde oder die Eingliederung einer Gemeinde in eine andere Gemeinde durch Vereinbarung mit Genehmigung der Rechtsaufsichtsbehörde und die Eingliederung eines Gemeindeteiles in eine andere Gemeinde, durch die das Gebiet von Landkreisen betroffen wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Im Falle der Neubildung einer Gemeinde bestimmt die Rechtsaufsichtsbehörde, zu welchem Landkreis die neu gebildete Gemeinde gehört. Übereinstimmenden Beschlüssen der beteiligten Gemeinden ist zu entsprechen, soweit nicht schwerwiegende Gründe des Wohls der Allgemeinheit entgegenstehen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Vor einer Änderung der Kreisgrenzen sind die beteiligten Landkreise, kreisfreien Städte und Gemeinden zu hören.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Für Rechtshandlungen, die wegen einer Änderung des Kreisgebiets erforderlich sind, werden öffentliche Abgaben, die auf Landesrecht beruhen, nicht erhoben; Auslagen werden nicht ersetzt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Das Bezirks- und Kreisneuordnungsgesetz bleibt unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 3 Nummer 4",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 8"
+      },
+      "expectedHash": "1d833dd1b482a3d5028dd6f8f3501ab8ab74763414b8da5376aebb417ab26a3e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 8",
+        "title": "Auseinandersetzung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Bei Änderungen von Gemeindegrenzen, durch die das Gebiet von Landkreisen betroffen wird, regeln die beteiligten Landkreise, soweit erforderlich, die Rechtsfolgen und die Auseinandersetzung durch Vereinbarung. Die Vereinbarung bedarf der Genehmigung der Rechtsaufsichtsbehörde.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Kommt eine Vereinbarung nach Absatz 1 nicht binnen angemessener Frist zustande, enthält sie keine erschöpfende Regelung oder kann die Genehmigung wegen einzelner Bestimmungen nicht erteilt werden, trifft die Rechtsaufsichtsbehörde die im Interesse des öffentlichen Wohls erforderlichen Bestimmungen nach Anhörung der Beteiligten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Vereinbarung nach Absatz 1 oder die Entscheidung nach Absatz 2 begründet Rechte und Pflichten der Beteiligten und bewirkt den Übergang, die Beschränkung oder die Aufhebung dinglicher Rechte. Die Rechtsaufsichtsbehörde ersucht die zuständigen Stellen um Berichtigung der öffentlichen Bücher.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Für gesetzliche Kreisneuordnungen gelten die besonderen Vorschriften des jeweiligen Neuordnungsgesetzes.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 3 Nummer 5",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "field": "text",
+      "expectedOld": "Bei einer Gebietsänderung werden Bürger, die in dem betroffenen Gebiet wohnen, Bürger des aufnehmenden Landkreises; im Übrigen wird bei der Berechnung der Frist nach Absatz 1 Satz 1 die Wohndauer im bisherigen Landkreis angerechnet.",
+      "value": "Bei einer Gebietsänderung werden Bürger, die in dem betroffenen Gebiet wohnen, Bürger des aufnehmenden Landkreises. Bei der Berechnung der Frist nach Absatz 1 Satz 1 wird die Wohndauer im bisherigen Landkreis oder in der bisherigen kreisfreien Stadt angerechnet.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 3 Nummer 6",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
         "label": "§ 65"
       },
       "expectedHash": "578cdfc0d851a5527aa1dd4f2b094381bd1e85e52373a03a1776ea3e57eda810",
       "expectedMatches": 1,
       "value": {
         "type": "paragraph",
-        "label": "§ 75",
+        "label": "§ 65",
         "title": "Rechtsaufsichtsbehörden",
         "children": [
           {

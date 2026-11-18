@@ -22,11 +22,21 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "Dem § 1 wird folgender Satz angefügt: „Die Polizeidienststellen nach § 2 Absatz 2 des Volkspolizeiorganisationsgesetzes führen die amtliche Bezeichnung ‚Volkspolizei des Freistaates Ostdeutschland‘ (Volkspolizei).“",
+          "text": "Dem § 1 wird folgender Satz angefügt:",
           "level": 0,
           "listId": "tukzsdvvb3vx",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Die Polizeidienststellen nach § 2 Absatz 2 des Volkspolizeiorganisationsgesetzes führen die amtliche Bezeichnung ‚Volkspolizei des Freistaates Ostdeutschland‘ (Volkspolizei).“"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -127,11 +137,21 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "Die Bezeichnung wird wie folgt gefasst: „Verordnung über die Bezeichnung der Hochschulgrade an der Hochschule der Volkspolizei (FH)“.",
+          "text": "Die Bezeichnung wird wie folgt gefasst:",
           "level": 0,
           "listId": "snivdyhctae",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Verordnung über die Bezeichnung der Hochschulgrade an der Hochschule der Volkspolizei (FH)“."
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
