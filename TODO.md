@@ -59,16 +59,10 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   nennen das Kartenraster `#bezirke` und die Bezirkstabelle dieselben 14 Bezirke; das Auswahlfeld der
   Filterleiste ist Bedienelement und zählt nicht als Aufzählung. Die Bereichsnavigation wird
   unterhalb von 64 rem statisch (`DESIGN.md`) und ist nach dem ersten Bildschirm nicht mehr
-  erreichbar. Eine erste Umsetzung (Tausch der Darstellung unter 640 px, Fläche in der Liste,
-  Rücksprung je Abschnitt) ist zurückgenommen worden, weil sie `runtime_smoke` rot machte:
-  `tests/browser-smoke.spec.ts`, Messung „200-Prozent-Zoom und reduzierte Bewegung bewahren die
-  Kernfunktionen“, meldete auf `/kreisreform/` bei 640 × 720 mit `zoom: 2` einen waagerechten
-  Überlauf (`scrollWidth` 960 gegen `clientWidth` 320). Auf macOS ist der Befund nicht
-  reproduzierbar: dort lässt `document.documentElement.style.zoom = '2'` die `clientWidth` bei
-  640 px, sodass die Messung leer läuft; bei echten 320 px Fensterbreite überläuft nichts. Fertig,
-  wenn unter 640 px jeder Bezirk genau einmal als Liste erscheint, die Bereichsnavigation auch mobil
-  erreichbar bleibt, je eine Messung beides festhält **und** die Zoom-Messung auf Linux grün ist —
-  der Reflow ist vor der nächsten Umsetzung auf einem Linux-Läufer zu reproduzieren.
+  erreichbar. Fertig, wenn unter 640 px jeder Bezirk genau einmal als Liste erscheint, die
+  Bereichsnavigation auch mobil erreichbar bleibt, je eine Messung beides festhält und die
+  Reflow-Messung „200-Prozent-Zoom und reduzierte Bewegung bewahren die Kernfunktionen“
+  (`tests/browser-smoke.spec.ts`, 320 × 360 CSS-Pixel bei Gerätepixelverhältnis 2) grün bleibt.
 
 ## Bilder
 
