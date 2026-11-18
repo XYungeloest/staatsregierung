@@ -129,8 +129,8 @@ einmal gebaut; die `*:run`-Varianten arbeiten auf dem vorhandenen Build.
 - Der Hinweis auf die politische Simulation bleibt sichtbar in der oberen Hinweisleiste und im Footer. Außerhalb dieser festen Hinweise bleiben öffentliche Texte frei von Wiederholungen; das Impressum enthält die erforderliche ausführliche Einordnung des fiktiven Internetangebots.
 - Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote wird ausschließlich aus `packages/shared/src/config/editorial.json` gelesen. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote. Der Stichtag wird mit `npm run norms:advance-reference-date -- --to <Datum> --write` fortgeschrieben (zieht die Statusfelder betroffener Normen mit; ohne `--write` nur Audit).
 - Operative technische Begriffe sind in interner Doku und Code zulässig.
-- Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor. Max Peterson leitet als Staatsrat das Staatssekretariat für Wirtschaft und Arbeit.
-- Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle leitet seit dem 21. Juli 2026 sowohl Nachhaltigkeit und Energie als auch Staats- und Grenzsicherheit.
+- Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor; seit dem 7. September 2026 amtiert der zweite Staatsrat. Im ersten Staatsrat leitete Max Peterson Wirtschaft und Arbeit, Yannik Schmäle Nachhaltigkeit und Energie sowie Staats- und Grenzsicherheit.
+- Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle ist seit dem 7. September 2026 Stellvertreter des Staatspräsidenten und Staatsrat für Frieden.
 - Kein neues Profil für Gerhardt Lehrmann anlegen.
 - Regierungschef, Stellvertretung, Mitgliedschaft, Ämter und Ressortleitungen werden ausschließlich
   aus `content/organisation/` abgeleitet. Personen- und Ressortprofile enthalten diese Felder nicht.

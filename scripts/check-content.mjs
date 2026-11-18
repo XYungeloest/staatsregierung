@@ -17,7 +17,9 @@ import { hasSpacedLetters } from './lib/norm-html-parser.mjs';
 import {
   citationLabelMatchesNormType,
   isCompatiblePublicationEntryType,
+  PUBLICATION_ENTRY_TYPES,
 } from './lib/publication-entry-types.mjs';
+import { hasPublicationTranscription } from './lib/publication-pdf.mjs';
 
 const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
@@ -912,9 +914,20 @@ for (const { file, json } of records) {
           }
           if (typeof source.verifiedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source.verifiedAt)) {
             addProblem(file, `${sourcePath}.verifiedAt muss als ISO-Datum dokumentiert sein`);
+          } else if (source.verifiedAt < json.date || source.verifiedAt > referenceDate) {
+            addProblem(file, `${sourcePath}.verifiedAt ${source.verifiedAt} liegt nicht zwischen Ausgabedatum ${json.date} und Stichtag ${referenceDate}`);
           }
           if (!['structure-bearing', 'visual-control'].includes(source.sourceRole)) {
             addProblem(file, `${sourcePath}.sourceRole muss structure-bearing oder visual-control sein`);
+          }
+          if (source.kind === 'primary-pdf') {
+            const transcribed = hasPublicationTranscription(json.sourceReferences);
+            if (source.sourceRole === 'visual-control' && !transcribed) {
+              addProblem(file, `${sourcePath}: visual-control setzt eine Transkription derselben Ausgabe voraus; ein einziges PDF ist structure-bearing`);
+            }
+            if (source.sourceRole === 'structure-bearing' && transcribed) {
+              addProblem(file, `${sourcePath}: ein PDF ist neben einer Transkription nur visual-control`);
+            }
           }
           if (source.kind === 'primary-pdf' && (!Number.isInteger(source.pageCount) || source.pageCount < 1)) {
             addProblem(file, `${sourcePath}.pageCount muss die Seitenzahl des PDFs enthalten`);
@@ -988,6 +1001,8 @@ for (const { file, json } of records) {
 
       if (typeof entry.type !== 'string' || entry.type.trim().length === 0) {
         addProblem(file, `${entryPath}.type fehlt oder ist leer`);
+      } else if (!PUBLICATION_ENTRY_TYPES.includes(entry.type)) {
+        addProblem(file, `${entryPath}.type „${entry.type}“ ist keine zulässige Eintragsart (${PUBLICATION_ENTRY_TYPES.join(', ')})`);
       }
 
       if (entry.startPage && entry.pages) {

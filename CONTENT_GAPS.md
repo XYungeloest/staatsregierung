@@ -102,6 +102,24 @@ kennt:
   betrifft das betriebsnotwendige Vermögen. Der Wortlaut wird unverändert wiedergegeben; die
   Abweichung ist im Datierungshinweis der Norm dokumentiert. HTML und PDF stimmen überein.
 
+## Vereinsverbote vom 28. Oktober 2026 (StAnzO. 2026 Nr. 46 und 47)
+
+- **Nur PDF, kein Normdatensatz** — beide Ausgaben liegen ausschließlich als PDF vor
+  (`StAnzO. 2026 Nr. 46.pdf`, `StAnzO. 2026 Nr. 47.pdf`). Anders als die Vereinsverbote in
+  StAnzO. 2026 Nr. 10 und 11 sind sie deshalb nur als Verkündung mit dem Eintrag
+  „Bekanntmachung“ ohne Normbezug erfasst. Zur Lösung fehlt eine strukturtragende HTML-Fassung der
+  amtlichen Ausgaben.
+- **Nr. 46: Inhaltsverzeichnis und Überschrift** — das Inhaltsverzeichnis nennt die Vereinigung
+  „Chemnitz Revolte (Revulotion Chemnitz)“ mit dem Schreibfehler „Revulotion“, die Überschrift im
+  Dokumentkörper nur „Chemnitz Revolte“. Der Datensatz folgt der Überschrift.
+- **Nr. 47: Abkürzung „DJV“** — das Inhaltsverzeichnis nennt „Deutsche Jugend Voran (DJV)“, die
+  Überschrift im Dokumentkörper nur „Deutsche Jugend Voran“; die Verfügung verwendet in den
+  Nummern 1 bis 3 die Abkürzung „DJV“, ohne sie im Dokumentkörper einzuführen. Der Datensatz folgt
+  der Überschrift.
+- **Beide: Verfügung Nummer 1 ohne Schlusspunkt** — der Satz endet in beiden Ausgaben mit „… der
+  Bundesrepublik Deutschland“ ohne Punkt. Eine spätere Transkription übernimmt den Wortlaut
+  quellentreu.
+
 ## Verweise im Gesetz zur Einführung von Hinweisgebermeldestellen (OGVBl. 2026 Nr. 72)
 
 - **Artikel 2 (§ 60a Landkreisordnung) und Artikel 3 (§ 24a Bezirksordnung)** — beide

@@ -207,16 +207,28 @@ ist ein Verkündungsblatt, aber **keine Normimportquelle**.
 `--write`-Lauf ist für diese Datei ein No-op und darf **nicht** als Erledigung gelesen werden. Der
 strikte Lauf bleibt dabei grün — Grün heißt hier „nichts getan“, nicht „fertig“.
 
+**B1a — Ausgabe nur als PDF.** Liegt keine HTML-Fassung vor, ist `norms:workflow` nicht anwendbar
+(„Nicht unterstütztes Quellformat“), und der strikte Importlauf sieht das PDF gar nicht. Das PDF
+wird mit identischem Dateinamen nach `Gesetze/` kopiert und bleibt die einzige Quelle; eine eigene
+HTML- oder Markdown-Transkription wird nicht angelegt, ein Normdatensatz entsteht nicht. Der
+Eintragstitel folgt der Überschrift im Dokumentkörper; Abweichungen des Inhaltsverzeichnisses
+werden in `CONTENT_GAPS.md` vermerkt. `pdf` und `sourceReferences` setzt erst B4: Ohne
+Transkription erzeugt `norms:publications:pdf-sync` eine `primary-pdf`-Referenz mit
+`sourceRole: structure-bearing` und `verifiedAt` gleich dem redaktionellen Stichtag.
+
 **B2 — Kein Eintrag in `NEW_PUBLICATION_CONFIG`.** Ein Konfigurationseintrag für eine
 nichtnormative Ausgabe macht den strikten Lauf rot.
 
 **B3 — Verkündungsdatensatz von Hand anlegen**, Vorlage `content/verkuendungen/stanzo-2026-41.json`.
 Dateiname = `slug`. Pflichtfelder der Ausgabe: `slug`, `title`, `year`, `issue`, `date`,
-`publication`, `place`, `publisher`, `sourceReferences`, `entries`.
+`publication`, `place`, `publisher`, `sourceReferences`, `entries`; `sourceReferences` und `pdf`
+entstehen über B4.
 
 Der Eintrag in `entries[]`:
 
-- `type: 'sonstiges'` (kein `normSlug`, keine `versionId`)
+- `type` folgt der Dokumentbezeichnung (`bekanntmachung` für eine Bekanntmachung, `sonstiges` nur,
+  wenn keine Eintragsart aus `scripts/lib/publication-entry-types.mjs` passt); kein `normSlug`,
+  keine `versionId`
 - `id`, `title`
 - `citation` im Muster `<Art> vom <T>. <Monat> <JJJJ> (StAnzO. JJJJ Nr. NN S. X)` — bei gesetztem
   `documentDate` muss `vom <T>. <Monat> <JJJJ> (` wörtlich enthalten sein
@@ -224,18 +236,16 @@ Der Eintrag in `entries[]`:
 - `startPage` und `pages` schließen sich aus
 - `pageRange`/`pageCount` nicht von Hand pflegen
 
-**Bekannte Lücke:** `entries[].type` wird von `scripts/check-content.mjs` **nicht** gegen das Enum
-geprüft (nur auf „nicht leer“). Ein falscher Wert passiert `content:check` und `import-normen
---strict` und bricht erst im Build (`loadAllVerkuendungen`). Der Wert ist deshalb von Hand gegen
-`scripts/lib/publication-entry-types.mjs:10` abzugleichen.
-
 **Weitere Fallen dieses Zweigs:**
 
 - `issue` und der Nummernteil des Slugs sind **nicht** gleich formatiert: der Slug polstert auf zwei
   Stellen (`oabl-2026-01`), `issue` nicht (`"1"`).
 - Die strukturtragende Quelle der Ausgabe muss auch in den `sourceReferences` der verknüpften Normen
   stehen — bei einer normlosen Ausgabe entfällt das.
-- `sourceRole` ist kein erzwungenes Enum; ein erfundener Wert passiert alle Prüfungen.
+- `sourceRole` einer `primary-pdf`-Referenz ist an die Transkription gebunden: neben einer
+  Transkription `visual-control`, ohne sie `structure-bearing`. Der Prüflauf von
+  `norms:publications:pdf-sync` meldet nur neu verknüpfte Ausgaben, nicht geänderte Referenzen
+  bereits verknüpfter Datensätze; nach dem Schreiblauf `git status` lesen.
 - Die Quelldatei unter `Gesetze/` darf nach dem Import **nie** mehr geändert werden, auch nicht im
   Leerraum: `content:check` wird sofort rot.
 

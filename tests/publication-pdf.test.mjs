@@ -138,3 +138,35 @@ test('jede Verkündung im Bestand verweist auf ihren eigenen Slug-Namen', async 
     assert.equal(publication.pdf, publicationPdfPublicPath(publication.slug), file);
   }
 });
+
+test('einziges PDF ohne Transkription ist die strukturtragende Quelle', async () => {
+  const { publicationSourceReferences, hasPublicationTranscription } = await import('../scripts/lib/publication-pdf.mjs');
+  const pdfBytes = Buffer.from('%PDF-1.7\n1 0 obj <</Type /Page>> endobj\n2 0 obj <</Type /Page>> endobj');
+  assert.equal(hasPublicationTranscription([{ kind: 'primary-pdf' }, { kind: 'index' }], null), false);
+  assert.equal(hasPublicationTranscription([{ kind: 'legacy-markdown-transcription' }], null), true);
+  assert.equal(hasPublicationTranscription([], 'Blatt 2026 Nr. 1.html'), true);
+  const [sole] = publicationSourceReferences({
+    pdfFileName: 'Blatt 2026 Nr. 1.pdf', pdfBytes, pageRange: '2', verifiedAt: '2026-11-13', soleSource: true,
+  });
+  assert.equal(sole.sourceRole, 'structure-bearing');
+  assert.equal(sole.label, 'Amtliche Veröffentlichungsfassung');
+  assert.equal(sole.derivedSource, undefined);
+  assert.equal(sole.pageCount, 2);
+  const [, control] = publicationSourceReferences({
+    htmlFileName: 'Blatt 2026 Nr. 1.html', htmlBytes: Buffer.from('<html>'),
+    pdfFileName: 'Blatt 2026 Nr. 1.pdf', pdfBytes, pageRange: '2', verifiedAt: '2026-11-13',
+  });
+  assert.equal(control.sourceRole, 'visual-control');
+  assert.equal(control.derivedSource, 'Gesetze/Blatt 2026 Nr. 1.html');
+  assert.throws(() => publicationSourceReferences({
+    htmlFileName: 'Blatt 2026 Nr. 1.html', htmlBytes: Buffer.from('<html>'),
+    pdfFileName: 'Blatt 2026 Nr. 1.pdf', pdfBytes, soleSource: true,
+  }), /einzige Quelle trotz HTML-Fassung/u);
+});
+
+test('PDF-only-Ausgabe wird über die Ausgabenidentität ohne HTML gefunden', () => {
+  assert.deepEqual(resolvePublicationPdf({
+    publication: 'StAnzO.', year: 2031, issue: '7',
+    htmlFileName: null, pdfFileNames: ['StAnzO. 2031 Nr. 7.pdf', 'StAnzO. 2031 Nr. 6.pdf'],
+  }), { fileName: 'StAnzO. 2031 Nr. 7.pdf', strategy: 'publication-identity' });
+});

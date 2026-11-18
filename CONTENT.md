@@ -307,7 +307,8 @@ vorhanden sein.
 Nicht jede Veröffentlichung eines Verkündungsblattes ist eine Rechtsvorschrift. Ein Bericht eines
 Verfassungsorgans oder eine vergleichbare nichtnormative Veröffentlichung wird als Eintragstyp
 `sonstiges` ohne `normSlug` geführt; ein Normtyp wird dafür nicht erfunden und kein Normdatensatz
-angelegt. Fundstelle, Dokumentdatum und Seitenbereich werden wie bei jedem anderen Eintrag gepflegt.
+angelegt. Eine Bekanntmachung, die nur als PDF vorliegt, wird als `bekanntmachung` ohne `normSlug`
+geführt; das PDF ist dann die strukturtragende Quelle (`primary-pdf` mit `structure-bearing`). Fundstelle, Dokumentdatum und Seitenbereich werden wie bei jedem anderen Eintrag gepflegt.
 Der Normimporter erkennt eine Ausgabe ohne Rechtsvorschrift als solche und lässt sie unberührt; sie
 erscheint im Quellenaudit als „ohne Rechtsvorschrift“ und nicht als mehrdeutige Quelle.
 

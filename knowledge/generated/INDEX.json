@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-11-13",
   "editorialAsOf": "2026-11-13",
-  "count": 1298,
+  "count": 1301,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -1512,6 +1512,20 @@
       ],
       "validFrom": "2026-03-23",
       "validTo": "2026-03-23",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-vereinsverbote-2026-10-28",
+      "title": "Vereinsverbote gegen „Chemnitz Revolte“ und „Deutsche Jugend Voran“",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "security",
+        "associations"
+      ],
+      "validFrom": "2026-10-28",
+      "validTo": "2026-10-28",
       "target": "knowledge/timeline.json"
     },
     {
@@ -16918,6 +16932,32 @@
         "security"
       ],
       "validFrom": "2026-09-08",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-46",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 46",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "security",
+        "associations"
+      ],
+      "validFrom": "2026-10-28",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-47",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 47",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "security",
+        "associations"
+      ],
+      "validFrom": "2026-10-28",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
