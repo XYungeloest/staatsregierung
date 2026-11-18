@@ -4270,47 +4270,47 @@
                   "listId": "printed-outline",
                   "numberingStyle": "decimal",
                   "children": []
-                },
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die bisherigen Nummern 10 und 11 werden die Nummern 11 und 12.",
+          "level": 0,
+          "listId": "grlln5gv9i4j",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Nach § 13 wird folgender § 13a eingefügt:",
+          "level": 0,
+          "listId": "8vej1zxjmq2d",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
                 {
-                  "type": "item",
-                  "label": "3.",
-                  "text": "Die bisherigen Nummern 10 und 11 werden die Nummern 11 und 12.",
-                  "level": 0,
-                  "listId": "8vej1zxjmq2d",
-                  "numberingStyle": "decimal",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "4.",
-                  "text": "Nach § 13 wird folgender § 13a eingefügt:",
-                  "level": 0,
-                  "listId": "8vej1zxjmq2d",
-                  "numberingStyle": "decimal",
+                  "type": "paragraph",
+                  "label": "§ 13a",
+                  "title": "Bezirkliche Sportkoordination",
                   "children": [
                     {
-                      "type": "quotedProvision",
-                      "children": [
-                        {
-                          "type": "paragraph",
-                          "label": "§ 13a",
-                          "title": "Bezirkliche Sportkoordination",
-                          "children": [
-                            {
-                              "type": "subparagraph",
-                              "label": "(1)",
-                              "text": "Der Bezirk koordiniert im Rahmen seiner Aufgaben die regionale Sportentwicklung.",
-                              "children": []
-                            },
-                            {
-                              "type": "subparagraph",
-                              "label": "(2)",
-                              "text": "Die bezirkliche Sportkoordination begründet keine Weisungsbefugnis gegenüber Gemeinden, Landkreisen oder kreisfreien Städten, soweit gesetzlich nichts anderes bestimmt ist.”",
-                              "children": []
-                            }
-                          ]
-                        }
-                      ]
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Der Bezirk koordiniert im Rahmen seiner Aufgaben die regionale Sportentwicklung.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die bezirkliche Sportkoordination begründet keine Weisungsbefugnis gegenüber Gemeinden, Landkreisen oder kreisfreien Städten, soweit gesetzlich nichts anderes bestimmt ist.”",
+                      "children": []
                     }
                   ]
                 }

@@ -216,8 +216,13 @@
           "numberingStyle": "decimal",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "“Das Land Niedersachsen-Holstein, vertreten durch den Ministerpräsidenten, vertreten durch den Ministerpräsidenten, – zusammen in diesem Staatsvertrag „die Länder“ genannt – schließt vorbehaltlich der Zustimmung seiner verfassungsmäßig berufenen Organe den nachstehenden Staatsvertrag:”"
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "“Das Land Niedersachsen-Holstein, vertreten durch den Ministerpräsidenten, vertreten durch den Ministerpräsidenten, – zusammen in diesem Staatsvertrag „die Länder“ genannt – schließt vorbehaltlich der Zustimmung seiner verfassungsmäßig berufenen Organe den nachstehenden Staatsvertrag:”"
+                }
+              ]
             }
           ]
         },

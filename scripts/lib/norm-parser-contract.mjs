@@ -4,7 +4,12 @@
  * Nachweis nennt die PDF-Seite, auf der die Zählung sichtbar ist. Jeder andere Befund bleibt
  * ein Abbruchgrund.
  */
-export const ACCEPTED_SEQUENCE_ISSUES = {};
+export const ACCEPTED_SEQUENCE_ISSUES = {
+  'OGVBl. 2026 Nr. 21.html': {
+    issues: ['Artikel 1 > 4.: lückenhafte Nummerierungsfolge oder nicht aufgelöster Listenwechsel (2. → 4.)'],
+    evidence: 'PDF S. 5 und HTML: Artikel 1 Nummer 3 steht als leere Nummer zwischen Nummer 2 und Nummer 4.',
+  },
+};
 
 export function acceptedSequenceIssuesFor(fileName) {
   return ACCEPTED_SEQUENCE_ISSUES[fileName]?.issues ?? [];

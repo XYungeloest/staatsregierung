@@ -1907,25 +1907,26 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a.",
-          "text": "PCB (polychlorierte Biphenyle);",
-          "level": 0,
-          "listId": "gzkdywmegxex",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b.",
-          "text": "PCT (polychlorierte Terphenyle).",
-          "level": 0,
-          "listId": "gzkdywmegxex",
-          "numberingStyle": "lower-latin",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "PCB (polychlorierte Biphenyle);",
+              "level": 1,
+              "listId": "gzkdywmegxex",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "PCT (polychlorierte Terphenyle).",
+              "level": 1,
+              "listId": "gzkdywmegxex",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",

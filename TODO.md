@@ -51,6 +51,16 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   belegt)“. Fertig, wenn jedes dieser Schlagwörter entweder amtlich belegt oder als redaktionelle
   Entscheidung dokumentiert ist.
 
+- [ ] Listenverschachtelung: verbleibende Grenzfälle des HTML-Parsers. Flach bleiben Nummern nach
+  einem Absatz „(n)“, der ohne Doppelpunkt endet (OGVBl. 2026 Nr. 77, Artikel 4 Nummer 2, § 10b
+  Absatz 2), Buchstaben nach einem Einleitungsabsatz zwischen Nummer und Buchstabenliste
+  (StAnzO. 2026 Nr. 32, Abschnitt II Nummer 5) und der zitierte Wortlaut in mit Zeilenumbruch
+  gesetzten Berichtigungsbuchstaben (OGVBl. 2026 Nr. 68, Nummer 7). Eine Regel ohne Doppelpunkt
+  verändert zusätzlich rund 15 Ausgaben, deren Absatzlisten heute der Bestandsform folgen. Fertig,
+  wenn die drei Muster in `tests/norm-html-parser.test.mjs` synthetisch abgedeckt, die betroffenen
+  Quellen nach `docs/NORM_WORKFLOW.md` neu eingelesen sind und die Struktur an diesen Stellen dem
+  PDF entspricht.
+
 ## Staatsportal
 
 ### Lange Seiten und Datenansichten

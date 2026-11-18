@@ -480,3 +480,248 @@ test('gedruckte Buchstaben ohne vorangehende Nummer bleiben Fließtext', () => {
     <p>b. Unterlagen einzusehen.</p>`);
   assert.ok(section.children.every((block) => block.type !== 'item'));
 });
+
+// Verschachtelung von Listen in Änderungsbefehlen, Einführungszitaten und zitierten Neufassungen.
+// Google Docs legt jede Unterliste als eigene Liste an; maßgeblich sind Einzug, Gliederungsrang
+// und gedruckte Gliederungszeichen. Synthetische Fälle ohne reale Norm.
+function listCss(id, level, style, before = '', after = '. ') {
+  return `.lst-kix_${id}-${level}>li:before{content:"${before}" counter(lst-ctn-kix_${id}-${level},${style}) "${after}"}
+    ol.lst-kix_${id}-${level}.start{counter-reset:lst-ctn-kix_${id}-${level} 0}`;
+}
+
+function nestingFixture(content, css = '') {
+  const html = `<!doctype html><html><head><style>${css}</style></head><body>
+    <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>
+    <p>Nr. 99</p><p>Ausgegeben zu Dresden am 27. August 2026</p>
+    <p>Inhaltsverzeichnis</p><p>27. August 2026 Richtlinie über einen Hierarchietest Seite 2</p>
+    <p>Richtlinie<br>über einen Hierarchietest<br>vom 27. August 2026</p>
+    <h2>I.<br>Prüfbereich</h2>${content}
+    <p>Dresden, den 27. August 2026</p></body></html>`;
+  const parsed = parsePublicationHtml('hierarchie-fixture.html', html);
+  return { parsed, section: parsed.body.find((block) => block.label === 'I.') };
+}
+
+const listItems = (blocks) => (blocks ?? []).filter((block) => block.type === 'item' || block.type === 'subparagraph');
+const listLabels = (blocks) => listItems(blocks).map((block) => block.label);
+const quoteOf = (block) => block.children?.find((child) => child.type === 'quotedProvision');
+
+function readingOrder(blocks, output = []) {
+  for (const block of blocks ?? []) {
+    output.push([block.label, block.text].filter(Boolean).join(' '));
+    readingOrder(block.children, output);
+  }
+  return output.join(' ').replace(/\s+/gu, ' ');
+}
+
+const CMD = listCss('cmd', 0, 'decimal') + listCss('sub', 0, 'lower-latin', '', ') ') + listCss('sub', 1, 'lower-roman', '', ') ');
+
+test('Buchstaben einer eigenen Liste unter einem Änderungsbefehl „… wird wie folgt geändert:“ werden dessen Unterpunkte', () => {
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">§ 1 wird wie folgt geändert:</li></ol>
+    <ol class="lst-kix_sub-0 start" start="1"><li style="margin-left:72pt">In Absatz 1 wird das Wort „Stelle“ durch das Wort „Behörde“ ersetzt.</li>
+      <li style="margin-left:72pt">In Absatz 2 wird das Wort „unverzüglich“ gestrichen.</li></ol>
+    <ol class="lst-kix_cmd-0" start="2"><li style="margin-left:36pt">§ 2 wird aufgehoben.</li></ol>`, CMD);
+  assert.deepEqual(listLabels(s.children), ['1.', '2.']);
+  assert.deepEqual(listLabels(listItems(s.children)[0].children), ['a)', 'b)']);
+});
+
+test('in einer zitierten Neufassung gilt dieselbe Einrückungsregel wie außerhalb des Zitats', () => {
+  const css = CMD + listCss('abs', 0, 'decimal', '(', ') ') + listCss('nr', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">§ 3 wird wie folgt gefasst:</li></ol>
+    <h4>„§ 3<br>Ausnahmen</h4>
+    <ol class="lst-kix_abs-0 start" start="1"><li style="margin-left:72pt">Ausgenommen sind:</li></ol>
+    <ol class="lst-kix_nr-0 start" start="1"><li style="margin-left:108pt">Aufträge geringen Umfangs,</li><li style="margin-left:108pt">Aufträge im Notfall.</li></ol>
+    <ol class="lst-kix_abs-0" start="2"><li style="margin-left:72pt">Das Nähere regelt eine Verordnung.“</li></ol>`, css);
+  const paragraph = quoteOf(listItems(s.children)[0]).children.find((block) => block.type === 'paragraph');
+  const [one, two] = listItems(paragraph.children);
+  assert.deepEqual([one.label, two.label], ['(1)', '(2)']);
+  assert.deepEqual(listLabels(one.children), ['1.', '2.']);
+});
+
+test('ein Absatz ohne Doppelpunkt behält die gespeicherte Geschwisterkonvention seiner Nummern', () => {
+  const css = listCss('abs', 0, 'decimal', '(', ') ') + listCss('nr', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <h4>§ 1<br>Begriffe</h4>
+    <ol class="lst-kix_abs-0 start" start="1"><li style="margin-left:36pt">Im Sinne dieser Richtlinie ist</li></ol>
+    <ol class="lst-kix_nr-0 start" start="1"><li style="margin-left:72pt">Stelle jede Behörde,</li><li style="margin-left:72pt">Vorgang jede Bearbeitung.</li></ol>`, css);
+  const paragraph = s.children.find((block) => block.type === 'paragraph');
+  assert.deepEqual(listLabels(paragraph.children), ['(1)', '1.', '2.']);
+});
+
+test('ein Zitat endet vor dem nächsten sichtbaren Geschwister seines Änderungsbefehls trotz neuer Listen-ID', () => {
+  const css = listCss('cmdA', 0, 'decimal') + listCss('cmdB', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmdA-0 start" start="2"><li style="margin-left:36pt">In § 5 wird nach Nummer 2 folgende Nummer 3 eingefügt:</li></ol>
+    <p style="margin-left:72pt">„3. die Prüfung der Unterlagen,“.</p>
+    <ol class="lst-kix_cmdB-0 start" start="3"><li style="margin-left:36pt">Die bisherige Nummer 3 wird Nummer 4.</li></ol>`, css);
+  assert.deepEqual(listLabels(s.children), ['2.', '3.']);
+  assert.equal(quoteOf(listItems(s.children)[0]).children.length, 1);
+});
+
+test('ein mit „3.“ beginnender Zitatinhalt beendet das Zitat nicht vorzeitig', () => {
+  const css = listCss('cmdA', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmdA-0 start" start="2"><li style="margin-left:36pt">In § 5 werden folgende Nummern 3 und 4 angefügt:</li></ol>
+    <p style="margin-left:36pt">„3. die Prüfung,</p>
+    <p style="margin-left:36pt">4. die Entscheidung.“</p>
+    <ol class="lst-kix_cmdA-0" start="3"><li style="margin-left:36pt">§ 6 wird aufgehoben.</li></ol>`, css);
+  assert.deepEqual(listLabels(s.children), ['2.', '3.']);
+  assert.deepEqual(listLabels(quoteOf(listItems(s.children)[0]).children), ['3.', '4.']);
+});
+
+test('Befehl und Unterbefehle auf zwei Listen-IDs: das Zitat eines Buchstabens endet vor dem nächsten Buchstaben', () => {
+  const css = listCss('p', 0, 'decimal') + listCss('q', 7, 'lower-latin') + listCss('r', 1, 'lower-latin', '', ') ') + listCss('s', 0, 'lower-latin');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_p-0 start" start="16"><li style="margin-left:36pt">§ 29 wird wie folgt geändert:</li></ol>
+    <ol class="lst-kix_q-7 start" start="1"><li style="margin-left:54pt">Absatz 1 Nummer 2 wird wie folgt neugefasst:</li></ol>
+    <p style="margin-left:54pt">„die Leitung über die Beschäftigten,</p>
+    <ol class="lst-kix_r-1 start" start="1"><li style="margin-left:75pt">die bei der Stelle und</li><li style="margin-left:75pt">die bei den Außenstellen</li></ol>
+    <p style="margin-left:57pt">beschäftigt sind;“</p>
+    <ol class="lst-kix_s-0 start" start="2"><li style="margin-left:54pt">In Absatz 2 wird das Wort „Land“ gestrichen.</li></ol>
+    <ol class="lst-kix_p-0" start="17"><li style="margin-left:36pt">§ 30 wird aufgehoben.</li></ol>`, css);
+  assert.deepEqual(listLabels(s.children), ['16.', '17.']);
+  const sixteen = listItems(s.children)[0];
+  assert.deepEqual(listLabels(sixteen.children), ['a.', 'b.']);
+  assert.deepEqual(listLabels(quoteOf(listItems(sixteen.children)[0]).children), ['a)', 'b)']);
+});
+
+test('ein Einfügebefehl ohne Doppelpunkt vor einem öffnenden Anführungszeichen leitet ein Zitat ein', () => {
+  const css = listCss('cmd', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">Nach § 6 wird folgender § 6a eingefügt</li></ol>
+    <h4>“§ 6a<br>Schutz</h4><p style="margin-left:72pt">(1) Erster Satz.</p><p style="margin-left:72pt">(2) Zweiter Satz.”</p>
+    <ol class="lst-kix_cmd-0" start="2"><li style="margin-left:36pt">§ 7 wird aufgehoben.</li></ol>`, css);
+  assert.deepEqual(listLabels(s.children), ['1.', '2.']);
+  assert.equal(quoteOf(listItems(s.children)[0])?.children[0].label, '§ 6a');
+  assert.ok(!s.children.some((block) => block.type === 'paragraph'));
+});
+
+test('„… wird wie folgt gefasst:“ vor unzitierten Unterpunkten derselben Liste bildet kein Zitat', () => {
+  const css = listCss('cmd', 0, 'decimal') + listCss('cmd', 1, 'lower-latin');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">§ 2 wird wie folgt gefasst:</li></ol>
+    <ol class="lst-kix_cmd-1 start" start="1"><li style="margin-left:72pt">In Absatz 1 wird das Wort „Abs.“ durch das Wort „Absatz“ ersetzt.</li>
+      <li style="margin-left:72pt">In Absatz 2 wird das Wort „Nr.“ durch das Wort „Nummer“ ersetzt.</li></ol>`, css);
+  const one = listItems(s.children)[0];
+  assert.equal(quoteOf(one), undefined);
+  assert.deepEqual(listLabels(one.children), ['a.', 'b.']);
+});
+
+test('mit Zeilenumbruch gesetzte Buchstaben werden einzelne Unterpunkte der vorangehenden gedruckten Ziffer', () => {
+  const { section: s } = nestingFixture(`
+    <p>4. Art der Leistung</p>
+    <p>4.1 Als Leistung gelten insbesondere</p>
+    <p>a) die erste Leistung,<br> b) die zweite Leistung.</p>
+    <p>4.2 Weitere Leistungen sind ausgeschlossen.</p>`);
+  const four = listItems(s.children)[0];
+  assert.deepEqual(listLabels(four.children), ['4.1', '4.2']);
+  assert.deepEqual(listLabels(listItems(four.children)[0].children), ['a)', 'b)']);
+  assert.equal(listItems(listItems(four.children)[0].children)[0].text, 'die erste Leistung,');
+});
+
+test('mit Zeilenumbruch gesetzte Buchstaben in einem Listenpunkt werden dessen Unterpunkte samt Zitat', () => {
+  const css = listCss('cmd', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">§ 7 Absatz 1 wird wie folgt geändert:<br>a) In Nummer 1 wird das Wort „und“ gestrichen.<br> b) Nach Nummer 1 wird folgende Nummer 2 eingefügt:<br> „2. die Aufsicht und“.<br> c) Die bisherige Nummer 2 wird Nummer 3.</li>
+      <li style="margin-left:36pt">§ 8 wird aufgehoben.</li></ol>`, css);
+  const one = listItems(s.children)[0];
+  assert.equal(one.text, '§ 7 Absatz 1 wird wie folgt geändert:');
+  assert.deepEqual(listLabels(one.children), ['a)', 'b)', 'c)']);
+  assert.ok(quoteOf(listItems(one.children)[1]));
+  assert.deepEqual(listLabels(s.children), ['1.', '2.']);
+});
+
+test('gedruckte Buchstaben unter einem tiefer eingerückten Absatz „(n)“ werden dessen Unterpunkte', () => {
+  const { section: s } = nestingFixture(`
+    <p style="margin-left:36pt">(2) Das Recht umfasst insbesondere das Recht,</p>
+    <p style="margin-left:72pt">a. an Wahlen teilzunehmen,</p>
+    <p style="margin-left:72pt">b. Eingaben zu richten.</p>
+    <p style="margin-left:36pt">(3) Niemand darf benachteiligt werden.</p>`);
+  const [two, three] = listItems(s.children);
+  assert.deepEqual(listLabels(two.children), ['a.', 'b.']);
+  assert.equal(three.label, '(3)');
+});
+
+test('Doppelbuchstaben nach einem Buchstabenpunkt werden dessen Unterpunkte, die Buchstabenliste läuft danach weiter', () => {
+  const css = CMD;
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">§ 13 wird wie folgt geändert:</li></ol>
+    <ol class="lst-kix_sub-0 start" start="1"><li style="margin-left:72pt">In Absatz 1 wird das Wort „Land“ ersetzt.</li><li style="margin-left:72pt">Absatz 2 wird wie folgt geändert:</li></ol>
+    <p style="margin-left:72pt">aa) In Satz 1 wird das Wort „Schule“ ersetzt.</p>
+    <p style="margin-left:72pt">bb) In Satz 2 wird das Wort „Klasse“ ersetzt.</p>
+    <ol class="lst-kix_sub-0" start="3"><li style="margin-left:72pt">Absatz 3 wird aufgehoben.</li></ol>`, css);
+  const one = listItems(s.children)[0];
+  assert.deepEqual(listLabels(one.children), ['a)', 'b)', 'c)']);
+  assert.deepEqual(listLabels(listItems(one.children)[1].children), ['aa)', 'bb)']);
+});
+
+test('eine tiefer eingerückte, neu bei 1 beginnende Liste nach einer gedruckten Nummer ist deren Unterliste', () => {
+  const css = listCss('sub', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <p>1. Ziel</p><p>Der Austausch wird erleichtert.</p>
+    <p>2. Pilotberufe</p>
+    <ol class="lst-kix_sub-0 start" start="1"><li style="margin-left:36pt">Pflege</li><li style="margin-left:36pt">Rettungsdienst</li></ol>
+    <p>3. Koordinierung</p>`, css);
+  const [, two, three] = listItems(s.children);
+  assert.deepEqual(listLabels(two.children), ['1.', '2.']);
+  assert.equal(three.label, '3.');
+});
+
+test('eine bei 1 beginnende Liste unmittelbar nach einer mehrstufigen Ziffer ist deren Unterliste', () => {
+  const css = listCss('sub', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <p>4. Begutachtung</p>
+    <p style="margin-left:36pt">4.1 Ein Gutachten ist vorzulegen.</p>
+    <p style="margin-left:36pt">4.2 Das Gutachten enthält Feststellungen zu</p>
+    <ol class="lst-kix_sub-0 start" start="1"><li style="margin-left:36pt">dem Hersteller,</li><li style="margin-left:36pt">dem Baujahr.</li></ol>
+    <p style="margin-left:36pt">4.3 Unterlagen sind beizufügen.</p>`, css);
+  const four = listItems(s.children)[0];
+  assert.deepEqual(listLabels(four.children), ['4.1', '4.2', '4.3']);
+  assert.deepEqual(listLabels(listItems(four.children)[1].children), ['1.', '2.']);
+});
+
+test('eine Buchstabenliste ab „a)“ unmittelbar nach einer Nummer ist deren Unterliste, nach Fließtext nicht', () => {
+  const css = listCss('num', 0, 'decimal') + listCss('let', 0, 'lower-latin', '', ') ') + listCss('let2', 0, 'lower-latin', '', ') ');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_num-0 start" start="3"><li style="margin-left:36pt">Klassenstufe 8</li></ol>
+    <ol class="lst-kix_let-0 start" start="1"><li style="margin-left:36pt">Der Lernbereich 2 wird gestrichen.</li><li style="margin-left:36pt">Der Lernbereich 3 wird gestrichen.</li></ol>
+    <ol class="lst-kix_num-0" start="4"><li style="margin-left:36pt">Klassenstufe 9</li></ol>
+    <p style="margin-left:36pt">Eigenständiger Hinweis.</p>
+    <ol class="lst-kix_let2-0 start" start="1"><li style="margin-left:36pt">Unabhängiger Punkt.</li></ol>`, css);
+  const [three, four] = listItems(s.children);
+  assert.deepEqual(listLabels(three.children), ['a)', 'b)']);
+  assert.deepEqual(listLabels(four.children), []);
+});
+
+test('ein Zitat endet vor dem nächsten römischen Abschnitt der äußeren Gliederung', () => {
+  const css = listCss('cmd', 0, 'decimal');
+  const { parsed } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">Folgende Anlage 8 wird angefügt:</li></ol>
+    <p>„Anlage 8</p><p>Muster</p><p>“</p>
+    <h2>II.<br>Inkrafttreten</h2><p>Diese Richtlinie tritt am Tag nach der Verkündung in Kraft.</p>`, css);
+  assert.deepEqual(parsed.body.filter((block) => block.type === 'section').map((block) => block.label), ['I.', 'II.']);
+});
+
+test('„… erhält folgende Fassung:“ leitet eine Neufassung ein', () => {
+  const css = listCss('cmd', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_cmd-0 start" start="1"><li style="margin-left:36pt">Die Präambel erhält folgende Fassung:</li></ol>
+    <p style="margin-left:72pt">„Im Bewusstsein der Verantwortung gibt sich das Land diese Ordnung.“</p>
+    <ol class="lst-kix_cmd-0" start="2"><li style="margin-left:36pt">§ 1 wird aufgehoben.</li></ol>`, css);
+  assert.ok(quoteOf(listItems(s.children)[0]));
+  assert.deepEqual(listLabels(s.children), ['1.', '2.']);
+});
+
+test('die neue Verschachtelung verändert nie die Lesereihenfolge der Quelle', () => {
+  const css = CMD + listCss('let', 0, 'lower-latin', '', ') ');
+  const content = `
+    <ol class="lst-kix_cmd-0 start" start="3"><li style="margin-left:36pt">Klassenstufe 8</li></ol>
+    <ol class="lst-kix_let-0 start" start="1"><li style="margin-left:36pt">Der Lernbereich 2 erhält folgende Fassung:</li></ol>
+    <p style="margin-left:30pt">„Lernbereich 2: Neue Fassung</p><p style="margin-left:30pt">Kennen der Grundlagen.“</p>
+    <ol class="lst-kix_let-0" start="2"><li style="margin-left:36pt">Im Lernbereich 4 wird ein Satz angefügt.</li></ol>
+    <ol class="lst-kix_cmd-0" start="4"><li style="margin-left:36pt">Klassenstufe 9</li></ol>`;
+  const { section: s } = nestingFixture(content, css);
+  assert.equal(readingOrder(s.children).replace(/„|“/gu, ''),
+    '3. Klassenstufe 8 a) Der Lernbereich 2 erhält folgende Fassung: Lernbereich 2: Neue Fassung Kennen der Grundlagen. b) Im Lernbereich 4 wird ein Satz angefügt. 4. Klassenstufe 9');
+});

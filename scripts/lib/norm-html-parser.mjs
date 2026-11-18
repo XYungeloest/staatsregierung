@@ -20,7 +20,7 @@ const OFFICE_SMALL_WORDS = new Set([
 ]);
 const PAGE_FURNITURE_PATTERN = /^(?:Seite\s*\d*|(?:OABl|OGVBl|StAnzO|OVertrBl|GMBl)\.\s*(?:Nr\.\s*\d+\s+)?\d{1,2}\.\s*\p{L}+\s+\d{4}(?:\s+Seite\s*\d*)?)$/u;
 const CONTAMINATION_PATTERN = /data:image|;base64,|@font-face|@import\s+url|<style|Inhaltsverzeichnis|Nichtamtliches Inhaltsverzeichnis/iu;
-const QUOTE_TRIGGER_PATTERN = /(?:(?:wird|werden)\s+(?:wie folgt|durch folgende|durch die nachstehende)\s+(?:neu\s*)?(?:gefasst|eingefügt)|(?:wird|werden)\s+[^:]*?(?:eingefügt|angefügt|(?:neu\s*)?gefasst)|(?:wird|werden)\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+(?:Fassung|Anlage)\s+(?:ersetzt|abgelöst)|(?:erhält|erhalten)\s+folgende\s+Bezeichnung|(?:wird|werden)\s+wie\s+folgt\s+ersetzt)\s*:\s*$/iu;
+const QUOTE_TRIGGER_PATTERN = /(?:(?:wird|werden)\s+(?:wie folgt|durch folgende|durch die nachstehende)\s+(?:neu\s*)?(?:gefasst|eingefügt)|(?:wird|werden)\s+[^:]*?(?:eingefügt|angefügt|(?:neu\s*)?gefasst)|(?:wird|werden)\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+(?:Fassung|Anlage)\s+(?:ersetzt|abgelöst)|(?:erhält|erhalten)\s+folgende\s+(?:Bezeichnung|Fassung)|(?:wird|werden)\s+wie\s+folgt\s+ersetzt)\s*:\s*$/iu;
 const AMENDMENT_REFERENCE_PATTERN = /\b(?:wird|werden)\b[^:]*\b(?:geändert|aufgehoben|ersetzt|gefasst|eingefügt|angefügt|verschoben|umbenannt)\b\s*:?\s*$/iu;
 const INTRODUCTION_PATTERN = /^(?:Das\s+nachstehende\s+wird\s+(Gesetz|Verordnung):|.+?wird\s+durch\s+die\s+nachstehende\s+(.+?)\s+abgelöst:)$/iu;
 const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
@@ -587,12 +587,14 @@ function textWithoutNestedLists(node) {
 // Gedruckte Buchstaben „a.“, „b.“ … als einfache Absätze unter einer Nummer, deren Text mit
 // einem Doppelpunkt endet: Sie bilden die Unterpunkte dieser Nummer. Erkannt wird nur die
 // lückenlose Folge ab „a.“ unmittelbar nach der Nummer; sonst bleibt der Absatz Fließtext.
-function printedLetterItem(text, previousToken) {
+function printedLetterItem(text, previousToken, indent = 0) {
   const match = normalizeHtmlText(text).match(/^([a-z])\.\s+(.+)$/u);
-  if (!match || previousToken?.kind !== 'listItem') return null;
+  const underSubparagraph = previousToken?.kind === 'paragraph' && /^\(\d+[a-z]?\)\s/u.test(previousToken.text ?? '') &&
+    indent > (previousToken.indent ?? 0) + 0.5;
+  if (!match || (previousToken?.kind !== 'listItem' && !underSubparagraph)) return null;
   const letter = match[1];
-  const opensPrintedSublist = letter === 'a' && previousToken.numberingStyle === 'decimal' &&
-    /:\s*$/u.test(previousToken.text ?? '');
+  const opensPrintedSublist = letter === 'a' && (underSubparagraph || (previousToken.numberingStyle === 'decimal' &&
+    /:\s*$/u.test(previousToken.text ?? '')));
   const continuesPrintedSublist = previousToken.printedLetter &&
     letter.charCodeAt(0) === previousToken.printedLetter.charCodeAt(0) + 1;
   if (!opensPrintedSublist && !continuesPrintedSublist) return null;
@@ -606,10 +608,102 @@ function printedLetterItem(text, previousToken) {
   };
 }
 
+const PRINTED_LETTER_LINE = /^([a-z]{1,2})([.)])\s+(\S.*)$/u;
+
+// Zerlegt einen mit <br> umbrochenen Absatz oder Listenpunkt an Zeilen, die mit einem
+// gedruckten Buchstabenzeichen („a)“, „aa)“, „a.“) beginnen. Erkannt werden nur lückenlose
+// Folgen ab „a“ bzw. „aa“; Zeilen mit öffnendem Anführungszeichen nach einem Doppelpunkt
+// bleiben eigene Absätze (zitierter Wortlaut), alle anderen Zeilen setzen den Vorsatz fort.
+function splitPrintedLetterLines(rawText) {
+  const lines = String(rawText ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 2) return null;
+  const segments = [];
+  const runs = new Map();
+  for (const line of lines) {
+    const match = OPENING_QUOTE_PATTERN.test(line) ? null : line.match(PRINTED_LETTER_LINE);
+    const letters = match?.[1];
+    const double = letters?.length === 2;
+    const value = !letters ? null : double ? (letters[0] === letters[1] ? letters.charCodeAt(0) - 96 : null) : letters.charCodeAt(0) - 96;
+    const kind = letters ? `${double ? 2 : 1}${match[2]}` : null;
+    if (value && (value === 1 || runs.get(kind) === value - 1)) {
+      runs.set(kind, value);
+      segments.push({ label: true, letters, punctuation: match[2], value, double, lines: [match[3]] });
+    } else if (segments.length > 0 && OPENING_QUOTE_PATTERN.test(line) && QUOTE_TRIGGER_PATTERN.test(segments.at(-1).lines.at(-1))) {
+      segments.push({ label: false, quote: true, lines: [line] });
+    } else if (segments.length === 0) {
+      segments.push({ label: false, lines: [line] });
+    } else {
+      segments.at(-1).lines.push(line);
+    }
+  }
+  const labelCount = segments.filter((segment) => segment.label).length;
+  if (labelCount === 0 || (segments[0].label && labelCount < 2)) return null;
+  return segments;
+}
+
 function makeAtomicTokens(nodes, css, fileName) {
   const counters = new Map();
   const tokens = [];
   let standardListSequence = 0;
+  const letterRunLevels = new Map();
+
+  // Ebene eines gedruckten Buchstabenpunkts innerhalb der gedruckten Gliederung: „a)“ nach
+  // einer gedruckten Nummer liegt eine Ebene tiefer, Folgebuchstaben bleiben auf dieser Ebene.
+  const printedLetterLevel = (double, value, fallback, indent = null) => {
+    const kind = double ? 2 : 1;
+    const previous = tokens.at(-1);
+    if (value === 1) {
+      let level = fallback;
+      // Ein eigener Absatz „a) …“ wird nur bei sichtbar tieferem Einzug untergeordnet; bei
+      // <br>-Zerlegung (indent === null) trägt der gemeinsame Absatz die Zugehörigkeit.
+      const visiblyDeeper = indent === null || indent > (previous?.indent ?? 0) + 0.5;
+      if (visiblyDeeper && previous?.kind === 'listItem' && previous.listId === 'printed-outline') {
+        if (!double && previous.numberingStyle === 'decimal') level = previous.level + 1;
+        if (double && previous.numberingStyle === 'lower-latin' && previous.printedLetterKind === 1) level = previous.level + 1;
+      }
+      letterRunLevels.set(kind, { level, index: tokens.length });
+      return level;
+    }
+    const run = letterRunLevels.get(kind);
+    if (!run || tokens.slice(run.index).some((entry) => entry.kind !== 'listItem')) return fallback;
+    return run.level;
+  };
+
+  const printedLetterToken = (segment, indent) => {
+    const level = printedLetterLevel(segment.double, segment.value, segment.double ? 1 : 0);
+    return {
+      kind: 'listItem',
+      listId: 'printed-outline',
+      label: `${segment.letters}${segment.punctuation}`,
+      text: segment.lines.join(' '),
+      level,
+      numberingStyle: 'lower-latin',
+      counterValue: segment.value,
+      numberingPrefix: '',
+      numberingSuffix: segment.punctuation,
+      printedLetterKind: segment.double ? 2 : 1,
+      startsList: segment.value === 1,
+      indent,
+    };
+  };
+
+  const emitPrintedSegments = (segments, baseIndent, { skipFirst = false } = {}) => {
+    const labelIndent = segments[0].label ? baseIndent : baseIndent + 36;
+    for (const [index, segment] of segments.entries()) {
+      if (index === 0 && skipFirst) continue;
+      const text = segment.lines.join(' ');
+      if (segment.label) {
+        tokens.push(printedLetterToken(segment, labelIndent));
+      } else if (index === 0) {
+        const printed = parsePrintedListItem(text);
+        tokens.push(printed
+          ? { kind: 'listItem', listId: 'printed-outline', ...printed, startsList: printed.level === 0, indent: baseIndent }
+          : { kind: 'paragraph', text, rawText: text, tagName: 'p', bold: false, centered: false, indent: baseIndent });
+      } else {
+        tokens.push({ kind: 'paragraph', text, rawText: text, tagName: 'p', bold: false, centered: false, indent: labelIndent });
+      }
+    }
+  };
 
   const emitStandardList = (node, listId, level = 0) => {
     const nodeAttrs = attrs(node);
@@ -705,6 +799,11 @@ function makeAtomicTokens(nodes, css, fileName) {
           startsList: hasStartClass,
           indent: visualIndent(item, css, level * 36),
         });
+        const itemSegments = splitPrintedLetterLines(normalizeHtmlText(textWithBreaks(item)));
+        if (itemSegments && !itemSegments[0].label) {
+          tokens.at(-1).text = itemSegments[0].lines.join(' ');
+          emitPrintedSegments(itemSegments, tokens.at(-1).indent, { skipFirst: true });
+        }
         counter += 1;
       }
       counters.set(key, counter - 1);
@@ -758,10 +857,15 @@ function makeAtomicTokens(nodes, css, fileName) {
       !isCentered(node, css) &&
       /\b(?:gilt|gelten|findet|finden|bleibt|bleiben|ist|sind|tritt|treten|wird|werden)\b/iu.test(marker.title ?? '');
     const markerLooksLikeHeading = marker && !inlineParagraphReference;
+    const letterSegments = !markerLooksLikeHeading ? splitPrintedLetterLines(rawText) : null;
+    if (letterSegments) {
+      emitPrintedSegments(letterSegments, visualIndent(node, css));
+      continue;
+    }
     const amendmentInstruction = QUOTE_TRIGGER_PATTERN.test(text);
     const amendmentReference = marker && ['article', 'paragraph'].includes(marker.type) && AMENDMENT_REFERENCE_PATTERN.test(marker.title ?? '');
     const printedItem = !markerLooksLikeHeading ? parsePrintedListItem(text) : null;
-    const printedLetter = !markerLooksLikeHeading && !printedItem ? printedLetterItem(text, tokens.at(-1)) : null;
+    const printedLetter = !markerLooksLikeHeading && !printedItem ? printedLetterItem(text, tokens.at(-1), visualIndent(node, css)) : null;
     if (markerLooksLikeHeading && !amendmentReference && !(amendmentInstruction && ['article', 'paragraph'].includes(marker.type))) {
       const embeddedTitle = embeddedIntroducedNormTitle(marker, rawText);
       const headingText = embeddedTitle ? rawText.split('\n').slice(0, 2).join('\n') : rawText;
@@ -782,6 +886,16 @@ function makeAtomicTokens(nodes, css, fileName) {
         });
       }
     } else if (printedItem) {
+      if (printedItem.numberingStyle === 'lower-latin') {
+        const letters = printedItem.label.slice(0, -1);
+        const double = letters.length === 2;
+        const value = double ? (letters[0] === letters[1] ? letters.charCodeAt(0) - 96 : null) : letters.charCodeAt(0) - 96;
+        if (value) {
+          printedItem.level = printedLetterLevel(double, value, printedItem.level, visualIndent(node, css));
+          printedItem.counterValue = value;
+          printedItem.printedLetterKind = double ? 2 : 1;
+        }
+      }
       tokens.push({
         kind: 'listItem',
         listId: 'printed-outline',
@@ -877,16 +991,105 @@ function endsAmendmentQuote(token) {
     (token?.kind === 'structure' && /(?:“|”|’|''|")\s*\.\s*$/u.test(text));
 }
 
+// Der Listenpunkt, dem ein Änderungsbefehl gehört: der Befehl selbst oder bei einem
+// Fortsetzungsabsatz der unmittelbar vorangehende Punkt auf derselben oder geringerer Einrückung.
+function quoteOwnerItem(tokens, index) {
+  const trigger = tokens[index];
+  if (trigger.kind === 'listItem') return trigger;
+  for (let back = index - 1; back >= 0; back -= 1) {
+    const candidate = tokens[back];
+    if (candidate.kind === 'structure' || candidate.kind === 'quotedGroup') return null;
+    if (candidate.kind === 'listItem') return (candidate.indent ?? 0) <= (trigger.indent ?? 0) + 0.5 ? candidate : null;
+  }
+  return null;
+}
+
+function isNextVisualSibling(candidate, owner) {
+  return candidate.kind === 'listItem' &&
+    !OPENING_QUOTE_PATTERN.test(candidate.text ?? '') &&
+    candidate.numberingStyle === owner.numberingStyle &&
+    listLabelShape(candidate.label) === listLabelShape(owner.label) &&
+    Number.isInteger(owner.counterValue) && candidate.counterValue === owner.counterValue + 1 &&
+    (candidate.indent ?? 0) <= (owner.indent ?? 0) + 0.5;
+}
+
+const QUOTE_TRIGGER_WITHOUT_COLON_PATTERN = new RegExp(QUOTE_TRIGGER_PATTERN.source.replace(/\\s\*:\\s\*\$$/u, '\\s*$'), 'iu');
+
+function opensQuotation(token) {
+  return token?.kind === 'structure' ? token.opensQuote : OPENING_QUOTE_PATTERN.test(token?.rawText ?? token?.text ?? '');
+}
+
+function isQuoteTrigger(token, nextToken, followingToken) {
+  if (QUOTE_TRIGGER_PATTERN.test(token.text)) {
+    // „… wird wie folgt gefasst:“ vor eigenen Unterpunkten derselben Liste ohne Anführung ist ein
+    // Änderungsbefehl mit Untergliederung, keine zitierte Neufassung.
+    if (nextToken?.kind === 'listItem' && nextToken.counterValue === 1 && !opensQuotation(nextToken) &&
+      opensQuotation(followingToken)) return false;
+    return !(nextToken?.kind === 'listItem' && token.kind === 'listItem' && nextToken.listId === token.listId &&
+      token.listId !== 'printed-outline' && nextToken.level > token.level && !opensQuotation(nextToken));
+  }
+  return QUOTE_TRIGGER_WITHOUT_COLON_PATTERN.test(token.text) && opensQuotation(nextToken);
+}
+
+// Übergeordnete Listenpunkte des Befehls: vorangehende Punkte höheren Gliederungsrangs auf
+// gleicher oder geringerer Einrückung, bis zur nächsten Gliederungsüberschrift.
+function listAncestorTokens(tokens, ownerIndex, owner) {
+  const chain = [];
+  let rank = numberingRank(owner.numberingStyle);
+  let indent = owner.indent ?? 0;
+  for (let back = ownerIndex - 1; back >= 0 && rank > 1; back -= 1) {
+    const candidate = tokens[back];
+    if (candidate.kind === 'structure') break;
+    if (candidate.kind !== 'listItem') continue;
+    const candidateRank = numberingRank(candidate.numberingStyle);
+    if (candidateRank < rank && (candidate.indent ?? 0) <= indent + 0.5) {
+      chain.push(candidate);
+      rank = candidateRank;
+      indent = candidate.indent ?? 0;
+    }
+  }
+  return chain;
+}
+
+function enclosingStructureToken(tokens, index) {
+  for (let back = index - 1; back >= 0; back -= 1) {
+    if (tokens[back].kind === 'structure' && !tokens[back].opensQuote) return tokens[back];
+  }
+  return null;
+}
+
+function structureLabelValue(label) {
+  const last = String(label ?? '').trim().replace(/[.:]$/u, '').split(/\s+/u).at(-1) ?? '';
+  if (/^\d+$/u.test(last)) return { shape: String(label).replace(last, '#'), value: Number.parseInt(last, 10) };
+  const roman = parseRomanCounter(last);
+  return roman ? { shape: String(label).replace(last, '#'), value: roman } : null;
+}
+
+function isNextStructureSibling(candidate, structure) {
+  if (candidate.kind !== 'structure' || candidate.opensQuote || candidate.marker.type !== structure.marker.type) return false;
+  // Artikel und Paragraphen kommen in zitierten Neufassungen regelmäßig mit fortlaufender Zählung vor.
+  if (['article', 'paragraph'].includes(candidate.marker.type)) return false;
+  const current = structureLabelValue(structure.marker.label);
+  const next = structureLabelValue(candidate.marker.label);
+  return Boolean(current && next && current.shape === next.shape && next.value === current.value + 1);
+}
+
 function groupAmendmentQuotes(tokens) {
   const grouped = [];
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
     grouped.push(token);
-    if (!['listItem', 'paragraph'].includes(token.kind) || !QUOTE_TRIGGER_PATTERN.test(token.text)) continue;
+    if (!['listItem', 'paragraph'].includes(token.kind) || !isQuoteTrigger(token, tokens[index + 1], tokens[index + 2])) continue;
     let end = index + 1;
     let sawContent = false;
+    const owner = quoteOwnerItem(tokens, index);
+    const ownerChain = owner ? listAncestorTokens(tokens, tokens.indexOf(owner), owner) : [];
+    const outerStructure = enclosingStructureToken(tokens, index);
     while (end < tokens.length) {
       const candidate = tokens[end];
+      if (sawContent && owner && isNextVisualSibling(candidate, owner)) break;
+      if (sawContent && ownerChain.some((ancestor) => isNextVisualSibling(candidate, ancestor))) break;
+      if (sawContent && outerStructure && isNextStructureSibling(candidate, outerStructure)) break;
       if (candidate.kind === 'listItem' && candidate.listId === token.listId && candidate.level <= token.level) break;
       if (
         sawContent &&
@@ -930,6 +1133,10 @@ function numberingRank(style) {
   if (style === 'lower-roman' || style === 'upper-roman') return 3;
   if (style === 'bullet' || style === 'literal') return 4;
   return 0;
+}
+
+function listLabelShape(label) {
+  return String(label ?? '').trim().replace(/\p{L}/gu, 'a').replace(/\d+/gu, '1');
 }
 
 function standaloneListMarkerToken(token, nextToken) {
@@ -1065,7 +1272,7 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         !/[.!?;:]\s*$/u.test(lastListState.block.text ?? '') &&
         /\b(?:der|die|das|den|dem|des|ein|eine|einer|einem|einen|ist|sind|bei|durch|für|mit|nach|von|vor|zu|zur|zum)\s*$/iu
           .test(lastListState.block.text ?? '');
-      const continuationOfListItem = !inQuote && !subparagraph && lastListState &&
+      const continuationOfListItem = !subparagraph && lastListState &&
         !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
         !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
         (lastListState.continuationOpen || /:\s*$/u.test(lastListState.block.text ?? '') || syntacticallyOpenListItem) &&
@@ -1106,7 +1313,24 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       }
       let semanticLevel = token.level - baseline;
       let destination = currentChildren(stack);
-      if (token.opensPrintedSublist && lastListState && lastBlock === lastListState.block) {
+      if (token.opensPrintedSublist && lastBlock?.type === 'subparagraph' && !lastBlock.listId) {
+        // Gedruckte Buchstabenfolge unter einem als Absatz gesetzten „(n)“.
+        semanticLevel = 1;
+        lastBlock.children ??= [];
+        destination = lastBlock.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+        parents.set(0, lastBlock);
+      } else if (token.listId === 'printed-outline' && token.printedLetterKind === 2 && token.counterValue === 1 &&
+        lastListState && lastBlock === lastListState.block && /^[a-z][.)]$/u.test(lastListState.block.label ?? '')) {
+        // Doppelbuchstaben „aa)“ unmittelbar nach einem Buchstabenpunkt bilden dessen Unterpunkte.
+        semanticLevel = lastListState.semanticLevel + 1;
+        lastListState.block.children ??= [];
+        destination = lastListState.block.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+        parents.set(semanticLevel - 1, lastListState.block);
+      } else if (token.opensPrintedSublist && lastListState && lastBlock === lastListState.block) {
         // Gedruckte Buchstabenfolge unter der unmittelbar vorangehenden Nummer.
         semanticLevel = lastListState.semanticLevel + 1;
         destination = lastListState.block.children;
@@ -1134,25 +1358,46 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         listBaselines.set(token.listId, token.level);
         parents.clear();
       }
+      const visualSibling = lastListState && token.listId !== lastListState.semanticListId &&
+        Math.abs((token.indent ?? 0) - (lastListState.indent ?? 0)) <= 0.5 &&
+        token.numberingStyle === lastListState.numberingStyle &&
+        listLabelShape(token.label) === listLabelShape(lastListState.block.label) &&
+        Number.isInteger(token.counterValue) && token.counterValue === lastListState.counterValue + 1;
+      if (visualSibling) {
+        semanticLevel = lastListState.semanticLevel;
+        destination = lastListState.destination;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+      }
       const deeperVisualIndent = token.indent > (lastListState?.indent ?? 0) + 0.5;
       const continuedAtSameIndent = !parseAmendmentQuotes && token.level > 0 &&
         token.indent >= (lastListState?.indent ?? 0) - 0.5 &&
         LIST_INTRO_END_PATTERN.test(lastListState?.block.text ?? '');
-      const mayUseVisualParent = !inQuote && (semanticLevel === 0 || continuedAtSameIndent) && lastListState &&
+      const directlyAfterItem = Boolean(lastListState) && lastBlock === lastListState.block && !lastListState.contextInterrupted;
+      // Eine neue Liste „1.“ unmittelbar nach einer mehrstufigen Ziffer („4.2“) gliedert diese weiter.
+      const opensUnderMultilevelNumber = directlyAfterItem && token.counterValue === 1 &&
+        /^\d+\.$/u.test(token.label ?? '') && /^\d+(?:\.\d+)+\.?$/u.test(lastListState.block.label ?? '');
+      // Eine Buchstabenliste ab „a“ unmittelbar nach einem Nummernpunkt gliedert diesen, auch bei
+      // gleichem Einzug.
+      const lettersOpenUnderNumber = directlyAfterItem && token.counterValue === 1 && lastListState.block.type === 'item' &&
+        numberingRank(token.numberingStyle) === 2 && numberingRank(lastListState.numberingStyle) === 1;
+      // Eine tiefer eingerückte neue Liste ab ihrem ersten Wert unmittelbar nach einem Punkt bildet
+      // dessen Unterpunkte.
+      const opensDeeperUnderItem = directlyAfterItem && deeperVisualIndent && token.counterValue === 1 &&
+        lastListState.block.type === 'item';
+      const mayUseVisualParent = !visualSibling && (semanticLevel === 0 || continuedAtSameIndent) && lastListState &&
         !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
-        !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
         token.listId !== lastListState.semanticListId &&
-        (deeperVisualIndent || continuedAtSameIndent || lastListState.opensSublist) &&
+        (deeperVisualIndent || continuedAtSameIndent || lastListState.opensSublist || opensUnderMultilevelNumber || lettersOpenUnderNumber) &&
         (
           continuedAtSameIndent ||
           lastListState.opensSublist ||
+          opensUnderMultilevelNumber ||
+          lettersOpenUnderNumber ||
+          opensDeeperUnderItem ||
           lastListState.continuationOpen ||
           /:\s*$/u.test(lastListState.block.text ?? '') ||
-          (
-            !lastListState.contextInterrupted &&
-            lastBlock === lastListState.block &&
-            numberingRank(token.numberingStyle) > numberingRank(lastListState.numberingStyle)
-          )
+          (directlyAfterItem && numberingRank(token.numberingStyle) > numberingRank(lastListState.numberingStyle))
         );
       if (mayUseVisualParent) {
         semanticLevel = lastListState.semanticLevel + 1;

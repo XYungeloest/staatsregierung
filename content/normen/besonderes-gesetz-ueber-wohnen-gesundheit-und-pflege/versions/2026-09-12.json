@@ -2984,44 +2984,45 @@
           "level": 0,
           "listId": "h7vxio41yq5m",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "In der Bezeichnung wird das Wort „Landtags“ durch das Wort „Volkskammer“ ersetzt.",
-          "level": 0,
-          "listId": "egxe47gyytwd",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b)",
-          "text": "Absatz 1 wird wie folgt gefasst:",
-          "level": 0,
-          "listId": "egxe47gyytwd",
-          "numberingStyle": "lower-latin",
           "children": [
             {
-              "type": "quotedProvision",
+              "type": "item",
+              "label": "a)",
+              "text": "In der Bezeichnung wird das Wort „Landtags“ durch das Wort „Volkskammer“ ersetzt.",
+              "level": 1,
+              "listId": "egxe47gyytwd",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Absatz 1 wird wie folgt gefasst:",
+              "level": 1,
+              "listId": "egxe47gyytwd",
+              "numberingStyle": "lower-latin",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(1) Das zuständige Staatssekretariat legt der Volkskammer jährlich einen Bericht über die Mittelverwendung, die geförderten Maßnahmen, die eingegangenen Beteiligungen, die Rückflüsse und die wesentlichen Wirkungen des Fonds vor. Der Bericht stellt zusätzlich dar, in welchen Fällen Fondsmaßnahmen der Beseitigung oder Verhinderung einer nach dem Soziale Grundversorgungsgesetz festgestellten regionalen Unterdeckung dienten.“"
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "„(1) Das zuständige Staatssekretariat legt der Volkskammer jährlich einen Bericht über die Mittelverwendung, die geförderten Maßnahmen, die eingegangenen Beteiligungen, die Rückflüsse und die wesentlichen Wirkungen des Fonds vor. Der Bericht stellt zusätzlich dar, in welchen Fällen Fondsmaßnahmen der Beseitigung oder Verhinderung einer nach dem Soziale Grundversorgungsgesetz festgestellten regionalen Unterdeckung dienten.“"
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "In Absatz 3 wird das Wort „Landtag“ durch das Wort „Volkskammer“ ersetzt.",
+              "level": 1,
+              "listId": "egxe47gyytwd",
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "c)",
-          "text": "In Absatz 3 wird das Wort „Landtag“ durch das Wort „Volkskammer“ ersetzt.",
-          "level": 0,
-          "listId": "egxe47gyytwd",
-          "numberingStyle": "lower-latin",
-          "children": []
         },
         {
           "type": "item",

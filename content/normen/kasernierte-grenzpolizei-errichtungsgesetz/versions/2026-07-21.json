@@ -1394,11 +1394,49 @@
         {
           "type": "item",
           "label": "2.",
-          "text": "§ 97 Absatz 1 wird wie folgt geändert: a) In Nummer 4 wird am Ende das Wort „und“ gestrichen. b) Nach Nummer 4 wird folgende Nummer 5 eingefügt: „5. die Kasernierte Grenzpolizei und“. c) Die bisherige Nummer 5 wird Nummer 6.",
+          "text": "§ 97 Absatz 1 wird wie folgt geändert:",
           "level": 0,
           "listId": "re7mjwa84x4f",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Nummer 4 wird am Ende das Wort „und“ gestrichen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Nach Nummer 4 wird folgende Nummer 5 eingefügt:",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "„5. die Kasernierte Grenzpolizei und“."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Die bisherige Nummer 5 wird Nummer 6.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",

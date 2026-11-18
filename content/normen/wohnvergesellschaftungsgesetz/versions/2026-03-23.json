@@ -167,16 +167,26 @@
               "level": 0,
               "listId": "printed-outline",
               "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "ihre Tätigkeit dem Schutzbereich der Religionsausübung aus Artikel 4 Absatz 1 und 2 des Grundgesetzes oder aus Artikel 19 Absatz 2 der Verfassung des Freistaates Ostdeutschland untersteht oder b) ihr Eigentum dem Schutzbereich von Artikel 138 Absatz 2 der Weimarer Reichsverfassung in Verbindung mit Artikel 140 des Grundgesetzes untersteht.",
-              "level": 0,
-              "listId": "printed-outline",
-              "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "ihre Tätigkeit dem Schutzbereich der Religionsausübung aus Artikel 4 Absatz 1 und 2 des Grundgesetzes oder aus Artikel 19 Absatz 2 der Verfassung des Freistaates Ostdeutschland untersteht oder",
+                  "level": 1,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "ihr Eigentum dem Schutzbereich von Artikel 138 Absatz 2 der Weimarer Reichsverfassung in Verbindung mit Artikel 140 des Grundgesetzes untersteht.",
+                  "level": 1,
+                  "listId": "printed-outline",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

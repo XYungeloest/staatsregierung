@@ -1200,52 +1200,53 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Pflegefachpersonen / Altenpflege",
-          "level": 0,
-          "listId": "d8djvw34mw3g",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Notfallsanitäte / Rettungsdienst",
-          "level": 0,
-          "listId": "d8djvw34mw3g",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Ärzte in unterversorgten Fächern (z. B. Allgemeinmedizin) - nur Informations-/Koordinationspfad",
-          "level": 0,
-          "listId": "d8djvw34mw3g",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Bau-/Ausbaugewerbe (Elektrik, Sanitär/Heizung/Klima, Maurer)",
-          "level": 0,
-          "listId": "d8djvw34mw3g",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "IT-Fachkräfte mit reglementierten Teilbereichen (falls zutreffend: z. B. sicherheitsrelevante Tätigkeiten)",
-          "level": 0,
-          "listId": "d8djvw34mw3g",
-          "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Pflegefachpersonen / Altenpflege",
+              "level": 1,
+              "listId": "d8djvw34mw3g",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Notfallsanitäte / Rettungsdienst",
+              "level": 1,
+              "listId": "d8djvw34mw3g",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Ärzte in unterversorgten Fächern (z. B. Allgemeinmedizin) - nur Informations-/Koordinationspfad",
+              "level": 1,
+              "listId": "d8djvw34mw3g",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Bau-/Ausbaugewerbe (Elektrik, Sanitär/Heizung/Klima, Maurer)",
+              "level": 1,
+              "listId": "d8djvw34mw3g",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "IT-Fachkräfte mit reglementierten Teilbereichen (falls zutreffend: z. B. sicherheitsrelevante Tätigkeiten)",
+              "level": 1,
+              "listId": "d8djvw34mw3g",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",

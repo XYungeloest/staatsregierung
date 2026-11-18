@@ -120,6 +120,13 @@ kennt:
   Bundesrepublik Deutschland“ ohne Punkt. Eine spätere Transkription übernimmt den Wortlaut
   quellentreu.
 
+## Leere Nummer im Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen (OGVBl. 2026 Nr. 21)
+
+- **Artikel 1 Nummer 3** — die Ausgabe führt zwischen Nummer 2 (§§ 3 und 4) und Nummer 4 (§ 11)
+  eine leere Nummer 3 ohne Änderungsbefehl (PDF S. 5, HTML gleichlautend). Gespeichert ist die
+  Zählung 1, 2, 4, 5; der Befund ist in `scripts/lib/norm-parser-contract.mjs` als amtliche
+  Nummerierungslücke zugelassen. Ob ein Befehl fehlt, klärt nur eine amtliche Berichtigung.
+
 ## Verweise im Gesetz zur Einführung von Hinweisgebermeldestellen (OGVBl. 2026 Nr. 72)
 
 - **Artikel 2 (§ 60a Landkreisordnung) und Artikel 3 (§ 24a Bezirksordnung)** — beide
@@ -217,6 +224,13 @@ Drei produktive Quellenreferenzen aus zwei Markdownquellen verbleiben als
 und PDF blockiert, für OGVBl. 2024 Nr. 2 S. 2 fehlt eine ausreichende Kontrollquelle für die
 vollständige Fassung. Klassifikation und Blockierungsgründe stehen in
 `data/recht/alt-source-inventory.json`.
+
+- **OGVBl. 2025 Nr. I, § 28 Nummer 5 der Ostdeutschen Bezirksordnung** — die Transkription
+  `OGVBl I-25.html` (erzeugt aus `Ostdeutsche Bezirksordnung 2025.html`) führt die Buchstaben a.
+  bis c. als Fließtext der Nummer 5; das gescannte PDF (S. 12) setzt sie als eingerückte
+  Unterpunkte. Betroffen sind die Bezirksordnung vom 12. März 2025 und das Zitat im
+  Bezirkseinführungsgesetz. Die Quelldateien werden nicht nachträglich geändert; zur Lösung fehlt
+  eine berichtigte Transkription.
 
 ## Dauerhafte Quellenbegrenzung
 
