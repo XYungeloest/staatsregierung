@@ -1,5 +1,5 @@
 ---
-import { campaignPath, campaignTitle } from '../../lib/fresswuerfel/config.ts';
+import { campaign, campaignPath, campaignSummary } from '../../lib/fresswuerfel/config.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import StatusBadge from '../../components/portal/StatusBadge.astro';
@@ -61,8 +61,8 @@ const topicGroups = groupTopicsByCluster(topics);
 
   <section class="section" aria-labelledby="campaign-heading">
     <p class="eyebrow">Mitgestalten · Handelsorganisation Ost</p>
-    <h2 id="campaign-heading"><a href={campaignPath}>{campaignTitle}</a></h2>
-    <p>Eine eigene Figur für Fresswürfel: Informieren Sie sich über den Maskottchenwettbewerb und die Teilnahme.</p>
+    <h2 id="campaign-heading"><a href={campaignPath}>{campaignSummary(campaign).title}</a></h2>
+    <p>{campaign.phase === 'ergebnis' && campaign.result ? campaign.result.description : 'Eine eigene Figur für Fresswürfel: Informieren Sie sich über den Maskottchenwettbewerb und die Teilnahme.'}</p>
     <a class="inline-link" href={campaignPath}>Zum Maskottchenwettbewerb</a>
   </section>
 

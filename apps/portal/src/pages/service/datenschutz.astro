@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { campaign } from '../../lib/fresswuerfel/config.ts';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import { getHomeUrl, getServiceUrl } from '@ostrecht/shared/lib/portal/index.ts';
 import { loadPageBySlug } from '@ostrecht/shared/lib/portal/content.ts';
@@ -39,7 +40,15 @@ const analyticsEnabled = isAnalyticsEnabled();
 
       <div class="section-header"><h2 id="fresswuerfel">Fresswürfel-Maskottchenwettbewerb</h2></div>
       <p>Bei Teilnahme verarbeitet die HO Ihren Vorschlag und die freiwillig angegebene Kontakt-E-Mail für die redaktionelle Auswahl und Rückfragen. E-Mail-Adressen bleiben intern. Veröffentlichungen erfolgen nur nach redaktioneller Freigabe; Gestaltung und Nutzungsrechte werden gesondert geklärt.</p>
-      <p>Den geltenden Teilnahmezeitraum, den Kontakt für Datenschutzfragen und Löschwünsche sowie die Löschfrist finden Sie direkt in den <a class="inline-link" href="/themen/fresswuerfel-maskottchen/#datenschutz">Datenschutzhinweisen am Wettbewerbsformular</a>. Die Einreichung wird erst geöffnet, wenn diese Angaben vorliegen. Zur Missbrauchsabwehr werden kurzzeitig gehashte IP-Kennungen verarbeitet.</p>
+      {campaign.phase === 'ergebnis' && campaign.result ? (
+        <>
+          {campaign.retentionDays && <p>Einreichungen, Originalbilder und Kontaktangaben werden spätestens {campaign.retentionDays + 1} Tage nach der Einreichung gelöscht.</p>}
+          {campaign.privacyContact && <p>Für Datenschutzfragen und Löschwünsche zum Wettbewerb schreiben Sie an <a class="inline-link" href={`mailto:${campaign.privacyContact}`}>{campaign.privacyContact}</a>.</p>}
+        </>
+      ) : (
+        <p>Den Teilnahmezeitraum, den Datenschutzkontakt und die Löschfrist finden Sie in den <a class="inline-link" href="/themen/fresswuerfel-maskottchen/#datenschutz">Datenschutzhinweisen zum Wettbewerbsformular</a>.</p>
+      )}
+      <p>Zum Schutz vor Missbrauch wurde bei der Einreichung eine aus der IP-Adresse abgeleitete Kennung gespeichert. Sie wird spätestens nach zwei Tagen gelöscht.</p>
 
       <div class="section-header"><h2>Hosting und technische Protokollierung</h2></div>
       <p>

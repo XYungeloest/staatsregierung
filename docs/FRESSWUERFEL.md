@@ -15,8 +15,8 @@ unabhängig vom Betriebsbeginn der Restaurantkette.
 
 Nach der Frist `phase: "sichtung"` wählen. `candidates` enthält ausschließlich freigegebene
 `{slug,title,description,image?}`; Bilder als `{src,alt}`. Die Auswahl erscheint nur bei Sichtung.
-Für die Ergebnisfreigabe `result: {title,description,explanation?}` pflegen und `phase: "ergebnis"`
-setzen. Keine erfundenen Ergebnisse einsetzen; die URL bleibt erhalten. Die HO trifft die
+Für die Ergebnisfreigabe `result: {title,description,explanation?,image?}` pflegen und `phase: "ergebnis"`
+setzen. Das optionale Siegerbild enthält `src`, `alt`, `width` und `height`. Die URL bleibt erhalten. Die HO trifft die
 Auswahl nach Wiedererkennbarkeit, Fresswürfel-Bezug, Eigenständigkeit und Kostümtauglichkeit.
 Es gibt keine öffentliche Abstimmung.
 
