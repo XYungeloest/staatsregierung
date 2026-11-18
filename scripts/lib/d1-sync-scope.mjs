@@ -24,7 +24,9 @@
  * nie ein Aufrufer aus eigener Annahme: `narrow` schreibt statt der Vollprojektion die
  * Suchdokumente (law_search_documents) und abgeleiteten Daten (law_norm_derived, abgeleitete
  * Spalten von law_norms) aller Normen neu; `ignore` behandelt die Logikänderung als
- * datenneutral (nur Identität und Laufzeitmetadaten werden geschrieben).
+ * datenneutral (nur Identität und Laufzeitmetadaten werden geschrieben). Zur engen Projektion kann
+ * ein Nachweis zusätzlich die Normen nennen, deren Zeilen die Logikänderung nachgewiesen verändert
+ * (`logicAffectedSlugs`, addLogicAffectedSlugs): sie werden vollständig neu geschrieben.
  *
  * Der redaktionelle Stichtag (packages/shared/src/config/editorial.json) ist ein Sonderfall:
  * Seine Fortschreibung ändert die Projektion nur bei Normen, deren Fassungseinordnung oder
@@ -313,10 +315,41 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
 }
 
 /**
+ * Nimmt die Normen, deren Zeilen eine nachgewiesene enge Logikänderung verändert, vollständig in
+ * einen inkrementellen Umfang auf (scripts/lib/d1-projection-proof.mjs bestimmt sie aus dem
+ * Tabellenvergleich; nur ein validierter Nachweis setzt sie, nie ein Aufrufer aus eigener Annahme).
+ * Ein Metadata-only-Eintrag derselben Norm entfällt: die Logik kann jede ihrer Zeilen berühren.
+ * Fail-closed: nur zur engen Logikprojektion, nur als nicht leere Liste und nur für Normen des
+ * Bestands. Die Liste geht ausdrücklich in die Umfangssignatur ein – auch eine Norm, die der
+ * Umfang ohnehin vollständig schreibt, bleibt so an den Nachweis gebunden.
+ */
+export function addLogicAffectedSlugs(scope, logicAffectedSlugs, { existingSlugs, logicChange }) {
+  if (logicAffectedSlugs === null || logicAffectedSlugs === undefined) return scope;
+  if (logicChange !== 'narrow') throw new Error(`zusätzlich neu zu schreibende Normen (logicAffectedSlugs) gibt es nur zur engen Logikprojektion, nicht zu logicChange ${String(logicChange)} (fail-closed)`);
+  if (!Array.isArray(logicAffectedSlugs) || logicAffectedSlugs.length === 0) throw new Error('logicAffectedSlugs muss eine nicht leere Slug-Liste sein (fail-closed)');
+  const missing = logicAffectedSlugs.filter((slug) => typeof slug !== 'string' || !existingSlugs.has(slug));
+  if (missing.length > 0) throw new Error(`logicAffectedSlugs nennt Normen, die der Bestand nicht enthält: ${missing.map(String).slice(0, 5).join(', ')} (fail-closed)`);
+  if (scope.mode !== 'incremental') return scope;
+  const affected = [...new Set(logicAffectedSlugs)].sort();
+  const slugs = new Set(scope.slugs);
+  for (const slug of affected) {
+    slugs.add(slug);
+    if (scope.metadataOnly && Array.isArray(scope.metadataOnly[slug])) delete scope.metadataOnly[slug];
+  }
+  scope.slugs = [...slugs].sort();
+  scope.logicAffectedSlugs = affected;
+  scope.reasons.push(`${affected.length} durch die Logikänderung nachgewiesen abweichende Norm(en) vollständig neu`);
+  return scope;
+}
+
+/**
  * Deterministische Kurzform eines Umfangs (ohne Begründungen) – bindet einen Äquivalenznachweis
  * an genau den Umfang, der nachgewiesen wurde.
  */
 export function scopeSignature(scope) {
+  // Nur ein Umfang mit zusätzlich neu geschriebenen Normen trägt das Feld; die Signatur aller
+  // anderen Umfänge bleibt unverändert.
+  const logicAffected = (scope.logicAffectedSlugs ?? []).length > 0 ? { logicAffectedSlugs: [...scope.logicAffectedSlugs].sort() } : {};
   return JSON.stringify({
     mode: scope.mode,
     slugs: [...scope.slugs].sort(),
@@ -330,6 +363,7 @@ export function scopeSignature(scope) {
     derivedRebuild: Boolean(scope.derivedRebuild),
     refreshSearchDocuments: Boolean(scope.refreshSearchDocuments),
     refreshKeywords: Boolean(scope.refreshKeywords),
+    ...logicAffected,
   });
 }
 

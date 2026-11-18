@@ -178,7 +178,7 @@ jobs:
           {
             echo '### Äquivalenznachweis'
             echo
-            echo "- Ergebnis: $(node -e 'const p=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); console.log(`${p.result}${p.logicChange ? ` (${p.logicChange})` : ""}; abweichende Tabellen: ${(p.comparison && p.comparison.differingTables || []).join(", ") || "keine"}`)' "$PROOF")"
+            echo "- Ergebnis: $(node -e 'const p=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); const a=p.logicAffectedSlugs||[]; console.log(`${p.result}${p.logicChange ? ` (${p.logicChange})` : ""}${a.length ? `; zusätzlich vollständig: ${a.length} Norm(en) (${a.join(", ")})` : ""}; abweichende Tabellen: ${(p.comparison && p.comparison.differingTables || []).join(", ") || "keine"}`)' "$PROOF")"
             echo "- Dauer: $(( $(date +%s) - START )) s"
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Remote-State mit Nachweis (so entscheidet d1_sync auf main)

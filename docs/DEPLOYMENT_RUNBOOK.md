@@ -122,7 +122,8 @@ Inventur läuft geplant und manuell (`visual-extended.yml`).
    aus dem Seed des Laufs, vollständiger Tabellenvergleich) und übergibt ihn dem Sync
    (`--equivalence-proof`): nachgewiesen gleiche Daten übernehmen nur die neue Identität und die
    Laufzeitmetadaten (ohne korpusweite Ableitungen), ein nachgewiesener inkrementeller Umfang
-   wird geschrieben, alles andere
+   wird geschrieben – einschließlich der im Nachweis genannten, durch die Logik abweichenden
+   Normen (`logicAffectedSlugs`, an die Umfangssignatur gebunden) –, alles andere
    bleibt rot. Dass das auf `main` nicht eintritt, zeigt `d1_token_check` vor dem Merge (siehe
    unten). Migrationen spielt der Workflow nie ein.
 6. `deploy` veröffentlicht zuerst OstRecht, danach das Staatsportal, und prüft den
@@ -209,7 +210,7 @@ Projektionsidentität, gibt es drei Fälle:
 | Fall | Erkennung | Weg |
 | --- | --- | --- |
 | Inhalte (Normen, Verkündungen, Stichtag, Normbezüge von Themen/Presse) | `d1_token_check`: inkrementell | nichts zu tun; `d1_sync` schreibt inkrementell mit verifizierter Basis |
-| Projektionslogik ohne Schemaänderung | `d1_token_check`: Remote-State Exit 3 → Äquivalenznachweis | automatisch: Nachweis `identity` (nur Identität und Metadaten, ohne korpusweite Ableitungsberechnung) oder `incremental` (nachgewiesener Umfang, z. B. abgeleitete Daten und Suchdokumente aller Normen) → grün; Nachweis `full` (abweichende Tabellen werden genannt) → wie Schemaänderung |
+| Projektionslogik ohne Schemaänderung | `d1_token_check`: Remote-State Exit 3 → Äquivalenznachweis | automatisch: Nachweis `identity` (nur Identität und Metadaten, ohne korpusweite Ableitungsberechnung) oder `incremental` (nachgewiesener Umfang, z. B. abgeleitete Daten und Suchdokumente aller Normen, gegebenenfalls zusätzlich bis zu 250 durch die Logik abweichende Normen vollständig) → grün; Nachweis `full` (abweichende Tabellen werden genannt) → wie Schemaänderung |
 | Schemaänderung (`data/recht/d1/`) oder Nachweis `full` | `d1_token_check` rot | Zielprojektion vor dem Merge herstellen, nie danach (unten) |
 | Große Inhaltsänderung mit verifiziertem inkrementellem Umfang | `d1_sync` schreibt den geprüften Umfang ohne Zeilenbudget | kein zusätzlicher Freigabelauf allein wegen der Bestandsgröße |
 

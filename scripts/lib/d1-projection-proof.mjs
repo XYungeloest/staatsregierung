@@ -9,11 +9,11 @@ import { join, relative, resolve } from 'node:path';
 
 import { COMPARATOR_VERSION, compareProjections, formatComparison } from './d1-projection-compare.mjs';
 import { FULL_SCOPE, projectionIdentity, projectionIdentityAtRef } from './d1-projection-fingerprint.mjs';
-import { PROOF_SCHEMA, describeProofResult } from './d1-projection-proof-format.mjs';
+import { MAX_LOGIC_AFFECTED_NORMS, PROOF_SCHEMA, describeProofResult } from './d1-projection-proof-format.mjs';
 import { checkSearchIndexIntegrity, executePlan, openDatabase } from './d1-sqlite.mjs';
 import { isEmptyScope, scopeSignature } from './d1-sync-scope.mjs';
 
-export { PROOF_RESULTS, PROOF_SCHEMA, describeProofResult, readProof, validateProof } from './d1-projection-proof-format.mjs';
+export { MAX_LOGIC_AFFECTED_NORMS, PROOF_RESULTS, PROOF_SCHEMA, describeProofResult, readProof, validateProof } from './d1-projection-proof-format.mjs';
 
 /**
  * Äquivalenznachweis der D1-Projektion: Ersetzt eine geänderte Projektionsidentität durch
@@ -33,6 +33,12 @@ export { PROOF_RESULTS, PROOF_SCHEMA, describeProofResult, readProof, validatePr
  *   1. `ignore`: die Logikänderung gilt als datenneutral; der Umfang enthält nur die geänderten
  *      Inhalte (ohne Inhaltsänderung ist er leer: nur Identität und Laufzeitmetadaten).
  *   2. `narrow`: zusätzlich werden Suchdokumente und abgeleitete Daten aller Normen neu geschrieben.
+ *   3. `narrow` mit betroffenen Normen (`narrow-affected`): weicht `narrow` nur in normbezogenen
+ *      Tabellen (NORM_BOUND_TABLES) und nur bei höchstens MAX_LOGIC_AFFECTED_NORMS Normen ab, die
+ *      beide Projektionen enthalten, werden genau diese Normen – vollständig aus dem Vergleich
+ *      ermittelt, nicht aus den Beispielschlüsseln – zusätzlich vollständig neu geschrieben, auf
+ *      die Basis angewendet und erneut verglichen. Die Liste (`logicAffectedSlugs`) ist Teil des
+ *      nachgewiesenen Umfangs und damit der Umfangssignatur.
  * Ergebnis `identity` (leerer Umfang genügt), `incremental` (Umfang mit Inhalten bzw. enge
  * Logikprojektion genügt) oder `full` (kein inkrementeller Umfang ergibt das Ziel; die
  * abweichenden Tabellen werden genannt). Schemaänderungen sind immer `full`.
@@ -49,6 +55,122 @@ export { PROOF_RESULTS, PROOF_SCHEMA, describeProofResult, readProof, validatePr
  */
 
 export const LOGIC_CHANGE_ATTEMPTS = ['ignore', 'narrow'];
+/** Bezeichnung des dritten Versuchs (enge Logikprojektion plus betroffene Normen) in Protokoll und Dateinamen. */
+export const AFFECTED_ATTEMPT = 'narrow-affected';
+/**
+ * Tabellen, deren Zeilen über den Primärschlüssel genau einer Norm gehören und die ein
+ * vollständiges Neuschreiben der Norm (normQueries ohne Metadata-only-Einschränkung) ersetzt.
+ * Alles andere – Verkündungen, Laufzeitmetadaten, eine fehlende Tabelle – bleibt `full`.
+ */
+export const NORM_BOUND_TABLES = new Set(['law_norms', 'law_versions', 'law_version_blocks', 'law_source_objects', 'law_search_units', 'law_search_documents']);
+const NORM_BOUND_PREFIX = /^law_norm_/u;
+
+export function isNormBoundTable(table) {
+  return NORM_BOUND_TABLES.has(table) || NORM_BOUND_PREFIX.test(table);
+}
+
+/**
+ * Normen, die eine nicht identische enge Logikprojektion noch vom Ziel trennen – oder der Grund,
+ * warum der dritte Versuch entfällt. Reine Funktion über den Tabellenvergleich
+ * (compareProjections, `normIds` je Tabelle). Fail-closed: jede nicht normbezogene oder fehlende
+ * Tabelle, jede Tabelle ohne vollständige Normliste, eine neue oder entfernte Norm (law_norms nur
+ * links/rechts), eine Norm außerhalb des Zielbestands, eine Volltextabweichung ohne abweichende
+ * Suchzeilen und mehr als `limit` Normen ergeben `eligible: false`.
+ * @param {{ slugById: Map<string, string>, limit?: number }} options `slugById`: Norm-ID → Slug des Zielbestands
+ * @returns {{ eligible: true, slugs: string[] } | { eligible: false, reason: string }}
+ */
+export function logicAffectedNorms(comparison, { slugById, limit = MAX_LOGIC_AFFECTED_NORMS }) {
+  if (!comparison || comparison.identical) return { eligible: false, reason: 'der Vergleich ist identisch' };
+  const ids = new Set();
+  for (const table of comparison.differingTables) {
+    const entry = comparison.tables[table];
+    if (!entry || entry.missing) return { eligible: false, reason: `Tabelle ${table} fehlt ${entry?.missing ?? 'im Vergleich'}` };
+    if (!isNormBoundTable(table)) return { eligible: false, reason: `Tabelle ${table} ist nicht normbezogen` };
+    if (!Array.isArray(entry.normIds)) return { eligible: false, reason: `Tabelle ${table} nennt keine vollständige Normliste` };
+    if (table === 'law_norms' && entry.onlyLeft + entry.onlyRight > 0) return { eligible: false, reason: `neue oder entfernte Norm im Vergleich (law_norms: nur links ${entry.onlyLeft}, nur rechts ${entry.onlyRight})` };
+    for (const id of entry.normIds) ids.add(id);
+  }
+  const ftsDiffers = Object.values(comparison.fts ?? {}).some((equal) => !equal);
+  if (ftsDiffers && !comparison.differingTables.includes('law_search_units')) return { eligible: false, reason: 'Volltextabweichung ohne abweichende Suchzeilen' };
+  if (ids.size === 0) return { eligible: false, reason: 'keine abweichende Norm benannt' };
+  if (ids.size > limit) return { eligible: false, reason: `${ids.size} abweichende Normen > Obergrenze ${limit}` };
+  const slugs = [];
+  for (const id of ids) {
+    const slug = slugById.get(id);
+    if (!slug) return { eligible: false, reason: `Norm ${id} ist nicht im Zielbestand` };
+    slugs.push(slug);
+  }
+  return { eligible: true, slugs: [...new Set(slugs)].sort() };
+}
+
+/**
+ * Führt die Versuche des Nachweises aus. `evaluate(scope, label)` wendet einen Umfang auf eine
+ * Kopie der Basis an und vergleicht mit dem Ziel ({ comparison, statementCount });
+ * `extendScope(slugs)` bestimmt den Umfang der engen Logikprojektion mit zusätzlich vollständig
+ * neu geschriebenen Normen (resolveScope mit `logicAffectedSlugs`, wie der Sync). Nur ein
+ * identischer Vergleich ergibt ein Ergebnis.
+ * @returns {Promise<{ outcome: { logicChange: string, scope: object, comparison: object, logicAffectedSlugs: string[] | null } | null, lastComparison: object | null }>}
+ */
+export async function runProofAttempts({ attempts, evaluate, extendScope, slugById, limit = MAX_LOGIC_AFFECTED_NORMS, note = () => {} }) {
+  let lastComparison = null;
+  let narrow = null;
+  for (const { logicChange, scope } of attempts) {
+    if (scope.mode === 'full') {
+      note(`Umfang bleibt Vollprojektion (${scope.reasons.slice(0, 3).join('; ')}); kein inkrementeller Nachweis möglich.`);
+      break;
+    }
+    const { comparison, statementCount } = await evaluate(scope, logicChange);
+    lastComparison = comparison;
+    note(`Versuch „${logicChange}“: ${statementCount} Anweisungen auf die Basis angewendet – ${comparison.identical ? 'identisch mit dem Ziel' : `${comparison.differingTables.length} Tabelle(n) weichen ab: ${comparison.differingTables.join(', ')}`}`);
+    if (comparison.identical) return { outcome: { logicChange, scope, comparison, logicAffectedSlugs: null }, lastComparison };
+    if (logicChange === 'narrow') narrow = { scope, comparison };
+  }
+  if (!narrow) return { outcome: null, lastComparison };
+  const affected = logicAffectedNorms(narrow.comparison, { slugById, limit });
+  if (!affected.eligible) {
+    note(`Versuch „${AFFECTED_ATTEMPT}“ entfällt: ${affected.reason}.`);
+    return { outcome: null, lastComparison };
+  }
+  const scope = await extendScope(affected.slugs);
+  if (scope.mode !== 'incremental' || JSON.stringify(scope.logicAffectedSlugs ?? []) !== JSON.stringify(affected.slugs)) {
+    note(`Versuch „${AFFECTED_ATTEMPT}“ entfällt: der erweiterte Umfang nimmt die betroffenen Normen nicht auf.`);
+    return { outcome: null, lastComparison };
+  }
+  const { comparison, statementCount } = await evaluate(scope, AFFECTED_ATTEMPT);
+  lastComparison = comparison;
+  note(`Versuch „${AFFECTED_ATTEMPT}“ (${affected.slugs.length} Norm(en) zusätzlich vollständig: ${affected.slugs.join(', ')}): ${statementCount} Anweisungen auf die Basis angewendet – ${comparison.identical ? 'identisch mit dem Ziel' : `${comparison.differingTables.length} Tabelle(n) weichen ab: ${comparison.differingTables.join(', ')}`}`);
+  if (comparison.identical) return { outcome: { logicChange: 'narrow', scope, comparison, logicAffectedSlugs: affected.slugs }, lastComparison };
+  return { outcome: null, lastComparison };
+}
+/**
+ * Umfänge der Versuche, bestimmt über den Sync (resolveScope mit `--git-diff <base> <head>`, wie
+ * ihn der Sync beim Anwenden des Nachweises nachrechnet): die festen Versuche
+ * (LOGIC_CHANGE_ATTEMPTS) und `extendScope`, die enge Logikprojektion mit zusätzlich vollständig
+ * neu geschriebenen Normen. `inputs.sync` ist das injizierte Sync-Modul.
+ * @returns {Promise<{ attempts: { logicChange: string, scope: object }[], extendScope: (slugs: string[]) => Promise<object> }>}
+ */
+export async function proofScopes({ inputs, baseRef, headRef, logicPaths }) {
+  const resolveAttempt = (logicChange, logicAffectedSlugs = null) => inputs.sync.resolveScope(['--git-diff', baseRef, headRef], { norms: inputs.norms, publications: inputs.publications, logicPaths, logicChange, logicAffectedSlugs });
+  const attempts = [];
+  for (const logicChange of LOGIC_CHANGE_ATTEMPTS) attempts.push({ logicChange, scope: await resolveAttempt(logicChange) });
+  return { attempts, extendScope: (slugs) => resolveAttempt('narrow', slugs) };
+}
+
+/**
+ * Felder der Nachweisdatei aus einem erfolgreichen Versuch (runProofAttempts): Ergebnis,
+ * `logicChange`, zusätzlich neu geschriebene Normen, Umfangssignatur, Plan und Vergleich.
+ */
+export function proofOutcomeFields(outcome) {
+  return {
+    result: isEmptyScope(outcome.scope) ? 'identity' : 'incremental',
+    logicChange: outcome.logicChange,
+    logicAffectedSlugs: outcome.logicAffectedSlugs ?? null,
+    scopeSignature: scopeSignature(outcome.scope),
+    plan: planSummary(outcome.scope),
+    comparison: comparisonSummary(outcome.comparison),
+  };
+}
+
 export const DEFAULT_PROOF_DIR = join('.cache', 'd1-equivalence');
 export const DEFAULT_SEED_CACHE_DIR = join('.cache', 'd1-seed');
 /** Fester Zeitstempel der Nachweisprojektionen (wie der Seed: deterministische Dateien). */
@@ -215,7 +337,7 @@ function comparisonSummary(comparison) {
   return {
     identical: comparison.identical,
     differingTables: comparison.differingTables,
-    tables: Object.fromEntries(Object.entries(comparison.tables).map(([table, entry]) => [table, { rowsLeft: entry.rowsLeft, rowsRight: entry.rowsRight, onlyLeft: entry.onlyLeft, onlyRight: entry.onlyRight, changed: entry.changed, changedColumns: entry.changedColumns, sampleKeys: entry.sampleKeys }])),
+    tables: Object.fromEntries(Object.entries(comparison.tables).map(([table, entry]) => [table, { rowsLeft: entry.rowsLeft, rowsRight: entry.rowsRight, onlyLeft: entry.onlyLeft, onlyRight: entry.onlyRight, changed: entry.changed, changedColumns: entry.changedColumns, sampleKeys: entry.sampleKeys, differingNorms: Array.isArray(entry.normIds) ? entry.normIds.length : null }])),
     fts: comparison.fts,
   };
 }
@@ -268,6 +390,7 @@ export async function proveProjectionEquivalence({ root = process.cwd(), sync, b
     head: identitySummary(headIdentity, headCommit, headRef),
     result: null,
     logicChange: null,
+    logicAffectedSlugs: null,
     scopeSignature: null,
     plan: null,
     projections: { base: null, head: null },
@@ -289,11 +412,7 @@ export async function proveProjectionEquivalence({ root = process.cwd(), sync, b
   const inputs = await loadProjectionInputs(root, { sync });
   const logicPaths = headIdentity.closureUncertain || baseIdentity.closureUncertain ? null : new Set([...baseIdentity.logicFiles, ...headIdentity.logicFiles]);
   if (!logicPaths) note(`Code-Abschluss unsicher (${[...headIdentity.closureReasons, ...baseIdentity.closureReasons].join('; ')}); Logikänderungen zählen über die konservative Obermenge.`);
-  const attempts = [];
-  for (const logicChange of LOGIC_CHANGE_ATTEMPTS) {
-    const scope = await inputs.sync.resolveScope(['--git-diff', baseRef, headRef], { norms: inputs.norms, publications: inputs.publications, logicPaths, logicChange });
-    attempts.push({ logicChange, scope });
-  }
+  const { attempts, extendScope } = await proofScopes({ inputs, baseRef, headRef, logicPaths });
   if (attempts.every(({ scope }) => scope.mode === 'full')) {
     const reasons = attempts[0].scope.reasons.slice(0, 4).join('; ');
     note(`Jeder inkrementelle Umfang bleibt eine Vollprojektion (${reasons}); keine Äquivalenz nachweisbar.`);
@@ -325,29 +444,21 @@ export async function proveProjectionEquivalence({ root = process.cwd(), sync, b
     note(`Zielprojektion aus dem Arbeitsbaum erzeugt (${elapsed()})`);
   }
 
-  let lastComparison = null;
-  for (const { logicChange, scope } of attempts) {
-    if (scope.mode === 'full') {
-      note(`Umfang bleibt Vollprojektion (${scope.reasons.slice(0, 3).join('; ')}); kein inkrementeller Nachweis möglich.`);
-      break;
-    }
-    const candidatePath = join(workdir, `candidate-${logicChange}-${headIdentity.fingerprint.slice(0, 16)}.sqlite`);
-    const applied = await applyScopeToCopy({ root, basePath, out: candidatePath, scope, inputs, identity: headIdentity });
-    const comparison = await compareProjections(candidatePath, headPath, { root });
-    lastComparison = comparison;
-    note(`Versuch „${logicChange}“: ${applied.statementCount} Anweisungen auf die Basis angewendet – ${comparison.identical ? 'identisch mit dem Ziel' : `${comparison.differingTables.length} Tabelle(n) weichen ab: ${comparison.differingTables.join(', ')}`} (${elapsed()})`);
-    if (!keepProjections) await rm(candidatePath, { force: true });
-    if (comparison.identical) {
-      Object.assign(proof, {
-        result: isEmptyScope(scope) ? 'identity' : 'incremental',
-        logicChange,
-        scopeSignature: scopeSignature(scope),
-        plan: planSummary(scope),
-        comparison: comparisonSummary(comparison),
-      });
-      break;
-    }
-  }
+  const slugById = new Map(inputs.norms.map((norm) => [norm.meta.id, norm.meta.slug]));
+  const { outcome, lastComparison } = await runProofAttempts({
+    attempts,
+    slugById,
+    note: (line) => note(`${line} (${elapsed()})`),
+    extendScope,
+    evaluate: async (scope, label) => {
+      const candidatePath = join(workdir, `candidate-${label}-${headIdentity.fingerprint.slice(0, 16)}.sqlite`);
+      const applied = await applyScopeToCopy({ root, basePath, out: candidatePath, scope, inputs, identity: headIdentity });
+      const comparison = await compareProjections(candidatePath, headPath, { root });
+      if (!keepProjections) await rm(candidatePath, { force: true });
+      return { comparison, statementCount: applied.statementCount };
+    },
+  });
+  if (outcome) Object.assign(proof, proofOutcomeFields(outcome));
   if (!proof.result) {
     const comparison = lastComparison ?? await compareProjections(basePath, headPath, { root });
     Object.assign(proof, { result: 'full', comparison: comparisonSummary(comparison) });
@@ -371,6 +482,7 @@ function planSummary(scope) {
     derivedRebuild: Boolean(scope.derivedRebuild),
     refreshSearchDocuments: Boolean(scope.refreshSearchDocuments),
     refreshKeywords: Boolean(scope.refreshKeywords),
+    logicAffectedSlugs: scope.logicAffectedSlugs ?? [],
     reasons: scope.reasons.slice(0, 8),
   };
 }

@@ -402,7 +402,20 @@ Primärschlüssel, Volltextstichproben; normalisiert werden nur `updated_at`, `l
 `sync_mode`, `sync_state`, die Identitätszeilen und die rowid der Suchzeilen). Geprüft wird, ob
 der inkrementelle Umfang des Syncs – zuerst mit der Logikänderung als datenneutral (`ignore`),
 dann als enge Logikprojektion (`narrow`: Suchdokumente, abgeleitete Daten und abgeleitete
-Normspalten aller Normen) – auf die Basis angewendet exakt das Ziel ergibt. Ergebnis `identity`
+Normspalten aller Normen) – auf die Basis angewendet exakt das Ziel ergibt. Weicht `narrow` nur
+in normbezogenen Tabellen ab (`law_norms` ohne neue oder entfernte Norm, `law_versions`,
+`law_version_blocks`, `law_source_objects`, `law_search_units`, `law_search_documents`,
+`law_norm_*`) und nur bei höchstens `MAX_LOGIC_AFFECTED_NORMS` (250) Normen beider Projektionen,
+folgt ein dritter Versuch (im Protokoll `narrow-affected`; die Nachweisdatei trägt weiter
+`logicChange: narrow`, erkennbar an der nicht leeren Liste `logicAffectedSlugs`): genau diese
+Normen – vollständig aus dem Tabellenvergleich (`normIds` je Tabelle, Comparator 3), nicht aus
+den Beispielschlüsseln – werden zusätzlich vollständig neu geschrieben (ohne
+Metadata-only-Einschränkung) und erneut verglichen. Nur bei Identität lautet das Ergebnis
+`incremental`; die Liste steht als `logicAffectedSlugs` im Nachweis und in der Umfangssignatur,
+der Sync nimmt sie über `resolveScope` in den Umfang (und in Plan und Kostenschätzung) auf, und
+die CI-Zusammenfassung nennt sie. Eine Abweichung in anderen Tabellen (`law_publications`,
+`law_runtime_meta` …), eine abweichende Volltextstichprobe ohne abweichende `law_search_units`,
+eine neue oder entfernte Norm oder mehr Normen als die Obergrenze bleiben `full`. Ergebnis `identity`
 (nur Identität und Laufzeitmetadaten: der Sync berechnet dann keine korpusweiten Ableitungen,
 sondern lädt den Bestand nur, um den leeren Umfang zu bestimmen und die korpusabgeleiteten
 Zeilen von `law_runtime_meta` neu zu schreiben – `isMetadataOnlyRun`/`planRun` in
@@ -410,8 +423,10 @@ Zeilen von `law_runtime_meta` neu zu schreiben – `isMetadataOnlyRun`/`planRun`
 den normalen fail-closed Projektionsweg), `incremental` (nachgewiesener Umfang) oder `full`
 (abweichende Tabellen werden genannt; Schemaänderungen sind immer `full`). Die Nachweisdatei ist
 an Basis- und Ziel-Commit, alte und neue Identität, Scope, Comparator-Version und Umfangssignatur
-gebunden; `--equivalence-proof <Datei>` prüft jede Bindung gegen die gespeicherte Identität in D1
-und den Arbeitsbaum, bevor der Sync statt der Vollprojektion den nachgewiesenen Umfang schreibt.
+gebunden; `--equivalence-proof <Datei>` prüft jede Bindung gegen die gespeicherte Identität in D1,
+die aufgelösten Commits der eigenen `--git-diff`-Refs und den Arbeitsbaum, bevor der Sync statt der Vollprojektion den nachgewiesenen Umfang schreibt
+(`applyEquivalenceProof`: eine veränderte, fehlende oder nicht kanonische Normliste oder eine Norm
+außerhalb des Bestands lässt die Prüfung fail-closed scheitern).
 Einen frei setzbaren Bypass (Annahme einer engen Änderung, Neuschreiben der Identität ohne
 Vergleich) gibt es nicht. In CI rechnen `d1_token_check` (Pull Request) und `d1_sync` (`main`)
 den Nachweis selbst (`docs/DEPLOYMENT_RUNBOOK.md`).
