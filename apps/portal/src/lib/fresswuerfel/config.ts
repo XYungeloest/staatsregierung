@@ -14,7 +14,7 @@ export interface Campaign {
   privacyContact: string | null;
   retentionDays: number | null;
   candidates: Candidate[];
-  result: { title: string; description: string; explanation?: string } | null;
+  result: { title: string; description: string; explanation?: string; image?: { src: string; alt: string; width: number; height: number } } | null;
 }
 export function validateCampaign(value: unknown): Campaign {
   const c = value as Campaign;
@@ -30,10 +30,21 @@ export function validateCampaign(value: unknown): Campaign {
     if (item.image && (!/^\/images\/fresswuerfel\/auswahl\/[0-9a-f-]+\.webp$/.test(item.image.src) || !item.image.alt?.trim())) throw new Error('Ungültiges freigegebenes Bild');
   }
   if (new Set(c.candidates.map(x => x.slug)).size !== c.candidates.length) throw new Error('Doppelte Kandidatur');
-  if (c.result !== null && (!c.result.title || !c.result.description || Object.keys(c.result).some(k => !['title', 'description', 'explanation'].includes(k)))) throw new Error('Ungültiges Ergebnis');
+  if (c.result !== null && (!c.result.title || !c.result.description || Object.keys(c.result).some(k => !['title', 'description', 'explanation', 'image'].includes(k)))) throw new Error('Ungültiges Ergebnis');
+  const image = c.result?.image;
+  if (image && (!/^\/images\/fresswuerfel\/[a-z0-9-]+\.webp$/.test(image.src) || !image.alt?.trim()
+    || !Number.isInteger(image.width) || image.width <= 0 || !Number.isInteger(image.height) || image.height <= 0)) {
+    throw new Error('Ungültiges Ergebnisbild');
+  }
   return c;
 }
 export const campaign = validateCampaign(source);
+export function campaignSummary(c: Campaign) {
+  const result = c.phase === 'ergebnis' ? c.result : null;
+  return result
+    ? { title: `${result.title} – das Fresswürfel-Maskottchen`, description: result.description }
+    : { title: campaignTitle, description: campaignLead };
+}
 export function isSubmissionPhase(c: Campaign, now = Date.now()): boolean {
   return c.phase === 'einreichung' && (!c.startsAt || now >= Date.parse(c.startsAt)) && (!c.endsAt || now < Date.parse(c.endsAt));
 }
