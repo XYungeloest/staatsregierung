@@ -1093,6 +1093,7 @@
                 },
                 {
                   "type": "table",
+                  "title": "Noten",
                   "columns": 3,
                   "children": [
                     {
@@ -1634,9 +1635,11 @@
         {
           "type": "annex",
           "label": "Anlage",
+          "title": "Umrechnung der Zählpunkte",
           "children": [
             {
               "type": "table",
+              "title": "Umrechnung der Zählpunkte",
               "columns": 5,
               "children": [
                 {
