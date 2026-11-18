@@ -48,6 +48,11 @@ interface Props {
   usedIds?: Set<string>;
   /** Änderungen am Ort der Änderung: Marken je Einheit und Absatz gegen die Vorfassung. */
   changes?: ChangeMarkContext;
+  /**
+   * Eingeführte Gesetze (enacted-articles.ts): Artikel oder Textzeile, die statt des Zitats die
+   * Bezeichnung des eingeführten Gesetzes trägt, → allgemeiner Normlink auf dessen Stammeintrag.
+   */
+  enactedLinks?: ReadonlyMap<NormBodyBlock, string>;
 }
 
 type BlockRun =
@@ -65,6 +70,7 @@ const {
   unit,
   usedIds = new Set<string>(),
   changes,
+  enactedLinks,
 } = Astro.props;
 const anchorMap = providedAnchorMap ?? buildNormAnchorMap(blocks);
 
@@ -171,7 +177,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                     {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                   </HeadingTag>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} usedIds={usedIds} changes={changes} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} usedIds={usedIds} changes={changes} enactedLinks={enactedLinks} />
                   ) : null}
                 </section>
               ) : null}
@@ -195,7 +201,9 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                       <HeadingTag id={headingId} class="norm-unit__heading">
                         {block.label ? <span class="norm-unit__label">{toDisplayText(block.label)}</span> : null}
                         {block.label && block.title ? ' ' : null}
-                        {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
+                        {block.title ? (enactedLinks?.get(block)
+                          ? <span class="norm-title"><a class="norm-enacted-link" href={enactedLinks.get(block)}>{toDisplayText(block.title)}</a></span>
+                          : <span class="norm-title">{toDisplayText(block.title)}</span>) : null}
                       </HeadingTag>
                       {changeMarkText(anchorId) ? <a class="norm-unit__change" href={`${changes!.compareHref}#vergleich-${anchorId}`}>{changeMarkText(anchorId)}</a> : null}
                       {historyDetails(anchorId) ? <details class="norm-unit__history" data-unit-history={anchorId}><summary>Verlauf</summary><div class="norm-unit__history-body"><a href={historyDetails(anchorId)}>Änderungsprotokoll der Vorschrift</a></div></details> : null}
@@ -207,7 +215,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                     </div>
                     <div id={`${anchorId}-inhalt`} class="norm-unit__body">
                       {block.children && block.children.length > 0 ? (
-                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} unit={unitContext(anchorId, block)} usedIds={usedIds} changes={changes} />
+                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} unit={unitContext(anchorId, block)} usedIds={usedIds} changes={changes} enactedLinks={enactedLinks} />
                       ) : null}
                     </div>
                   </section>
@@ -239,7 +247,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                     </span>
                   </div>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} unit={unitContext(anchorId, block)} usedIds={usedIds} changes={changes} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} unit={unitContext(anchorId, block)} usedIds={usedIds} changes={changes} enactedLinks={enactedLinks} />
                   ) : null}
                 </section>
               ) : null}
@@ -258,7 +266,9 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                     </div>
                   </div>
                   );
-                })() : (
+                })() : enactedLinks?.get(block) ? (
+                  <p class="norm-text norm-text--enacted"><a class="norm-enacted-link" href={enactedLinks.get(block)}>{toDisplayText(block.text)}</a></p>
+                ) : (
                   <Fragment>
                     <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
                     {block.children && block.children.length > 0 ? (

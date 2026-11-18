@@ -4,6 +4,7 @@ import {
   getResolvedBlockAnchorId,
   isAnchoredBlock,
   toDisplayText,
+  type NormAnchorMap,
   type TextLinkReference,
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { PublicationEntryType } from '@ostrecht/shared/lib/norms/publications.ts';
@@ -147,10 +148,14 @@ export function getHeadingTag(parentLevel: number): 'h3' | 'h4' | 'h5' | 'h6' {
   return `h${level}` as 'h3' | 'h4' | 'h5' | 'h6';
 }
 
+/**
+ * Gliederung des Normkörpers. `anchors` erlaubt eine Ankertabelle aus einem anderen Körper mit
+ * denselben Indexpfaden (dargestellter Körper mit eingekürzten Einführungsartikeln).
+ */
 export function buildNormOutline(
   blocks: NormBodyBlock[],
+  anchors: NormAnchorMap = buildNormAnchorMap(blocks),
 ): NormOutlineItem[] {
-  const anchors = buildNormAnchorMap(blocks);
 
   function visit(entries: NormBodyBlock[], path: number[] = [], level = 0): NormOutlineItem[] {
     return entries.flatMap((block, index) => {
