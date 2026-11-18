@@ -22,9 +22,10 @@ in jährlichen Bereinigungsvorschriften weiter („zuletzt enthalten in der Verw
 nicht in Ostdeutschland; `scripts/lib/revosax-citation.mjs` entfernt sie aus der übernommenen
 Zitierung (`containmentDatesFromCitation`, `stripFutureContainmentClause`), Klauseln vor dem
 Stichtag bleiben erhalten. Ein sächsischer Rechtsakt, dessen Erlassdatum oder Fassungsbeginn nach
-dem Stichtag liegt – bei Artikeln einer Mantelvorschrift auch deren Fassungsbeginn –, gehört nicht
-zum übernommenen Rechtsstand: Der Materialisierungsplan führt ihn als `SKIP` mit dem Grund
-`post-cutoff-saxon-act`. Ausgenommen sind Fälle mit einer redaktionellen Entscheidung in
+dem Stichtag liegt, gehört nicht zum übernommenen Rechtsstand; bei Artikeln einer Mantelvorschrift
+zählt deren späterer Fassungsbeginn nur hilfsweise, also nicht, wenn Erlassdatum und Fassungsbeginn
+des Artikels selbst bis zum Stichtag belegt sind (`postCutoffFacts`). Einen solchen Rechtsakt
+führt der Materialisierungsplan als `SKIP` mit dem Grund `post-cutoff-saxon-act`. Ausgenommen sind Fälle mit einer redaktionellen Entscheidung in
 `data/recht/revosax-post-cutoff-decisions.json` (Schlüssel ist der Slug; Felder `slug`,
 `revosaxLawId`, `resolution` `discard`|`adopted`|`open`, `adoptingNorm`, `basis`, `reason`,
 `decidedAt`): `adopted` nennt die ostdeutsche Änderungsvorschrift, die den späteren Zwischenstand
@@ -141,12 +142,46 @@ Trefferlistenbezeichnungen („Änd. OstSFG“) bleiben Stichwort.
 ### 3. Rechtsüberleitung (Sachsen → Ostdeutschland)
 
 `scripts/lib/revosax-ost-adapter.mjs` passt Titel, Kurzbezeichnung, Abkürzung, Vollzitat und den
-gesamten Normkörper deterministisch an: `Freistaat Sachsen → Freistaat Ostdeutschland`, alle
-Flexionsformen von `sächsisch`, Kürzelpräfixe `Sächs… → Ost…` (auch innerhalb zusammengesetzter
-Kürzel). Nur ganze Wörter werden ersetzt; `Niedersachsen`, `Niedersächsisch` und `Sachsen-Anhalt`
-bleiben unverändert. Geschützt sind ausschließlich die Fundstellenkürzel der Verkündungs- und
-Amtsblätter (`SächsGVBl.`, `SächsABl.`, `SächsJMBl.`, `SächsSMBl.`, `SächsMBl.`); Institutions- und
-Gesetzeskürzel wie `SächsVerfGHG` sind normativer Text und werden übergeleitet. Der Materializer
+gesamten Normkörper deterministisch an: `Freistaat Sachsen → Freistaat Ostdeutschland`,
+`Sachsen`/`Sachsens` → `Ostdeutschland`/`Ostdeutschlands`, alle Flexionsformen von `sächsisch`
+(auch in Bindestrichkomposita wie `sächsisch-tschechisch`, auch im Versalsatz und in der
+Schreibvariante `sächsich…`), Kürzelpräfixe `Sächs… → Ost…` (auch innerhalb zusammengesetzter
+Kürzel, nach einer Ziffer und mit Bindestrich oder Zeilentrennung wie `Sächs-InsOAG`) sowie die
+Kürzelvarianten `Säch…` und `Sä…` vor einem Großbuchstaben (`SächSpielG`, `SäHO → OstHO`).
+Englische Amtsbezeichnungen (`Free State of Saxony`, `Saxon State Ministry`) werden zu
+`East Germany`/`East German State Ministry`. Weiche Trennzeichen innerhalb eines `Säch…`-Wortes
+entfallen vor der Überleitung.
+
+Die Wortgrenzen beziehen sich auf Buchstaben: `Sachsen` wird auch vor einer Fußnotenziffer
+(`Landesdirektion Sachsen3)`) oder bei fehlendem Leerzeichen davor (`VersorgungsverbandSachsen`)
+übergeleitet. Zusammengesetzte Wörter mit Kleinbuchstaben nach oder vor `sachsen` bleiben dagegen
+unverändert, ebenso `-anhalt`: `Mittelsachsen`, `Nordsachsen`, `Niedersachsen`, `Niedersächsisch`,
+`Sachsenforst` und `Sachsen-Anhalt` erfassen die Regeln nicht und brauchen keinen Schutzeintrag.
+
+Vor der Überleitung geschützt und im Reststellenaudit nicht als Rest gewertet sind drei Gruppen
+(`SOURCE_TOKEN_PATTERNS` und `PROTECTED_NAME_PATTERNS` im Adapter sowie wörtlich belegte
+Änderungstexte):
+
+- Fundstellenkürzel der Verkündungs- und Amtsblätter (`SächsGVBl.`, `SächsABl.`, `SächsJMBl.`,
+  `SächsSMBl.`, `SächsMBl.`) einschließlich ihrer Schreibvarianten in den Quellen (`SächGVBl.`,
+  `SächsGVBI.`, `SächsGVB1.`, `SächsGVBl` ohne Punkt, `SächsABI.`, `SächsJMBI.`, `SächsMinBl.`,
+  `SächsVBl.`). Sie bezeichnen die tatsächlich verwendete Primärquelle.
+- Feststehende Eigennamen ohne Bezug auf das Land: `Sächsische Schweiz` in allen Flexionsformen
+  (einschließlich `Sächsische Schweiz-Osterzgebirge` und `Nationalpark Sächsische Schweiz`),
+  `Sächsisch-Böhmische Schweiz` mit Leerzeichen oder Bindestrich (`Sächsisch-Böhmischen-Schweiz`),
+  `Sächsisches Elbsandsteingebirge`, der Ortszusatz `Sächs. Schw.`/`Sächs. Schweiz`
+  (`Königstein/Sächs. Schw.`), der Gemeindename `Neustadt in Sachsen` und der Vereinsname
+  `Silicon Saxony`.
+- Wortlaut aus Patch-Rezepten, der wörtlich in der ostdeutschen Änderungsvorschrift unter
+  `Gesetze/` steht, auch wenn er einen Sachsen-Bezug enthält (`literalAmendmentStrings` und
+  `adaptBodyBlocks(…, { preserve })`, in `scripts/consolidate-norms.mjs` über `preserveByVersion`).
+  Der ostdeutsche Gesetzgeber hat diesen Text selbst verkündet; die Rechtsüberleitung verändert ihn
+  nicht. `scripts/audit-ost-residuals.mjs` wertet solche Stellen als amtlich belegt.
+
+Ein weiterer Eigenname wird nur als Muster in `PROTECTED_NAME_PATTERNS` ergänzt und hier
+aufgeführt, nie durch eine Ausnahme im Einzelbestand. Institutions- und Gesetzeskürzel wie
+`SächsVerfGHG` – auch mit gleichem Anfang wie ein Blattkürzel – sind normativer Text und werden
+übergeleitet. Der Materializer
 berechnet die Anpassung immer neu aus dem unveränderten Parse; ein gespeichertes `adapted` ist nur
 Kontrollartefakt.
 
@@ -649,7 +684,8 @@ entstanden vor dem Rechtsüberleitungsadapter. `scripts/consolidate-norms.mjs` w
 Patch-Rezepte weiterhin auf den unveränderten sächsischen Ausgangstext an (Hashes und
 Erwartungswerte beziehen sich auf die amtliche Quelle) und leitet erst das Ergebnis über
 (`applyRechtsueberleitung`): alle Fassungen, Historie und redaktionelle Metadaten mit demselben
-Adapter wie der REVOSax-Bestand; Provenienz und geschützte Fundstellenkürzel bleiben. Gesperrte
+Adapter wie der REVOSax-Bestand; Provenienz, geschützte Fundstellenkürzel und Eigennamen sowie
+wörtlich in der ostdeutschen Änderungsvorschrift belegter Rezeptwortlaut bleiben. Gesperrte
 Ziele ohne nutzbare Rezepte werden aus der Ausgangsfassung fortgeschrieben; der Snapshot-Audit
 vergleicht die gespeicherte Zitierung mit der übergeleiteten erwarteten.
 
@@ -662,4 +698,12 @@ die zum Quellenende passt) gilt in Ostdeutschland fort. Die Entscheidungen stehe
 Beleg in `data/recht/revosax-sunset-decisions.json`: `sunset-applies` lässt den Materializer
 `expiryDate`, `validTo`, Status (`repealed`, sobald das Datum verstrichen ist; sonst künftiges
 Ende) und einen Historieneintrag schreiben – deterministisch, auch bei `--regenerate`; `open` lässt
-die Norm unverändert und hält den Fall in `CONTENT_GAPS.md` dokumentiert.
+die Norm unverändert und hält den Fall in `CONTENT_GAPS.md` dokumentiert. Die Daten folgen der
+Außerkrafttretensregel aus `CONTENT.md` („am <Datum>“: `ceasesOn` mit dem Vortag als
+`expiryDate`; „mit Ablauf des <Datum>“: `expiryDate` = Datum); der Historieneintrag steht
+einheitlich am ersten Tag ohne Geltung (`expiryDate` + 1 Tag), bei „mit Ablauf des <Datum>“ also
+am Folgetag. Eine Befristung nur einzelner Vorschriften wird ohne belegte Folgefassung nicht als
+Befristung der ganzen Norm modelliert. Eine Entscheidung, deren `slug`
+ein Konsolidierungsziel bezeichnet und deren Schlüssel eine REVOSax-Fassung dieses Ziels ist, wendet
+`scripts/consolidate-norms.mjs` auf die letzte Folgefassung an; der Lauf bricht ab, wenn die
+Befristung nicht mehr wörtlich im konsolidierten Text steht oder eine Änderung danach wirksam wird.

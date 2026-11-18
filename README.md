@@ -139,7 +139,7 @@ ausschließlich über den Workflow `Deploy to Cloudflare Workers` aus dem geprü
 | `README.md` | Einstieg, Struktur, wichtigste Befehle |
 | `AGENTS.md` | Arbeits- und Redaktionsregeln für Menschen und Agenten |
 | `CONTENT.md` | Inhaltsformate und Pflegewege unter `content/` |
-| `CONTENT_GAPS.md` | tatsächlich offene Quellenlücken und Quellenkonflikte |
+| `CONTENT_GAPS.md` | tatsächlich offene Quellenlücken und belegte Redaktionsentscheidungen zu Quellkonflikten |
 | `TODO.md` | offene technische Arbeiten |
 | `DESIGN.md` | dauerhafte Gestaltungsregeln beider Anwendungen |
 | `docs/EINPFLEGE_PLAYBOOK.md` | vollständiger Eingangsablauf „`temp-neu` einpflegen“ für alle Inhaltsarten |

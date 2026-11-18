@@ -66,13 +66,11 @@ Für Ernennungen von Kabinettmitgliedern gibt es keine amtlichen Dokumente; der 
 Wortlaut des Ernennungsaktes bleibt die maßgebliche Quelle. Weitere Angaben zu den Personen liegen
 nicht vor und werden auch für die übrigen Kabinettmitglieder nicht geführt.
 
-### V-01b – Verweise und Änderungsbefehle in OGVBl. 2026 Nr. 64, Nr. 72 und StAnzO. 2026 Nr. 39
+### V-01b – Verweise in OGVBl. 2026 Nr. 72 und StAnzO. 2026 Nr. 39
 
-Die maßgeblichen Ausgaben enthalten noch Verweise und Änderungsbefehle, die nicht auf die
-bezeichneten Vorschriften passen (Einzelheiten in `CONTENT_GAPS.md`):
+Die maßgeblichen Ausgaben enthalten noch Verweise, die nicht auf die bezeichneten Vorschriften
+passen (Einzelheiten in `CONTENT_GAPS.md`):
 
-- [ ] amtliche Berichtigung der Verordnung zur Änderung der Schulordnung Förderschulen zu Artikel 1
-      Nummer 18 Buchstabe b (§ 30 Absatz 4) und Nummer 30 (§ 18 Absatz 3 Satz 3)
 - [ ] amtliche Berichtigung oder Klarstellung zu Artikel 2 (§ 60a Landkreisordnung) und Artikel 3
       (§ 24a Bezirksordnung) des Gesetzes zur Einführung von Hinweisgebermeldestellen, die „nach
       § 71b Absatz 2 und 3“ verweisen, während Artikel 1 die Hinweisgeberstellen als § 71h in die

@@ -28,7 +28,8 @@ was lokal beweisbar ist und was nicht.
 3. **Nicht direkt auf `main` arbeiten.** Branch, Commit, Pull Request. Direkte Pushes umgehen alle
    vier Pflichtchecks — genau so ist der Zustand entstanden, den Kapitel 12 beschreibt.
 4. **Nie raten.** Passt eine Quelle nicht eindeutig auf den Bestand, wird abgebrochen und gemeldet
-   (Kapitel 11), nicht heuristisch importiert.
+   (Kapitel 11), nicht heuristisch importiert. Für Änderungsbefehle, die nicht wörtlich auf die
+   Vorfassung passen, gilt die Auslegungsregel in 4.3.
 5. **Redaktionelle Normfelder werden nur über die Importkonfiguration geändert**, nie von Hand in
    `content/normen/*/meta.json` — sonst meldet der strikte Audit dauerhaft `would-update`.
 6. **Der Stichtag ist eine geschlossene Kette, kein einzelner Befehl** (Kapitel 6). Wer ihn
@@ -308,6 +309,13 @@ Ziel `status: 'complete'` und das neue Wirksamkeitsdatum führt.
 
 Mehrere Änderungen am selben Tag: identische `versionId`, paarweise verschiedene ganzzahlige
 `sameDayOrder`; ein `repealsLaw`-Rezept steht allein an seinem Tag.
+Wirkt derselbe Änderungsakt an verschiedenen Tagen auf dieselbe Zielnorm, liegen die Rezepte in
+getrennten Verzeichnissen mit identischem `amendmentAct` (`<akt>-<jahr>` beziehungsweise
+`<akt>-<datum>`, etwa `data/recht/amendments/sportneuordnungsgesetz-2026-08-01/`).
+Setzt die Schlussbestimmung einer eigenständigen Vorschrift nur Teile einer anderen Norm außer
+Kraft („gleichzeitig treten die Ziffern … außer Kraft“), trägt ihr Rezept `partialRepeal: true`: Es
+enthält nur `repealProvision` oder `deleteProvision`, und die aufhebende Vorschrift behält ihren
+Normtyp, statt zur Änderungsvorschrift zu werden.
 
 **Gültigkeitsintervalle** müssen lückenlos **und** überlappungsfrei aneinandergrenzen.
 
@@ -321,10 +329,14 @@ Reststellen zuerst inhaltlich beseitigen. Nur wörtlich in der amtlichen Quelle 
 PDF-Hash geprüfte Bezüge mit `--update-backlog` in `data/recht/ost-residual-backlog.json`
 fortschreiben und committen.
 
-**Abbruchregel.** Passt ein Änderungsbefehl nicht eindeutig auf die Ausgangsfassung, wird nicht
-geraten: entweder ein `blockedTargets`-Eintrag mit `reason` und `effectiveDate` plus Eintrag in
-`CONTENT_GAPS.md`, oder eine dokumentierte `editorialSourceResolution` mit Entscheidung,
-verkündetem Wortlaut, Zielanker, Begründung, Datum und Belegen. Danach
+**Auslegungsregel.** Passt ein Änderungsbefehl nicht wörtlich auf die Ausgangsfassung, wird er
+sinngemäß nach dem erkennbar gemeinten Inhalt angewandt: ein `editorialResolutions`-Eintrag am Ziel
+(`status: 'resolved-source-conflict'`, `decisionDate`, `issue`, `publishedText`,
+`resolvedApplication`, `rationale`, `evidence`) plus Redaktionsentscheidung in `CONTENT_GAPS.md`
+(Fundstelle, wörtlicher Befehl, Abweichung, gewählte Auslegung). Ist kein Inhalt eindeutig
+erkennbar, bleibt der Befehl unangewandt und wird ebenso dokumentiert. Nur wenn keine verlässliche
+Folgefassung entstehen kann: `blockedTargets`-Eintrag mit `reason` und `effectiveDate` plus Eintrag
+in `CONTENT_GAPS.md`. Danach
 `npm run norms:consolidation:audit`, Manifest und Bericht committen.
 
 **Berichtigungen** sind etwas anderes als Änderungen: eigene Verkündung mit `type: 'berichtigung'`
@@ -1003,7 +1015,8 @@ Kein Bericht-, Status- oder Handoff-Markdown anlegen. Offene Quellenlücken geh�
 In diesen Fällen wird **nicht** weitergearbeitet, sondern gemeldet:
 
 - PDF und HTML widersprechen sich strukturell.
-- Ein Änderungsbefehl passt nicht eindeutig auf die Ausgangsfassung.
+- Bei einem Änderungsbefehl ist kein Inhalt erkennbar eindeutig gemeint, oder es kann keine
+  verlässliche Folgefassung entstehen (siehe Auslegungsregel in 4.3).
 - Der REVOSax-Snapshot einer Zielnorm fehlt und ist nicht beschaffbar.
 - Ein Bildmotiv widerspricht dem Text oder trägt sichtbare Beschriftungsfehler.
 - Ein neuer Wert bräuchte eine Allowlist-Ergänzung ohne Beleg.
