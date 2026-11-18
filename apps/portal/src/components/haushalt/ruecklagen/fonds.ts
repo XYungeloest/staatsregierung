@@ -4,8 +4,9 @@
  * Beträge kommen ausschließlich aus dem Snapshot (ruecklagen.json, Titel). Öffentliche Namen,
  * Zwecke, Rechtsträger, Rechtsbezüge und Status stehen in content/haushalt/<periode>/fonds.json
  * (keine Beträge). Erlaubte Ableitungen: Summen je Fonds, Art und Jahr (Kontrollsummen) und der
- * Abgleich mit den Einnahmetiteln des Kernhaushalts. Ein Fonds oder Unternehmen ohne Overlay,
- * ein unzulässiger Text oder ein Verweis auf eine nicht vorhandene Norm bricht den Build ab.
+ * Abgleich der veranschlagten Beträge mit den Einnahmetiteln des Kernhaushalts. Ein Fonds oder
+ * Unternehmen ohne Overlay, ein unzulässiger Text oder ein Verweis auf eine nicht vorhandene Norm
+ * bricht den Build ab.
  *
  * Die Quellfelder `einnahmetitel_kernhaushalt`, `verwendungsart`, `kapitel` der Fondsgegenposten
  * und `rechtsgrundlage` der Wirtschaftspläne werden nicht angezeigt; der Bezug zum Kernhaushalt
@@ -286,8 +287,12 @@ export interface FondsZeile {
   anker: string;
   overlay: FondsOverlay;
   art: ArtOverlay;
-  /** Verwendung je Jahr (alle Jahre der Quelle); fehlende Jahre fehlen. */
+  /** Veranschlagte Verwendung je Jahr (alle Jahre der Quelle); fehlende Jahre fehlen. */
   betraege: Record<string, number>;
+  /** Planbetrag je Jahr nach dem Verwendungsplan, einschließlich übertragener Planbeträge. */
+  planbetraege: Record<string, number>;
+  /** In das zweite Haushaltsjahr übertragener Teil des Planbetrags, je Ausgangsjahr. */
+  uebertragung: Record<string, number>;
   eliminierung: Record<string, number>;
   rechtsaenderung: boolean;
   zielkapitel: Array<{ kapitel: string; nummer: string; href: string }>;
@@ -330,7 +335,7 @@ export function getFondsZeilen(periode: string, haushaltsjahre: readonly string[
     }
   }
 
-  // Abgleich: Summe der Fonds je Einnahmetitel und Haushaltsjahr gegen den Ansatz des Titels.
+  // Abgleich: Summe der veranschlagten Beträge je Einnahmetitel und Haushaltsjahr gegen den Ansatz des Titels.
   const titel = titelIndex(periode);
   const bestaetigt = new Map<string, boolean>();
   const gruppen = new Map<string, string[]>();
@@ -361,6 +366,8 @@ export function getFondsZeilen(periode: string, haushaltsjahre: readonly string[
       overlay: fonds,
       art: overlay.arten[fonds.art],
       betraege: summeJe(eigene, (entry) => String(entry.jahr), (entry) => entry.betrag),
+      planbetraege: summeJe(eigene, (entry) => String(entry.jahr), (entry) => entry.planbetrag),
+      uebertragung: summeJe(eigene, (entry) => String(entry.jahr), (entry) => entry.uebertragung),
       eliminierung: summeJe(eigene, (entry) => String(entry.jahr), (entry) => entry.konsolidierungseliminierung),
       rechtsaenderung: eigene.some((entry) => entry.rechtsaenderung_erforderlich),
       zielkapitel: ziel

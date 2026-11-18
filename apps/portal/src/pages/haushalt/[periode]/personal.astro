@@ -809,7 +809,7 @@ const exportMeta = { Periode: id, Datenstand: ctx.datenstand };
     {fondsErstattung.length > 0 ? (
       <>
         <h3 class="hh-unterueberschrift">Erstattung aus dem Versorgungsfonds Ost</h3>
-        <p class="hh-fliesstext">Der Versorgungsfonds Ost erstattet dem Haushalt Versorgungsausgaben für die durch ihn gedeckten Jahrgänge. Die Erstattung folgt deren tatsächlichen Versorgungsausgaben. Sie bleibt nach dem Gesetzentwurf unverändert, solange diese Ausgaben über der geplanten Erstattung liegen.</p>
+        <p class="hh-fliesstext">Der Versorgungsfonds Ost kann dem Haushalt Versorgungsausgaben für die durch ihn gedeckten Jahrgänge erstatten. Die mögliche Erstattung folgt deren tatsächlichen Versorgungsausgaben; sie bleibt nach dem Gesetzentwurf unverändert, solange diese Ausgaben über der geplanten Erstattung liegen. Veranschlagt ist die Erstattung nur in Höhe des Deckungsbedarfs.</p>
         <DataTableFrame
           id="versorgungsfonds"
           label="Erstattung aus dem Versorgungsfonds Ost"
@@ -824,8 +824,9 @@ const exportMeta = { Periode: id, Datenstand: ctx.datenstand };
               <tr>
                 <th scope="col">Jahr</th>
                 <th scope="col" class="hh-zahl">Bisher geplante Erstattung</th>
-                <th scope="col" class="hh-zahl">Erstattung nach dem Gesetzentwurf</th>
+                <th scope="col" class="hh-zahl">Mögliche Erstattung nach dem Gesetzentwurf</th>
                 <th scope="col" class="hh-zahl">Minderung</th>
+                <th scope="col" class="hh-zahl">Veranschlagte Erstattung</th>
               </tr>
             </thead>
             <tbody>
@@ -837,6 +838,7 @@ const exportMeta = { Periode: id, Datenstand: ctx.datenstand };
                     <td class="hh-zahl"><Amount value={eintrag.geplant} /></td>
                     <td class="hh-zahl"><Amount value={eintrag.tatsaechlich} /></td>
                     <td class="hh-zahl"><Amount value={eintrag.minderung} /></td>
+                    <td class="hh-zahl"><Amount value={eintrag.veranschlagt} /></td>
                   </tr>
                 );
               })}

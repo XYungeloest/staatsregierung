@@ -7,11 +7,11 @@
   ],
   "quellbezeichnung": "Doppelhaushalt 2027/2028 des Freistaates Ostdeutschland – Regierungsentwurf (Simulation)",
   "quellstatus": "Regierungsentwurf",
-  "stand": "2026-11-11",
+  "stand": "2026-11-16",
   "titel_datenstatus": "Entwurf 2027/2028 (Simulation)",
   "haushaltsvolumen": {
-    "2027": 140900866242,
-    "2028": 140040550384
+    "2027": 139620549022,
+    "2028": 140149153791
   },
   "haushaltsvolumen_basis": {
     "2027": 141139043496,
@@ -28,6 +28,16 @@
       "id": "K-02",
       "kurzbeschreibung": "Neuberechnung der Personal-, Besoldungs-, Beihilfe- und Versorgungsausgaben nach dem Entwurf eines Gesetzes zur Neuordnung des öffentlichen Dienstrechts (Drucksache 08/13)",
       "art": "Politische Entscheidung mit Finanzwirkung (Personal-, Beihilfe- und Versorgungsausgaben) und summenneutrale Basisbereinigung HG 4"
+    },
+    {
+      "id": "K-03",
+      "kurzbeschreibung": "Haushaltsfolgen der am 13.11.2026 verkündeten Sicherheitsreform (OGVBl. 2026 Nr. 85–99)",
+      "art": "Zwingende Konsistenzkorrektur (neue Rechtslage) und politische Entscheidung mit Finanzwirkung: Vollzug der Sicherheitsreform"
+    },
+    {
+      "id": "K-04",
+      "kurzbeschreibung": "Endfassung des Regierungsentwurfs: Versorgungspauschale, Entschädigungen, Pflichtanlagen der Sondervermögen, VE nach § 38 LHO, Entnahmen nach Bedarf",
+      "art": "Zwingende Konsistenzkorrektur (geltendes Recht: VersFOG, Vergesellschaftungsgesetze, Sondervermögensgesetze, § 38 LHO) und politische Entscheidung mit Finanzwirkung: Endfassung des Regierungsentwurfs"
     }
   ],
   "legenden": {

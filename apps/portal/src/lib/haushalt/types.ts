@@ -463,7 +463,24 @@ export interface Fondsgegenposten {
   kapitel: string;
   hauptgruppe: string;
   titelgruppe: string;
+  /** Veranschlagt (Deckungsbedarf des Jahres); entspricht den Entnahmetiteln des Kernhaushalts. */
   betrag: number;
+  /**
+   * In Haushaltsjahren der Planbetrag des Jahres nach dem Verwendungsplan (Höchstbetrag der
+   * zweckgleichen Verwendung). In Jahren der Finanzplanung trägt das Feld den rechnerischen
+   * Höchstrahmen (nachrichtlich; kein Planbetrag, keine Bewilligung) und ist nicht als Planbetrag
+   * anzuzeigen.
+   */
+  planbetrag: number;
+  /**
+   * = planbetrag − betrag. Nur in Haushaltsjahren der nicht veranschlagte Teil des Planbetrags
+   * (Entnahmereserve); in Jahren der Finanzplanung keine Entnahmereserve.
+   */
+  kuerzung: number;
+  /** In das zweite Haushaltsjahr übertragener Teil des ursprünglichen Planbetrags (nur erstes Jahr). */
+  uebertragung: number;
+  /** Jahr, aus dem diese Zeile übertragen wurde (eigene Zeile im Folgejahr), sonst null. */
+  uebertragen_aus: number | null;
   bezeichnung: string;
   art: string;
   herkunft: string;
@@ -515,6 +532,16 @@ export interface StellenJahr {
   beamte_bisheriges_recht: number;
   kostenaequivalent_beamte: number;
   kostenaequivalent_arbeitnehmer: number;
+  /**
+   * Stellen aus dem Vollzug der Sicherheitsreform (davon-Angaben): `sicherheitsreform_beamte` ist in
+   * `beamte_neu_o_r`, `sicherheitsreform_anwaerter` in `anwaerter`, `sicherheitsreform_tarif` in
+   * `arbeitnehmer` enthalten, nicht in `beamte_bisheriges_recht`. Teile und Gesamtzahl
+   * `sicherheitsreform` sind je für sich gerundet (Abweichung von der Summe der Teile höchstens eins).
+   */
+  sicherheitsreform: number;
+  sicherheitsreform_beamte: number;
+  sicherheitsreform_tarif: number;
+  sicherheitsreform_anwaerter: number;
 }
 
 export interface StellenKapitel {
@@ -544,7 +571,7 @@ export interface Reformwirkungsjahr {
   netto: number;
 }
 
-/** Wirkung der Personalreform je Kapitel und Personalgruppe (Haushaltsjahre). */
+/** Wirkung der Personalreform (Dienstrechtsneuordnung) je Kapitel und Personalgruppe (Haushaltsjahre). */
 export interface Kapitelwirkung {
   jahr: number;
   einzelplan: string;
@@ -555,8 +582,15 @@ export interface Kapitelwirkung {
   basisbereinigung: number;
   reformwirkung: number;
   finanzfolge: number;
-  /** = vorher + basisbereinigung + reformwirkung + finanzfolge = Σ Titel der Gruppe im Kapitel. */
+  /** Stand nach der Dienstrechtsneuordnung = vorher + basisbereinigung + reformwirkung + finanzfolge. */
   nachher: number;
+  /** Änderung derselben Gruppe durch den Vollzug der Sicherheitsreform. */
+  sicherheitsreform: number;
+  /**
+   * Änderung derselben Gruppe durch die Endfassung des Regierungsentwurfs.
+   * nachher + sicherheitsreform + endfassung = Σ Titel der Gruppe im Kapitel.
+   */
+  endfassung: number;
 }
 
 /** Bezeichnung eines Rechtsstands der Vergleichs- und Versorgungsreihen (z. B. R0, A, A2, B, C). */
@@ -653,7 +687,12 @@ export interface PersonalDatei extends SnapshotKopf {
       minderung: number;
       hinweis: string;
     };
-    versorgungsfonds_erstattung: Array<{ jahr: number; geplant: number; tatsaechlich: number; minderung: number }>;
+    /**
+     * geplant: bisherige Planung; tatsaechlich: Erstattung nach dem Dienstrechtsentwurf;
+     * ausgaben_kohorte: zugeordnete Versorgungsausgaben der gedeckten Jahrgänge; veranschlagt:
+     * veranschlagte Erstattung (nur nach Bedarf, = Verwendungsplan und Einnahmetitel).
+     */
+    versorgungsfonds_erstattung: Array<{ jahr: number; geplant: number; tatsaechlich: number; minderung: number; ausgaben_kohorte: number; veranschlagt: number }>;
   };
   /** Kennungen der Quelle ohne Bezeichnung; nur mit redaktioneller Beschriftung anzeigen. */
   kennzahlen: Array<{ kennzahl: string; jahr: number; wert: number }>;

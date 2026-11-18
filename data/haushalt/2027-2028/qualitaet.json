@@ -3,32 +3,25 @@
   "periode": "2027-2028",
   "klassen": {
     "2027": {
-      "D_ableitung": 5238911462,
-      "D_quellgewicht": 6471370464,
-      "D_struktur": 24643371175,
-      "S_statusmodell": 16666230844,
+      "D_ableitung": 3416850669,
+      "D_quellgewicht": 6402240975,
+      "D_struktur": 24638502703,
+      "S_statusmodell": 16626748845,
       "S_mengenmodell": 2209600000,
-      "S_fachmodell": 73216029968,
-      "S_rest": 12455352329
+      "S_fachmodell": 76181844048,
+      "S_rest": 10144761782
     },
     "2028": {
-      "D_ableitung": 5768340301,
+      "D_ableitung": 4056518328,
       "D_quellgewicht": 6147211617,
-      "D_struktur": 24224666512,
-      "S_statusmodell": 17264137975,
+      "D_struktur": 24219705562,
+      "S_statusmodell": 17223906000,
       "S_mengenmodell": 2323180000,
-      "S_fachmodell": 73673120647,
-      "S_rest": 10639893332
+      "S_fachmodell": 76666413810,
+      "S_rest": 9512218474
     }
   },
   "groesste_restansaetze": [
-    {
-      "kapitel": "2007",
-      "titel": "91901",
-      "zweckbestimmung": "Zuführungen an Rücklagen und Vorsorgemittel (fortgeführte Herkunftsansätze)",
-      "jahr": 2027,
-      "betrag": 2186200700
-    },
     {
       "kapitel": "0302",
       "titel": "61301",
@@ -301,6 +294,13 @@
       "zweckbestimmung": "Zuschüsse an Verkehrsverbünde, Mobilitätsberatung und Verkehrssicherheitsarbeit",
       "jahr": 2027,
       "betrag": 80397404
+    },
+    {
+      "kapitel": "0819",
+      "titel": "89101",
+      "zweckbestimmung": "Investitionsförderung Weitere gesetzliche Sozialleistungen – Abgrenzungsrest",
+      "jahr": 2027,
+      "betrag": 75671810
     }
   ],
   "pruefungen": [
@@ -349,11 +349,11 @@
       "ok": true
     },
     {
-      "name": "2027: Haushaltsvolumen = Baseline + Summe K-02-Journal (Ausgaben)",
+      "name": "2027: Haushaltsvolumen = Baseline + Summe K-02-, K-03- und K-04-Journal (Ausgaben)",
       "ok": true
     },
     {
-      "name": "2027: Einnahmen = Baseline + Summe K-02-Journal (Einnahmen)",
+      "name": "2027: Einnahmen = Baseline + Summe K-02-, K-03- und K-04-Journal (Einnahmen)",
       "ok": true
     },
     {
@@ -401,11 +401,11 @@
       "ok": true
     },
     {
-      "name": "2028: Haushaltsvolumen = Baseline + Summe K-02-Journal (Ausgaben)",
+      "name": "2028: Haushaltsvolumen = Baseline + Summe K-02-, K-03- und K-04-Journal (Ausgaben)",
       "ok": true
     },
     {
-      "name": "2028: Einnahmen = Baseline + Summe K-02-Journal (Einnahmen)",
+      "name": "2028: Einnahmen = Baseline + Summe K-02-, K-03- und K-04-Journal (Einnahmen)",
       "ok": true
     },
     {
@@ -441,7 +441,7 @@
       "ok": true
     },
     {
-      "name": "K-02: Maßnahmenauswahl = Baseline + P01",
+      "name": "K-02/K-03/K-04: Maßnahmenauswahl = Baseline + P01 + P02 + P03",
       "ok": true
     },
     {
@@ -601,11 +601,723 @@
       "ok": true
     },
     {
-      "name": "Einzelplan × Hauptgruppe = c0-v2 + Umgliederungsjournal (K-01) + Korrekturjournal (K-02)",
+      "name": "K-03 2027: Mehrausgaben in den Zieltiteln = Kosten der Modellzeile P02",
       "ok": true
     },
     {
-      "name": "Hauptgruppensummen = c0-v2 + dokumentierte K-02-Wirkung",
+      "name": "K-03 2027: Strukturkorrektur summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Umschichtung summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Finanzfolge total_interest_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Finanzfolge credit_cash_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Finanzfolge reserve_draw_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: keine zusätzliche Kreditaufnahme durch die Sicherheitsreform",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Mehrausgaben in den Zieltiteln = Kosten der Modellzeile P02",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Strukturkorrektur summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Umschichtung summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Finanzfolge total_interest_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Finanzfolge credit_cash_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Finanzfolge reserve_draw_eur = Solverdifferenz P01+P02 gegenüber P01",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: keine zusätzliche Kreditaufnahme durch die Sicherheitsreform",
+      "ok": true
+    },
+    {
+      "name": "K-03: Kapitel 01 04 (§ 5 PolBeschStG) und 13 06 (§ 11 LfStErrG) veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "K-03: Titelgruppe 01 03/71 (§ 13 OstSKG) veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Auffangen im Bauansatz 2093/712 02 höchstens 0.10 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Auffangen im Bauansatz 2093/712 02 höchstens 0.10 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03: jede Kostenbasis genau einmal (keine Doppelzählung)",
+      "ok": true
+    },
+    {
+      "name": "K-03: alle Ausgaben OGVBl. 2026 Nr. 85–99 einer Maßnahme zugeordnet",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-01.1 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-02.3 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-02.4 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-02.5 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-02.6 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-03.2 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-03.4 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-04.6 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-04.8 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-04.9 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-04.10 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.2 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.5 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.7 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.9 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.11 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.14 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.16 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-05.20 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-06.6 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-06.8 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-07.3 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-07.6 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-07.8 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-08.2 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-09.6 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-10.4 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-10.6 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-10.8 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-11.3 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-11.5 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-11.6 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-12.1 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-13.2 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-15.1 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03: Einmalwirkung SR-16.1 = 100 %",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 0101/68601 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 0101/68601 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 0101/89901 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 0101/89901 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 0102/68601 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 0102/68601 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 0102/89901 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 0102/89901 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 0103/68601 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 0103/68601 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 0103/89901 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 0103/89901 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 1719/68401 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 1719/68401 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 1719/89101 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 1719/89101 höchstens 0.85 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 1301/68601 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 1301/68601 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 1301/89901 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 1301/89901 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 1305/68601 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 1305/68601 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2027: Entnahme aus 1305/89901 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-03 2028: Entnahme aus 1305/89901 höchstens 0.5 des Ansatzes",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Umwidmung und Umgliederung (K-04a) summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Mehrbetrag der Versorgungspauschale = Kosten der Modellzeile P03",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Minderung freier Restansätze = Einsparung der Modellzeile P03",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Entnahmeminderung = Einnahmewirkung der Modellzeile P03",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Finanzfolge total_interest_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Finanzfolge credit_cash_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Finanzfolge reserve_draw_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: keine aus kürzbaren Entnahmen finanzierte Zuführung an die Liquiditätsrücklage (919 02 = 0 oder alle Ranglose gekürzt)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Zinsen, Anschlusskredit und Entnahme der allgemeinen Rücklage wie im K-03-Lauf (lineare Bedarfsrechnung)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Tilgungstitel 2005/595 01 = planmäßige Tilgung der Finanzrechnung",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Anrechnung auf die Pauschale nur sonstige Finanzierungsausgaben (ohne Tilgung)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: keine Kreditaufnahme und keine Deckungslücke durch K-04",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Versorgungspauschale 2070/63401 = Rechenkern § 4 VersFOG",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: 2007/919 01 vollständig übergeleitet (Tilgung in 2005/595 01, Rest in der Pauschale; keine Doppelvorsorge)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Entschädigungen 0706/83101 = fällige Hauptforderungen und Zinsen",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Wirtschaftsplan Versorgungsfonds: Einnahme Pauschale = Kernhaushalt 2070/634 01",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Wirtschaftsplan Versorgungsfonds: Erstattung = Kernhaushalt 2007/234 01",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Versorgungsfondserstattung höchstens zulässiger Betrag (RFNG-E Art. 2)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Altvermögen des Versorgungsfonds über dem Mindestkapital (Kapitaldeckung, 10 % Marge)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Sondervermögen Hochgeschwindigkeitsluftfahrt Ost: Zuführung im Wirtschaftsplan = Kernhaushaltstitel",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Sondervermögen Energie- und Wärmevergesellschaftung: Zuführung im Wirtschaftsplan = Kernhaushaltstitel",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Zukunfts- und Generationenfonds Ost: Zuführung im Wirtschaftsplan = Kernhaushaltstitel",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: keine Entnahme aus dem Zukunfts- und Generationenfonds (§ 8 GenFOG)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Umwidmung und Umgliederung (K-04a) summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Mehrbetrag der Versorgungspauschale = Kosten der Modellzeile P03",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Minderung freier Restansätze = Einsparung der Modellzeile P03",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Entnahmeminderung = Einnahmewirkung der Modellzeile P03",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Finanzfolge total_interest_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Finanzfolge credit_cash_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Finanzfolge reserve_draw_eur = Solverdifferenz P01+P02+P03 gegenüber P01+P02",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: keine aus kürzbaren Entnahmen finanzierte Zuführung an die Liquiditätsrücklage (919 02 = 0 oder alle Ranglose gekürzt)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Zinsen, Anschlusskredit und Entnahme der allgemeinen Rücklage wie im K-03-Lauf (lineare Bedarfsrechnung)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Tilgungstitel 2005/595 01 = planmäßige Tilgung der Finanzrechnung",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Anrechnung auf die Pauschale nur sonstige Finanzierungsausgaben (ohne Tilgung)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: keine Kreditaufnahme und keine Deckungslücke durch K-04",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Versorgungspauschale 2070/63401 = Rechenkern § 4 VersFOG",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: 2007/919 01 vollständig übergeleitet (Tilgung in 2005/595 01, Rest in der Pauschale; keine Doppelvorsorge)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Entschädigungen 0706/83101 = fällige Hauptforderungen und Zinsen",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Wirtschaftsplan Versorgungsfonds: Einnahme Pauschale = Kernhaushalt 2070/634 01",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Wirtschaftsplan Versorgungsfonds: Erstattung = Kernhaushalt 2007/234 01",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Versorgungsfondserstattung höchstens zulässiger Betrag (RFNG-E Art. 2)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Altvermögen des Versorgungsfonds über dem Mindestkapital (Kapitaldeckung, 10 % Marge)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Sondervermögen Hochgeschwindigkeitsluftfahrt Ost: Zuführung im Wirtschaftsplan = Kernhaushaltstitel",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Sondervermögen Energie- und Wärmevergesellschaftung: Zuführung im Wirtschaftsplan = Kernhaushaltstitel",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Zukunfts- und Generationenfonds Ost: Zuführung im Wirtschaftsplan = Kernhaushaltstitel",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: keine Entnahme aus dem Zukunfts- und Generationenfonds (§ 8 GenFOG)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Kürzung SN-gross-Mittelstand höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Kürzung SN-gross-Rettung höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Kürzung SN-gross-Krisen höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Kürzung BB-budget höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Kürzung MV-weitere höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Kürzung SN-gross-Mittelstand (übertragen) höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Kürzung SN-gross-Rettung (übertragen) höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Kürzung SN-gross-Krisen (übertragen) höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Kürzung BB-budget (übertragen) höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Kürzung MV-weitere (übertragen) höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2029: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2030: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2031: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2032: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2033: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2034: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04 2035: Kürzung VFO-Ost höchstens Ansatz des Loses",
+      "ok": true
+    },
+    {
+      "name": "K-04: Übertragung SN-gross-Mittelstand 2027 → 2028 höchstens der 2027 nicht entnommene Betrag",
+      "ok": true
+    },
+    {
+      "name": "K-04: Übertragung SN-gross-Rettung 2027 → 2028 höchstens der 2027 nicht entnommene Betrag",
+      "ok": true
+    },
+    {
+      "name": "K-04: Übertragung SN-gross-Krisen 2027 → 2028 höchstens der 2027 nicht entnommene Betrag",
+      "ok": true
+    },
+    {
+      "name": "K-04: Übertragung BB-budget 2027 → 2028 höchstens der 2027 nicht entnommene Betrag",
+      "ok": true
+    },
+    {
+      "name": "K-04: Übertragung MV-weitere 2027 → 2028 höchstens der 2027 nicht entnommene Betrag",
+      "ok": true
+    },
+    {
+      "name": "K-04: Versorgungsfonds nicht übertragen (§ 6 Abs. 6 VersFOG n. F.)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Verwendungsplan veranschlagt = Entnahmetitel 2007 (234 01, 356 01, 356 02, 359 02, 359 03)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Verwendungsplan Planbetrag − veranschlagt = Entnahmereserve (§ 4 Abs. 2a HG)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Verwendungsplan veranschlagt = Entnahmetitel 2007 (234 01, 356 01, 356 02, 359 02, 359 03)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Verwendungsplan Planbetrag − veranschlagt = Entnahmereserve (§ 4 Abs. 2a HG)",
+      "ok": true
+    },
+    {
+      "name": "K-04: je Position Planbeträge aller Jahre = ursprünglicher Plan (keine doppelte Ermächtigung durch Übertragung)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2027: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2028: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2029: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2030: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2031: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2032: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2033: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2034: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2035: Versorgungsfonds Bestandsfortschreibung zeilenweise (±1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-04: Sondervermögen Hochgeschwindigkeitsluftfahrt: Ausgaben und VE innerhalb des Gesamtrahmens (§ 3 Abs. 2 HGLSVermG)",
+      "ok": true
+    },
+    {
+      "name": "K-04 2029: Finanzplanung ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-04 2030: Finanzplanung ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-04 2031: Finanzplanung ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-04 2032: Finanzplanung ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-04 2033: Finanzplanung ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-04 2034: Finanzplanung ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-04 2035: Finanzplanung ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-04: Minderung freier Restansätze höchstens frei (Rückbehalt gewahrt)",
+      "ok": true
+    },
+    {
+      "name": "Einzelplan × Hauptgruppe = c0-v2 + Umgliederungsjournal (K-01) + Korrekturjournale (K-02, K-03, K-04)",
+      "ok": true
+    },
+    {
+      "name": "Hauptgruppensummen = c0-v2 + dokumentierte K-02-, K-03- und K-04-Wirkung",
       "ok": true
     },
     {
@@ -818,7 +1530,7 @@
     }
   ],
   "pruefstand": {
-    "bestanden": 128,
-    "gesamt": 128
+    "bestanden": 306,
+    "gesamt": 306
   }
 }

@@ -54,6 +54,22 @@ Aufbau des Snapshots: `periode.json`, `gesamtplan.json`, `einzelplaene.json`, `k
 `titel/<ep>.json`, `projekte.json`, `finanzierung.json`, `ruecklagen.json`, `personal.json`,
 `gesetze.json`, `qualitaet.json`, `import-manifest.json` und gegebenenfalls `ausgabe/`.
 
+Stufen der Haushaltsaufstellung werden gegen die Teilwerte der Quelle geprüft, nicht übergangen:
+
+- Verwendungsplan (`ruecklagen.json`, `fonds_gegenposten`): `betrag` ist der veranschlagte
+  Betrag (Deckungsbedarf, gleich den Entnahmetiteln im Kernhaushalt und der
+  Konsolidierungseliminierung). In Haushaltsjahren ist `planbetrag` der Planbetrag des Jahres und
+  `kuerzung` dessen nicht veranschlagter Teil (Entnahmereserve); ein in das zweite Haushaltsjahr
+  übertragener Planbetrag steht dort als eigene Zeile (`uebertragen_aus`). In Jahren der
+  Finanzplanung trägt `planbetrag` nur den rechnerischen Höchstrahmen (kein Planbetrag, keine
+  Bewilligung, keine Entnahmereserve); Seiten zeigen ihn nicht als Planbetrag.
+- Kapitelwirkung der Personalreform (`personal.json`): `nachher` ist der Stand nach der
+  Dienstrechtsneuordnung; erst zuzüglich `sicherheitsreform` und `endfassung` ergibt sich die
+  Titelsumme der Gruppe im Kapitel.
+- Stellen der Sicherheitsreform sind davon-Angaben der Planäquivalente; der Import prüft sie gegen
+  die in der Quelle auf 0,1 VZÄ gerundeten Jahresdurchschnitte (jeder Teil und die Gesamtzahl
+  müssen eine mögliche Rundung innerhalb des Rundungsbereichs sein).
+
 `haushalt:check` ist Teil von `content:check` und läuft ohne Haushaltsrepo: Hashes laut Manifest,
 Summen-, Eindeutigkeits- und Projektinvarianten, Periodenregister und Overlays sowie die
 Kreuzprüfung der Ausgabedateien.

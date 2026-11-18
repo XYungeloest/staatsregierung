@@ -463,9 +463,11 @@ function pruefeQuerverweise(problems, context) {
   const kapitelwirkung = personal.kapitelwirkung ?? [];
 
   pruefeRechenidentitaeten(problems, {
+    years,
     massnahmen: finanzierung.massnahmen,
     kreditfinanzierungsplan: finanzierung.kreditfinanzierungsplan,
     allgemeineRuecklage: ruecklagen.allgemeine_ruecklage,
+    fondsGegenposten: ruecklagen.fonds_gegenposten,
     stellen: personal.stellen?.kapitel,
     reformwirkungJahre,
     kapitelwirkung,
@@ -473,6 +475,7 @@ function pruefeQuerverweise(problems, context) {
     massnahmen: 'finanzierung.json massnahmen',
     kreditfinanzierungsplan: 'finanzierung.json kreditfinanzierungsplan',
     ruecklage: 'ruecklagen.json allgemeine_ruecklage',
+    fonds: 'ruecklagen.json fonds_gegenposten',
     stellen: 'personal.json stellen',
     reformwirkung: 'personal.json reformwirkung',
     kapitelwirkung: 'personal.json kapitelwirkung',
@@ -483,10 +486,14 @@ function pruefeQuerverweise(problems, context) {
     finanzplan: finanzierung.finanzplan,
     kreditfinanzierungsplan: finanzierung.kreditfinanzierungsplan,
     allgemeineRuecklage: ruecklagen.allgemeine_ruecklage,
+    fondsGegenposten: ruecklagen.fonds_gegenposten,
+    versorgungsfondsErstattung: personal.versorgung?.versorgungsfonds_erstattung,
     reformwirkungJahre,
     komponenten: personal.reformwirkung?.komponenten,
   }, {
     gesamtplan: 'gesamtplan.json',
+    fonds: 'ruecklagen.json fonds_gegenposten',
+    versorgungsfonds: 'personal.json versorgung.versorgungsfonds_erstattung',
     finanzplan: 'finanzierung.json finanzplan',
     kreditfinanzierungsplan: 'finanzierung.json kreditfinanzierungsplan',
     ruecklage: 'ruecklagen.json allgemeine_ruecklage',
@@ -542,9 +549,16 @@ function pruefeQuerverweise(problems, context) {
     problems.equal(values.qualitaet ?? entry.qualitaet, 'Qualitätsklasse', 'S_rest', 'erwartet', `Restansatz ${row.kapitel}/${row.titel}`);
   }
 
-  // Kapitelwirkung der Personalreform: Nachher-Wert = Summe der Titel der Gruppe im Kapitel.
+  // Kapitelwirkung der Personalreform: Stand nach der Dienstrechtsneuordnung (nachher) zuzüglich der
+  // Änderungen späterer Stufen (Sicherheitsreform, Endfassung) = Summe der Titel der Gruppe im Kapitel.
   for (const row of kapitelwirkung) {
-    problems.equal(row.nachher, 'personal.json kapitelwirkung nachher', sumOf(`kg|${row.kapitel}|${row.gruppe}|${row.jahr}`), 'Summe der Titel der Gruppe', `Kapitelwirkung ${row.kapitel}/${row.gruppe} ${row.jahr}`);
+    problems.equal(
+      row.nachher + row.sicherheitsreform + row.endfassung,
+      'personal.json kapitelwirkung nachher + sicherheitsreform + endfassung',
+      sumOf(`kg|${row.kapitel}|${row.gruppe}|${row.jahr}`),
+      'Summe der Titel der Gruppe',
+      `Kapitelwirkung ${row.kapitel}/${row.gruppe} ${row.jahr}`,
+    );
   }
 
   // Rechtsstände: jede verwendete Kennung hat eine Bezeichnung.
