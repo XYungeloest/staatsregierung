@@ -16,9 +16,9 @@ import {
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getCurrentVersion, getVersionById } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
-import { describeChange, displayChangeNote, displayHistoryTitle } from '../../../lib/history-labels.ts';
+import { describeChange, displayChangeNote, displayHistoryNote, displayHistoryTitle, futureHistoryTypeLabel, historyCitationLabel, historyEffectiveDate, historyNoteSlug, historyTypeLabel } from '../../../lib/history-labels.ts';
 import { formatAffectedUnits } from '@ostrecht/shared/lib/norms/affected-units.ts';
-import { buildNormHeadModel, latestAmendment, shortCitation } from '../../../lib/norm-head.ts';
+import { buildNormHeadModel, latestAmendment } from '../../../lib/norm-head.ts';
 import { loadAffectedUnitsForVersions } from '../../../lib/norm-view.ts';
 import { formatShortDate } from '../../../lib/dates.ts';
 import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL, versionKindLabel } from '../../../lib/vocabulary.ts';
@@ -35,6 +35,7 @@ const currentVersion = getCurrentVersion(norm);
 const versions = [...norm.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
 const relatedSlugs = [
   ...norm.history.entries.map((entry) => entry.relatedNorm),
+  ...norm.history.entries.map((entry) => historyNoteSlug(entry.note)),
   norm.meta.predecessorSlug,
   norm.meta.successorSlug,
 ].filter((value): value is string => Boolean(value));
@@ -65,17 +66,22 @@ const baselineId = derived.origin.baselineVersionId;
 const futureCount = versions.filter((version) => kindOf(version) === 'future').length;
 const historicalCount = versions.filter((version) => kindOf(version) === 'historical').length;
 
-/** Protokoll: Historieneinträge, jüngste zuerst; Verkündungsdatum aus der Fundstelle der entstandenen Fassung. */
-const typeLabels: Record<string, string> = { initial: 'Stammfassung', amendment: 'Änderung', repeal: 'Aufhebung', notice: 'Hinweis' };
-const protocol = [...norm.history.entries]
-  .sort((left, right) => right.date.localeCompare(left.date))
+/**
+ * Protokoll: Historieneinträge, jüngste zuerst; Verkündungsdatum aus der Fundstelle der
+ * entstandenen Fassung. „Wirksam“ ist bei Stammfassung und Änderung der Geltungsbeginn der
+ * entstandenen Fassung, bei Hinweisen das Eintragsdatum (historyEffectiveDate).
+ */
+const protocol = norm.history.entries
   .map((entry) => {
     const version = entry.affectingVersionId ? getVersionById(norm, entry.affectingVersionId) : undefined;
     const reference = version ? referenceOf.get(version.versionId) : undefined;
-    const isFuture = entry.date > EDITORIAL_REFERENCE_DATE;
+    const effectiveDate = historyEffectiveDate(entry, version);
+    const isFuture = effectiveDate > EDITORIAL_REFERENCE_DATE;
     const title = displayHistoryTitle(entry.title) ?? relatedLabel(entry.relatedNorm) ?? describeChange(entry);
-    return { entry, version, reference, isFuture, title, isBaseline: Boolean(version && version.versionId === baselineId) };
-  });
+    const note = displayHistoryNote(entry.note, relatedLabel);
+    return { entry, version, reference, effectiveDate, isFuture, title, note, isBaseline: Boolean(version && version.versionId === baselineId) };
+  })
+  .sort((left, right) => right.effectiveDate.localeCompare(left.effectiveDate) || right.entry.date.localeCompare(left.entry.date));
 
 /** Fassung zu einem Datum: nur diese Vorschrift, keine Portaleinstellung. */
 const requestedDate = (Astro.url.searchParams.get('datum') ?? '').trim();
@@ -165,19 +171,19 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
                 <tbody>
                   {protocol.map((row, index) => (
                     <tr class:list={[row.isFuture ? 'is-future' : undefined, row.isBaseline ? 'is-baseline' : undefined, row.version?.versionId === currentVersion.versionId ? 'is-selected' : undefined]}>
-                      <td><time datetime={row.entry.date}>{formatShortDate(row.entry.date)}</time></td>
+                      <td><time datetime={row.effectiveDate}>{formatShortDate(row.effectiveDate)}</time></td>
                       {hasPublicationDates ? <td class="r-meta">{row.reference ? <time datetime={row.reference.publicationDate}>{formatShortDate(row.reference.publicationDate)}</time> : '—'}</td> : null}
                       <td>
                         {row.entry.relatedNorm && labels.has(row.entry.relatedNorm) ? <a href={getNormUrl(row.entry.relatedNorm)}>{row.title}</a> : row.title}
                         <div class="r-meta r-inline-list">
-                          <span>{row.reference ? <a href={getPublicationUrl(row.reference.publicationSlug)}>{toDisplayText(row.reference.publicationTitle)}</a> : shortCitation(row.entry.citation) || toDisplayText(row.entry.citation)}</span>
+                          <span>{row.reference ? <a href={getPublicationUrl(row.reference.publicationSlug)}>{toDisplayText(row.reference.publicationTitle)}</a> : historyCitationLabel(row.entry)}</span>
                           {row.version ? <a href={kindOf(row.version) === 'current' ? getNormUrl(slug) : getNormVersionUrl(slug, row.version.versionId)}>Entstandene Fassung {formatShortDate(row.version.validFrom)}</a> : null}
-                          {row.entry.note && displayHistoryTitle(row.entry.title) ? <span>{toDisplayText(row.entry.note)}</span> : null}
+                          {row.note && displayHistoryTitle(row.entry.title) ? <span>{row.note.relatedSlug && row.note.relatedLabel ? <>Beleg: <a href={getNormUrl(row.note.relatedSlug)}>{row.note.relatedLabel}</a>, {row.note.provision}</> : row.note.text}</span> : null}
                         </div>
                       </td>
                       {(() => { const cell = affectedCell(index); return cell ? <td class="norm-protocol__affected r-meta" rowspan={cell.rowspan > 1 ? cell.rowspan : undefined} data-protocol-affected={row.version?.versionId}>{cell.text}</td> : null; })()}
                       <td class="r-nowrap">
-                        {row.isFuture ? <StatusMark versionKind="future" label="Noch nicht in Kraft" size="sm" /> : row.isBaseline ? 'Ausgangsfassung' : typeLabels[row.entry.type] ?? row.entry.type}
+                        {row.isFuture ? <StatusMark versionKind="future" label={futureHistoryTypeLabel(row.entry)} size="sm" /> : row.isBaseline ? 'Ausgangsfassung' : historyTypeLabel(row.entry)}
                       </td>
                     </tr>
                   ))}
@@ -247,8 +253,8 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
             <h2 id="norm-amendment-title" class="r-label">Änderungsvorschrift zum {formatShortDate(amendment.date)}</h2>
             <p class="r-serif norm-aside__cite-text">{relatedLabel(amendment.relatedNorm) ?? describeChange(amendment)}</p>
             <dl class="r-dl r-dl--compact">
-              {amendmentReference ? <><dt>Verkündet</dt><dd class="r-inline-list"><time datetime={amendmentReference.publicationDate}>{formatShortDate(amendmentReference.publicationDate)}</time><a href={getPublicationUrl(amendmentReference.publicationSlug)}>{toDisplayText(amendmentReference.publicationTitle)}</a></dd></> : shortCitation(amendment.citation) ? <><dt>Fundstelle</dt><dd>{shortCitation(amendment.citation)}</dd></> : null}
-              <dt>Wirksam</dt><dd><time datetime={amendment.date}>{formatShortDate(amendment.date)}</time></dd>
+              {amendmentReference ? <><dt>Verkündet</dt><dd class="r-inline-list"><time datetime={amendmentReference.publicationDate}>{formatShortDate(amendmentReference.publicationDate)}</time><a href={getPublicationUrl(amendmentReference.publicationSlug)}>{toDisplayText(amendmentReference.publicationTitle)}</a></dd></> : historyCitationLabel(amendment) ? <><dt>Fundstelle</dt><dd>{historyCitationLabel(amendment)}</dd></> : null}
+              <dt>Wirksam</dt><dd><time datetime={historyEffectiveDate(amendment, amendmentVersion)}>{formatShortDate(historyEffectiveDate(amendment, amendmentVersion))}</time></dd>
               {amendmentVersion ? <><dt>Entstandene Fassung</dt><dd><a href={kindOf(amendmentVersion) === 'current' ? getNormUrl(slug) : getNormVersionUrl(slug, amendmentVersion.versionId)}>{formatShortDate(amendmentVersion.validFrom)}</a></dd></> : null}
               {amendment.relatedNorm && labels.has(amendment.relatedNorm) ? <><dt>Änderungsvorschrift</dt><dd><a href={getNormUrl(amendment.relatedNorm)}>Als Vorschrift öffnen</a></dd></> : null}
             </dl>

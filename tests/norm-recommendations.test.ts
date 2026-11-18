@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  buildRelatedNormRecommendationIndex,
   getRelatedNormRecommendations,
   type NormRelationKind,
 } from '@ostrecht/shared/lib/norms/references.ts';
@@ -16,6 +17,7 @@ function norm(
     subjects?: string[];
     type?: NormType;
     relatedNorm?: string;
+    earlierAbbr?: string;
   } = {},
 ): NormRecord {
   return {
@@ -48,6 +50,18 @@ function norm(
       ],
     },
     versions: [
+      ...(options.earlierAbbr
+        ? [{
+            versionId: '2025-01-01',
+            validFrom: '2025-01-01',
+            validTo: '2025-12-31',
+            isCurrent: false,
+            citation: 'Testfundstelle',
+            changeNote: 'Frühere Fassung',
+            abbr: options.earlierAbbr,
+            body: [{ type: 'paragraphText' as const, text: 'Frühere Regelung.' }],
+          }]
+        : []),
       {
         versionId: '2026-01-01',
         validFrom: '2026-01-01',
@@ -95,4 +109,30 @@ test('ausdrückliche und textliche Beziehungen werden nachvollziehbar bezeichnet
 
   assert.equal(relations.get('aenderung'), 'ändert');
   assert.equal(relations.get('ausfuehrung'), 'führt aus');
+});
+
+test('Abkürzungen gelten nur als ganzes Wort als Erwähnung, auch in früherer Fassung', () => {
+  const target = norm('ziel', { abbr: 'ZielG', earlierAbbr: 'OstZielG', subjects: ['Zielgebiet'] });
+  const inWord = norm('wortteil', { subjects: ['Wortgebiet A'], body: 'Die Prüfung erfasst die Gesamtzielgruppe und die Netzwerk-OstZielGruppe.' });
+  const asWord = norm('ganzes-wort', { subjects: ['Wortgebiet B'], body: 'Zuständig ist die Stelle nach § 2 ZielG.' });
+  const earlier = norm('fruehere-bezeichnung', { subjects: ['Wortgebiet C'], body: 'Die Frist richtet sich nach § 3 Abs. 1 OstZielG.' });
+  const norms = [target, inWord, asWord, earlier];
+
+  assert.deepEqual(getRelatedNormRecommendations(inWord, norms), []);
+  assert.deepEqual(
+    getRelatedNormRecommendations(asWord, norms).map((entry) => [entry.norm.meta.slug, entry.relation]),
+    [['ziel', 'verweist auf']],
+  );
+  assert.deepEqual(
+    getRelatedNormRecommendations(earlier, norms).map((entry) => [entry.norm.meta.slug, entry.relation]),
+    [['ziel', 'verweist auf']],
+  );
+  const index = buildRelatedNormRecommendationIndex(norms);
+  for (const entry of norms) {
+    assert.deepEqual(
+      (index.get(entry.meta.slug) ?? []).map((item) => [item.slug, item.relation, item.score]),
+      getRelatedNormRecommendations(entry, norms).map((item) => [item.norm.meta.slug, item.relation, item.score]),
+      entry.meta.slug,
+    );
+  }
 });

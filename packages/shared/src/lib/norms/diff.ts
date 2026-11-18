@@ -358,6 +358,19 @@ function comparableText(value: string | undefined): string {
   return (value ?? '').replace(/\s+/gu, ' ').trim();
 }
 
+/** Tabellenzellen tragen ihre Zeilenumbrüche (Staffelwerte, Anschriften) als Teil des Wortlauts. */
+const LINE_PRESERVING_TYPES = new Set<NormBodyBlock['type']>(['tableCell', 'tableHeaderCell']);
+
+/**
+ * Text für den Wortvergleich: wie `comparableText`, bei Tabellenzellen bleiben die Zeilenumbrüche
+ * aber als eigene Trenner erhalten, damit eine geänderte Zelle so umbricht wie eine unveränderte.
+ * Ob sich der Text geändert hat, entscheidet weiterhin `comparableText`.
+ */
+function wordDiffText(value: string | undefined, keepLines: boolean): string {
+  if (!keepLines) return comparableText(value);
+  return (value ?? '').split(/\r?\n/u).map((line) => comparableText(line)).join('\n').trim();
+}
+
 function blockSegment(block: NormBodyBlock, occurrences: Map<string, number>): string {
   const identity = block.label ? `label:${block.label}` : `position:${block.type}`;
   const count = (occurrences.get(identity) ?? 0) + 1;
@@ -760,7 +773,10 @@ function buildDiffBlock(
   const kind: NormDiffKind = primitiveFieldsChanged(beforeValue, afterValue) || childrenChanged
     ? 'changed'
     : 'unchanged';
-  const textDiff = textChanged ? diffWords(comparableText(before.text), comparableText(after.text)) : undefined;
+  const keepLines = LINE_PRESERVING_TYPES.has(before.type) && LINE_PRESERVING_TYPES.has(after.type);
+  const beforeWordText = wordDiffText(before.text, keepLines);
+  const afterWordText = wordDiffText(after.text, keepLines);
+  const textDiff = textChanged ? diffWords(beforeWordText, afterWordText) : undefined;
   const titleDiff = titleChanged ? diffWords(before.title ?? '', after.title ?? '') : undefined;
   const labelDiff = labelChanged ? diffWords(before.label ?? '', after.label ?? '') : undefined;
 
@@ -779,7 +795,7 @@ function buildDiffBlock(
     ...(after.title ? { afterTitle: after.title } : {}),
     ...(before.text ? { beforeText: before.text } : {}),
     ...(after.text ? { afterText: after.text } : {}),
-    ...(textDiff && hasReadableWordDiff(textDiff, comparableText(before.text), comparableText(after.text)) ? { textDiff } : {}),
+    ...(textDiff && hasReadableWordDiff(textDiff, beforeWordText, afterWordText) ? { textDiff } : {}),
     ...(titleDiff && hasReadableWordDiff(titleDiff, before.title ?? '', after.title ?? '') ? { titleDiff } : {}),
     ...(labelDiff && hasReadableWordDiff(labelDiff, before.label ?? '', after.label ?? '') ? { labelDiff } : {}),
   };

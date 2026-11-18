@@ -16,6 +16,7 @@ import {
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { formatPublisherLine, publicationSourceLinks } from '../../lib/publication-presentation.ts';
+import { formatIssuePageRange } from '../../lib/publication-extent.ts';
 import { formatShortDate } from '../../lib/dates.ts';
 import { formatCount } from '../../lib/counts.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
@@ -60,7 +61,7 @@ function normTarget(normSlug: string | undefined, versionId: string | undefined)
   if (kind === 'future') return { href: getNormVersionUrl(normSlug, versionId as string), label: `Künftige Fassung${date ? ` ab ${formatShortDate(date)}` : ''}` };
   return { href: getNormVersionUrl(normSlug, versionId as string), label: `Fassung vom ${date ? formatShortDate(date) : ''}`.trim() };
 }
-const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startPage).filter(Boolean);
+const issuePages = formatIssuePageRange(publication);
 ---
 
 <LawLayout
@@ -137,7 +138,7 @@ const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startP
           <dt>Amtliche Bezeichnung</dt><dd id="issue-designation">{publication.originalIssueDesignation ? toDisplayText(publication.originalIssueDesignation) : label}</dd>
           {publication.alternativeIssueDesignation ? <><dt>Alternative</dt><dd>{toDisplayText(publication.alternativeIssueDesignation)}</dd></> : null}
           <dt>Ausgabedatum</dt><dd><time datetime={publication.date}>{formatShortDate(publication.date)}</time></dd>
-          {pageRange.length > 0 ? <><dt>Seiten</dt><dd>{pageRange[0]}{pageRange.length > 1 ? ` – ${pageRange[pageRange.length - 1]}` : ''}</dd></> : null}
+          {issuePages ? <><dt>Seiten</dt><dd>{issuePages}</dd></> : null}
           {publication.publisher ? <><dt>Herausgeber</dt><dd>{toDisplayText(publication.publisher)}</dd></> : null}
           {publication.place ? <><dt>Ausgabeort</dt><dd>{toDisplayText(publication.place)}</dd></> : null}
           <dt>Zitieren</dt><dd id="issue-citation">{label}</dd>

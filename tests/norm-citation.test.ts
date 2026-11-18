@@ -8,6 +8,7 @@ import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presen
 import { NORM_TYPES, type NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
 import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 
+import { latestAmendment } from '../apps/recht/src/lib/norm-head.ts';
 import { fixtureCorpus, normOfType } from './helpers/fixture-corpus.ts';
 
 /**
@@ -49,7 +50,8 @@ test('Vollzitate nennen die letzte Änderung der ausgewählten Fassung mit Artik
   const budget = fixtureNorm('stichtagsgesetz');
   assert.equal(
     buildNormFullCitation(budget, budget.versions[1], lookup),
-    'Sächsisches Haushaltsgesetz vom 10. April 2001 (SächsGVBl. S. 153), das zuletzt durch das Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2) geändert worden ist',
+    'Sächsisches Haushaltsgesetz vom 10. April 2001 (SächsGVBl. S. 153), das zuletzt durch Artikel 3 des Gesetzes vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2) geändert worden ist',
+    'auch die ausgeschriebene Form „das zuletzt durch Artikel … geändert worden ist“ trägt den Artikel',
   );
   // Relativpronomen folgt der Bezeichnung: Verordnungen „die“, Verträge „der“.
   const regulation = structuredClone(fixtureNorm('testverordnung'));
@@ -100,6 +102,68 @@ test('die letzte Änderung folgt der Fundstelle im Zitat der Fassung, auch bei g
   // Eine später wirksame Änderung zählt für eine frühere Fassung nie, auch bei passender Fundstelle.
   law.versions[1].citation = 'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), zuletzt geändert durch Artikel 2 des Gesetzes vom 17. Juli 2026 (OGVBl. 2026 Nr. 946 S. 2)';
   assert.doesNotMatch(buildNormFullCitation(law, law.versions[1], extendedLookup), /Zweiten Gesetzes/u);
+});
+
+test('der ändernde Artikel gehört zur letzten Fundstelle des Zitats, auch nach „und“ und bei Verordnungen', () => {
+  const law = structuredClone(fixtureNorm('testgesetz'));
+  const second = normOfType('aenderungsvorschrift', { title: 'Zweites Gesetz zur Änderung des Testgesetzes', shortTitle: 'Zweites Änderungsgesetz', initialCitation: 'Zweites Gesetz zur Änderung des Testgesetzes vom 17. Juli 2026 (OGVBl. 2026 Nr. 946 S. 2)' });
+  second.meta.slug = 'zweites-aenderungsgesetz-testgesetz';
+  const regulationAct = normOfType('verordnung', { title: 'Verordnung zur Änderung der Testverordnung', shortTitle: 'Änderungsverordnung', initialCitation: 'Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 948 S. 2)' });
+  regulationAct.meta.slug = 'aenderungsverordnung-testverordnung';
+  const extendedLookup = new Map([...lookup, [second.meta.slug, second], [regulationAct.meta.slug, regulationAct]]);
+  law.history.entries.push({ date: '2026-03-25', type: 'amendment', title: 'Zweite Änderung', citation: 'Gesetz vom 17. Juli 2026 (OGVBl. 2026 Nr. 946 S. 2)', affectingVersionId: '2026-03-25', relatedNorm: second.meta.slug });
+  // Zwei Änderungen in einer Klausel: Artikel 1 gehört zu Nr. 1, Artikel 6 zu Nr. 946.
+  law.versions[1].citation = 'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2) und Artikel 6 des Gesetzes vom 17. Juli 2026 (OGVBl. 2026 Nr. 946)';
+  assert.equal(
+    buildNormFullCitation(law, law.versions[1], extendedLookup),
+    'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), das zuletzt durch Artikel 6 des Zweiten Gesetzes zur Änderung des Testgesetzes vom 17. Juli 2026 (OGVBl. 2026 Nr. 946 S. 2) geändert worden ist',
+  );
+  // Ein Artikel einer anderen Verkündung wird nie mit Datum und Fundstelle der letzten Änderung gemischt.
+  law.versions[1].citation = 'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), zuletzt geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2)';
+  law.history.entries = law.history.entries.filter((entry) => entry.relatedNorm !== 'aenderungsgesetz-testgesetz');
+  assert.equal(
+    buildNormFullCitation(law, law.versions[1], extendedLookup),
+    'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), das zuletzt durch das Zweite Gesetz zur Änderung des Testgesetzes vom 17. Juli 2026 (OGVBl. 2026 Nr. 946 S. 2) geändert worden ist',
+  );
+
+  const regulation = structuredClone(fixtureNorm('testverordnung'));
+  regulation.versions[0].citation = 'Sächsische Testverordnung vom 3. März 2003 (SächsGVBl. S. 9030), zuletzt geändert durch Artikel 1 der Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 948 S. 2)';
+  regulation.history.entries.push({ date: '2026-09-01', type: 'amendment', title: 'Änderung', citation: 'Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 948 S. 2)', affectingVersionId: regulation.versions[0].versionId, relatedNorm: regulationAct.meta.slug });
+  assert.match(
+    buildNormFullCitation(regulation, regulation.versions[0], extendedLookup),
+    /\(SächsGVBl\. S\. 9030\), die zuletzt durch Artikel 1 der Verordnung vom 15\. August 2026 \(OGVBl\. 2026 Nr\. 948 S\. 2\) geändert worden ist$/u,
+  );
+  // Ein Paragraf oder Absatz innerhalb des ändernden Artikels bleibt Teil der Angabe.
+  regulation.versions[0].citation = 'Sächsische Testverordnung vom 3. März 2003 (SächsGVBl. S. 9030), geändert durch Artikel 2 § 1 der Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 948 S. 2)';
+  assert.match(
+    buildNormFullCitation(regulation, regulation.versions[0], extendedLookup),
+    /, die zuletzt durch Artikel 2 § 1 der Verordnung vom 15\. August 2026 \(OGVBl\. 2026 Nr\. 948 S\. 2\) geändert worden ist$/u,
+  );
+  regulation.versions[0].citation = 'Sächsische Testverordnung vom 3. März 2003 (SächsGVBl. S. 9030), geändert durch Artikel 4 Absatz 2 der Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 948 S. 2)';
+  assert.match(buildNormFullCitation(regulation, regulation.versions[0], extendedLookup), /zuletzt durch Artikel 4 Absatz 2 der Verordnung vom 15\. August 2026/u);
+});
+
+test('das Relativpronomen folgt dem Kernwort der zitierten Bezeichnung, nicht dem Titelende', () => {
+  const law = structuredClone(fixtureNorm('testgesetz'));
+  law.versions[1].citation = 'Testordnung des Ostdeutschen Freistaates in der Fassung der Bekanntmachung vom 1. Januar 2000 (SächsGVBl. S. 1), zuletzt geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2)';
+  assert.match(buildNormFullCitation(law, law.versions[1], lookup), /\(SächsGVBl\. S\. 1\), die zuletzt durch Artikel 1 des Gesetzes/u);
+  law.versions[1].citation = 'Testverfassung des Ostdeutschen Freistaates vom 1. Januar 2000 (SächsGVBl. S. 1), zuletzt geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2)';
+  assert.match(buildNormFullCitation(law, law.versions[1], lookup), /\(SächsGVBl\. S\. 1\), die zuletzt durch/u);
+  law.versions[1].citation = 'Zehntes Testverzeichnis vom 1. Januar 2000 (SächsGVBl. S. 1), zuletzt geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2)';
+  assert.match(buildNormFullCitation(law, law.versions[1], lookup), /\(SächsGVBl\. S\. 1\), das zuletzt durch/u, 'ohne Kernwort zählt die Normart');
+});
+
+test('Kopfzeile und Vollzitat nennen bei gleichtägigen Änderungen dieselbe zuletzt angewandte Änderung', () => {
+  const law = structuredClone(fixtureNorm('testgesetz'));
+  const second = normOfType('aenderungsvorschrift', { title: 'Zweites Gesetz zur Änderung des Testgesetzes', shortTitle: 'Zweites Änderungsgesetz', initialCitation: 'Zweites Gesetz zur Änderung des Testgesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 946 S. 2)' });
+  second.meta.slug = 'zweites-aenderungsgesetz-testgesetz';
+  const extendedLookup = new Map([...lookup, [second.meta.slug, second]]);
+  const first = law.history.entries.find((entry) => entry.type === 'amendment');
+  assert.ok(first);
+  law.history.entries.push({ ...first, title: 'Zweite Änderung', citation: 'Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 946 S. 2)', relatedNorm: second.meta.slug });
+  law.versions[1].citation = 'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), zuletzt geändert durch Artikel 2 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 946 S. 2)';
+  assert.equal(latestAmendment(law, '2099-12-31')?.relatedNorm, second.meta.slug);
+  assert.match(buildNormFullCitation(law, law.versions[1], extendedLookup), /Artikel 2 des Zweiten Gesetzes zur Änderung des Testgesetzes/u);
 });
 
 test('eine Fundstelle ohne Datum wird als Titel plus Fundstelle zitiert', () => {

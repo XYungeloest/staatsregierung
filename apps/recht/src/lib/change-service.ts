@@ -1,7 +1,7 @@
 import { EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getLawPortalUrl, getNormHistoryUrl, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 
-import { describeChange, describeChangeCause } from './history-labels.ts';
+import { describeChange, describeChangeCause, isSunsetEntry } from './history-labels.ts';
 import { shortCitation } from './norm-head.ts';
 import type { NormChange, NormStore } from './runtime/store.ts';
 import { referenceDateLabel } from './vocabulary.ts';
@@ -27,14 +27,21 @@ export interface ChangeServiceColumn {
 /**
  * Ereigniswort einer Zeile: die Rechtswirkung, nicht die Art der Vorschrift. Eingetretene und
  * künftige Wirkung bilden ein Wortpaar („erstmals in Kraft“ / „tritt in Kraft“), damit die
- * Spalten dieselbe Aussage in derselben Reihenfolge treffen.
+ * Spalten dieselbe Aussage in derselben Reihenfolge treffen. Eine Befristung ist keine Aufhebung
+ * durch eine andere Vorschrift (Art „Befristung“ im Änderungsverlauf, `isSunsetEntry`).
  */
+function isSunset(change: NormChange): boolean {
+  return isSunsetEntry({ type: change.changeType, title: change.title, note: change.note, relatedNorm: change.relatedNorm });
+}
+
 export function eventLabel(change: NormChange): string {
+  if (isSunset(change)) return 'außer Kraft getreten (Befristung)';
   if (change.changeType === 'repeal') return 'aufgehoben';
   return change.changeType === 'initial' ? 'erstmals in Kraft' : 'geändert';
 }
 
 export function futureEventLabel(change: NormChange): string {
+  if (isSunset(change)) return 'tritt außer Kraft (Befristung)';
   if (change.changeType === 'repeal') return 'tritt außer Kraft';
   return change.changeType === 'initial' ? 'tritt in Kraft' : 'wird geändert';
 }

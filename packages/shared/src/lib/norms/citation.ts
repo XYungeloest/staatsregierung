@@ -24,8 +24,13 @@ const GENERIC_DOCUMENT_LEADS = [
 const CHANGE_CLAUSE =
   /,\s*(?:(?:(?:der|die|das)\s+)?zuletzt\s+durch|(?:zuletzt\s+)?geändert\s+durch|vollständig\s+abgelöst\s+durch)/iu;
 
-const ARTICLE_AMENDMENT =
-  /(?:zuletzt\s+)?geändert\s+durch\s+(Artikel\s+\d+[a-z]?(?:\s+Absatz\s+\d+)?)\s+des\s+Gesetzes/giu;
+/**
+ * Datierte Fundstelle mit unmittelbar vorangestelltem Artikelbezug („Artikel 6 des Gesetzes vom …
+ * (…)“, „Artikel 1 der Verordnung vom … (…)“, auch mit Absatz oder Paragraf innerhalb des Artikels:
+ * „Artikel 2 § 1 der Verordnung vom … (…)“); der Artikel gehört nur zu genau dieser Fundstelle.
+ */
+const DATED_REFERENCE_WITH_ARTICLE =
+  /(?:\b(Artikel\s+\d+[a-z]?(?:\s+(?:Absatz|§)\s+\d+[a-z]?)?)\s+((?:des|der)\s+[\p{L}-]+)\s+)?\b(vom\s+\d{1,2}\.\s+\p{L}+\s+\d{4}\s+\([^)]+\))/gu;
 
 export type NormRecordLookup = ReadonlyMap<string, NormRecord>;
 
@@ -128,17 +133,30 @@ function accusativeAmendmentTitle(value: string): string {
   return value;
 }
 
-function genitiveAmendmentTitle(value: string): string {
-  if (/^Gesetz\b/u.test(value)) return value.replace(/^Gesetz\b/u, 'Gesetzes');
+/**
+ * Genitiv mit Artikel („des Gesetzes“, „des Zweiten Gesetzes …“, „der Verordnung“). Für eine bloße
+ * Dokumentbezeichnung ohne Zusatz gilt die Wendung des gespeicherten Zitats („des Staatsvertrages“).
+ */
+function genitiveAmendmentTitle(value: string, sourceGenitive: string | undefined): string {
+  if (sourceGenitive && !/\s/u.test(value.trim())) return sourceGenitive;
+  if (/^Gesetz\b/u.test(value)) return value.replace(/^Gesetz\b/u, 'des Gesetzes');
 
   const ordinalLaw = value.match(/^(.+?)es Gesetz\b(.*)$/u);
-  if (ordinalLaw) return `${ordinalLaw[1]}en Gesetzes${ordinalLaw[2]}`;
+  if (ordinalLaw) return `des ${ordinalLaw[1]}en Gesetzes${ordinalLaw[2]}`;
 
-  return value;
+  const feminine = value.match(/^((?:\p{L}+e\s+)?)([\p{L}-]*(?:verordnung|ordnung|bekanntmachung|anordnung|richtlinie|vereinbarung|verfügung))\b(.*)$/iu);
+  if (feminine) {
+    const ordinal = feminine[1] ? `${feminine[1].trimEnd()}n ` : '';
+    return `der ${ordinal}${feminine[2]}${feminine[3]}`;
+  }
+
+  return sourceGenitive ?? `des ${value}`;
 }
 
-function latestArticleReference(value: string): string | undefined {
-  return [...value.matchAll(ARTICLE_AMENDMENT)].at(-1)?.[1];
+/** Letzte datierte Fundstelle des Zitats samt dem Artikel, der unmittelbar vor ihr steht. */
+function latestReferenceWithArticle(value: string): { article?: string; genitive?: string; reference: string } | undefined {
+  const match = [...value.matchAll(DATED_REFERENCE_WITH_ARTICLE)].at(-1);
+  return match ? { article: match[1], genitive: match[2], reference: match[3] } : undefined;
 }
 
 function latestDatedReference(value: string): string | undefined {
@@ -146,8 +164,14 @@ function latestDatedReference(value: string): string | undefined {
     .at(-1)?.[1];
 }
 
+/**
+ * Ändernde Vorschrift im Vollzitat. Artikel, Datum und Fundstelle aus dem gespeicherten Zitat der
+ * Fassung gelten nur, wenn dessen letzte Fundstelle dieselbe Verkündung bezeichnet wie der
+ * Historieneintrag; sonst trägt allein der Datensatz der ändernden Vorschrift das Zitat.
+ */
 function amendmentReference(
   amendment: NormRecord,
+  amendmentEntry: NormHistoryEntry,
   sourceCitation: string,
 ): string {
   const citation = splitCitationTitle(primaryCitationForNorm(amendment));
@@ -155,8 +179,14 @@ function amendmentReference(
   const sourceDocument = splitCitationTitle(toDisplayText(amendment.meta.initialCitation))?.title
     ?? formatNormType(amendment.meta.type);
 
-  const article = latestArticleReference(sourceCitation);
-  const sourceDateAndReference = latestDatedReference(sourceCitation);
+  const source = latestReferenceWithArticle(toDisplayText(sourceCitation));
+  const sourceKey = publicationKey(source?.reference);
+  const matchesAmendment = sourceKey !== undefined && (
+    sourceKey === publicationKey(amendmentEntry.citation)
+    || sourceKey === publicationKey(amendment.meta.initialCitation)
+  );
+  const article = matchesAmendment ? source?.article : undefined;
+  const sourceDateAndReference = matchesAmendment ? source?.reference : undefined;
   const dateAndSource = sourceDateAndReference && (
     /\bS\.\s*\d/u.test(sourceDateAndReference)
     || !/\bS\.\s*\d/u.test(citation.dateAndSource)
@@ -164,19 +194,26 @@ function amendmentReference(
     ? sourceDateAndReference
     : citation.dateAndSource;
   const title = article
-    ? `${article} des ${genitiveAmendmentTitle(sourceDocument)}`
+    ? `${article} ${genitiveAmendmentTitle(sourceDocument, source?.genitive)}`
     : accusativeAmendmentTitle(sourceDocument);
 
   return `${title} ${dateAndSource}`;
 }
 
-function citationRelativePronoun(norm: NormRecord, version: NormVersion): 'der' | 'die' | 'das' {
-  const title = getNormVersionIdentity(norm, version).title;
-  const lead = title.split(/\s+(?:für|über|zur|zum|betreffend)\s+/iu)[0];
-  if (/(?:vertrag|erlass)$/iu.test(lead)) return 'der';
-  if (/(?:gesetz|abkommen|übereinkommen)$/iu.test(lead)) return 'das';
-  if (/(?:ordnung|verordnung|vorschrift|richtlinie|verfügung|bekanntmachung|anordnung|verfassung)$/iu.test(lead)) {
-    return 'die';
+/**
+ * Relativpronomen nach dem Kernwort der zitierten Bezeichnung: das Kernwort steht vor der ersten
+ * Präposition oder Genitivergänzung („Haushaltsordnung des Freistaates“, „Verordnung der
+ * Staatsregierung über …“, „Schulordnung Förderschulen“); ohne erkennbares Kernwort zählt die Normart.
+ */
+function citationRelativePronoun(norm: NormRecord, citationBase: string): 'der' | 'die' | 'das' {
+  const lead = citationBase
+    .split(/\s+(?:vom|in\s+der\s+Fassung|für|über|zur|zum|zu|betreffend|des|der|zwischen)\s+|\s*\(/iu)[0];
+  for (const word of lead.split(/\s+/u).toReversed()) {
+    if (/(?:vertrag|erlass)$/iu.test(word)) return 'der';
+    if (/(?:gesetz|abkommen|übereinkommen)$/iu.test(word)) return 'das';
+    if (/(?:ordnung|verordnung|vorschrift|richtlinie|verfügung|bekanntmachung|anordnung|verfassung)$/iu.test(word)) {
+      return 'die';
+    }
   }
   if (norm.meta.type === 'gesetz' || norm.meta.type === 'zustimmungsgesetz' || norm.meta.type === 'verwaltungsabkommen') {
     return 'das';
@@ -202,9 +239,10 @@ export function buildNormFullCitation(
     ? recordsBySlug.get(amendmentEntry.relatedNorm)
     : undefined;
 
-  if (!amendment) {
+  if (!amendment || !amendmentEntry) {
     return normalizeGenericDocumentLead(norm, version.citation, version);
   }
 
-  return `${citationBaseForVersion(norm, version)}, ${citationRelativePronoun(norm, version)} zuletzt durch ${amendmentReference(amendment, version.citation)} geändert worden ist`;
+  const base = citationBaseForVersion(norm, version);
+  return `${base}, ${citationRelativePronoun(norm, base)} zuletzt durch ${amendmentReference(amendment, amendmentEntry, version.citation)} geändert worden ist`;
 }

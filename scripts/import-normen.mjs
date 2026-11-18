@@ -37,6 +37,7 @@ import {
 import {
   legacyEntryCitation,
   legacyEntryDocumentDate,
+  issuePageRangeFromSources,
   publicationEntryPages,
 } from './lib/publication-entry-fields.mjs';
 import {
@@ -2643,16 +2644,11 @@ function buildConstitutionRecord(parsed) {
       validFrom: versionId,
       validTo: null,
       isCurrent: true,
-      citation: 'Verfassung vom 15. Oktober 2024, zuletzt geändert durch Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 56)',
+      citation: 'Verfassung vom 15. Oktober 2024, zuletzt geändert durch Artikel 1 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 56)',
       changeNote: 'Redaktionelle konsolidierte Lesefassung unter Berücksichtigung der vier Gesetze zur Großen Staatsreform.',
       body: parsed.body,
     }],
   };
-}
-
-function entryPagesFor(index, options) {
-  const pages = publicationEntryPages(index, options);
-  return pages ? { pages } : {};
 }
 
 function publicationFrom(parsed, records) {
@@ -2685,6 +2681,16 @@ function publicationFrom(parsed, records) {
   const historicalPageRange = HISTORICAL_PUBLICATION_PAGE_RANGE_MAP[
     publicationIdentityKey(parsed.publication, parsed.year, parsed.issue)
   ];
+  const sourceReferences = officialIssueSourceReferences(parsed, config);
+  // Ohne konfigurierte Seitenzahl gilt für konfigurierte Ausgaben der am PDF belegte Umfang.
+  const issuePageRange = pageRange ?? (!historicalPageRange && configs.length > 0
+    ? issuePageRangeFromSources(sourceReferences)
+    : undefined);
+  const entryPagesAt = (index) => historicalPageRange && records.length === 1
+    ? historicalPageRange
+    : isVolksbefragung
+      ? '2–7'
+      : publicationEntryPages(index, { issuePageRange, configuredPages: configs[index]?.pages });
   return {
     slug: `${publicationDetails.slugPrefix}-${parsed.year}-${publicationIssue}`,
     title: `${publicationDetails.longName} ${parsed.year} Nr. ${parsed.issue}`,
@@ -2697,7 +2703,7 @@ function publicationFrom(parsed, records) {
       publisher: 'Freistaat Ostdeutschland',
     } : {}),
     ...(pdfFileName ? { pdf: publicationPdfPublicPath(`${publicationDetails.slugPrefix}-${parsed.year}-${publicationIssue}`) } : {}),
-    sourceReferences: officialIssueSourceReferences(parsed, config),
+    sourceReferences,
     entries: [...records.map((record, index) => ({
       id: record.meta.slug,
       title: record.meta.title,
@@ -2706,12 +2712,8 @@ function publicationFrom(parsed, records) {
         initialCitation: record.meta.initialCitation,
       }),
       citation: record.meta.initialCitation,
-      ...(!historicalPageRange && !isVolksbefragung && !isNewOfficialIssue && record.startPage ? { startPage: record.startPage } : {}),
-      ...(historicalPageRange && records.length === 1
-        ? { pages: historicalPageRange }
-        : isVolksbefragung
-          ? { pages: '2–7' }
-          : entryPagesFor(index, { issuePageRange: pageRange, configuredPages: configs[index]?.pages })),
+      ...(!entryPagesAt(index) && !historicalPageRange && !isVolksbefragung && !isNewOfficialIssue && record.startPage ? { startPage: record.startPage } : {}),
+      ...(entryPagesAt(index) ? { pages: entryPagesAt(index) } : {}),
       documentDate: record.meta.documentDate,
       normSlug: record.meta.slug,
       versionId: record.versions[0].versionId,

@@ -234,17 +234,78 @@ function tableRows(table) {
   });
 }
 
+function tableCells(row) {
+  return elementChildren(row).filter((cell) => cell.tagName === 'td' || cell.tagName === 'th');
+}
+
+// Vergleichsform eines Spaltenkopfs: ohne Groß-/Kleinschreibung, weiche und zeilenbrechende
+// Trennstriche („Tarif-<br>stelle“), Leerraum und Anführungszeichen.
+function headerKey(cell) {
+  return textOf(cell, { breaks: true })
+    .toLowerCase()
+    .replace(/­/gu, '')
+    .replace(/-\s+/gu, '')
+    .replace(/[\s„“"]+/gu, '');
+}
+
+function textOutsideBold(node) {
+  if (!node) return '';
+  if (node.nodeName === '#text') return node.value ?? '';
+  if (node.tagName === 'b' || node.tagName === 'strong') return '';
+  return (node.childNodes ?? []).map(textOutsideBold).join('');
+}
+
+// REVOSax führt die Spaltenköpfe vieler Tabellen zweimal: als zugängliche Kopfzeile im <thead>
+// (vereinfachter Wortlaut, ohne Einheiten) und als sichtbare erste Zeile des Tabellenkörpers mit dem
+// amtlichen Wortlaut. Wiederholt die erste Körperzeile die Kopfzeile – mehr als die Hälfte der
+// Spaltenköpfe kehrt dort wieder, oder die Zeile ist durchgehend fett gesetzt und nimmt mindestens
+// einen Spaltenkopf auf –, wird sie zur Kopfzeile und die Wiederholung im <thead> entfällt. Beginnt
+// der Körper sofort mit Inhalt, bleibt der <thead> die einzige Kopfzeile. Stimmt ein sichtbarer
+// Kopf mit einem Kopf des <thead> in der Vergleichsform überein, ohne mit ihm bis auf Leerraum
+// gleich zu sein, trägt er die Silbentrennung der Druckvorlage („Tarif-<br>stelle“); dann gilt der
+// bereinigte Wortlaut des <thead>. Unterscheiden sich beide nur im Zeilenfall oder weicht der
+// sichtbare Kopf ab (Einheit, Zusatz), bleibt sein Wortlaut.
+function repeatedTableHeader(table, rows) {
+  const headRows = elementChildren(table, 'thead').flatMap((head) => elementChildren(head, 'tr'));
+  const firstBodyRow = rows.find((row) => !headRows.includes(row));
+  if (headRows.length === 0 || !firstBodyRow) return null;
+  const headKeys = [...new Set(headRows.flatMap(tableCells).map(headerKey).filter(Boolean))];
+  const bodyCells = tableCells(firstBodyRow);
+  if (headKeys.length === 0 || bodyCells.some((cell) => cell.tagName === 'th')) return null;
+  const bodyKeys = bodyCells.map(headerKey).filter(Boolean);
+  const matches = headKeys.filter((key) =>
+    bodyKeys.some((bodyKey) => bodyKey === key || bodyKey.startsWith(key) || key.startsWith(bodyKey)),
+  ).length;
+  const bold = bodyCells.some((cell) => textOf(cell))
+    && bodyCells.every((cell) => !textOf(cell) || !normalizeText(textOutsideBold(cell)));
+  if (!(matches * 2 > headKeys.length || (bold && matches > 0))) return null;
+  const headTexts = new Map();
+  for (const cell of headRows.flatMap(tableCells)) {
+    const key = headerKey(cell);
+    if (key && !headTexts.has(key)) headTexts.set(key, textOf(cell, { breaks: true }));
+  }
+  return { headRows, headerRow: firstBodyRow, headTexts };
+}
+
+function headerCellText(cell, repeated) {
+  const visible = textOf(cell, { breaks: true });
+  const head = repeated.headTexts.get(headerKey(cell));
+  const spacing = (value) => value.replace(/\s+/gu, ' ').trim();
+  return head !== undefined && spacing(head) !== spacing(visible) ? head : visible;
+}
+
 function parseTable(table) {
-  const rows = tableRows(table).map((row) => ({
+  const sourceRows = tableRows(table);
+  const repeated = repeatedTableHeader(table, sourceRows);
+  const rows = sourceRows.filter((row) => !repeated?.headRows.includes(row)).map((row) => ({
     type: 'tableRow',
-    children: elementChildren(row)
-      .filter((cell) => cell.tagName === 'td' || cell.tagName === 'th')
+    children: tableCells(row)
       .map((cell) => {
         const cellAttributes = attributes(cell);
-        const header = cell.tagName === 'th';
+        const header = cell.tagName === 'th' || row === repeated?.headerRow;
         return {
           type: header ? 'tableHeaderCell' : 'tableCell',
-          text: textOf(cell, { breaks: true }),
+          text: row === repeated?.headerRow ? headerCellText(cell, repeated) : textOf(cell, { breaks: true }),
           ...(header ? { scope: cellAttributes.scope === 'row' ? 'row' : 'col' } : {}),
           ...(Number(cellAttributes.rowspan) > 1 ? { rowspan: Number(cellAttributes.rowspan) } : {}),
           ...(Number(cellAttributes.colspan) > 1 ? { colspan: Number(cellAttributes.colspan) } : {}),

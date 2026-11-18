@@ -141,9 +141,11 @@ function renderTable(node: NormDiffBlock, side: DiffSide): string {
           const scope = cellValue.scope ? ` scope="${escapeHtml(cellValue.scope)}"` : '';
           const rowspan = cellValue.rowspan ? ` rowspan="${cellValue.rowspan}"` : '';
           const colspan = cellValue.colspan ? ` colspan="${cellValue.colspan}"` : '';
+          // Der Zelltext steht wie auf der Normseite in einem eigenen <span>, damit die
+          // Zeilenumbrüche der Vorlage (`.norm-table td > span`) auch im Vergleich erhalten bleiben.
           const text = renderValue(cell, side, 'text');
           const children = renderRuns(cell.children, side, 6, false);
-          return `<${tag}${scope}${rowspan}${colspan}>${text}${children}</${tag}>`;
+          return `<${tag}${scope}${rowspan}${colspan}>${text ? `<span>${text}</span>` : ''}${children}</${tag}>`;
         }).join('');
       return `<tr>${cells}</tr>`;
     }).join('');

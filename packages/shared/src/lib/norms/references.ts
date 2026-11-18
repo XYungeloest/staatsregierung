@@ -164,16 +164,48 @@ function collectBodyText(norm: NormRecord, asOf = EDITORIAL_REFERENCE_DATE): str
   return parts.join(' ').normalize('NFKC').toLocaleLowerCase('de');
 }
 
-function aliases(norm: NormRecord, asOf = EDITORIAL_REFERENCE_DATE): string[] {
+interface NormAlias {
+  label: string;
+  /** Kürzel gelten nur als ganzes Wort: „OFFG“ steckt sonst etwa in „Stoffgruppe“. */
+  delimited: boolean;
+}
+
+function normalizeAlias(value: string): string {
+  return value.trim().normalize('NFKC').toLocaleLowerCase('de');
+}
+
+/**
+ * Bezeichnungen, unter denen ein Normtext eine andere Vorschrift erwähnt: Abkürzung, Kurz- und
+ * Langtitel der maßgeblichen Fassung sowie die Abkürzungen früherer Fassungen, unter denen ältere
+ * Texte die Vorschrift weiter zitieren. Abkürzungen zählen nur als ganzes Wort.
+ */
+function aliases(norm: NormRecord, asOf = EDITORIAL_REFERENCE_DATE): NormAlias[] {
   const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, asOf));
-  return [identity.abbr, identity.shortTitle, identity.title]
+  const abbreviations = [identity.abbr, ...norm.versions.map((version) => version.abbr)]
     .filter((value): value is string => Boolean(value))
-    .map((value) => value.trim().normalize('NFKC').toLocaleLowerCase('de'))
-    .filter((value, index, values) => value.length >= 4 && values.indexOf(value) === index);
+    .map(normalizeAlias);
+  const result: NormAlias[] = [];
+  for (const value of [identity.abbr, identity.shortTitle, identity.title, ...abbreviations]) {
+    if (!value) continue;
+    const label = normalizeAlias(value);
+    if (label.length < 4 || result.some((entry) => entry.label === label)) continue;
+    result.push({ label, delimited: abbreviations.includes(label) });
+  }
+  return result;
+}
+
+function mentionsAliasAt(text: string, index: number, alias: NormAlias): boolean {
+  return text.startsWith(alias.label, index)
+    && (!alias.delimited || isWordDelimited(text, index, alias.label.length));
 }
 
 function textMentionsNorm(text: string, norm: NormRecord): boolean {
-  return aliases(norm).some((alias) => text.includes(alias));
+  return aliases(norm).some((alias) => {
+    for (let index = text.indexOf(alias.label); index !== -1; index = text.indexOf(alias.label, index + 1)) {
+      if (mentionsAliasAt(text, index, alias)) return true;
+    }
+    return false;
+  });
 }
 
 function explicitRelatedSlugs(norm: NormRecord): Set<string> {
@@ -370,8 +402,8 @@ export function buildRelatedNormRecommendationIndex(
     }
   }
 
-  // Erwähnungen: Text der Norm enthält einen Alias einer anderen Norm (Teilstring, wie bisher).
-  const aliasReferences = norms.flatMap((norm) => aliases(norm, asOf).map((label) => ({ label, slug: norm.meta.slug })));
+  // Erwähnungen: Text der Norm enthält einen Alias einer anderen Norm; Kürzel nur als ganzes Wort.
+  const aliasReferences = norms.flatMap((norm) => aliases(norm, asOf).map((alias) => ({ ...alias, slug: norm.meta.slug })));
   const matcher = buildReferenceMatcher(aliasReferences);
   const mentions = new Map<string, Set<string>>();
   const mentionedBy = new Map<string, Set<string>>();
@@ -383,7 +415,7 @@ export function buildRelatedNormRecommendationIndex(
       if (!candidates) continue;
       for (const candidate of candidates) {
         if (candidate.slug === norm.meta.slug || found.has(candidate.slug)) continue;
-        if (text.startsWith(candidate.label, index)) found.add(candidate.slug);
+        if (mentionsAliasAt(text, index, candidate)) found.add(candidate.slug);
       }
     }
     mentions.set(norm.meta.slug, found);

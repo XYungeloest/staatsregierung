@@ -7,7 +7,7 @@ import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.
 import { classifyNormVersions, getNormVersionIdentity } from '@ostrecht/shared/lib/norms/index.ts';
 import { formatShortDate } from '../../lib/dates.ts';
 import { getNormVersionPdfPath } from '../../lib/norm-links.ts';
-import { shortCitation } from '../../lib/norm-head.ts';
+import { versionListCitation } from '../../lib/norm-head.ts';
 import { formatSourceLabel } from '../../lib/source-labels.ts';
 import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
 
@@ -63,6 +63,10 @@ function entryLabel(entry: (typeof entries)[number]): string {
   return entry.version.validTo ? `${from} – ${formatShortDate(entry.version.validTo)}` : `ab ${from}`;
 }
 
+function entryCitation(entry: (typeof entries)[number]): string {
+  return versionListCitation(norm, entry.version, origin.baselineVersionId);
+}
+
 function entryNote(entry: (typeof entries)[number]): string[] {
   const parts: string[] = [];
   if (entry.kind === 'future') parts.push('künftig, verkündet, noch nicht in Kraft');
@@ -87,7 +91,7 @@ function entryNote(entry: (typeof entries)[number]): string[] {
             ? <span class="norm-timeline__date" aria-current="page">{entryLabel(entry)}</span>
             : <a class="norm-timeline__date" href={versionHref(entry)}>{entryLabel(entry)}</a>}
           {entryNote(entry).length > 0 ? <span class:list={['norm-timeline__note', 'r-inline-list', entry.kind === 'current' ? 'norm-timeline__note--current' : undefined]}>{entryNote(entry).map((part) => <span>{part}</span>)}</span> : null}
-          {shortCitation(entry.version.citation) ? <span class="norm-timeline__citation r-caption">{shortCitation(entry.version.citation)}</span> : null}
+          {entryCitation(entry) ? <span class="norm-timeline__citation r-caption">{entryCitation(entry)}</span> : null}
         </li>
       ))}
     </ol>
@@ -114,7 +118,7 @@ function entryNote(entry: (typeof entries)[number]): string[] {
     <p class="r-meta" id="norm-aside-full-citation">{toDisplayText(fullCitation)}</p>
     <div class="norm-aside__actions">
       <button class="r-btn r-btn--block" type="button" data-copy-text="norm-aside-full-citation" data-copy-done="Vollzitat wurde kopiert.">Vollzitat kopieren</button>
-      {immutable ? <a class="r-btn r-btn--quiet r-btn--block" href={getNormUrl(norm.meta.slug)}>Link zur Vorschrift (geltend)</a> : null}
+      {immutable && currentEntry ? <a class="r-btn r-btn--quiet r-btn--block" href={getNormUrl(norm.meta.slug)}>Link zur Vorschrift (geltend)</a> : null}
     </div>
     <p class="r-feedback" aria-live="polite" data-copy-feedback></p>
   </section>

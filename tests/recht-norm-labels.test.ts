@@ -7,11 +7,12 @@ import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts
 import { formatSearchResultLabel } from '@ostrecht/recht-search/search-query.ts';
 
 import { formatShortDate } from '../apps/recht/src/lib/dates.ts';
-import { amendingCitation, buildNormHeadModel, normKicker, outOfForceSince, type NormHeadModel } from '../apps/recht/src/lib/norm-head.ts';
+import { amendingCitation, buildNormHeadModel, factsCitation, normKicker, outOfForceSince, versionListCitation, type NormHeadModel } from '../apps/recht/src/lib/norm-head.ts';
 import { formatSourceLabel } from '../apps/recht/src/lib/source-labels.ts';
 import { referenceDateLabel } from '../apps/recht/src/lib/vocabulary.ts';
 import { buildFixtureNorms, FIXTURE_REFERENCE_DATE } from './helpers/fixture-corpus.ts';
 
+import type { NormPublicationReference } from '@ostrecht/shared/lib/norms/publications.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 
 /**
@@ -153,6 +154,22 @@ test('Quellenbezeichnungen schreiben maschinenlesbare Daten aus', () => {
   assert.equal(formatSourceLabel(undefined), '');
 });
 
+test('Quellenbezeichnungen nennen keine Dateiformate der Transkription', () => {
+  assert.equal(formatSourceLabel('Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe'), 'Vollständige Textfassung der amtlichen Ausgabe');
+  assert.equal(formatSourceLabel('Historische Markdown-Transkription (Altbestand)'), 'Historische Abschrift (Altbestand)');
+  assert.equal(formatSourceLabel('Zusätzliche Markdown-Transkription der amtlichen Ausgabe'), 'Zusätzliche Abschrift der amtlichen Ausgabe');
+  assert.equal(formatSourceLabel('Redaktionell geprüfte HTML-Fassung der Quelle'), 'Redaktionell geprüfte Textfassung der Quelle');
+  assert.equal(formatSourceLabel('Redaktionell geprüfte strukturierte Transkription der Ausgabe'), 'Redaktionell geprüfte Abschrift der Ausgabe');
+  assert.equal(formatSourceLabel('Strukturtragende DOCX-Quelle des Testgesetzes'), 'Textvorlage des Testgesetzes');
+  assert.equal(
+    formatSourceLabel('Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 3. März 2026 (Testblatt 2026 Nr. 901 S. 2)'),
+    'Vollständige Textfassung der amtlichen Ausgabe – Berichtigung vom 3. März 2026 (Testblatt 2026 Nr. 901 S. 2)',
+  );
+  for (const label of ['Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe', 'Historische Markdown-Transkription (Altbestand)', 'Strukturtragende DOCX-Quelle des Testgesetzes']) {
+    assert.doesNotMatch(formatSourceLabel(label), /HTML|Markdown|DOCX|Transkription/u, label);
+  }
+});
+
 test('Historischer Kopf aufgehobener Normen behauptet keine fortdauernde Geltung', () => {
   const records = buildFixtureNorms();
   for (const record of records.filter((entry) => ['repealed', 'historical'].includes(entry.meta.status))) {
@@ -186,6 +203,119 @@ test('„außer Kraft seit“ nennt den Folgetag des letzten Geltungstags', () =
     assert.equal(outOfForceSince(norm({ versions: [only], expiryDate: '2026-04-30', status })), undefined);
   }
   assert.equal(outOfForceSince(norm({ versions: [only], status: 'repealed' })), undefined);
+});
+
+function shiftDays(date: string, days: number): string {
+  const value = new Date(`${date}T00:00:00Z`);
+  value.setUTCDate(value.getUTCDate() + days);
+  return value.toISOString().slice(0, 10);
+}
+
+test('der Kopf aufgehobener Vorschriften nennt „außer Kraft seit“ den Folgetag, nie „in Kraft seit“', () => {
+  const first = version('2023-11-01', '2023-11-01', '2025-06-30');
+  const last = version('2025-07-01', '2025-07-01', '2026-04-30');
+  for (const status of ['repealed', 'historical'] as const) {
+    const record = norm({ versions: [first, last], initialVersionId: first.versionId, effectiveDate: '2023-11-01', expiryDate: '2026-04-30', status });
+    for (const entry of [first, last]) {
+      const model = headModel(record, entry);
+      const line = statusLine(model);
+      assert.equal(model.temporalKind, 'historical');
+      assert.ok(line.includes(`Vorschrift außer Kraft seit ${formatShortDate('2026-05-01')}`), line);
+      assert.doesNotMatch(line, /(?<!außer )in Kraft seit/u, line);
+      assert.equal(model.mark.label, 'Vorschrift außer Kraft');
+    }
+  }
+
+  // Ohne belegtes Ende nennt der Kopf kein Datum, behauptet aber auch keine Geltung.
+  const single = version('1996-01-15', '1996-01-15', '2008-07-31');
+  const undated = norm({ versions: [single], effectiveDate: '1996-01-15', status: 'repealed' });
+  const line = statusLine(headModel(undated, single));
+  assert.match(line, /Die Vorschrift ist außer Kraft/u);
+  assert.doesNotMatch(line, /(?<!außer )in Kraft seit/u, line);
+});
+
+test('der Kopf noch nicht wirksamer Vorschriften nennt das künftige Inkrafttreten, nicht „in Kraft seit“', () => {
+  const start = shiftDays(FIXTURE_REFERENCE_DATE, 1);
+  const later = shiftDays(FIXTURE_REFERENCE_DATE, 40);
+  const first = version(start, start, shiftDays(later, -1));
+  const second = version(later, later);
+  for (const status of ['future-effective', 'one-time-act'] as const) {
+    const record = norm({ versions: [first, second], initialVersionId: first.versionId, effectiveDate: start, status });
+    for (const entry of [first, second]) {
+      const model = headModel(record, entry);
+      const line = statusLine(model);
+      assert.equal(model.temporalKind, 'future');
+      assert.ok(line.includes(`Vorschrift tritt am ${formatShortDate(start)} in Kraft`), line);
+      assert.doesNotMatch(line, /in Kraft seit/u, line);
+    }
+  }
+
+  // Ungeklärtes Inkrafttreten: weder „in Kraft seit“ noch ein Datum des Inkrafttretens.
+  const pendingVersion = version('2026-01-01', '2026-01-01');
+  const pending = norm({ versions: [pendingVersion], initialVersionId: pendingVersion.versionId, status: 'pending-effective' });
+  const line = statusLine(headModel(pending, pendingVersion));
+  assert.doesNotMatch(line, /in Kraft seit|tritt am/u, line);
+});
+
+test('die Fassungsliste nennt bei Folgefassungen die Fundstelle der Änderung, bei der Stammfassung die Stammfundstelle', () => {
+  const initial = { ...version('2023-11-01', '2023-11-01', '2026-06-30'), citation: 'Synthetisches Prüfgesetz vom 5. Mai 2015 (Testblatt A S. 901)' };
+  const amended = { ...version('2026-07-01', '2026-07-01'), citation: 'Synthetisches Prüfgesetz vom 5. Mai 2015 (Testblatt A S. 901), zuletzt geändert durch Artikel 9 des Gesetzes vom 9. Februar 2026 (OGVBl. 2026 Nr. 932)' };
+  const record = norm({ versions: [initial, amended], initialVersionId: initial.versionId });
+  assert.equal(versionListCitation(record, initial, initial.versionId), 'Testblatt A S. 901');
+  assert.equal(versionListCitation(record, amended, initial.versionId), 'OGVBl. 2026 Nr. 932');
+
+  // Ohne benannte Stammfassung gilt die früheste Fassung als Stammfassung.
+  const unnamed = norm({ versions: [amended, initial] });
+  assert.equal(versionListCitation(unnamed, initial), 'Testblatt A S. 901');
+  assert.equal(versionListCitation(unnamed, amended), 'OGVBl. 2026 Nr. 932');
+});
+
+test('die Vorschriftendaten nennen dieselbe Fundstelle wie die Fassungsliste und die abweichende Stammfundstelle', () => {
+  const initial = { ...version('2023-11-01', '2023-11-01', '2026-06-30'), citation: 'Synthetisches Prüfgesetz vom 5. Mai 2015 (Testblatt A S. 901)' };
+  const amended = { ...version('2026-07-01', '2026-07-01'), citation: 'Synthetisches Prüfgesetz vom 5. Mai 2015 (Testblatt A S. 901), zuletzt geändert durch Artikel 9 des Gesetzes vom 9. Februar 2026 (OGVBl. 2026 Nr. 932)' };
+  const record = norm({ versions: [initial, amended], initialVersionId: initial.versionId });
+  record.meta.initialCitation = initial.citation;
+
+  // Folgefassung mit konsolidiertem Vollzitat: Fundstelle der Änderung, Stammfundstelle zusätzlich.
+  assert.deepEqual(factsCitation(record, amended, { baselineVersionId: initial.versionId }), { citation: 'OGVBl. 2026 Nr. 932', initialCitation: 'Testblatt A S. 901' });
+  assert.equal(factsCitation(record, amended, { baselineVersionId: initial.versionId }).citation, versionListCitation(record, amended, initial.versionId));
+  // Stammfassung: keine doppelte Stammfundstelle.
+  assert.deepEqual(factsCitation(record, initial, { baselineVersionId: initial.versionId }), { citation: 'Testblatt A S. 901' });
+  // Verkündungsbezug, der die Stammfundstelle bezeichnet, wiederholt sie nicht.
+  const publicationReference = { publicationSlug: 'testblatt-a', publicationTitle: 'Testblatt A', publicationDate: '2015-05-05', startPage: '901' } as NormPublicationReference;
+  assert.equal(factsCitation(record, initial, { baselineVersionId: initial.versionId, publicationReference }).initialCitation, undefined);
+
+  // Der Verkündungsbezug trägt den ausgeschriebenen Ausgabentitel, die Stammfundstelle die Kurzform:
+  // verglichen werden Blattkürzel, Jahrgang, Nummer und Seite, nicht der Titel.
+  const issued = { ...version('2024-10-15', '2024-10-15'), citation: 'Synthetisches Prüfgesetz vom 15. Oktober 2024 (TBl. 2024 Nr. II S. 5)' };
+  const issuedRecord = norm({ versions: [issued], initialVersionId: issued.versionId });
+  issuedRecord.meta.initialCitation = issued.citation;
+  const issueReference = {
+    publicationSlug: 'tbl-2024-ii',
+    publicationTitle: 'Synthetisches Testblatt für Verordnungen 2024 Nr. II',
+    publicationDate: '2024-10-15',
+    publication: 'TBl.',
+    issue: 'II',
+    citation: 'Gesetz vom 15. Oktober 2024 (TBl. 2024 Nr. II S. 5)',
+    startPage: '5',
+  } as NormPublicationReference;
+  assert.equal(factsCitation(issuedRecord, issued, { baselineVersionId: issued.versionId, publicationReference: issueReference }).initialCitation, undefined);
+  // Schreibvarianten (Punkt, Leerraum) ändern die Fundstelle nicht; die Ausgabe ohne Seitenangabe auch nicht.
+  issuedRecord.meta.initialCitation = 'Synthetisches Prüfgesetz vom 15. Oktober 2024 (TBl.  2024 Nr. II, S. 5)';
+  assert.equal(factsCitation(issuedRecord, issued, { publicationReference: { ...issueReference, citation: 'Gesetz' } }).initialCitation, undefined);
+  issuedRecord.meta.initialCitation = 'Synthetisches Prüfgesetz vom 15. Oktober 2024 (TBl. 2024 Nr. II)';
+  assert.equal(factsCitation(issuedRecord, { ...issued, citation: 'Synthetisches Prüfgesetz' }, { publicationReference: issueReference }).initialCitation, undefined);
+  // Eine andere Seite derselben Ausgabe oder eine andere Ausgabe bleibt eine eigene Stammfundstelle.
+  issuedRecord.meta.initialCitation = 'Synthetisches Prüfgesetz vom 1. März 2024 (TBl. 2024 Nr. II S. 9)';
+  assert.equal(factsCitation(issuedRecord, issued, { publicationReference: issueReference }).initialCitation, 'TBl. 2024 Nr. II S. 9');
+  issuedRecord.meta.initialCitation = 'Synthetisches Prüfgesetz vom 1. März 2024 (TBl. 2024 Nr. III S. 5)';
+  assert.equal(factsCitation(issuedRecord, issued, { publicationReference: issueReference }).initialCitation, 'TBl. 2024 Nr. III S. 5');
+
+  // Ohne erkennbare Fundstelle bleibt die Angabe leer wie in der Fassungsliste.
+  const untitled = { ...amended, citation: 'Synthetisches Prüfgesetz (SynPG)' };
+  const bare = norm({ versions: [initial, untitled], initialVersionId: initial.versionId });
+  bare.meta.initialCitation = initial.citation;
+  assert.equal(factsCitation(bare, untitled, { baselineVersionId: initial.versionId }).citation, versionListCitation(bare, untitled, initial.versionId));
 });
 
 test('die verkündete künftige Änderung nennt die Fundstelle der Änderungsvorschrift, nicht die Stammfundstelle', () => {

@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   entrySharesIssueSource,
+  issuePageRangeFromSources,
   legacyEntryCitation,
   legacyEntryDocumentDate,
   publicationEntryPageProblems,
@@ -18,6 +19,16 @@ test('nur die Mantelvorschrift erhält den Seitenbereich der ganzen Ausgabe', ()
 test('eine eingeführte Stammnorm erhält nur ihren eigens belegten Bereich', () => {
   assert.equal(publicationEntryPages(1, { issuePageRange: '2–40', configuredPages: '2–13' }), '2–13');
   assert.equal(publicationEntryPages(2, { issuePageRange: '2–40', configuredPages: '14–18' }), '14–18');
+});
+
+test('der Umfang der Ausgabe stammt aus der am PDF belegten Quellenangabe', () => {
+  assert.equal(issuePageRangeFromSources([
+    { kind: 'structured-html-transcription', sourceRole: 'structure-bearing', pageRange: '2–30' },
+    { kind: 'primary-pdf', sourceRole: 'visual-control', pageRange: '2–31' },
+  ]), '2–31');
+  assert.equal(issuePageRangeFromSources([{ kind: 'structured-html-transcription', sourceRole: 'structure-bearing', pageRange: '2–9' }]), '2–9');
+  assert.equal(issuePageRangeFromSources([{ kind: 'index', url: 'https://example.invalid/' }]), undefined);
+  assert.equal(issuePageRangeFromSources(undefined), undefined);
 });
 
 test('ohne Seitenzahl der Ausgabe entsteht auch für die Mantelvorschrift kein Bereich', () => {
