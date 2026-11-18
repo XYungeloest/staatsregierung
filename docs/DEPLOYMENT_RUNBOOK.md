@@ -192,9 +192,9 @@ und Workers):
 | Time Travel | 7 Tage | 30 Tage | Rückholfenster nach einer fehlerhaften Projektion |
 
 Die enthaltenen 50 Mio. geschriebenen Zeilen je Monat entsprechen rund hundert Vollprojektionen des
-Bestands; der Regelbetrieb schreibt inkrementell und bleibt weit darunter. Die Budgetprofile des
-Syncs (`data/recht/d1-sync-budgets.json`) liegen unterhalb dieser Grenzen und brechen einen Lauf
-ab, bevor ein Fehlverhalten die Kontingente erschöpft.
+Bestands; der Regelbetrieb schreibt inkrementell und bleibt weit darunter. Das automatische Profil
+`incremental` in `data/recht/d1-sync-budgets.json` begrenzt keine Lese- oder Schreibzeilen.
+Vollprojektion, Recovery und gezielte Sonderläufe behalten ihre eigenen Budgetgrenzen.
 
 Ein Wechsel des Plans ist eine Kosten- und keine technische Entscheidung: er wird ausdrücklich
 veranlasst, nie beiläufig im Zuge eines Releases. Fiele das Konto auf den kostenlosen Plan zurück,
@@ -211,34 +211,14 @@ Projektionsidentität, gibt es drei Fälle:
 | Inhalte (Normen, Verkündungen, Stichtag, Normbezüge von Themen/Presse) | `d1_token_check`: inkrementell | nichts zu tun; `d1_sync` schreibt inkrementell mit verifizierter Basis |
 | Projektionslogik ohne Schemaänderung | `d1_token_check`: Remote-State Exit 3 → Äquivalenznachweis | automatisch: Nachweis `identity` (nur Identität und Metadaten, ohne korpusweite Ableitungsberechnung) oder `incremental` (nachgewiesener Umfang, z. B. abgeleitete Daten und Suchdokumente aller Normen) → grün; Nachweis `full` (abweichende Tabellen werden genannt) → wie Schemaänderung |
 | Schemaänderung (`data/recht/d1/`) oder Nachweis `full` | `d1_token_check` rot | Zielprojektion vor dem Merge herstellen, nie danach (unten) |
-| Große Inhaltsänderung: Nachweis `incremental`, aber der Umfang sprengt das Budget `incremental` | `d1_sync` bricht mit `SyncBudgetExceeded` ab, bevor etwas geschrieben wird | bewusster Lauf vor dem Merge (unten) — **keine** Vollprojektion, **kein** angehobenes Budget |
+| Große Inhaltsänderung mit verifiziertem inkrementellem Umfang | `d1_sync` schreibt den geprüften Umfang ohne Zeilenbudget | kein zusätzlicher Freigabelauf allein wegen der Bestandsgröße |
 
-### Bewusster Lauf: nachgewiesen inkrementell, aber über dem Budget
-
-Eine Bestandspflege kann Tausende Vorschriften berühren, ohne die Projektionslogik zu ändern. Der
-Äquivalenznachweis sagt dann „inkrementell genügt“, und der Umfang ist trotzdem zu groß für das
-Profil des automatischen Laufs. Das Budget wird deswegen **nicht** angehoben — es ist die Bremse,
-die einen Fehlgriff (etwa einen Vollscan des Suchindex) stoppt, bevor er das Tageskontingent
-verbraucht. Stattdessen:
-
-1. Umfang so klein wie fachlich möglich halten. Für reine `meta.json`-Änderungen tut das der
-   Metadata-only-Umfang von selbst (`META_FIELD_TARGETS`, scripts/lib/d1-sync-scope.mjs): er
-   schreibt nur die Ziele, die die geänderten Felder berühren können. Was danach übrig bleibt,
-   gehört benannt — Tabelle für Tabelle, mit Zeilenzahlen.
-2. Nachweis führen und die Schätzung gegen beide Profile rechnen
-   (`estimatePlanCost` + `assertEstimateWithinBudget`, dieselben Funktionen wie im Sync).
-3. Ist der Lauf über `incremental`, aber ein vollständig klassifizierter Metadata-only-Umfang:
-   `--budget bulk-metadata` (150.000 / 200.000). Das Profil trägt genau diesen Fall und niemals
-   eine Vollprojektion; `assertBulkMetadataScope` weist fail-closed ab, sobald der Umfang eine
-   Normlöschung, eine Verkündung, einen Register- oder Portal-Rebuild, eine unklassifizierte Norm
-   oder eine Voll- bzw. Recovery-Entscheidung enthält. **Kein `--full`**, kein `--recover`, keine
-   angehobenen `--max-rows-*`. Es ist keine Vollprojektion: keine Tabelle wird geleert, Fassungen,
-   Normkörper, Quellobjekte, Historie und Sachgebiete bleiben unberührt.
-4. Passt der Lauf auch dort nicht, aber in `full` (500.000 / 900.000), gilt derselbe nachgewiesene
-   Umfang mit `--budget full` — weiterhin ohne `--full`.
-5. Reihenfolge wie bei der Vollprojektion: erst Staging, `d1-verify --fts-integrity`, Kernrouten
-   prüfen; dann Produktion außerhalb der Nutzungszeiten mit demselben Lauf; danach
-   `d1_token_check` erneut starten (No-op) und erst dann mergen.
+Das automatische Profil `incremental` enthält kein Lese- oder Schreibbudget. Das gilt auch für
+umfangreiche Inhaltskorrekturen und nachgewiesene inkrementelle Änderungen der Projektionslogik.
+Die Prüfung des Basiszustands, der Äquivalenznachweis und das Release-Gate für echte
+Vollprojektionen bleiben unverändert. Eine markierte Recovery verwendet das begrenzte Profil
+`recovery`. Für bewusst begrenzte manuelle Läufe stehen die übrigen Profile und explizite
+`--max-rows-read`/`--max-rows-written` weiterhin zur Verfügung.
 
 Der Nachweis ist keine Annahme: er projiziert Basis und Ziel vollständig (Seed-Cache oder lokale
 Projektion), vergleicht alle Tabellen semantisch (`scripts/lib/d1-projection-compare.mjs`) und
@@ -375,7 +355,7 @@ neue Projektion, nicht den alten Worker; die Übergangsregel ersetzt er nicht.
 | D1-Seed | Seed-Verifikation lehnt einen Snapshot ab | Snapshot wird verworfen und neu projiziert; bei wiederholter Ablehnung Seed-Werkzeuge und Migrationen prüfen |
 | Browser oder Barrierefreiheit | Link-, SEO-, Accessibility- oder Browser-Test schlägt fehl | betroffene Route und Viewport aus dem Testbericht prüfen |
 | Visuelle Regression | `visual` schlägt fehl | Testbericht (Artefakt `visual-report`) sichten; bei beabsichtigter Änderung Linux-Baselines erneuern (`npm run test:visual:update:linux -- --site law`, ohne Docker Workflow „Screenshot-Baselines erneuern“ und `npm run test:visual:baselines:apply -- --run <Lauf-ID>`), sichten und committen, nie stillschweigend |
-| D1-Sync | Remote-State meldet Release-Gate (Nachweis `full` oder Schema), Budget überschritten oder Basis nicht verifiziert | D1-Release-Gate vor dem Merge ausführen (Vollprojektion zuerst gegen Staging); Workflow erst nach No-op mergen |
+| D1-Sync | Remote-State meldet Release-Gate (Nachweis `full` oder Schema), Recovery-Budget überschritten oder Basis nicht verifiziert | D1-Release-Gate vor dem Merge ausführen (Vollprojektion zuerst gegen Staging); Workflow erst nach No-op mergen |
 | Cloudflare-Upload | alle Prüfungen grün, aber `deploy` schlägt fehl | Token, Account-ID, Worker-Konfiguration und Wrangler-Ausgabe prüfen; keine lokale Ersatzveröffentlichung |
 | Nachkontrolle | Workflow grün, aber Commitkennung oder Route stimmt nicht | letzte tatsächlich ausgelieferte Kennung feststellen und Deployment erst nach Ursachenklärung erneut anstoßen |
 

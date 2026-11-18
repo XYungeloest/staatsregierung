@@ -444,7 +444,10 @@ im selben Scope, schreiben aber keine neue Identität.
 
 **Budgets.** Remote-Läufe tragen immer ein Profil aus `data/recht/d1-sync-budgets.json`
 (`--budget incremental|full|recovery|fixture`; `--max-rows-read`/`--max-rows-written`
-überschreiben einzelne Grenzen). Der Sync prüft die Planschätzung vor dem ersten Schreibzugriff
+überschreiben einzelne Grenzen). `incremental` hat keine Lese- oder Schreibbegrenzung, damit
+auch große verifizierte Inhaltsänderungen automatisch deployen. Die übrigen Profile behalten
+ihre Grenzen; eine markierte Recovery verwendet `recovery`. Bei gesetzten Grenzen prüft der
+Sync die Planschätzung vor dem ersten Schreibzugriff
 (0 Schreibzugriffe bei Überschreitung) und bricht während des Laufs ab, sobald die realen Zähler das
 Budget überschreiten. Entscheidung und Profil werden vor dem Planbau abgeglichen
 (`assessSyncDecision`): No-op, verifizierter inkrementeller Lauf und markierte Recovery sind mit

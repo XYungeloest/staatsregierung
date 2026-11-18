@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import test, { mock } from 'node:test';
+import { readFile } from 'node:fs/promises';
 
 import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
 
 import { scopeSignature } from '../scripts/lib/d1-sync-scope.mjs';
 import {
   BULK_METADATA_PROFILE, D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertBulkMetadataScope, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, classifyStoredIdentityError, decideSyncAction, estimatePlanCost,
-  identityMetaValues, incrementalStartQueries, isMetadataOnlyRun, isTransientD1Error, planRun, renderStatement, resolveBudget, runtimeMetaQueries,
+  createStats, recordResults, identityMetaValues, incrementalStartQueries, isMetadataOnlyRun, isTransientD1Error, planRun, renderStatement, resolveBudget, runtimeMetaQueries,
 } from '../scripts/sync-recht-d1.mjs';
 import { fixtureCorpus } from './helpers/fixture-corpus.ts';
 
@@ -176,6 +177,21 @@ test('Budgetprofile kommen aus der zentralen Datei; explizite Grenzen gehen vor;
   assert.deepEqual(resolveBudget('full', budgets, { maxRowsWritten: 10 }), { maxRowsRead: 500000, maxRowsWritten: 10, profile: 'full' });
   assert.deepEqual(resolveBudget(null, budgets, { maxRowsRead: 5 }), { maxRowsRead: 5 });
   assert.throws(() => resolveBudget('nope', budgets), /Unbekanntes Budgetprofil nope/u);
+});
+
+test('automatische inkrementelle Läufe haben keine Zeilengrenzen und erlauben weiterhin keine Vollprojektion', async () => {
+  const config = JSON.parse(await readFile(new URL('../data/recht/d1-sync-budgets.json', import.meta.url), 'utf8'));
+  const limits = resolveBudget('incremental', config);
+  assert.deepEqual(limits, { profile: 'incremental' });
+  const cost = estimatePlanCost({ statementCount: 1000000, searchUnitCount: 100000, full: false, byStatement: {} });
+  assert.doesNotThrow(() => assertEstimateWithinBudget(cost, limits));
+  const stats = createStats(limits);
+  assert.doesNotThrow(() => recordResults(stats, [{ meta: { rows_read: 1000000, rows_written: 2000000 } }]));
+  assert.equal(stats.rowsWritten, 2000000);
+  assert.equal(assessSyncDecision({ decision: { action: 'incremental' }, scope: { mode: 'incremental', slugs: [], deletedSlugs: [], publicationSlugs: [] }, budgetProfile: 'incremental', limits }).ok, true);
+  assert.equal(assessSyncDecision({ decision: { action: 'full', reason: 'Schemaänderung' }, scope: { mode: 'full' }, budgetProfile: 'incremental', limits }).ok, false);
+  assert.throws(() => assertEstimateWithinBudget(cost, resolveBudget('incremental', config, { maxRowsWritten: 10 })), SyncBudgetExceeded);
+  assert.throws(() => assertEstimateWithinBudget(cost, resolveBudget('recovery', config)), SyncBudgetExceeded);
 });
 
 test('Vorabschätzung über dem Budget → Abbruch vor dem ersten Schreibzugriff; darunter erlaubt', () => {
