@@ -19,11 +19,13 @@ const labels = { vorbereitet: 'In Vorbereitung', einreichung: 'Ideen gesucht', s
   <div class="campaign">
     {result ? (
       <section class="campaign-hero campaign-hero--result" aria-labelledby="campaign-title">
-        <div class="campaign-hero__copy">
+        <div class="campaign-hero__copy campaign-result-copy">
+          <img class="campaign-result-logo" src="/images/fresswuerfel/logo.png" alt="Fresswürfel" width="2172" height="724" />
           <p class="eyebrow">HO · Ergebnis des Maskottchenwettbewerbs</p>
           <h1 id="campaign-title">{result.title}</h1>
           <p class="campaign-lead">{result.description}</p>
           {result.explanation && <p>{result.explanation}</p>}
+          <div class="campaign-cubes campaign-result-cubes" aria-hidden="true"><span></span><span></span><span></span></div>
         </div>
         {result.image && <img class="campaign-result-image" {...result.image} fetchpriority="high" />}
       </section>
@@ -87,7 +89,7 @@ const labels = { vorbereitet: 'In Vorbereitung', einreichung: 'Ideen gesucht', s
     </section>
     <section id="teilnahme" class="section section-muted"><h2>Teilnahmehinweise</h2><p>Reichen Sie nur eigene Texte und Gestaltungen ein, über deren Rechte Sie verfügen. Der Name der Kette Fresswürfel steht fest; gesucht ist eine eigenständige Maskottchenfigur.</p><p>Die HO trifft eine redaktionelle Auswahl nach den genannten Kriterien. Ein Anspruch auf Veröffentlichung oder Verwendung besteht nicht. Veröffentlicht werden ausschließlich freigegebene Kurzbeschreibungen und gegebenenfalls gesondert freigegebene Bilder.</p><p>Die Figur soll auf Verpackungen, in Filialen und als tragbares Plüschkostüm bei Aktionen eingesetzt werden können. Die endgültige Gestaltung und die Nutzungsrechte klärt die HO mit den betreffenden Einreichenden.</p></section>
     </>}
-    <section id="datenschutz" class="section"><h2>Datenschutz zur Einreichung</h2><p>Beschreibung, optionaler Namensvorschlag, freiwillig übermittelte Bilder und Kontakt-E-Mail werden zur Bearbeitung Ihres Wettbewerbsbeitrags gespeichert. Zugriff erhält ausschließlich die zuständige Redaktion. Ihre E-Mail-Adresse bleibt intern und dient ausschließlich Rückfragen zur Idee.</p>{c.retentionDays && <p>Die Einreichung samt Originalbildern und Kontaktangaben werden spätestens nach {c.retentionDays + 1} Tagen gelöscht. Für einen späteren Einsatz trifft die HO eine gesonderte Vereinbarung mit Ihnen.</p>}{c.privacyContact && <p>Kontakt für Datenschutzfragen und Löschwünsche: {c.privacyContact}</p>}<p>Zum Schutz vor Missbrauch wird vorübergehend eine nicht im Klartext gespeicherte Kennung aus Ihrer IP-Adresse verwendet. Sie wird spätestens nach zwei Tagen entfernt.</p><p>Weitere Informationen zu verantwortlicher Stelle, Hosting und Ihren Rechten stehen in den <a class="inline-link" href="/service/datenschutz/#fresswuerfel">Datenschutzhinweisen des Portals</a>.</p></section>
+    {!result && <section id="datenschutz" class="section"><h2>Datenschutz zur Einreichung</h2><p>Beschreibung, optionaler Namensvorschlag, freiwillig übermittelte Bilder und Kontakt-E-Mail werden zur Bearbeitung Ihres Wettbewerbsbeitrags gespeichert. Zugriff erhält ausschließlich die zuständige Redaktion. Ihre E-Mail-Adresse bleibt intern und dient ausschließlich Rückfragen zur Idee.</p>{c.retentionDays && <p>Die Einreichung samt Originalbildern und Kontaktangaben werden spätestens nach {c.retentionDays + 1} Tagen gelöscht. Für einen späteren Einsatz trifft die HO eine gesonderte Vereinbarung mit Ihnen.</p>}{c.privacyContact && <p>Kontakt für Datenschutzfragen und Löschwünsche: {c.privacyContact}</p>}<p>Zum Schutz vor Missbrauch wird vorübergehend eine nicht im Klartext gespeicherte Kennung aus Ihrer IP-Adresse verwendet. Sie wird spätestens nach zwei Tagen entfernt.</p><p>Weitere Informationen zu verantwortlicher Stelle, Hosting und Ihren Rechten stehen in den <a class="inline-link" href="/service/datenschutz/#fresswuerfel">Datenschutzhinweisen des Portals</a>.</p></section>}
   </div>
 </BaseLayout>
 <script>
@@ -96,7 +98,22 @@ const labels = { vorbereitet: 'In Vorbereitung', einreichung: 'Ideen gesucht', s
 <style>
   .campaign { --fw-red: #a80b13; --fw-yellow: #ffe000; }
   .campaign-hero { display: grid; grid-template-columns: 1.25fr 1fr; margin: 1.5rem 0 0; border: 1px solid #d5dce2; }
-  .campaign-hero--result { grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); align-items: center; }
+  .campaign-hero--result {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+    align-items: center;
+    background: var(--fw-red);
+    color: white;
+    border: 0;
+    border-bottom: .4rem solid var(--fw-yellow);
+    margin-bottom: 2rem;
+  }
+  .campaign-result-copy .eyebrow { color: white; }
+  .campaign-result-copy h1 { color: var(--fw-yellow); }
+  .campaign-result-logo { display: block; width: min(100%, 13rem); height: auto; margin: 0 0 1.4rem; }
+  .campaign-result-cubes { margin-top: 1.5rem; align-items: end; }
+  .campaign-result-cubes span { width: 2rem; height: 2rem; }
+  .campaign-result-cubes span:last-child { width: 1.4rem; height: 1.4rem; }
+
   .campaign-result-image { display: block; width: 100%; height: auto; }
   .campaign-hero__copy { padding: clamp(1.4rem, 4vw, 3.5rem); }
   .campaign h1 { font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.12; margin: 1rem 0 1.5rem; max-width: 16ch; }
