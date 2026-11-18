@@ -3,9 +3,9 @@
   "periode": "2027-2028",
   "quelle": {
     "repository": "osthaushalt-2027-2028",
-    "commit": "f87dd409d4fee752e63b29721cff924bed81dc1d",
-    "commit_kurz": "f87dd40",
-    "commitdatum": "2026-11-18T09:08:30+01:00",
+    "commit": "662c0d7f08f91567b3ca8aac8023a9992b7e0ec5",
+    "commit_kurz": "662c0d7",
+    "commitdatum": "2026-11-18T15:39:54+01:00",
     "fassung": "haushalt-2027-2028",
     "pfad": "haushalt/2027-2028",
     "basisrun": "c0-20261108-v2",
@@ -29,7 +29,7 @@
     },
     {
       "pfad": "haushalt/2027-2028/MANIFEST.json",
-      "sha256": "06462bb124aeca7b0142449182fa8fb494c9b149ada75954f6c77b249c30f7a8",
+      "sha256": "920ad34a5a814d339a7505c7918004e45cbb95450b3364bfd5fc2cbfc19794c0",
       "pruefung": "git"
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028_oeffentlich.xlsx",
-      "sha256": "fa1de7bca8a8f8f3058443eca76e2a64ed04574684fce8a878329c39b3f241c8",
+      "sha256": "8ddb78dc37d41d51ff492f1994022e05dd3c004348660e08a847201da637d9cf",
       "pruefung": "MANIFEST.json"
     },
     {
@@ -426,8 +426,8 @@
     },
     {
       "pfad": "ausgabe/Haushalt_2027_2028.xlsx",
-      "sha256": "fa1de7bca8a8f8f3058443eca76e2a64ed04574684fce8a878329c39b3f241c8",
-      "bytes": 376783
+      "sha256": "8ddb78dc37d41d51ff492f1994022e05dd3c004348660e08a847201da637d9cf",
+      "bytes": 376780
     },
     {
       "pfad": "einzelplaene.json",
@@ -627,8 +627,8 @@
       "datei": "Haushalt_2027_2028.xlsx",
       "quelldatei": "Haushalt_2027_2028_oeffentlich.xlsx",
       "status": "uebernommen",
-      "sha256": "fa1de7bca8a8f8f3058443eca76e2a64ed04574684fce8a878329c39b3f241c8",
-      "bytes": 376783
+      "sha256": "8ddb78dc37d41d51ff492f1994022e05dd3c004348660e08a847201da637d9cf",
+      "bytes": 376780
     }
   ],
   "befunde": [

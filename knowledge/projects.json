@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-10-14",
+  "asOf": "2026-11-13",
   "projects": [
     {
       "id": "project-state-awards",
@@ -74,7 +74,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-09-12",
+      "asOf": "2026-11-13",
       "summary": "Vier Verfassungsänderungsgesetze ordneten Staatswesen, Finanzverfassung, Staatsziele, Bildungswesen und Religionsverfassung zum 21. Juli 2026 neu. Das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens vom 12. September 2026 erklärt Ostdeutschland zum sozialistischen Freistaat, gliedert soziale und ökonomische Grundlagen als eigene Abschnitte ein, verankert Recht auf Arbeit, Volkseigentum, Gesellschafts- und Wirtschaftsplan, Wirtschaftsdemokratie, gesetzesvertretende Rechtsverordnungen und den Privatisierungsschutz neu; es ist seit dem Tag seiner Verkündung in Kraft. Die Artikel 2 bis 6 ändern zugleich das Ostdeutsche Daseinsvorsorgegesetz, die Haushaltsordnung, das Gemeingut-Wohnen-Gesetz, das Ostdeutsche Landesantidiskriminierungsgesetz und das Vergesellschaftungsrahmengesetz.",
       "sourceRefs": [
         {
@@ -180,7 +180,7 @@
       ],
       "nextSteps": [
         "Nachgeordnetes Recht und besondere Gesetze anpassen",
-        "Besondere Gesetze nach Artikel 13b (Gesellschafts- und Wirtschaftsplan), 13e (öffentliche Unternehmen), 26 (Wirtschaftsdemokratie) und 77a (Schlichtungsstellen) ausgestalten"
+        "Besondere Gesetze nach Artikel 26 (Wirtschaftsdemokratie) und 77a (Schlichtungsstellen) ausgestalten; die besonderen Gesetze nach Artikel 13b und 13e sind mit OGVBl. 2026 Nr. 80 verkündet"
       ],
       "dependencies": [],
       "openQuestionIds": []
@@ -867,8 +867,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-12",
       "validTo": null,
-      "asOf": "2026-10-14",
-      "summary": "Das Boden- und Naturvermögensgesetz vom 12. September 2026 errichtet den Landesbodenfonds Ostdeutschland als rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Magdeburg, bindet öffentlichen Boden an Erbbaurecht, Pacht und Gemeinwohlbindung statt Veräußerung, bildet aus den landwirtschaftlichen Flächen des Fonds den Volksacker und schützt öffentlichen Wald, Moore, Gewässer und Naturschätze. Der vollständige Geschäftsbetrieb ist spätestens neun Monate nach Inkrafttreten aufzunehmen; die Verwaltungsratsmitglieder sind innerhalb von zwei Monaten zu benennen, die Volkskammer soll ihre sechs Mitglieder innerhalb von drei Monaten wählen. Der Volksacker und der frühere Aktionsplanpunkt „Flächenfonds“ und „Bodenfonds Ost“ gehen darin auf.",
+      "asOf": "2026-11-13",
+      "summary": "Das Boden- und Naturvermögensgesetz vom 12. September 2026 errichtet den Landesbodenfonds Ostdeutschland als rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Magdeburg, bindet öffentlichen Boden an Erbbaurecht, Pacht und Gemeinwohlbindung statt Veräußerung, bildet aus den landwirtschaftlichen Flächen des Fonds den Volksacker und schützt öffentlichen Wald, Moore, Gewässer und Naturschätze. Der vollständige Geschäftsbetrieb ist spätestens neun Monate nach Inkrafttreten aufzunehmen; die von den Staatssekretariaten zu benennenden Verwaltungsratsmitglieder waren bis 12. November 2026 zu benennen; die Volkskammer wählt ihre zehn Mitglieder des seit 15. Oktober 2026 fünfzehnköpfigen Verwaltungsrates unverzüglich, spätestens innerhalb von drei Monaten nach Inkrafttreten des Wirtschaftsplanungs- und Gemeinwirtschaftsgesetzes (bis 15. Januar 2027). Der Volksacker und der frühere Aktionsplanpunkt „Flächenfonds“ und „Bodenfonds Ost“ gehen darin auf.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-78",
@@ -908,7 +908,7 @@
       ],
       "notes": [
         "Bis zum 11. September 2026 waren Volksacker, Flächenfonds und Bodenfonds Ost nicht errichtet; die programmatische Überschrift im Aktionsplan begründete keinen Umsetzungsstand.",
-        "Ab 15. Oktober 2026 erhält der Landesbodenfonds einen Verwaltungsrat mit fünfzehn Mitgliedern und fünf Beschäftigtenvertretern."
+        "Seit 15. Oktober 2026 hat der Verwaltungsrat des Landesbodenfonds fünfzehn Mitglieder; fünf der zehn von der Volkskammer zu wählenden Mitglieder werden auf Vorschlag der Beschäftigtenvertretung gewählt (§ 9 Absätze 1 und 3)."
       ],
       "aliases": [],
       "projectStage": "in-force",
@@ -918,11 +918,11 @@
       "normRefs": [
         {
           "normSlug": "boden-und-naturvermoegensgesetz",
-          "versionId": "2026-09-12"
+          "versionId": "2026-10-15"
         },
         {
           "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
-          "versionId": "2026-09-12"
+          "versionId": "2026-10-15"
         }
       ],
       "milestones": [
@@ -1296,9 +1296,7 @@
         "Die drei dokumentierten Quellkonflikte der Konsolidierung müssen durch belastbare Ausgangstexte oder eine ausdrückliche redaktionelle Quellenentscheidung geklärt werden."
       ],
       "dependencies": [],
-      "openQuestionIds": [
-        "question-sofs-aenderungsbefehle-2026"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "project-rundfunk",
@@ -1417,7 +1415,7 @@
       "milestones": [
         {
           "date": "2026-03-23",
-          "title": "Kulturpassgesetz tritt in Kraft"
+          "title": "Kulturpassgesetz beschlossen"
         }
       ],
       "nextSteps": [
@@ -2288,8 +2286,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-02",
       "validTo": null,
-      "asOf": "2026-10-14",
-      "summary": "Das Zinnwald-Vergesellschaftungsgesetz vom 2. September 2026 überführt die Geschäftsanteile des Zinnwald-Projektunternehmens gegen Entschädigung in Gemeineigentum des Freistaates; es ist seit 2. September 2026 in Kraft. Die Gesellschafterrechte nimmt das Staatssekretariat für Wirtschaft und Arbeit wahr, das zugleich Vergesellschaftungsbehörde ist; die Entschädigung beträgt 80 Prozent des Verkehrswertes der Geschäftsanteile, wird im Einvernehmen mit dem Staatssekretariat der Finanzen durch Bescheid festgesetzt und ist innerhalb von dreißig Tagen nach dessen Bekanntgabe zu zahlen, verzinst mit 2,5 Prozent jährlich ab Inkrafttreten. Ein Entschädigungsbescheid ist bis zum Stichtag nicht belegt.",
+      "asOf": "2026-11-13",
+      "summary": "Das Zinnwald-Vergesellschaftungsgesetz vom 2. September 2026 überführt die Geschäftsanteile des Zinnwald-Projektunternehmens gegen Entschädigung in Gemeineigentum des Freistaates; es ist seit 2. September 2026 in Kraft. Seit 15. Oktober 2026 werden die Geschäftsanteile unmittelbar von den Ostdeutschen Rohstoffwerken gehalten, auf die sie unentgeltlich übergegangen sind (§ 10 Absatz 1 ORWG; § 5 Absatz 1 ZinnVG); Vergesellschaftungsbehörde ist das für Wirtschaft zuständige Staatssekretariat. Die Entschädigung beträgt 80 Prozent des Verkehrswertes der Geschäftsanteile, wird im Einvernehmen mit dem für Finanzen zuständigen Staatssekretariat durch Bescheid festgesetzt und ist innerhalb von dreißig Tagen nach dessen Bekanntgabe zu zahlen, verzinst mit 2,5 Prozent jährlich ab Inkrafttreten. Ein Entschädigungsbescheid ist bis zum Stichtag nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-73",
@@ -2315,7 +2313,7 @@
         "public-economy"
       ],
       "notes": [
-        "Ab 15. Oktober 2026 gehen die Geschäftsanteile kraft Gesetzes auf die Ostdeutschen Rohstoffwerke über; am Stichtag 14. Oktober bleiben sie unmittelbar beim Freistaat."
+        "Am 15. Oktober 2026 sind die Geschäftsanteile kraft Gesetzes unentgeltlich auf die Ostdeutschen Rohstoffwerke übergegangen (OGVBl. 2026 Nr. 82, Artikel 1 § 10 Absatz 1; § 5 ZinnVG neu gefasst durch Artikel 10 Nummer 3). Eine Übertragung auf einen anderen ausschließlich öffentlich getragenen öffentlich-rechtlichen Träger der Gemeinwirtschaft bedarf eines Gesetzes (§ 5 Absatz 3)."
       ],
       "aliases": [],
       "projectStage": "in-force",
@@ -2325,7 +2323,7 @@
       "normRefs": [
         {
           "normSlug": "zinnwald-vergesellschaftungsgesetz",
-          "versionId": "2026-09-02"
+          "versionId": "2026-10-15"
         },
         {
           "normSlug": "gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes",
@@ -2336,11 +2334,14 @@
         {
           "date": "2026-09-02",
           "title": "Zinnwald-Vergesellschaftungsgesetz verkündet und in Kraft getreten"
+        },
+        {
+          "date": "2026-10-15",
+          "title": "Übergang der Geschäftsanteile auf die Ostdeutschen Rohstoffwerke"
         }
       ],
       "nextSteps": [
-        "Unabhängiges Unternehmenswertgutachten, Entschädigungsbescheid und Zahlung nur mit amtlicher Quelle fortschreiben",
-        "Spätere gesetzliche Übertragung der Geschäftsanteile auf einen öffentlich getragenen gemeinwirtschaftlichen Rechtsträger nur nach Verkündung dokumentieren"
+        "Unabhängiges Unternehmenswertgutachten, Entschädigungsbescheid und Zahlung nur mit amtlicher Quelle fortschreiben"
       ],
       "dependencies": [],
       "openQuestionIds": []
@@ -2738,8 +2739,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-10-14",
       "validTo": null,
-      "asOf": "2026-10-14",
-      "summary": "Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz ist verkündet und tritt am 15. Oktober 2026 in Kraft. Es regelt den fünfjährigen Gesellschafts- und Wirtschaftsplan, Perspektivplan Ost, Staatsplankommission und Staatswirtschaftsrat sowie Beteiligung und Führung öffentlicher Unternehmen. Ein erster Plangesetzbeschluss oder tatsächlicher Aufbau der neuen Gremien ist noch nicht belegt.",
+      "asOf": "2026-11-13",
+      "summary": "Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz ist am 14. Oktober 2026 verkündet worden und seit dem 15. Oktober 2026 in Kraft. Es regelt den fünfjährigen Gesellschafts- und Wirtschaftsplan, Perspektivplan Ost, Staatsplankommission und Staatswirtschaftsrat sowie Beteiligung und Führung öffentlicher Unternehmen. Ein erster Plangesetzbeschluss oder tatsächlicher Aufbau der neuen Gremien ist noch nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-80",
@@ -2753,9 +2754,9 @@
         "law"
       ],
       "notes": [
-        "Am redaktionellen Stichtag ist die Verkündung belegt; das Inkrafttreten liegt noch in der Zukunft."
+        "Seit dem 15. Oktober 2026 in Kraft (Inkrafttreten am Tag nach der Verkündung vom 14. Oktober 2026); der tatsächliche Vollzug ist bis zum Stichtag nicht belegt."
       ],
-      "projectStage": "promulgated",
+      "projectStage": "in-force",
       "normRefs": [
         {
           "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
@@ -2770,6 +2771,10 @@
         {
           "date": "2026-10-14",
           "title": "Verkündung"
+        },
+        {
+          "date": "2026-10-15",
+          "title": "Inkrafttreten"
         }
       ],
       "nextSteps": [
@@ -2786,8 +2791,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-10-14",
       "validTo": null,
-      "asOf": "2026-10-14",
-      "summary": "Das Handelsorganisationsgesetz ist verkündet und tritt am 15. Oktober 2026 in Kraft. Der Freistaat soll eine vollständig landeseigene Handelsorganisation Ost GmbH mit Grundversorgungssortiment und besonderen Versorgungsaufträgen gründen. Handelsregistereintragung, Gesellschaftsvertrag und Geschäftsbetrieb sind noch nicht belegt.",
+      "asOf": "2026-11-13",
+      "summary": "Das Handelsorganisationsgesetz ist am 14. Oktober 2026 verkündet worden und seit dem 15. Oktober 2026 in Kraft. Der Freistaat soll eine vollständig landeseigene Handelsorganisation Ost GmbH mit Grundversorgungssortiment und besonderen Versorgungsaufträgen gründen. Handelsregistereintragung, Gesellschaftsvertrag und Geschäftsbetrieb sind noch nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-81",
@@ -2801,9 +2806,9 @@
         "law"
       ],
       "notes": [
-        "Am redaktionellen Stichtag ist die Verkündung belegt; das Inkrafttreten liegt noch in der Zukunft."
+        "Seit dem 15. Oktober 2026 in Kraft (Inkrafttreten am Tag nach der Verkündung vom 14. Oktober 2026); der tatsächliche Vollzug ist bis zum Stichtag nicht belegt."
       ],
-      "projectStage": "promulgated",
+      "projectStage": "in-force",
       "normRefs": [
         {
           "normSlug": "handelsorganisationsgesetz",
@@ -2818,6 +2823,10 @@
         {
           "date": "2026-10-14",
           "title": "Verkündung"
+        },
+        {
+          "date": "2026-10-15",
+          "title": "Inkrafttreten"
         }
       ],
       "nextSteps": [
@@ -2832,8 +2841,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-10-14",
       "validTo": null,
-      "asOf": "2026-10-14",
-      "summary": "Sechs Stammgesetze sind verkündet und treten am 15. Oktober 2026 in Kraft. Sie errichten die Ostdeutschen Rohstoffwerke, übertragen Zinnwald und die bezeichneten Kupfer- und Kali-Projektanteile, sehen bedingte Übergänge von Kupfer-Bergbauberechtigungen vor und regeln Generationen- und Versorgungsfonds. Eine Altersdividende wird erstmals für 2036 gewährt.",
+      "asOf": "2026-11-13",
+      "summary": "Sechs Stammgesetze sind am 14. Oktober 2026 verkündet worden und seit dem 15. Oktober 2026 in Kraft. Sie errichten die Ostdeutschen Rohstoffwerke, übertragen Zinnwald und die bezeichneten Kupfer- und Kali-Projektanteile, sehen bedingte Übergänge von Kupfer-Bergbauberechtigungen vor und regeln Generationen- und Versorgungsfonds. Eine Altersdividende wird erstmals für 2036 gewährt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-82",
@@ -2847,9 +2856,9 @@
         "law"
       ],
       "notes": [
-        "Am redaktionellen Stichtag ist die Verkündung belegt; das Inkrafttreten liegt noch in der Zukunft."
+        "Seit dem 15. Oktober 2026 in Kraft (Inkrafttreten am Tag nach der Verkündung vom 14. Oktober 2026); der tatsächliche Vollzug ist bis zum Stichtag nicht belegt."
       ],
-      "projectStage": "promulgated",
+      "projectStage": "in-force",
       "normRefs": [
         {
           "normSlug": "ostdeutsches-rohstoffwerkegesetz",
@@ -2884,6 +2893,10 @@
         {
           "date": "2026-10-14",
           "title": "Verkündung"
+        },
+        {
+          "date": "2026-10-15",
+          "title": "Inkrafttreten"
         }
       ],
       "nextSteps": [
@@ -2900,8 +2913,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-10-14",
       "validTo": null,
-      "asOf": "2026-10-14",
-      "summary": "Das Kindheits- und Teilhabepaket ist verkündet. Die bezeichneten Vorbereitungs-, Datenschutz- und Ermächtigungsregelungen treten am 15. Oktober 2026, die übrigen Leistungen und Änderungen am 1. Januar 2027 in Kraft. Teilhabepass und Sozialpass, Familienservicestellen, Jugendorte, kostenfreie Kita- und Schulverpflegung sowie Mensa-Grundgerichte sind gesetzlich vorgesehen; tatsächliche Ausgabe und Leistungserbringung sind nicht belegt.",
+      "asOf": "2026-11-13",
+      "summary": "Das Kindheits- und Teilhabepaket ist am 14. Oktober 2026 verkündet worden. Die bezeichneten Vorbereitungs-, Datenschutz- und Ermächtigungsregelungen sind seit dem 15. Oktober 2026 in Kraft; die übrigen Leistungen und Änderungen treten am 1. Januar 2027 in Kraft (Artikel 8). Teilhabepass und Sozialpass, Familienservicestellen, Jugendorte, kostenfreie Kita- und Schulverpflegung sowie Mensa-Grundgerichte sind gesetzlich vorgesehen; tatsächliche Ausgabe und Leistungserbringung sind nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-83",
@@ -2915,7 +2928,7 @@
         "law"
       ],
       "notes": [
-        "Am redaktionellen Stichtag ist die Verkündung belegt; das Inkrafttreten liegt noch in der Zukunft."
+        "Teilweise seit dem 15. Oktober 2026 in Kraft (Artikel 8 Absatz 1); im Übrigen tritt das Gesetz am 1. Januar 2027 in Kraft (Artikel 8 Absatz 2)."
       ],
       "projectStage": "promulgated",
       "normRefs": [
@@ -2936,6 +2949,14 @@
         {
           "date": "2026-10-14",
           "title": "Verkündung"
+        },
+        {
+          "date": "2026-10-15",
+          "title": "Inkrafttreten der vorgezogenen Teile"
+        },
+        {
+          "date": "2027-01-01",
+          "title": "Inkrafttreten im Übrigen"
         }
       ],
       "nextSteps": [
@@ -2951,8 +2972,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-10-14",
       "validTo": null,
-      "asOf": "2026-10-14",
-      "summary": "Das neue Rechnungshofgesetz ist verkündet und tritt am 15. Oktober 2026 in Kraft. Die Volkskammer wählt die Leitung für zwölf Jahre; Wiederwahl ist ausgeschlossen. Gleichzeitig werden das bisherige Rechnungshofgesetz und die Verordnung über Staatliche Rechnungsprüfungsämter aufgehoben und die Haushaltsordnung geändert.",
+      "asOf": "2026-11-13",
+      "summary": "Das neue Rechnungshofgesetz ist am 14. Oktober 2026 verkündet worden und seit dem 15. Oktober 2026 in Kraft. Die Volkskammer wählt die Leitung für zwölf Jahre; Wiederwahl ist ausgeschlossen. Gleichzeitig werden das bisherige Rechnungshofgesetz und die Verordnung über Staatliche Rechnungsprüfungsämter aufgehoben und die Haushaltsordnung geändert.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-84",
@@ -2966,9 +2987,9 @@
         "law"
       ],
       "notes": [
-        "Am redaktionellen Stichtag ist die Verkündung belegt; das Inkrafttreten liegt noch in der Zukunft."
+        "Seit dem 15. Oktober 2026 in Kraft (Inkrafttreten am Tag nach der Verkündung vom 14. Oktober 2026); der tatsächliche Vollzug ist bis zum Stichtag nicht belegt."
       ],
-      "projectStage": "promulgated",
+      "projectStage": "in-force",
       "normRefs": [
         {
           "normSlug": "rechnungshofgesetz-2026",
@@ -2987,6 +3008,10 @@
         {
           "date": "2026-10-14",
           "title": "Verkündung"
+        },
+        {
+          "date": "2026-10-15",
+          "title": "Inkrafttreten"
         }
       ],
       "nextSteps": [

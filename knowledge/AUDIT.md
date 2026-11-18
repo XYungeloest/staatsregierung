@@ -20,7 +20,7 @@ keine eigenständige Quelle. Die Quellenhierarchie und das Verfahren bei echten 
 | Staat und Verfassungsordnung | aktuelle Verfassungsfassungen, Staatsaufbau und Staatsreform sind strukturiert | einzelne historische Verfassungsereignisse und Organübergänge weiter verdichten |
 | Regierung und Verwaltung | aktueller Staatsrat und jüngere Regierungsstände sind strukturiert | Regierungs- und Rollenchronologie vor Dezember 2025 vervollständigen |
 | Personen und Parteien | aktuelle Rollen und zahlreiche historische Profile sind vorhanden | einzelne Parteiwechsel, Parteifunktionen, DEMOS-Namenschronologie und frühere Amtsintervalle belegen |
-| Gesetzgebung und Rechtsordnung | 95 Zielnormen sind erkannt, 93 vollständig konsolidiert; 2 Zieltextkonflikte sind gesperrt | die Konflikte bei der Schulordnung Förderschulen und bei der Hoheitszeichenverordnung quellenbasiert klären |
+| Gesetzgebung und Rechtsordnung | erkannte Zielnormen sind bis auf einen gesperrten Zieltextkonflikt vollständig konsolidiert (Zählung in `../data/recht/consolidation-manifest.json`) | den Konflikt bei der Hoheitszeichenverordnung quellenbasiert klären |
 | Parlamentarische Geschichte | siebte Wahlperiode ist über Verfahren, Tagesordnungen und Verkündungen erschlossen; für die achte Wahlperiode sind Wahl (5. und 6. September 2026), Konstituierung (7. September 2026) und die Gesetzesbeschlüsse vom 11. September 2026 über Verfahren und Verkündungen erfasst | frühere Wahlperioden sowie nicht vorliegende Plenar- und Abstimmungsnachweise nur bei neuer Quelle ergänzen |
 | Gerichts- und Verfassungsverfahren | einzelne Vorgänge sind als Kandidaten oder Verfahren erfasst | Aktenzeichen, Entscheidungen und Verfahrensausgänge nur aus belastbaren Quellen übernehmen |
 | Politische Vorhaben und Vollzug | zentrale Reform- und Projektkomplexe sind verknüpft | operative Vollzugsstände unter anderem bei Boom Europe, OVV/DB und mehreren Beschaffungen belegen |
@@ -37,8 +37,7 @@ Die menschenlesbare Liste der tatsächlich noch relevanten Quellenfragen steht i
 
 Besonders relevant sind derzeit:
 
-- die Zieltextkonflikte bei der Schulordnung Förderschulen und bei der Hoheitszeichenverordnung (Ermächtigungsverweis in OGVBl. 2026 Nr. 70 Artikel 2 Absatz 2),
-- die abweichende Wahlterminangabe in Artikel 121a der Staatsverfassung,
+- der Zieltextkonflikt bei der Hoheitszeichenverordnung (Ermächtigungsverweis in OGVBl. 2026 Nr. 70 Artikel 2 Absatz 2),
 - fehlende Vollzugsbelege für mehrere politische und wirtschaftliche Vorhaben,
 - noch unvollständige politische Rollen- und Ereignischronologien vor Ende 2025,
 - nicht öffentlich ausgewiesene Beteiligungstiefen und formale Anpassungen gemeinsamer Träger.

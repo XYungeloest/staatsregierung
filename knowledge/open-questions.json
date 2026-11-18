@@ -88,48 +88,6 @@
       "questionStatus": "open"
     },
     {
-      "id": "question-sofs-aenderungsbefehle-2026",
-      "title": "Wie sind Artikel 1 Nummer 18 Buchstabe b und Nummer 30 der Änderungsverordnung zur Schulordnung Förderschulen zu verstehen?",
-      "status": "unresolved",
-      "validFrom": "2026-09-01",
-      "validTo": null,
-      "asOf": "2026-09-12",
-      "summary": "Zwei Änderungsbefehle der maßgeblichen Ausgabe OGVBl. 2026 Nr. 64 passen nicht auf die Ausgangsfassung der Schulordnung Förderschulen: Nummer 18 Buchstabe b ersetzt in § 30 Absatz 4 die Wörter „Oberschule oder Gemeinschaftsschule“, die dort nicht stehen; Nummer 30 zielt auf § 18 Absatz 3 Satz 3, obwohl § 18 Absatz 3 nur einen Satz hat und die Wörter „Sächsischen Schulgesetzes“ in Absatz 1 Satz 3 stehen. Die konsolidierte Fassung vom 1. September 2026 bleibt deshalb gesperrt.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-ogvbl-2026-64",
-          "locator": "Artikel 1 Nummer 18 Buchstabe b und Nummer 30",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-consolidation-manifest",
-          "locator": "Ziel schulordnung-foerderschulen",
-          "role": "corroborating"
-        }
-      ],
-      "relatedIds": [
-        "project-schulreform"
-      ],
-      "tags": [
-        "open-question",
-        "law",
-        "education",
-        "consolidation"
-      ],
-      "notes": [
-        "Die übrigen Änderungsbefehle sind in einem geprüften Rezept umgesetzt; es wird erst nach der Klärung angewandt."
-      ],
-      "question": "Bezeichnen die beiden Befehle andere Fundstellen der Schulordnung Förderschulen, oder ist eine amtliche Berichtigung erforderlich?",
-      "affectedIds": [
-        "project-schulreform"
-      ],
-      "reason": "Die Befehle sind ohne Umdeutung nicht anwendbar; eine heuristische Zuordnung ist nach der Quellenrichtlinie unzulässig.",
-      "requiredSource": "Amtliche Berichtigung der Verordnung zur Änderung der Schulordnung Förderschulen oder eine gleichrangige Primärquelle.",
-      "publicContentImpact": "Die Schulordnung Förderschulen erscheint weiter in der Ausgangsfassung; die Änderungsverordnung ist als Verkündung sichtbar.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
       "id": "question-ovv-ticket-chain",
       "title": "Welche Tarifdetails gelten für die OVV-Anerkennung und werden Fernverkehrsrelationen reaktiviert?",
       "status": "unresolved",
@@ -229,62 +187,6 @@
       "publicContentImpact": "Projektseite, Haushalt und Zeitplan.",
       "priority": "medium",
       "questionStatus": "open"
-    },
-    {
-      "id": "question-missing-revosax-snapshots",
-      "title": "Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?",
-      "status": "historical",
-      "validFrom": null,
-      "validTo": "2026-09-12",
-      "asOf": "2026-09-12",
-      "summary": "Die korrigierte Veröffentlichung bezeichnet die maßgebliche Ausgangsfassung des NDR-Staatsvertrags vom 4./9. März 2021 eindeutig. Diese Fassung ist unverändert als Fassung 2021-09-01 des NDR-Staatsvertrags archiviert und als Konsolidierungsbaseline verarbeitet; die durch den Änderungsstaatsvertrag geänderte Fassung gilt seit 3. September 2026. Der Konsolidierungsaudit vom 12. September 2026 führt den NDR-Staatsvertrag als vollständig konsolidiert.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-overtrbl-2026-04",
-          "locator": "Anlage 1: Bezeichnung des NDR-Staatsvertrags vom 4./9. März 2021 als Änderungsziel",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-consolidation-manifest",
-          "locator": "target ndr-staatsvertrag, status complete, baselineSnapshotDate 2021-09-01 (Stand 12. September 2026)",
-          "role": "corroborating"
-        },
-        {
-          "sourceId": "source-editorial-clarification-ndr-2026-09-02",
-          "locator": "Abschnitt Verbindliche Quellenauflösung",
-          "role": "corroborating"
-        },
-        {
-          "sourceId": "source-overtrbl-2026-05",
-          "locator": "Inkrafttreten des Änderungsstaatsvertrags zum 3. September 2026",
-          "role": "corroborating"
-        },
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "Abschnitt NDR-Staatsvertrag: Ausgangsfassung unverändert unter Gesetze/NDR-Staatsvertrag.html und .pdf archiviert",
-          "role": "corroborating"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-law-consolidation",
-        "proceeding-ndr-ratification"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [
-        "Erledigt durch die Archivierung der Ausgangsfassung (Gesetze/NDR-Staatsvertrag.html und .pdf) und die Fassung 2021-09-01; die Frage bleibt als erledigter Vorgang mit Provenienz erhalten.",
-        "Das Enddatum folgt aus dem Konsolidierungsaudit vom 12. September 2026; ein genaueres Archivierungsdatum ist in keiner Hub-Quelle belegt."
-      ],
-      "question": "Wann kann die bekannte vollständige Fassung des NDR-Staatsvertrags einschließlich Anlagen unverändert archiviert und als Konsolidierungsbaseline verarbeitet werden?",
-      "affectedIds": [
-        "proceeding-law-consolidation"
-      ],
-      "reason": "Ohne versionierten Ausgangssnapshot darf keine freie Konsolidierung erfolgen.",
-      "requiredSource": "Unveränderte Archivkopie der bekannten, vor der Änderung vom 8. März 2026 geltenden Fassung des NDR-Staatsvertrags einschließlich Anlagen.",
-      "publicContentImpact": "Vollständigkeit und historische Fassungen im Rechtsportal.",
-      "priority": "high",
-      "questionStatus": "resolved"
     },
     {
       "id": "question-eag-procurements-delivery",
