@@ -3,10 +3,10 @@
   "effectiveDate": "2026-07-21",
   "versionId": "2026-07-21",
   "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
-  "resultCitation": "Schulgesetz für den Freistaat Ostdeutschland, geändert durch Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+  "resultCitation": "Ostdeutsches Schulgesetz in der Fassung der Bekanntmachung vom 27. September 2018 (SächsGVBl. S. 648), geändert durch Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
   "changeNote": "Schulsport, Sportdiagnostik, Ostdeutsche Sportschulen, Sportklassen und Übergangsbestimmungen wurden ergänzt.",
   "commandCoverage": [
-    "Artikel 6 Nummern 1 bis 4; Nummer 1 betrifft die nicht als Normkörper gespeicherte Inhaltsübersicht. Nummer 3 knüpft ausdrücklich an den bereits verkündeten, erst am 1. August 2026 wirksam werdenden Wortlaut des § 34 Absatz 2 an und wird deshalb in der Folgefassung zum 1. August 2026 berücksichtigt."
+    "Artikel 6 Nummern 1 bis 4; Nummer 1 betrifft die nicht als Normkörper gespeicherte Inhaltsübersicht. Artikel 6 setzt nach seinem Eingangssatz auf der durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 27) geänderten, erst am 1. August 2026 wirksamen Fassung auf. In der bis 31. Juli 2026 geltenden Fassung hat § 64 die Absätze 1 bis 8: Der neue Absatz 4 wird nach Absatz 3 eingefügt, und mit dem bisherigen Absatz 4 (Nummer 4 Buchstabe b) rücken die bisherigen Absätze 5 bis 8 redaktionell zu den Absätzen 6 bis 9 auf, damit keine Absatzbezeichnung doppelt vergeben wird. Nummer 3 findet in der bis 31. Juli 2026 geltenden Fassung keinen Anknüpfungspunkt und wird mit der Folgefassung zum 1. August 2026 angewandt (Redaktionsentscheidung schulgesetz-sportneuordnung-2026)."
   ],
   "sourceReferences": [
     {
@@ -204,6 +204,62 @@
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
       "sourceProvision": "Artikel 6 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(8)",
+        "parentLabel": "§ 64"
+      },
+      "expectedHash": "3aca6c42313bc0a10e204a52e50a9e0a7bade0fdf9dc4d98041751eae699efe3",
+      "expectedMatches": 1,
+      "value": "(9)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sourceProvision": "Artikel 6 Nummer 4 Buchstabe b",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(7)",
+        "parentLabel": "§ 64"
+      },
+      "expectedHash": "ba5b47a60d04165ad1d48ffa520fa624e05496a8ce7deb5c3b0cb1c6ce7486dc",
+      "expectedMatches": 1,
+      "value": "(8)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sourceProvision": "Artikel 6 Nummer 4 Buchstabe b",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "parentLabel": "§ 64"
+      },
+      "expectedHash": "d6ec4407c806c4ec701e44507375bf8db001e9fba8fc187fd84aa3e6f1925674",
+      "expectedMatches": 1,
+      "value": "(7)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sourceProvision": "Artikel 6 Nummer 4 Buchstabe b",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "parentLabel": "§ 64"
+      },
+      "expectedHash": "77b146cceefa7aa781ab22d58fadb53a0ee1232e97c397f709cff2cf6f6785a7",
+      "expectedMatches": 1,
+      "value": "(6)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sourceProvision": "Artikel 6 Nummer 4 Buchstabe b",
       "effectiveDate": "2026-07-21"
     },
     {

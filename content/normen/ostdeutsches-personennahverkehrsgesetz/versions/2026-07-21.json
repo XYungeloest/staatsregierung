@@ -1,18 +1,14 @@
 {
   "versionId": "2026-07-21",
-  "title": "Ostdeutsches Personennahverkehrsgesetz",
+  "title": "Gesetz über den öffentlichen Personennahverkehr im Ostdeutschen Freistaat",
+  "shortTitle": "Ostdeutsche Personennahverkehrsgesetz",
+  "abbr": "ÖPNVG",
   "validFrom": "2026-07-21",
-  "validTo": null,
-  "isCurrent": true,
-  "citation": "Ostdeutsches Personennahverkehrsgesetz, zuletzt geändert durch Artikel 4 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 47 S. 2)",
-  "changeNote": "§ 3 Absatz 1 Satz 3 wurde neu gefasst (Bezirke als Aufgabenträger des übrigen Personennahverkehrs, bezirkliche Nahverkehrsplanung nach § 5a) und § 5a über die bezirkliche Nahverkehrsplanung eingefügt. Die Ostdeutsche Eisenbahn wurde Mitglied des Ostdeutschen Verkehrsverbundes; §§ 4b bis 4g über Ostdeutsche Eisenbahn, Landesnetz Ost, Systemintegration, Fahrzeug- und Infrastrukturpool, Direktvergabe sowie Daten-, Vertriebs- und Qualitätsstandards wurden eingefügt und § 7 um die Finanzierung der Ostdeutschen Eisenbahn ergänzt (Artikel 4 Nummer 1 betrifft die Inhaltsübersicht, die nicht Teil des gespeicherten Normtextes ist).",
+  "validTo": "2026-07-31",
+  "isCurrent": false,
+  "citation": "Gesetz über den öffentlichen Personennahverkehr im Ostdeutschen Freistaat vom 14. Dezember 1995 (SächsGVBl. S. 412, 449), zuletzt geändert durch Artikel 4 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 47 S. 2)",
+  "changeNote": "Die Ostdeutsche Eisenbahn wurde Mitglied des Ostdeutschen Verkehrsverbundes; §§ 4b bis 4g über Ostdeutsche Eisenbahn, Landesnetz Ost, Systemintegration, Fahrzeug- und Infrastrukturpool, Direktvergabe sowie Daten-, Vertriebs- und Qualitätsstandards wurden eingefügt und § 7 um die Finanzierung der Ostdeutschen Eisenbahn ergänzt.",
   "sourceReferences": [
-    {
-      "kind": "amendment-source",
-      "label": "OGVBl. 2026 Nr. 46",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
-    },
     {
       "kind": "amendment-source",
       "label": "OGVBl. 2026 Nr. 47",
@@ -107,7 +103,7 @@
         {
           "type": "subparagraph",
           "label": "(1)",
-          "text": "Die Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs ist eine Aufgabe der Daseinsvorsorge. Aufgabenträger für den Schienenersonennahverkehr ist das zuständige Staatsministerium. Für den übrigen Personennahverkehr sind die Bezirke Aufgabenträger; die bezirkliche Nahverkehrsplanung richtet sich nach § 5a.",
+          "text": "Die Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs ist eine Aufgabe der Daseinsvorsorge. Aufgabenträger für den Schienenersonennahverkehr ist das zuständige Staatsministerium. Für den übrigen Personen- nahverkehr sind die Bezirke Aufgabenträger.",
           "level": 0,
           "listId": "4pja3ejjgoyo",
           "numberingStyle": "decimal",
@@ -854,37 +850,6 @@
     },
     {
       "type": "paragraph",
-      "label": "§ 5a",
-      "title": "Bezirkliche Nahverkehrsplanung",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Bezirke stellen für ihr Gebiet Bezirksnahverkehrspläne auf.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Der Bezirksnahverkehrsplan ergänzt die Nahverkehrspläne der Aufgabenträger nach § 3. Er enthält insbesondere Aussagen zu regional bedeutsamen Verbindungen, Verknüpfungspunkten, Mindeststandards der Erreichbarkeit, Barrierefreiheit, Investitionsprioritäten und bezirksübergreifender Abstimmung.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Der Bezirksnahverkehrsplan ist mit den Landkreisen, kreisfreien Städten, Gemeinden, Verkehrsverbünden und Eisenbahninfrastrukturunternehmen im Bezirk abzustimmen.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(4)",
-          "text": "Landesweite, verbundbezogene und landesbedeutsame Aufgaben bleiben unberührt.",
-          "children": []
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
       "label": "§ 6",
       "title": "Investitionsprogramm",
       "children": [
@@ -902,7 +867,7 @@
         {
           "type": "subparagraph",
           "label": "(1)",
-          "text": "Der öffentliche Personennahverkehr soll seine Aufwendungen soweit wie möglich selbst erwirtschaften. Im übrigen sichern die Aufgabenträger des öffentlichen Personennahverkehrs seine finanziellen Grundlagen unter Berücksichtigung der Finanzierungsleistungen des Bundes und des Freistaates ab.",
+          "text": "Der öffentliche Personennahverkehr soll seine Aufwendungen soweit wie möglich selbst erwirtschaften. § 4a bleibt unberührt. Im übrigen sichern die Aufgabenträger des öffentlichen Personennahverkehrs seine finanziellen Grundlagen unter Berücksichtigung der Finanzierungsleistungen des Bundes und des Freistaates ab.",
           "children": []
         },
         {

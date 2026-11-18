@@ -1,6 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "Ostdeutsche Landkreisordnung",
+  "title": "Landkreisordnung für den Freistaat Ostdeutschland",
+  "shortTitle": "Ostdeutsche Landkreisordnung",
   "validFrom": "2023-11-01",
   "validTo": "2025-03-11",
   "isCurrent": false,
@@ -1203,6 +1204,7 @@
                 },
                 {
                   "type": "table",
+                  "title": "Zahl der Kreisräte",
                   "columns": 4,
                   "children": [
                     {
@@ -1664,7 +1666,7 @@
             {
               "type": "paragraph",
               "label": "§ 32a",
-              "title": "Durchführung von Sitzungen<br>ohne persönliche Anwesenheit im Sitzungsraum",
+              "title": "Durchführung von Sitzungen ohne persönliche Anwesenheit im Sitzungsraum",
               "children": [
                 {
                   "type": "subparagraph",

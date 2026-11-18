@@ -1046,10 +1046,6 @@
                   "label": "Abschnitt 2",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "Ergänzungs- und Kooperationsliegenschaften"
-                    },
-                    {
                       "type": "item",
                       "label": "1.",
                       "text": "Eberswalde-Finow",
@@ -1270,16 +1266,13 @@
                       "type": "paragraphText",
                       "text": "Eignung als Reserveflugplatz, Ausbildungsstandort und technische Reservefläche."
                     }
-                  ]
+                  ],
+                  "title": "Ergänzungs- und Kooperationsliegenschaften"
                 },
                 {
                   "type": "section",
                   "label": "Abschnitt 3",
                   "children": [
-                    {
-                      "type": "paragraphText",
-                      "text": "Sonder-, Reserve- und Prüfstandorte"
-                    },
                     {
                       "type": "item",
                       "label": "1.",
@@ -1365,7 +1358,8 @@
                       "type": "paragraphText",
                       "text": "Eignung als kleine maritime Außenstelle, Kooperationsstandort oder Traditions- und Ausbildungsstandort des Küsten- und Wasserschutzdienstes."
                     }
-                  ]
+                  ],
+                  "title": "Sonder-, Reserve- und Prüfstandorte"
                 }
               ]
             }
@@ -1385,11 +1379,21 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "In der Inhaltsübersicht wird nach der Angabe zu § 100 folgende Angabe eingefügt: „§ 100a Kasernierte Grenzpolizei“.",
+          "text": "In der Inhaltsübersicht wird nach der Angabe zu § 100 folgende Angabe eingefügt:",
           "level": 0,
           "listId": "re7mjwa84x4f",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 100a Kasernierte Grenzpolizei“."
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -1467,11 +1471,23 @@
         {
           "type": "item",
           "label": "4.",
-          "text": "§ 101 Absatz 1 wird wie folgt gefasst: „(1) Die Dienst- und Fachaufsicht über das Landeskriminalamt, das Polizeiverwaltungsamt, das Präsidium der Bereitschaftspolizei, die Kasernierte Grenzpolizei und die Polizeidirektionen übt das Staatsministerium für Staats- und Grenzsicherheit aus.“",
+          "text": "§ 101 Absatz 1 wird wie folgt gefasst:",
           "level": 0,
           "listId": "re7mjwa84x4f",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "„(1)",
+                  "text": "Die Dienst- und Fachaufsicht über das Landeskriminalamt, das Polizeiverwaltungsamt, das Präsidium der Bereitschaftspolizei, die Kasernierte Grenzpolizei und die Polizeidirektionen übt das Staatsministerium für Staats- und Grenzsicherheit aus.“",
+                  "children": []
+                }
+              ]
+            }
+          ]
         }
       ]
     },

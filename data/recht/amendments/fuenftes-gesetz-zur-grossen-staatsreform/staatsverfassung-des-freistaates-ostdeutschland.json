@@ -38,11 +38,11 @@
         "type": "paragraphText",
         "parentType": "section",
         "parentLabel": "Präambel",
-        "text": "hat sich das ostdeutsche Volk diese Verfassung gegeben."
+        "text": "hat sich das Volk des Freistaates Ostdeutschland diese Verfassung gegeben."
       },
-      "expectedHash": "6202d83c0e59dbe03fdc005b3b847a7e4cdbb134da61e55a8c4dedae77e1f6f1",
+      "expectedHash": "6c3911de6649136c8f8f00ee0bc6e2f59bdbf50fe00e4783eebbaefa95a5d1a7",
       "expectedMatches": 1,
-      "value": "hat sich das ostdeutsche Volk diese sozialistische Staatsverfassung gegeben.",
+      "value": "hat sich das Volk des Freistaates Ostdeutschland diese sozialistische Staatsverfassung gegeben.",
       "sourceProvision": "Artikel 1 Nummer 1 Buchstabe b",
       "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
       "effectiveDate": "2026-09-12"
@@ -53,7 +53,7 @@
         "type": "section",
         "label": "I. Abschnitt"
       },
-      "expectedHash": "4e7278d11cef900f2cc828762e0516978bd9a9ad75690ea35238da133771b260",
+      "expectedHash": "8f90a8f9494fa1ed1d5970aa072725e7ac9030b83757d5a8be1623502f76e175",
       "expectedMatches": 1,
       "value": "Die politischen Grundlagen der sozialistischen Gesellschaft",
       "sourceProvision": "Artikel 1 Nummer 2",
@@ -216,7 +216,7 @@
         "type": "section",
         "label": "I. Abschnitt"
       },
-      "expectedHash": "6b245038e05a833d77fd522682b7a1f87326a53ba55d8ef0f53bfcabe091449c",
+      "expectedHash": "2313174ac12587254998646ef8f4db082afc40bc5dc94a8d75b26c102546479e",
       "expectedMatches": 1,
       "value": [
         {
@@ -238,7 +238,7 @@
             {
               "type": "article",
               "label": "Artikel 2",
-              "title": "Hauptstadt; Landesfarben; Landeswappen",
+              "title": "Hauptstadt, Landesfarben, Landeswappen",
               "children": [
                 {
                   "type": "subparagraph",
@@ -386,7 +386,7 @@
             {
               "type": "article",
               "label": "Artikel 5",
-              "title": "Staatsvolk; Minderheiten",
+              "title": "Staatsvolk, Minderheiten",
               "children": [
                 {
                   "type": "subparagraph",
@@ -565,7 +565,7 @@
             {
               "type": "article",
               "label": "Artikel 7b",
-              "title": "Wohnen; Gesundheit und Pflege",
+              "title": "Wohnen, Gesundheit und Pflege",
               "children": [
                 {
                   "type": "subparagraph",
@@ -667,7 +667,7 @@
                 {
                   "type": "subparagraph",
                   "label": "(1)",
-                  "text": "Der Schutz der Umwelt als Lebensgrundlage ist, auch in Verantwortung für kommende Generationen, Pflicht des Freistaates und Verpflichtung aller im Freistaat. Der Freistaat hat insbesondere den Boden, die Luft und das Wasser, Tiere und Pflanzen sowie die Landschaft als Ganzes einschließlich ihrer gewachsenen Siedlungsräume zu schützen. Er hat auf den sparsamen Gebrauch und die Rückgewinnung von Rohstoffen, die sparsame Nutzung von Energie und Wasser sowie den Schutz des Klimas und die Wiederherstellung geschädigter Natur hinzuwirken.",
+                  "text": "Der Schutz der Umwelt als Lebensgrundlage ist, auch in Verantwortung für kommende Generationen, Pflicht des Freistaates und Verpflichtung aller im Freistaat. Der Freistaat hat insbesondere den Boden, die Luft und das Wasser, Tiere und Pflanzen sowie die Landschaft als Ganzes einschließlich ihrer gewachsenen Siedlungsräume zu schützen. Es hat auf den sparsamen Gebrauch und die Rückgewinnung von Rohstoffen, die sparsame Nutzung von Energie und Wasser sowie den Schutz des Klimas und die Wiederherstellung geschädigter Natur hinzuwirken.",
                   "level": 0,
                   "listId": "list_8",
                   "numberingStyle": "decimal",
@@ -705,7 +705,7 @@
             {
               "type": "article",
               "label": "Artikel 10a",
-              "title": "Boden; Naturvermögen und Volksacker",
+              "title": "Boden, Naturvermögen und Volksacker",
               "children": [
                 {
                   "type": "subparagraph",
@@ -766,7 +766,7 @@
             {
               "type": "article",
               "label": "Artikel 11",
-              "title": "Förderung von Kultur; Kunst; Wissenschaft und Sport",
+              "title": "Förderung von Kultur, Kunst, Wissenschaft und Sport",
               "children": [
                 {
                   "type": "subparagraph",
@@ -813,7 +813,7 @@
               "children": [
                 {
                   "type": "paragraphText",
-                  "text": "Der Freistaat strebt grenzüberschreitende regionale Zusammenarbeit an, die auf den Ausbau nachbarschaftlicher Beziehungen, auf das Zusammenwachsen Europas und auf eine friedliche Entwicklung in der Welt gerichtet ist. Die Zusammenarbeit in den sorbischen, lausitzischen, schlesischen, küstennahen und hauptstädtischen Räumen liegt im besonderen Interesse des Freistaates"
+                  "text": "Der Freistaat strebt grenzüberschreitende regionale Zusammenarbeit an, die auf den Ausbau nachbarschaftlicher Beziehungen, auf das Zusammenwachsen Europas und auf eine friedliche Entwicklung in der Welt gerichtet ist. Die Zusammenarbeit in den sorbischen, lausitzischen, schlesischen, küstennahen und hauptstädtischen Räumen liegt im besonderen Interesse des Freistaates."
                 }
               ]
             },
@@ -1130,7 +1130,7 @@
         "type": "article",
         "label": "Artikel 7b"
       },
-      "expectedHash": "7a815d0cacc40e577a3bb47cf44e83c5454e1805f9bf757856722a63812600e5",
+      "expectedHash": "a79f8670b0507a6e68a4e2b51d6141e433ad6594dca161e58377313c319ceaae",
       "expectedMatches": 1,
       "value": {
         "type": "article",
@@ -1262,9 +1262,9 @@
         "type": "article",
         "label": "Artikel 11"
       },
-      "expectedHash": "758b3168be95bb70b3ee67da61795cd15e2827a0d638f2e9877937d9fe2fb8af",
+      "expectedHash": "eeda0833b378198b8988fa213faf0a64ba2459ea1299f4cb7fc7aa7a4ea92ea4",
       "expectedMatches": 1,
-      "value": "Förderung von Kultur; Kunst; Wissenschaft; Sport",
+      "value": "Förderung von Kultur, Kunst, Wissenschaft; Sport",
       "sourceProvision": "Artikel 1 Nummer 15 Buchstabe a",
       "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
       "effectiveDate": "2026-09-12"
@@ -1310,7 +1310,7 @@
         "type": "article",
         "label": "Artikel 12"
       },
-      "expectedHash": "9aba06dac813457eb065f7bcda7bcfa4da5488315a54ef36b17368572ce7a735",
+      "expectedHash": "e6eec3af4c729a60b5c22835ce35cbdf233a236878ac01346353189f2c5cbdd8",
       "expectedMatches": 1,
       "value": {
         "type": "article",
@@ -1353,7 +1353,7 @@
         "label": "II. Abschnitt",
         "title": "Die sozialen Grundlagen der sozialistischen Gesellschaft"
       },
-      "expectedHash": "e1cfbdc0fc4d12b1804ad6c434db972b62804dcbcb119d33e93a845efb5b0d37",
+      "expectedHash": "dfda246c111cab4468df9b4e4d470c51d3be049998a2686c4117177d7ecb48ce",
       "expectedMatches": 1,
       "value": [
         {
@@ -1447,7 +1447,7 @@
             {
               "type": "article",
               "label": "Artikel 7b",
-              "title": "Wohnen; Gesundheit und Pflege",
+              "title": "Wohnen, Gesundheit und Pflege",
               "children": [
                 {
                   "type": "subparagraph",
@@ -1618,7 +1618,7 @@
                 {
                   "type": "subparagraph",
                   "label": "(1)",
-                  "text": "Der Schutz der Umwelt als Lebensgrundlage ist, auch in Verantwortung für kommende Generationen, Pflicht des Freistaates und Verpflichtung aller im Freistaat. Der Freistaat hat insbesondere den Boden, die Luft und das Wasser, Tiere und Pflanzen sowie die Landschaft als Ganzes einschließlich ihrer gewachsenen Siedlungsräume zu schützen. Er hat auf den sparsamen Gebrauch und die Rückgewinnung von Rohstoffen, die sparsame Nutzung von Energie und Wasser sowie den Schutz des Klimas und die Wiederherstellung geschädigter Natur hinzuwirken.",
+                  "text": "Der Schutz der Umwelt als Lebensgrundlage ist, auch in Verantwortung für kommende Generationen, Pflicht des Freistaates und Verpflichtung aller im Freistaat. Der Freistaat hat insbesondere den Boden, die Luft und das Wasser, Tiere und Pflanzen sowie die Landschaft als Ganzes einschließlich ihrer gewachsenen Siedlungsräume zu schützen. Es hat auf den sparsamen Gebrauch und die Rückgewinnung von Rohstoffen, die sparsame Nutzung von Energie und Wasser sowie den Schutz des Klimas und die Wiederherstellung geschädigter Natur hinzuwirken.",
                   "level": 0,
                   "listId": "list_8",
                   "numberingStyle": "decimal",
@@ -1656,7 +1656,7 @@
             {
               "type": "article",
               "label": "Artikel 10a",
-              "title": "Boden; Naturvermögen und Volksacker",
+              "title": "Boden, Naturvermögen und Volksacker",
               "children": [
                 {
                   "type": "subparagraph",
@@ -1717,7 +1717,7 @@
             {
               "type": "article",
               "label": "Artikel 11",
-              "title": "Förderung von Kultur; Kunst; Wissenschaft; Sport",
+              "title": "Förderung von Kultur, Kunst, Wissenschaft; Sport",
               "children": [
                 {
                   "type": "subparagraph",
@@ -2184,7 +2184,7 @@
         "label": "II. Abschnitt",
         "title": "Die Grundrechte"
       },
-      "expectedHash": "2574f053bcb896698b0ae542d381250d85640854eba5ba0a65c2b8a965b74670",
+      "expectedHash": "d6f68758ceb8161f8858b2e3e538f3432416757e16f10052def16298b727352b",
       "expectedMatches": 1,
       "value": "IV. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 20 Buchstabe a",
@@ -2198,7 +2198,7 @@
         "label": "IV. Abschnitt",
         "title": "Die Grundrechte"
       },
-      "expectedHash": "74919cb199a1bd3a91c2eeffd054ad44ed4e32ae281faccb8eebd54f06a7e39c",
+      "expectedHash": "58b50cbdb426029a6528e48e5629452532d5b1524d0ef533f730237a2f94c3be",
       "expectedMatches": 1,
       "value": "Die Grundrechte und die Mitwirkung in der sozialistischen Gesellschaft",
       "sourceProvision": "Artikel 1 Nummer 20 Buchstabe b",
@@ -2391,7 +2391,7 @@
         "label": "III. Abschnitt",
         "title": "Die Volkskammer"
       },
-      "expectedHash": "5eb65b82a2a6ce051d1d88aef03fb32ce044b87df8dc204335c51efb55318413",
+      "expectedHash": "e22afb61bb615192f598afc453213bebedbc9f3cf88876b5e39f6242a3150b74",
       "expectedMatches": 1,
       "value": "V. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 26",
@@ -2405,7 +2405,7 @@
         "label": "IV. Abschnitt",
         "title": "Der Staatsrat"
       },
-      "expectedHash": "3e92bf19735c8f161f55aabd4139fc65b243cd8c894c8a1a149b1f6858856974",
+      "expectedHash": "140436d7f5eb876c8d74932c098ec88fa0b0df99192c621f21498d67828a9306",
       "expectedMatches": 1,
       "value": "VI. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 27",
@@ -2419,7 +2419,7 @@
         "label": "V. Abschnitt",
         "title": "Die Rechtsetzung"
       },
-      "expectedHash": "c12b9a44ade60548b856cc509197fa17f1c60ae4d44a516add90f13fed129e20",
+      "expectedHash": "9ebc9a5d2402252d6a815fbcb408bbf9d9a27d0aa8884adda4e7ab88b8782757",
       "expectedMatches": 1,
       "value": "VII. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 28",
@@ -2463,7 +2463,7 @@
         "label": "VI. Abschnitt",
         "title": "Die Rechtsprechung"
       },
-      "expectedHash": "bafc2b6fe160871fcc9f0f7b3b05cb0bddfab6ea8351018427404e8fffbf74c3",
+      "expectedHash": "2691f06c6c3294d9bc569276b5a8deeafc08bf53a9f815bd528ef1814353cd03",
       "expectedMatches": 1,
       "value": "VIII. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 30 Buchstabe a",
@@ -2477,7 +2477,7 @@
         "label": "VIII. Abschnitt",
         "title": "Die Rechtsprechung"
       },
-      "expectedHash": "e1412e1316f7f4218c7874b121bf9338fdc8541c3e041f8c424b4602be964825",
+      "expectedHash": "e0e7a3952d811105b560cd8f6643155b588a11a11f8a7f50cc26bc2f8a2206b4",
       "expectedMatches": 1,
       "value": "Die Rechtspflege",
       "sourceProvision": "Artikel 1 Nummer 30 Buchstabe b",
@@ -2490,7 +2490,7 @@
         "type": "article",
         "label": "Artikel 76"
       },
-      "expectedHash": "3550a9e710ce8bf5175662e4cafd3e52b3d9b097bb51788b896bb56d5b24c4ab",
+      "expectedHash": "8ed489807b39543631987d0b4fa3fbefea95e090b33eedc111c91d227ca3aae1",
       "expectedMatches": 1,
       "value": {
         "type": "article",
@@ -2536,7 +2536,7 @@
         "type": "article",
         "label": "Artikel 77"
       },
-      "expectedHash": "2624debc71090fc0fa287c6513e8e55dcd06d04b973db46a01b8016d00215cd3",
+      "expectedHash": "03bdeeaf70d772231cc5d8e704feb2c6abcd026b01c4c444d393e7931aa6e700",
       "expectedMatches": 1,
       "value": {
         "type": "article",
@@ -2574,7 +2574,7 @@
         "label": "VII. Abschnitt",
         "title": "Die Verwaltung"
       },
-      "expectedHash": "a5a5f721e8ee67ad1c86e0770cf79c890da8dc36eec654e2239ab873f9ea2798",
+      "expectedHash": "32f5385478cbae7014504dc3e3673c31ade5f4632f40b870d423c5b5547ce082",
       "expectedMatches": 1,
       "value": "IX. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 34",
@@ -2589,7 +2589,7 @@
         "parentType": "article",
         "parentLabel": "Artikel 83"
       },
-      "expectedHash": "a7f9eb167b4dadcf5eb6483dd4b29b95515d4f4fbcc9ec8675009705d38dbfa7",
+      "expectedHash": "f2b100e50c90a018d0654124bd5cabd757e34f82039f0d6e8e7b7e4869e9d81e",
       "expectedMatches": 1,
       "value": "Maßnahmen eines Geheimdienstes, die die Grundrechte Dritter berühren bedürfen einer gesetzlichen Grundlage; Grundrechtseingriffe, die Leben, Gesundheit oder körperliche Integrität berühren bedürfen der besonderen gesetzlichen Grundlage. Behörden die polizeiliche Maßnahmen tätigen unterliegen der Nachprüfung durch ein unabhängiges Gremium, dessen Verfahren, Rechtsschutz und Bestellung ein besonderes Gesetz bestimmt. Eine parlamentarische Nachprüfung der Maßnahmen nach Satz 1 bedürfen der Grundlage durch ein besonderes Gesetz",
       "sourceProvision": "Artikel 1 Nummer 35",
@@ -2653,7 +2653,7 @@
         "label": "VIII. Abschnitt",
         "title": "Das Finanzwesen und Landesvermögen"
       },
-      "expectedHash": "3154acb201903f5ea4237f72c4f734db96def523b83b54cb14d34e02d67983ef",
+      "expectedHash": "20a61438ef026f2cc13a09e1fb24d8f35822b99e18475701d06a412bddb0b182",
       "expectedMatches": 1,
       "value": "X. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 38 Buchstabe a",
@@ -2667,7 +2667,7 @@
         "label": "X. Abschnitt",
         "title": "Das Finanzwesen und Landesvermögen"
       },
-      "expectedHash": "4b4dbaba7c083ed7b80f35bd0a602de3879d17cb63e7ae3ca568f0ce1f9a917d",
+      "expectedHash": "fdf1c6012f04d27106bd4d4d0473d719108dcb5938712f97c41ce119d058bc83",
       "expectedMatches": 1,
       "value": "Das Finanzwesen und Staatsvermögen",
       "sourceProvision": "Artikel 1 Nummer 38 Buchstabe b",
@@ -2762,7 +2762,7 @@
         "type": "article",
         "label": "Artikel 100"
       },
-      "expectedHash": "d243261aaf80279eae933e2e1ba7860d47c9bf5b8e7f1c28ef292437f52fb079",
+      "expectedHash": "f3457201619690b7c56fc9e0f7d11433ac639f58eac618ddb2953453b5feb66d",
       "expectedMatches": 1,
       "sourceProvision": "Artikel 1 Nummer 42",
       "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
@@ -2775,7 +2775,7 @@
         "label": "IX. Abschnitt",
         "title": "Das Bildungswesen"
       },
-      "expectedHash": "6dd1c2255a135c17a227fc67bc8d1c00484ceebb8c4029b7051f9ebbe0db29b5",
+      "expectedHash": "396798e69e87208ff846fea8911e99f7b7869fb68ad64a4687efb28bf4c33bc3",
       "expectedMatches": 1,
       "value": "XI. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 43 Buchstabe a",
@@ -2789,7 +2789,7 @@
         "label": "XI. Abschnitt",
         "title": "Das Bildungswesen"
       },
-      "expectedHash": "dd0d8cf86bee36f8e541e280e509370cf8ea6552ee329d48b26a941bf853e4fd",
+      "expectedHash": "04ad7f1d002530364ebfc2a78377ac7cb823531688df4e1568adbb628d7acaaa",
       "expectedMatches": 1,
       "value": "Das Bildungs- und Erziehungswesen in der sozialistischen Gesellschaft",
       "sourceProvision": "Artikel 1 Nummer 43 Buchstabe b",
@@ -2890,7 +2890,7 @@
         "label": "XI. Abschnitt",
         "title": "Übergangs- und Schlussbestimmungen"
       },
-      "expectedHash": "99d8e104308e27dc3ba9827c6e876c684615d34874b3702bd9a32ad6853dbda9",
+      "expectedHash": "85582f4c42131fe169095408d8cf737db5a8c085c20927f037987f5fd6c8d71e",
       "expectedMatches": 1,
       "value": "XIII. Abschnitt",
       "sourceProvision": "Artikel 1 Nummer 48",

@@ -1,0 +1,71 @@
+{
+  "amendmentAct": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel",
+  "effectiveDate": "2026-08-01",
+  "versionId": "2026-08-01",
+  "sameDayOrder": 1,
+  "partialRepeal": true,
+  "amendmentCitation": "Verwaltungsvorschrift vom 13. Juli 2026 (StAnzO. 2026 Nr. 14 S. 2)",
+  "resultCitation": "VwV Stundentafeln, Ziffern III, V, VI und VII außer Kraft gesetzt durch Verwaltungsvorschrift vom 13. Juli 2026 (StAnzO. 2026 Nr. 14 S. 2)",
+  "changeNote": "Die bisherigen Ziffern III, V, VI und VII traten nach Ziffer V Satz 2 der VwV Stundentafeln POS außer Kraft.",
+  "commandCoverage": [
+    "Ziffer V Satz 2. Die Vorschrift setzt die Ziffern III, V, VI und VII am 1. August 2026 außer Kraft; am selben Tag fasst die Änderungsverwaltungsvorschrift (StAnzO. 2026 Nr. 14 S. 6–7, Ziffer I Nummer 4) die Ziffer III neu und hebt in Nummer 5 die Ziffern V bis VII auf. Redaktionell wird zuerst die Außerkraftsetzung und danach die Änderungsverwaltungsvorschrift angewandt (sameDayOrder), sodass die neu gefasste Ziffer III gilt (Redaktionsentscheidung vwv-stundentafeln-ziffer-iii-2026)."
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "StAnzO. 2026 Nr. 14, VwV Stundentafeln POS, Ziffer V",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 14.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "section",
+        "label": "III."
+      },
+      "expectedHash": "04298aa47fec26bc8d79fe816d3069982444e0f6d8c43f1ebd6b70145ae96590",
+      "expectedMatches": 1,
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
+      "sourceProvision": "Ziffer V Satz 2",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "section",
+        "label": "V."
+      },
+      "expectedHash": "a3f63a29548b3c50a05a286c5bd98ea8283dadbf28d32a0a25d8da25b5422a9e",
+      "expectedMatches": 1,
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
+      "sourceProvision": "Ziffer V Satz 2",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "section",
+        "label": "VI."
+      },
+      "expectedHash": "6d3883040e086167077ba1564513fedec48c0dad7884121a6132bc27577244ce",
+      "expectedMatches": 1,
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
+      "sourceProvision": "Ziffer V Satz 2",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "section",
+        "label": "VII."
+      },
+      "expectedHash": "9c504c2387b58fc125a5e711ce24fa57956769e79839eecf13cc76f421d622a5",
+      "expectedMatches": 1,
+      "source": "Gesetze/StAnzO. 2026 Nr. 14.html",
+      "sourceProvision": "Ziffer V Satz 2",
+      "effectiveDate": "2026-08-01"
+    }
+  ]
+}

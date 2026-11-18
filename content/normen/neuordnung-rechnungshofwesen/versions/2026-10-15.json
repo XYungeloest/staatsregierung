@@ -208,11 +208,23 @@
             {
               "type": "item",
               "label": "b.",
-              "text": "Absatz 2 wird wie folgt gefasst: „(2) Einen Verzicht auf die Ausübung der Rechte des § 53 Absatz 1 des Haushaltsgrundsätzegesetzes erklärt das zuständige Staatssekretariat. Im Falle des § 65 Absatz 3 bedarf der Verzicht der Einwilligung des Staatssekretariats der Finanzen.“",
+              "text": "Absatz 2 wird wie folgt gefasst:",
               "level": 1,
               "listId": "jtfbxbo8l7j9",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Einen Verzicht auf die Ausübung der Rechte des § 53 Absatz 1 des Haushaltsgrundsätzegesetzes erklärt das zuständige Staatssekretariat. Im Falle des § 65 Absatz 3 bedarf der Verzicht der Einwilligung des Staatssekretariats der Finanzen.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -263,11 +275,23 @@
             {
               "type": "item",
               "label": "b.",
-              "text": "Absatz 4 wird wie folgt gefasst: „(4) Das zuständige Staatssekretariat kann Vereinfachungen für die Buchführung und die Belegung der Buchungen allgemein oder im Einzelfall zulassen.“",
+              "text": "Absatz 4 wird wie folgt gefasst:",
               "level": 1,
               "listId": "jtfbxbo8l7j9",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Das zuständige Staatssekretariat kann Vereinfachungen für die Buchführung und die Belegung der Buchungen allgemein oder im Einzelfall zulassen.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -318,11 +342,23 @@
             {
               "type": "item",
               "label": "b.",
-              "text": "Absatz 2 wird wie folgt gefasst: „(2) Aufgrund von Prüfungserfahrungen kann der Rechnungshof beraten.“",
+              "text": "Absatz 2 wird wie folgt gefasst:",
               "level": 1,
               "listId": "jtfbxbo8l7j9",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Aufgrund von Prüfungserfahrungen kann der Rechnungshof beraten.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
@@ -347,8 +383,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(1) Der Rechnungshof prüft insbesondere"
+                  "type": "subparagraph",
+                  "label": "„(1)",
+                  "text": "Der Rechnungshof prüft insbesondere",
+                  "children": []
                 },
                 {
                   "type": "item",
@@ -510,11 +548,23 @@
             {
               "type": "item",
               "label": "a.",
-              "text": "Absatz 1 wird wie folgt gefasst: „(1) Der Rechnungshof fasst das Ergebnis seiner Prüfung, soweit es für die Entlastung des Staatsrates von Bedeutung sein kann, jährlich in einem Bericht für die Volkskammer zusammen.“",
+              "text": "Absatz 1 wird wie folgt gefasst:",
               "level": 1,
               "listId": "jtfbxbo8l7j9",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Der Rechnungshof fasst das Ergebnis seiner Prüfung, soweit es für die Entlastung des Staatsrates von Bedeutung sein kann, jährlich in einem Bericht für die Volkskammer zusammen.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
@@ -636,8 +686,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(2) Die Rechnung ist von der durch Gesetz oder Satzung bestimmten Stelle zu prüfen. Die Ergebnisse der Prüfung sind dem zuständigen Staatssekretariat vorzulegen. Die Satzungsvorschrift über die Durchführung der Prüfung bedarf der Zustimmung des zuständigen Staatssekretariats.“"
+                  "type": "subparagraph",
+                  "label": "„(2)",
+                  "text": "Die Rechnung ist von der durch Gesetz oder Satzung bestimmten Stelle zu prüfen. Die Ergebnisse der Prüfung sind dem zuständigen Staatssekretariat vorzulegen. Die Satzungsvorschrift über die Durchführung der Prüfung bedarf der Zustimmung des zuständigen Staatssekretariats.“",
+                  "children": []
                 }
               ]
             }

@@ -2,11 +2,12 @@
   "amendmentAct": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
   "effectiveDate": "2026-08-01",
   "versionId": "2026-08-01",
+  "sameDayOrder": 1,
   "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 27)",
-  "resultCitation": "Schulgesetz für den Freistaat Ostdeutschland, geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 27) und Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+  "resultCitation": "Ostdeutsches Schulgesetz in der Fassung der Bekanntmachung vom 27. September 2018 (SächsGVBl. S. 648), geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 27 S. 2)",
   "changeNote": "Das allgemeinbildende Schulsystem wurde auf Polytechnische und Erweiterte Oberschulen neu geordnet; Schularten, Mindestgrößen, Ethik- und freiwilliger Religionsunterricht, Übergänge und Folgebezeichnungen wurden angepasst.",
   "commandCoverage": [
-    "Artikel 1 Nummern 1 bis 17. Nummer 1 Buchstabe a bezeichnet die eindeutig identifizierbare Wortfolge mit redaktionell abweichender Kommasetzung. Die bereits verkündete Ergänzung des § 34 Absatz 2 durch Artikel 6 Nummer 3 des Sportneuordnungsgesetzes ist im ab 1. August 2026 geltenden Wortlaut berücksichtigt."
+    "Artikel 1 Nummern 1 bis 17. Nummer 1 Buchstabe a bezeichnet die eindeutig identifizierbare Wortfolge mit redaktionell abweichender Kommasetzung. Die am selben Tag wirksam werdenden Ergänzungen des § 34 Absatz 2 und des § 64 durch Artikel 6 Nummer 3 und 4 des Sportneuordnungsgesetzes folgen als eigene Änderung (sameDayOrder 2)."
   ],
   "sourceReferences": [
     {
@@ -14,12 +15,6 @@
       "label": "OGVBl. 2026 Nr. 27",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 27.html"
-    },
-    {
-      "kind": "amendment-source",
-      "label": "OGVBl. 2026 Nr. 52",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
     }
   ],
   "operations": [
@@ -461,7 +456,7 @@
           {
             "type": "subparagraph",
             "label": "(2)",
-            "text": "Die Polytechnische Oberschule berät die Eltern und den Schüler über geeignete Bildungswege einschließlich besonderer sportlicher Bildungsgänge. Sie erstellt in der Klassenstufe 10 eine schriftliche Empfehlung zum Übergang in die Erweiterte Oberschule oder in berufs- oder studienqualifizierende Bildungsgänge.",
+            "text": "Die Polytechnische Oberschule berät die Eltern und den Schüler über geeignete Bildungswege. Sie erstellt in der Klassenstufe 10 eine schriftliche Empfehlung zum Übergang in die Erweiterte Oberschule oder in berufs- oder studienqualifizierende Bildungsgänge.",
             "children": []
           },
           {
@@ -480,7 +475,7 @@
         "title": "Wahl des Bildungswegs"
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 27.html",
-      "sourceProvision": "Artikel 1 Nummer 14 in Verbindung mit Artikel 6 Nummer 3 des Sportneuordnungsgesetzes",
+      "sourceProvision": "Artikel 1 Nummer 14",
       "effectiveDate": "2026-08-01"
     },
     {
@@ -489,7 +484,7 @@
         "type": "paragraph",
         "label": "§ 64"
       },
-      "expectedHash": "fa815746683fea8261fe3b476ef6a8f8f539d4d500c59df9ed195044b8f1be1e",
+      "expectedHash": "86a898bfa01beaa4d341187bb9c19f5d607c25bba1bdc81bf57728dc24d27d51",
       "expectedMatches": 1,
       "value": {
         "type": "paragraph",

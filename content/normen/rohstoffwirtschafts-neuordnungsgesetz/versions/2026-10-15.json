@@ -3886,8 +3886,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(1) Ziel der Vergesellschaftung ist die Ablösung privatnütziger Verfügungsmacht durch eine dauerhafte gemeinwirtschaftliche Verfügung, soweit diese der unmittelbaren Deckung eines öffentlichen Bedarfs der Daseinsvorsorge oder der nachhaltigen öffentlichen Verfügung über strategisch bedeutsame Naturschätze und Produktionsmittel dient.“"
+                  "type": "subparagraph",
+                  "label": "„(1)",
+                  "text": "Ziel der Vergesellschaftung ist die Ablösung privatnütziger Verfügungsmacht durch eine dauerhafte gemeinwirtschaftliche Verfügung, soweit diese der unmittelbaren Deckung eines öffentlichen Bedarfs der Daseinsvorsorge oder der nachhaltigen öffentlichen Verfügung über strategisch bedeutsame Naturschätze und Produktionsmittel dient.“",
+                  "children": []
                 }
               ]
             }
@@ -3905,8 +3907,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(3) Vergesellschaftungen können ferner zum Zweck der gemeinwirtschaftlichen Gewinnung, Aufbereitung und Verarbeitung strategisch bedeutsamer mineralischer Rohstoffe, der Sicherung der langfristigen Rohstoffversorgung sowie der dauerhaften öffentlichen Verfügung über bedeutende heimische Naturschätze erfolgen. Bei ihrer Bewirtschaftung sind die Interessen künftiger Generationen besonders zu berücksichtigen.“"
+                  "type": "subparagraph",
+                  "label": "„(3)",
+                  "text": "Vergesellschaftungen können ferner zum Zweck der gemeinwirtschaftlichen Gewinnung, Aufbereitung und Verarbeitung strategisch bedeutsamer mineralischer Rohstoffe, der Sicherung der langfristigen Rohstoffversorgung sowie der dauerhaften öffentlichen Verfügung über bedeutende heimische Naturschätze erfolgen. Bei ihrer Bewirtschaftung sind die Interessen künftiger Generationen besonders zu berücksichtigen.“",
+                  "children": []
                 }
               ]
             }
@@ -3927,8 +3931,10 @@
           "type": "quotedProvision",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "„(8) Die Landesbank nimmt die ihr durch Gesetz übertragenen Aufgaben der Verwaltung und Anlage von Vermögen des Freistaates und seiner Sondervermögen wahr. Sie kann hierzu insbesondere Wertpapiere und sonstige Finanzinstrumente erwerben, halten, verwalten und veräußern sowie die zur ordnungsgemäßen Vermögensverwaltung erforderlichen Geschäfte vornehmen."
+              "type": "subparagraph",
+              "label": "„(8)",
+              "text": "Die Landesbank nimmt die ihr durch Gesetz übertragenen Aufgaben der Verwaltung und Anlage von Vermögen des Freistaates und seiner Sondervermögen wahr. Sie kann hierzu insbesondere Wertpapiere und sonstige Finanzinstrumente erwerben, halten, verwalten und veräußern sowie die zur ordnungsgemäßen Vermögensverwaltung erforderlichen Geschäfte vornehmen.",
+              "children": []
             },
             {
               "type": "subparagraph",
@@ -3976,11 +3982,17 @@
           "level": 0,
           "listId": "c7rr173gb76i",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Die Ostdeutschen Rohstoffwerke sind Träger des Gemeineigentums.“"
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Die Ostdeutschen Rohstoffwerke sind Träger des Gemeineigentums.“"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -3994,8 +4006,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(4) Die Überführung dient der gemeinwirtschaftlichen Gewinnung und Verarbeitung strategischer mineralischer Rohstoffe sowie der dauerhaften öffentlichen Verfügung über bedeutende heimische Naturschätze. Sie erfolgt zu einem Vergesellschaftungszweck nach § 2 Absatz 3 des Vergesellschaftungsrahmengesetzes.“"
+                  "type": "subparagraph",
+                  "label": "„(4)",
+                  "text": "Die Überführung dient der gemeinwirtschaftlichen Gewinnung und Verarbeitung strategischer mineralischer Rohstoffe sowie der dauerhaften öffentlichen Verfügung über bedeutende heimische Naturschätze. Sie erfolgt zu einem Vergesellschaftungszweck nach § 2 Absatz 3 des Vergesellschaftungsrahmengesetzes.“",
+                  "children": []
                 }
               ]
             }
@@ -4053,8 +4067,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(1) Vergesellschaftungsbehörde ist das für Wirtschaft zuständige Staatssekretariat. Es setzt die Entschädigung im Einvernehmen mit dem für Finanzen zuständigen Staatssekretariat durch Bescheid fest.“"
+                  "type": "subparagraph",
+                  "label": "„(1)",
+                  "text": "Vergesellschaftungsbehörde ist das für Wirtschaft zuständige Staatssekretariat. Es setzt die Entschädigung im Einvernehmen mit dem für Finanzen zuständigen Staatssekretariat durch Bescheid fest.“",
+                  "children": []
                 }
               ]
             }

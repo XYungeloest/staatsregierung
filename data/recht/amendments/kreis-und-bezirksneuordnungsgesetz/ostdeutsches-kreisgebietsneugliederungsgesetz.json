@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+  "effectiveDate": "2026-08-01",
+  "versionId": "2026-08-01",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+  "resultCitation": "Ostdeutsches Kreisgebietsneugliederungsgesetz vom 29. Januar 2008 (SächsGVBl. S. 102), das durch Artikel 7 des Gesetzes vom 18. Dezember 2013 (SächsGVBl. S. 970) geändert worden ist",
+  "changeNote": "Mit Ablauf des 31. Juli 2026 durch Artikel 14 Absatz 2 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes außer Kraft getreten.",
+  "commandCoverage": [
+    "Artikel 14 Absatz 2 Nummer 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46, Artikel 14",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "7400e459282769b62b82e40fe84cc6fc0c319f6ebb8cd34420dd22d7de9414f3",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 14 Absatz 2 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "effectiveDate": "2026-08-01"
+    }
+  ],
+  "repealsLaw": true
+}

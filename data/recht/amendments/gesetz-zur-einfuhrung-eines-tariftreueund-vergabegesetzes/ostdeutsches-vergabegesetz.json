@@ -1,0 +1,67 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes",
+  "effectiveDate": "2026-02-01",
+  "versionId": "2026-02-01",
+  "amendmentCitation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 7)",
+  "resultCitation": "Ostdeutsches Vergabegesetz, geändert durch Artikel 2 des Gesetzes vom 26. Januar 2026 (OGVBl. 2026 Nr. 7)",
+  "changeNote": "Die Bezeichnung des Gesetzes wurde neu gefasst; bei der Vergabe öffentlicher Aufträge sind die Vorschriften des Tariftreue- und Vergabegesetzes zu berücksichtigen.",
+  "commandCoverage": [
+    "Artikel 2 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 7)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 7.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Gesetz über die Vergabe öffentlicher Aufträge im Freistaat Ostdeutschland",
+      "value": "Gesetz über die Vergabe öffentlicher Aufträge im Freistaat Ostdeutschland (Ostdeutsches Vergabegesetz – VgGe)",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 7.html",
+      "sourceProvision": "Artikel 2 Nummer 1",
+      "effectiveDate": "2026-02-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "1d96ad9007361d6fda407c993f0e2cc646816bc4b3e07cb080401846a5948fa8",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5",
+        "title": "Prüfung und Wertung der Angebote",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Prüfung und Wertung der Angebote sind sorgfältig und zügig anhand des Prüfschemas zur Wertung von Angeboten (Anlage 1) durchzuführen. Der Zuschlag ist auf das unter Berücksichtigung aller Umstände wirtschaftlichste Angebot zu erteilen. Der niedrigste Angebotspreis allein ist nicht entscheidend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Auf ein Angebot mit einem unangemessen hohen oder niedrigen Preis darf der Zuschlag nicht erteilt werden. Die Angemessenheit des Preises ist insbesondere dann zweifelhaft, wenn ein Angebot um mehr als 10 Prozent von dem nächsthöheren oder nächstniedrigeren Angebot abweicht. Die Gründe für die Abweichung sind vom Auftraggeber aufzuklären. Im Rahmen dieser Aufklärung ist der Bieter verpflichtet, seine Preisermittlung gegenüber dem Auftraggeber darzulegen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Bei der Vergabe von öffentlichen Aufträgen sind die Vorschriften des Tariftreue- und Vergabegesetzes zu berücksichtigen. Die Vergabe eines öffentlichen Auftrages kann alleine von der Abagbe der Tariftreueerklärung abhängig gemacht werden, wenn der Auftragswert 25 000 Euro übersteigt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 7.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-02-01"
+    }
+  ]
+}

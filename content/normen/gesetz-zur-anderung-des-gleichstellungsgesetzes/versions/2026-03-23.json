@@ -57,14 +57,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "section",
-                      "label": "Abschnitt 4",
-                      "children": [
-                        {
-                          "type": "paragraphText",
-                          "text": "Gleichstellungsbeauftragte“"
-                        }
-                      ]
+                      "type": "paragraphText",
+                      "text": "„Abschnitt 4 Gleichstellungsbeauftragte“"
                     }
                   ]
                 }
@@ -82,16 +76,12 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 22a",
-                      "children": [],
-                      "title": "Landesgleichstellungsbeauftragte"
+                      "type": "paragraphText",
+                      "text": "„§ 22a Landesgleichstellungsbeauftragte"
                     },
                     {
-                      "type": "paragraph",
-                      "label": "§ 22b",
-                      "children": [],
-                      "title": "Aufgaben und Rechte der Landesgleichstellungsbeauftragten“"
+                      "type": "paragraphText",
+                      "text": "§ 22b Aufgaben und Rechte der Landesgleichstellungsbeauftragten“"
                     }
                   ]
                 }
@@ -109,14 +99,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "section",
-                      "label": "Abschnitt 6",
-                      "children": [
-                        {
-                          "type": "paragraphText",
-                          "text": "Gremien, Beteiligungen, Vergabe und Förderung“"
-                        }
-                      ]
+                      "type": "paragraphText",
+                      "text": "„Abschnitt 6 Gremien, Beteiligungen, Vergabe und Förderung“"
                     }
                   ]
                 }
@@ -134,16 +118,12 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 27a",
-                      "children": [],
-                      "title": "Öffentliche Auftragsvergabe"
+                      "type": "paragraphText",
+                      "text": "„§ 27a Öffentliche Auftragsvergabe"
                     },
                     {
-                      "type": "paragraph",
-                      "label": "§ 27b",
-                      "children": [],
-                      "title": "Staatliche Leistungsgewährung“"
+                      "type": "paragraphText",
+                      "text": "§ 27b Staatliche Leistungsgewährung“"
                     }
                   ]
                 }
@@ -270,8 +250,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(1) Die Dienststellenleitungen, Personalverwaltungen sowie Bedienstete mit Vorgesetzten- und Leitungsaufgaben sind verpflichtet, auf die Beseitigung struktureller Benachteiligungen von Frauen hinzuwirken, Unterrepräsentanzen abzubauen und die Zugangs-, Entwicklungs- und Aufstiegschancen von Frauen auf allen Funktionsebenen zu verbessern.“"
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Die Dienststellenleitungen, Personalverwaltungen sowie Bedienstete mit Vorgesetzten- und Leitungsaufgaben sind verpflichtet, auf die Beseitigung struktureller Benachteiligungen von Frauen hinzuwirken, Unterrepräsentanzen abzubauen und die Zugangs-, Entwicklungs- und Aufstiegschancen von Frauen auf allen Funktionsebenen zu verbessern.“",
+                      "children": []
                     }
                   ]
                 }
@@ -298,8 +280,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(4) Die Staatsregierung berücksichtigt bei der Aufstellung und beim Vollzug des Haushalts die Auswirkungen auf die Gleichstellung von Frauen und Männern und berichtet hierüber nach § 29.“"
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Die Staatsregierung berücksichtigt bei der Aufstellung und beim Vollzug des Haushalts die Auswirkungen auf die Gleichstellung von Frauen und Männern und berichtet hierüber nach § 29.“",
+                      "children": []
                     }
                   ]
                 }
@@ -327,20 +311,44 @@
             {
               "type": "item",
               "label": "a.",
-              "text": "Absatz 2 wird wie folgt gefasst: „(2) Soweit zwingende dienstliche Belange nicht entgegenstehen, ist bei Ausschreibungen von Stellen mit Vorgesetzten- und Leitungsaufgaben ungeachtet der Hierarchieebene darauf hinzuweisen, dass der ausgeschriebene Arbeitsplatz für Teilzeitbeschäftigung, Jobsharing und mobile Arbeit geeignet ist.“",
+              "text": "Absatz 2 wird wie folgt gefasst:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Soweit zwingende dienstliche Belange nicht entgegenstehen, ist bei Ausschreibungen von Stellen mit Vorgesetzten- und Leitungsaufgaben ungeachtet der Hierarchieebene darauf hinzuweisen, dass der ausgeschriebene Arbeitsplatz für Teilzeitbeschäftigung, Jobsharing und mobile Arbeit geeignet ist.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
               "label": "b.",
-              "text": "Nach Absatz 3 wird folgender Absatz 4 angefügt: „(4) Soweit Frauen in einer Funktionsebene unterrepräsentiert sind, sind frei werdende Stellen grundsätzlich auch extern auszuschreiben, sofern nicht zwingende dienstliche Belange entgegenstehen.“",
+              "text": "Nach Absatz 3 wird folgender Absatz 4 angefügt:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Soweit Frauen in einer Funktionsebene unterrepräsentiert sind, sind frei werdende Stellen grundsätzlich auch extern auszuschreiben, sofern nicht zwingende dienstliche Belange entgegenstehen.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -355,20 +363,44 @@
             {
               "type": "item",
               "label": "a.",
-              "text": "Absatz 1 wird wie folgt gefasst: „(1) Bei einer Unterrepräsentanz von Frauen sind alle Bewerberinnen oder mindestens ebenso viele Frauen wie Männer zu Vorstellungsgesprächen, Personalauswahlgesprächen oder besonderen Auswahlverfahren zu laden, sofern sie die für die Stelle erforderliche Qualifikation besitzen. Die Auswahlkriterien sind vor Beginn des Verfahrens festzulegen und zu dokumentieren.“",
+              "text": "Absatz 1 wird wie folgt gefasst:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Bei einer Unterrepräsentanz von Frauen sind alle Bewerberinnen oder mindestens ebenso viele Frauen wie Männer zu Vorstellungsgesprächen, Personalauswahlgesprächen oder besonderen Auswahlverfahren zu laden, sofern sie die für die Stelle erforderliche Qualifikation besitzen. Die Auswahlkriterien sind vor Beginn des Verfahrens festzulegen und zu dokumentieren.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
               "label": "b.",
-              "text": "Absatz 3 wird wie folgt gefasst: „(3) Auswahlkommissionen sind zu gleichen Anteilen mit Frauen und Männern zu besetzen. Erfolgt ausnahmsweise keine gleiche Besetzung, sind die Gründe schriftlich zu dokumentieren.“",
+              "text": "Absatz 3 wird wie folgt gefasst:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(3)",
+                      "text": "Auswahlkommissionen sind zu gleichen Anteilen mit Frauen und Männern zu besetzen. Erfolgt ausnahmsweise keine gleiche Besetzung, sind die Gründe schriftlich zu dokumentieren.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -431,8 +463,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "„(7) Dienststellen haben Frauen in Bereichen der Unterrepräsentanz gezielt für Fort- und Weiterbildungsmaßnahmen zu fördern, die auf die Übernahme von Funktionen mit Vorgesetzten- und Leitungsaufgaben vorbereiten.“"
+                  "type": "subparagraph",
+                  "label": "„(7)",
+                  "text": "Dienststellen haben Frauen in Bereichen der Unterrepräsentanz gezielt für Fort- und Weiterbildungsmaßnahmen zu fördern, die auf die Übernahme von Funktionen mit Vorgesetzten- und Leitungsaufgaben vorbereiten.“",
+                  "children": []
                 }
               ]
             }
@@ -629,8 +663,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(8) Ist sechs Monate nach dem Ende des Geltungszeitraums eines Gleichstellungsplans kein neuer Gleichstellungsplan in Kraft getreten, sind bis zu dessen Inkrafttreten bei bestehender Unterrepräsentanz von Frauen auszusetzen:"
+                      "type": "subparagraph",
+                      "label": "„(8)",
+                      "text": "Ist sechs Monate nach dem Ende des Geltungszeitraums eines Gleichstellungsplans kein neuer Gleichstellungsplan in Kraft getreten, sind bis zu dessen Inkrafttreten bei bestehender Unterrepräsentanz von Frauen auszusetzen:",
+                      "children": []
                     },
                     {
                       "type": "item",
@@ -707,11 +743,21 @@
             {
               "type": "item",
               "label": "a.",
-              "text": "Absatz 3 Satz 2 wird wie folgt gefasst: „Soweit Frauen unterrepräsentiert sind, muss der Gleichstellungsplan die Zielvorgabe enthalten, dass bei mindestens der Hälfte der im Geltungszeitraum erfolgenden Maßnahmen im Sinne des § 7 Absatz 1 Satz 1 Nummer 1 bis 4 Frauen bei im Wesentlichen gleicher Eignung, Befähigung und fachlicher Leistung berücksichtigt werden.“",
+              "text": "Absatz 3 Satz 2 wird wie folgt gefasst:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "„Soweit Frauen unterrepräsentiert sind, muss der Gleichstellungsplan die Zielvorgabe enthalten, dass bei mindestens der Hälfte der im Geltungszeitraum erfolgenden Maßnahmen im Sinne des § 7 Absatz 1 Satz 1 Nummer 1 bis 4 Frauen bei im Wesentlichen gleicher Eignung, Befähigung und fachlicher Leistung berücksichtigt werden.“"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
@@ -738,12 +784,8 @@
                 {
                   "type": "section",
                   "label": "Abschnitt 6",
-                  "children": [
-                    {
-                      "type": "paragraphText",
-                      "text": "Gremien, Beteiligungen, Vergabe und Förderung“"
-                    }
-                  ]
+                  "children": [],
+                  "title": "Gremien, Beteiligungen, Vergabe und Förderung“"
                 }
               ]
             }
@@ -760,11 +802,23 @@
             {
               "type": "item",
               "label": "a.",
-              "text": "Absatz 1 wird wie folgt gefasst: „(1) Gremien sind zu gleichen Anteilen mit fachlich für das jeweilige Gremium geeigneten Frauen und Männern zu besetzen. Hierbei bleiben Sitze, die mit Personen ohne weibliche oder männliche Geschlechtszuordnung besetzt sind, außer Betracht. Besteht ein Gremium aus einer ungeraden Anzahl von Personen, ist einer der Sitze abwechselnd an fachlich geeignete Frauen und Männer zu vergeben. Erfolgt keine Besetzung zu gleichen Anteilen, sind die Gründe schriftlich darzulegen.“",
+              "text": "Absatz 1 wird wie folgt gefasst:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Gremien sind zu gleichen Anteilen mit fachlich für das jeweilige Gremium geeigneten Frauen und Männern zu besetzen. Hierbei bleiben Sitze, die mit Personen ohne weibliche oder männliche Geschlechtszuordnung besetzt sind, außer Betracht. Besteht ein Gremium aus einer ungeraden Anzahl von Personen, ist einer der Sitze abwechselnd an fachlich geeignete Frauen und Männer zu vergeben. Erfolgt keine Besetzung zu gleichen Anteilen, sind die Gründe schriftlich darzulegen.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
@@ -778,11 +832,23 @@
             {
               "type": "item",
               "label": "c.",
-              "text": "Absatz 4 wird wie folgt gefasst: „(4) Die Dienststellen erarbeiten zusammen mit den Gleichstellungsbeauftragten Strategien für eine frühzeitige geschlechtergerechte Nachfolgeplanung bei der Besetzung von und Entsendung in Gremien, die mindestens für den Zeitraum von zwölf Monaten gebildet werden.“",
+              "text": "Absatz 4 wird wie folgt gefasst:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Die Dienststellen erarbeiten zusammen mit den Gleichstellungsbeauftragten Strategien für eine frühzeitige geschlechtergerechte Nachfolgeplanung bei der Besetzung von und Entsendung in Gremien, die mindestens für den Zeitraum von zwölf Monaten gebildet werden.“",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -908,11 +974,21 @@
             {
               "type": "item",
               "label": "a.",
-              "text": "Absatz 1 Satz 1 wird wie folgt gefasst: „In einem alle zwei Jahre dem Landtag vorzulegenden Bericht über die Verwirklichung der Gleichstellung von Frauen und Männern in der öffentlichen Verwaltung stellt die Staatsregierung die Umsetzung dieses Gesetzes dar, zeigt Wirksamkeit und Defizite der Förderinstrumente auf und berichtet über die Auswirkungen des Landeshaushalts auf die Gleichstellung von Frauen und Männern.“",
+              "text": "Absatz 1 Satz 1 wird wie folgt gefasst:",
               "level": 1,
               "listId": "4704ftssyezx",
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "„In einem alle zwei Jahre dem Landtag vorzulegenden Bericht über die Verwirklichung der Gleichstellung von Frauen und Männern in der öffentlichen Verwaltung stellt die Staatsregierung die Umsetzung dieses Gesetzes dar, zeigt Wirksamkeit und Defizite der Förderinstrumente auf und berichtet über die Auswirkungen des Landeshaushalts auf die Gleichstellung von Frauen und Männern.“"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "item",
@@ -926,8 +1002,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(4) Die Berichte nach den Absätzen 1 und 3 sind zu veröffentlichen.“"
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Die Berichte nach den Absätzen 1 und 3 sind zu veröffentlichen.“",
+                      "children": []
                     }
                   ]
                 }

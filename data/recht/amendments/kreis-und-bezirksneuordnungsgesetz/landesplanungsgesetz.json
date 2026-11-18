@@ -1,17 +1,17 @@
 {
   "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
-  "effectiveDate": "2026-07-21",
-  "versionId": "2026-07-21",
-  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
-  "resultCitation": "Landesplanungsgesetz, geändert durch Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+  "effectiveDate": "2026-08-01",
+  "versionId": "2026-08-01",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+  "resultCitation": "Landesplanungsgesetz vom 11. Dezember 2018 (SächsGVBl. S. 706), geändert durch Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
   "changeNote": "Bezirksentwicklungsplanung und die Zuständigkeit der Bezirksverwaltungen wurden geregelt.",
   "commandCoverage": [
-    "Artikel 6 Nummern 2 und 3"
+    "Artikel 6 Nummern 2 und 3; Nummer 1 betrifft die nicht als Normkörper gespeicherte Inhaltsübersicht. Die dort neu gefasste Angabe zu § 19 („Landesplanungsbehörden und Raumordnungsbehörden“) ändert die Überschrift von § 19 nicht; Nummer 3 ändert nur die Absätze 2 und 3 und fügt Absatz 4 an."
   ],
   "sourceReferences": [
     {
       "kind": "amendment-source",
-      "label": "OGVBl. 2026 Nr. 54",
+      "label": "OGVBl. 2026 Nr. 46",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
     }
@@ -45,14 +45,14 @@
           {
             "type": "subparagraph",
             "label": "(3)",
-            "text": "Die Abgrenzung von Planungsregionen soll die Bezirksgrenzen berücksichtigen. Abweichungen sind zulässig, soweit raumordnerische Gründe dies erfordern.“",
+            "text": "Die Abgrenzung von Planungsregionen soll die Bezirksgrenzen berücksichtigen. Abweichungen sind zulässig, soweit raumordnerische Gründe dies erfordern.",
             "children": []
           }
         ]
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
       "sourceProvision": "Artikel 6 Nummer 2",
-      "effectiveDate": "2026-07-21"
+      "effectiveDate": "2026-08-01"
     },
     {
       "op": "replaceProvision",
@@ -65,7 +65,7 @@
       "value": {
         "type": "paragraph",
         "label": "§ 19",
-        "title": "Landesplanungsbehörden und Raumordnungsbehörden",
+        "title": "Raumordnungsbehörden, sachliche Zuständigkeit",
         "children": [
           {
             "type": "subparagraph",
@@ -95,7 +95,7 @@
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
       "sourceProvision": "Artikel 6 Nummer 3",
-      "effectiveDate": "2026-07-21"
+      "effectiveDate": "2026-08-01"
     }
   ]
 }

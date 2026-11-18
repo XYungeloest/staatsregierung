@@ -563,8 +563,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "“(2) Den Untergebrachten wird ermöglicht, sich mindestens zwei Stunden täglich im Freien aufzuhalten. Der Aufenthalt im Freien ist grundsätzlich in zusammenhängenden Zeitblöcken zu gewähren; Einschränkungen sind nur zulässig, soweit es die Sicherheit oder Ordnung in der Einrichtung unerlässlich erfordert.”"
+                  "type": "subparagraph",
+                  "label": "“(2)",
+                  "text": "Den Untergebrachten wird ermöglicht, sich mindestens zwei Stunden täglich im Freien aufzuhalten. Der Aufenthalt im Freien ist grundsätzlich in zusammenhängenden Zeitblöcken zu gewähren; Einschränkungen sind nur zulässig, soweit es die Sicherheit oder Ordnung in der Einrichtung unerlässlich erfordert.”",
+                  "children": []
                 }
               ]
             }
@@ -636,8 +638,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(2) Der Zugang zum Rundfunk und zu anderen elektronischen Medien ist sicherzustellen. Untergebrachten ist die Nutzung eigener Hörfunk-, Fernseh- und Wiedergabegeräte sowie eigener Computer zu gestatten, soweit dem nicht zwingende Gründe der Sicherheit oder Ordnung entgegenstehen.”"
+                      "type": "subparagraph",
+                      "label": "“(2)",
+                      "text": "Der Zugang zum Rundfunk und zu anderen elektronischen Medien ist sicherzustellen. Untergebrachten ist die Nutzung eigener Hörfunk-, Fernseh- und Wiedergabegeräte sowie eigener Computer zu gestatten, soweit dem nicht zwingende Gründe der Sicherheit oder Ordnung entgegenstehen.”",
+                      "children": []
                     }
                   ]
                 }
@@ -655,8 +659,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(4) Die Einrichtung stellt in angemessenem Umfang Computerarbeitsplätze mit Internetzugang zur Verfügung. Der Zugang darf nur insoweit eingeschränkt werden, als dies zur Aufrechterhaltung der Sicherheit oder Ordnung in der Einrichtung unerlässlich ist. Der Zugang zum Internet für Zwecke der Rechtsverfolgung, der Kommunikation mit Rechtsbeiständen, Gerichten, Behörden und Beratungsstellen ist zu gewährleisten und darf abgehört werden.”"
+                      "type": "subparagraph",
+                      "label": "“(4)",
+                      "text": "Die Einrichtung stellt in angemessenem Umfang Computerarbeitsplätze mit Internetzugang zur Verfügung. Der Zugang darf nur insoweit eingeschränkt werden, als dies zur Aufrechterhaltung der Sicherheit oder Ordnung in der Einrichtung unerlässlich ist. Der Zugang zum Internet für Zwecke der Rechtsverfolgung, der Kommunikation mit Rechtsbeiständen, Gerichten, Behörden und Beratungsstellen ist zu gewährleisten und darf abgehört werden.”",
+                      "children": []
                     }
                   ]
                 }
@@ -724,8 +730,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(1) Bei jeder Einrichtung wird ein unabhängiger Beirat gebildet. Ihm gehören insbesondere Vertretungen der Zivilgesellschaft, der freien Wohlfahrtspflege, der Anwaltschaft, der Kirchen und Religionsgemeinschaften, der medizinischen und psychosozialen Fachberufe sowie, soweit möglich, ehemalige Untergebrachte an.”"
+                      "type": "subparagraph",
+                      "label": "“(1)",
+                      "text": "Bei jeder Einrichtung wird ein unabhängiger Beirat gebildet. Ihm gehören insbesondere Vertretungen der Zivilgesellschaft, der freien Wohlfahrtspflege, der Anwaltschaft, der Kirchen und Religionsgemeinschaften, der medizinischen und psychosozialen Fachberufe sowie, soweit möglich, ehemalige Untergebrachte an.”",
+                      "children": []
                     }
                   ]
                 }
@@ -743,8 +751,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(3) Der Beirat ist berechtigt,"
+                      "type": "subparagraph",
+                      "label": "“(3)",
+                      "text": "Der Beirat ist berechtigt,",
+                      "children": []
                     },
                     {
                       "type": "item",
@@ -795,6 +805,12 @@
           "text": "Dieses Gesetz tritt mit dem Tag seiner Verkündung in Kraft."
         }
       ]
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "Nummerierung in der Originalquelle",
+      "text": "In Artikel 1 ist Nummer 3 im amtlichen Blatt (S. 5) ohne Text abgedruckt; auf Nummer 2 folgt deshalb unmittelbar Nummer 4. Die Zählung bleibt unverändert."
     }
   ]
 }

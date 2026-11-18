@@ -3,7 +3,7 @@
   "validFrom": "2026-03-28",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift vom 28. März 2026 (StAnzO. 2026 Nr. 7)",
+  "citation": "Verwaltungsvorschrift vom 27. März 2026 (StAnzO. 2026 Nr. 7)",
   "changeNote": "Stammfassung.",
   "body": [
     {
@@ -22,11 +22,21 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "In Römisch I wird nach der Ziffer 6.3 folgende Ziffer 6.4 eingefügt: „6.4 Auf den Geheimschutzdokumenten ist gut sichtbar auf der ersten Seite eine Markierung nach Anlage 8 dieser Verwaltungsvorschrift anzubringen.\"",
+          "text": "In Römisch I wird nach der Ziffer 6.3 folgende Ziffer 6.4 eingefügt:",
           "level": 0,
           "listId": "pvstt4s1vplb",
           "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„6.4 Auf den Geheimschutzdokumenten ist gut sichtbar auf der ersten Seite eine Markierung nach Anlage 8 dieser Verwaltungsvorschrift anzubringen.\""
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -123,6 +133,12 @@
           "text": "Diese Verwaltungsvorschrift tritt am Tag der Veröffentlichung im Staatsanzeiger für den Freistaat Ostdeutschland in Kraft."
         }
       ]
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "Kennzeichnungen in Anlage 8",
+      "text": "Die Kennzeichnungen der vier Geheimhaltungsstufen in der zweiten Spalte der Anlage 8 sind im amtlichen Blatt (S. 2–3) nur als Abbildung abgedruckt. Ihr Wortlaut liegt nicht als Text vor; die Felder bleiben deshalb leer."
     }
   ]
 }

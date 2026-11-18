@@ -1,8 +1,8 @@
 {
   "versionId": "2025-12-06",
   "validFrom": "2025-12-06",
-  "validTo": null,
-  "isCurrent": true,
+  "validTo": "2026-03-27",
+  "isCurrent": false,
   "citation": "Verwaltungsvorschrift vom 6. Dezember 2025 (OABl. 2025 Nr. 5)",
   "changeNote": "Stammfassung.",
   "body": [
@@ -447,7 +447,7 @@
               "label": "7.",
               "text": "Bei Trauerbeflaggung werden die Flaggen zunächst voll gehisst und unmittelbar anschließend auf halbmast gesetzt. Flaggen überstaatlicher und internationaler Organisationen, mit Ausnahme der Europaflagge, sowie Flaggen ausländischer Staaten und anderer Hoheitsgebiete bleiben von der Trauerbeflaggung ausgenommen. Soweit Flaggen nicht auf halbmast gesetzt werden können, sind sie mit einem Trauerflor zu versehen.",
               "level": 0,
-              "listId": "standard-5",
+              "listId": "standard-4",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -456,7 +456,7 @@
               "label": "8.",
               "text": "Wird nicht ständig beflaggt, beginnt die Beflaggung bei Tagesanbruch, jedoch nicht vor 7 Uhr, und endet bei Sonnenuntergang, jedoch spätestens 19 Uhr. Erstreckt sich die nichtständige Beflaggung auf mehrere Tage, so sind die Flaggen am letzten der angeordneten Tage einzuholen.",
               "level": 0,
-              "listId": "standard-5",
+              "listId": "standard-4",
               "numberingStyle": "decimal",
               "children": []
             }
@@ -472,7 +472,7 @@
               "label": "1.",
               "text": "Beflaggungen aus besonderen Anlässen werden von der Staatskanzlei angeordnet. Sie kann bestimmen, dass auch die Flaggen ausländischer Staaten und anderer Hoheitsgebiete sowie Flaggen internationaler und überstaatlicher Organisationen zu setzen sind. Zur Reihenfolge wird auf Ziffer II Nr. 6 verwiesen.",
               "level": 0,
-              "listId": "standard-6",
+              "listId": "standard-5",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -481,7 +481,7 @@
               "label": "2.",
               "text": "Aus einem Anlass, der nur einzelne Verwaltungsbereiche berührt, kann das zuständige Staatsministerium in seinem Geschäftsbereich die Beflaggung anordnen.",
               "level": 0,
-              "listId": "standard-6",
+              "listId": "standard-5",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -490,7 +490,7 @@
               "label": "3.",
               "text": "Beflaggungen aus örtlichen, nichtpolitischen Anlässen werden in den Kreisfreien Städten durch den Oberbürgermeister, im Übrigen durch den Landrat angeordnet. Die Beflaggung ist dabei auf Fälle zu beschränken, die nach ihrer besonderen Bedeutung eine amtliche Anteilnahme rechtfertigen. Die zur Anordnung berechtigten Behördenleiter:innen holen auf dem Dienstweg die Entscheidung der Staatskanzlei ein, wenn:",
               "level": 0,
-              "listId": "standard-6",
+              "listId": "standard-5",
               "numberingStyle": "decimal",
               "children": [
                 {
@@ -498,7 +498,7 @@
                   "label": "a.",
                   "text": "wegen eines örtlichen Anlasses politischer Art geflaggt werden soll oder",
                   "level": 1,
-                  "listId": "standard-6",
+                  "listId": "standard-5",
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
@@ -507,7 +507,7 @@
                   "label": "b.",
                   "text": "zweifelhaft ist, ob die örtliche Beflaggung als Parteinahme in politischen Fragen gedeutet werden könnte.",
                   "level": 1,
-                  "listId": "standard-6",
+                  "listId": "standard-5",
                   "numberingStyle": "lower-latin",
                   "children": []
                 }
@@ -518,7 +518,7 @@
               "label": "4.",
               "text": "Am",
               "level": 0,
-              "listId": "standard-6",
+              "listId": "standard-5",
               "numberingStyle": "decimal",
               "children": [
                 {
@@ -526,7 +526,7 @@
                   "label": "a.",
                   "text": "am Weltfrauentag (8. März),",
                   "level": 1,
-                  "listId": "standard-6",
+                  "listId": "standard-5",
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
@@ -535,7 +535,7 @@
                   "label": "b.",
                   "text": "am Weltkindertag (1. Juni),",
                   "level": 1,
-                  "listId": "standard-6",
+                  "listId": "standard-5",
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
@@ -544,7 +544,7 @@
                   "label": "c.",
                   "text": "am Tag gegen Gewalt an Frauen (,,Orange Day”; 25. November),",
                   "level": 1,
-                  "listId": "standard-6",
+                  "listId": "standard-5",
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
@@ -553,7 +553,7 @@
                   "label": "d.",
                   "text": "am Tag der Homosexuellen (17. Mai) und",
                   "level": 1,
-                  "listId": "standard-6",
+                  "listId": "standard-5",
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
@@ -562,15 +562,15 @@
                   "label": "e.",
                   "text": "am Christopher Street Day (28. Juni)",
                   "level": 1,
-                  "listId": "standard-6",
+                  "listId": "standard-5",
                   "numberingStyle": "lower-latin",
                   "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "wird zumindest die Landesflagge oder die Landeddienstlagge, die Bundesflagge und die Progress Pride Flagge gehisst, soweit nicht durch die Staatskanzlei ausnahmen erlaubt worden sind."
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "wird zumindest die Landesflagge oder die Landeddienstlagge, die Bundesflagge und die Progress Pride Flagge gehisst, soweit nicht durch die Staatskanzlei ausnahmen erlaubt worden sind."
             }
           ]
         },
@@ -584,7 +584,7 @@
               "label": "1.",
               "text": "Beflaggungsanordnungen aus besonderen Anlässen gemäß Ziffer III Nr. 1 teilt die Staatskanzlei den Staatsministerien mit, die jeweils – soweit erforderlich – die Behörden und Dienststellen ihres Geschäftsbereiches benachrichtigen.",
               "level": 0,
-              "listId": "standard-7",
+              "listId": "standard-6",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -593,7 +593,7 @@
               "label": "2.",
               "text": "Soll bei Beflaggungen nach Ziffer III Nr. 3 ein gleichmäßiges Vorgehen der Bundes- und Landesbehörden sowie der Körperschaften, Anstalten und Stiftungen des öffentlichen Rechts, die der Aufsicht des Freistaates Sachsen unterstehen, erreicht werden, verständigen die Oberbürgermeister der Kreisfreien Städte und die Landräte die am Ort und im Landkreis befindlichen Behörden und Dienststellen des Bundes, des Landes und der Kommunen.",
               "level": 0,
-              "listId": "standard-7",
+              "listId": "standard-6",
               "numberingStyle": "decimal",
               "children": []
             }
@@ -615,7 +615,7 @@
               "label": "1.",
               "text": "Bei der Verwendung von aufgestellten Flaggen im Rahmen einer Veranstaltung des Freistaates Sachsen in einem Raum oder für die Dekoration von Dienst- und Besprechungsräumen sollte die Größe der Flaggen in einem angemessenen Verhältnis zum Raum und seiner Nutzung stehen. Buchstabe B Ziffer II Nr. 5 Satz 1 gilt entsprechend.",
               "level": 0,
-              "listId": "standard-8",
+              "listId": "standard-7",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -624,7 +624,7 @@
               "label": "2.",
               "text": "Die Reihenfolge von Tischflaggen richtet sich nach der Tischordnung. Tischflaggen sind in der Regel 15 x 25 cm groß. Bei der Verwendung einer quadratischen Form (beispielsweise bei der Nationalflagge der Schweiz) sind sie 20 x 20 cm groß.",
               "level": 0,
-              "listId": "standard-8",
+              "listId": "standard-7",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -633,7 +633,7 @@
               "label": "3.",
               "text": "Bei Dekoration von Dienst- und Besprechungsräumen mit Flaggen empfiehlt sich die für die Außenbeflaggung vorgesehene Reihenfolge. Die Flaggen sollen im Raum angemessen zur Geltung kommen.",
               "level": 0,
-              "listId": "standard-8",
+              "listId": "standard-7",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -642,7 +642,7 @@
               "label": "4.",
               "text": "Bei Trauerbeflaggung ist die Innenbeflaggung mit einem Trauerflor zu versehen. Ausgenommen hiervon ist die Tischbeflaggung. Bei der Innenbeflaggung wird nicht halbmast beflaggt.",
               "level": 0,
-              "listId": "standard-8",
+              "listId": "standard-7",
               "numberingStyle": "decimal",
               "children": []
             },
@@ -651,7 +651,7 @@
               "label": "5.",
               "text": "Abweichend von Nummer 1 Satz 2 ist im Falle von Begrüßungsaufnahmen und Pressekonferenzen mit internationalen Gästen die Bundesflagge in der Mitte zu platzieren. Hinter dem Gastgeber (rechts) ist die Landesdienstflagge oder die Landesflagge anzuordnen und der Gast (links) steht vor der Flagge seines Staates.",
               "level": 0,
-              "listId": "standard-8",
+              "listId": "standard-7",
               "numberingStyle": "decimal",
               "children": []
             }

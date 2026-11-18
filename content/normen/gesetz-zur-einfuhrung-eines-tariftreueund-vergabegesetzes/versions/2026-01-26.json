@@ -564,8 +564,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": ",,(3) Bei der Vergabe von öffentlichen Aufträgen sind die Vorschriften des Tariftreue- und Vergabegesetzes zu berücksichtigen. Die Vergabe eines öffentlichen Auftrages kann alleine von der Abagbe der Tariftreueerklärung abhängig gemacht werden, wenn der Auftragswert 25 000 Euro übersteigt.”"
+                  "type": "subparagraph",
+                  "label": ",,(3)",
+                  "text": "Bei der Vergabe von öffentlichen Aufträgen sind die Vorschriften des Tariftreue- und Vergabegesetzes zu berücksichtigen. Die Vergabe eines öffentlichen Auftrages kann alleine von der Abagbe der Tariftreueerklärung abhängig gemacht werden, wenn der Auftragswert 25 000 Euro übersteigt.”",
+                  "children": []
                 }
               ]
             }

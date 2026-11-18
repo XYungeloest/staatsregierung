@@ -5,6 +5,9 @@
   "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 21 S. 2)",
   "resultCitation": "Sächsisches Abschiebungshaftvollzugsgesetz vom 28. Juni 2018 (SächsGVBl. S. 458), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 21 S. 2)",
   "changeNote": "Geändert durch das Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft.",
+  "commandCoverage": [
+    "Artikel 2 Nummern 1 bis 7. Nummer 7 Buchstabe b fügt § 40 einen „Absatz 3“ an, obwohl § 40 bereits die Absätze 1 bis 5 hat. Der Absatz wird redaktionell, wie angeordnet, am Ende angefügt und als Absatz 6 bezeichnet, damit keine Absatzbezeichnung doppelt vergeben wird; der Wortlaut folgt der Verkündung (Redaktionsentscheidung abschiebungshaft-paragraf-40-absatz-6-2026)."
+  ],
   "sourceReferences": [
     {
       "kind": "amendment-source",
@@ -92,6 +95,207 @@
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
       "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 7"
+      },
+      "expectedHash": "1fdc8081c67acd00dba6c7cc35d966081ebbf1f81dcd729ddd20fb4502c4c800",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Den Untergebrachten wird ermöglicht, sich mindestens zwei Stunden täglich im Freien aufzuhalten. Der Aufenthalt im Freien ist grundsätzlich in zusammenhängenden Zeitblöcken zu gewähren; Einschränkungen sind nur zulässig, soweit es die Sicherheit oder Ordnung in der Einrichtung unerlässlich erfordert.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "c1438b5ca4eac31d2ee9bf01b4a08bfd460b368b6a3a64553fbc35a20e7a4ec7",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 4",
+        "title": "Betreuung, Beratung und unabhängige Rechtsberatung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die soziale Betreuung der Untergebrachten wird durch die Einrichtung gewährleistet. Dabei sind insbesondere das Kindeswohl und die Belange sonstiger Schutzbedürftiger zu beachten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Den Untergebrachten werden einschlägig tätige Hilfs- und Unterstützungsorganisationen benannt. Ihnen ist der Kontakt zu diesen Organisationen zu ermöglichen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Einrichtung stellt sicher, dass den Untergebrachten unentgeltliche, unabhängige Rechtsberatung in ausländerrechtlichen und asylrechtlichen Angelegenheiten zugänglich ist. Hierzu können freie Träger vertraglich beauftragt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Untergebrachte sind bei Aufnahme in einer für sie verständlichen Sprache schriftlich und auf Wunsch mündlich über ihre Rechte, die Dauer und den Zweck des Vollzugs, bestehende Rechtsmittel sowie das Beratungsangebot zu unterrichten.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 4",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 16"
+      },
+      "expectedHash": "24297d5ac29eaac48b70aa168a5703215aae76b006deafa30f0b1247fc918855",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Der Zugang zum Rundfunk und zu anderen elektronischen Medien ist sicherzustellen. Untergebrachten ist die Nutzung eigener Hörfunk-, Fernseh- und Wiedergabegeräte sowie eigener Computer zu gestatten, soweit dem nicht zwingende Gründe der Sicherheit oder Ordnung entgegenstehen.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 5 Buchstabe a",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 16"
+      },
+      "expectedHash": "d0f0ff539ac27fc57c3903fe79bc731328df5174b785c557dffa160352aa8124",
+      "expectedMatches": 1,
+      "position": "end",
+      "value": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Die Einrichtung stellt in angemessenem Umfang Computerarbeitsplätze mit Internetzugang zur Verfügung. Der Zugang darf nur insoweit eingeschränkt werden, als dies zur Aufrechterhaltung der Sicherheit oder Ordnung in der Einrichtung unerlässlich ist. Der Zugang zum Internet für Zwecke der Rechtsverfolgung, der Kommunikation mit Rechtsbeiständen, Gerichten, Behörden und Beratungsstellen ist zu gewährleisten und darf abgehört werden.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 5 Buchstabe b",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 33"
+      },
+      "expectedHash": "2c19bd1f35844219d6d0545ce850f031ae9af09b62d207bd9d6136d00ec5d846",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 33",
+        "title": "Beschwerderecht und unabhängige Beschwerdestelle",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Untergebrachte haben das Recht, sich bei der Einrichtungsleitung, der Aufsichtsbehörde sowie bei einer unabhängigen Beschwerdestelle über jede Maßnahme des Vollzuges zu beschweren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Beschwerden sind unverzüglich zu prüfen. Die Untergebrachten erhalten innerhalb einer angemessenen Frist eine begründete Antwort.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Das Nähere zur Ausgestaltung der unabhängigen Beschwerdestelle, insbesondere zur personellen Besetzung, zu Erreichbarkeit, Verfahrensgrundsätzen und Dokumentation, regelt das Staatsministerium der Rechtsstaatlichkeit und für Angelegenheiten des Staates im Einvernehmen mit dem zuständigen Staatsministerium durch Rechtsverordnung.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 6",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 40"
+      },
+      "expectedHash": "3c7ac43b02820ae52faf8a0b6b117034b9aef79ba6d35371d93afe8475b61067",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Bei jeder Einrichtung wird ein unabhängiger Beirat gebildet. Ihm gehören insbesondere Vertretungen der Zivilgesellschaft, der freien Wohlfahrtspflege, der Anwaltschaft, der Kirchen und Religionsgemeinschaften, der medizinischen und psychosozialen Fachberufe sowie, soweit möglich, ehemalige Untergebrachte an.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 7 Buchstabe a",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 40"
+      },
+      "expectedHash": "cfe16bd6c8500f8875a7d9994872cd4c9d8874b3ce8184f08430cb14cb84d2b4",
+      "expectedMatches": 1,
+      "position": "end",
+      "value": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "text": "Der Beirat ist berechtigt,",
+        "children": [
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Einrichtung nach vorheriger Anmeldung zu besuchen,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "mit Untergebrachten ohne Beisein von Bediensteten vertrauliche Gespräche zu führen,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Einsicht in anonymisierte Statistiken über Belegungszahlen, Dauer des Vollzuges, besondere Vorkommnisse, Suizidversuche und Zwangsmaßnahmen zu nehmen.",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Die Einrichtung ist verpflichtet, dem Beirat die für seine Aufgabenwahrnehmung erforderlichen Auskünfte zu erteilen, soweit dem nicht datenschutzrechtliche Vorschriften entgegenstehen."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 7 Buchstabe b",
       "effectiveDate": "2026-03-24"
     }
   ]

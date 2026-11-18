@@ -31,6 +31,19 @@
       "fsnNumber": "710-1"
     },
     {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2024-01-01 bis 2024-08-16",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-schulgesetz/4192.31.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4192.31",
+      "retrievedAt": "2026-11-18",
+      "sha256": "0c4038d688a6e83f64f6acc23014ac466ff40bb6068a7a66c03ec63a0b1e73f7",
+      "lawId": "4192",
+      "sourceValidFrom": "2024-01-01",
+      "sourceValidTo": "2024-08-16",
+      "fsnNumber": "710-1"
+    },
+    {
       "kind": "amendment-source",
       "label": "OGVBl. 2026 Nr. 52",
       "availability": "versioned",
@@ -53,5 +66,20 @@
     "sportneuordnungsgesetz",
     "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
     "kostenfreie-kindheit-und-soziale-teilhabe"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "schulgesetz-sportneuordnung-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-18",
+      "issue": "Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 28–33), in Kraft am 21. Juli 2026, setzt nach seinem Eingangssatz auf der durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 27) geänderten, erst am 1. August 2026 wirksamen Fassung auf. Nummer 3 nennt § 34 Absatz 2 Satz 2, das Wort „Bildungswege“ steht dort in Satz 1; Nummer 4 Buchstabe b benennt einen bisherigen Absatz 4 des § 64, den die ab 1. August 2026 geltende Fassung nicht hat, während die bis dahin geltende Fassung die Absätze 1 bis 8 führt.",
+      "publishedText": "3. In § 34 Absatz 2 Satz 2 werden nach dem Wort „Bildungswege“ die Wörter „einschließlich besonderer sportlicher Bildungsgänge“ eingefügt. 4. § 64 wird wie folgt geändert: a. Nach Absatz 3 wird folgender Absatz 4 eingefügt: „(4) Schulen, die bei Inkrafttreten …“ b. Der bisherige Absatz 4 wird Absatz 5.",
+      "resolvedApplication": "Vom 21. bis 31. Juli 2026 wird § 64 Absatz 4 nach Absatz 3 eingefügt; die bisherigen Absätze 4 bis 8 werden die Absätze 5 bis 9, damit keine Absatzbezeichnung doppelt vergeben wird. Nummer 3 findet in dieser Fassung keinen Anknüpfungspunkt. Ab 1. August 2026 werden Nummer 3 (in § 34 Absatz 2 Satz 1) und Nummer 4 Buchstabe a als eigene Änderung auf die durch Artikel 1 des Gesetzes vom 23. März 2026 neu gefasste Fassung angewandt; Nummer 4 Buchstabe b geht dort ins Leere.",
+      "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+      "evidence": [
+        "Gesetze/OGVBl. 2026 Nr. 52.pdf",
+        "Gesetze/OGVBl. 2026 Nr. 27.pdf"
+      ]
+    }
   ]
 }

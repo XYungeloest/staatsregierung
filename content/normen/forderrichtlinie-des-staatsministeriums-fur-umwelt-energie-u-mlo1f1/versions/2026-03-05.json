@@ -1,7 +1,7 @@
 {
   "versionId": "2026-03-05",
-  "validFrom": "2026-03-05",
-  "validTo": null,
+  "validFrom": "2026-03-06",
+  "validTo": "2030-12-31",
   "isCurrent": true,
   "citation": "Förderrichtlinie vom 5. März 2026 (StAnzO. 2026 Nr. 3)",
   "changeNote": "Stammfassung.",
@@ -10,10 +10,6 @@
       "type": "section",
       "label": "I.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Zuwendungszweck, Rechtsgrundlagen"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -69,16 +65,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Zuwendungszweck, Rechtsgrundlagen"
     },
     {
       "type": "section",
       "label": "II.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Gegenstand der Förderung"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -97,7 +90,8 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Gegenstand der Förderung"
     },
     {
       "type": "section",
@@ -105,22 +99,15 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Begünstigte"
-        },
-        {
-          "type": "paragraphText",
           "text": "Antragsberechtigt sind natürliche Personen mit Hauptwohnsitz im Freistaat Ostdeutschland, die mindestens 18 Jahre alt sind."
         }
-      ]
+      ],
+      "title": "Begünstigte"
     },
     {
       "type": "section",
       "label": "IV.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Zuwendungsvoraussetzungen"
-        },
         {
           "type": "paragraphText",
           "text": "Folgende Voraussetzungen müssen bei Antragstellung erfüllt sein:"
@@ -161,16 +148,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Zuwendungsvoraussetzungen"
     },
     {
       "type": "section",
       "label": "V.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Art und Umfang, Höhe der Zuwendungen"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -227,7 +211,8 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Art und Umfang, Höhe der Zuwendungen"
     },
     {
       "type": "section",
@@ -235,22 +220,15 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Sonstige Zuwendungsbestimmungen"
-        },
-        {
-          "type": "paragraphText",
           "text": "Die Förderung nach dieser Richtlinie schließt die Inanspruchnahme von anderen Fördermitteln für dieselbe Maßnahme aus."
         }
-      ]
+      ],
+      "title": "Sonstige Zuwendungsbestimmungen"
     },
     {
       "type": "section",
       "label": "VII.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Verfahren"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -355,7 +333,8 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Verfahren"
     },
     {
       "type": "section",
@@ -363,13 +342,10 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Inkrafttreten"
-        },
-        {
-          "type": "paragraphText",
           "text": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft. Die Förderrichtlinie tritt am 1. Januar 2031 außer Kraft."
         }
-      ]
+      ],
+      "title": "Inkrafttreten"
     }
   ]
 }

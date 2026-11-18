@@ -21,10 +21,11 @@
   "predecessor": null,
   "successor": null,
   "summary": "Führt die Ostdeutsche Bezirksordnung ein und ändert Landkreisordnung, Landesplanungsrecht und Verwaltungsorganisationsrecht.",
-  "status": "one-time-act",
+  "status": "repealed",
   "documentDate": "2025-03-06",
   "publicationDate": "2025-03-12",
   "effectiveDate": "2025-03-12",
+  "expiryDate": "2026-07-31",
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
@@ -49,6 +50,12 @@
       "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl I-25.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
     },
     {
       "kind": "amendment-source",
@@ -82,6 +89,7 @@
     "sachsisches-verwaltungsorganisationsgesetz"
   ],
   "affectedByNorms": [
-    "berichtigung-verschiedener-verkuendungen-2026"
+    "berichtigung-verschiedener-verkuendungen-2026",
+    "kreis-und-bezirksneuordnungsgesetz"
   ]
 }

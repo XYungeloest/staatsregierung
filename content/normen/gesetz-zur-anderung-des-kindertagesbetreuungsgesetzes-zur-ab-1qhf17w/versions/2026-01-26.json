@@ -13,7 +13,7 @@
     {
       "type": "article",
       "label": "Artikel 1",
-      "title": "Änderung des Kindertages- betreuungsgesetzes",
+      "title": "Änderung des Kindertagesbetreuungsgesetzes",
       "children": [
         {
           "type": "paragraphText",
@@ -66,8 +66,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": ",,(3) Die Personal- und Sachkosten im Sinne von Absatz 1 einer Kindertageseinrichtung in kommunaler Trägerschaft werden durch die Gemeinde und durch das Land getragen."
+                      "type": "subparagraph",
+                      "label": ",,(3)",
+                      "text": "Die Personal- und Sachkosten im Sinne von Absatz 1 einer Kindertageseinrichtung in kommunaler Trägerschaft werden durch die Gemeinde und durch das Land getragen.",
+                      "children": []
                     },
                     {
                       "type": "subparagraph",
@@ -159,8 +161,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": ",,(1) Die Gemeinde trägt die weiteren nicht gedeckten Personal- und Sachkosten.”"
+                      "type": "subparagraph",
+                      "label": ",,(1)",
+                      "text": "Die Gemeinde trägt die weiteren nicht gedeckten Personal- und Sachkosten.”",
+                      "children": []
                     }
                   ]
                 }

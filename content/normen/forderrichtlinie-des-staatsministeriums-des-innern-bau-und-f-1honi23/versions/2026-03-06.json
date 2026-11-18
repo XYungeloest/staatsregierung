@@ -1,7 +1,7 @@
 {
   "versionId": "2026-03-06",
-  "validFrom": "2026-03-06",
-  "validTo": null,
+  "validFrom": "2026-03-07",
+  "validTo": "2030-12-31",
   "isCurrent": true,
   "citation": "Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 5)",
   "changeNote": "Stammfassung.",
@@ -10,10 +10,6 @@
       "type": "section",
       "label": "I.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Zuwendungszweck, Rechtsgrundlagen"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -69,7 +65,8 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Zuwendungszweck, Rechtsgrundlagen"
     },
     {
       "type": "section",
@@ -77,22 +74,15 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Zuwendungsempfänger"
-        },
-        {
-          "type": "paragraphText",
           "text": "Zuwendungsempfänger sind Familien (wie in RL FamStart/2026 II.2 und II.3), die ihren Hauptwohnsitz im Freistaat Ostdeutschland haben oder begründen werden."
         }
-      ]
+      ],
+      "title": "Zuwendungsempfänger"
     },
     {
       "type": "section",
       "label": "III.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Zuwendungsvoraussetzungen"
-        },
         {
           "type": "paragraphText",
           "text": "Folgende Voraussetzungen müssen bei Antragstellung erfüllt sein:"
@@ -142,16 +132,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Zuwendungsvoraussetzungen"
     },
     {
       "type": "section",
       "label": "IV.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Art und Umfang, Höhe der Zuwendungen"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -226,7 +213,8 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Art und Umfang, Höhe der Zuwendungen"
     },
     {
       "type": "section",
@@ -234,22 +222,15 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Sonstige Zuwendungsbestimmungen"
-        },
-        {
-          "type": "paragraphText",
           "text": "Kumulierung mit Förderungen des Bundes, der EU oder Dritter ist zulässig, soweit eine Überförderung ausgeschlossen ist. Bei Sanierung darf die Summe der öffentlichen Förderungen die nachgewiesenen förderfähigen Ausgaben nicht überschreiten."
         }
-      ]
+      ],
+      "title": "Sonstige Zuwendungsbestimmungen"
     },
     {
       "type": "section",
       "label": "VI.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Verfahren"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -364,16 +345,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Verfahren"
     },
     {
       "type": "section",
       "label": "VII.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Auszahlung, Nachweise, Rückforderung, Härtefälle, Datenschutz"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -429,7 +407,8 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Auszahlung, Nachweise, Rückforderung, Härtefälle, Datenschutz"
     },
     {
       "type": "section",
@@ -437,13 +416,10 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Inkrafttreten"
-        },
-        {
-          "type": "paragraphText",
           "text": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft. Die Förderrichtlinie tritt am 1. Januar 2031 außer Kraft."
         }
-      ]
+      ],
+      "title": "Inkrafttreten"
     },
     {
       "type": "annex",

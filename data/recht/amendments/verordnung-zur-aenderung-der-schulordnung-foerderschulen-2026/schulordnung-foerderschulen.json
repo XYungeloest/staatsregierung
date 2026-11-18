@@ -4,12 +4,12 @@
   "versionId": "2026-09-01",
   "amendmentCitation": "Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 64 S. 2)",
   "resultCitation": "Schulordnung Förderschulen vom 3. August 2004 (SächsGVBl. S. 317), zuletzt geändert durch Artikel 1 der Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 64 S. 2)",
-  "changeNote": "Schulteile, Lehrplan-, Schulart- und Schulgesetzverweise, Datenverarbeitung, Ethikregelung, Notenskala sowie Versetzungs- und Abschlussregelungen wurden an das ostdeutsche Schulrecht angepasst, § 16 neu gefasst, § 20a eingefügt und § 34c aufgehoben; die Änderungen in § 8 Absatz 2 und § 9 Absatz 2 folgen der amtlichen Berichtigung OGVBl. 2026 Nr. 68 (Artikel 1 Nummer 1 betrifft die Inhaltsübersicht, die nicht Teil des gespeicherten Normtextes ist).",
+  "changeNote": "Schulteile, Lehrplan-, Schulart- und Schulgesetzverweise, Datenverarbeitung, Ethikregelung, Notenskala sowie Versetzungs- und Abschlussregelungen wurden an das ostdeutsche Schulrecht angepasst, § 16 neu gefasst, § 20a eingefügt und § 34c aufgehoben; die Änderungen in § 8 Absatz 2 und § 9 Absatz 2 folgen der amtlichen Berichtigung OGVBl. 2026 Nr. 68.",
   "commandCoverage": [
-    "Artikel 1 Nummern 2 bis 17",
-    "Artikel 1 Nummer 18 Buchstabe a",
-    "Artikel 1 Nummern 19 bis 29",
-    "Artikel 1 Nummern 31 und 32"
+    "Artikel 1 Nummern 2 bis 32",
+    "Artikel 1 Nummer 18 Buchstabe b ersetzt in § 30 Absatz 4 die Wörter „Oberschule oder Gemeinschaftsschule“; dort steht nur „Oberschule“ (Satz 4: „nach den Lehrplänen für die Oberschule“), die Wörter „oder Gemeinschaftsschule“ stehen nirgends in der Verordnung. Der Befehl wird redaktionell auf diese einzige Schulartbezeichnung des Absatzes angewandt (Redaktionsentscheidung foerderschulen-paragraf-30-absatz-4-2026).",
+    "Artikel 1 Nummer 30 bezeichnet § 18 Absatz 3 Satz 3; § 18 Absatz 3 hat nur einen Satz, die Wörter „Sächsischen Schulgesetzes“ stehen in § 18 nur einmal, in Absatz 1 Satz 3. Der Befehl wird redaktionell dort angewandt (Redaktionsentscheidung foerderschulen-paragraf-18-absatz-1-2026).",
+    "Artikel 1 Nummer 1 betrifft die Inhaltsübersicht, die nicht Teil des gespeicherten Normtextes ist."
   ],
   "sourceReferences": [
     {
@@ -752,11 +752,11 @@
       },
       "throughTarget": {
         "type": "paragraphText",
-        "text": "2Notentendenzen können durch Hinzufügen der Zeichen „+“ oder „–“ ausgedrückt werden.",
+        "text": "Notentendenzen können durch Hinzufügen der Zeichen „+“ oder „–“ ausgedrückt werden.",
         "parentType": "paragraph",
         "parentLabel": "§ 25"
       },
-      "expectedHash": "b69fdc75a36d173972f4cced705f14bc85cb3b65f6c4c2f241fb80902c71d7cd",
+      "expectedHash": "2566990b3474057de188072b1e72bd4de630b0a60509868b10b20773b381544c",
       "expectedMatches": 1,
       "value": [
         {
@@ -827,7 +827,7 @@
         "parentType": "paragraph",
         "parentLabel": "§ 25"
       },
-      "expectedHash": "98fba5841104447f20cbd7f20382a9a811eb9ae01c64b7ae8ff8d204189bf3f9",
+      "expectedHash": "da3c3824a2ee32c840fa7bd697a58b18912a10aec56d224c9db95a6ba25150e3",
       "expectedMatches": 1,
       "value": [
         {
@@ -884,6 +884,21 @@
       "value": "Bei lernzielgleicher Unterrichtung richtet sich die Versetzung in den Klassenstufen 1 bis 4 nach § 30 und in den Klassenstufen 5 bis 10 nach § 31 der Schulordnung Polytechnische Oberschulen.",
       "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
       "sourceProvision": "Artikel 1 Nummer 18 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 30"
+      },
+      "expectedOld": "Oberschule",
+      "expectedMatches": 1,
+      "value": "Polytechnische Oberschule",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 18 Buchstabe b",
       "effectiveDate": "2026-09-01"
     },
     {
@@ -1225,6 +1240,21 @@
       "value": "Ostdeutschen Schulgesetzes",
       "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
       "sourceProvision": "Artikel 1 Nummer 29",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 30",
       "effectiveDate": "2026-09-01"
     },
     {

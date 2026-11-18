@@ -56,29 +56,35 @@
   "body": [
     {
       "type": "paragraphText",
-      "text": "Der Ostdeutsche Landtag hat am 14. Oktober 2024 folgendes Gesetz beschlossen:"
+      "text": "Der Ostdeutsche Landtag hat am 14.10.2024 folgendes Gesetz beschlossen"
     },
     {
       "type": "article",
       "label": "Artikel 1",
+      "title": "Aussetzung der bisherigen Landesverfassung",
       "children": [
         {
           "type": "paragraphText",
-          "text": "Die bisherige Verfassung des Freistaates Ostdeutschland, zuletzt geändert am 11. Juli 2013, wird aufgehoben."
+          "text": "Die Verfassung des Ostdeutschen Freistaates, zuletzt geändert am 11. Juli 2013 wird außer Kraft gesetzt."
         }
       ]
     },
     {
       "type": "article",
       "label": "Artikel 2",
+      "title": "Einsetzung einer neuen Landesverfassung",
       "children": [
         {
           "type": "paragraphText",
-          "text": "Der nachstehende Entwurf wird als neue Landesverfassung eingesetzt:"
+          "text": "Der dem Gesetz angehängte Entwurf wird als neue Landesverfassung des Ostdeutschen Freistaates eingesetzt."
         },
         {
           "type": "quotedProvision",
           "children": [
+            {
+              "type": "paragraphText",
+              "text": "Verfassung des Ostdeutschen Freistaates"
+            },
             {
               "type": "section",
               "label": "Präambel",
@@ -2355,7 +2361,7 @@
             {
               "type": "section",
               "label": "VI. Abschnitt",
-              "title": "Die Rechtsprechung",
+              "title": "Die Rechtsprüfung",
               "children": [
                 {
                   "type": "article",
@@ -3641,7 +3647,7 @@
                     {
                       "type": "subparagraph",
                       "label": "(2)",
-                      "text": "Ausschließlich für Baudenkmale der Kirchen und Religionsgemeinschaften sind, unbeschadet des Eigentumsrechtes, Kulturgut der Allgemeinheit. Für ihre bauliche Unterhaltung haben die Kirchen und Religionsgemeinschaften daher Anspruch auf angemessene Kostenerstattung durch das Land nach Maßgabe der Gesetze.",
+                      "text": "Ausschließlich für Baudenkmale der Kirchen und Religionsgemeinschaften sind, unbeschadet des Eigentumsrechtes, Kulturgut der Allgemeinheit. Für ihre bauliche Unterhaltung haben die Kirchen und Religionsgemeinschaften daher Anspruch auf angemessene Kostenerstattung durch das Land nach Maßgabe der Gesetze",
                       "level": 0,
                       "listId": "standard-89",
                       "numberingStyle": "decimal",
@@ -3917,12 +3923,28 @@
     {
       "type": "article",
       "label": "Artikel 3",
+      "title": "Inkrafttreten",
       "children": [
         {
           "type": "paragraphText",
           "text": "Das Gesetz tritt am Tage seiner Verkündung in Kraft."
         }
       ]
+    },
+    {
+      "type": "signature",
+      "title": "Die Landtagspräsidentin",
+      "text": "Frau Julia Murzako"
+    },
+    {
+      "type": "signature",
+      "title": "Der Ministerpräsident",
+      "text": "Herr Liam Flüsterbein"
+    },
+    {
+      "type": "signature",
+      "title": "Der Staatsminister des Innern & der Justiz",
+      "text": "Herr Egon Urlaub"
     }
   ]
 }

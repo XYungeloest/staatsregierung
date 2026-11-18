@@ -1,6 +1,8 @@
 {
   "versionId": "2026-12-01",
   "title": "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates",
+  "shortTitle": "Kasernierte-Grenzpolizei-Gesetz",
+  "abbr": "KGrPolG",
   "validFrom": "2026-12-01",
   "validTo": null,
   "isCurrent": true,
@@ -1035,10 +1037,6 @@
           "label": "Abschnitt 2",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "Ergänzungs- und Kooperationsliegenschaften"
-            },
-            {
               "type": "item",
               "label": "1.",
               "text": "Eberswalde-Finow",
@@ -1259,16 +1257,13 @@
               "type": "paragraphText",
               "text": "Eignung als Reserveflugplatz, Ausbildungsstandort und technische Reservefläche."
             }
-          ]
+          ],
+          "title": "Ergänzungs- und Kooperationsliegenschaften"
         },
         {
           "type": "section",
           "label": "Abschnitt 3",
           "children": [
-            {
-              "type": "paragraphText",
-              "text": "Sonder-, Reserve- und Prüfstandorte"
-            },
             {
               "type": "item",
               "label": "1.",
@@ -1354,7 +1349,8 @@
               "type": "paragraphText",
               "text": "Eignung als kleine maritime Außenstelle, Kooperationsstandort oder Traditions- und Ausbildungsstandort des Küsten- und Wasserschutzdienstes."
             }
-          ]
+          ],
+          "title": "Sonder-, Reserve- und Prüfstandorte"
         }
       ]
     }

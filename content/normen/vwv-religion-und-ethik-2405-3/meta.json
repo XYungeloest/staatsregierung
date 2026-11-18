@@ -13,22 +13,31 @@
   "initialCitation": "VwV Religion und Ethik vom 29. September 2004 (MBl. SMK S. 414), die zuletzt durch die Verwaltungsvorschrift vom 12. März 2007 (MBl. SMK S. 69) geändert worden ist",
   "predecessor": null,
   "successor": null,
-  "status": "in-force",
+  "status": "repealed",
   "documentDate": "2004-09-29",
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 2405.3, gültig ab 2007-04-06",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/2405.3.html",
+      "label": "Amtliche REVOSax-Fassung, gültig 2007-04-06 bis 2026-07-31",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/vwv-religion-und-ethik-2405-3/2405.3.html",
       "url": "https://www.revosax.sachsen.de/vorschrift/2405.3",
-      "retrievedAt": "2026-09-03",
-      "sha256": "b1af7060e1d1135b0918a9cc922c62bee15f624cf8e035f308c51b989765286a",
+      "retrievedAt": "2026-11-18",
+      "sha256": "6aa1d42f03e68aad2bd4a2554993f8f5058f178b50d13d68c9eac4375d00e5ee",
       "lawId": "2405",
       "sourceValidFrom": "2007-04-06",
-      "fsnNumber": "710-V04.10",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "sourceValidTo": "2026-07-31",
+      "fsnNumber": "710-V04.10"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "StAnzO. 2026 Nr. 17, Abschnitt X Nummer 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 17.html"
     }
+  ],
+  "expiryDate": "2026-08-31",
+  "affectedByNorms": [
+    "vwv-ethik-religion-und-weltanschauung"
   ]
 }

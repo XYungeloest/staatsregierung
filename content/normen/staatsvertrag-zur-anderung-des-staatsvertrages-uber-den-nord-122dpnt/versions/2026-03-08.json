@@ -238,8 +238,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "“(1) Der Norddeutsche Rundfunk (NDR) ist eine gemeinnützige, rechtsfähige Anstalt des öffentlichen Rechts zur Herstellung und Verbreitung von Rundfunkprogrammen und Telemedien in der ehemaligen Freien und Hansestadt Hamburg und den ehemaligen Ländern Niedersachsen und Schleswig-Holstein (Sendegebiet).”"
+                  "type": "subparagraph",
+                  "label": "“(1)",
+                  "text": "Der Norddeutsche Rundfunk (NDR) ist eine gemeinnützige, rechtsfähige Anstalt des öffentlichen Rechts zur Herstellung und Verbreitung von Rundfunkprogrammen und Telemedien in der ehemaligen Freien und Hansestadt Hamburg und den ehemaligen Ländern Niedersachsen und Schleswig-Holstein (Sendegebiet).”",
+                  "children": []
                 }
               ]
             }
@@ -257,8 +259,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "“(2) Der NDR unterhält Funkhäuser in Hamburg, Hannover und Kiel (Landesfunkhäuser) sowie Regionalstudios in Niedersachsen und Schleswig-Holstein. Die Regionalstudios sind dem Funkhaus des Landes zugeordnet, in dem sie betrieben werden.”"
+                  "type": "subparagraph",
+                  "label": "“(2)",
+                  "text": "Der NDR unterhält Funkhäuser in Hamburg, Hannover und Kiel (Landesfunkhäuser) sowie Regionalstudios in Niedersachsen und Schleswig-Holstein. Die Regionalstudios sind dem Funkhaus des Landes zugeordnet, in dem sie betrieben werden.”",
+                  "children": []
                 }
               ]
             }
@@ -285,7 +289,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "a)",
+                      "label": "“a)",
                       "text": "neun Mitglieder die in den gesetzgebenden Körperschaften der Länder vertretenen Parteien, davon vier aus Niedersachsen, zwei aus Hamburg und drei aus Schleswig-Holstein, entsprechend ihrem Stärkeverhältnis nach dem Höchstzahlverfahren d’Hondt, sowie”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -309,7 +313,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "2.",
+                      "label": "“2.",
                       "text": "zwei Mitglieder die evangelischen Kirchen und zwei Mitglieder die römisch-katholische Kirche, davon ein Mitglied aus Hamburg, zwei Mitglieder aus Niedersachsen und ein Mitglied aus Schleswig-Holstein,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -333,7 +337,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "4.",
+                      "label": "“4.",
                       "text": "vier Mitglieder der Deutsche Gewerkschaftsbund, ein Mitglied die Vereinte Dienstleistungsgewerkschaft (Ver.di), ein Mitglied der Deutsche Beamtenbund, davon vier aus Niedersachsen und je eines aus Hamburg und Schleswig-Holstein,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -357,7 +361,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "5.",
+                      "label": "“5.",
                       "text": "drei Mitglieder die Arbeitgeberverbände, davon zwei aus dem Bereich der Industrie und eines aus dem Bereich des Handels, ein Mitglied die Handwerksverbände, ein Mitglied die Verbände der Freien Berufe, und zwar drei aus Niedersachsen und je eines aus Hamburg und Schleswig-Holstein, dabei im Falle Hamburgs für Industrie, Handel und Handwerk an Stelle der Landesvereinigungen jeweils die Kammer,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -381,7 +385,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "6.",
+                      "label": "“6.",
                       "text": "ein Mitglied ein Bauernverband aus Niedersachsen,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -405,7 +409,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "8.",
+                      "label": "“8.",
                       "text": "je ein Mitglied der Landessportbund aus Niedersachsen und der Landessportbund aus Schleswig-Holstein,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -429,7 +433,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "10.",
+                      "label": "“10.",
                       "text": "ein Mitglied ein Haus- und Grundeigentümerverein e. V. aus Niedersachsen, ein Mitglied der Deutsche Mieterbund, Landesverband Schleswig-Holstein e. V., sowie ein Mitglied die in Hamburg mit der Verbraucherberatung betraute Institution,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -453,7 +457,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "11.",
+                      "label": "“11.",
                       "text": "ein Mitglied die Landesarbeitsgemeinschaft der Freien Wohlfahrtspflege in Niedersachsen, ein Mitglied die Arbeiterwohlfahrt, Landesverband Schleswig-Holstein e. V., ein Mitglied das Diakonische Werk aus Hamburg und ein Mitglied der Deutsche Caritasverband e. V. aus Niedersachsen,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -477,7 +481,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "13.",
+                      "label": "“13.",
                       "text": "ein Mitglied Robin Wood e. V. aus Hamburg, ein Mitglied der BUND aus Niedersachsen, ein Mitglied der Landesnaturschutzverband Schleswig-Holstein e. V. und ein Mitglied der Landesverband Bürgerinitiativen Umweltschutz aus Niedersachsen, ein Mitglied ein Heimatverband aus Schleswig-Holstein,”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -501,7 +505,7 @@
                   "children": [
                     {
                       "type": "item",
-                      "label": "16.",
+                      "label": "“16.",
                       "text": "ein Mitglied der Verband der Opfer des Stalinismus aus Niedersachsen und ein Mitglied die Aktion Sühnezeichen aus Niedersachsen.”",
                       "level": 0,
                       "listId": "printed-outline",
@@ -526,8 +530,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "“(3) Der Rundfunkrat wählt jeweils ein Mitglied für die Funktionen Vorsitz sowie erste, zweite und dritte Stellvertretung für die Dauer von 15 Monaten. Die Mitglieder sollen möglichst verschiedenen Ländern angehören; dabei darf kein Land mit mehr als zwei Funktionen vertreten sein. Der Vorsitz muss gleichermaßen aus Frauen und Männern bestehen. Der Vorsitz wechselt nach Ländern in der Reihenfolge Schleswig-Holstein – Niedersachsen – Hamburg.”"
+                  "type": "subparagraph",
+                  "label": "“(3)",
+                  "text": "Der Rundfunkrat wählt jeweils ein Mitglied für die Funktionen Vorsitz sowie erste, zweite und dritte Stellvertretung für die Dauer von 15 Monaten. Die Mitglieder sollen möglichst verschiedenen Ländern angehören; dabei darf kein Land mit mehr als zwei Funktionen vertreten sein. Der Vorsitz muss gleichermaßen aus Frauen und Männern bestehen. Der Vorsitz wechselt nach Ländern in der Reihenfolge Schleswig-Holstein – Niedersachsen – Hamburg.”",
+                  "children": []
                 }
               ]
             }
@@ -545,8 +551,10 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "“(1) Der Verwaltungsrat besteht aus zwölf Mitgliedern, die vom Rundfunkrat gewählt werden, und zwar sieben Mitgliedern aus Niedersachsen, zwei Mitgliedern aus Hamburg und drei Mitgliedern aus Schleswig-Holstein, wovon jeweils die Hälfte Frauen sein sollen. Von den in den Verwaltungsrat gewählten Mitgliedern müssen auf Frauen und Männer jeweils fünfzig vom Hundert entfallen. § 18 Absatz 2 Satz 6 gilt entsprechend.”"
+                  "type": "subparagraph",
+                  "label": "“(1)",
+                  "text": "Der Verwaltungsrat besteht aus zwölf Mitgliedern, die vom Rundfunkrat gewählt werden, und zwar sieben Mitgliedern aus Niedersachsen, zwei Mitgliedern aus Hamburg und drei Mitgliedern aus Schleswig-Holstein, wovon jeweils die Hälfte Frauen sein sollen. Von den in den Verwaltungsrat gewählten Mitgliedern müssen auf Frauen und Männer jeweils fünfzig vom Hundert entfallen. § 18 Absatz 2 Satz 6 gilt entsprechend.”",
+                  "children": []
                 }
               ]
             }

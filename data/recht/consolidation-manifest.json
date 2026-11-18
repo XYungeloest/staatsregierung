@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-16T08:55:30.942Z",
+  "generatedAt": "2026-11-18T18:04:11.475Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 90,
-    "recognizedTargetNorms": 130,
-    "completeTargetNorms": 128,
-    "blockedSourceConflicts": 2,
+    "recognizedAmendmentActs": 93,
+    "recognizedTargetNorms": 140,
+    "completeTargetNorms": 139,
+    "blockedSourceConflicts": 1,
     "missingPrimarySources": 0
   },
   "templateProblems": [],
@@ -500,7 +500,15 @@
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "vergesellschaftungsrahmengesetz",
-      "enactingActs": [],
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+          "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
       "amendmentActs": [
         {
           "slug": "fuenftes-gesetz-zur-grossen-staatsreform",
@@ -574,7 +582,21 @@
       "sourceValidTo": null,
       "sourceSha256": null,
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "kulturpass-paragraf-10-nummern-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 6 Nummer 7 und 8 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 19) ändern „§ 10 Nummer 6“ und „§ 10 Nummer 7“. Nach dem amtlichen Blatt der Stammfassung (OGVBl. 2026 Nr. 30 S. 5–6) zählt § 10 die Nummern 1 bis 7; Nummer 6 und 7 betreffen dort die Datenverarbeitung und die zuständige Behörde.",
+          "publishedText": "7. In § 10 Nummer 6 wird das Wort „Antragsverfahren“ durch die Wörter „Verfahren der Feststellung der Anspruchsvoraussetzungen und der Freischaltung“ ersetzt. 8. In § 10 Nummer 7 wird die Angabe „§ 5 Absatz 2“ durch die Angabe „§ 5 Absatz 3“ ersetzt.",
+          "resolvedApplication": "Die Ersetzungen werden in § 10 Nummer 1 („das Antragsverfahren,“) und Nummer 2 („Art und Weise des Nachweises nach § 5 Absatz 2,“) vorgenommen, den einzigen Stellen, an denen die zu ersetzenden Angaben stehen.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 30.pdf",
+            "Gesetze/OGVBl. 2026 Nr. 83.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsches-kulturpassgesetz",
       "enactingActs": [
         {
@@ -607,9 +629,9 @@
       "canonicalSlug": "gesundheitsdienstgesetz",
       "title": "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
       "aliases": [
+        "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland",
         "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
         "Gesetzes über den öffentlichen Gesundheitsdienst",
-        "Ostdeutsches Gesundheitsdienstgesetz",
         "Sächsisches Gesundheitsdienstgesetz"
       ],
       "revosaxLawId": "3348",
@@ -645,10 +667,10 @@
       "title": "Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen",
       "aliases": [
         "Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen",
+        "Gesetz über den öffentlichen Personennahverkehr im Ostdeutschen Freistaat",
         "Gesetzes über den öffentlichen Personennahverkehr",
         "Ostdeutsche Personennahverkehrsgesetz",
-        "Ostdeutsche Personennahverkehrsgesetz in der Fassung der Bekanntmachung vom 23. März 2026, zuletzt geändert durch Gesetz",
-        "Ostdeutsches Personennahverkehrsgesetz"
+        "Ostdeutsche Personennahverkehrsgesetz in der Fassung der Bekanntmachung vom 23. März 2026, zuletzt geändert durch Gesetz"
       ],
       "revosaxLawId": "3863",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3863.5",
@@ -657,7 +679,20 @@
       "sourceValidTo": null,
       "sourceSha256": "a1199f68ee4755d13a8b558a62096069b2818f408bb6771141278779d86dc340",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "personennahverkehr-paragrafen-2-und-4a-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 29) leitet in Nummer 4 (S. 2) mit „§ 2 wird wie folgt gefasst:“ ein, enthält aber nur drei Einzeländerungen (Buchstaben a bis c) und keinen Neufassungstext. Nummer 6 (S. 6) ordnet die Einfügung eines § 4a nach § 4 an; der zitierte Paragraph trägt die Bezeichnung „§ 4“.",
+          "publishedText": "4. § 2 wird wie folgt gefasst: a. In Absatz 1 Satz 2 … b. In Absatz 5 … c. In Absatz 7 Satz 3 … 6. Nach § 4 wird folgender § 4a eingefügt: „§ 4 Preisgestaltung (1) …“",
+          "resolvedApplication": "Nummer 4 wird als Änderung von § 2 angewandt: Die Buchstaben a bis c werden in Absatz 1 Satz 2, Absatz 5 und Absatz 7 Satz 3 umgesetzt, die übrigen Teile von § 2 bleiben unverändert. Der nach Nummer 6 eingefügte Paragraph wird nach § 4 als § 4a „Preisgestaltung“ geführt, wie es der Einleitungssatz und die Inhaltsübersicht nach Nummer 2 Buchstabe c bestimmen.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 29.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsches-personennahverkehrsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -670,26 +705,27 @@
           "targetEffectiveDate": "2026-03-24"
         },
         {
-          "slug": "kreis-und-bezirksneuordnungsgesetz",
-          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
-          "effectiveDate": "2026-07-21",
-          "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
-        },
-        {
           "slug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
           "title": "Gesetz zur Errichtung der Ostdeutschen Eisenbahn, zur Vergesellschaftung privater Verkehrsproduktionsmittel und zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-07-21"
+        },
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-03-24",
-        "2026-07-21"
+        "2026-07-21",
+        "2026-08-01"
       ],
       "status": "complete",
       "problems": [],
@@ -713,7 +749,7 @@
       "enactingActs": [
         {
           "slug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
-          "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungsund Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
+          "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungs- und Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false
@@ -1582,6 +1618,37 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ostdeutsches-tariftreueund-vergabegesetz",
+      "title": "Gesetz über die Sicherung von Sozialstandards, Tariftreue und fairen Löhnen bei der Vergabe öffentlicher Aufträge im Ostdeutschen Freistaat",
+      "aliases": [
+        "Gesetz über die Sicherung von Sozialstandards, Tariftreue und fairen Löhnen bei der Vergabe öffentlicher Aufträge im Ostdeutschen Freistaat"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-tariftreueund-vergabegesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes",
+          "title": "Gesetz zur Einführung eines Tariftreue- und Vergabegesetzes",
+          "effectiveDate": "2026-02-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-sportfoerdergesetz",
       "title": "Gesetz über die Sportförderung im Freistaat Ostdeutschland",
       "aliases": [
@@ -1683,6 +1750,42 @@
       "amendmentActs": [],
       "correctionActs": [],
       "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-vergabegesetz",
+      "title": "Gesetz über die Vergabe öffentlicher Aufträge im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Vergabe öffentlicher Aufträge im Freistaat Ostdeutschland",
+        "Ostdeutsches Vergabegesetz",
+        "Sächsisches Vergabegesetz"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-vergabegesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes",
+          "title": "Gesetz zur Einführung eines Tariftreue- und Vergabegesetzes",
+          "effectiveDate": "2026-02-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-02-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-02-01"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1812,7 +1915,7 @@
       "aliases": [
         "Gesetz über Kindertagesbetreuung",
         "Gesetzes über Kindertagesbetreuung",
-        "Kindertages- betreuungsgesetzes",
+        "Kindertagesbetreuungsgesetzes",
         "Ostdeutsches Gesetz zur Förderung von Kindern in Kindertageseinrichtungen und in Kindertagespflege",
         "Sächsische Kindertagesbetreuung-Finanzierungsverordnung in der Fassung der Bekanntmachung vom 23. November 2015 (SächsGVBl. S. 695), die zuletzt durch Artikel 1 der Verordnung"
       ],
@@ -1884,7 +1987,21 @@
       "sourceValidTo": "2025-05-06",
       "sourceSha256": "16f86a9d3c195798f52d4c6a9d57265bf05a64be2a7a7357a44c336efdde3ac7",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "feiertagsgesetz-paragraf-2-nummer-3-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 Nummer 3 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 20 S. 4) hebt „§ 2 Nummer 3“ auf; § 2 der Vorfassung ist ein Satz ohne Nummern, der drei Gedenk- und Trauertage aufzählt.",
+          "publishedText": "3. § 2 Nummer 3 wird aufgehoben.",
+          "resolvedApplication": "Das dritte Glied der Aufzählung („und der Totensonntag (letzter Sonntag vor dem 1. Advent)“) entfällt; die beiden verbleibenden Gedenktage werden mit „und der“ verbunden.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 20.pdf",
+            "Gesetze/OGVBl-03-24.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsches-feiertagsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -1910,6 +2027,37 @@
         "2024-03-08",
         "2026-03-24"
       ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "gesetz-uber-verkundungen-und-bekanntmachungen",
+      "title": "Gesetz über Verkündungen und Bekanntmachungen",
+      "aliases": [
+        "Gesetz über Verkündungen und Bekanntmachungen"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "gesetz-uber-verkundungen-und-bekanntmachungen",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5",
+          "title": "Gesetz zur Veränderung der Verfassung zur Änderung der Verkündungsregeln und zur Einführung eines Verkündungsgesetz",
+          "effectiveDate": "2026-01-28",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1972,6 +2120,40 @@
       "amendmentActs": [],
       "correctionActs": [],
       "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "g-zum-stv-mdr",
+      "title": "Gesetz zum Staatsvertrag über den Mitteldeutschen Rundfunk (MDR)",
+      "aliases": [
+        "Gesetz zum Staatsvertrag über den Mitteldeutschen Rundfunk (MDR)"
+      ],
+      "revosaxLawId": "19074",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19074.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2021-04-17",
+      "sourceValidTo": null,
+      "sourceSha256": "18a553afc0210b62b7acb4281fc80c2006c34082bcff77a6d29278e1b5e350f6",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "g-zum-stv-mdr",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
+          "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungs- und Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-05-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-05-01"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -2080,6 +2262,40 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "g-einfuehrung-des-osttranspg",
+      "title": "Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": "19698",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19698.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": null,
+      "sourceSha256": "380d0d487e8bfa80a4dd0ac6165571c3fddc67ccffcd56a80123c0a5f082b77e",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "g-einfuehrung-des-osttranspg",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+          "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-07-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
       "title": "Gesetz zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
       "aliases": [
@@ -2131,7 +2347,15 @@
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "gemeingut-wohnen-gesetz",
-      "enactingActs": [],
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+          "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
       "amendmentActs": [
         {
           "slug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
@@ -2549,6 +2773,37 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "wohnvergesellschaftungsgesetz",
+      "title": "Gesetz zur Überführung von Wohnimmobilien in Gemeineigentum",
+      "aliases": [
+        "Gesetz zur Überführung von Wohnimmobilien in Gemeineigentum"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "wohnvergesellschaftungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+          "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ohmgebirge-vergesellschaftungsgesetz",
       "title": "Gesetz zur Vergesellschaftung des Kaliprojekts Ohmgebirge",
       "aliases": [
@@ -2882,13 +3137,13 @@
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2025-03-12",
-        "2026-07-21"
+        "2026-08-01"
       ],
       "status": "complete",
       "problems": [],
@@ -3025,7 +3280,22 @@
       "sourceValidTo": null,
       "sourceSha256": null,
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "bezirksordnung-paragraf-13-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 8 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 34) gilt nach der Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4 Nummer 6) für die Bezirksordnung in der Fassung des Artikels 2 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 14–24). Diese Fassung hat keine Inhaltsübersicht und zählt in § 13 nur die Nummern 1 bis 10; Nummer 3 nennt die bisherigen Nummern 10 und 11.",
+          "publishedText": "1. Die Inhaltsübersicht wird wie folgt geändert: a. Nach der Angabe zu § 13 wird folgende Angabe eingefügt: „§ 13a Bezirkliche Sportkoordination“. 2. In § 13 wird nach Nummer 9 folgende Nummer 10 eingefügt: „10. bezirkliche Sportentwicklung und Sportkoordination nach Maßgabe des Ostdeutschen Sportfördergesetzes,“. 3. Die bisherigen Nummern 10 und 11 werden die Nummern 11 und 12.",
+          "resolvedApplication": "In § 13 wird die neue Nummer 10 nach Nummer 9 eingefügt, und die bisherige Nummer 10 wird Nummer 11; Nummer 9 behält ihr „und“. Für die bisherige Nummer 11 bleibt Nummer 3 mangels Anknüpfungspunkt unangewandt, ebenso Nummer 1 zur Inhaltsübersicht (Fassung vom 1. August 2026).",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt; ist kein Inhalt eindeutig erkennbar, bleibt er unangewandt und wird dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 52.pdf",
+            "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+            "Gesetze/OGVBl. 2026 Nr. 46.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsche-bezirksordnung",
       "enactingActs": [
         {
@@ -3116,38 +3386,6 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
-      "canonicalSlug": "ostdeutsches-tariftreueund-vergabegesetz",
-      "title": "Ostdeutsches Tariftreue- und Vergabegesetz",
-      "aliases": [
-        "Gesetz über die Sicherung von Sozialstandards, Tariftreue und fairen Löhnen bei der Vergabe öffentlicher Aufträge im Ostdeutschen Freistaat",
-        "Sächsisches Vergabegesetz"
-      ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
-      "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
-      "existingStemNormSlug": "ostdeutsches-tariftreueund-vergabegesetz",
-      "enactingActs": [
-        {
-          "slug": "gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes",
-          "title": "Gesetz zur Einführung eines Tariftreue- und Vergabegesetzes",
-          "effectiveDate": "2026-02-01",
-          "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
-        }
-      ],
-      "amendmentActs": [],
-      "correctionActs": [],
-      "effectiveDates": [],
-      "status": "complete",
-      "problems": [],
-      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
-    },
-    {
       "canonicalSlug": "pruefungsverordnung-waldorfschulen",
       "title": "Prüfungsverordnung Waldorfschulen",
       "aliases": [
@@ -3174,14 +3412,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
-      "correctionActs": [
-        {
-          "slug": "berichtigung-verschiedener-verkuendungen-2026",
-          "title": "Berichtigung verschiedener Verkündungen",
-          "publicationDate": "2026-08-27",
-          "detectedType": "berichtigung"
-        }
-      ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -3311,6 +3542,7 @@
       "title": "Sächsische Freie-Träger-Schulverordnung",
       "aliases": [
         "Freie-Träger-Schulverordnung",
+        "Ostdeutsche Freie-Träger-Schulverordnung",
         "Sächsische Freie-Träger-Schulverordnung"
       ],
       "revosaxLawId": "17118",
@@ -3320,7 +3552,21 @@
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "da26b64d487a51edd347f4f0ae1f3257e307e167ed644d0dc308bd7d2446ece9",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "freie-traeger-schulverordnung-bezeichnung-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 2 § 1 Nummer 1 der Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 9) ersetzt „in der Bezeichnung und in § 1“ die Wörter „Freistaat Sachsen“; die Bezeichnung der Ausgangsfassung („Verordnung des Sächsischen Staatsministeriums für Kultus über die Genehmigung und Anerkennung von Schulen in freier Trägerschaft (Sächsische Freie-Träger-Schulverordnung – SächsFrTrSchulVO)“) enthält diese Wörter nicht.",
+          "publishedText": "1. In der Bezeichnung und in § 1 werden die Wörter „Freistaat Sachsen“ durch die Wörter „Freistaat Ostdeutschland“ ersetzt.",
+          "resolvedApplication": "Der Befehl wird in § 1 angewandt („im Freistaat Ostdeutschland“). Für die Bezeichnung bleibt er mangels Anknüpfungspunkt unangewandt; sie lautet nach der allgemeinen Rechtsüberleitung „Ostdeutsche Freie-Träger-Schulverordnung“.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt; ist kein Inhalt eindeutig erkennbar, bleibt er unangewandt und wird dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 67.pdf",
+            "data/recht/sources/revosax/freie-trager-schulverordnung/17118.3.html"
+          ]
+        }
+      ],
       "existingStemNormSlug": "freie-trager-schulverordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -3333,14 +3579,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
-      "correctionActs": [
-        {
-          "slug": "berichtigung-verschiedener-verkuendungen-2026",
-          "title": "Berichtigung verschiedener Verkündungen",
-          "publicationDate": "2026-08-27",
-          "detectedType": "berichtigung"
-        }
-      ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -3504,13 +3743,47 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ostdeutsche-kindertagesbetreuung-finanzierungsverordnung",
+      "title": "Sächsische Kindertagesbetreuung-Finanzierungsverordnung",
+      "aliases": [
+        "Bekanntmachung der Neufassung der Ostdeutschen Kindertageseinrichtungen-Finanzierungsverordnung",
+        "Ostdeutsche Kindertagesbetreuung-Finanzierungsverordnung"
+      ],
+      "revosaxLawId": "12051",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/12051.9",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-29",
+      "sourceValidTo": "2025-07-31",
+      "sourceSha256": "5542526685a8083e4f4d0145cc5a8d953da202097bd6b16d05597873a46fe27e",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsche-kindertagesbetreuung-finanzierungsverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w",
+          "title": "Gesetz zur Änderung des Kindertagesbetreuungsgesetzes zur Abschaffung des Elternbeitrages",
+          "effectiveDate": "2026-01-27",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-01-27"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-01-27"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "saechsische-klassenbildungsverordnung",
       "title": "Sächsische Klassenbildungsverordnung",
       "aliases": [
         "Ostdeutsche Klassenbildungsverordnung",
         "Sächsische Klassenbildungsverordnung",
-        "Sächsischen Klassenbildungsverordnung",
-        "Verordnung des Ostdeutschen Staatsministeriums für Kultus über die Bildung von Klassen, Kursen und Gruppen"
+        "Verordnung über die Bildung von Klassen, Kursen und Gruppen im Freistaat Ostdeutschland"
       ],
       "revosaxLawId": "17344",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17344.4",
@@ -3557,7 +3830,21 @@
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "landkreisordnung-paragraf-65-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 3 Nummer 7 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 26) ordnet die Neufassung eines „§ 75“ an; die Landkreisordnung endet mit § 74.",
+          "publishedText": "7. § 75 wird wie folgt gefasst: „§ 75 Rechtsaufsichtsbehörden (1) Rechtsaufsichtsbehörde der Landkreise ist die zuständige Bezirksverwaltung, … (3) …“",
+          "resolvedApplication": "Die Neufassung wird auf § 65 („Aufsicht, Rechtsaufsichtsbehörden“) angewandt, die einzige Vorschrift über die Rechtsaufsichtsbehörden; sie führt die Bezeichnung § 65 und die Überschrift „Rechtsaufsichtsbehörden“. Sie ersetzt den ganzen bisherigen § 65 einschließlich seines Absatzes 2 („Der Fünfte Teil der Ostdeutschen Gemeindeordnung über die Aufsicht findet auf den Landkreis entsprechende Anwendung. § 2 Absatz 3 Satz 3 findet keine Anwendung.“). Ab 1. August 2026 verweist die Landkreisordnung damit nicht mehr auf die Aufsichtsvorschriften der Gemeindeordnung. Für diese Folge spricht, dass Nummer 1 Buchstabe b auch in der Inhaltsübersicht das Wort „Aufsicht“ aus der Überschrift streicht.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 46.pdf",
+            "Gesetze/OGVBl. 2026 Nr. 68.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "saechsische-landkreisordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -3618,7 +3905,20 @@
       "sourceValidTo": "2025-07-31",
       "sourceSha256": "ac97ffaf9ab95576e6964b3e5675d73d8fa7e860506d9504a010215a688d73bd",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "lehrkraefte-azvo-paragraf-1-satz-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 der Verordnung vom 20. Februar 2026 (OGVBl. 2026 Nr. 14 S. 2) nennt § 1 Absatz 1 Satz 1; die Angabe „40 Stunden“ steht in Satz 2.",
+          "publishedText": "In § 1 Absatz 1 Satz 1 wird die Angabe „40 Stunden“ durch „39 Stunden“ ersetzt.",
+          "resolvedApplication": "Die Angabe wird in § 1 Absatz 1 Satz 2 ersetzt, der einzigen Stelle des Absatzes mit „40 Stunden“ (regelmäßige Arbeitszeit).",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 14.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsche-lehrkraefte-arbeitszeitverordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -3645,8 +3945,7 @@
       "aliases": [
         "Ostdeutsche Schulnetzplanungsverordnung",
         "Sächsische Schulnetzplanungsverordnung",
-        "Sächsischen Schulnetzplanungsverordnung",
-        "Verordnung des Ostdeutschen Staatsministeriums für Kultus über die Schulnetzplanung im Freistaat Ostdeutschland"
+        "Verordnung über die Schulnetzplanung im Freistaat Ostdeutschland"
       ],
       "revosaxLawId": "17346",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17346",
@@ -3692,7 +3991,20 @@
       "sourceValidTo": "2025-08-15",
       "sourceSha256": "4b97b7f30f716088ef1ad3d09e63e6a20173dde2fa7ecc66b855c977fb063140",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "abschiebungshaft-paragraf-40-absatz-6-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 2 Nummer 7 Buchstabe b des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 21 S. 11) fügt § 40 einen „Absatz 3“ an, obwohl § 40 bereits die Absätze 1 bis 5 hat.",
+          "publishedText": "b. Es wird folgender Absatz 3 angefügt: „(3) Der Beirat ist berechtigt, 1. die Einrichtung nach vorheriger Anmeldung zu besuchen, 2. mit Untergebrachten ohne Beisein von Bediensteten vertrauliche Gespräche zu führen, 3. Einsicht in anonymisierte Statistiken … zu nehmen. Die Einrichtung ist verpflichtet, …“",
+          "resolvedApplication": "Der Absatz wird, wie angeordnet, am Ende des § 40 angefügt und als Absatz 6 bezeichnet; sein Wortlaut folgt der Verkündung.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 21.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "abschiebungshaftvollzugsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -3854,12 +4166,12 @@
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-07-21"
+        "2026-08-01"
       ],
       "status": "complete",
       "problems": [],
@@ -3923,7 +4235,7 @@
       "amendmentActs": [
         {
           "slug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
-          "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungsund Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
+          "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungs- und Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
@@ -4056,7 +4368,20 @@
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "7fa867f9d202f1155f2a9b1234c911a9422b5fd3722058369bc5f38f24dd37fa",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "justizgesetz-paragrafen-24-und-25-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 Nummer 13 des Gesetzes vom 26. Januar 2026 (OGVBl. 2026 Nr. 3 S. 16) streicht in §§ 24 und 25 den Wortlaut „Sächsischen“. In der Ausgangsfassung steht diese Form nur in der Überschrift von § 25; § 24 Absatz 1 und 2 und der Text von § 25 nennen „das Sächsische Oberverwaltungsgericht“. Nummer 1 (S. 2) ersetzt in der Bezeichnung „Sächsische“, die Bezeichnung lautet „Sächsisches Justizgesetz“.",
+          "publishedText": "1. In der Bezeichnung des Gesetzes wird „Sächsische” durch „Ostdeutsche” ersetzt. 13. In §§ 24 und 25 wird der Wortlaut „Sächsischen“ ersatzlos gestrichen.",
+          "resolvedApplication": "Nummer 13 streicht die Herkunftsbezeichnung des Oberverwaltungsgerichts in §§ 24 und 25 in jeder grammatischen Form: in § 24 Absatz 1 und 2 und im Text von § 25 „Sächsische“, in der Überschrift von § 25 „Sächsischen“. Nummer 1 ersetzt den Wortbestandteil „Sächsische“ in „Sächsisches Justizgesetz“; die Bezeichnung lautet „Ostdeutsches Justizgesetz“.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 3.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsches-justizgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -4074,13 +4399,13 @@
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-02-01",
-        "2026-07-21"
+        "2026-08-01"
       ],
       "status": "complete",
       "problems": [],
@@ -4141,6 +4466,41 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ostdeutsches-kreisgebietsneugliederungsgesetz",
+      "title": "Sächsisches Kreisgebietsneugliederungsgesetz",
+      "aliases": [
+        "Gesetz zur Neugliederung des Gebietes der Landkreise des Freistaates Ostdeutschland",
+        "Ostdeutsches Kreisgebietsneugliederungsgesetz"
+      ],
+      "revosaxLawId": "9825",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/9825.2",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2014-04-01",
+      "sourceValidTo": null,
+      "sourceSha256": "ea63901d98cef50c7e4d76187a7f6cfd7f73c346b221bdaebc10124c4783cb46",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-kreisgebietsneugliederungsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-08-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-08-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "kulturraumgesetz",
       "title": "Sächsisches Kulturraumgesetz",
       "aliases": [
@@ -4174,13 +4534,13 @@
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-03-25",
-        "2026-07-21"
+        "2026-08-01"
       ],
       "status": "complete",
       "problems": [],
@@ -4402,7 +4762,21 @@
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "3d1792a483a1f733746bfe6c38744a10877dfb16398bbaa1dc7d525815719066",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "schulgesetz-sportneuordnung-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 6 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 28–33), in Kraft am 21. Juli 2026, setzt nach seinem Eingangssatz auf der durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 27) geänderten, erst am 1. August 2026 wirksamen Fassung auf. Nummer 3 nennt § 34 Absatz 2 Satz 2, das Wort „Bildungswege“ steht dort in Satz 1; Nummer 4 Buchstabe b benennt einen bisherigen Absatz 4 des § 64, den die ab 1. August 2026 geltende Fassung nicht hat, während die bis dahin geltende Fassung die Absätze 1 bis 8 führt.",
+          "publishedText": "3. In § 34 Absatz 2 Satz 2 werden nach dem Wort „Bildungswege“ die Wörter „einschließlich besonderer sportlicher Bildungsgänge“ eingefügt. 4. § 64 wird wie folgt geändert: a. Nach Absatz 3 wird folgender Absatz 4 eingefügt: „(4) Schulen, die bei Inkrafttreten …“ b. Der bisherige Absatz 4 wird Absatz 5.",
+          "resolvedApplication": "Vom 21. bis 31. Juli 2026 wird § 64 Absatz 4 nach Absatz 3 eingefügt; die bisherigen Absätze 4 bis 8 werden die Absätze 5 bis 9, damit keine Absatzbezeichnung doppelt vergeben wird. Nummer 3 findet in dieser Fassung keinen Anknüpfungspunkt. Ab 1. August 2026 werden Nummer 3 (in § 34 Absatz 2 Satz 1) und Nummer 4 Buchstabe a als eigene Änderung auf die durch Artikel 1 des Gesetzes vom 23. März 2026 neu gefasste Fassung angewandt; Nummer 4 Buchstabe b geht dort ins Leere.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 52.pdf",
+            "Gesetze/OGVBl. 2026 Nr. 27.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsches-schulgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -4412,7 +4786,11 @@
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
+          "targetEffectiveDate": "2026-07-21",
+          "targetEffectiveDates": [
+            "2026-07-21",
+            "2026-08-01"
+          ]
         },
         {
           "slug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
@@ -4441,6 +4819,41 @@
         "2026-08-01",
         "2026-10-15",
         "2027-01-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-transparenzgesetz",
+      "title": "Sächsisches Transparenzgesetz",
+      "aliases": [
+        "Gesetz über die Transparenz von Informationen im Freistaat Ostdeutschland",
+        "Ostdeutsches Transparenzgesetz"
+      ],
+      "revosaxLawId": "19699",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19699.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2025-12-27",
+      "sourceSha256": "ddd9ae1d699235dbaf9ace3477e1976d61a22465e8a73322757e584d7eaa7efe",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-transparenzgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+          "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-07-01"
       ],
       "status": "complete",
       "problems": [],
@@ -4534,7 +4947,21 @@
       "sourceValidTo": "2025-07-09",
       "sourceSha256": "67ea497aab9e2af708981293e645e9c95de966dab597f0687d4f3dca36f035df",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "verwaltungsorganisationsgesetz-inhaltsuebersicht-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 7 Nummer 1 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 31–32) fasst die Angabe zu § 6 in der Inhaltsübersicht neu; das Verwaltungsorganisationsgesetz hat keine Inhaltsübersicht, schon die sächsische Ausgangsfassung (REVOSax 4355.20) nicht.",
+          "publishedText": "1. Die Angabe zu § 6 in der Inhaltsübersicht wird wie folgt gefasst: „§ 6 Bezirksverwaltungen“.",
+          "resolvedApplication": "Der Befehl findet keinen Anknüpfungspunkt und bleibt unangewandt. Die Überschrift „Bezirksverwaltungen“ ergibt sich aus der Neufassung des § 6 durch Artikel 7 Nummer 2 (Fassung vom 1. August 2026).",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt und für den kein Inhalt in der Vorfassung erkennbar ist, bleibt unangewandt und wird dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 46.pdf",
+            "data/recht/sources/revosax/sachsisches-verwaltungsorganisationsgesetz/4355.20.html"
+          ]
+        }
+      ],
       "existingStemNormSlug": "sachsisches-verwaltungsorganisationsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -4552,13 +4979,13 @@
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2025-03-12",
-        "2026-07-21"
+        "2026-08-01"
       ],
       "status": "complete",
       "problems": [],
@@ -4580,7 +5007,20 @@
       "sourceValidTo": null,
       "sourceSha256": "30483510f31c57b67bf7a5a0efcb05878db0d5d44717b2bf6e33107b2341e416",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "zweckentfremdung-paragraf-4a-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 Nummer 7 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 18 S. 6–7) ordnet nur „§ 4 wird wie folgt gefasst“ an; das zitierte Neufassungsstück enthält danach auch einen § 4a „Betretungsrecht“. Nummer 6 steht ohne Text (S. 5).",
+          "publishedText": "7. § 4 wird wie folgt gefasst: „§ 4 Auskunftspflicht (1) … (3) …“ § 4a Betretungsrecht (1) … (3) … “",
+          "resolvedApplication": "§ 4 wird neu gefasst und der mitverkündete § 4a „Betretungsrecht“ nach § 4 eingefügt; Artikel 1 Nummer 8 (§ 6) setzt § 4a ausdrücklich voraus. Die leere Nummer 6 enthält keinen Befehl; der Text danach gehört zu Nummer 5 Buchstabe b.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 18.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "zweckentfremdungsverbotsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -4701,7 +5141,34 @@
       "sourceValidTo": "2026-01-31",
       "sourceSha256": "413659283b4df78b9c59a5037430cc66abfe9982016ba6cf95660b019e47c544",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "foerderschulen-paragraf-30-absatz-4-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 Nummer 18 Buchstabe b der Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 64 S. 10) ersetzt in § 30 Absatz 4 die Wörter „Oberschule oder Gemeinschaftsschule“. § 30 Absatz 4 nennt in Satz 4 nur „die Oberschule“ („In den Förderschulen oder Klassen in Förderschulen, die nach den Lehrplänen für die Oberschule unterrichten, …“); die Wörter „oder Gemeinschaftsschule“ stehen dort nicht und auch sonst nirgends in der Verordnung.",
+          "publishedText": "b) In Absatz 4 werden die Wörter „Oberschule oder Gemeinschaftsschule“ durch die Wörter „Polytechnische Oberschule“ ersetzt.",
+          "resolvedApplication": "Das Wort „Oberschule“ in § 30 Absatz 4 Satz 4, die einzige Schulartbezeichnung des Absatzes, wird durch die Wörter „Polytechnische Oberschule“ ersetzt („… die nach den Lehrplänen für die Polytechnische Oberschule unterrichten, …“). Dieselbe Wendung „Lehrplänen für die Oberschule“ stellt Artikel 1 Nummer 6 Buchstabe b in § 8 Absatz 3 ebenso auf die Polytechnische Oberschule um.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 64.pdf",
+            "data/recht/sources/revosax/schulordnung-foerderschulen/3887.13.html"
+          ]
+        },
+        {
+          "id": "foerderschulen-paragraf-18-absatz-1-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 Nummer 30 der Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 64 S. 13) ändert „§ 18 Absatz 3 Satz 3“. § 18 Absatz 3 hat nur einen Satz; die Wörter „Sächsischen Schulgesetzes“ stehen in § 18 nur einmal, in Absatz 1 Satz 3 („§ 43 Absatz 2 Satz 1 Nummer 12 Buchstabe b des Sächsischen Schulgesetzes bleibt unberührt.“).",
+          "publishedText": "30. In § 18 Absatz 3 Satz 3 werden die Wörter „Sächsischen Schulgesetzes“ durch die Wörter „Ostdeutschen Schulgesetzes“ ersetzt.",
+          "resolvedApplication": "Die Ersetzung wird in § 18 Absatz 1 Satz 3 vorgenommen, der einzigen Stelle des § 18, an der die zu ersetzenden Wörter stehen und die einen Satz 3 hat.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 64.pdf",
+            "data/recht/sources/revosax/schulordnung-foerderschulen/3887.13.html"
+          ]
+        }
+      ],
       "existingStemNormSlug": "schulordnung-foerderschulen",
       "enactingActs": [],
       "amendmentActs": [
@@ -4725,12 +5192,9 @@
       "effectiveDates": [
         "2026-09-01"
       ],
-      "status": "blocked-source-conflict",
-      "problems": [
-        "Die maßgebliche Ausgabe OGVBl. 2026 Nr. 64 enthält zwei Änderungsbefehle, die nicht auf die Ausgangsfassung der Schulordnung Förderschulen passen: Artikel 1 Nummer 18 Buchstabe b ersetzt in § 30 Absatz 4 die Wörter „Oberschule oder Gemeinschaftsschule“, die dort nicht stehen; Artikel 1 Nummer 30 ersetzt in § 18 Absatz 3 Satz 3 die Wörter „Sächsischen Schulgesetzes“, obwohl § 18 Absatz 3 nur einen Satz hat und die Wörter in Absatz 1 Satz 3 stehen. Eine Umdeutung der ausdrücklich bezeichneten Stellen ist ohne Berichtigung oder andere Primärquelle unzulässig. Das Rezept für die übrigen Befehle der Änderungsverordnung liegt geprüft vor und wird mit Aufhebung der Sperre angewandt.",
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "schulordnung-gemeinschaftsschulen",
@@ -4890,7 +5354,32 @@
       "sourceValidTo": null,
       "sourceSha256": null,
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "staatsverfassung-artikel-2-landesfarben-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 17 S. 2) fügt in Artikel 2 Absatz 2 „nach dem Wort ‚nach‘“ die Angabe „Blau, “ ein; der Ausgangswortlaut „Die Landesfarben sind Weiß und Grün.“ enthält kein Wort „nach“.",
+          "publishedText": "In Artikel 2 Absatz 2 der Ostdeutschen Staatsverfassung … wird nach dem Wort „nach“ die Angabe „Blau, “ eingefügt.",
+          "resolvedApplication": "„Blau, “ wird vor dem Wort „Weiß“ eingefügt; Artikel 2 Absatz 2 lautet „Die Landesfarben sind Blau, Weiß und Grün.“ (Fassung vom 24. März 2026).",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 17.pdf"
+          ]
+        },
+        {
+          "id": "staatsverfassung-artikel-48-staatsrat-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Artikel 1 Nummer 3 Buchstabe k Ziffer i des Ersten Gesetzes zur Großen Staatsreform vom 20. Juli 2026 (OGVBl. 2026 Nr. 53 S. 8) ersetzt in Artikel 48 „Mitglied der Staatsregierung“ durch „Staatsrates“; Artikel 48 Absatz 1 Satz 2 der Vorfassung lautet „auf Antrag von zwei Abgeordneten oder eines Mitgliedes der Staatsregierung“.",
+          "publishedText": "k. Artikel 48 wird wie folgt geändert: i. Es werden jeweils „des Landtages“ durch „der Volkskammer“, „der Landtag“ durch „die Volkskammer“, „Mitglied der Staatsregierung“ durch „Staatsrates“, je „Landtag“ durch „Volkskammer“, „vom Landtag“ durch „von der Volkskammer“ und je „Der Landtag“ durch „Die Volkskammer“ ersetzt.",
+          "resolvedApplication": "Die Wörter „Mitgliedes der Staatsregierung“ in Artikel 48 Absatz 1 Satz 2, die einzige Stelle des Artikels mit dieser Wendung, werden durch „Staatsrates“ ersetzt: „auf Antrag von zwei Abgeordneten oder eines Staatsrates“ (Fassung vom 21. Juli 2026).",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 53.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "staatsverfassung-des-freistaates-ostdeutschland",
       "enactingActs": [
         {
@@ -5128,6 +5617,41 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "vwv-beflaggung",
+      "title": "VwV Beflaggung",
+      "aliases": [
+        "Verwaltungsvorschrift der Ostdeutschen Staatskanzlei über die Beflaggung der Dienstgebäude im Freistaat Ostdeutschland (VwV Beflaggung)",
+        "VwV Beflaggung"
+      ],
+      "revosaxLawId": "13773",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/13773.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2013-10-05",
+      "sourceValidTo": null,
+      "sourceSha256": "45af0251c10e7c0d02cfc2169a6361f7068037e34666f384d353cf3b5bc0e63f",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vwv-beflaggung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verwaltungsvorschrift-des-ministerprasidenten-uber-die-befla-5f4v7g",
+          "title": "Verwaltungsvorschrift des Ministerpräsidenten über die Beflaggung der Dienstgebäude des Ostdeutschen Freistaates",
+          "effectiveDate": "2025-12-06",
+          "detectedType": "verwaltungsvorschrift",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2025-12-06"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2025-12-06"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "vwv-beratungslehrer",
       "title": "VwV Beratungslehrer",
       "aliases": [
@@ -5200,6 +5724,41 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "vwv-religion-und-ethik-2405-3",
+      "title": "VwV Religion und Ethik",
+      "aliases": [
+        "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Durchführung des Religionsunterrichts und des Ethikunterrichts im Freistaat Ostdeutschland (VwV Religion und Ethik)",
+        "VwV Religion und Ethik"
+      ],
+      "revosaxLawId": "2405",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2405.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2007-04-06",
+      "sourceValidTo": "2026-07-31",
+      "sourceSha256": "6aa1d42f03e68aad2bd4a2554993f8f5058f178b50d13d68c9eac4375d00e5ee",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vwv-religion-und-ethik-2405-3",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "vwv-ethik-religion-und-weltanschauung",
+          "title": "Verwaltungsvorschrift des Staatssekretariats für Volksbildung und Wissenschaft zum Vollzug der Verordnung über Ethik sowie Religions- und Weltanschauungsunterricht",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "verwaltungsvorschrift",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "vwv-schulformulare",
       "title": "VwV Schulformulare",
       "aliases": [
@@ -5251,13 +5810,34 @@
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "8332c0df43be9973ade2dbf7aed6b73a29723ae6718142ea11cd916bf68a2bfa",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "vwv-stundentafeln-ziffer-iii-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-18",
+          "issue": "Ziffer V Satz 2 der VwV Stundentafeln POS (StAnzO. 2026 Nr. 14 S. 3) setzt die Ziffern III, V, VI und VII der VwV Stundentafeln am 1. August 2026 außer Kraft; am selben Tag fasst die Änderungsverwaltungsvorschrift (StAnzO. 2026 Nr. 14 S. 7, Ziffer I Nummer 4) die Ziffer III neu.",
+          "publishedText": "Gleichzeitig treten die Ziffern III, V, VI und VII der VwV Stundentafeln vom 20. Juni 2018 (MBl. SMK S. 347), die zuletzt durch die Verwaltungsvorschrift vom 9. Juli 2024 (MBl. SMK S. 78) geändert worden ist, außer Kraft. – 4. Ziffer III wird wie folgt gefasst: „III. Ethik sowie Religions- und Weltanschauungsunterricht …“",
+          "resolvedApplication": "Zuerst tritt der bisherige Inhalt der Ziffern III, V, VI und VII (Stundentafeln der bisherigen Schularten) außer Kraft, danach wird die Änderungsverwaltungsvorschrift angewandt. Ab 1. August 2026 gilt die neu gefasste Ziffer III; die Ziffern V bis VII sind aufgehoben.",
+          "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+          "evidence": [
+            "Gesetze/StAnzO. 2026 Nr. 14.pdf"
+          ]
+        }
+      ],
       "existingStemNormSlug": "vwv-stundentafeln",
       "enactingActs": [],
       "amendmentActs": [
         {
+          "slug": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel",
+          "title": "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft über Lehrpläne und Stundentafeln für Polytechnische Oberschulen und allgemeinbildende Schulen im sorbischen Siedlungsgebiet im Freistaat Ostdeutschland (VwV Stundentafeln POS)",
+          "effectiveDate": "2026-08-01",
+          "detectedType": "verwaltungsvorschrift",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-08-01"
+        },
+        {
           "slug": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf",
-          "title": "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft zur Änderung der VwV Stundentafel",
+          "title": "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft zur Änderung der VwV Stundentafeln",
           "effectiveDate": "2026-08-01",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,

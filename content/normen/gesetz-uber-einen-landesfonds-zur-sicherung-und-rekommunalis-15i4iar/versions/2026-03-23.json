@@ -31,10 +31,6 @@
               "label": "Abschnitt 1",
               "children": [
                 {
-                  "type": "paragraphText",
-                  "text": "Allgemeine Bestimmungen"
-                },
-                {
                   "type": "paragraph",
                   "label": "§ 1",
                   "title": "Errichtung des Fonds",
@@ -251,16 +247,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Allgemeine Bestimmungen"
             },
             {
               "type": "section",
               "label": "Abschnitt 2",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Fondsbewirtschaftung"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 4",
@@ -491,16 +484,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Fondsbewirtschaftung"
             },
             {
               "type": "section",
               "label": "Abschnitt 3",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Leistungen des Fonds"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 7",
@@ -1008,16 +998,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Leistungen des Fonds"
             },
             {
               "type": "section",
               "label": "Abschnitt 4",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Verfahren und Bindungen"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 13",
@@ -1477,16 +1464,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Verfahren und Bindungen"
             },
             {
               "type": "section",
               "label": "Abschnitt 5",
               "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Schlussbestimmungen"
-                },
                 {
                   "type": "paragraph",
                   "label": "§ 20",
@@ -1561,7 +1545,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "title": "Schlussbestimmungen"
             }
           ]
         }
@@ -1596,10 +1581,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 5a",
-                      "title": "Besonderer Sicherungs- und Transformationsbedarf“.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "„§ 5a Besonderer Sicherungs- und Transformationsbedarf“."
                     }
                   ]
                 }
@@ -1617,10 +1600,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 10a",
-                      "title": "Verfahren zur Sicherung versorgungsnotwendiger Standorte und Leistungsbereiche“.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "„§ 10a Verfahren zur Sicherung versorgungsnotwendiger Standorte und Leistungsbereiche“."
                     }
                   ]
                 }
@@ -1722,8 +1703,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(1) Die Krankenhausträger sind verpflichtet, dem zuständigen Staatsministerium unverzüglich, spätestens jedoch zwölf Monate vor der beabsichtigten Umsetzung, anzuzeigen:"
+                      "type": "subparagraph",
+                      "label": "„(1)",
+                      "text": "Die Krankenhausträger sind verpflichtet, dem zuständigen Staatsministerium unverzüglich, spätestens jedoch zwölf Monate vor der beabsichtigten Umsetzung, anzuzeigen:",
+                      "children": []
                     },
                     {
                       "type": "item",
@@ -1790,8 +1773,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(2) Die Anzeige nach Absatz 1 muss die Gründe der Maßnahme, den vorgesehenen Zeitplan, die wirtschaftliche Lage, die Auswirkungen auf die regionale Versorgung und ein Konzept zur Sicherung oder geordneten Überleitung der Versorgung enthalten."
+                      "type": "subparagraph",
+                      "label": "„(2)",
+                      "text": "Die Anzeige nach Absatz 1 muss die Gründe der Maßnahme, den vorgesehenen Zeitplan, die wirtschaftliche Lage, die Auswirkungen auf die regionale Versorgung und ein Konzept zur Sicherung oder geordneten Überleitung der Versorgung enthalten.",
+                      "children": []
                     },
                     {
                       "type": "subparagraph",

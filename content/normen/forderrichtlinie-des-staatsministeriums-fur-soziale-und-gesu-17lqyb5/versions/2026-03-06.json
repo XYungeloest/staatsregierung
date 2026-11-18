@@ -1,7 +1,7 @@
 {
   "versionId": "2026-03-06",
-  "validFrom": "2026-03-06",
-  "validTo": null,
+  "validFrom": "2026-03-07",
+  "validTo": "2031-12-30",
   "isCurrent": true,
   "citation": "Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 4)",
   "changeNote": "Stammfassung.",
@@ -10,10 +10,6 @@
       "type": "section",
       "label": "I.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Zuwendungszweck, Rechtsgrundlagen"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -69,16 +65,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Zuwendungszweck, Rechtsgrundlagen"
     },
     {
       "type": "section",
       "label": "II.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Zuwendungsempfänger"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -125,16 +118,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Zuwendungsempfänger"
     },
     {
       "type": "section",
       "label": "III.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Zuwendungsvoraussetzungen"
-        },
         {
           "type": "paragraphText",
           "text": "Folgende Voraussetzungen müssen bei Antragstellung erfüllt sein:"
@@ -184,16 +174,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Zuwendungsvoraussetzungen"
     },
     {
       "type": "section",
       "label": "IV.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Art und Umfang, Höhe der Zuwendungen"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -286,16 +273,13 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Art und Umfang, Höhe der Zuwendungen"
     },
     {
       "type": "section",
       "label": "V.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Sonstige Zuwendungsbestimmungen"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -374,16 +358,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Sonstige Zuwendungsbestimmungen"
     },
     {
       "type": "section",
       "label": "VI.",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Verfahren"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -452,7 +433,8 @@
           "numberingStyle": "decimal",
           "children": []
         }
-      ]
+      ],
+      "title": "Verfahren"
     },
     {
       "type": "section",
@@ -460,13 +442,10 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Inkrafttreten"
-        },
-        {
-          "type": "paragraphText",
           "text": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft. Die Förderrichtlinie tritt am 31. Dezember 2031 außer Kraft."
         }
-      ]
+      ],
+      "title": "Inkrafttreten"
     },
     {
       "type": "annex",

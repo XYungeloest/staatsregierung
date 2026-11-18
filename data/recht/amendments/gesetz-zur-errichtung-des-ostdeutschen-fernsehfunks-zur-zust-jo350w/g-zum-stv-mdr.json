@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
+  "effectiveDate": "2026-05-01",
+  "versionId": "2026-05-01",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 36 S. 2)",
+  "resultCitation": "Gesetz zum Staatsvertrag über den Mitteldeutschen Rundfunk (MDR) vom 24. März 2021 (SächsGVBl. S. 396)",
+  "changeNote": "Mit Ablauf des Tages vor dem Stichtag nach Artikel 1 § 16, also mit Ablauf des 30. April 2026, durch Artikel 5 Absatz 1 Buchstabe a des Gesetzes zur Errichtung des Ostdeutschen Fernsehfunks außer Kraft getreten.",
+  "commandCoverage": [
+    "Artikel 5 Absatz 1 Buchstabe a"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 36, Artikel 5",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 36.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "116757c38c256abd3dd180fe442354ee9321be3b7f871b0f705337d2231cb3e3",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 5 Absatz 1 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 36.html",
+      "effectiveDate": "2026-05-01"
+    }
+  ],
+  "repealsLaw": true
+}

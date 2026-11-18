@@ -62,10 +62,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 3",
-                      "title": "Aufgabenbestimmung und Aufgabenträger”",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "“§ 3 Aufgabenbestimmung und Aufgabenträger”"
                     }
                   ]
                 }
@@ -83,10 +81,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 4",
-                      "title": "Ostdeutscher Verkehrsverbund”",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "“§ 4 Ostdeutscher Verkehrsverbund”"
                     }
                   ]
                 }
@@ -104,10 +100,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 4a",
-                      "title": "Preisgestaltung”",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "“§ 4a Preisgestaltung”"
                     }
                   ]
                 }
@@ -585,8 +579,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "“(3) Der Ostdeutsche Verkehrsverbund finanziert seine Aufgaben aus"
+                      "type": "subparagraph",
+                      "label": "“(3)",
+                      "text": "Der Ostdeutsche Verkehrsverbund finanziert seine Aufgaben aus",
+                      "children": []
                     },
                     {
                       "type": "item",

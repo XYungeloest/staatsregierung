@@ -3,24 +3,22 @@
   "title": "Gesetz zur Neugliederung des Gebietes der Landkreise des Freistaates Ostdeutschland",
   "shortTitle": "Ostdeutsches Kreisgebietsneugliederungsgesetz",
   "validFrom": "2023-11-01",
-  "validTo": null,
-  "isCurrent": true,
+  "validTo": "2026-07-31",
+  "isCurrent": false,
   "citation": "Ostdeutsches Kreisgebietsneugliederungsgesetz vom 29. Januar 2008 (SächsGVBl. S. 102), das durch Artikel 7 des Gesetzes vom 18. Dezember 2013 (SächsGVBl. S. 970) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 9825.2, gültig ab 2014-04-01",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/9825.html",
-      "url": "https://www.revosax.sachsen.de/vorschrift/9825",
-      "retrievedAt": "2026-09-03",
-      "sha256": "020913173de7396a40aba1d62fa3f0b9486779722dd23b0564d424e1257c6cbc",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2014-04-01",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-kreisgebietsneugliederungsgesetz/9825.2.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9825.2",
+      "retrievedAt": "2026-11-18",
+      "sha256": "ea63901d98cef50c7e4d76187a7f6cfd7f73c346b221bdaebc10124c4783cb46",
       "lawId": "9825",
       "sourceValidFrom": "2014-04-01",
-      "fsnNumber": "231-5",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "fsnNumber": "231-5"
     }
   ],
   "sourceNotes": [
@@ -42,7 +40,7 @@
           "children": [
             {
               "type": "paragraphText",
-              "text": "Im Freistaat Ostdeutschland bestehen die Kreisfreien Städte Chemnitz, Dresden und Leipzig sowie die Landkreise Bautzen, Erzgebirgskreis, Görlitz, Leipzig, Meißen, Mittelsachsen, Nordsachsen, Ostdeutsche Schweiz-Osterzgebirge, Vogtlandkreis und Zwickau."
+              "text": "Im Freistaat Ostdeutschland bestehen die Kreisfreien Städte Chemnitz, Dresden und Leipzig sowie die Landkreise Bautzen, Erzgebirgskreis, Görlitz, Leipzig, Meißen, Mittelsachsen, Nordsachsen, Sächsische Schweiz-Osterzgebirge, Vogtlandkreis und Zwickau."
             }
           ]
         },
@@ -292,14 +290,14 @@
             {
               "type": "item",
               "label": "8.",
-              "text": "der Landkreis Ostdeutsche Schweiz-Osterzgebirge mit dem Sitz des Landratsamtes in Pirna. Ihm gehören an:",
+              "text": "der Landkreis Sächsische Schweiz-Osterzgebirge mit dem Sitz des Landratsamtes in Pirna. Ihm gehören an:",
               "level": 0,
               "numberingStyle": "decimal",
               "children": [
                 {
                   "type": "item",
                   "label": "a)",
-                  "text": "alle Gemeinden des bisherigen Landkreises Ostdeutsche Schweiz und",
+                  "text": "alle Gemeinden des bisherigen Landkreises Sächsische Schweiz und",
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
@@ -1049,7 +1047,7 @@
             {
               "type": "item",
               "label": "8.",
-              "text": "der neu zu bildende Landkreis Ostdeutsche Schweiz-Osterzgebirge in 13 Wahlkreise; davon entfallen auf den aufzulösenden Landkreis Ostdeutsche Schweiz 7 Wahlkreise und auf den aufzulösenden Weißeritzkreis 6 Wahlkreise;",
+              "text": "der neu zu bildende Landkreis Sächsische Schweiz-Osterzgebirge in 13 Wahlkreise; davon entfallen auf den aufzulösenden Landkreis Sächsische Schweiz 7 Wahlkreise und auf den aufzulösenden Weißeritzkreis 6 Wahlkreise;",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []

@@ -68,85 +68,92 @@
                       "level": 0,
                       "listId": "3kfp0q6202rg",
                       "numberingStyle": "decimal",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "1.",
-                      "text": "oben rechts:",
-                      "level": 0,
-                      "listId": "k4uidx8n18cl",
-                      "numberingStyle": "decimal",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "das Feld zeigt auf einem Schild in Weiß (Silber) einen nach rechts blickenden, mit goldenen Kleestengeln auf den Flügeln gezierten und gold bewehrten roten Adler;"
-                    },
-                    {
-                      "type": "item",
-                      "label": "2.",
-                      "text": "oben links:",
-                      "level": 0,
-                      "listId": "k4uidx8n18cl",
-                      "numberingStyle": "decimal",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "das Feld zeigt einen neunmal von Schwarz und Gold geteilten Schild, der von einem schrägrechten grünen Rautenkranz geteilt wird;"
-                    },
-                    {
-                      "type": "item",
-                      "label": "3.",
-                      "text": "unten rechts:",
-                      "level": 0,
-                      "listId": "k4uidx8n18cl",
-                      "numberingStyle": "decimal",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "das Feld zeigt den Mecklenburgischen Stierkopf auf goldenem Grund;"
-                    },
-                    {
-                      "type": "item",
-                      "label": "4.",
-                      "text": "unten links:",
-                      "level": 0,
-                      "listId": "k4uidx8n18cl",
-                      "numberingStyle": "decimal",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "das Feld zeigt in Silber einen schreitenden schwarzen Bären auf einer schwarzgefugten roten Zinnenmauer mit offenem Tor;"
-                    },
-                    {
-                      "type": "item",
-                      "label": "5.",
-                      "text": "mittig:",
-                      "level": 0,
-                      "listId": "k4uidx8n18cl",
-                      "numberingStyle": "decimal",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "das Feld zeigt einen aufgerichteten schwarzen Bären mit roter Zunge und roten Krallen;"
-                    },
-                    {
-                      "type": "item",
-                      "label": "6.",
-                      "text": "mittig unten:",
-                      "level": 0,
-                      "listId": "k4uidx8n18cl",
-                      "numberingStyle": "decimal",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "das Feld zeigt einen aufrecht stehenden, achtfach rot-silbern gestreiften, goldgekrönten und goldbewehrten Löwe auf blauem Grund, umgeben von acht silbernen Sternen."
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "1.",
+                          "text": "oben rechts:",
+                          "level": 1,
+                          "listId": "k4uidx8n18cl",
+                          "numberingStyle": "decimal",
+                          "children": [
+                            {
+                              "type": "paragraphText",
+                              "text": "das Feld zeigt auf einem Schild in Weiß (Silber) einen nach rechts blickenden, mit goldenen Kleestengeln auf den Flügeln gezierten und gold bewehrten roten Adler;"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "item",
+                          "label": "2.",
+                          "text": "oben links:",
+                          "level": 1,
+                          "listId": "k4uidx8n18cl",
+                          "numberingStyle": "decimal",
+                          "children": [
+                            {
+                              "type": "paragraphText",
+                              "text": "das Feld zeigt einen neunmal von Schwarz und Gold geteilten Schild, der von einem schrägrechten grünen Rautenkranz geteilt wird;"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "item",
+                          "label": "3.",
+                          "text": "unten rechts:",
+                          "level": 1,
+                          "listId": "k4uidx8n18cl",
+                          "numberingStyle": "decimal",
+                          "children": [
+                            {
+                              "type": "paragraphText",
+                              "text": "das Feld zeigt den Mecklenburgischen Stierkopf auf goldenem Grund;"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "item",
+                          "label": "4.",
+                          "text": "unten links:",
+                          "level": 1,
+                          "listId": "k4uidx8n18cl",
+                          "numberingStyle": "decimal",
+                          "children": [
+                            {
+                              "type": "paragraphText",
+                              "text": "das Feld zeigt in Silber einen schreitenden schwarzen Bären auf einer schwarzgefugten roten Zinnenmauer mit offenem Tor;"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "item",
+                          "label": "5.",
+                          "text": "mittig:",
+                          "level": 1,
+                          "listId": "k4uidx8n18cl",
+                          "numberingStyle": "decimal",
+                          "children": [
+                            {
+                              "type": "paragraphText",
+                              "text": "das Feld zeigt einen aufgerichteten schwarzen Bären mit roter Zunge und roten Krallen;"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "item",
+                          "label": "6.",
+                          "text": "mittig unten:",
+                          "level": 1,
+                          "listId": "k4uidx8n18cl",
+                          "numberingStyle": "decimal",
+                          "children": [
+                            {
+                              "type": "paragraphText",
+                              "text": "das Feld zeigt einen aufrecht stehenden, achtfach rot-silbern gestreiften, goldgekrönten und goldbewehrten Löwe auf blauem Grund, umgeben von acht silbernen Sternen."
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "subparagraph",
@@ -390,7 +397,7 @@
                 {
                   "type": "paragraph",
                   "label": "§ 8",
-                  "title": "Beschreibung und führungs- berechtigte Stellen",
+                  "title": "Beschreibung und führungsberechtigte Stellen",
                   "children": [
                     {
                       "type": "subparagraph",

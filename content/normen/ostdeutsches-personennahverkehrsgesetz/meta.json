@@ -1,7 +1,8 @@
 {
   "id": "ostdeutsches-personennahverkehrsgesetz",
   "slug": "ostdeutsches-personennahverkehrsgesetz",
-  "title": "Ostdeutsches Personennahverkehrsgesetz",
+  "title": "Gesetz über den öffentlichen Personennahverkehr im Ostdeutschen Freistaat",
+  "shortTitle": "Ostdeutsche Personennahverkehrsgesetz",
   "abbr": "ÖPNVG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
@@ -11,10 +12,6 @@
   "primarySubject": "Verkehr",
   "keywords": [
     "Gesetz über den öffentlichen Personennahverkehr im Freistaat Ostdeutschland",
-    "Gesetz",
-    "öffentlichen",
-    "Personennahverkehr",
-    "Freistaat",
     "Ostdeutschland"
   ],
   "initialCitation": "Gesetz über den öffentlichen Personennahverkehr im Freistaat Ostdeutschland vom 14. Dezember 1995 (SächsGVBl. S. 412, 449), das zuletzt durch Artikel 36 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130) geändert worden ist",
@@ -43,20 +40,34 @@
     },
     {
       "kind": "amendment-source",
-      "label": "OGVBl. 2026 Nr. 46",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
-    },
-    {
-      "kind": "amendment-source",
       "label": "OGVBl. 2026 Nr. 47",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 47.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
     }
   ],
   "affectedByNorms": [
     "erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr",
     "kreis-und-bezirksneuordnungsgesetz",
     "ostdeutsche-eisenbahn-neuordnungsgesetz"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "personennahverkehr-paragrafen-2-und-4a-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-18",
+      "issue": "Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 29) leitet in Nummer 4 (S. 2) mit „§ 2 wird wie folgt gefasst:“ ein, enthält aber nur drei Einzeländerungen (Buchstaben a bis c) und keinen Neufassungstext. Nummer 6 (S. 6) ordnet die Einfügung eines § 4a nach § 4 an; der zitierte Paragraph trägt die Bezeichnung „§ 4“.",
+      "publishedText": "4. § 2 wird wie folgt gefasst: a. In Absatz 1 Satz 2 … b. In Absatz 5 … c. In Absatz 7 Satz 3 … 6. Nach § 4 wird folgender § 4a eingefügt: „§ 4 Preisgestaltung (1) …“",
+      "resolvedApplication": "Nummer 4 wird als Änderung von § 2 angewandt: Die Buchstaben a bis c werden in Absatz 1 Satz 2, Absatz 5 und Absatz 7 Satz 3 umgesetzt, die übrigen Teile von § 2 bleiben unverändert. Der nach Nummer 6 eingefügte Paragraph wird nach § 4 als § 4a „Preisgestaltung“ geführt, wie es der Einleitungssatz und die Inhaltsübersicht nach Nummer 2 Buchstabe c bestimmen.",
+      "rationale": "Entscheidung der Projektleitung vom 18. November 2026: Ein Änderungsbefehl, der nicht wörtlich auf die Vorfassung passt, wird nach seinem erkennbar gemeinten Inhalt angewandt und dokumentiert.",
+      "evidence": [
+        "Gesetze/OGVBl. 2026 Nr. 29.pdf"
+      ]
+    }
   ]
 }

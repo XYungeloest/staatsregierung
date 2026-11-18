@@ -34,7 +34,7 @@
   "body": [
     {
       "type": "paragraphText",
-      "text": "Der Ostdeutsche Landtag hat am 6. März 2025 folgendes Gesetz beschlossen."
+      "text": "Der Ostdeutsche Landtag hat am 06.03.2025 folgendes Gesetz beschlossen"
     },
     {
       "type": "article",
@@ -74,10 +74,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "subparagraph",
-                      "label": "(1)",
-                      "text": "Keinerlei Verfassungs- oder Gesetzes- oder Verordnungsänderung oder -einführung darf den Grundgedanken des demokratischen, republikanischen Rechtsstaates und der parlamentarischen Staatsform antasten.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "Keinerlei Verfassungs- oder Gesetzes- oder Verordnungsänderung oder -einführung darf den Grundgedanken des demokratischen, republikanischen Rechtsstaates und der parlamentarischen Staatsform antasten."
                     }
                   ]
                 }
@@ -95,10 +93,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "subparagraph",
-                      "label": "(2)",
-                      "text": "Die Errichtung einer Diktatur, unabhängig der Form, ist verboten.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "Die Errichtung einer Diktatur, unabhängig der Form, ist verboten."
                     }
                   ]
                 }
@@ -116,10 +112,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "subparagraph",
-                      "label": "(3)",
-                      "text": "Den in Absatz 1 und 2 genannten Vorschriften widersprechende Gesetze, Verordnungen und Beschlüsse sind nicht auszuarbeiten, nicht zu verkünden, oder, bei vorausgegangener Verkündung, nicht zu befolgen.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "Den in Absatz 1 und 2 genannten Vorschriften widersprechende Gesetze, Verordnungen und Beschlüsse sind nicht auszuarbeiten, nicht zu verkünden, oder, bei vorausgegangener Verkündung, nicht zu befolgen."
                     }
                   ]
                 }
@@ -139,6 +133,21 @@
           "text": "Das Gesetz tritt am Tage seiner Verkündung in Kraft."
         }
       ]
+    },
+    {
+      "type": "signature",
+      "title": "Der Landtagspräsident",
+      "text": "Herr Wolfgang Schmidt"
+    },
+    {
+      "type": "signature",
+      "title": "Der Ministerpräsident",
+      "text": "Herr Liam Flüsterbein"
+    },
+    {
+      "type": "signature",
+      "title": "Der Staatsminister des Innern & der Justiz",
+      "text": "Herr Liam Flüsterbein"
     }
   ]
 }

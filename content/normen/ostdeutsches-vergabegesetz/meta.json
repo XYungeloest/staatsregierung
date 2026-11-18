@@ -4,14 +4,16 @@
   "title": "Gesetz über die Vergabe öffentlicher Aufträge im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Vergabegesetz",
   "shortTitleSource": "official",
-  "abbr": "OstVergabeG",
+  "abbr": "VgGe",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
     "Öffentliches Auftragswesen"
   ],
   "primarySubject": "Öffentliches Auftragswesen",
-  "keywords": [],
+  "keywords": [
+    "OstVergabeG"
+  ],
   "initialCitation": "Ostdeutsches Vergabegesetz vom 14. Februar 2013 (SächsGVBl. S. 109), das durch Artikel 2 Absatz 18 des Gesetzes vom 5. April 2019 (SächsGVBl. S. 245) geändert worden ist",
   "predecessor": null,
   "successor": null,
@@ -31,6 +33,15 @@
       "fsnNumber": "56-4/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 7)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 7.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes"
   ]
 }

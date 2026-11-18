@@ -40,11 +40,12 @@
           "level": 0,
           "listId": "oo9cn27pgajn",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "An allen Schulen mit Ausnahme der Schulen im sorbischen Siedlungsgebiet, an denen Sorbisch als Muttersprache, Zweitsprache oder Fremdsprache unterrichtet wird, gilt die als Anlage 1 beigefügte Stundentafel."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "An allen Schulen mit Ausnahme der Schulen im sorbischen Siedlungsgebiet, an denen Sorbisch als Muttersprache, Zweitsprache oder Fremdsprache unterrichtet wird, gilt die als Anlage 1 beigefügte Stundentafel."
+            }
+          ]
         },
         {
           "type": "item",
@@ -53,11 +54,12 @@
           "level": 0,
           "listId": "oo9cn27pgajn",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "An allen Schulen im sorbischen Siedlungsgebiet, an denen Sorbisch als Muttersprache oder Sorbisch als Zweitsprache unterrichtet wird, wird der Unterricht in “Deutsche Literatur und Sprache” um je 2 Wochenstunden erhöht und als “Sorbisch-Deutsch” unterrichtet. Der muttersprachliche Unterricht in Sorbisch wird in Gruppen erteilt. Die konkrete Stundenverteilung Sorbisch-Deutsch erfolgt in der pädagogischen Verantwortung der Schule. Ab Klassenstufe 4 kann für Sorbisch zusätzlich eine Stunde der Angebote zur individuellen Förderung eingesetzt werden. Schulen im sorbischen Siedlungsgebiet, die Sorbisch als Fremdsprache unterrichten, erteilen das Fach “Sorbisch” mit je 2 Wochenstunden zusätzlich zur Stundentafel in Anlage 1."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "An allen Schulen im sorbischen Siedlungsgebiet, an denen Sorbisch als Muttersprache oder Sorbisch als Zweitsprache unterrichtet wird, wird der Unterricht in “Deutsche Literatur und Sprache” um je 2 Wochenstunden erhöht und als “Sorbisch-Deutsch” unterrichtet. Der muttersprachliche Unterricht in Sorbisch wird in Gruppen erteilt. Die konkrete Stundenverteilung Sorbisch-Deutsch erfolgt in der pädagogischen Verantwortung der Schule. Ab Klassenstufe 4 kann für Sorbisch zusätzlich eine Stunde der Angebote zur individuellen Förderung eingesetzt werden. Schulen im sorbischen Siedlungsgebiet, die Sorbisch als Fremdsprache unterrichten, erteilen das Fach “Sorbisch” mit je 2 Wochenstunden zusätzlich zur Stundentafel in Anlage 1."
+            }
+          ]
         }
       ]
     },
@@ -93,64 +95,69 @@
       "label": "Anlage 1",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Stundentafel der Polytechnischen Oberschule"
+        },
+        {
           "type": "table",
           "children": [
             {
               "type": "tableRow",
               "children": [
                 {
-                  "type": "tableCell",
-                  "text": "Stundentafel der Polytechnischen Oberschule",
-                  "colspan": 11
-                }
-              ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "Fach / Bereich"
+                  "type": "tableHeaderCell",
+                  "text": "Fach / Bereich",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 1"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 1",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 2"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 2",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 3"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 3",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 4"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 4",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 5"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 5",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 6"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 6",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 7"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 7",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 8"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 8",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 9"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 9",
+                  "scope": "col"
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Kl. 10"
+                  "type": "tableHeaderCell",
+                  "text": "Kl. 10",
+                  "scope": "col"
                 }
               ]
             },
@@ -1427,29 +1434,17 @@
                   "text": "38"
                 }
               ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "Hinweis:",
-                  "colspan": 11
-                }
-              ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "Die angegebenen Stunden bei TZ, IB, WSN, ESP und PA sind Teil der Gesamtstundenzahl des Faches Polytechnik.",
-                  "colspan": 11
-                }
-              ]
             }
           ],
           "columns": 11
+        },
+        {
+          "type": "paragraphText",
+          "text": "Hinweis:"
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die angegebenen Stunden bei TZ, IB, WSN, ESP und PA sind Teil der Gesamtstundenzahl des Faches Polytechnik."
         }
       ]
     }

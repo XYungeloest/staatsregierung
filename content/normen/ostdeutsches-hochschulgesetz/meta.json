@@ -3,7 +3,7 @@
   "slug": "ostdeutsches-hochschulgesetz",
   "title": "Gesetz über die Hochschulen im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Hochschulgesetz",
-  "abbr": "OstHSG",
+  "abbr": "HSG",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
@@ -11,7 +11,9 @@
     "Bildungswesen"
   ],
   "primarySubject": "Bildungswesen",
-  "keywords": [],
+  "keywords": [
+    "OstHSG"
+  ],
   "initialCitation": "Ostdeutsches Hochschulgesetz vom 31. Mai 2023 (SächsGVBl. S. 329)",
   "predecessor": null,
   "successor": null,
@@ -32,22 +34,35 @@
       "fsnNumber": "711-8/4"
     },
     {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2024-01-01 bis 2024-03-31",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-hochschulgesetz/19986.2.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19986.2",
+      "retrievedAt": "2026-11-18",
+      "sha256": "e17785b4bbf26983eca87d8f9fba49b81e33b69a00121de6555f43322b6243ee",
+      "lawId": "19986",
+      "sourceValidFrom": "2024-01-01",
+      "sourceValidTo": "2024-03-31",
+      "fsnNumber": "711-8/4"
+    },
+    {
       "kind": "amendment-source",
-      "label": "Gesetz vom 27. Januar 2026 (OGVBl. 2026 Nr. 8)",
+      "label": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 6)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 6.html"
     },
     {
       "kind": "amendment-source",
-      "label": "Gesetz vom 19. Juli 2026 (OGVBl. 2026 Nr. 50)",
+      "label": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 57)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 57.html"
     },
     {
       "kind": "amendment-source",
-      "label": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 55)",
+      "label": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl.2026Nr.68.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
     },
     {
       "kind": "amendment-source",

@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "verwaltungsvorschrift-des-ministerprasidenten-uber-die-befla-5f4v7g",
+  "effectiveDate": "2025-12-06",
+  "versionId": "2025-12-06",
+  "amendmentCitation": "Verwaltungsvorschrift vom 6. Dezember 2025 (OABl. 2025 Nr. 5 S. 2)",
+  "resultCitation": "VwV Beflaggung vom 18. September 2013 (SächsABl. S. 979)",
+  "changeNote": "Mit Inkrafttreten der Verwaltungsvorschrift des Ministerpräsidenten über die Beflaggung der Dienstgebäude nach deren Abschnitt E außer Kraft getreten.",
+  "commandCoverage": [
+    "Abschnitt E"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OABl. 2025 Nr. 5, Abschnitt E",
+      "availability": "versioned",
+      "localSource": "Gesetze/OABl. 2025 Nr. 5.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "810b0f1830e5f844944c50770e21e594ec6a1f515dcb3cea5b9184a9d6766a75",
+      "expectedMatches": 1,
+      "sourceProvision": "Abschnitt E",
+      "source": "Gesetze/OABl. 2025 Nr. 5.html",
+      "effectiveDate": "2025-12-06"
+    }
+  ],
+  "repealsLaw": true
+}

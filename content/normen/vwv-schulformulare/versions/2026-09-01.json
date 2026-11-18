@@ -16,7 +16,7 @@
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliche REVOSax-Anlage 2 (Ausgangsformular)",
+      "label": "Amtliche REVOSax-Anlage 2 (Ausgangsformular ohne die Änderungen nach Nummer 4 der Verwaltungsvorschrift vom 16. August 2026)",
       "availability": "versioned",
       "localSource": "data/recht/sources/revosax/vwv-schulformulare/anlage-2.pdf",
       "url": "https://www.revosax.sachsen.de/attachments/33341",
@@ -588,27 +588,8 @@
           "text": "Anlage 1c"
         },
         {
-          "type": "section",
-          "label": "Anlage 2",
-          "title": "Schülerkartei",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Amtlicher Formularvordruck; die Zeile „Religionszugehörigkeit: nein/ja“ entfällt."
-            },
-            {
-              "type": "item",
-              "label": "4",
-              "text": "Nur in der Primarstufe der Polytechnischen Oberschule nach § 5 Absatz 2 SOPOS und an Förderschulen nach § 14 Absatz 1 Satz 6 Nummer 10 SOFS.",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "paragraphText",
-              "text": "Anmeldung, Abmeldung und Teilnahme an freiwilligem Religions- oder Weltanschauungsunterricht werden nicht in der allgemeinen Schülerkartei, sondern ausschließlich in den Formularen ERW-1 und ERW-2 nach der VwV Ethik sowie Religions- und Weltanschauungsunterricht dokumentiert."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Anlage 2"
         },
         {
           "type": "paragraphText",

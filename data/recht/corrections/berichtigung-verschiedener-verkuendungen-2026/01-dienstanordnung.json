@@ -14,16 +14,16 @@
     {
       "target": {
         "type": "paragraphText",
-        "text": "Die Dienstanordnung wurde am 2. Oktober 2024 verkündet."
+        "text": "Die Ostdeutsche Staatsregierung hat am 2. Oktober 2024 die folgende Verordnung erlassen:"
       },
-      "equals": "Die Dienstanordnung wurde am 2. Oktober 2024 verkündet."
+      "equals": "Die Ostdeutsche Staatsregierung hat am 2. Oktober 2024 die folgende Verordnung erlassen:"
     },
     {
       "target": {
         "type": "paragraphText",
-        "text": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft. Sie kann jederzeit verlängert werden."
+        "text": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft."
       },
-      "equals": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft. Sie kann jederzeit verlängert werden."
+      "equals": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft."
     }
   ],
   "operations": [
@@ -31,11 +31,25 @@
       "op": "replaceText",
       "target": {
         "type": "paragraphText",
-        "text": "Die Verordnung tritt am Tage der Verkündung in Kraft und am 06.10.2024 außer Kraft. Sie kann jederzeit verlängert werden."
+        "text": "Die Ostdeutsche Staatsregierung hat am 23. September 2024 die folgende Verordnung erlassen:"
       },
       "field": "text",
-      "expectedOld": "Die Verordnung tritt am Tage der Verkündung in Kraft und am 06.10.2024 außer Kraft. Sie kann jederzeit verlängert werden.",
-      "value": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft. Sie kann jederzeit verlängert werden.",
+      "expectedOld": "Die Ostdeutsche Staatsregierung hat am 23. September 2024 die folgende Verordnung erlassen:",
+      "value": "Die Ostdeutsche Staatsregierung hat am 2. Oktober 2024 die folgende Verordnung erlassen:",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 1",
+      "effectiveDate": "2024-10-02"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Verordnung tritt am Tage der Verkündung in Kraft."
+      },
+      "field": "text",
+      "expectedOld": "Die Verordnung tritt am Tage der Verkündung in Kraft.",
+      "value": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft.",
       "expectedMatches": 1,
       "source": "Gesetze/OGVBl.2026Nr.68.html",
       "sourceProvision": "Nummer 1",

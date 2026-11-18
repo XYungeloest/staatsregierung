@@ -3,6 +3,7 @@
   "slug": "saechsische-gemeindeordnung",
   "title": "Gemeindeordnung für den Ostdeutschen Freistaat",
   "shortTitle": "Ostdeutsche Gemeindeordnung",
+  "abbr": "OstGemO",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
@@ -11,7 +12,6 @@
   ],
   "primarySubject": "Kommunalrecht",
   "keywords": [
-    "OstGemO",
     "Gemeinden",
     "Kommunalrecht",
     "Gemeinderat"
@@ -46,7 +46,21 @@
       "sha256": "b45488fecc8933291d6feb0687927267aedca3866bb2b66da5ed6f61eb1fc45f",
       "lawId": "2754",
       "sourceValidFrom": "2023-12-31",
-      "sourceValidTo": "2023-12-31"
+      "sourceValidTo": "2023-12-31",
+      "fsnNumber": "230-1"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2024-01-01 bis 2024-06-28",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/saechsische-gemeindeordnung/2754.42.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2754.42",
+      "retrievedAt": "2026-11-18",
+      "sha256": "7420f2ec9640d759f00e7d9cb1caace43b71c6716303288213b2a84a74eb5469",
+      "lawId": "2754",
+      "sourceValidFrom": "2024-01-01",
+      "sourceValidTo": "2024-06-28",
+      "fsnNumber": "230-1"
     },
     {
       "kind": "amendment-source",

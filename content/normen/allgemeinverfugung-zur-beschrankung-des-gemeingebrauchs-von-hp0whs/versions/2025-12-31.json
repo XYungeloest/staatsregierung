@@ -13,8 +13,11 @@
     {
       "type": "section",
       "label": "I.",
-      "title": "Im Zeitraum vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr, wird im folgend bezeichneten Bereich der Gemeingebrauch öffentlicher Flächen dahingehend beschränkt, dass sowohl ein Mitführen und Verwenden von pyrotechnischen Gegenständen der Kategorien F2, F3 und F4 gemäß § 3a Absatz 1 Buchstabe b bis d sowie sonstiger pyrotechnischer Gegenstände gemäß § 3a Absatz 1 des Gesetzes über explosionsgefährliche Stoffe (SprengG), auch von außen in den Bereich hinein, als auch das Führen von Waffen und Messern in folgenden Grenzen untersagt ist:",
       "children": [
+        {
+          "type": "paragraphText",
+          "text": "Im Zeitraum vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr, wird im folgend bezeichneten Bereich der Gemeingebrauch öffentlicher Flächen dahingehend beschränkt, dass sowohl ein Mitführen und Verwenden von pyrotechnischen Gegenständen der Kategorien F2, F3 und F4 gemäß § 3a Absatz 1 Buchstabe b bis d sowie sonstiger pyrotechnischer Gegenstände gemäß § 3a Absatz 1 des Gesetzes über explosionsgefährliche Stoffe (SprengG), auch von außen in den Bereich hinein, als auch das Führen von Waffen und Messern in folgenden Grenzen untersagt ist:"
+        },
         {
           "type": "paragraphText",
           "text": "Nordosten"
@@ -180,20 +183,31 @@
     {
       "type": "section",
       "label": "II.",
-      "title": "Bei Zuwiderhandlung gegen I. kann die Polizei mitgeführte pyrotechnische Gegenstände, Waffen und Messer sicherstellen und vernichten. Die gegebenenfalls erforderliche Anwendung von unmittelbarem Zwang zur Durchsetzung der Maßnahme wird hiermit angedroht.",
-      "children": []
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Bei Zuwiderhandlung gegen I. kann die Polizei mitgeführte pyrotechnische Gegenstände, Waffen und Messer sicherstellen und vernichten. Die gegebenenfalls erforderliche Anwendung von unmittelbarem Zwang zur Durchsetzung der Maßnahme wird hiermit angedroht."
+        }
+      ]
     },
     {
       "type": "section",
       "label": "III.",
-      "title": "Die sofortige Vollziehung der Verfügung nach Nummer I wird gemäß § 80 Absatz 2 Satz 1 Nummer 4 der Verwaltungsgerichtsordnung (VwGO) angeordnet.",
-      "children": []
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die sofortige Vollziehung der Verfügung nach Nummer I wird gemäß § 80 Absatz 2 Satz 1 Nummer 4 der Verwaltungsgerichtsordnung (VwGO) angeordnet."
+        }
+      ]
     },
     {
       "type": "section",
       "label": "IV.",
-      "title": "Die Allgemeinverfügung gilt an dem Tag als bekannt gegeben, an dem die öffentliche Bekanntgabe folgt.",
       "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Allgemeinverfügung gilt an dem Tag als bekannt gegeben, an dem die öffentliche Bekanntgabe folgt."
+        },
         {
           "type": "paragraphText",
           "text": "Einsichtnahme"

@@ -1,5 +1,8 @@
 {
   "versionId": "2026-09-12",
+  "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland",
+  "shortTitle": "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
+  "abbr": "OstKHFondsG",
   "validFrom": "2026-09-12",
   "validTo": null,
   "isCurrent": true,
@@ -19,18 +22,11 @@
       "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
     }
   ],
-  "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland",
-  "shortTitle": "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
-  "abbr": "OstKHFondsG",
   "body": [
     {
       "type": "section",
       "label": "Abschnitt 1",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Allgemeine Bestimmungen"
-        },
         {
           "type": "paragraph",
           "label": "§ 1",
@@ -248,16 +244,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Allgemeine Bestimmungen"
     },
     {
       "type": "section",
       "label": "Abschnitt 2",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Fondsbewirtschaftung"
-        },
         {
           "type": "paragraph",
           "label": "§ 4",
@@ -488,16 +481,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Fondsbewirtschaftung"
     },
     {
       "type": "section",
       "label": "Abschnitt 3",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Leistungen des Fonds"
-        },
         {
           "type": "paragraph",
           "label": "§ 7",
@@ -1005,16 +995,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Leistungen des Fonds"
     },
     {
       "type": "section",
       "label": "Abschnitt 4",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Verfahren und Bindungen"
-        },
         {
           "type": "paragraph",
           "label": "§ 13",
@@ -1480,16 +1467,13 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Verfahren und Bindungen"
     },
     {
       "type": "section",
       "label": "Abschnitt 5",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Schlussbestimmungen"
-        },
         {
           "type": "paragraph",
           "label": "§ 20",
@@ -1564,7 +1548,8 @@
             }
           ]
         }
-      ]
+      ],
+      "title": "Schlussbestimmungen"
     }
   ]
 }

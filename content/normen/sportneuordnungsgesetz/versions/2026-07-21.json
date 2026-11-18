@@ -3838,22 +3838,16 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraph",
-                  "label": "§ 6a",
-                  "title": "Schulsport und Sportdiagnostik",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "„§ 6a Schulsport und Sportdiagnostik"
                 },
                 {
-                  "type": "paragraph",
-                  "label": "§ 6b",
-                  "title": "Ostdeutsche Sportschulen",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "§ 6b Ostdeutsche Sportschulen"
                 },
                 {
-                  "type": "paragraph",
-                  "label": "§ 6c",
-                  "title": "Sportklassen und Nachführunterricht“.",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "§ 6c Sportklassen und Nachführunterricht“."
                 }
               ]
             }
@@ -4056,8 +4050,10 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraphText",
-                      "text": "„(4) Schulen, die bei Inkrafttreten des Ostdeutschen Sportneuordnungsgesetzes als Schulen mit vertiefter sportlicher Ausbildung, Eliteschulen des Sports, sportbetonte Schulen oder vergleichbare Einrichtungen geführt werden, gelten bis zum Ablauf des 31. August 2026 als vorläufige Ostdeutsche Sportschulen. Die oberste Schulaufsichtsbehörde entscheidet bis zu diesem Zeitpunkt über ihre Anerkennung nach § 8.“"
+                      "type": "subparagraph",
+                      "label": "„(4)",
+                      "text": "Schulen, die bei Inkrafttreten des Ostdeutschen Sportneuordnungsgesetzes als Schulen mit vertiefter sportlicher Ausbildung, Eliteschulen des Sports, sportbetonte Schulen oder vergleichbare Einrichtungen geführt werden, gelten bis zum Ablauf des 31. August 2026 als vorläufige Ostdeutsche Sportschulen. Die oberste Schulaufsichtsbehörde entscheidet bis zu diesem Zeitpunkt über ihre Anerkennung nach § 8.“",
+                      "children": []
                     }
                   ]
                 }
@@ -4097,10 +4093,8 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraph",
-                  "label": "§ 7a",
-                  "title": "Bewegungsförderung“.",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "„§ 7a Bewegungsförderung“."
                 }
               ]
             }
@@ -4240,10 +4234,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 13a",
-                      "title": "Bezirkliche Sportkoordination“.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "„§ 13a Bezirkliche Sportkoordination“."
                     }
                   ]
                 }
@@ -4264,7 +4256,7 @@
               "children": [
                 {
                   "type": "item",
-                  "label": "10.",
+                  "label": "„10.",
                   "text": "bezirkliche Sportentwicklung und Sportkoordination nach Maßgabe des Ostdeutschen Sportfördergesetzes,“.",
                   "level": 0,
                   "listId": "printed-outline",
@@ -4341,10 +4333,8 @@
               "type": "quotedProvision",
               "children": [
                 {
-                  "type": "paragraph",
-                  "label": "§ 5a",
-                  "title": "Spitzensport und Hochschulsport“.",
-                  "children": []
+                  "type": "paragraphText",
+                  "text": "„§ 5a Spitzensport und Hochschulsport“."
                 }
               ]
             }
@@ -4496,10 +4486,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 96a",
-                      "title": "Sportförderstellen“.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "„§ 96a Sportförderstellen“."
                     }
                   ]
                 }
@@ -4680,10 +4668,8 @@
                   "type": "quotedProvision",
                   "children": [
                     {
-                      "type": "paragraph",
-                      "label": "§ 17a",
-                      "title": "Bewegungs- und Sportprävention“.",
-                      "children": []
+                      "type": "paragraphText",
+                      "text": "„§ 17a Bewegungs- und Sportprävention“."
                     }
                   ]
                 }
@@ -4917,7 +4903,7 @@
   "sourceReferences": [
     {
       "kind": "amendment-source",
-      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl.2026Nr.68.html",
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
@@ -4928,7 +4914,7 @@
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
       "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
@@ -4943,7 +4929,7 @@
   "sourceNotes": [
     {
       "label": "Amtliche Berichtigung",
-      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3): Der Einleitungssatz von Artikel 8 wurde amtlich auf die Neufassung der Bezirksordnung aus OGVBl. 2026 Nr. 46 berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2026-07-21."
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4): Der Einleitungssatz von Artikel 8 wurde amtlich auf die Neufassung der Bezirksordnung aus OGVBl. 2026 Nr. 46 berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2026-07-21."
     }
   ]
 }
