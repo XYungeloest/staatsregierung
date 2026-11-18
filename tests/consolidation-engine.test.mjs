@@ -211,3 +211,21 @@ test('ein zitierter Eintrag der Inhaltsübersicht darf keine vollständige Vorsc
   ] };
   assert.deepEqual(applyPatchRecipe(state, recipe).body[1], operation.value);
 });
+
+test('gespeicherte Fassungsbezeichnung: feste Schlüsselreihenfolge und kein Kurztitel, der den Titel wiederholt', async () => {
+  const { mergeStoredVersionIdentity } = await import('../scripts/consolidate-norms.mjs');
+  const generated = {
+    versionId: '2031-01-01', validFrom: '2031-01-01', validTo: null, isCurrent: true, citation: 'Beispielgesetz',
+    sourceReferences: [{ kind: 'amendment-source', localSource: 'Gesetze/Beispiel.html' }],
+    title: 'Gesetz über ein Beispiel im Freistaat (Beispielgesetz – BspG)', shortTitle: 'Beispielgesetz', body: [],
+  };
+  const fresh = mergeStoredVersionIdentity(generated, {}, generated.sourceReferences);
+  assert.deepEqual(Object.keys(fresh).slice(0, 3), ['versionId', 'title', 'shortTitle']);
+  const rerun = mergeStoredVersionIdentity(generated, { title: fresh.title, shortTitle: fresh.shortTitle }, generated.sourceReferences);
+  assert.deepEqual(Object.keys(rerun), Object.keys(fresh), 'ein zweiter Schreiblauf ordnet nichts um');
+  const kept = mergeStoredVersionIdentity(generated, { title: 'Beispielgesetz' }, generated.sourceReferences);
+  assert.equal(kept.title, 'Beispielgesetz');
+  assert.equal('shortTitle' in kept, false, 'der berechnete Kurztitel wiederholt den gespeicherten Titel');
+  const redaktionell = mergeStoredVersionIdentity(generated, { title: 'Beispielgesetz', shortTitle: 'Kurzform' }, generated.sourceReferences);
+  assert.deepEqual([redaktionell.title, redaktionell.shortTitle], ['Beispielgesetz', 'Kurzform']);
+});

@@ -62,6 +62,34 @@ export function applyRechtsueberleitung({ meta, history, versions }, { adapt = t
  * versionierte eigene Ausgangsfassung (existingVersionSeed) bleibt unverändert, weil der
  * Adapter dort Eigennamen überschriebe (Bezirk „Sachsen“ → „Ostdeutschland“).
  */
+const VERSION_IDENTITY_FIELDS = ['title', 'shortTitle', 'abbr'];
+
+/**
+ * Eine gespeicherte Fassung trägt ihre eigene, redaktionell gepflegte Bezeichnung (`preserved`:
+ * die vorhandenen Felder aus title, shortTitle und abbr). Die Bezeichnung steht unabhängig davon,
+ * ob die Fassung schon gespeichert war, direkt hinter versionId; sonst ordnet ein zweiter
+ * Schreiblauf die Schlüssel einer neu erzeugten Fassung um. Nach dem Zusammenführen wird die
+ * Bezeichnung wie beim Erzeugen aufgelöst: Ein neu berechneter Kurztitel, der den gespeicherten
+ * Titel wiederholt, oder eine nicht mehr passende Abkürzung entfällt.
+ */
+export function mergeStoredVersionIdentity(version, preserved = {}, sourceReferences = undefined) {
+  const identityOrder = Object.fromEntries(VERSION_IDENTITY_FIELDS
+    .filter((field) => preserved[field] !== undefined || version[field] !== undefined)
+    .map((field) => [field, undefined]));
+  const merged = {
+    versionId: version.versionId,
+    ...identityOrder,
+    ...version,
+    ...(sourceReferences ? { sourceReferences } : {}),
+    ...preserved,
+  };
+  const resolved = resolveIdentityFields(merged);
+  for (const field of VERSION_IDENTITY_FIELDS) {
+    if (resolved[field] === undefined || resolved[field] === '') delete merged[field];
+  }
+  return merged;
+}
+
 export function usesRechtsueberleitung(source) {
   return Boolean(source?.snapshot || (source?.adoptedSources ?? []).some((entry) => entry.snapshot));
 }
@@ -599,20 +627,10 @@ async function consolidate(slug, config) {
     return;
   }
   const versionsWithMetadata = await Promise.all(versions.map(async (version) => {
-    // Eine gespeicherte Fassung trägt ihre eigene, redaktionell gepflegte Bezeichnung. Der doppelte
-    // Spread ist Absicht: JavaScript nimmt die Schlüsselreihenfolge vom ersten Vorkommen, den Wert
-    // vom letzten. Eine „Vereinfachung“ zu `{ ...version, ...preserved }` erzeugt eine andere
-    // Schlüsselreihenfolge und damit hunderte Byte-Diffs, ohne dass ein Test anschlägt.
     const preserved = await existingVersionMetadata(normDirectory, version.versionId);
     const previousReferences = await existingVersionSourceReferences(normDirectory, version.versionId);
     const sourceReferences = version.sourceReferences?.map((reference) => retainFsnNumber(reference, previousReferences));
-    return {
-      versionId: version.versionId,
-      ...preserved,
-      ...version,
-      ...(sourceReferences ? { sourceReferences } : {}),
-      ...preserved,
-    };
+    return mergeStoredVersionIdentity(version, preserved, sourceReferences);
   }));
   // Rechtsüberleitung erst auf dem konsolidierten Ergebnis (siehe applyRechtsueberleitung) und
   // nur für Fassungen mit REVOSax-Provenienz; eigene ostdeutsche Vorschriften behalten ihre
