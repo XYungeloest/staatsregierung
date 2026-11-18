@@ -43,7 +43,7 @@ import { fixtureCorpus } from './helpers/fixture-corpus.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import {
-  buildSyncPlan, corpusOverviewMeta, createStats, deleteNormQueries, derivedQueries, estimatePlanCost, inventoryNorms, keywordEntries, normQueries, recordResults, SyncBudgetExceeded, summarizeStatements,
+  addNormsCitingPublications, buildSyncPlan, corpusOverviewMeta, createStats, deleteNormQueries, derivedQueries, estimatePlanCost, inventoryNorms, keywordEntries, normQueries, recordResults, SyncBudgetExceeded, summarizeStatements,
 } from '../scripts/sync-recht-d1.mjs';
 import { SEARCH_TRIGGERS, SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from '../scripts/lib/d1-search-schema.mjs';
 
@@ -110,6 +110,7 @@ test('einzelner Slug: nur Zeilen dieser Norm über Indizes, kein Reset; Derived-
     'DELETE FROM law_norm_subjects WHERE norm_id = ?',
     'DELETE FROM law_norm_keywords WHERE norm_id = ?',
     'DELETE FROM law_norm_history WHERE norm_id = ?',
+    'DELETE FROM law_search_documents WHERE norm_id = ?',
     'DELETE FROM law_source_objects WHERE norm_id = ?',
     'DELETE FROM law_version_blocks WHERE norm_id = ?',
     'DELETE FROM law_versions WHERE norm_id = ?',
@@ -284,4 +285,30 @@ test('Anweisungszähler und Übersichtsmetadaten sind deterministisch', async ()
   assert.deepEqual(corpusOverviewMeta(norms, []), meta);
   const derived = derivedQueries(norms[0], context, NOW);
   assert.equal(derived.length, 3);
+});
+
+test('inkrementell: Suchdokumente einer Norm werden vor dem Neuschreiben gelöscht, auch die entfernter Fassungen', async () => {
+  const { norms, context } = await fixture();
+  const norm = norms[0];
+  for (const targets of [null, ['norm', 'searchDocuments', 'searchMetadataUnit']]) {
+    const sql = normQueries(norm, context, NOW, { targets }).map((query) => query.sql);
+    const deleteIndex = sql.indexOf('DELETE FROM law_search_documents WHERE norm_id = ?');
+    assert.ok(deleteIndex >= 0, `Löschung fehlt für Ziele ${JSON.stringify(targets)}`);
+    assert.ok(deleteIndex < sql.findIndex((statement) => statement.startsWith('INSERT INTO law_search_documents')));
+  }
+  const withoutSearch = normQueries(norm, context, NOW, { targets: ['norm', 'keywords'] }).map((query) => query.sql);
+  assert.ok(!withoutSearch.includes('DELETE FROM law_search_documents WHERE norm_id = ?'));
+  const full = normQueries(norm, context, NOW, { full: true }).map((query) => query.sql);
+  assert.ok(full.every((statement) => !statement.startsWith('DELETE')));
+});
+
+test('Normen geänderter Verkündungen werden vollständig statt nur metadata-only neu geschrieben', () => {
+  const scope = {
+    mode: 'incremental', slugs: ['zitierte-norm', 'andere-norm'], publicationSlugs: ['testblatt-1'],
+    metadataOnly: { 'zitierte-norm': ['norm', 'searchDocuments'], 'andere-norm': ['norm', 'keywords'] },
+  };
+  const publications = [{ slug: 'testblatt-1', entries: [{ normSlug: 'zitierte-norm', versionId: '2030-01-01' }, { normSlug: 'neue-norm', versionId: '2030-01-01' }, { normSlug: 'fehlende-norm' }] }];
+  addNormsCitingPublications(scope, publications, new Set(['zitierte-norm', 'andere-norm', 'neue-norm']));
+  assert.deepEqual(scope.slugs, ['andere-norm', 'neue-norm', 'zitierte-norm']);
+  assert.deepEqual(scope.metadataOnly, { 'andere-norm': ['norm', 'keywords'] });
 });
