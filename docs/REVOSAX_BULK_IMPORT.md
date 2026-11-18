@@ -112,6 +112,14 @@ wiederholte Zeile; bleibt kein Text übrig, entfällt der Punkt und seine Unterp
 Stelle. Gestrichen wird nur bei vollständiger Übereinstimmung ganzer Zeilen – ein Text, der
 lediglich mit demselben Wort beginnt, bleibt unverändert. Gesperrter Satz der Quelle
 (Amtsbezeichnungen, „s o l l“) wird bei der Rechtsüberleitung als gewöhnliches Wort übernommen.
+Tabellenköpfe stehen ebenso genau einmal: REVOSax wiederholt die sichtbare erste Zeile des
+Tabellenkörpers oft als zugängliche Kopfzeile im `<thead>`. Nimmt die erste Körperzeile mehr als
+die Hälfte dieser Köpfe auf oder ist sie durchgehend fett gesetzt und nimmt mindestens einen auf,
+wird sie zur Kopfzeile und der `<thead>` entfällt; beginnt der Körper mit Inhalt, bleibt er.
+Unterscheidet sich ein hochgestufter Kopf vom gleichlautenden `<thead>`-Kopf nur durch die
+Silbentrennung der Druckvorlage („Tarif-“/„stelle“), gilt der Wortlaut des `<thead>`; Einheiten
+und Zusätze der sichtbaren Zeile („Gebühren EUR“) bleiben. Zeilenumbrüche in Zellen bleiben
+erhalten.
 
 Fassungslogik: dynamische Treffer werden über die numerische Stammnorm-URL geladen und auf die
 tatsächlich angezeigte konkrete Fassung festgelegt; „Fassung gültig ab“ muss dem Treffer
@@ -170,8 +178,13 @@ Vor der Überleitung geschützt und im Reststellenaudit nicht als Rest gewertet 
   (einschließlich `Sächsische Schweiz-Osterzgebirge` und `Nationalpark Sächsische Schweiz`),
   `Sächsisch-Böhmische Schweiz` mit Leerzeichen oder Bindestrich (`Sächsisch-Böhmischen-Schweiz`),
   `Sächsisches Elbsandsteingebirge`, der Ortszusatz `Sächs. Schw.`/`Sächs. Schweiz`
-  (`Königstein/Sächs. Schw.`), der Gemeindename `Neustadt in Sachsen` und der Vereinsname
-  `Silicon Saxony`.
+  (`Königstein/Sächs. Schw.`), der Gemeindename `Neustadt in Sachsen`, die Vereinsnamen
+  `Silicon Saxony`, `Sächsischer Bergsteigerbund` und `Sächsisches Burgen- und Heideland`
+  (Tourismusverband) samt dem Vereinsregelwerk `Sächsische Kletterregeln` (auch klein
+  geschrieben), der Zeitungstitel `Sächsische Zeitung` in historischen Fundstellen, der Naturraum
+  `Sächsisches Lösshügelland` (auch `Lößhügelland`), die Eisenbahnmagistrale
+  `Sachsen-Franken-Magistrale` sowie die Radfernwege `Sächsische Städteroute` und
+  `Sächsische Mittelgebirge` (nur unmittelbar nach `Radfernweg` oder `Fernradweg`).
 - Wortlaut aus Patch-Rezepten, der wörtlich in der ostdeutschen Änderungsvorschrift unter
   `Gesetze/` steht, auch wenn er einen Sachsen-Bezug enthält (`literalAmendmentStrings` und
   `adaptBodyBlocks(…, { preserve })`, in `scripts/consolidate-norms.mjs` über `preserveByVersion`).

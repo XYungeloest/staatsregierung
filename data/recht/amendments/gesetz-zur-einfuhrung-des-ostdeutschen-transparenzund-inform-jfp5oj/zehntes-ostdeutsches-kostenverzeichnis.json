@@ -37,7 +37,7 @@
         "parentType": "section",
         "parentLabel": "55"
       },
-      "expectedHash": "3ebc71b6a7ed24544d2c50433e02839da40869a6534ab34ca3b91b38953c30bb",
+      "expectedHash": "76a1d749a605adf273dd04ec93ba314871fa311c95c5adb240325b0f2df7cef4",
       "expectedMatches": 1,
       "value": {
         "type": "table",
@@ -49,7 +49,7 @@
             "children": [
               {
                 "type": "tableHeaderCell",
-                "text": "Laufende Nummer",
+                "text": "Lfd. Nr.",
                 "scope": "col"
               },
               {
@@ -64,38 +64,13 @@
               },
               {
                 "type": "tableHeaderCell",
-                "text": "Gebühren",
+                "text": "Gebühren\nEUR",
                 "scope": "col"
               },
               {
                 "type": "tableHeaderCell",
                 "text": "Schlichthoheitliche Leistung",
                 "scope": "col"
-              }
-            ]
-          },
-          {
-            "type": "tableRow",
-            "children": [
-              {
-                "type": "tableCell",
-                "text": "Lfd. Nr."
-              },
-              {
-                "type": "tableCell",
-                "text": "Tarif-\nstelle"
-              },
-              {
-                "type": "tableCell",
-                "text": "Gegenstand"
-              },
-              {
-                "type": "tableCell",
-                "text": "Gebühren\nEUR"
-              },
-              {
-                "type": "tableCell",
-                "text": "Schlicht-\nhoheit-\nliche\nLeis-\ntung"
               }
             ]
           },

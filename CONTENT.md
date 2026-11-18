@@ -149,6 +149,15 @@ Verkündungen beschreiben Ausgaben amtlicher Veröffentlichungsblätter. Sie sin
 zwischen Fundstelle und gespeicherter Normfassung. Die Normdateien selbst bleiben unverändert; die
 Verknüpfung erfolgt über `entries[].normSlug` und `entries[].versionId`.
 
+Eine Fassung kann zwei Fundstellen zugleich tragen, die verschieden bestimmt werden: Der
+Verkündungsbezug der Vorschriftendaten ist der Verkündungseintrag, der über `versionId` auf die
+Fassung verweist (die Verkündung, durch die sie entstanden ist, etwa eine Neufassung). Fassungsliste
+und Seitenleiste nennen bei Folgefassungen dagegen die letzte Fundstellenklammer des Vollzitats, also
+die zuletzt angewandte Änderung. Wirken Neufassung und Änderung am selben Tag, weichen beide Angaben
+deshalb ab; das ist kein Datenfehler, solange der Verkündungseintrag und das Vollzitat belegt sind.
+Die Stammfundstelle erscheint in den Vorschriftendaten nur zusätzlich, wenn sie nach Blattkürzel,
+Jahrgang, Nummer und Seite weder der angezeigten Fundstelle noch dem Verkündungsbezug entspricht.
+
 Pflichtfelder:
 
 - `slug`

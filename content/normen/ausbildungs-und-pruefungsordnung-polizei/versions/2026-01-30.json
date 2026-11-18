@@ -6,7 +6,7 @@
   "validFrom": "2026-01-30",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Ostdeutsche Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei, geändert durch Verordnung vom 30. Januar 2026 (OGVBl. 2026 Nr. 12)",
+  "citation": "Ostdeutsche Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei, geändert durch Artikel 1 der Verordnung vom 30. Januar 2026 (OGVBl. 2026 Nr. 12)",
   "changeNote": "Normbezeichnung und die im Ausgangstext vorhandene Landesbezeichnung wurden ostdeutsch gefasst; § 10a zu Schmerzgriffen wurde ergänzt. Die übrigen pauschalen Ersetzungsbefehle hatten in der ausdrücklich bezeichneten Ausgangsfassung keinen Texttreffer.",
   "sourceReferences": [
     {
@@ -1138,23 +1138,6 @@
                       "children": [
                         {
                           "type": "tableCell",
-                          "text": "Note"
-                        },
-                        {
-                          "type": "tableCell",
-                          "text": "Notenpunkte"
-                        },
-                        {
-                          "type": "tableCell",
-                          "text": "Beschreibung"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "tableRow",
-                      "children": [
-                        {
-                          "type": "tableCell",
                           "text": "sehr gut (1)"
                         },
                         {
@@ -1664,18 +1647,9 @@
                   "children": [
                     {
                       "type": "tableHeaderCell",
-                      "text": "von %",
-                      "scope": "col"
-                    },
-                    {
-                      "type": "tableHeaderCell",
-                      "text": "bis",
-                      "scope": "col"
-                    },
-                    {
-                      "type": "tableHeaderCell",
-                      "text": "bis %",
-                      "scope": "col"
+                      "text": "Prozentanteile der Zählpunkte",
+                      "scope": "col",
+                      "colspan": 3
                     },
                     {
                       "type": "tableHeaderCell",
@@ -1686,24 +1660,6 @@
                       "type": "tableHeaderCell",
                       "text": "Note",
                       "scope": "col"
-                    }
-                  ]
-                },
-                {
-                  "type": "tableRow",
-                  "children": [
-                    {
-                      "type": "tableCell",
-                      "text": "Prozentanteile der Zählpunkte",
-                      "colspan": 3
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Notenpunkte"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Note"
                     }
                   ]
                 },

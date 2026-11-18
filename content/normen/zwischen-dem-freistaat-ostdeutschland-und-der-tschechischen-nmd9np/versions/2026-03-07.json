@@ -619,19 +619,20 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Stufe 1 (0–12 Monate): Anerkennung ausgewählter Zeitkarten in definierten Grenzzonen (Liste der Produkte/Verbünde jährlich)."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Stufe 2 (6–18 Monate): gemeinsames digitales Ticket (QR/Token, offline prüfbar)."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Stufe 3 (18–48 Monate): vertiefte Verbundintegration (Einnahmeclearing, gemeinsame Produktfamilie)."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Stufe 1 (0–12 Monate): Anerkennung ausgewählter Zeitkarten in definierten Grenzzonen (Liste der Produkte/Verbünde jährlich)."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Stufe 2 (6–18 Monate): gemeinsames digitales Ticket (QR/Token, offline prüfbar)."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Stufe 3 (18–48 Monate): vertiefte Verbundintegration (Einnahmeclearing, gemeinsame Produktfamilie)."
+            }
+          ]
         },
         {
           "type": "item",
@@ -640,23 +641,24 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Korridor E (Elbe-Labe-Achse): Dresden – Bad Schandau/Schöna – Děčín – Ústí nad Labem"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Korridor F (Dreiländereck): Zittau – Hrádek nad Nisou – Liberec"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Korridor G (Erzgebirge/Krušnohoří): Chemnitz/Freiberg-Achse – Chomutov/Most (als Perspektivkorridor)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Zusätzlich: Zone 25 (beidseitig 25 km Streifen) für Bus/Rufbus/Regionalverkehr."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Korridor E (Elbe-Labe-Achse): Dresden – Bad Schandau/Schöna – Děčín – Ústí nad Labem"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Korridor F (Dreiländereck): Zittau – Hrádek nad Nisou – Liberec"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Korridor G (Erzgebirge/Krušnohoří): Chemnitz/Freiberg-Achse – Chomutov/Most (als Perspektivkorridor)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Zusätzlich: Zone 25 (beidseitig 25 km Streifen) für Bus/Rufbus/Regionalverkehr."
+            }
+          ]
         },
         {
           "type": "item",
@@ -774,15 +776,16 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Diese Durchführungsvereinbarung konkretisiert Artikel 7 und regelt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Alarmierung und Einsatzführung, medizinische Übergabe, Dokumentation, Sprache, Haftung/Versicherung im Rahmen nationalen Rechts, Kostenerstattung und Abrechnung."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Durchführungsvereinbarung konkretisiert Artikel 7 und regelt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Alarmierung und Einsatzführung, medizinische Übergabe, Dokumentation, Sprache, Haftung/Versicherung im Rahmen nationalen Rechts, Kostenerstattung und Abrechnung."
+            }
+          ]
         },
         {
           "type": "item",
@@ -828,82 +831,85 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Grenzüberschreitende Alarmierung ist zulässig, wenn mindestens eines der Kriterien erfüllt ist:",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "kürzere Hilfsfrist durch ausländisches Rettungsmittel,",
-          "level": 0,
-          "listId": "3iv24gt9i4yr",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Kapazitätsengpass auf eigener Seite,",
-          "level": 0,
-          "listId": "3iv24gt9i4yr",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Spezialressource erforderlich (z. B. Notarzt, Intensivtransport).",
-          "level": 0,
-          "listId": "3iv24gt9i4yr",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Ablauf:",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Primärleitstelle prüft Kriterien (max. 2 Minuten).",
-          "level": 0,
-          "listId": "sf0n3etedzky",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Kontakt zur Partnerleitstelle über definierte Direktleitung / gesicherten Funk/VoIP-Kanal.",
-          "level": 0,
-          "listId": "sf0n3etedzky",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Disposition der unterstützenden Einheit.",
-          "level": 0,
-          "listId": "sf0n3etedzky",
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Gemeinsame Lage-Kurzmeldung (standardisierte Codes).",
-          "level": 0,
-          "listId": "sf0n3etedzky",
-          "numberingStyle": "decimal",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Grenzüberschreitende Alarmierung ist zulässig, wenn mindestens eines der Kriterien erfüllt ist:",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "kürzere Hilfsfrist durch ausländisches Rettungsmittel,",
+                  "level": 1,
+                  "listId": "3iv24gt9i4yr",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Kapazitätsengpass auf eigener Seite,",
+                  "level": 1,
+                  "listId": "3iv24gt9i4yr",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Spezialressource erforderlich (z. B. Notarzt, Intensivtransport).",
+                  "level": 1,
+                  "listId": "3iv24gt9i4yr",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Ablauf:",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Primärleitstelle prüft Kriterien (max. 2 Minuten).",
+                  "level": 1,
+                  "listId": "sf0n3etedzky",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Kontakt zur Partnerleitstelle über definierte Direktleitung / gesicherten Funk/VoIP-Kanal.",
+                  "level": 1,
+                  "listId": "sf0n3etedzky",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Disposition der unterstützenden Einheit.",
+                  "level": 1,
+                  "listId": "sf0n3etedzky",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Gemeinsame Lage-Kurzmeldung (standardisierte Codes).",
+                  "level": 1,
+                  "listId": "sf0n3etedzky",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -912,25 +918,26 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Einsatzführung verbleibt grundsätzlich bei der Primärleitstelle bis zur Übergabe an Krankenhaus/Übergabepunkt.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Sprache: einfache Standardphrasen Deutsch/Tschechisch; bei Bedarf telefonische Dolmetsch-Unterstützung durch Leitstellenpool.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Funk/Kommunikation: Nutzung nationaler Systeme; bei Überschreitung der Grenze Nutzung definierter „Brückenkanäle“ (Liste durch Leitstellen festgelegt).",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Einsatzführung verbleibt grundsätzlich bei der Primärleitstelle bis zur Übergabe an Krankenhaus/Übergabepunkt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Sprache: einfache Standardphrasen Deutsch/Tschechisch; bei Bedarf telefonische Dolmetsch-Unterstützung durch Leitstellenpool.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Funk/Kommunikation: Nutzung nationaler Systeme; bei Überschreitung der Grenze Nutzung definierter „Brückenkanäle“ (Liste durch Leitstellen festgelegt).",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -939,41 +946,43 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Mindestdatensatz Übergabe:",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Patient (Initialen oder ID), Alter/ Geschlecht, Vitalparameter, Verdachtsdiagnose, Maßnahmen, Medikamente, Allergien, Zeitachsen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Dokumentation:",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Verwendung nationaler Rettungsprotokolle; ergänzend Übergabeformular „Cross-Border EMS“.",
-          "level": 0,
-          "listId": "f8eqxc1a50zk",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Digitale Übermittlung (wenn möglich), andernfalls Papier.",
-          "level": 0,
-          "listId": "f8eqxc1a50zk",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Mindestdatensatz Übergabe:",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Patient (Initialen oder ID), Alter/ Geschlecht, Vitalparameter, Verdachtsdiagnose, Maßnahmen, Medikamente, Allergien, Zeitachsen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Dokumentation:",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "●",
+                  "text": "Verwendung nationaler Rettungsprotokolle; ergänzend Übergabeformular „Cross-Border EMS“.",
+                  "level": 1,
+                  "listId": "f8eqxc1a50zk",
+                  "numberingStyle": "literal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "●",
+                  "text": "Digitale Übermittlung (wenn möglich), andernfalls Papier.",
+                  "level": 1,
+                  "listId": "f8eqxc1a50zk",
+                  "numberingStyle": "literal",
+                  "children": []
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -982,46 +991,48 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Jede Vertragspartei stellt sicher, dass ihre Rettungsmittel für grenzüberschreitende Einsätze ausreichend versichert sind.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Für Schäden gilt:",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "interne Haftungszuordnung nach nationalem Recht;",
-          "level": 0,
-          "listId": "r4kzr9d3tf4n",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "bilaterale Klärung über die Kontaktstellen binnen 60 Tagen;",
-          "level": 0,
-          "listId": "r4kzr9d3tf4n",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "keine Anerkennung von Haftungsansprüchen durch Einsatzpersonal vor Ort.",
-          "level": 0,
-          "listId": "r4kzr9d3tf4n",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Jede Vertragspartei stellt sicher, dass ihre Rettungsmittel für grenzüberschreitende Einsätze ausreichend versichert sind.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Für Schäden gilt:",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "●",
+                  "text": "interne Haftungszuordnung nach nationalem Recht;",
+                  "level": 1,
+                  "listId": "r4kzr9d3tf4n",
+                  "numberingStyle": "literal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "●",
+                  "text": "bilaterale Klärung über die Kontaktstellen binnen 60 Tagen;",
+                  "level": 1,
+                  "listId": "r4kzr9d3tf4n",
+                  "numberingStyle": "literal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "●",
+                  "text": "keine Anerkennung von Haftungsansprüchen durch Einsatzpersonal vor Ort.",
+                  "level": 1,
+                  "listId": "r4kzr9d3tf4n",
+                  "numberingStyle": "literal",
+                  "children": []
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -1030,25 +1041,26 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Grundsatz: Kostenerstattung nach Standardkostensätzen oder, wenn national vorgeschrieben, nach gesetzlicher Gebührenordnung.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Rechnungstellung quartalsweise, zahlbar binnen 60 Tagen.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Notfälle mit EU-Versicherten: Abrechnung kann über bestehende EU-Mechanismen erfolgen; ansonsten direkte Kostenerstattung zwischen Trägern.",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Grundsatz: Kostenerstattung nach Standardkostensätzen oder, wenn national vorgeschrieben, nach gesetzlicher Gebührenordnung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Rechnungstellung quartalsweise, zahlbar binnen 60 Tagen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Notfälle mit EU-Versicherten: Abrechnung kann über bestehende EU-Mechanismen erfolgen; ansonsten direkte Kostenerstattung zwischen Trägern.",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1101,11 +1113,12 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Grenzgesundheitslotsen erleichtern Patienten im Grenzraum den Zugang zur passenden Versorgung (Termin, Überweisung, Sprache, Abrechnung)."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Grenzgesundheitslotsen erleichtern Patienten im Grenzraum den Zugang zur passenden Versorgung (Termin, Überweisung, Sprache, Abrechnung)."
+            }
+          ]
         },
         {
           "type": "item",
@@ -1151,27 +1164,28 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "bilinguale Navigation: Terminvermittlung, Anfahrt, Unterlagencheck"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Unterstützung bei Überweisungspfaden (z. B. Stroke/Trauma)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Telekonsil-Koordination (Fachärzte)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Abklärungen zur Kostenerstattung (ohne Rechtsberatung zu ersetzen)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Feedbackkanal: systematische Rückmeldung an Kommission"
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "bilinguale Navigation: Terminvermittlung, Anfahrt, Unterlagencheck"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Unterstützung bei Überweisungspfaden (z. B. Stroke/Trauma)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Telekonsil-Koordination (Fachärzte)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Abklärungen zur Kostenerstattung (ohne Rechtsberatung zu ersetzen)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Feedbackkanal: systematische Rückmeldung an Kommission"
+            }
+          ]
         },
         {
           "type": "item",
@@ -1180,15 +1194,16 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "je Standort: 2–4 Lotsen, Dolmetschzugang, Standardleitfäden"
-        },
-        {
-          "type": "paragraphText",
-          "text": "digitale Fallakte (pseudonymisiert), Löschfristen 180 Tage nach Fallabschluss (sofern rechtlich möglich)"
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "je Standort: 2–4 Lotsen, Dolmetschzugang, Standardleitfäden"
+            },
+            {
+              "type": "paragraphText",
+              "text": "digitale Fallakte (pseudonymisiert), Löschfristen 180 Tage nach Fallabschluss (sofern rechtlich möglich)"
+            }
+          ]
         },
         {
           "type": "item",
@@ -1197,19 +1212,20 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Zeit von Anfrage bis Termin: median < 7 Tage (Pilotziel)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Patientenzufriedenheit > 80 % positiv"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Reduktion vermeidbarer Fehlzuweisungen (Baseline nach 6 Monaten)"
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Zeit von Anfrage bis Termin: median < 7 Tage (Pilotziel)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Patientenzufriedenheit > 80 % positiv"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Reduktion vermeidbarer Fehlzuweisungen (Baseline nach 6 Monaten)"
+            }
+          ]
         }
       ]
     },
@@ -1225,11 +1241,12 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Beschleunigung der Anerkennung und Einsatzfähigkeit von Fachkräften im Grenzraum unter Wahrung nationaler Standards."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Beschleunigung der Anerkennung und Einsatzfähigkeit von Fachkräften im Grenzraum unter Wahrung nationaler Standards."
+            }
+          ]
         },
         {
           "type": "item",
@@ -1293,23 +1310,24 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Bilinguales Portal + Hotline; Aufgaben:",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Checklisten, Vorprüfung, Terminvermittlung, Tracking."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Die rechtliche Entscheidung bleibt bei den zuständigen Anerkennungsstellen.",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bilinguales Portal + Hotline; Aufgaben:",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Checklisten, Vorprüfung, Terminvermittlung, Tracking."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die rechtliche Entscheidung bleibt bei den zuständigen Anerkennungsstellen.",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1392,27 +1410,28 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Modul M1 Sprache & Kommunikation (40–120 UE)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Modul M2 Recht/Standards im Einsatzland (20–40 UE)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Modul M3 Praxisanpassung (Hospitation 2–8 Wochen)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Modul M4 Arbeitsschutz/Patientensicherheit (8–16 UE)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Finanzierung: anteilig aus Nachbarschaftsfonds + Arbeitgeberbeitrag; Details im Jahresarbeitsprogramm."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Modul M1 Sprache & Kommunikation (40–120 UE)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Modul M2 Recht/Standards im Einsatzland (20–40 UE)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Modul M3 Praxisanpassung (Hospitation 2–8 Wochen)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Modul M4 Arbeitsschutz/Patientensicherheit (8–16 UE)"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Finanzierung: anteilig aus Nachbarschaftsfonds + Arbeitgeberbeitrag; Details im Jahresarbeitsprogramm."
+            }
+          ]
         },
         {
           "type": "item",
@@ -1421,11 +1440,12 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei Hinweisen auf Ausbeutung/Subunternehmermissbrauch erfolgt strukturierte Weiterleitung an die Kontaktstelle Fair Work (Verweis auf Anhang 5)."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Bei Hinweisen auf Ausbeutung/Subunternehmermissbrauch erfolgt strukturierte Weiterleitung an die Kontaktstelle Fair Work (Verweis auf Anhang 5)."
+            }
+          ]
         }
       ]
     },
@@ -1441,11 +1461,12 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Schnelle, sichere und rechtsstaatliche Hilfe für Betroffene von Menschenhandel, Schleusungskriminalität und Arbeitsausbeutung, kombiniert mit wirksamer Strafverfolgung."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Schnelle, sichere und rechtsstaatliche Hilfe für Betroffene von Menschenhandel, Schleusungskriminalität und Arbeitsausbeutung, kombiniert mit wirksamer Strafverfolgung."
+            }
+          ]
         },
         {
           "type": "item",
@@ -1454,31 +1475,32 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Stufe I Akut (0–6 Stunden):"
-        },
-        {
-          "type": "paragraphText",
-          "text": "sichere Unterbringung/Schutzraum, medizinische Ersthilfe, Dolmetschung, Gefährdungseinschätzung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Stufe II Stabilisierung (1–14 Tage):"
-        },
-        {
-          "type": "paragraphText",
-          "text": "psychosoziale Beratung, Rechtsberatung, Statusklärung, Arbeitsplatz-/Unterkunftsprüfung, ggf. Schutzmaßnahmen"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Stufe III Perspektive (bis 12 Monate):"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Betreuung, Qualifizierung, Arbeitsmarktintegration, sichere Rückkehr (falls gewünscht) oder Bleibeperspektiven nach Recht"
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Stufe I Akut (0–6 Stunden):"
+            },
+            {
+              "type": "paragraphText",
+              "text": "sichere Unterbringung/Schutzraum, medizinische Ersthilfe, Dolmetschung, Gefährdungseinschätzung"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Stufe II Stabilisierung (1–14 Tage):"
+            },
+            {
+              "type": "paragraphText",
+              "text": "psychosoziale Beratung, Rechtsberatung, Statusklärung, Arbeitsplatz-/Unterkunftsprüfung, ggf. Schutzmaßnahmen"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Stufe III Perspektive (bis 12 Monate):"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Betreuung, Qualifizierung, Arbeitsmarktintegration, sichere Rückkehr (falls gewünscht) oder Bleibeperspektiven nach Recht"
+            }
+          ]
         },
         {
           "type": "item",
@@ -1487,19 +1509,20 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Je Vertragspartei eine zentrale Stelle; 24/7-Hotline (Nummern werden benannt).",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Aufgaben: Case-Management, Schnittstelle Polizei/Arbeitskontrolle/NGOs, Koordination Unterbringung.",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Je Vertragspartei eine zentrale Stelle; 24/7-Hotline (Nummern werden benannt).",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Aufgaben: Case-Management, Schnittstelle Polizei/Arbeitskontrolle/NGOs, Koordination Unterbringung.",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1508,19 +1531,20 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Grundsatz: Opferzentrierung, Vertraulichkeit, Datensparsamkeit.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Weitergabe personenbezogener Daten nur mit Einwilligung oder klarer Rechtsgrundlage; Protokollierung verpflichtend.",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Grundsatz: Opferzentrierung, Vertraulichkeit, Datensparsamkeit.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Weitergabe personenbezogener Daten nur mit Einwilligung oder klarer Rechtsgrundlage; Protokollierung verpflichtend.",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1573,11 +1597,12 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Elbe/Labe-System: relevante Pegel, Zuflüsse, Rückhalteanlagen, kritische Infrastrukturen (Brücken, Kläranlagen, Strom)."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Elbe/Labe-System: relevante Pegel, Zuflüsse, Rückhalteanlagen, kritische Infrastrukturen (Brücken, Kläranlagen, Strom)."
+            }
+          ]
         },
         {
           "type": "item",
@@ -1696,12 +1721,12 @@
               "listId": "w2ryj98n8fh7",
               "numberingStyle": "literal",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Auslösekriterien werden pro Flussabschnitt in einer technischen Liste geführt und jährlich aktualisiert."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Auslösekriterien werden pro Flussabschnitt in einer technischen Liste geführt und jährlich aktualisiert."
         },
         {
           "type": "item",
@@ -1710,31 +1735,33 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Das Sekretariat betreibt (oder beauftragt) eine Lagebildplattform mit:",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Kartenlayern, Pegeln, Prognosen, Ereignismeldungen",
-          "level": 0,
-          "listId": "iqhjt7fzhv8a",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Rollen-/Rechtekonzept (Anhang 6 IT-Baseline)",
-          "level": 0,
-          "listId": "iqhjt7fzhv8a",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Das Sekretariat betreibt (oder beauftragt) eine Lagebildplattform mit:",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "●",
+                  "text": "Kartenlayern, Pegeln, Prognosen, Ereignismeldungen",
+                  "level": 1,
+                  "listId": "iqhjt7fzhv8a",
+                  "numberingStyle": "literal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "●",
+                  "text": "Rollen-/Rechtekonzept (Anhang 6 IT-Baseline)",
+                  "level": 1,
+                  "listId": "iqhjt7fzhv8a",
+                  "numberingStyle": "literal",
+                  "children": []
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
@@ -1787,11 +1814,12 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Alle Systeme/Plattformen/APIs, die im Rahmen dieses Vertrags betrieben oder genutzt werden (Ticketing-Clearing, Lagebild Wasser, Kontaktstellenportale, Datenräume)."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Alle Systeme/Plattformen/APIs, die im Rahmen dieses Vertrags betrieben oder genutzt werden (Ticketing-Clearing, Lagebild Wasser, Kontaktstellenportale, Datenräume)."
+            }
+          ]
         },
         {
           "type": "item",
@@ -1800,122 +1828,123 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Identität & Zugriff:"
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "MFA für Admins und sensible Rollen",
-          "level": 0,
-          "listId": "kwrnmfli62ad",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Rollenbasiertes Berechtigungskonzept (Least Privilege)",
-          "level": 0,
-          "listId": "kwrnmfli62ad",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "jährliche Rechte-Rezertifizierung",
-          "level": 0,
-          "listId": "kwrnmfli62ad",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Verschlüsselung:"
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "TLS für Daten in Transit",
-          "level": 0,
-          "listId": "o26aan3thvmz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Verschlüsselung ruhender Daten (at rest) bei sensiblen Datensätzen",
-          "level": 0,
-          "listId": "o26aan3thvmz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Schlüsselmanagement mit dokumentierten Verantwortlichkeiten",
-          "level": 0,
-          "listId": "o26aan3thvmz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Logging & Monitoring:"
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "manipulationssichere Logs (Write-Once/Immutable)",
-          "level": 0,
-          "listId": "ybnxq4g5nqhz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Aufbewahrung: mindestens 180 Tage, bei Sicherheitsvorfällen 24 Monate",
-          "level": 0,
-          "listId": "ybnxq4g5nqhz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Alarmierung bei Anomalien (z. B. Massenexport)",
-          "level": 0,
-          "listId": "ybnxq4g5nqhz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Schwachstellenmanagement:"
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "Patch-Ziel: kritisch < 14 Tage, hoch < 30 Tage",
-          "level": 0,
-          "listId": "53f18vszf147",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●",
-          "text": "jährlicher Pen-Test für zentrale Plattformen",
-          "level": 0,
-          "listId": "53f18vszf147",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Identität & Zugriff:"
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "MFA für Admins und sensible Rollen",
+              "level": 1,
+              "listId": "kwrnmfli62ad",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Rollenbasiertes Berechtigungskonzept (Least Privilege)",
+              "level": 1,
+              "listId": "kwrnmfli62ad",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "jährliche Rechte-Rezertifizierung",
+              "level": 1,
+              "listId": "kwrnmfli62ad",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Verschlüsselung:"
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "TLS für Daten in Transit",
+              "level": 1,
+              "listId": "o26aan3thvmz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Verschlüsselung ruhender Daten (at rest) bei sensiblen Datensätzen",
+              "level": 1,
+              "listId": "o26aan3thvmz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Schlüsselmanagement mit dokumentierten Verantwortlichkeiten",
+              "level": 1,
+              "listId": "o26aan3thvmz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Logging & Monitoring:"
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "manipulationssichere Logs (Write-Once/Immutable)",
+              "level": 1,
+              "listId": "ybnxq4g5nqhz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Aufbewahrung: mindestens 180 Tage, bei Sicherheitsvorfällen 24 Monate",
+              "level": 1,
+              "listId": "ybnxq4g5nqhz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Alarmierung bei Anomalien (z. B. Massenexport)",
+              "level": 1,
+              "listId": "ybnxq4g5nqhz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Schwachstellenmanagement:"
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Patch-Ziel: kritisch < 14 Tage, hoch < 30 Tage",
+              "level": 1,
+              "listId": "53f18vszf147",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "jährlicher Pen-Test für zentrale Plattformen",
+              "level": 1,
+              "listId": "53f18vszf147",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1924,25 +1953,26 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Meldewege: 24/7-Kontaktpunkte (werden benannt).",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Erstmeldung innerhalb 24 Stunden nach Bekanntwerden; Lageupdate mindestens alle 24 Stunden im Ereignisfall.",
-          "children": []
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Gemeinsamer Abschlussbericht binnen 30 Tagen nach Eindämmung.",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Meldewege: 24/7-Kontaktpunkte (werden benannt).",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Erstmeldung innerhalb 24 Stunden nach Bekanntwerden; Lageupdate mindestens alle 24 Stunden im Ereignisfall.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Gemeinsamer Abschlussbericht binnen 30 Tagen nach Eindämmung.",
+              "children": []
+            }
+          ]
         }
       ]
     }

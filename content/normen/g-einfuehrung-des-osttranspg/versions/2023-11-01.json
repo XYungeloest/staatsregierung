@@ -82,7 +82,7 @@
                   "children": [
                     {
                       "type": "tableHeaderCell",
-                      "text": "Lfd. Nr.",
+                      "text": "Lfd.\nNr.",
                       "scope": "col"
                     },
                     {
@@ -104,31 +104,6 @@
                       "type": "tableHeaderCell",
                       "text": "Schlicht-hoheitliche Leistung",
                       "scope": "col"
-                    }
-                  ]
-                },
-                {
-                  "type": "tableRow",
-                  "children": [
-                    {
-                      "type": "tableCell",
-                      "text": "Lfd.\nNr."
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Tarif-\nstelle"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Gegenstand"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Gebühren\nEUR"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Schlicht-hoheit-\nliche\nLeis-\ntung"
                     }
                   ]
                 },
