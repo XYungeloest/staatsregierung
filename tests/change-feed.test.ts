@@ -20,7 +20,7 @@ function change(overrides: Partial<NormChange> & Pick<NormChange, 'slug' | 'date
     normShortTitle: `Kurz ${overrides.slug}`,
     type: 'gesetz',
     title: 'Änderung durch das Testgesetz',
-    citation: 'Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2)',
+    citation: 'Gesetz vom 3. September 2026 (OGVBl. 2026 Nr. 970 S. 2)',
     ...overrides,
   };
 }
@@ -70,9 +70,9 @@ test('Einträge tragen Titel wie die Startseite, Kategorie, Verlaufslink und sta
   ], { baseUrl: BASE, referenceDate: '2026-09-08' });
   assertWellFormed(xml);
   assert.match(xml, new RegExp(`<title>Ostdeutsches Testgesetz geändert</title><link>${historyLink('testgesetz')}</link><guid isPermaLink="false">testgesetz:2026-03-25:amendment</guid><category>Neu in Kraft getreten</category>`, 'u'));
-  assert.match(xml, /<description>durch das Testgesetz · OGVBl\. 2026 Nr\. 70 S\. 2<\/description>/u);
+  assert.match(xml, /<description>durch das Testgesetz · OGVBl\. 2026 Nr\. 970 S\. 2<\/description>/u);
   assert.match(xml, /<title>Zukunftsgesetz tritt in Kraft<\/title>/u);
   // Platzhaltertitel liefern keine Ursache: die Fundstelle steht allein.
-  assert.match(xml, /<guid isPermaLink="false">kuenftiges-gesetz:2099-01-01:initial<\/guid><category>Verkündet, noch nicht in Kraft<\/category><pubDate>[^<]+<\/pubDate><description>OGVBl\. 2026 Nr\. 70 S\. 2<\/description>/u);
+  assert.match(xml, /<guid isPermaLink="false">kuenftiges-gesetz:2099-01-01:initial<\/guid><category>Verkündet, noch nicht in Kraft<\/category><pubDate>[^<]+<\/pubDate><description>OGVBl\. 2026 Nr\. 970 S\. 2<\/description>/u);
   assert.match(xml, /<title>Alt &amp; Neu aufgehoben<\/title>/u);
 });

@@ -3,11 +3,12 @@
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 
-import { applyPatchRecipe, previousIsoDate, repealStatusAt } from './lib/consolidation-engine.mjs';
+import { applyPatchRecipe, previousIsoDate, repealStatusAt, resolveSunsetDates, sunsetStatusAt } from './lib/consolidation-engine.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
-import { adaptBodyBlocks, adaptSaxonText } from './lib/revosax-ost-adapter.mjs';
-import { resolveIdentityFields, retainFsnNumber } from './lib/norm-title-rules.mjs';
+import { adaptBodyBlocks, adaptSaxonText, literalAmendmentStrings } from './lib/revosax-ost-adapter.mjs';
+import { createSourceTextLoader } from './audit-ost-residuals.mjs';
+import { fsnReferenceIndex, resolveIdentityFields, retainFsnNumber, splitParentheticalTitle } from './lib/norm-title-rules.mjs';
 
 /**
  * Rechtsüberleitung des konsolidierten Ergebnisses. Die Patch-Rezepte werden auf den
@@ -16,13 +17,16 @@ import { resolveIdentityFields, retainFsnNumber } from './lib/norm-title-rules.m
  * Historie und die redaktionellen Metadaten – wird mit demselben Adapter wie der
  * REVOSax-Vollbestand nach Ostdeutschland übergeleitet. Provenienzfelder
  * (sourceReferences, sourceNotes, enactingBody) bleiben unverändert; geschützte
- * Fundstellenkürzel (SächsGVBl., SächsABl., …) behält der Adapter bei.
+ * Fundstellenkürzel (SächsGVBl., SächsABl., …) behält der Adapter bei. Texte, die ein Rezept
+ * wörtlich aus der ostdeutschen Änderungsquelle einsetzt, sind Wortlaut des ostdeutschen
+ * Normgebers und bleiben unverändert (`preserveByVersion`: versionId → Set, siehe
+ * literalAmendmentStrings).
  */
-export function applyRechtsueberleitung({ meta, history, versions }, { adapt = true } = {}) {
+export function applyRechtsueberleitung({ meta, history, versions }, { adapt = true, preserveByVersion } = {}) {
   // Ohne `adapt` bleibt der Wortlaut unverändert; nur die Datensatzform ist dieselbe wie bei
   // übergeleiteten Zielen (gleiche Schlüsselreihenfolge, keine Byte-Diffs bestehender Fassungen).
   const adaptText = (value) => (adapt && typeof value === 'string' ? adaptSaxonText(value) : value);
-  const adaptBlocks = (body) => (adapt ? adaptBodyBlocks(body) : body);
+  const adaptBlocks = (body, preserve) => (adapt ? adaptBodyBlocks(body, { preserve }) : body);
   const adaptedVersions = versions.map((version) => ({
     ...version,
     ...(version.title !== undefined ? { title: adaptText(version.title) } : {}),
@@ -31,7 +35,7 @@ export function applyRechtsueberleitung({ meta, history, versions }, { adapt = t
     ...(version.summary !== undefined ? { summary: adaptText(version.summary) } : {}),
     citation: adaptText(version.citation),
     changeNote: adaptText(version.changeNote),
-    body: adaptBlocks(version.body),
+    body: adaptBlocks(version.body, preserveByVersion?.get(version.versionId)),
   }));
   const adaptedMeta = {
     ...meta,
@@ -70,16 +74,23 @@ const VERSION_IDENTITY_FIELDS = ['title', 'shortTitle', 'abbr'];
  * ob die Fassung schon gespeichert war, direkt hinter versionId; sonst ordnet ein zweiter
  * Schreiblauf die Schlüssel einer neu erzeugten Fassung um. Nach dem Zusammenführen wird die
  * Bezeichnung wie beim Erzeugen aufgelöst: Ein neu berechneter Kurztitel, der den gespeicherten
- * Titel wiederholt, oder eine nicht mehr passende Abkürzung entfällt.
+ * Titel wiederholt, oder eine nicht mehr passende Abkürzung entfällt. Mit `stored` (die Fassung ist
+ * bereits gespeichert) gelten ausschließlich die gespeicherten Bezeichnungsfelder; ein Schreiblauf
+ * ergänzt dort keine neu berechnete Kurzbezeichnung oder Abkürzung.
  */
-export function mergeStoredVersionIdentity(version, preserved = {}, sourceReferences = undefined) {
+export function mergeStoredVersionIdentity(version, preserved = {}, sourceReferences = undefined, { stored = false } = {}) {
+  // Eine bereits gespeicherte Fassung behält genau ihre Bezeichnungsfelder; neu berechnete
+  // Kurzbezeichnungen oder Abkürzungen kommen nur in neu entstehende Fassungen.
+  const generated = stored
+    ? Object.fromEntries(Object.entries(version).filter(([field]) => !VERSION_IDENTITY_FIELDS.includes(field)))
+    : version;
   const identityOrder = Object.fromEntries(VERSION_IDENTITY_FIELDS
-    .filter((field) => preserved[field] !== undefined || version[field] !== undefined)
+    .filter((field) => preserved[field] !== undefined || generated[field] !== undefined)
     .map((field) => [field, undefined]));
   const merged = {
     versionId: version.versionId,
     ...identityOrder,
-    ...version,
+    ...generated,
     ...(sourceReferences ? { sourceReferences } : {}),
     ...preserved,
   };
@@ -88,6 +99,171 @@ export function mergeStoredVersionIdentity(version, preserved = {}, sourceRefere
     if (resolved[field] === undefined || resolved[field] === '') delete merged[field];
   }
   return merged;
+}
+
+/**
+ * Bezeichnung einer Fassung. Nach einer amtlichen Neufassung der Bezeichnung (renameLaw) lautet der
+ * verkündete Wert oft „Langtitel (Kurzbezeichnung – Abkürzung)“; die Fassung führt dann den
+ * Langtitel als Titel und die Klammerbestandteile als Kurzbezeichnung und Abkürzung. Die
+ * Quellenkonfiguration ergänzt nur, was die Klammer nicht nennt. Eine einteilige Klammer bleibt
+ * Titelbestandteil, weil sie in amtlichen Titeln oft dazugehört.
+ */
+export function versionIdentityFields(title, { renamed = false, resultShortTitle, resultAbbr } = {}) {
+  const split = renamed ? splitParentheticalTitle(title) : { separator: null };
+  if (split.separator !== 'dash') return resolveIdentityFields({ title, shortTitle: resultShortTitle, abbr: resultAbbr });
+  return resolveIdentityFields({
+    title: split.title,
+    shortTitle: split.shortTitle ?? resultShortTitle,
+    abbr: split.abbr ?? resultAbbr,
+  });
+}
+
+/**
+ * Bezeichnung einer neu entstehenden Folgefassung. Nach einer amtlichen Neufassung (renameLaw)
+ * gilt der verkündete Titel (versionIdentityFields); sonst der konfigurierte Ergebnistitel oder,
+ * ohne ihn, die Bezeichnung der zuletzt übernommenen Fassung. Ergibt sich daraus als Titel nur die
+ * konfigurierte Kurzbezeichnung (Ergebnistitel gleich resultShortTitle oder eine Neufassung allein
+ * der Kurzbezeichnung), behält die Fassung den Langtitel der vorangehenden Fassung
+ * (`previousTitle`, bei gespeicherten Fassungen deren gespeicherter Titel) und führt die
+ * Kurzbezeichnung als eigenes Feld. Der interne Zustand, gegen den Zielhashes und
+ * renameLaw.expectedOld prüfen, bleibt davon unberührt (`stateTitle`).
+ */
+export function followUpVersionIdentity(stateTitle, {
+  renamed = false, snapshotIdentity, previousTitle, resultTitle, resultShortTitle, resultAbbr,
+} = {}) {
+  if (!renamed && !resultTitle) return snapshotIdentity;
+  const fields = renamed
+    ? versionIdentityFields(stateTitle, { renamed: true, resultShortTitle, resultAbbr })
+    : resolveIdentityFields({ title: resultTitle, shortTitle: resultShortTitle, abbr: resultAbbr });
+  const longTitle = previousTitle ?? (renamed ? undefined : snapshotIdentity?.title);
+  if (!resultShortTitle || fields.title !== resultShortTitle || !longTitle || longTitle === resultShortTitle) return fields;
+  return resolveIdentityFields({ title: longTitle, shortTitle: resultShortTitle, abbr: fields.abbr ?? resultAbbr });
+}
+
+const SUNSET_DECISIONS_FILE = 'data/recht/revosax-sunset-decisions.json';
+
+/**
+ * Befristung im übernommenen Text eines Konsolidierungsziels (resolution sunset-applies in
+ * data/recht/revosax-sunset-decisions.json, Zuordnung über slug). Der Schlüssel muss eine der
+ * REVOSax-Fassungen bezeichnen, aus denen das Ziel aufgebaut ist; sonst ist die Zuordnung offen.
+ */
+export function targetSunsetDecision(slug, source, decisions = {}) {
+  const matches = Object.entries(decisions)
+    .filter(([, decision]) => decision.slug === slug && decision.resolution === 'sunset-applies');
+  if (matches.length === 0) return null;
+  if (matches.length > 1) throw new Error(`${slug}: mehr als eine Befristungsentscheidung (${matches.map(([key]) => key).join(', ')})`);
+  const [key, decision] = matches[0];
+  const snapshotIds = [source, ...(source?.adoptedSources ?? [])]
+    .map((entry) => entry?.baselineUrl?.match(/\/vorschrift\/([\d.]+)$/u)?.[1])
+    .filter(Boolean);
+  if (!snapshotIds.includes(key)) {
+    throw new Error(`${slug}: Befristungsentscheidung ${key} bezeichnet keine REVOSax-Fassung des Konsolidierungsziels`);
+  }
+  return { key, ...decision };
+}
+
+function* bodyTexts(blocks = []) {
+  for (const block of blocks) {
+    for (const field of ['title', 'text']) if (typeof block[field] === 'string') yield block[field];
+    if (Array.isArray(block.children)) yield* bodyTexts(block.children);
+  }
+}
+
+const normalizeSpace = (value) => String(value).normalize('NFC').replace(/\s+/gu, ' ').trim();
+
+/** Historieneinträge, die eine Befristungsentscheidung erzeugt hat (werden bei jedem Lauf neu gebildet). */
+export function isSunsetHistoryEntry(entry) {
+  return entry.type === 'repeal' && entry.affectingVersionId === null && !entry.relatedNorm &&
+    typeof entry.note === 'string' && entry.note.includes(SUNSET_DECISIONS_FILE);
+}
+
+/**
+ * Wendet eine Befristung aus dem übernommenen Text auf die letzte Folgefassung an: validTo und
+ * isCurrent der letzten Fassung, Status und expiryDate der Norm sowie ein Historieneintrag am
+ * ersten Tag ohne Geltung (Außerkrafttretensregel, resolveSunsetDates). Fail-closed: Die Befristung muss
+ * wörtlich im Text der letzten Fassung stehen (eine ostdeutsche Änderung kann sie gestrichen oder
+ * verlängert haben), und keine Änderung darf nach dem letzten Geltungstag wirksam werden.
+ */
+export function applyConsolidationSunset({ versions, finalBody, recipes = [] }, decision, { referenceDate, slug }) {
+  const { expiryDate, historyDate } = resolveSunsetDates(decision, `${slug}: Befristungsentscheidung ${decision.key ?? ''}`.trim());
+  const last = versions.at(-1);
+  if (expiryDate < last.validFrom) {
+    throw new Error(`${slug}: Befristung ${expiryDate} endet vor dem Beginn der letzten Fassung ${last.validFrom}`);
+  }
+  const late = recipes.find((recipe) => recipe.effectiveDate > expiryDate);
+  if (late) throw new Error(`${slug}: Änderung ${late.amendmentAct} wird nach dem Außerkrafttreten ${historyDate} wirksam`);
+  const basis = normalizeSpace(decision.basis ?? '');
+  if (!basis || ![...bodyTexts(finalBody)].some((text) => normalizeSpace(text).includes(basis))) {
+    throw new Error(`${slug}: Befristung „${decision.basis ?? ''}“ steht nicht wörtlich im Text der letzten Fassung`);
+  }
+  const status = sunsetStatusAt(expiryDate, referenceDate);
+  const repealed = status === 'repealed';
+  last.validTo = expiryDate;
+  last.isCurrent = !repealed;
+  return {
+    status,
+    expiryDate,
+    historyEntry: {
+      date: historyDate,
+      type: 'repeal',
+      title: repealed
+        ? 'Außer Kraft getreten durch Befristung im übernommenen Text.'
+        : 'Tritt durch Befristung im übernommenen Text außer Kraft.',
+      citation: last.citation,
+      affectingVersionId: null,
+      note: `Befristung nach ${decision.basisLocation ?? 'Schlussbestimmung'} der übernommenen Fassung: „${decision.basis}“ Entscheidung dokumentiert in ${SUNSET_DECISIONS_FILE}.`,
+    },
+  };
+}
+
+/**
+ * Bezeichnung einer Ausgangs- oder Zusatzfassung aus dem REVOSax-Snapshot. Die Überschrift der
+ * Seite (`sourceTitle`) ist oft nur die Kurzbezeichnung; maßgeblich ist der Langtitel der
+ * Kennzeile mit Kurzbezeichnung und Abkürzung als eigenen Feldern. Der interne Zustand, gegen den
+ * renameLaw.expectedOld prüft, bleibt davon unberührt (`sourceTitle`).
+ */
+export function snapshotVersionIdentity(parsed, { resultShortTitle, resultAbbr } = {}) {
+  return resolveIdentityFields({
+    title: parsed.longTitle ?? parsed.sourceTitle,
+    shortTitle: resultShortTitle ?? parsed.shortTitle,
+    abbr: resultAbbr ?? parsed.abbr,
+  });
+}
+
+/**
+ * Metadaten der ändernden oder aufhebenden Vorschrift nach einer Konsolidierung. Eine Änderung
+ * macht sie zur Änderungsvorschrift. Eine reine Aufhebung (repealsLaw), etwa die Schlussbestimmung
+ * „gleichzeitig tritt … außer Kraft“ einer neuen Stammvorschrift, lässt ihren Normtyp unberührt.
+ * Dasselbe gilt für eine Teilaufhebung (`partialRepeal`), etwa „gleichzeitig treten die Ziffern …
+ * außer Kraft“: Ein solches Rezept darf nur Aufhebungsoperationen enthalten.
+ */
+const PARTIAL_REPEAL_OPERATIONS = new Set(['repealProvision', 'deleteProvision']);
+
+export function affectingActMetadata(act, slug, recipe) {
+  if (recipe.partialRepeal && !(recipe.operations ?? []).every((operation) => PARTIAL_REPEAL_OPERATIONS.has(operation.op))) {
+    throw new Error(`${recipe.amendmentAct ?? act.slug}: Teilaufhebung (partialRepeal) darf nur repealProvision oder deleteProvision enthalten`);
+  }
+  return {
+    ...act,
+    type: recipe.repealsLaw || recipe.partialRepeal ? act.type : 'aenderungsvorschrift',
+    affectedNorms: [...new Set([...(act.affectedNorms ?? []), slug])],
+  };
+}
+
+/**
+ * Bezeichnung einer übernommenen Zusatzfassung. Trägt ihr REVOSax-Snapshot dieselbe Kennzeile wie
+ * die vorangehende Quelle, ist sie nur ein späterer Textstand ohne neue Bezeichnung: Sie führt die
+ * Bezeichnung der vorangehenden Fassung fort (einschließlich einer redaktionell gepflegten). Erst eine
+ * geänderte Kennzeile, etwa eine Neubekanntmachung, bringt die Bezeichnung des Snapshots.
+ */
+export function adoptedVersionIdentity({ previousParsed, adoptedParsed, previousIdentity, snapshotIdentity }) {
+  const kennzeile = (parsed) => JSON.stringify([parsed?.sourceTitle, parsed?.longTitle, parsed?.shortTitle, parsed?.abbr]);
+  if (!previousParsed || !previousIdentity?.title || kennzeile(previousParsed) !== kennzeile(adoptedParsed)) return snapshotIdentity;
+  return {
+    title: previousIdentity.title,
+    ...(previousIdentity.shortTitle ? { shortTitle: previousIdentity.shortTitle } : {}),
+    ...(previousIdentity.abbr ? { abbr: previousIdentity.abbr } : {}),
+  };
 }
 
 export function usesRechtsueberleitung(source) {
@@ -113,6 +289,7 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
 }
 
+/** Bezeichnungsfelder einer gespeicherten Fassung; null, wenn die Fassung neu entsteht. */
 async function existingVersionMetadata(normDirectory, versionId) {
   try {
     const existing = await readJson(join(normDirectory, 'versions', `${versionId}.json`));
@@ -120,7 +297,7 @@ async function existingVersionMetadata(normDirectory, versionId) {
       .filter((field) => existing[field] !== undefined)
       .map((field) => [field, existing[field]]));
   } catch (error) {
-    if (error.code === 'ENOENT') return {};
+    if (error.code === 'ENOENT') return null;
     throw error;
   }
 }
@@ -129,9 +306,7 @@ async function existingVersionMetadata(normDirectory, versionId) {
 async function existingVersionSourceReferences(normDirectory, versionId) {
   try {
     const existing = await readJson(join(normDirectory, 'versions', `${versionId}.json`));
-    return new Map((existing.sourceReferences ?? [])
-      .filter((reference) => typeof reference.localSource === 'string')
-      .map((reference) => [reference.localSource, reference]));
+    return fsnReferenceIndex(existing.sourceReferences ?? []);
   } catch (error) {
     if (error.code === 'ENOENT') return new Map();
     throw error;
@@ -287,7 +462,7 @@ function historyEntryKey(entry) {
   ]);
 }
 
-async function consolidate(slug, config) {
+async function consolidate(slug, config, sunsetDecisions = {}) {
   const source = config.targets[slug];
   if (!source) throw new Error(`${slug}: Quellenkonfiguration fehlt`);
   const normDirectory = resolve(ROOT, 'content/normen', slug);
@@ -393,7 +568,7 @@ async function consolidate(slug, config) {
     meta = {
       id: slug,
       slug,
-      title: parsed.sourceTitle,
+      title: parsed.longTitle ?? parsed.sourceTitle,
       shortTitle: parsed.shortTitle,
       ...(parsed.abbr ? { abbr: parsed.abbr } : {}),
       shortTitleSource: 'official',
@@ -415,21 +590,24 @@ async function consolidate(slug, config) {
   // Stammnormdatensatz, gewinnt er; die Quellenkonfiguration legt die Identität nur bei der
   // Neuanlage an. Das Titelmodell entscheidet, ob Kurzbezeichnung und Abkürzung überhaupt bestehen.
   const identity = resolveIdentityFields({
-    title: (metaExisted ? meta.title : undefined) ?? source.resultTitle ?? parsed.sourceTitle,
+    title: (metaExisted ? meta.title : undefined) ?? source.resultTitle ?? parsed.longTitle ?? parsed.sourceTitle,
     shortTitle: (metaExisted ? meta.shortTitle : undefined) ?? source.resultShortTitle,
     abbr: (metaExisted ? meta.abbr : undefined) ?? source.resultAbbr,
   });
-  // Neu entstehende Fassungsdatensätze folgen der Konfiguration, aber ebenfalls dem Titelmodell.
-  const versionIdentity = (versionTitle) => resolveIdentityFields({
-    title: versionTitle,
-    shortTitle: source.resultShortTitle,
-    abbr: source.resultAbbr,
-  });
   // Die redaktionell gepflegte Fundstellennummer überlebt die Neuerzeugung der Quellenangabe.
-  const previousSnapshotReferences = new Map((metaExisted ? meta.sourceReferences ?? [] : [])
-    .filter((reference) => reference.kind === 'revosax-snapshot' && typeof reference.localSource === 'string')
-    .map((reference) => [reference.localSource, reference]));
+  const previousSnapshotReferences = fsnReferenceIndex((metaExisted ? meta.sourceReferences ?? [] : [])
+    .filter((reference) => reference.kind === 'revosax-snapshot'));
   let state = { title: parsed.sourceTitle, body: parsed.body };
+  // Angezeigte Bezeichnung bis zu einer amtlichen Neufassung (renameLaw): Langtitel der zuletzt
+  // übernommenen REVOSax-Fassung; bei einer eigenen Ausgangsfassung deren gespeicherter Titel.
+  let snapshotIdentity = existingVersionSeed
+    ? resolveIdentityFields({ title: parsed.sourceTitle, shortTitle: source.resultShortTitle, abbr: source.resultAbbr })
+    : snapshotVersionIdentity(parsed, source);
+  const identityRecord = (fields) => ({
+    title: fields.title,
+    ...(fields.shortTitle ? { shortTitle: fields.shortTitle } : {}),
+    ...(fields.abbr ? { abbr: fields.abbr } : {}),
+  });
   const versions = existingVersionSeed
     ? await versionRecordsThrough(normDirectory, baselineVersionDate)
     : [{
@@ -443,7 +621,7 @@ async function consolidate(slug, config) {
         : `Ausgangsfassung zum Rechtsüberleitungsstichtag ${baselineVersionDate}: übernommener Rechtsstand dieses Tages.`,
       sourceReferences: [snapshotReference(baselineSource)],
       sourceNotes: parsed.sourceNotes,
-      title: state.title,
+      ...identityRecord(snapshotIdentity),
       body: state.body,
     }];
   const historyEntries = existingVersionSeed
@@ -461,6 +639,7 @@ async function consolidate(slug, config) {
       .sort((left, right) => left.versionDate.localeCompare(right.versionDate))
       .map((entry) => parseAdoptedSource(slug, entry)),
   );
+  let previousParsed = existingVersionSeed ? null : parsed;
   for (const adopted of adoptedSources) {
     if (adopted.source.versionDate <= versions.at(-1).validFrom) {
       throw new Error(`${slug}/${adopted.source.id}: Zusatzquelle liegt nicht nach der vorherigen Fassung`);
@@ -469,6 +648,14 @@ async function consolidate(slug, config) {
       throw new Error(`${slug}/${adopted.source.id}: Zusatzquelle liegt nicht vor der ersten ostdeutschen Änderung`);
     }
     state = { title: adopted.parsed.sourceTitle, body: adopted.parsed.body };
+    snapshotIdentity = snapshotVersionIdentity(adopted.parsed, source);
+    const adoptedIdentity = adoptedVersionIdentity({
+      previousParsed,
+      adoptedParsed: adopted.parsed,
+      previousIdentity: await existingVersionMetadata(normDirectory, versions.at(-1).versionId) ?? identityRecord(versions.at(-1)),
+      snapshotIdentity: identityRecord(snapshotIdentity),
+    });
+    previousParsed = adopted.parsed;
     versions.push({
       versionId: adopted.source.id,
       validFrom: adopted.source.versionDate,
@@ -478,7 +665,7 @@ async function consolidate(slug, config) {
       changeNote: adopted.source.changeNote,
       sourceReferences: [snapshotReference(adopted.source)],
       sourceNotes: adopted.parsed.sourceNotes,
-      title: state.title,
+      ...adoptedIdentity,
       body: state.body,
     });
     historyEntries.push({
@@ -492,6 +679,15 @@ async function consolidate(slug, config) {
   }
   let repealRecipe = null;
   let renamed = false;
+  // Wörtlich aus ostdeutschen Änderungsquellen eingesetzte Texte gelten ab ihrer Fassung fort.
+  const sourceLetters = createSourceTextLoader(ROOT);
+  const preserveByVersion = new Map();
+  let preserved = new Set();
+  // Angezeigter Titel der jeweils vorangehenden Fassung; eine gespeicherte Fassung zählt mit ihrem
+  // gespeicherten Titel (siehe followUpVersionIdentity).
+  const displayedTitle = async (version) =>
+    (await existingVersionMetadata(normDirectory, version.versionId))?.title ?? version.title;
+  let previousTitle = versions.length ? await displayedTitle(versions.at(-1)) : undefined;
 
   for (const group of recipeGroups) {
     const effectiveDate = group[0].effectiveDate;
@@ -506,6 +702,7 @@ async function consolidate(slug, config) {
 
     for (const recipe of group) {
       state = applyPatchRecipe(state, recipe);
+      preserved = new Set([...preserved, ...await literalAmendmentStrings(recipe, sourceLetters)]);
       if (recipe.repealsLaw) {
         if (!state.repealed) throw new Error(`${slug}: Aufhebungsrezept markiert die Norm nicht als aufgehoben`);
         if (repealRecipe) throw new Error(`${slug}: mehr als eine vollständige Aufhebung konfiguriert`);
@@ -528,6 +725,15 @@ async function consolidate(slug, config) {
       // (renameLaw); danach führt die Fassung den verkündeten Titel.
       if (group.some((recipe) => recipe.operations?.some((operation) => operation.op === 'renameLaw'))) renamed = true;
       if (source.resultTitle && !renamed) state.title = source.resultTitle;
+      const identityOfVersion = followUpVersionIdentity(state.title, {
+        renamed,
+        snapshotIdentity,
+        previousTitle,
+        resultTitle: source.resultTitle,
+        resultShortTitle: source.resultShortTitle,
+        resultAbbr: source.resultAbbr,
+      });
+      preserveByVersion.set(versionId, preserved);
       versions.push({
         versionId,
         validFrom: effectiveDate,
@@ -536,11 +742,12 @@ async function consolidate(slug, config) {
         citation: group.at(-1).resultCitation,
         changeNote: group.map((recipe) => recipe.changeNote).join(' '),
         sourceReferences: group.flatMap((recipe) => recipe.sourceReferences ?? []),
-        title: state.title,
-        ...(versionIdentity(state.title).shortTitle ? { shortTitle: versionIdentity(state.title).shortTitle } : {}),
-        ...(versionIdentity(state.title).abbr ? { abbr: versionIdentity(state.title).abbr } : {}),
+        title: identityOfVersion.title,
+        ...(identityOfVersion.shortTitle ? { shortTitle: identityOfVersion.shortTitle } : {}),
+        ...(identityOfVersion.abbr ? { abbr: identityOfVersion.abbr } : {}),
         body: state.body,
       });
+      previousTitle = await displayedTitle(versions.at(-1));
     }
   }
   versions.forEach((version, index) => {
@@ -552,6 +759,20 @@ async function consolidate(slug, config) {
         : null;
     version.isCurrent = !next && !repealRecipe;
   });
+  const sunsetDecision = targetSunsetDecision(slug, source, sunsetDecisions);
+  if (sunsetDecision && repealRecipe) {
+    throw new Error(`${slug}: Befristungsentscheidung ${sunsetDecision.key} und vollständige Aufhebung schließen sich aus`);
+  }
+  const sunset = sunsetDecision
+    ? applyConsolidationSunset({ versions, finalBody: state.body, recipes }, sunsetDecision, {
+      referenceDate: editorialConfig.referenceDate,
+      slug,
+    })
+    : null;
+  if (sunset) historyEntries.push(sunset.historyEntry);
+  // Ein redaktionell belegtes Außerkrafttreten der Metadatenebene (meta.expiryDate, etwa aus einer
+  // befristeten Verkündung) begrenzt auch die neu erzeugte letzte Fassung.
+  if (!sunset && !repealRecipe && meta.expiryDate) versions.at(-1).validTo = meta.expiryDate;
 
   const updatedMeta = {
     ...meta,
@@ -567,8 +788,9 @@ async function consolidate(slug, config) {
     type: meta.type,
     status: repealRecipe
       ? repealStatusAt(repealRecipe.effectiveDate, editorialConfig.referenceDate)
-      : meta.status,
+      : sunset?.status ?? meta.status,
     ...(repealRecipe ? { expiryDate: previousIsoDate(repealRecipe.effectiveDate) } : {}),
+    ...(sunset ? { expiryDate: sunset.expiryDate } : {}),
     affectedByNorms: [...new Set([...(meta.affectedByNorms ?? []), ...recipes.map((recipe) => recipe.amendmentAct)])],
     sourceReferences: uniqueSourceReferences([
       ...(existingVersionSeed
@@ -594,6 +816,7 @@ async function consolidate(slug, config) {
   const adoptedVersionIds = new Set(adoptedSources.map(({ source: adoptedSource }) => adoptedSource.id));
   const retainedHistoryEntries = existingHistory.entries.filter((entry) =>
     (existingVersionSeed || entry.type !== 'initial')
+    && !isSunsetHistoryEntry(entry)
     && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
     && !(entry.type === 'notice' && adoptedVersionIds.has(entry.affectingVersionId))
   );
@@ -611,14 +834,7 @@ async function consolidate(slug, config) {
   for (const recipe of recipes) {
     const actPath = resolve(ROOT, 'content/normen', recipe.amendmentAct, 'meta.json');
     const act = await readJson(actPath);
-    affectedActs.push({
-      path: actPath,
-      value: {
-        ...act,
-        type: 'aenderungsvorschrift',
-        affectedNorms: [...new Set([...(act.affectedNorms ?? []), slug])],
-      },
-    });
+    affectedActs.push({ path: actPath, value: affectingActMetadata(act, slug, recipe) });
   }
 
   console.log(`${slug}: ${versions.length} vollständige Fassungen (${versions.map((version) => version.validFrom).join(', ')})`);
@@ -630,14 +846,14 @@ async function consolidate(slug, config) {
     const preserved = await existingVersionMetadata(normDirectory, version.versionId);
     const previousReferences = await existingVersionSourceReferences(normDirectory, version.versionId);
     const sourceReferences = version.sourceReferences?.map((reference) => retainFsnNumber(reference, previousReferences));
-    return mergeStoredVersionIdentity(version, preserved, sourceReferences);
+    return mergeStoredVersionIdentity(version, preserved ?? {}, sourceReferences, { stored: preserved !== null });
   }));
   // Rechtsüberleitung erst auf dem konsolidierten Ergebnis (siehe applyRechtsueberleitung) und
   // nur für Fassungen mit REVOSax-Provenienz; eigene ostdeutsche Vorschriften behalten ihre
   // Eigennamen (siehe usesRechtsueberleitung).
   const transitioned = applyRechtsueberleitung(
     { meta: updatedMeta, history, versions: versionsWithMetadata },
-    { adapt: usesRechtsueberleitung(source) },
+    { adapt: usesRechtsueberleitung(source), preserveByVersion },
   );
   await Promise.all([
     writeJson(join(normDirectory, 'meta.json'), transitioned.meta),
@@ -648,13 +864,19 @@ async function consolidate(slug, config) {
 }
 
 const config = isMain ? await readJson(resolve(ROOT, 'data/recht/consolidation-sources.json')) : null;
+const sunsetDecisions = isMain
+  ? (await readJson(resolve(ROOT, SUNSET_DECISIONS_FILE)).catch((error) => {
+    if (error.code === 'ENOENT') return { decisions: {} };
+    throw error;
+  })).decisions ?? {}
+  : {};
 if (isMain && target && config.blockedTargets?.[target] && !config.blockedTargets[target].effectiveDate) {
   throw new Error(`${target}: Konsolidierung gesperrt – ${config.blockedTargets[target].reason}`);
 }
 if (!isMain) {
   // nur importiert (Tests)
 } else if (!all) {
-  await consolidate(target, config);
+  await consolidate(target, config, sunsetDecisions);
 } else {
   const blocked = Object.keys(config.targets).filter((slug) => config.blockedTargets?.[slug]);
   if (blocked.length) console.error(`Gesperrte Ziele werden höchstens bis vor den Konflikt fortgeschrieben: ${blocked.join(', ')}`);
@@ -676,6 +898,6 @@ if (!isMain) {
       console.error(`${slug}: keine Änderungsrezepte, Konsolidierung übersprungen`);
       continue;
     }
-    await consolidate(slug, config);
+    await consolidate(slug, config, sunsetDecisions);
   }
 }

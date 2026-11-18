@@ -2,11 +2,18 @@ import { collapseSpacedLetters } from './norm-html-parser.mjs';
 
 /**
  * Geschützte Provenienz: ausschließlich Fundstellenkürzel der amtlichen
- * Verkündungs- und Amtsblätter (immer mit abschließendem Punkt). Sie bezeichnen die
- * tatsächlich verwendete Primärquelle und werden nie übergeleitet. Institutions-
- * und Gesetzeskürzel (SächsVerfGH, SächsVerfGHG, SächsBG …) sind normativer
- * Text und werden zu Ost… angepasst; eine Zeichenfolge darf nicht allein deshalb
- * geschützt werden, weil sie auch Präfix eines Gesetzeskürzels sein kann.
+ * Verkündungs- und Amtsblätter. Sie bezeichnen die tatsächlich verwendete Primärquelle
+ * und werden nie übergeleitet. Institutions- und Gesetzeskürzel (SächsVerfGH,
+ * SächsVerfGHG, SächsBG …) sind normativer Text und werden zu Ost… angepasst; eine
+ * Zeichenfolge darf nicht allein deshalb geschützt werden, weil sie auch Präfix eines
+ * Gesetzeskürzels sein kann.
+ *
+ * Neben den Regelformen (SächsGVBl., SächsABl. …) stehen in den Quellen Schreibvarianten
+ * desselben Blattkürzels: verkürztes Präfix („SächGVBl.“, „SächABl.“), großes I oder Ziffer 1
+ * statt l („SächsGVBI.“, „SächsABI.“, „SächsJMBI.“, „SächsGVB1.“), fehlender Schlusspunkt
+ * („SächsGVBl S. 1“, „SächsABl S. 1“) sowie Ministerial- und Verwaltungsblatt („SächsMinBl.“,
+ * „SächsVBl.“). Sie sind ebenso Provenienz. Die Abgrenzung nach dem Kürzel (Punkt oder kein
+ * weiterer Buchstabe) verhindert, dass ein Gesetzeskürzel mit demselben Anfang geschützt wird.
  */
 const SOURCE_TOKEN_PATTERNS = [
   /SächsGVBl\./gu,
@@ -14,9 +21,44 @@ const SOURCE_TOKEN_PATTERNS = [
   /SächsJMBl\./gu,
   /SächsSMBl\./gu,
   /SächsMBl\./gu,
+  /(?<!\p{L})Sä(?:chs?)?-?(?:GVB[lI1]|BVBl|AB[lI]|JMB[lI]|SMBl|MinBl|MBl|VB[lI1])(?:\.|(?![\p{L}\p{N}]))/gu,
 ];
 
 export const PROTECTED_SOURCE_TOKENS = ['SächsGVBl.', 'SächsABl.', 'SächsJMBl.', 'SächsSMBl.', 'SächsMBl.'];
+
+/**
+ * Feststehende Eigennamen mit „Sachsen“ oder „sächsisch“, die kein Bezug auf das Land sind:
+ * Landschafts-, Gebiets-, Landkreis- und Ortsnamen sowie Vereinsnamen. Sie werden wie die
+ * Fundstellenkürzel vor der Überleitung geschützt und gelten im Reststellenaudit nicht als Rest.
+ * „Mittelsachsen“, „Nordsachsen“, „Niedersachsen“ und „Sachsen-Anhalt“ erfassen die Regeln ohnehin
+ * nicht (Wortgrenzen); sie brauchen keinen eigenen Eintrag.
+ */
+const PROTECTED_NAME_PATTERNS = [
+  // Sächsische Schweiz, Landkreis Sächsische Schweiz-Osterzgebirge, Nationalpark Sächsische Schweiz
+  /(?<!\p{L})Sächsisch(?:e|en|er|es)? Schweiz(?:-Osterzgebirge)?(?!\p{L})/giu,
+  // auch in der Bindestrichform „Sächsisch-Böhmischen-Schweiz“
+  /(?<!\p{L})Sächsisch-Böhmisch(?:e|en|er|es)?[ -]Schweiz(?!\p{L})/giu,
+  /(?<!\p{L})Sächsisch(?:e|en|es)? Elbsandsteingebirges?(?!\p{L})/giu,
+  // Ortszusatz „Königstein/Sächs. Schw.“
+  /(?<!\p{L})Sächs\. Schw(?:eiz(?!\p{L})|\.)/gu,
+  // Gemeindename
+  /(?<!\p{L})Neustadt in Sachsen(?!\p{L})/gu,
+  // Vereinsname
+  /(?<!\p{L})Silicon Saxony(?!\p{L})/gu,
+];
+
+function protectPatterns(value, patterns, protectedValues) {
+  let text = value;
+  for (const pattern of patterns) {
+    pattern.lastIndex = 0;
+    text = text.replace(pattern, (match) => {
+      const marker = `\uE100${protectedValues.length}\uE101`;
+      protectedValues.push(match);
+      return marker;
+    });
+  }
+  return text;
+}
 
 const ADJECTIVE_RULES = [
   ['Sächsischer', 'Ostdeutscher'],
@@ -33,15 +75,7 @@ const ADJECTIVE_RULES = [
 
 function protectSourceTokens(value) {
   const protectedValues = [];
-  let text = value;
-  for (const pattern of SOURCE_TOKEN_PATTERNS) {
-    pattern.lastIndex = 0;
-    text = text.replace(pattern, (match) => {
-      const marker = `\uE100${protectedValues.length}\uE101`;
-      protectedValues.push(match);
-      return marker;
-    });
-  }
+  const text = protectPatterns(protectPatterns(value, SOURCE_TOKEN_PATTERNS, protectedValues), PROTECTED_NAME_PATTERNS, protectedValues);
   return { text, protectedValues };
 }
 
@@ -62,6 +96,10 @@ export function adaptSaxonText(value) {
   const { text: protectedText, protectedValues } = protectSourceTokens(value);
   let text = protectedText;
 
+  // Weiche Trennzeichen (U+00AD) innerhalb eines „Säch…“-Wortes verhindern sonst jede Regel
+  // („Säch\u00ADsischen“, „Sächs\u00ADBeamtVG“); sie sind unsichtbar und entfallen.
+  text = text.replace(/(?<!\p{L})[Ss]\u00AD?ä\u00AD?c\u00AD?h[\p{L}\u00AD]*/gu, (match) => match.replace(/\u00AD/gu, ''));
+
   for (const [from, to] of ADJECTIVE_RULES) {
     // Nur ganze Wörter: „Niedersächsisches“ oder „niedersächsischen“ bleiben unberührt.
     text = text.replace(new RegExp(`(?<!\\p{L})${from}(?!\\p{L})`, 'gu'), to);
@@ -72,38 +110,110 @@ export function adaptSaxonText(value) {
     // „Sächsisch-Thüringische …“); der Fremdbezug „-anhaltisch“ bleibt unverändert.
     .replace(/\bSächsisch(?![\p{L}])(?!-[Aa]nhalt)/gu, 'Ostdeutsch')
     .replace(/\bsächsisch(?![\p{L}])(?!-[Aa]nhalt)/gu, 'ostdeutsch')
-    .replace(/\bSachsens\b/gu, 'Ostdeutschlands')
-    .replace(/\bSachsen\b(?!-Anhalt)/gu, 'Ostdeutschland')
-    .replace(/\bsachsen\b(?!-anhalt)/gu, 'ostdeutschland')
+    // Versalsatz (Aufschriften, Siegel, Literaturangaben): ganze Wörter, ohne NIEDERSACHSEN,
+    // SACHSEN-ANHALT und Komposita wie SACHSENFORST.
+    .replace(/(?<!\p{L})SÄCHSISCH(E[RSNM]?)?(?!\p{L})(?!-ANHALT)/gu, (_, ending) => `OSTDEUTSCH${ending ?? ''}`)
+    .replace(/(?<!\p{L})SACHSENS(?!\p{L})/gu, 'OSTDEUTSCHLANDS')
+    .replace(/(?<!\p{L})SACHSEN(?!\p{L})(?!-ANHALT)/gu, 'OSTDEUTSCHLAND')
+    // „Sachsen“ als eigenes Wort. Die Wortgrenze bezieht sich auf Buchstaben: Eine angehängte
+    // Fußnotenziffer („Landesdirektion Sachsen3)“) oder ein in der Quelle fehlendes Leerzeichen
+    // („VersorgungsverbandSachsen“) verhindert die Überleitung nicht. Komposita mit Kleinbuchstaben
+    // („Sachsenforst“, „SachsenNetz“ als Eigenname) bleiben unverändert, Sachsen-Anhalt ebenso.
+    .replace(/Sachsens(?!\p{L})/gu, 'Ostdeutschlands')
+    // Abkürzungskomposita („SachsenLBUmwG“ zur „Sachsen LB“).
+    .replace(/(?<!\p{L})Sachsen(?=\p{Lu}{2})/gu, 'Ostdeutschland')
+    .replace(/Sachsen(?!\p{L})(?!-Anhalt)/gu, 'Ostdeutschland')
+    .replace(/\bsachsen(?!\p{L})(?!-anhalt)/gu, 'ostdeutschland')
     // Schreibvariante ohne zweites „s“ („sächsicher“) in amtlichen Titeln.
     .replace(/\bSächsich(er|e|es|en|em)\b/gu, 'Ostdeutsch$1')
     .replace(/\bsächsich(er|e|es|en|em)\b/gu, 'ostdeutsch$1')
-    // amtliche Abkürzungen wie SächsBG, SächsSchulG, SächsBO usw. – auch als Bestandteil
-    // zusammengesetzter Kürzel (DVOSächsBO, VwVSächsLZPolB).
-    // Nach den Adjektivregeln ist jedes verbleibende „Sächs“ vor einem Buchstaben ein
-    // Kürzelpräfix (SächsBG, SächsmLkdAPVO, DVOSächsBO).
-    .replace(/\bSächs(?=\p{L})/gu, 'Ost')
-    .replace(/(?<=\p{L})Sächs(?=\p{L})/gu, 'Ost')
-    .replace(/\bsächs(?=[A-ZÄÖÜ])/gu, 'ost');
+    // Amtliche Abkürzungen wie SächsBG, SächsSchulG, SächsBO usw. – auch als Bestandteil
+    // zusammengesetzter Kürzel (DVOSächsBO, VwVSächsLZPolB) und unmittelbar nach einer Ziffer
+    // („Abs. 1SächsBO“). Nach den Adjektivregeln ist jedes verbleibende „Sächs“ vor einem
+    // Buchstaben ein Kürzelpräfix (SächsBG, SächsmLkdAPVO, DVOSächsBO).
+    .replace(/Sächs(?=\p{L})/gu, 'Ost')
+    // Kürzel mit Bindestrich oder Zeilentrennung („Sächs-InsOAG“, „Sächs-⏎TranspG“).
+    .replace(/Sächs-\s*(?=\p{Lu})(?!(?:GVBl|ABl|JMBl|SMBl|MBl)\.)/gu, 'Ost')
+    // Das Kürzelpräfix selbst als zitiertes Wort („mit „Sächs“ abgekürzt“).
+    .replace(/(?<=[„"‚»«])Sächs(?=[“”"‘’«»])/gu, 'Ost')
+    // Kürzelvarianten „Säch…“ und „Sä…“ vor einem Großbuchstaben (SächSpielG, SäHO, VwV-SäHO,
+    // SäKitaG); „Sächs GVBl.“ mit Leerzeichen bleibt als Fundstellenkürzel unberührt.
+    .replace(/Säch(?=\p{Lu})/gu, 'Ost')
+    .replace(/Sä(?=\p{Lu})/gu, 'Ost')
+    .replace(/\bsächs(?=[A-ZÄÖÜ])/gu, 'ost')
+    // Englische Amtsbezeichnungen (Funktionsübersichten); die englische Bezeichnung des Landes
+    // ist „Free State of East Germany“.
+    .replace(/\b(Free State|State Chancellery|Police President) of Saxony\b/gu, '$1 of East Germany')
+    .replace(/\bSaxony? State Ministry\b/gu, 'East German State Ministry')
+    .replace(/\bSaxon State Ministry\b/gu, 'East German State Ministry');
 
   return restoreSourceTokens(text, protectedValues);
 }
 
-function adaptBodyBlock(block) {
+function adaptBodyBlock(block, preserve) {
   const result = { ...block };
   // Gliederungskennzeichen wie „Anlage 1 (zu § 8 SächsRKVO)“ tragen ebenfalls amtliche Kürzel.
   // Gesperrter Satz der Quelle (Amtsbezeichnungen in Besoldungsanlagen, „s o l l“) wird dabei
   // als gewöhnliches Wort übernommen; ein Auszeichnungsmodell für Hervorhebungen gibt es nicht.
   for (const field of ['label', 'title', 'text']) {
-    if (typeof result[field] === 'string') result[field] = collapseSpacedLetters(adaptSaxonText(result[field]));
+    if (typeof result[field] !== 'string' || preserve?.has(result[field])) continue;
+    result[field] = collapseSpacedLetters(adaptSaxonText(result[field]));
   }
-  if (Array.isArray(result.children)) result.children = result.children.map(adaptBodyBlock);
+  if (Array.isArray(result.children)) result.children = result.children.map((child) => adaptBodyBlock(child, preserve));
   return result;
 }
 
-/** Rechtsüberleitung eines vollständigen Normkörpers (Labels, Überschriften, Texte, Anlagen). */
-export function adaptBodyBlocks(blocks) {
-  return (blocks ?? []).map(adaptBodyBlock);
+/**
+ * Rechtsüberleitung eines vollständigen Normkörpers (Labels, Überschriften, Texte, Anlagen).
+ * `preserve` (Set) nennt Texte, die wörtlich aus einer ostdeutschen Änderungsquelle stammen
+ * (siehe literalAmendmentStrings); sie sind Wortlaut des ostdeutschen Normgebers und bleiben
+ * unverändert, auch wenn sie einen Sachsen-Bezug enthalten („Bezirke Sachsen und Oberlausitz“,
+ * „im Gebiet des früheren Freistaates Sachsen“).
+ */
+export function adaptBodyBlocks(blocks, { preserve } = {}) {
+  return (blocks ?? []).map((block) => adaptBodyBlock(block, preserve));
+}
+
+/** Buchstaben-/Ziffernfolge ohne Satzzeichen und Leerraum (wörtlicher Quellenvergleich). */
+export function lettersOnly(value) {
+  return String(value ?? '').normalize('NFKC').toLocaleLowerCase('de').replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
+function recipeValueStrings(value, output = []) {
+  if (typeof value === 'string') {
+    output.push(value);
+  } else if (Array.isArray(value)) {
+    value.forEach((entry) => recipeValueStrings(entry, output));
+  } else if (value && typeof value === 'object') {
+    for (const [key, entry] of Object.entries(value)) {
+      if (['label', 'title', 'text'].includes(key) ? typeof entry === 'string' : entry && typeof entry === 'object') {
+        recipeValueStrings(entry, output);
+      }
+    }
+  }
+  return output;
+}
+
+/**
+ * Texte eines Patch-Rezepts, die der ostdeutsche Normgeber wörtlich verkündet hat: Ein Wert einer
+ * Operation, dessen Buchstabenfolge in der amtlichen Änderungsquelle unter Gesetze/ vorkommt und
+ * den der Adapter verändern würde. Rezeptwerte in sächsischer Ausgangsform (die Quelle sagt
+ * „Freistaat Ostdeutschland“, das Rezept „Freistaat Sachsen“) bestehen den Vergleich nicht und
+ * werden wie bisher übergeleitet. `sourceLetters(path)` liefert lettersOnly der Quelle oder null.
+ */
+export async function literalAmendmentStrings(recipe, sourceLetters) {
+  const preserved = new Set();
+  for (const operation of recipe.operations ?? []) {
+    if (typeof operation.source !== 'string' || !operation.source.startsWith('Gesetze/')) continue;
+    if (operation.op === 'renameLaw' || operation.value === undefined) continue;
+    const letters = await sourceLetters(operation.source);
+    if (!letters) continue;
+    for (const value of recipeValueStrings(operation.value)) {
+      if (adaptSaxonText(value) === value) continue;
+      if (letters.includes(lettersOnly(value))) preserved.add(value);
+    }
+  }
+  return preserved;
 }
 
 export function adaptParsedRevosaxSnapshot(parsed) {
@@ -117,7 +227,7 @@ export function adaptParsedRevosaxSnapshot(parsed) {
     // und andere geschützte Fundstellenkürzel bleiben als Provenienz unverändert.
     fullCitation: adaptSaxonText(parsed.fullCitation),
     ...(parsed.pageFullCitation ? { pageFullCitation: adaptSaxonText(parsed.pageFullCitation) } : {}),
-    body: (parsed.body ?? []).map(adaptBodyBlock),
+    body: adaptBodyBlocks(parsed.body),
     // sourceNotes beschreiben die amtliche Quelle und werden nicht redaktionell
     // umgeschrieben. Die unveränderte Rohquelle bleibt daneben separat archiviert.
     // fsnNumber ist eine reine Fundstellenangabe der Quelle und bleibt unverändert
@@ -141,11 +251,21 @@ function collectStrings(value, path = '$', output = []) {
   return output;
 }
 
+/** Entfernt die geschützten Eigennamen (z. B. „Sächsische Schweiz“), nicht die Fundstellenkürzel. */
+export function stripProtectedNames(value) {
+  let text = String(value ?? '');
+  for (const pattern of PROTECTED_NAME_PATTERNS) {
+    pattern.lastIndex = 0;
+    text = text.replace(pattern, ' ');
+  }
+  return text;
+}
+
 function stripProtectedSourceTokens(value) {
   let text = value;
-  for (const pattern of SOURCE_TOKEN_PATTERNS) {
+  for (const pattern of [...SOURCE_TOKEN_PATTERNS, ...PROTECTED_NAME_PATTERNS]) {
     pattern.lastIndex = 0;
-    text = text.replace(pattern, '');
+    text = text.replace(pattern, ' ');
   }
   return text;
 }
@@ -168,8 +288,28 @@ export function auditAdaptedRevosaxSnapshot(parsed) {
   return collectStrings(normative).filter(({ value }) => hasSaxonResidual(value));
 }
 
-/** Reststellenmuster der Rechtsüberleitung (Sachsen-Anhalt ist ein echter Fremdbezug). */
-export const SAXON_RESIDUAL_PATTERN = /(?:\bSachsens?\b(?!-Anhalt)|\bsachsens?\b(?!-anhalt)|\bSächs\p{L}|\bsächs\p{L}|(?<=\p{L})Sächs(?=[A-ZÄÖÜ]))/u;
+/**
+ * Reststellenmuster der Rechtsüberleitung. Sachsen-Anhalt, Niedersachsen, Komposita mit
+ * Kleinbuchstaben (Sachsenforst) und die geschützten Eigennamen (PROTECTED_NAME_PATTERNS) sind
+ * echte Fremd- oder Eigennamen; „Sächs GVBl.“ mit Leerzeichen ist ein Fundstellenkürzel.
+ */
+export const SAXON_RESIDUAL_PATTERN = new RegExp([
+  'Sachsens?(?!\\p{L})(?!-Anhalt)',
+  '(?<!\\p{L})Sachsen(?=\\p{Lu}{2})',
+  '\\bsachsens?(?!\\p{L})(?!-anhalt)',
+  '(?<!\\p{L})SÄCHSISCH',
+  '(?<!\\p{L})SACHSENS?(?!\\p{L})(?!-ANHALT)',
+  '\\bSächs\\p{L}',
+  '(?<=[\\p{L}\\p{N}])Sächs(?=\\p{L})',
+  '\\bsächs\\p{L}',
+  'Säch[\\p{Lu}\\u00AD]',
+  'Sä\\u00AD?\\p{Lu}',
+  'Sächs\\u00AD',
+  'Sächs-\\s*(?!(?:GVBl|ABl|JMBl|SMBl|MBl)\\.)\\p{Lu}',
+  '(?<=[„"‚»«])Sächs(?=[“”"‘’«»])',
+  '\\b(?:Free State|State Chancellery|Police President) of Saxony\\b',
+  '\\bSaxon(?:y)? State Ministry\\b',
+].join('|'), 'u');
 
 /** Prüft einen normativen Text auf Sachsen-Reststellen; geschützte Fundstellenkürzel zählen nicht. */
 export function hasSaxonResidual(value) {
@@ -181,10 +321,10 @@ export function hasSaxonResidual(value) {
 /** Wörter, die nur durch eine fehlerhafte Anpassung entstehen können (z. B. aus „Niedersächsisch“). */
 export const ADAPTER_ARTEFACT_PATTERN = /\b[Nn]iederostdeutsch\p{L}*/u;
 
-/** Geschützte Fundstellenkürzel durch gleich lange Leerzeichen ersetzen, damit Indizes erhalten bleiben. */
+/** Geschützte Fundstellenkürzel und Eigennamen durch gleich lange Leerzeichen ersetzen, damit Indizes erhalten bleiben. */
 function blankProtectedSourceTokens(value) {
   let text = value;
-  for (const pattern of SOURCE_TOKEN_PATTERNS) {
+  for (const pattern of [...SOURCE_TOKEN_PATTERNS, ...PROTECTED_NAME_PATTERNS]) {
     pattern.lastIndex = 0;
     text = text.replace(pattern, (match) => ' '.repeat(match.length));
   }

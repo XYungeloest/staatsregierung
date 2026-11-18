@@ -5,7 +5,7 @@ import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { keywordCore, titleWords } from './lib/norm-title-rules.mjs';
-import { adaptSaxonText, hasSaxonResidual } from './lib/revosax-ost-adapter.mjs';
+import { adaptSaxonText, hasSaxonResidual, stripProtectedNames } from './lib/revosax-ost-adapter.mjs';
 import { resolveRepositoryRoot } from '../packages/shared/src/lib/repository-root.ts';
 
 /**
@@ -115,8 +115,9 @@ function designationNames(meta) {
  * Bindestrich („Änd. Sächs-AufbauG“), weil es auf Fließtext zielt. Beide Regeln zusammen.
  */
 const SAXON_DESIGNATION = /(?:^|[^\p{L}])(?:Sächs|Sachsen)/u;
-function isSaxonDesignation(value) {
-  const ohneFremdbezug = String(value ?? '').replaceAll('Sachsen-Anhalt', 'Anhalt');
+export function isSaxonDesignation(value) {
+  // Geschützte Eigennamen wie „Sächsische Schweiz“ sind wie Sachsen-Anhalt keine Reststelle.
+  const ohneFremdbezug = stripProtectedNames(value).replaceAll('Sachsen-Anhalt', 'Anhalt');
   return SAXON_DESIGNATION.test(ohneFremdbezug) || hasSaxonResidual(ohneFremdbezug);
 }
 

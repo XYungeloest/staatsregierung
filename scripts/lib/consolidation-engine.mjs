@@ -259,7 +259,80 @@ export function previousIsoDate(isoDate) {
   return date.toISOString().slice(0, 10);
 }
 
+export function nextIsoDate(isoDate) {
+  const date = new Date(`${isoDate}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + 1);
+  return date.toISOString().slice(0, 10);
+}
+
 /** Eine Aufhebung wirkt ab ihrem Wirksamkeitsdatum; der Vortag bleibt geltend. */
 export function repealStatusAt(effectiveDate, referenceDate) {
   return effectiveDate <= referenceDate ? 'repealed' : 'in-force';
+}
+
+const GERMAN_MONTHS = ['januar', 'februar', 'märz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember'];
+const SUNSET_DATE = String.raw`(\d{1,2})\.\s*(?:(\d{1,2})\.\s*|(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+)(\d{4})`;
+const SUNSET_WORDINGS = [
+  // „mit Ablauf des 31. Dezember 2026“, „bis einschließlich 2. Juni 2026“: letzter Geltungstag ist das Datum.
+  { kind: 'end-of-day', pattern: new RegExp(String.raw`(?:mit|zum|bis\s+zum)\s+Ablauf\s+des\s+${SUNSET_DATE}|bis\s+einschließlich\s+${SUNSET_DATE}`, 'giu') },
+  // „tritt am 31. Dezember 2026 außer Kraft“, „Außerkrafttreten am 1. Januar 2031“: letzter Geltungstag ist der Vortag.
+  { kind: 'on-day', pattern: new RegExp(String.raw`\bam\s+${SUNSET_DATE}\s+außer\s+Kraft|Außerkrafttreten\s+am\s+${SUNSET_DATE}`, 'giu') },
+];
+
+function sunsetMatchDate(match) {
+  const groups = match.slice(1).filter((value) => value !== undefined);
+  const [day, monthValue, year] = groups;
+  const month = /^\d+$/u.test(monthValue) ? Number(monthValue) : GERMAN_MONTHS.indexOf(monthValue.toLowerCase()) + 1;
+  return `${year}-${String(month).padStart(2, '0')}-${String(Number(day)).padStart(2, '0')}`;
+}
+
+/**
+ * Liest die Außerkrafttretensformel eines Belegs: `end-of-day` („mit Ablauf des …“, „bis
+ * einschließlich …“) oder `on-day` („tritt am … außer Kraft“). Ohne erkennbare Datumsformel
+ * (etwa mit Uhrzeit oder relativem Termin) ist das Ergebnis null; mehrdeutige Belege brechen ab.
+ */
+export function sunsetWording(text) {
+  const found = [];
+  for (const { kind, pattern } of SUNSET_WORDINGS) {
+    for (const match of String(text ?? '').matchAll(pattern)) found.push({ kind, date: sunsetMatchDate(match) });
+  }
+  const unique = [...new Map(found.map((entry) => [`${entry.kind}|${entry.date}`, entry])).values()];
+  if (unique.length > 1) throw new Error(`mehrdeutige Außerkrafttretensformel: ${unique.map((entry) => `${entry.kind} ${entry.date}`).join(', ')}`);
+  return unique[0] ?? null;
+}
+
+/**
+ * Redaktionelle Außerkrafttretensregel, einheitlich für Befristungsentscheidungen, befristete
+ * Verkündungen und Konsolidierungsziele:
+ *   „tritt am <Datum> außer Kraft“            → ceasesOn = Datum, expiryDate = Vortag
+ *   „tritt mit Ablauf des <Datum> außer Kraft“ → expiryDate = Datum
+ * `expiryDate` ist der letzte Geltungstag (validTo der letzten Fassung); die Norm gilt als
+ * aufgehoben, sobald der Stichtag nach diesem Tag liegt. Der Historieneintrag zum Außerkrafttreten
+ * (`historyDate`) steht in beiden Fällen am ersten Tag, an dem die Norm nicht mehr gilt
+ * (expiryDate + 1 Tag): bei „am <Datum>“ also am genannten Datum, bei „mit Ablauf des <Datum>“
+ * am Folgetag. Nennt der Beleg eine der beiden
+ * Formeln, müssen die Angaben dazu passen.
+ */
+export function resolveSunsetDates({ expiryDate, ceasesOn, basis } = {}, context = 'Befristung') {
+  const iso = /^\d{4}-\d{2}-\d{2}$/u;
+  if (ceasesOn !== undefined && !iso.test(ceasesOn)) throw new Error(`${context}: ceasesOn ist kein gültiges Datum`);
+  if (expiryDate !== undefined && !iso.test(expiryDate)) throw new Error(`${context}: expiryDate ist kein gültiges Datum`);
+  if (ceasesOn && expiryDate && expiryDate !== previousIsoDate(ceasesOn)) {
+    throw new Error(`${context}: „am ${ceasesOn} außer Kraft“ verlangt expiryDate ${previousIsoDate(ceasesOn)}, nicht ${expiryDate}`);
+  }
+  if (!ceasesOn && !expiryDate) throw new Error(`${context}: Befristung ohne expiryDate oder ceasesOn`);
+  const wording = basis ? sunsetWording(basis) : null;
+  if (wording?.kind === 'on-day' && wording.date !== ceasesOn) {
+    throw new Error(`${context}: Beleg „am ${wording.date} außer Kraft“ verlangt ceasesOn ${wording.date} und expiryDate ${previousIsoDate(wording.date)}`);
+  }
+  if (wording?.kind === 'end-of-day' && (ceasesOn || wording.date !== expiryDate)) {
+    throw new Error(`${context}: Beleg „mit Ablauf des ${wording.date}“ verlangt expiryDate ${wording.date} ohne ceasesOn`);
+  }
+  const lastDay = ceasesOn ? previousIsoDate(ceasesOn) : expiryDate;
+  return { expiryDate: lastDay, historyDate: nextIsoDate(lastDay) };
+}
+
+/** Status einer befristeten Norm am Stichtag: aufgehoben erst nach dem letzten Geltungstag. */
+export function sunsetStatusAt(expiryDate, referenceDate) {
+  return repealStatusAt(nextIsoDate(expiryDate), referenceDate);
 }

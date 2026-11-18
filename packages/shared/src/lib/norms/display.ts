@@ -62,6 +62,19 @@ export function formatDate(value: string): string {
   }).format(date);
 }
 
+/**
+ * Erster Tag nach dem letzten Geltungstag. `expiryDate` einer Vorschrift und `validTo` einer
+ * Fassung nennen den letzten Tag, an dem sie gilt („tritt am 1. Mai außer Kraft“ → 30. April;
+ * „mit Ablauf des 30. April“ → 30. April). Angaben „außer Kraft seit …“ oder „ab …“ nennen deshalb
+ * den Folgetag; Angaben „bis …“ bleiben beim letzten Geltungstag. Kein ISO-Datum: unverändert.
+ */
+export function dayAfterLastValidDay(lastValidDay: string): string {
+  const match = lastValidDay.match(/^(\d{4})-(\d{2})-(\d{2})$/u);
+  if (!match) return lastValidDay;
+  const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]) + 1));
+  return date.toISOString().slice(0, 10);
+}
+
 export function parseCitation(value: string): ParsedCitation | undefined {
   const displayValue = toDisplayText(value);
   const match = displayValue.match(

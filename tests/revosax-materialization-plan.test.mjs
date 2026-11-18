@@ -3,10 +3,12 @@ import test from 'node:test';
 
 import {
   applyDecision,
+  applyPostCutoffRule,
   buildPlan,
   findDuplicateSources,
   normalizeIdentity,
   planEntry,
+  postCutoffFacts,
   buildIndexes,
   summarizeExistingNorm,
 } from '../scripts/plan-revosax-materialization.mjs';
@@ -94,39 +96,39 @@ test('Titel, Kurzbezeichnung und Abkürzung matchen nur exakt; Abkürzung allein
 });
 
 test('gleiche Kurzbezeichnung mit widersprechender REVOSax-lawId ist eine andere Vorschrift', () => {
-  // Änderungsvorschriften tragen oft dieselbe Kurzbezeichnung („Änd OstAZVO“);
+  // Änderungsvorschriften tragen oft dieselbe Kurzbezeichnung („Änd OstBspVO“);
   // eine bestehende Norm mit anderer lawId darf weder MATCH noch REVIEW auslösen.
-  const earlierAmendment = existing('aend-ostazvo', { title: 'Zweite Verordnung zur Änderung der OstAZVO', shortTitle: 'Änd OstAZVO', lawId: '1747', versions: [BASELINE] });
-  const legacyWithoutLawId = existing('aend-ostazvo-alt', { title: 'Änd OstAZVO (Altbestand)', shortTitle: 'Änd OstAZVO alt', versions: [BASELINE] });
+  const earlierAmendment = existing('aend-ostbspvo', { title: 'Zweite Verordnung zur Änderung der OstBspVO', shortTitle: 'Änd OstBspVO', lawId: '90011', versions: [BASELINE] });
+  const legacyWithoutLawId = existing('aend-ostbspvo-alt', { title: 'Änd OstBspVO (Altbestand)', shortTitle: 'Änd OstBspVO alt', versions: [BASELINE] });
   const indexes = buildIndexes([earlierAmendment, legacyWithoutLawId]);
 
   const later = planEntry(staged({
-    revosaxLawId: '2229', sourceId: '2229', category: 'ÄVO',
-    sourceUrl: 'https://www.revosax.sachsen.de/vorschrift/2229', canonicalVersionUrl: 'https://www.revosax.sachsen.de/vorschrift/2229.1', requestedUrl: 'https://www.revosax.sachsen.de/vorschrift/2229',
-    adaptedTitle: 'Fünfte Verordnung zur Änderung der OstAZVO', adaptedShortTitle: 'Änd OstAZVO', adaptedAbbr: null, sourceAbbr: null,
-    listing: { label: 'Änd OstAZVO' }, proposedSlug: 'aend-ostazvo-2229',
+    revosaxLawId: '90012', sourceId: '90012', category: 'ÄVO',
+    sourceUrl: 'https://www.revosax.sachsen.de/vorschrift/90012', canonicalVersionUrl: 'https://www.revosax.sachsen.de/vorschrift/90012.1', requestedUrl: 'https://www.revosax.sachsen.de/vorschrift/90012',
+    adaptedTitle: 'Fünfte Verordnung zur Änderung der OstBspVO', adaptedShortTitle: 'Änd OstBspVO', adaptedAbbr: null, sourceAbbr: null,
+    listing: { label: 'Änd OstBspVO' }, proposedSlug: 'aend-ostbspvo-90012',
   }), BASELINE, indexes);
   assert.equal(later.action, 'CREATE');
 
   // Ohne widersprechende lawId bleibt der exakte Titelabgleich wirksam.
   const legacyMatch = planEntry(staged({
-    revosaxLawId: '2230', sourceId: '2230',
-    adaptedTitle: 'Änd OstAZVO (Altbestand)', adaptedShortTitle: 'Änd OstAZVO alt', adaptedAbbr: null, sourceAbbr: null,
-    listing: { label: 'Änd OstAZVO alt' },
+    revosaxLawId: '90013', sourceId: '90013',
+    adaptedTitle: 'Änd OstBspVO (Altbestand)', adaptedShortTitle: 'Änd OstBspVO alt', adaptedAbbr: null, sourceAbbr: null,
+    listing: { label: 'Änd OstBspVO alt' },
   }), BASELINE, indexes);
-  assert.equal(legacyMatch.canonicalSlug, 'aend-ostazvo-alt');
+  assert.equal(legacyMatch.canonicalSlug, 'aend-ostbspvo-alt');
   assert.notEqual(legacyMatch.action, 'CREATE');
 
   // Eine spätere Ost-Norm (andere lawId, keine Stichtagsfassung) mit gleichem Titel
   // bleibt ein Widerspruch: PROTECT statt eines stillen Doppels.
-  const successor = existing('ost-apopol', { title: 'Ostdeutsche APOPol', abbr: 'OstAPOPol', lawId: '21006', versions: ['2025-09-01'] });
+  const successor = existing('ost-bsppol', { title: 'Ostdeutsche BspPol', abbr: 'OstBspPol', lawId: '90014', versions: ['2025-09-01'] });
   const predecessor = planEntry(staged({
-    revosaxLawId: '16264', sourceId: '16264.3',
-    adaptedTitle: 'Ostdeutsche APOPol', adaptedShortTitle: 'Ostdeutsche APOPol', adaptedAbbr: 'OstAPOPol', sourceAbbr: 'SächsAPOPol',
-    listing: { label: 'Ostdeutsche APOPol' },
+    revosaxLawId: '90015', sourceId: '90015.3',
+    adaptedTitle: 'Ostdeutsche BspPol', adaptedShortTitle: 'Ostdeutsche BspPol', adaptedAbbr: 'OstBspPol', sourceAbbr: 'SächsBspPol',
+    listing: { label: 'Ostdeutsche BspPol' },
   }), BASELINE, buildIndexes([successor]));
   assert.equal(predecessor.action, 'PROTECT');
-  assert.equal(predecessor.canonicalSlug, 'ost-apopol');
+  assert.equal(predecessor.canonicalSlug, 'ost-bsppol');
 });
 
 test('mehrdeutige Identitäten, Mehrfachfassungen und Staging-Skips werden nie automatisch geschrieben', () => {
@@ -199,22 +201,46 @@ test('übernommene, unveränderte REVOSax-Akte erzeugen keine Konsolidierungszie
 });
 
 test('REVOSax-Doppelerfassungen mit identischem Text und gleicher Zitierung werden nur einmal übernommen', () => {
-  const citation = 'Gesetz zur Änderung des Schulgesetzes vom 15. Juli 1994 (SächsGVBl. S. 1434)';
+  const citation = 'Gesetz zur Änderung des Beispielschulgesetzes vom 15. Juli 1994 (SächsGVBl. S. 9014)';
   const entries = [
-    staged({ revosaxLawId: '9501', sourceId: '9501', adaptedBodyHash: 'abc', fullCitation: citation, proposedSlug: 'aend-schulg-b' }),
-    staged({ revosaxLawId: '4476', sourceId: '4476', adaptedBodyHash: 'abc', fullCitation: citation, proposedSlug: 'aend-schulg-a' }),
+    staged({ revosaxLawId: '90017', sourceId: '90017', adaptedBodyHash: 'abc', fullCitation: citation, proposedSlug: 'aend-bspschulg-b' }),
+    staged({ revosaxLawId: '90016', sourceId: '90016', adaptedBodyHash: 'abc', fullCitation: citation, proposedSlug: 'aend-bspschulg-a' }),
     // gleicher Text, andere Zitierung: eigenständig (z. B. gleichlautende VwV je Beruf)
-    staged({ revosaxLawId: '4994', sourceId: '4994', adaptedBodyHash: 'def', fullCitation: 'VwV Pferdewirt vom 1. Januar 2000 (SächsABl. S. 1)', proposedSlug: 'vwv-pferdewirt' }),
-    staged({ revosaxLawId: '4995', sourceId: '4995', adaptedBodyHash: 'def', fullCitation: 'VwV Fischwirt vom 1. Januar 2000 (SächsABl. S. 2)', proposedSlug: 'vwv-fischwirt' }),
+    staged({ revosaxLawId: '90018', sourceId: '90018', adaptedBodyHash: 'def', fullCitation: 'VwV Beispielberuf A vom 1. Januar 2000 (SächsABl. S. 1)', proposedSlug: 'vwv-beispielberuf-a' }),
+    staged({ revosaxLawId: '90019', sourceId: '90019', adaptedBodyHash: 'def', fullCitation: 'VwV Beispielberuf B vom 1. Januar 2000 (SächsABl. S. 2)', proposedSlug: 'vwv-beispielberuf-b' }),
   ];
   const duplicates = findDuplicateSources(entries);
-  assert.deepEqual([...duplicates.entries()], [['9501', '4476']]);
+  assert.deepEqual([...duplicates.entries()], [['90017', '90016']]);
 
   const plan = buildPlan({ report: { baselineDate: BASELINE, entries }, existing: [] });
   const bySource = new Map(plan.entries.map((entry) => [entry.sourceId, entry]));
-  assert.equal(bySource.get('9501').action, 'SKIP');
-  assert.match(bySource.get('9501').reason, /4476/u);
-  assert.equal(bySource.get('4476').action, 'CREATE');
-  assert.equal(bySource.get('4994').action, 'CREATE');
-  assert.equal(bySource.get('4995').action, 'CREATE');
+  assert.equal(bySource.get('90017').action, 'SKIP');
+  assert.match(bySource.get('90017').reason, /90016/u);
+  assert.equal(bySource.get('90016').action, 'CREATE');
+  assert.equal(bySource.get('90018').action, 'CREATE');
+  assert.equal(bySource.get('90019').action, 'CREATE');
+});
+
+test('ein Artikel mit eigenem Erlassdatum und Fassungsbeginn vor dem Stichtag zählt nicht wegen einer späteren Mantelvorschrift als post-cutoff', () => {
+  const entry = staged({ documentDate: '2023-07-06', sourceValidFrom: '2023-08-01' });
+  assert.deepEqual(postCutoffFacts(entry, BASELINE, { envelopeValidFrom: '2024-01-01' }), []);
+  const planned = { action: 'CREATE', canonicalSlug: 'artikel-a', reason: 'neu' };
+  assert.equal(applyPostCutoffRule(planned, entry, {}, BASELINE, '2024-01-01'), planned);
+});
+
+test('der Beginn der Mantelvorschrift zählt hilfsweise, wenn eigene Daten fehlen oder nach dem Stichtag liegen', () => {
+  assert.deepEqual(
+    postCutoffFacts(staged({ documentDate: '2023-07-06', sourceValidFrom: null }), BASELINE, { envelopeValidFrom: '2024-01-01' }),
+    ['Mantelvorschrift ab 2024-01-01'],
+  );
+  assert.deepEqual(
+    postCutoffFacts(staged({ documentDate: '2023-07-06', sourceValidFrom: '2024-01-01' }), BASELINE, { envelopeValidFrom: '2024-01-01' }),
+    ['Fassungsbeginn 2024-01-01', 'Mantelvorschrift ab 2024-01-01'],
+  );
+  const skipped = applyPostCutoffRule(
+    { action: 'CREATE', canonicalSlug: 'artikel-b', reason: 'neu' },
+    staged({ documentDate: null, sourceValidFrom: null }), {}, BASELINE, '2024-01-01',
+  );
+  assert.equal(skipped.action, 'SKIP');
+  assert.equal(skipped.postCutoffResolution, 'undecided');
 });

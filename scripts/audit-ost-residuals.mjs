@@ -5,7 +5,9 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { extname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { findSaxonResiduals } from './lib/revosax-ost-adapter.mjs';
+import { findSaxonResiduals, lettersOnly } from './lib/revosax-ost-adapter.mjs';
+
+export { lettersOnly };
 
 /**
  * Korpusweiter End-Audit der Rechtsüberleitung über den materialisierten
@@ -24,7 +26,11 @@ import { findSaxonResiduals } from './lib/revosax-ost-adapter.mjs';
  * Zwei Provenienzklassen:
  *   - Übergeleitetes Recht (mindestens eine REVOSax-Quelle: Baseline-Import aus R2 oder
  *     versionierter Snapshot der redaktionellen Konsolidierung): muss reststellenfrei
- *     sein – in allen Fassungen, auch in den späteren ostdeutschen Folgefassungen.
+ *     sein – in allen Fassungen, auch in den späteren ostdeutschen Folgefassungen. Einzige
+ *     Ausnahme ist Wortlaut, den der ostdeutsche Normgeber selbst verkündet hat: Eine
+ *     Fundstelle in einer Folgefassung gilt als belegt, wenn ihr Buchstabenfenster wörtlich in
+ *     der ostdeutschen Änderungsquelle (amendment-source unter Gesetze/) dieser oder einer
+ *     früheren Fassung steht (die Konsolidierung lässt solche Rezepttexte unverändert).
  *   - Eigene Erlasse des Freistaates Ostdeutschland (nur amtliche ostdeutsche Quellen
  *     unter Gesetze/: HTML-/Markdown-Transkriptionen, Änderungsquellen): ihre Texte
  *     werden quellentreu wiedergegeben (scripts/import-normen.mjs --strict). Ein
@@ -72,11 +78,6 @@ function collectNormativeStrings(value, path, output) {
   return output;
 }
 
-/** Buchstaben-/Ziffernfolge ohne Satzzeichen und Leerraum (Vergleich mit der Quelle). */
-export function lettersOnly(value) {
-  return String(value ?? '').normalize('NFKC').toLocaleLowerCase('de').replace(/[^\p{L}\p{N}]+/gu, '');
-}
-
 function windowAround(value, index, length) {
   const before = lettersOnly(value.slice(0, index)).slice(-WINDOW_LETTERS);
   const after = lettersOnly(value.slice(index + length)).slice(0, WINDOW_LETTERS);
@@ -119,6 +120,31 @@ export function isBaselineImport(meta, versions) {
 export function isInheritedNorm(meta, versions) {
   const references = [...(meta.sourceReferences ?? []), ...versions.flatMap((version) => version.sourceReferences ?? [])];
   return references.some((reference) => reference.kind === 'revosax-snapshot');
+}
+
+/**
+ * Ostdeutsche Änderungsquellen je Fassung übergeleiteten Rechts, kumuliert: Fassung i darf sich
+ * auf die Quellen der Fassungen 0 … i stützen (fortgeltender Wortlaut einer früheren Änderung).
+ */
+export function amendmentSourcesByVersion(versions) {
+  const cumulative = [];
+  const seen = new Set();
+  for (const version of versions) {
+    for (const reference of version.sourceReferences ?? []) {
+      const path = reference.localSource;
+      if (reference.kind !== 'amendment-source' || typeof path !== 'string' || !path.startsWith('Gesetze/')) continue;
+      if (TEXT_SOURCE_EXTENSIONS.has(extname(path).toLowerCase())) seen.add(path);
+    }
+    cumulative.push([...seen]);
+  }
+  return cumulative;
+}
+
+function versionIndexOf(slug, path) {
+  const prefix = `${slug}.versions[`;
+  if (!path.startsWith(prefix)) return null;
+  const index = Number.parseInt(path.slice(prefix.length), 10);
+  return Number.isInteger(index) ? index : null;
 }
 
 /** Lokale amtliche Textquellen (Gesetze/*.html, *.md) einer eigenen ostdeutschen Norm. */
@@ -221,7 +247,17 @@ export async function auditCorpus(norms, backlog, { loadSource = createSourceTex
     const findings = auditNormRecord(norm);
     if (findings.length === 0) continue;
     if (isInheritedNorm(norm.meta, norm.versions)) {
-      inherited.push({ slug: norm.slug, findings });
+      const sourcesByVersion = amendmentSourcesByVersion(norm.versions);
+      const residual = [];
+      const verbatim = [];
+      for (const finding of findings) {
+        const index = versionIndexOf(norm.slug, finding.path);
+        const sources = index === null ? [] : sourcesByVersion[index] ?? [];
+        if (sources.length && await isSourceBacked(finding, sources, loadSource)) verbatim.push(finding);
+        else residual.push(finding);
+      }
+      if (verbatim.length > 0) backed.set(norm.slug, verbatim);
+      if (residual.length > 0) inherited.push({ slug: norm.slug, findings: residual });
       continue;
     }
     const sources = localTextSources(norm.meta, norm.versions);

@@ -51,7 +51,9 @@ export async function loadCorrectionBundles(root, correctionSlug = null) {
   return bundles;
 }
 
-export function applyCorrectionToRecord(record, recipe, correctionMeta) {
+// `siblingRecipes`: alle geladenen Rezepte des Laufs. Nur damit lässt sich ein geänderter
+// Hinweistext eines Rezepts von den Hinweisen anderer Rezepte derselben Berichtigung unterscheiden.
+export function applyCorrectionToRecord(record, recipe, correctionMeta, { siblingRecipes = null } = {}) {
   const correctedRecord = structuredClone(record);
   const version = correctedRecord.versions.find((entry) => entry.versionId === recipe.targetVersionId);
   if (!version) return { record: correctedRecord, applied: false, alreadyCorrect: false };
@@ -104,13 +106,36 @@ export function applyCorrectionToRecord(record, recipe, correctionMeta) {
     ],
     (source) => `${source.kind}|${source.localSource}`,
   );
+  // Ein früherer Lauf desselben Rezepts wird ersetzt, nicht ergänzt: Ändert sich die Fundstelle oder
+  // der Hinweistext im Rezept, entstünde sonst ein zweiter Eintrag. Hinweise anderer Rezepte derselben
+  // Berichtigung für dieselbe Fassung bleiben erhalten. Ohne Kenntnis der übrigen Rezepte gilt nur
+  // ein Eintrag mit demselben Hinweistext als früherer Lauf dieses Rezepts.
+  const siblingNotes = siblingRecipes
+    ? new Set(siblingRecipes
+      .filter((sibling) => sibling !== recipe
+        && sibling.correctionAct === recipe.correctionAct
+        && sibling.targetSlug === recipe.targetSlug
+        && sibling.targetVersionId === recipe.targetVersionId
+        && sibling.correctionPublicationDate === recipe.correctionPublicationDate)
+      .map((sibling) => sibling.changeNote))
+    : null;
+  const sameCorrection = (entry) => entry.type === 'notice'
+    && entry.relatedNorm === recipe.correctionAct
+    && entry.affectingVersionId === recipe.targetVersionId
+    && entry.date === recipe.correctionPublicationDate
+    && (entry.title === recipe.changeNote || (siblingNotes !== null && !siblingNotes.has(entry.title)));
+  const correctionNote = (citation, changeNote) => ({
+    label: 'Amtliche Berichtigung',
+    text: `${citation}: ${changeNote} Die Gültigkeit dieser Fassung beginnt unverändert am ${version.validFrom}.`,
+  });
+  const noteKey = (note) => `${note.label}|${note.text}`;
+  const supersededNotes = new Set(correctedRecord.history.entries
+    .filter(sameCorrection)
+    .map((entry) => noteKey(correctionNote(entry.citation, entry.title))));
   version.sourceNotes = uniqueBy([
-    ...(version.sourceNotes ?? []),
-    {
-      label: 'Amtliche Berichtigung',
-      text: `${recipe.correctionCitation}: ${recipe.changeNote} Die Gültigkeit dieser Fassung beginnt unverändert am ${version.validFrom}.`,
-    },
-  ], (note) => `${note.label}|${note.text}`);
+    ...(version.sourceNotes ?? []).filter((note) => !supersededNotes.has(noteKey(note))),
+    correctionNote(recipe.correctionCitation, recipe.changeNote),
+  ], noteKey);
 
   const notice = {
     date: recipe.correctionPublicationDate,
@@ -122,7 +147,7 @@ export function applyCorrectionToRecord(record, recipe, correctionMeta) {
     relatedNorm: recipe.correctionAct,
   };
   correctedRecord.history.entries = uniqueBy(
-    [...correctedRecord.history.entries, notice],
+    [...correctedRecord.history.entries.filter((entry) => !sameCorrection(entry)), notice],
     (entry) => JSON.stringify([
       entry.date,
       entry.type,
@@ -140,7 +165,9 @@ export function applyCorrectionsToRecord(record, bundles) {
   let corrected = structuredClone(record);
   const applied = [];
   for (const bundle of bundles.filter(({ recipe }) => recipe.targetSlug === corrected.meta.slug)) {
-    const result = applyCorrectionToRecord(corrected, bundle.recipe, bundle.correctionMeta);
+    const result = applyCorrectionToRecord(corrected, bundle.recipe, bundle.correctionMeta, {
+      siblingRecipes: bundles.map(({ recipe }) => recipe),
+    });
     corrected = result.record;
     if (result.applied) applied.push({ ...bundle, alreadyCorrect: result.alreadyCorrect });
   }

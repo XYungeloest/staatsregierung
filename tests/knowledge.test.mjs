@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { buildContext, validateCurrentNormReference } from '../scripts/knowledge.mjs';
+import { buildContext, validateCurrentNormReference, validateCurrentNormRefs } from '../scripts/knowledge.mjs';
 
 const section = {
   id: 'state-current-constitution',
@@ -37,6 +37,22 @@ test('ein aktueller Normverweis muss genau diese Fassung als Primärquelle beleg
   const stale = new Map([['fixture-source', { path: `content/normen/${section.normSlug}/versions/2030-01-01.json` }]]);
   assert.match(validateCurrentNormReference(section, version, stale, '2030-02-01').join(), /Primärquelle/);
   assert.match(validateCurrentNormReference({ ...section, sourceRefs: [{ sourceId: 'fixture-source', role: 'context' }] }, version, sources, '2030-02-01').join(), /Primärquelle/);
+});
+
+test('auch zusätzliche Normverweise eines aktuellen Abschnitts müssen am Stichtag gelten', () => {
+  const stored = new Map([
+    ['fixture-grundordnung/2030-02-01', { versionId: '2030-02-01', validFrom: '2030-02-01', validTo: null }],
+    ['fixture-grundordnung/2029-06-01', { versionId: '2029-06-01', validFrom: '2029-06-01', validTo: '2030-01-31' }],
+    ['fixture-errichtungsgesetz/2030-04-01', { versionId: '2030-04-01', validFrom: '2030-04-01', validTo: null }],
+  ]);
+  const load = (normSlug, versionId) => stored.get(`${normSlug}/${versionId}`) ?? null;
+  const withRefs = (normRefs) => ({ id: 'state-current-fixture', normRefs });
+  assert.deepEqual(validateCurrentNormRefs(withRefs([{ normSlug: 'fixture-grundordnung', versionId: '2030-02-01' }]), load, '2030-02-10'), []);
+  assert.deepEqual(validateCurrentNormRefs({ id: 'state-current-fixture' }, load, '2030-02-10'), []);
+  assert.match(validateCurrentNormRefs(withRefs([{ normSlug: 'fixture-grundordnung', versionId: '2029-06-01' }]), load, '2030-02-10').join(), /normRefs\[0\].*gilt nicht/);
+  assert.match(validateCurrentNormRefs(withRefs([{ normSlug: 'fixture-errichtungsgesetz', versionId: '2030-04-01' }]), load, '2030-02-10').join(), /gilt nicht/);
+  assert.match(validateCurrentNormRefs(withRefs([{ normSlug: 'fixture-grundordnung', versionId: '2031-01-01' }]), load, '2030-02-10').join(), /fehlt/);
+  assert.match(validateCurrentNormRefs(withRefs([{ normSlug: '../fremd', versionId: '2030-02-01' }]), load, '2030-02-10').join(), /gültige Kennungen/);
 });
 
 test('der Gesamtkontext übernimmt Fassung, Gültigkeitsbeginn und Zusammenfassung aus den redaktionellen Daten', () => {

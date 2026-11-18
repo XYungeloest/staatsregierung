@@ -7,15 +7,15 @@ import type { SearchPublication } from '@ostrecht/recht-search/search.ts';
 import { citedPublications, parseLimit, parseOriginFilter, parseScope, parseSort, parseVersionScope } from '../apps/recht/src/pages/api/suche.json.ts';
 
 const publication = (overrides: Partial<SearchPublication>): SearchPublication => ({
-  slug: 'ogvbl-2026-99', url: '/verkuendungen/ogvbl-2026-99/', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 99',
-  designation: 'OGVBl. 2026 Nr. 99', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 99'], date: '2026-09-02',
-  publication: 'OGVBl.', year: '2026', issue: '99', ...overrides,
+  slug: 'ogvbl-2026-9099', url: '/verkuendungen/ogvbl-2026-9099/', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 9099',
+  designation: 'OGVBl. 2026 Nr. 9099', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 9099'], date: '2026-09-02',
+  publication: 'OGVBl.', year: '2026', issue: '9099', ...overrides,
 });
 const publications = [
   publication({}),
-  publication({ slug: 'ogvbl-2026-9', designation: 'OGVBl. 2026 Nr. 9', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 9', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 9'], issue: '9'}),
-  publication({ slug: 'overtrbl-2026-04', designation: 'OVertrBl. 2026 Nr. 4', title: 'Ostdeutsches Vertragsblatt 2026 Nr. 4', aliases: ['Ostdeutsches Vertragsblatt 2026 Nr. 4'], publication: 'OVertrBl.', issue: '4', date: '2026-03-24' }),
-  publication({ slug: 'overtrbl-2026-40', designation: 'OVertrBl. 2026 Nr. 40', title: 'Ostdeutsches Vertragsblatt 2026 Nr. 40', aliases: ['Ostdeutsches Vertragsblatt 2026 Nr. 40'], publication: 'OVertrBl.', issue: '40', date: '2026-12-01' }),
+  publication({ slug: 'ogvbl-2026-909', designation: 'OGVBl. 2026 Nr. 909', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 909', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 909'], issue: '909'}),
+  publication({ slug: 'overtrbl-2026-904', designation: 'OVertrBl. 2026 Nr. 904', title: 'Ostdeutsches Vertragsblatt 2026 Nr. 904', aliases: ['Ostdeutsches Vertragsblatt 2026 Nr. 904'], publication: 'OVertrBl.', issue: '904', date: '2026-03-24' }),
+  publication({ slug: 'overtrbl-2026-9040', designation: 'OVertrBl. 2026 Nr. 9040', title: 'Ostdeutsches Vertragsblatt 2026 Nr. 9040', aliases: ['Ostdeutsches Vertragsblatt 2026 Nr. 9040'], publication: 'OVertrBl.', issue: '9040', date: '2026-12-01' }),
 ];
 
 /** Suchzustand für die Planprüfungen; dieselben Vorgaben wie die Suchseite. */
@@ -30,14 +30,14 @@ function searchState(overrides: Partial<NormSearchState> = {}): NormSearchState 
 
 test('zitierte Ausgaben werden an Wortgrenzen erkannt – mit und ohne Punkte, als Langtitel, nie als Teil einer anderen Nummer', () => {
   const slugs = (query: string) => citedPublications(query, publications).map((entry) => entry.slug);
-  assert.deepEqual(slugs('OVertrBl. 2026 Nr. 4'), ['overtrbl-2026-04']);
-  assert.deepEqual(slugs('OVertrBl 2026 Nr 4 S. 2'), ['overtrbl-2026-04']);
-  assert.deepEqual(slugs('Staatsvertrag overtrbl. 2026 nr. 4'), ['overtrbl-2026-04']);
-  assert.deepEqual(slugs('Ostdeutsches Vertragsblatt 2026 Nr. 40'), ['overtrbl-2026-40']);
-  assert.deepEqual(slugs('OGVBl. 2026 Nr. 99'), ['ogvbl-2026-99']);
-  assert.deepEqual(slugs('OGVBl. 2026 Nr. 9'), ['ogvbl-2026-9']);
+  assert.deepEqual(slugs('OVertrBl. 2026 Nr. 904'), ['overtrbl-2026-904']);
+  assert.deepEqual(slugs('OVertrBl 2026 Nr 904 S. 2'), ['overtrbl-2026-904']);
+  assert.deepEqual(slugs('Staatsvertrag overtrbl. 2026 nr. 904'), ['overtrbl-2026-904']);
+  assert.deepEqual(slugs('Ostdeutsches Vertragsblatt 2026 Nr. 9040'), ['overtrbl-2026-9040']);
+  assert.deepEqual(slugs('OGVBl. 2026 Nr. 9099'), ['ogvbl-2026-9099']);
+  assert.deepEqual(slugs('OGVBl. 2026 Nr. 909'), ['ogvbl-2026-909']);
   assert.deepEqual(slugs('Testbegriff'), []);
-  assert.deepEqual(slugs('2026 Nr. 4'), []);
+  assert.deepEqual(slugs('2026 Nr. 904'), []);
   assert.deepEqual(slugs(''), []);
 });
 

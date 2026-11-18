@@ -11,7 +11,7 @@ import type { NormBodyBlock, NormRecord, NormVersion } from '@ostrecht/shared/li
 import type { NormPublicationReference } from '@ostrecht/shared/lib/norms/publications.ts';
 import { formatSourceLabel } from '../../lib/source-labels.ts';
 import { formatShortDate } from '../../lib/dates.ts';
-import { shortCitation } from '../../lib/norm-head.ts';
+import { outOfForceSince, shortCitation } from '../../lib/norm-head.ts';
 import { referenceDateLabel, validityLabel, VALIDITY_FIELD_LABEL, LEGAL_STATUS_FIELD_LABEL } from '../../lib/vocabulary.ts';
 
 /**
@@ -34,6 +34,8 @@ interface Props {
 const { norm, version, origin, fullCitation, publicationReference, amendmentLabels, immutableLink = false } = Astro.props;
 const temporalKind = classifyNormVersion(norm, version);
 const status = norm.meta.status;
+// „außer Kraft seit“ nennt den ersten Tag ohne Geltung, nicht den letzten Geltungstag (expiryDate).
+const outOfForceSinceDate = outOfForceSince(norm);
 const versionKind = classifyNormOriginVersion(origin, version);
 const immutableVersion = immutableLink || temporalKind !== 'current';
 const title = getNormTitleBlock({ title: norm.meta.title, shortTitle: norm.meta.shortTitle, abbr: norm.meta.abbr });
@@ -124,7 +126,7 @@ const scope = [
     {title.longTitle ? <><dt>Kurztitel</dt><dd>{title.heading}</dd></> : null}
     {norm.meta.abbr ? <><dt>Abkürzung</dt><dd>{toDisplayText(norm.meta.abbr)}</dd></> : null}
     <dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd>
-    <dt>{VALIDITY_FIELD_LABEL}</dt><dd>{validityLabel(status)}{status !== 'in-force' && norm.meta.expiryDate ? ` seit ${formatDate(norm.meta.expiryDate)}` : ''}</dd>
+    <dt>{VALIDITY_FIELD_LABEL}</dt><dd>{validityLabel(status)}{outOfForceSinceDate ? ` seit ${formatDate(outOfForceSinceDate)}` : ''}</dd>
     <dt>{LEGAL_STATUS_FIELD_LABEL}</dt><dd>{legalStatusText}</dd>
     <dt>Vollzitat</dt>
     <dd>

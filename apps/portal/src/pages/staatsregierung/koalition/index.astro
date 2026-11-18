@@ -38,9 +38,9 @@ const priorities = [
     variant="government"
     facts={[
       { label: 'Kurzbezeichnung', value: currentGovernment.coalitionShort },
-      { label: 'Übergang zum Staatsrat', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
+      { label: 'Staatsrat im Amt seit', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
       { label: 'Legislatur', value: currentGovernment.legislature },
-      { label: 'Sitze seit 5. Juli 2026', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
+      { label: 'Koalitionssitze', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
     ]}
     actions={[{ label: '15-Punkte-Plan II', href: getActionPlanUrl(), primary: true }]}
   />

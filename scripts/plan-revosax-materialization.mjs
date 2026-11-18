@@ -322,14 +322,21 @@ export function planEntry(entry, baselineDate, indexes) {
 /**
  * Merkmale, die einen sächsischen Rechtsakt zeitlich hinter den Überleitungsstichtag setzen:
  * das amtliche Erlassdatum, der Beginn der übernommenen Fassung und – bei Artikeln einer
- * Mantelvorschrift – der Beginn der Mantelvorschrift selbst.
+ * Mantelvorschrift – der Beginn der Mantelvorschrift selbst. Der Beginn der Mantelvorschrift
+ * zählt nur hilfsweise: Belegen Erlassdatum und Fassungsbeginn des Artikels selbst einen Stand
+ * bis zum Stichtag, gehört der Artikel zum übernommenen Rechtsstand, auch wenn andere Teile der
+ * Mantelvorschrift erst später in Kraft treten.
  */
 export function postCutoffFacts(entry, baselineDate, { envelopeValidFrom = null } = {}) {
   const facts = [];
   const documentDate = entry.documentDate ?? entry.listing?.documentDate ?? null;
   if (documentDate && documentDate > baselineDate) facts.push(`Erlassdatum ${documentDate}`);
   if (entry.sourceValidFrom && entry.sourceValidFrom > baselineDate) facts.push(`Fassungsbeginn ${entry.sourceValidFrom}`);
-  if (envelopeValidFrom && envelopeValidFrom > baselineDate) facts.push(`Mantelvorschrift ab ${envelopeValidFrom}`);
+  const ownDatesBeforeCutoff = Boolean(documentDate && documentDate <= baselineDate
+    && entry.sourceValidFrom && entry.sourceValidFrom <= baselineDate);
+  if (!ownDatesBeforeCutoff && envelopeValidFrom && envelopeValidFrom > baselineDate) {
+    facts.push(`Mantelvorschrift ab ${envelopeValidFrom}`);
+  }
   return facts;
 }
 

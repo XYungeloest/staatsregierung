@@ -84,7 +84,7 @@ const budgetNewerText = budgetNewerPeriods
 const importantItems = homeContent.importantItems.map((item) => ({
   title: item.governmentSlug ? currentGovernment.title : item.title ?? '',
   description: item.governmentSlug
-    ? `Übergang am ${siteConfig.date.formatLong(currentGovernment.formedOn)}`
+    ? `Im Amt seit ${siteConfig.date.formatLong(currentGovernment.formedOn)}`
     : item.description ?? '',
   href: resolvePortalPath(item.href),
   icon: item.icon,

@@ -17,25 +17,25 @@ import {
 } from '../scripts/lib/publication-pdf.mjs';
 
 const pdfFiles = [
-  'StAnzO 2026 Nr 5.pdf',
-  'OGVBl. 2026 Nr. 68.pdf',
+  'StAnzO 2026 Nr 905.pdf',
+  'OGVBl. 2026 Nr. 968.pdf',
   'historischer-name.pdf',
 ];
 
 test('alte HTML-Ausgabe findet punktabweichendes Original-PDF über die Ausgabenidentität', () => {
   const result = resolvePublicationPdf({
-    publication: 'StAnzO.', year: 2026, issue: '5',
-    htmlFileName: 'StAnzO. 2026 Nr. 5.html', pdfFileNames: pdfFiles,
+    publication: 'StAnzO.', year: 2026, issue: '905',
+    htmlFileName: 'StAnzO. 2026 Nr. 905.html', pdfFileNames: pdfFiles,
   });
-  assert.deepEqual(result, { fileName: 'StAnzO 2026 Nr 5.pdf', strategy: 'publication-identity' });
-  assert.equal(publicationIdentityFromPdfFileName(result.fileName), 'StAnzO.|2026|5');
+  assert.deepEqual(result, { fileName: 'StAnzO 2026 Nr 905.pdf', strategy: 'publication-identity' });
+  assert.equal(publicationIdentityFromPdfFileName(result.fileName), 'StAnzO.|2026|905');
 });
 
 test('neue Ausgabe behält das PDF mit identischem Basename', () => {
   assert.deepEqual(resolvePublicationPdf({
-    publication: 'OGVBl.', year: 2026, issue: '68',
-    htmlFileName: 'OGVBl. 2026 Nr. 68.html', pdfFileNames: pdfFiles,
-  }), { fileName: 'OGVBl. 2026 Nr. 68.pdf', strategy: 'exact-basename' });
+    publication: 'OGVBl.', year: 2026, issue: '968',
+    htmlFileName: 'OGVBl. 2026 Nr. 968.html', pdfFileNames: pdfFiles,
+  }), { fileName: 'OGVBl. 2026 Nr. 968.pdf', strategy: 'exact-basename' });
 });
 
 test('OABl.-Alias der Ausgabe 2026 Nr. 2 bleibt auf die eine StAnzO-Identität begrenzt', () => {
@@ -51,8 +51,8 @@ test('OABl.-Alias der Ausgabe 2026 Nr. 2 bleibt auf die eine StAnzO-Identität b
 
 test('tatsächlich fehlendes PDF erzeugt keinen Link', () => {
   assert.deepEqual(resolvePublicationPdf({
-    publication: 'StAnzO.', year: 2026, issue: '2',
-    htmlFileName: 'StAnzO. 2026 Nr. 2.html', pdfFileNames: pdfFiles,
+    publication: 'StAnzO.', year: 2026, issue: '902',
+    htmlFileName: 'StAnzO. 2026 Nr. 902.html', pdfFileNames: pdfFiles,
   }), { fileName: null, strategy: 'missing', candidates: [] });
 });
 
@@ -65,18 +65,18 @@ test('explizit überlieferter historischer Dateiname wird eindeutig aufgelöst',
 
 test('PDF-Synchronisierung ersetzt nur Quellen derselben Ausgabe und bewahrt Berichtigungsbelege', () => {
   const references = [
-    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 1.html' },
-    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 1.pdf' },
-    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 68.pdf', sourceRole: 'correction-evidence' },
-    { kind: 'amendment-source', localSource: 'Gesetze/OGVBl. 2026 Nr. 67.html' },
+    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 901.html' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 901.pdf' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 968.pdf', sourceRole: 'correction-evidence' },
+    { kind: 'amendment-source', localSource: 'Gesetze/OGVBl. 2026 Nr. 967.html' },
     { kind: 'original', availability: 'not-versioned', label: 'Amtliches Original-PDF' },
   ];
   assert.deepEqual(retainUnrelatedPublicationSourceReferences(references, {
-    htmlFileName: 'OGVBl. 2026 Nr. 1.html',
-    pdfFileName: 'OGVBl. 2026 Nr. 1.pdf',
+    htmlFileName: 'OGVBl. 2026 Nr. 901.html',
+    pdfFileName: 'OGVBl. 2026 Nr. 901.pdf',
   }), [
-    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 68.pdf', sourceRole: 'correction-evidence' },
-    { kind: 'amendment-source', localSource: 'Gesetze/OGVBl. 2026 Nr. 67.html' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 968.pdf', sourceRole: 'correction-evidence' },
+    { kind: 'amendment-source', localSource: 'Gesetze/OGVBl. 2026 Nr. 967.html' },
   ]);
 });
 
@@ -102,14 +102,14 @@ test('Deployment-Audit findet einen fehlenden und bestätigt einen vorhandenen P
 
 test('Neuableitung setzt ein dokumentiertes Prüfdatum derselben Datei nie zurück', () => {
   const existing = [
-    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.html', sha256: 'abc', verifiedAt: '2026-09-02' },
-    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.pdf', sha256: 'def', verifiedAt: '2026-09-02' },
+    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 973.html', sha256: 'abc', verifiedAt: '2026-09-02' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 973.pdf', sha256: 'def', verifiedAt: '2026-09-02' },
   ];
   const rebuilt = preserveVerifiedAt([
-    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.html', sha256: 'abc', verifiedAt: '2026-08-28' },
-    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.pdf', sha256: 'def', verifiedAt: '2026-09-04' },
-    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 74.pdf', sha256: 'ghi', verifiedAt: '2026-08-28' },
-    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.html', sha256: 'geaendert', verifiedAt: '2026-08-28' },
+    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 973.html', sha256: 'abc', verifiedAt: '2026-08-28' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 973.pdf', sha256: 'def', verifiedAt: '2026-09-04' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 974.pdf', sha256: 'ghi', verifiedAt: '2026-08-28' },
+    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 973.html', sha256: 'geaendert', verifiedAt: '2026-08-28' },
   ], existing);
   assert.equal(rebuilt[0].verifiedAt, '2026-09-02', 'älteres Datum wird auf den dokumentierten Stand gehoben');
   assert.equal(rebuilt[1].verifiedAt, '2026-09-04', 'ein späteres neues Datum bleibt');

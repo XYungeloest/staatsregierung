@@ -1,4 +1,4 @@
-import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { dayAfterLastValidDay, formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { LEGAL_BASELINE_DATE, type NormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
 import { classifyNormOriginVersion } from '@ostrecht/shared/lib/norms/origin-presentation.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
@@ -52,6 +52,17 @@ function inForceSince(norm: NormRecord): string | undefined {
     ? norm.versions.find((entry) => entry.versionId === norm.history.initialVersionId)
     : undefined;
   return norm.meta.effectiveDate ?? initial?.validFrom;
+}
+
+/**
+ * Erster Tag, an dem eine außer Kraft getretene Vorschrift nicht mehr gilt: der Folgetag des
+ * belegten letzten Geltungstags `expiryDate`. Nur für aufgehobene und historische Vorschriften;
+ * sonst (oder ohne belegtes Datum) keine Angabe. Kopf und Vorschriftendaten lesen dasselbe Datum.
+ */
+export function outOfForceSince(norm: NormRecord): string | undefined {
+  const status = norm.meta.status;
+  if (status !== 'repealed' && status !== 'historical') return undefined;
+  return norm.meta.expiryDate ? dayAfterLastValidDay(norm.meta.expiryDate) : undefined;
 }
 
 /** Jüngste Änderung bis zum Stichtag (Historieneintrag Änderung), zur Zeile „zuletzt geändert durch“. */
@@ -150,7 +161,8 @@ export function buildNormHeadModel(
     } else if (status === 'one-time-act') {
       primary = `${validityLabel(status)} · mit Wirkung vom ${versionFrom}`;
     } else if (status === 'repealed' || status === 'historical') {
-      primary = norm.meta.expiryDate ? `${validityLabel(status)} seit ${formatShortDate(norm.meta.expiryDate)}` : validityLabel(status);
+      const outOfForce = outOfForceSince(norm);
+      primary = outOfForce ? `${validityLabel(status)} seit ${formatShortDate(outOfForce)}` : validityLabel(status);
       parts.push({ text: 'Der Wortlaut bleibt zu Dokumentationszwecken lesbar', tone: 'muted' });
     } else if (status === 'future-effective') {
       primary = `Verkündet · tritt am ${formatShortDate(norm.meta.effectiveDate ?? version.validFrom)} in Kraft`;

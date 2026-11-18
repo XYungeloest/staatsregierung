@@ -7,7 +7,6 @@ import MinistryDirectory from '../../../components/portal/MinistryDirectory.astr
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
-import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
 import { isActiveInterval } from '@ostrecht/shared/lib/portal/organization.ts';
 import {
@@ -67,7 +66,7 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
     lead={cabinetPage.lead}
     variant="government"
     facts={[
-      { label: 'Übergang', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
+      { label: 'Im Amt seit', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
       { label: 'Koalition', value: currentGovernment.coalitionShort },
       { label: 'Leitung', value: currentGovernment.headOfGovernment },
       { label: 'Regierungssitz', value: currentGovernment.seatOfGovernment },
@@ -85,12 +84,6 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
       </div>
       <div class="body-copy">
         {cabinetPage.politicalContext.map((paragraph) => <p>{paragraph}</p>)}
-        <p>
-          Der <a class="inline-link" href={getNormUrl('erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-05-2026')}>Organisationserlass 05/2026</a> vom <time datetime="2026-05-04">4. Mai 2026</time> benennt mehrere Staatsministerien neu
-          und löst das bisherige Kultur-, Wissenschafts- und Tourismusressort auf. Wissenschaft
-          liegt nun bei Volksbildung und Wissenschaft; Kultur und Tourismus liegen bei
-          Rechtsstaatlichkeit und kultureller Emanzipation.
-        </p>
       </div>
     </section>
 
@@ -100,7 +93,7 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
       </div>
       <dl class="meta-list">
         <div>
-          <dt>Übergeleitet</dt>
+          <dt>Im Amt seit</dt>
           <dd><time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time></dd>
         </div>
         <div>

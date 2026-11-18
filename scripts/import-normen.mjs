@@ -13,11 +13,7 @@ import {
   summarizeHtmlAudit,
   summarizeParsedSource,
 } from './lib/norm-html-parser.mjs';
-import {
-  citationLabelMatchesNormType,
-  NORM_TYPE_CITATION_LABELS,
-  publicationEntryTypeForNormType,
-} from './lib/publication-entry-types.mjs';
+import { publicationEntryTypeForNormType } from './lib/publication-entry-types.mjs';
 import {
   classifyMarkdownSource,
   parseConsolidatedMarkdown,
@@ -26,12 +22,29 @@ import {
 } from './lib/norm-markdown-parser.mjs';
 import {
   acceptedSequenceIssuesFor,
+  filesWithoutSourceNote,
   validateConstitutionParserContract,
+  withSourceNotes,
   validatePublicationParserContract,
 } from './lib/norm-parser-contract.mjs';
+import { resolveSunsetDates, sunsetStatusAt } from './lib/consolidation-engine.mjs';
 import { applyCorrectionsToRecord, loadCorrectionBundles } from './lib/correction-engine.mjs';
 import {
+  preferReviewedSeedBodies,
+  publicationEntryTitle,
+  reviewedSeedVersionIds,
+} from './lib/import-reviewed-versions.mjs';
+import {
+  legacyEntryCitation,
+  legacyEntryDocumentDate,
+  publicationEntryPages,
+} from './lib/publication-entry-fields.mjs';
+import {
   abbreviationProblem,
+  generatedKeywordProblem,
+  isFormulaSummary,
+  isOwnTitleQuotingSummary,
+  normBodyText,
   UNVERIFIED_GENERATED_ABBREVIATIONS as UNVERIFIED_ABBREVIATIONS,
 } from './lib/norm-title-rules.mjs';
 import {
@@ -74,6 +87,47 @@ if (strictMode && shouldWrite) {
   throw new Error('--strict ist ein reiner Prüfmodus und kann nicht mit --write kombiniert werden.');
 }
 
+// Nutzerorientierte Quellhinweise zu den amtlich belegten Quellbefunden aus
+// ACCEPTED_SEQUENCE_ISSUES (scripts/lib/norm-parser-contract.mjs), je Quelldatei und Norm. Eine
+// Ausgabe mit zugelassenem Befund ohne Hinweis bricht den Import ab (docs/NORM_WORKFLOW.md).
+const NUMBERING_NOTE_LABEL = 'Nummerierung in der Originalquelle';
+const ACCEPTED_FINDING_SOURCE_NOTES = {
+  'OGVBl. 2026 Nr. 18.html': {
+    'gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx': [{
+      label: NUMBERING_NOTE_LABEL,
+      text: 'In Artikel 1 ist Nummer 6 im amtlichen Blatt (S. 5) ohne Text abgedruckt; auf Nummer 5 folgt deshalb unmittelbar Nummer 7. Die Zählung bleibt unverändert.',
+    }],
+  },
+  'OGVBl. 2026 Nr. 21.html': {
+    'gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq': [{
+      label: NUMBERING_NOTE_LABEL,
+      text: 'In Artikel 1 ist Nummer 3 im amtlichen Blatt (S. 5) ohne Text abgedruckt; auf Nummer 2 folgt deshalb unmittelbar Nummer 4. Die Zählung bleibt unverändert.',
+    }],
+  },
+  'OGVBl. 2026 Nr. 47.html': {
+    'ostdeutsche-eisenbahn-neuordnungsgesetz': [{
+      label: NUMBERING_NOTE_LABEL,
+      text: 'Artikel 4 zählt die Änderungen des Ostdeutschen Personennahverkehrsgesetzes im amtlichen Blatt (S. 38–42) mit 1., 2., 3. und erneut 3.; die Änderung zu § 7 trägt dieselbe Nummer wie die vorangehende Änderung. Die Zählung bleibt unverändert.',
+    }],
+  },
+  'StAnzO. 2026 Nr. 7.html': {
+    'verwaltungsvorschrift-des-staatsministeriums-fur-rechtsstaat-13k3zjo': [{
+      label: 'Kennzeichnungen in Anlage 8',
+      text: 'Die Kennzeichnungen der vier Geheimhaltungsstufen in der zweiten Spalte der Anlage 8 sind im amtlichen Blatt (S. 2–3) nur als Abbildung abgedruckt. Ihr Wortlaut liegt nicht als Text vor; die Felder bleiben deshalb leer.',
+    }],
+  },
+};
+{
+  const missing = filesWithoutSourceNote(ACCEPTED_FINDING_SOURCE_NOTES);
+  if (missing.length) {
+    throw new Error(`Zugelassene Quellbefunde ohne Quellhinweis in ACCEPTED_FINDING_SOURCE_NOTES: ${missing.join(', ')}`);
+  }
+}
+
+function acceptedFindingSourceNotesFor(fileName, slug) {
+  return ACCEPTED_FINDING_SOURCE_NOTES[basename(fileName)]?.[slug] ?? [];
+}
+
 const ISSUE_CONFIG = {
   '46': [
     { slug: 'kreis-und-bezirksneuordnungsgesetz', verifiedAt: '2026-09-13', shortTitle: 'Kreis- und Bezirksneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Führt die Kreis- und Bezirksneuordnung ein, ersetzt die Bezirksordnung und passt kommunal- und verwaltungsrechtliche Vorschriften an.' },
@@ -84,7 +138,7 @@ const ISSUE_CONFIG = {
     { slug: 'ostdeutsche-eisenbahn-neuordnungsgesetz', shortTitle: 'Gesetz zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs', responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung', summary: 'Errichtet die Ostdeutsche Eisenbahn und schafft die gesetzlichen Grundlagen für Verkehrsvergesellschaftung und dauerhafte Gemeinwohlbindung.' },
     { slug: 'ostdeutsches-eisenbahngesetz', shortTitle: 'Ostdeutsches Eisenbahngesetz', responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung', summary: 'Errichtet die Ostdeutsche Eisenbahn als Anstalt des öffentlichen Rechts und bestimmt Aufgaben, Organisation und gemeinwirtschaftliche Bindung.' },
     { slug: 'ostdeutsches-verkehrsvergesellschaftungsgesetz', shortTitle: 'Ostdeutsches Verkehrsvergesellschaftungsgesetz', responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung', summary: 'Regelt die Überführung privater Verkehrsproduktionsmittel in Gemeineigentum sowie Verfahren und Entschädigung.' },
-    { slug: 'verkehrsbindungsgesetz', shortTitle: 'Verkehrsbindungsgesetz', responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung', summary: 'Sichert die dauerhafte öffentliche Zweckbindung vergesellschafteter Verkehrsproduktionsmittel.' },
+    { slug: 'verkehrsbindungsgesetz', shortTitle: 'Verkehrsbindungsgesetz', responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung', summary: 'Bindet private Verkehrsunternehmen, die nicht nach dem Ostdeutschen Verkehrsvergesellschaftungsgesetz vergesellschaftet werden, bei öffentlich finanzierten Personenverkehrsleistungen an gemeinwirtschaftliche Pflichten, insbesondere Verbundtarif, Offenlegung von Kosten und Erlösen und Gewinnbegrenzung, und sichert landesfinanzierte Betriebsmittel für die öffentliche Hand.' },
   ],
   '48': [
     { slug: 'boom-europe-umsetzungsgesetz', shortTitle: 'Boom-Europe-Umsetzungsgesetz', responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit', summary: 'Schafft Standort- und Finanzierungsgrundlagen für das Vorhaben „Boom Europe Leipzig/Halle“.' },
@@ -103,7 +157,7 @@ const ISSUE_CONFIG = {
     { slug: 'kasernierte-grenzpolizei-gesetz', shortTitle: 'Kasernierte-Grenzpolizei-Gesetz', responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit', summary: 'Bestimmt Auftrag, Befugnisse, Organisation und parlamentarische Kontrolle der Kasernierten Grenzpolizei.' },
   ],
   '51': [
-    { slug: 'gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung', shortTitle: 'Gesetz zur Stärkung der psychologischen Versorgung', type: 'aenderungsvorschrift', affectedNorms: ['ostdeutsches-krankenhausgesetz'], responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen', summary: 'Ergänzt das Ostdeutsche Krankenhausgesetz um eine Vergütungsregelung für den psychotherapeutischen und psychiatrischen Dienst.' },
+    { slug: 'gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung', shortTitle: 'Gesetz zur Stärkung der psychologischen Versorgung', type: 'aenderungsvorschrift', affectedNorms: ['ostdeutsches-krankenhausgesetz'], responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen', summary: 'Ändert das Ostdeutsche Krankenhausgesetz und fügt § 14a über regionale Strukturzulagen zur Vergütung im psychotherapeutischen und psychiatrischen Dienst ein.' },
   ],
   '52': [
     { slug: 'sportneuordnungsgesetz', shortTitle: 'Ostdeutsches Sportneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Ordnet Sportförderung, Spitzensport, Sportfonds, Athletenversorgung und Betriebssport durch mehrere Stammgesetze neu.' },
@@ -195,6 +249,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–9",
     "slug": "volkspolizeiorganisationsgesetz",
     "shortTitle": "Volkspolizeiorganisationsgesetz",
     "abbr": "VPOG",
@@ -248,6 +303,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–9",
     "slug": "polizeibeschwerdestellengesetz",
     "shortTitle": "Polizeibeschwerdestellengesetz",
     "abbr": "PolBeschStG",
@@ -279,6 +335,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–8",
     "slug": "polizeidigitalisierungsgesetz",
     "shortTitle": "Polizeidigitalisierungsgesetz",
     "abbr": "PolDigG",
@@ -310,6 +367,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–6",
     "slug": "ostdeutsches-sicherheitsgesetz",
     "shortTitle": "Ostdeutsches Sicherheitsgesetz",
     "shortTitleSource": "official",
@@ -341,6 +399,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–7",
     "slug": "staatsschutzamt-errichtungsgesetz",
     "shortTitle": "Staatsschutzamt-Errichtungsgesetz",
     "abbr": "LfStErrG",
@@ -372,6 +431,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–10",
     "slug": "staatsschutz-und-nachrichtendienstgesetz",
     "shortTitle": "Staatsschutz- und Nachrichtendienstgesetz",
     "abbr": "OstSNDG",
@@ -403,6 +463,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–6",
     "slug": "staatsschutz-kontrollgesetz",
     "shortTitle": "Staatsschutz-Kontrollgesetz",
     "abbr": "OstSKG",
@@ -436,6 +497,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–6",
     "slug": "ostdeutsches-kritis-gesetz",
     "initialProvisionLabels": ["§ 3"],
     "initialSubparagraphLabels": {"§ 3": ["(2)"]},
@@ -472,6 +534,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–3",
     "slug": "ostdeutsches-luftverkehrssicherungsgesetz",
     "shortTitle": "Ostdeutsches Luftverkehrssicherungsgesetz",
     "abbr": "OstLVSG",
@@ -522,6 +585,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–4",
     "slug": "verfassungstreuepruefungsgesetz",
     "shortTitle": "Verfassungstreueprüfungsgesetz",
     "abbr": "VTPG",
@@ -537,6 +601,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "4–5",
     "slug": "demokratiefoerderungsgesetz",
     "shortTitle": "Demokratieförderungsgesetz",
     "abbr": "DemFG",
@@ -568,6 +633,7 @@ const NEW_PUBLICATION_CONFIG = {
     "subjects": [
       "Sicherheitsrecht und Polizeirecht"
     ],
+    "pages": "2–4",
     "slug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
     "shortTitle": "Sicherheitsbehörden-Zusammenarbeitsgesetz",
     "abbr": "OstSZG",
@@ -632,6 +698,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "2–32",
     "slug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
     "shortTitle": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
     "abbr": "WPGG",
@@ -670,6 +737,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "2–11",
     "slug": "handelsorganisationsgesetz",
     "shortTitle": "Handelsorganisationsgesetz",
     "abbr": "HOG",
@@ -710,6 +778,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "2–13",
     "slug": "ostdeutsches-rohstoffwerkegesetz",
     "shortTitle": "Ostdeutsches Rohstoffwerkegesetz",
     "abbr": "ORWG",
@@ -726,6 +795,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "14–18",
     "slug": "lausitzer-kupfervergesellschaftungsgesetz",
     "shortTitle": "Lausitzer Kupfervergesellschaftungsgesetz",
     "abbr": "LKVG",
@@ -742,6 +812,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "18–21",
     "slug": "ohmgebirge-vergesellschaftungsgesetz",
     "shortTitle": "Ohmgebirge-Vergesellschaftungsgesetz",
     "abbr": "OhmVG",
@@ -758,6 +829,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "21–29",
     "slug": "generationenfondsgesetz-ost",
     "shortTitle": "Generationenfondsgesetz Ost",
     "abbr": "GenFOG",
@@ -774,6 +846,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "29–33",
     "slug": "versorgungsfondsgesetz-ost",
     "shortTitle": "Versorgungsfondsgesetz Ost",
     "abbr": "VersFOG",
@@ -791,6 +864,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "33–35",
     "slug": "altersdividendengesetz-ost",
     "shortTitle": "Altersdividendengesetz Ost",
     "abbr": "AltDivG",
@@ -833,6 +907,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "2–10",
     "slug": "ostdeutsches-teilhabegesetz",
     "shortTitle": "Ostdeutsches Teilhabegesetz",
     "abbr": "OstTeilhG",
@@ -879,6 +954,7 @@ const NEW_PUBLICATION_CONFIG = {
     "verifiedAt": "2026-10-14",
     "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
     "effectiveOverride": "2026-10-15",
+    "pages": "2–3",
     "slug": "rechnungshofgesetz-2026",
     "shortTitle": "Rechnungshofgesetz",
     "abbr": "RHG",
@@ -954,13 +1030,13 @@ const NEW_PUBLICATION_CONFIG = {
     responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
     summary: 'Passt die Schulordnung Förderschulen an das neue Schulrecht, die Polytechnische und Erweiterte Oberschule sowie die neue Abschluss- und Prüfungsstruktur an.',
     effectiveOverride: '2026-09-01',
-    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die konsolidierte Fassung der Schulordnung Förderschulen bleibt gesperrt, weil Artikel 1 Nummer 18 Buchstabe b und Nummer 30 nicht auf die Ausgangsfassung passen.',
+    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026.',
   }],
   'OGVBl.|2026|65': [{
     slug: 'sorbische-schulverordnung', shortTitle: 'Sorbische Schulverordnung', abbr: 'SorbSchulVO', type: 'verordnung', pageCount: 5,
     responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
     summary: 'Regelt sorbische Schulen, Sorbischunterricht, zweisprachige Angebote und Beteiligungsrechte im sorbischen Siedlungsgebiet.',
-    effectiveOverride: '2026-09-01', predecessor: 'Verordnung über die Arbeit an sorbischen und anderen Schulen im deutsch-sorbischen Gebiet vom 22. Juni 1992', relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems'],
+    effectiveOverride: '2026-09-01', predecessor: 'Verordnung über die Arbeit an sorbischen und anderen Schulen im deutsch-sorbischen Gebiet vom 22. Juni 1992', affectedNorms: ['vo-arbeit-an-sorbischen-schulen-im-deutsch-sorbischen-gebiet'], relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems'],
     dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die Verordnung vom 22. Juni 1992 tritt mit Ablauf des 31. August 2026 außer Kraft.',
   }],
   'OGVBl.|2026|66': [{
@@ -991,20 +1067,20 @@ const NEW_PUBLICATION_CONFIG = {
   }],
   'StAnzO.|2026|16': [{ slug: 'vwv-stundentafel-eos', shortTitle: 'VwV Stundentafel EOS', abbr: 'VwV Stundentafel EOS', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Bestimmt Lehrpläne und Stundentafeln für Einführungsphase und Erweiterte Oberschule.', effectiveOverride: '2026-09-01', relatedNorms: ['schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026.' }],
   'StAnzO.|2026|17': [{ slug: 'vwv-ethik-religion-und-weltanschauung', shortTitle: 'VwV Ethik, Religion und Weltanschauung', abbr: 'VwV Ethik, Religion und Weltanschauung', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Konkretisiert den Vollzug von Ethik sowie Religions- und Weltanschauungsunterricht.', effectiveOverride: '2026-09-01', predecessor: 'VwV Religion und Ethik vom 29. September 2004', relatedNorms: ['ethik-und-religionsunterrichtverordnung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026, jedoch nicht vor der ERWVO. Die bisherige VwV Religion und Ethik tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
-  'StAnzO.|2026|18': [{ slug: 'vwv-klassenarbeiten-pos', shortTitle: 'VwV Klassenarbeiten POS', abbr: 'VwV Klassenarbeiten POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Klassenarbeiten, komplexe Leistungen, Belastungssteuerung, Bewertung und Nachteilsausgleich an Polytechnischen Oberschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Klassenarbeiten Oberschulen vom 9. Juni 2016', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die VwV Klassenarbeiten Oberschulen tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
-  'StAnzO.|2026|19': [{ slug: 'vwv-abschlusspruefungen-pos', shortTitle: 'VwV Abschlussprüfungen POS', abbr: 'VwV Abschlussprüfungen POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Planung, Durchführung, Korrektur und Feststellung der POS-Abschlussprüfungen nach den Klassenstufen 9 und 10.', effectiveOverride: '2026-09-01', predecessor: 'VwV Abschlussprüfung Haupt- und Realschulabschluss vom 20. August 2018', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-abendoberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV Abschlussprüfung tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|18': [{ slug: 'vwv-klassenarbeiten-pos', shortTitle: 'VwV Klassenarbeiten POS', abbr: 'VwV Klassenarbeiten POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Klassenarbeiten, komplexe Leistungen, Belastungssteuerung, Bewertung und Nachteilsausgleich an Polytechnischen Oberschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Klassenarbeiten Oberschulen vom 9. Juni 2016', affectedNorms: ['vwv-klassenarbeiten-oberschulen'], relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die VwV Klassenarbeiten Oberschulen tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|19': [{ slug: 'vwv-abschlusspruefungen-pos', shortTitle: 'VwV Abschlussprüfungen POS', abbr: 'VwV Abschlussprüfungen POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Planung, Durchführung, Korrektur und Feststellung der POS-Abschlussprüfungen nach den Klassenstufen 9 und 10.', effectiveOverride: '2026-09-01', predecessor: 'VwV Abschlussprüfung Haupt- und Realschulabschluss vom 20. August 2018', affectedNorms: ['vwv-abschlusspruefung-haupt-und-realschulabschluss'], relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-abendoberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV Abschlussprüfung tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
   'StAnzO.|2026|20': [{ slug: 'vwv-pruefungsdokumentation-pos', shortTitle: 'VwV Prüfungsdokumentation POS', abbr: 'VwV Prüfungsdokumentation POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Bestimmt Formblätter, Führung, Berichtigung und Aufbewahrung der Dokumentation für POS-Abschlussprüfungen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Prüfungsdokumentation vom 31. Juli 2023', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'vwv-abschlusspruefungen-pos'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die VwV Prüfungsdokumentation vom 31. Juli 2023 tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
   'StAnzO.|2026|21': [{ slug: 'vwv-eos-abitur', shortTitle: 'VwV EOS-Abitur', abbr: 'VwV EOS-Abitur', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Qualifikationsphase, Abiturprüfung, Formulare, Korrektur, Ergebnisfeststellung und Übergang an Erweiterten Oberschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Durchführung Oberstufe und Abiturprüfung in der am 1. November 2023 übernommenen Fassung', relatedNorms: ['schulordnung-erweiterte-oberschulen-und-abiturpruefung', 'abendgymnasien-und-kollegverordnung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Für bestimmte Übergangskohorten gelten die bisherigen Formulare und Maßstäbe fort.' }],
   'StAnzO.|2026|22': [{ slug: 'vwv-zeugnismuster', shortTitle: 'VwV Zeugnismuster', abbr: 'VwV Zeugnismuster', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Gestaltung, Muster, Abschlussformeln und besondere Angaben auf Zeugnissen allgemeinbildender Schulen und des zweiten Bildungsweges.', effectiveOverride: '2026-09-01', predecessor: 'VwV Zeugnisformulare/Zeugnismuster in der am 1. November 2023 geltenden Fassung', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung', 'schulordnung-abendoberschulen', 'abendgymnasien-und-kollegverordnung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV Zeugnisformulare/Zeugnismuster tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
-  'StAnzO.|2026|23': [{ slug: 'aendvwv-schulformulare-2026', shortTitle: 'ÄndVwV Schulformulare', abbr: 'ÄndVwV Schulformulare', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die Verwaltungsvorschrift über Schulformulare an Polytechnische und Erweiterte Oberschulen sowie den Ethik-, Religions- und Weltanschauungsunterricht an.', effectiveOverride: '2026-09-01', dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
+  'StAnzO.|2026|23': [{ slug: 'aendvwv-schulformulare-2026', shortTitle: 'ÄndVwV Schulformulare', abbr: 'ÄndVwV Schulformulare', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die Verwaltungsvorschrift über Schulformulare an Polytechnische und Erweiterte Oberschulen sowie den Ethik-, Religions- und Weltanschauungsunterricht an.', effectiveOverride: '2026-09-01', dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026.' }],
   'StAnzO.|2026|24': [{ slug: 'vwv-sonderpaedagogische-formulare', shortTitle: 'VwV Sonderpädagogische Formulare', abbr: 'VwV Sonderpädagogische Formulare', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Bestimmt Muster, Formulare und Verfahrensgrundsätze zur Feststellung sonderpädagogischen Förderbedarfs und zur Beratung.', effectiveOverride: '2026-09-01', predecessor: 'VwV Muster sonderpädagogischer Förderbedarf und Beratung vom 13. Juli 2018', relatedNorms: ['verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
   'StAnzO.|2026|25': [{ slug: 'vwv-produktives-lernen-pos', shortTitle: 'VwV Produktives Lernen POS', abbr: 'VwV Produktives Lernen POS', type: 'verwaltungsvorschrift', pageCount: 5, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Aufnahme, Organisation, Lernen in der Praxis, Leistungsbewertung und Abschlüsse im Produktiven Lernen an Polytechnischen Oberschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Produktives Lernen vom 11. Juli 2018', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV Produktives Lernen tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
   'StAnzO.|2026|26': [{ slug: 'vwv-ostdeutsche-sportschulen', shortTitle: 'VwV Ostdeutsche Sportschulen', abbr: 'VwV Ostdeutsche Sportschulen', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Anerkennung, Aufnahme, Unterricht, Training, Schutz und Leistungsbewertung an Ostdeutschen Sportschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Sportbetonte Schulen vom 17. August 2022', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die VwV Sportbetonte Schulen tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
   'StAnzO.|2026|27': [{ slug: 'vwv-lrs-foerderung', shortTitle: 'VwV LRS-Förderung', abbr: 'VwV LRS-Förderung', type: 'verwaltungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Diagnostik, Förderung, Leistungsbewertung und Nachteilsausgleich bei Schwierigkeiten im Lesen und Rechtschreiben.', effectiveOverride: '2026-09-01', predecessor: 'VwV LRS-Förderung vom 29. Juni 2006', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV LRS-Förderung tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
   'StAnzO.|2026|28': [{ slug: 'vwv-abschlussbildungsgang-lernen', shortTitle: 'VwV Abschlussbildungsgang Lernen', abbr: 'VwV Abschlussbildungsgang Lernen', type: 'verwaltungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt die Empfehlung für einen lernzielgleichen Abschlussbildungsgang bei festgestelltem Förderschwerpunkt Lernen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Bildungsempfehlung und Empfehlung Hauptschulbildungsgang vom 14. Dezember 2018', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die in der Vorschrift bezeichneten Teile der bisherigen VwV treten teils ersatzlos, im Übrigen mit Ablauf des 31. August 2026 außer Kraft.' }],
   'StAnzO.|2026|29': [{ slug: 'vwv-bedarf-2026-2027', shortTitle: 'VwV Bedarf 2026/2027', abbr: 'VwV Bedarf 2026/2027', type: 'verwaltungsvorschrift', pageCount: 5, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Bedarfsermittlung, Unterrichtsversorgung, Klassen- und Kursbildung sowie Schuljahresablauf für das Schuljahr 2026/2027.', effectiveOverride: '2026-09-01', expiryDate: '2027-07-31', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026 und Außerkrafttreten mit Ablauf des 31. Juli 2027.' }],
-  'StAnzO.|2026|30': [{ slug: 'aendvwv-beratungslehrer-2026', shortTitle: 'ÄndVwV Beratungslehrer', abbr: 'ÄndVwV Beratungslehrer', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die VwV Beratungslehrer an die neue Schulstruktur und die heutige Schulaufsicht an.', effectiveOverride: '2026-09-01', dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
-  'StAnzO.|2026|31': [{ slug: 'aendvwv-radfahrausbildung-2026', shortTitle: 'ÄndVwV Radfahrausbildung', abbr: 'ÄndVwV Radfahrausbildung', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die gemeinsame Verwaltungsvorschrift zur Radfahrausbildung an die Primarstufe der Polytechnischen Oberschule und an die neue Schulaufsicht an.', effectiveOverride: '2026-09-01', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
+  'StAnzO.|2026|30': [{ slug: 'aendvwv-beratungslehrer-2026', shortTitle: 'ÄndVwV Beratungslehrer', abbr: 'ÄndVwV Beratungslehrer', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die VwV Beratungslehrer an die neue Schulstruktur und die heutige Schulaufsicht an.', effectiveOverride: '2026-09-01', dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026.' }],
+  'StAnzO.|2026|31': [{ slug: 'aendvwv-radfahrausbildung-2026', shortTitle: 'ÄndVwV Radfahrausbildung', abbr: 'ÄndVwV Radfahrausbildung', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die gemeinsame Verwaltungsvorschrift zur Radfahrausbildung an die Primarstufe der Polytechnischen Oberschule und an die neue Schulaufsicht an.', effectiveOverride: '2026-09-01', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026.' }],
   'StAnzO.|2026|32': [{
     slug: 'erlass-lehrplan-geschichte-2026',
     shortTitle: 'Erlass Lehrpläne Geschichte 2026',
@@ -1048,7 +1124,7 @@ const NEW_PUBLICATION_CONFIG = {
     dateNote: 'Am 21. August 2026 verkündet und am selben Tag in Kraft getreten.',
     additionalPublicationEntries: [{
       id: 'bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu',
-      title: 'Bekanntmachung des Staatspräsidenten über die Stiftung staatlicher Auszeichnungen des Freistaates Ostdeutschland',
+      title: 'Bekanntmachung des Ministerpräsidenten über die Stiftung staatlicher Auszeichnungen des Freistaates Ostdeutschland',
       type: 'bekanntmachung',
       citation: 'Geändert durch Abschnitt I der Bekanntmachung vom 21. August 2026 (StAnzO. 2026 Nr. 33 S. 2)',
       pages: '2',
@@ -1202,6 +1278,7 @@ const NEW_PUBLICATION_CONFIG = {
   'StAnzO.|2026|45': [{
     slug: 'sicherheitserlass-kritis-09-2026',
     shortTitle: 'Sicherheitserlass KRITIS 09/2026',
+    shortTitleSource: 'official',
     type: 'verwaltungsvorschrift',
     pageCount: 5,
     pdfFileName: 'StAnzO. 2026 Nr. 45.pdf',
@@ -1273,6 +1350,7 @@ const NEW_PUBLICATION_CONFIG = {
       dateNote: 'Am 12. September 2026 verkündet; nach Artikel 6 am Tag der Verkündung in Kraft getreten, weil Artikel 1 des Fünften Gesetzes zur Großen Staatsreform an demselben Tag in Kraft trat.',
     },
     {
+      pages: '2–25',
       slug: 'soziale-grundversorgungsgesetz',
       shortTitle: 'Soziale Grundversorgungsgesetz',
       abbr: 'SoGrVG',
@@ -1307,6 +1385,7 @@ const NEW_PUBLICATION_CONFIG = {
       dateNote: 'Am 12. September 2026 verkündet; nach Artikel 4 am Tag der Verkündung in Kraft getreten, weil das Gemeinvermögensschutzgesetz an demselben Tag in Kraft trat.',
     },
     {
+      pages: '2–50',
       slug: 'boden-und-naturvermoegensgesetz',
       shortTitle: 'Boden- und Naturvermögensgesetz',
       abbr: 'BodNatVG',
@@ -1351,6 +1430,7 @@ const NEW_PUBLICATION_CONFIG = {
       dateNote: 'Am 12. September 2026 verkündet; nach Artikel 11 am Tag der Verkündung in Kraft getreten, weil Artikel 1 des Fünften Gesetzes zur Großen Staatsreform an demselben Tag in Kraft trat.',
     },
     {
+      pages: '2–25',
       slug: 'gemeinvermoegensschutzgesetz',
       shortTitle: 'Gemeinvermögensschutzgesetz',
       abbr: 'GemVSchG',
@@ -1371,6 +1451,7 @@ const NEW_PUBLICATION_CONFIG = {
   'OGVBl.|2026|75': [{
     slug: 'organisationserlass-09-2026',
     shortTitle: 'Organisationserlass 09/2026',
+    shortTitleSource: 'official',
     type: 'verwaltungsvorschrift',
     pageCount: 10,
     pdfFileName: 'OGVBl. 2026 Nr. 75.pdf',
@@ -1414,6 +1495,7 @@ const NEW_PUBLICATION_CONFIG = {
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
     },
     {
+      pages: '2–13, 15',
       slug: 'ostdeutsches-hoheitszeichengesetz',
       shortTitle: 'Ostdeutsches Hoheitszeichengesetz',
       abbr: 'OHzG',
@@ -1425,7 +1507,7 @@ const NEW_PUBLICATION_CONFIG = {
       responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
       subjects: ['Verfassungsrecht'],
       summary: 'Bestimmt die Hoheitszeichen des Freistaates Ostdeutschland und ihre Verwendung.',
-      predecessor: 'Gesetz zur Einführung eines Hoheitszeichengesetzes',
+      predecessor: 'Gesetz über die Hoheitszeichen des Ostdeutschen Freistaates vom 23. März 2026, erlassen durch Artikel 4 des Gesetzes zur Einführung eines Hoheitszeichengesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 17)',
       relatedNorms: ['besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts', 'hoheitszeichenverordnung'],
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
     },
@@ -1446,6 +1528,7 @@ const NEW_PUBLICATION_CONFIG = {
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
     },
     {
+      pages: '2–14',
       slug: 'ostdeutsches-daseinsvorsorgegesetz',
       shortTitle: 'Ostdeutsches Daseinsvorsorgegesetz',
       abbr: 'OstDVG',
@@ -1490,6 +1573,7 @@ const NEW_PUBLICATION_CONFIG = {
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
     },
     {
+      pages: '2–6',
       slug: 'zinnwald-vergesellschaftungsgesetz',
       shortTitle: 'Zinnwald-Vergesellschaftungsgesetz',
       abbr: 'ZinnVG',
@@ -1520,6 +1604,7 @@ const NEW_PUBLICATION_CONFIG = {
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
     },
     {
+      pages: '2–14',
       slug: 'interflug-gesetz',
       shortTitle: 'Interflug-Gesetz',
       abbr: 'InterflugG',
@@ -1549,7 +1634,7 @@ const NEW_PUBLICATION_CONFIG = {
     enactingBody: null,
     responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
     subjects: ['Presse-, Rundfunk-, Filmwesen', 'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen'],
-    summary: 'Ändert den Staatsvertrag über den Norddeutschen Rundfunk und regelt die Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk.',
+    summary: 'Ändert den NDR-Staatsvertrag, sodass Mecklenburg-Vorpommern als Vertragsland, in Rundfunkrat und Verwaltungsrat sowie bei der Finanzierung entfällt, beendet die Mitträgerschaft Mecklenburg-Vorpommerns am Norddeutschen Rundfunk zum Überleitungsstichtag und regelt die Überleitung von Vermögen, Personal und Verbreitung der dort belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk.',
     effectiveOverride: '2026-09-03',
     versionId: '2026-03-08',
     validFrom: '2026-09-03',
@@ -1873,31 +1958,16 @@ function relatedNormSlugs(meta) {
 }
 
 /**
- * Die Bezeichnung des Eintrags folgt der Norm, nicht dem Altbestand: Eine bereits
- * vorhandene Zitierung wird nur übernommen, wenn sie einen zum Normtyp passenden
- * Rechtsakt nennt (amtliche Sonderformen wie Anordnung oder Organisationserlass
- * bleiben damit erhalten); sonst wird sie aus Normtyp, Datum und Fundstelle gebildet.
- */
-function legacyEntryCitation(previous, meta, publication, documentDate) {
-  if (
-    previous?.citation &&
-    /\bvom\s+\d{1,2}\.\s+[A-ZÄÖÜa-zäöüß]+\s+\d{4}/u.test(previous.citation) &&
-    citationLabelMatchesNormType(previous.citation, meta.type)
-  ) return previous.citation;
-  const page = previous?.startPage ?? previous?.pages?.match(/\d+/u)?.[0];
-  const label = citationLabelMatchesNormType(meta.initialCitation, meta.type)
-    ? String(meta.initialCitation).split(/\s+vom\s+/u)[0].trim()
-    : NORM_TYPE_CITATION_LABELS[meta.type] ?? 'Veröffentlichung';
-  return `${label} vom ${formatGermanDate(documentDate)} (${publication.publication} ${publication.year} Nr. ${publication.issue}${page ? ` S. ${page}` : ''})`;
-}
-
-/**
  * Befristete Verkündungen: Das Außerkrafttreten steht im Titel und im Text der amtlichen
  * Quelle („bis zum 1. Januar 2026, 06:00 Uhr“). Der Import modelliert es deterministisch
  * als expiryDate, validTo der letzten Fassung, Status und Historieneintrag – wie die
  * Befristungsentscheidungen des übernommenen Bestands. Die Angabe steht hier und nicht in
  * NEW_PUBLICATION_CONFIG, weil die Norm ihre übrigen redaktionellen Metadaten
  * (Kurzbezeichnung, Abkürzung, Kurzfassung, Sachgebiete) aus dem Bestand behält.
+ * Außerkrafttretensregel (resolveSunsetDates): „tritt am <Datum> außer Kraft“ steht als
+ * ceasesOn = Datum mit expiryDate = Vortag, „mit Ablauf des <Datum>“ als expiryDate = Datum; der
+ * Historieneintrag steht am ersten Tag ohne Geltung (expiryDate + 1 Tag), basis wird gegen die
+ * Regel geprüft.
  */
 const PUBLICATION_EXPIRY_CONFIG = {
   'hoheitszeichenverordnung': {
@@ -1911,33 +1981,85 @@ const PUBLICATION_EXPIRY_CONFIG = {
     basis: 'vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr',
     dateNote: 'Die Allgemeinverfügung galt vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr.',
   },
+  'richtlinie-des-staatsministeriums-fur-kapitalakkumulation-des-fiskus-im-einvernehmen-mit-dem-staatsministerium': {
+    expiryDate: '2026-03-31',
+    basis: 'nach Abschnitt IX vom 10. Januar 2026 bis zum Ablauf des 31. März 2026',
+    dateNote: 'Am 9. Januar 2026 bekannt gemacht; nach Abschnitt IX am Tag nach der Bekanntmachung, also am 10. Januar 2026, in Kraft getreten und mit Ablauf des 31. März 2026 außer Kraft getreten. Abrechnungs- und Prüfregelungen bleiben unberührt.',
+  },
+  'forderrichtlinie-des-staatsministeriums-fur-umwelt-energie-u-mlo1f1': {
+    ceasesOn: '2031-01-01',
+    expiryDate: '2030-12-31',
+    basis: 'nach Abschnitt VIII bis zum Außerkrafttreten am 1. Januar 2031',
+    dateNote: 'Am 5. März 2026 veröffentlicht; nach Abschnitt VIII am Tag nach der Veröffentlichung, also am 6. März 2026, in Kraft getreten. Die Förderrichtlinie tritt am 1. Januar 2031 außer Kraft.',
+  },
+  'forderrichtlinie-des-staatsministeriums-fur-soziale-und-gesu-17lqyb5': {
+    ceasesOn: '2031-12-31',
+    expiryDate: '2031-12-30',
+    basis: 'nach Abschnitt VII bis zum Außerkrafttreten am 31. Dezember 2031',
+    dateNote: 'Am 6. März 2026 veröffentlicht; nach Abschnitt VII am Tag nach der Veröffentlichung, also am 7. März 2026, in Kraft getreten. Die Förderrichtlinie tritt am 31. Dezember 2031 außer Kraft.',
+  },
+  'forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23': {
+    ceasesOn: '2031-01-01',
+    expiryDate: '2030-12-31',
+    basis: 'nach Abschnitt VII bis zum Außerkrafttreten am 1. Januar 2031',
+    dateNote: 'Am 6. März 2026 veröffentlicht; nach Abschnitt VII am Tag nach der Veröffentlichung, also am 7. März 2026, in Kraft getreten. Die Förderrichtlinie tritt am 1. Januar 2031 außer Kraft.',
+  },
+  'anordnung-eines-abschiebungsstopp-gem-60a-abs-1-aufenthg-in-den-iran': {
+    expiryDate: '2026-06-02',
+    basis: 'nach Nummer 1 bis einschließlich 2. Juni 2026',
+    dateNote: 'Am 3. März 2026 veröffentlicht und nach Nummer 4 mit der Veröffentlichung in Kraft getreten. Nach Nummer 1 waren Abschiebungen in die Islamische Republik Iran bis einschließlich 2. Juni 2026 auszusetzen.',
+  },
+  'gemeingut-wohnen-ubergangsverordnung': {
+    ceasesOn: '2026-09-01',
+    expiryDate: '2026-08-31',
+    basis: 'nach § 6 Absatz 2, soweit sie nicht verlängert wird, bis zum Außerkrafttreten am ersten Tag des sechsten Monats nach Inkrafttreten (Inkrafttreten nach § 6 Absatz 1 am 25. März 2026, Außerkrafttreten am 1. September 2026); eine Verlängerung ist nicht verkündet',
+    dateNote: 'Am 24. März 2026 verkündet; nach § 6 Absatz 1 am Tag nach der Verkündung, also am 25. März 2026, in Kraft getreten. Nach § 6 Absatz 2 tritt die Verordnung, soweit sie nicht verlängert wird, am ersten Tag des sechsten Monats nach Inkrafttreten außer Kraft, also am 1. September 2026. Eine Verlängerung ist nicht verkündet.',
+  },
+  'verordnung-zur-bestimmung-der-gebiete-mit-mieterhohungsbegrenzung': {
+    expiryDate: '2030-12-31',
+    basis: 'nach § 3 bis zum Ablauf des 31. Dezember 2030',
+    dateNote: 'Am 22. Januar 2026 verkündet; nach § 3 am Tag nach der Verkündung, also am 23. Januar 2026, in Kraft getreten. Die Verordnung tritt mit Ablauf des 31. Dezember 2030 außer Kraft.',
+  },
+  'ostdeutsche-kappungsgrenzen-verordnung': {
+    expiryDate: '2030-12-31',
+    basis: 'nach § 2 bis zum Ablauf des 31. Dezember 2030',
+    dateNote: 'Am 30. Dezember 2025 verkündet; nach § 2 am Tag nach der Verkündung, frühestens jedoch am 1. Januar 2026, also am 1. Januar 2026, in Kraft getreten. Die Verordnung tritt mit Ablauf des 31. Dezember 2030 außer Kraft.',
+  },
 };
 
 function applyPublicationExpiry(record) {
   if (record.meta.slug === 'gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes') {
+    // Einführungsgesetz mit erledigten Änderungsbefehlen; das durch Artikel 4 eingeführte
+    // Hoheitszeichengesetz ist seit 2. September 2026 aufgehoben. Der Mantel bleibt ein
+    // einmaliger Rechtsakt und wird nicht als geltend ausgewiesen.
     record = { ...record, meta: { ...record.meta,
+      status: 'one-time-act',
       dateNote: 'Das durch Artikel 4 eingeführte Gesetz über die Hoheitszeichen wurde mit Wirkung vom 2. September 2026 durch Artikel 2 Absatz 1 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts (OGVBl. 2026 Nr. 70) aufgehoben. Die übrigen Bestandteile dieses Einführungsgesetzes werden dadurch nicht insgesamt aufgehoben. Der gespeicherte Text dokumentiert den ursprünglichen Verkündungsakt.',
     } };
   }
   const config = PUBLICATION_EXPIRY_CONFIG[record.meta.slug];
   if (!config) return record;
-  const repealed = config.expiryDate <= asOf;
+  const { expiryDate, historyDate } = resolveSunsetDates(config, `${record.meta.slug}: befristete Verkündung`);
+  // Aufgehoben erst, wenn der Stichtag nach dem letzten Geltungstag liegt.
+  const repealed = sunsetStatusAt(expiryDate, asOf) === 'repealed';
   const version = record.versions.at(-1);
   const citation = config.citation ?? version?.citation ?? record.meta.initialCitation;
+  // Der Befristungseintrag wird bei jedem Lauf neu gebildet. Ein Eintrag am letzten Geltungstag
+  // stammt aus der früheren Regel (Historie am genannten Datum) und wird ebenfalls ersetzt.
   const entries = (record.history?.entries ?? []).filter((entry) =>
-    !(entry.type === 'repeal' && entry.date === config.expiryDate));
+    !(entry.type === 'repeal' && entry.affectingVersionId === null && [expiryDate, historyDate].includes(entry.date)));
   return {
     ...record,
     meta: {
       ...record.meta,
       status: repealed ? 'repealed' : record.meta.status,
-      expiryDate: config.expiryDate,
+      expiryDate,
       dateNote: config.dateNote,
     },
     history: {
       ...record.history,
       entries: [...entries, {
-        date: config.expiryDate,
+        date: historyDate,
         type: 'repeal',
         title: repealed ? 'Außer Kraft getreten durch Befristung im Text.' : 'Tritt durch Befristung im Text außer Kraft.',
         citation,
@@ -1945,7 +2067,7 @@ function applyPublicationExpiry(record) {
         note: `Befristung nach dem Wortlaut der Verkündung: gilt ${config.basis}.`,
       }],
     },
-    versions: [...record.versions.slice(0, -1), { ...version, validTo: config.expiryDate, isCurrent: !repealed }],
+    versions: [...record.versions.slice(0, -1), { ...version, validTo: expiryDate, isCurrent: !repealed }],
   };
 }
 
@@ -2005,6 +2127,7 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
     const currentVersion = existing.versions.find((entry) => entry.versionId === publicationEntry?.versionId) ??
       existing.versions.find((entry) => entry.isCurrent) ?? existing.versions.at(-1);
     if (!currentVersion) throw new Error(`${parsed.fileName}: ${slug} besitzt keine aktualisierbare Fassung`);
+    const sourceNotes = withSourceNotes(currentVersion.sourceNotes, acceptedFindingSourceNotesFor(parsed.fileName, slug));
     return applyPublicationExpiry({
       source: parsed.fileName,
       startPage: publicationEntry?.startPage,
@@ -2016,17 +2139,17 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
         }),
       },
       history: existing.history,
-      versions: [{ ...currentVersion, body: norm.body }],
+      versions: [{ ...currentVersion, ...(sourceNotes?.length ? { sourceNotes } : {}), body: norm.body }],
     });
   });
   const mappedEntries = mappings.map(({ norm, slug, existing }, index) => {
     const previous = (existingPublication.entries ?? []).find((entry) => entry.normSlug === slug);
     const version = records[index].versions[0];
-    const documentDate = previous?.documentDate ?? existing.meta.documentDate ?? norm.documentDate ?? parsed.documentDate;
+    const documentDate = legacyEntryDocumentDate(previous, existing.meta.documentDate, norm.documentDate, parsed.documentDate);
     return {
       ...(previous ?? {}),
       id: previous?.id ?? slug,
-      title: existing.meta.title,
+      title: publicationEntryTitle(version, existing.meta),
       type: publicationEntryTypeForNormType(existing.meta.type, {
         publication: existingPublication.publication,
         initialCitation: existing.meta.initialCitation,
@@ -2135,7 +2258,15 @@ function buildRecords(parsed) {
     const officialTitle = NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] && officialTitleSuffix && norm.title.endsWith(officialTitleSuffix)
       ? norm.title.slice(0, -officialTitleSuffix.length).trim()
       : norm.title;
-    const sourceReferences = officialIssueSourceReferences(parsed, config);
+    // Ist für eine eingeführte Stammnorm ein Artikelbereich belegt (config.pages), trägt ihre
+    // Normquelle diesen Bereich als pageRange; ohne belegtes pages bleibt der Quellbereich der
+    // ganzen Ausgabe (officialIssueSourceReferences). Der Verkündungseintrag erhält pages nur aus
+    // einem belegten Feld (scripts/lib/publication-entry-fields.mjs).
+    const sourceReferences = officialIssueSourceReferences(
+      parsed,
+      config,
+      index > 0 && config.pages ? { pageRange: config.pages } : {},
+    );
     // Titelmodell (scripts/lib/norm-title-rules.mjs): Kurzbezeichnung nur, wenn sie sich vom
     // Langtitel unterscheidet; Abkürzung nur, wenn sie die gemeinsame Regel besteht.
     const resultShortTitle = shortTitle && shortTitle !== officialTitle ? shortTitle : undefined;
@@ -2213,6 +2344,7 @@ function buildRecords(parsed) {
         ? { dateNote: 'Das Gesetz gilt seit 21. Juli 2026; die wesentlichen Gebietsänderungen sind seit 1. August 2026 wirksam.' }
         : {}),
     };
+    const configuredSourceNotes = withSourceNotes(config.sourceNotes, acceptedFindingSourceNotesFor(parsed.fileName, slug));
     const version = {
       versionId,
       validFrom,
@@ -2220,7 +2352,7 @@ function buildRecords(parsed) {
       isCurrent: true,
       citation,
       changeNote: index === 0 ? 'Verkündete Fassung.' : 'Eingeführte Stammfassung.',
-      ...(config.sourceNotes ? { sourceNotes: config.sourceNotes } : {}),
+      ...(configuredSourceNotes?.length ? { sourceNotes: configuredSourceNotes } : {}),
       body: norm.body,
     };
     const history = {
@@ -2308,13 +2440,13 @@ function buildGmblAgreementRecord(parsed) {
     documentDate: '2026-07-28',
     publicationDate: '2026-07-29',
     effectiveDate: '2026-07-29',
-    dateNote: 'Am 28. Juli 2026 in Leipzig geschlossen, am 29. Juli 2026 amtlich veröffentlicht und seit dem 29. Juli 2026 wirksam.',
+    dateNote: 'Am 28. Juli 2026 in Leipzig geschlossen und am 29. Juli 2026 amtlich veröffentlicht. Das Abkommen enthält keinen ausdrücklichen Inkrafttretenssatz; § 7 ist mit „Inkrafttreten“ überschrieben, regelt aber nur die Kündigung. Es wird seit dem Tag der amtlichen Veröffentlichung, dem 29. Juli 2026, als wirksam geführt.',
     agreementDetails: {
       signedOn: '2026-07-28',
       signedAt: 'Leipzig',
       publishedOn: '2026-07-29',
       effectiveOn: '2026-07-29',
-      effectivenessNote: 'Seit der amtlichen Veröffentlichung am 29. Juli 2026 wirksam.',
+      effectivenessNote: 'Kein ausdrücklicher Inkrafttretenssatz in der Quelle; als wirksam geführt seit der amtlichen Veröffentlichung am 29. Juli 2026.',
       parties: [
         {
           name: 'Bundesministerium des Innern und für Heimat',
@@ -2396,6 +2528,10 @@ function buildGmblAgreementRecord(parsed) {
             text: 'Die Präambel nennt „Staatsrat für Staats- und Grenzssicherheit“, die Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“. Beide Varianten bleiben im Originalwortlaut unverändert; strukturierte Metadaten verwenden die kanonische Amtsbezeichnung „Staatsrat für Staats- und Grenzsicherheit“.',
           },
           {
+            label: 'Inkrafttreten',
+            text: '§ 7 trägt die Überschrift „Inkrafttreten“, enthält aber nur eine Kündigungsregel. Einen ausdrücklichen Inkrafttretenssatz enthält das Abkommen nicht; die Wirksamkeit ab dem 29. Juli 2026 folgt dem Tag der amtlichen Veröffentlichung.',
+          },
+          {
             label: 'Transkriptionshierarchie',
             text: 'Die vollständige HTML-Fassung ist strukturtragend, das PDF dient der amtlichen visuellen Kontrolle und die Markdown-Fassung als zusätzliche Transkription. Bloße typografische Unterschiede werden nicht als eigener Rechtskonflikt geführt.',
           },
@@ -2470,7 +2606,6 @@ function buildConstitutionRecord(parsed) {
       slug,
       title: 'Verfassung des Freistaates Ostdeutschland',
       shortTitle: 'Ostdeutsche Staatsverfassung',
-      abbr: 'OstVerf',
       shortTitleSource: 'official',
       type: 'gesetz',
       responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
@@ -2515,10 +2650,16 @@ function buildConstitutionRecord(parsed) {
   };
 }
 
+function entryPagesFor(index, options) {
+  const pages = publicationEntryPages(index, options);
+  return pages ? { pages } : {};
+}
+
 function publicationFrom(parsed, records) {
   const isVolksbefragung = parsed.issue === '59';
   const isNewOfficialIssue = Boolean(NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]);
-  const config = configuredNormsFor(parsed)?.[0] ?? {};
+  const configs = configuredNormsFor(parsed) ?? [];
+  const config = configs[0] ?? {};
   const resolvedPdf = resolvePublicationPdf({
     publication: parsed.publication,
     year: parsed.year,
@@ -2557,7 +2698,7 @@ function publicationFrom(parsed, records) {
     } : {}),
     ...(pdfFileName ? { pdf: publicationPdfPublicPath(`${publicationDetails.slugPrefix}-${parsed.year}-${publicationIssue}`) } : {}),
     sourceReferences: officialIssueSourceReferences(parsed, config),
-    entries: [...records.map((record) => ({
+    entries: [...records.map((record, index) => ({
       id: record.meta.slug,
       title: record.meta.title,
       type: publicationEntryTypeForNormType(record.meta.type, {
@@ -2570,9 +2711,7 @@ function publicationFrom(parsed, records) {
         ? { pages: historicalPageRange }
         : isVolksbefragung
           ? { pages: '2–7' }
-          : pageRange
-            ? { pages: pageRange }
-            : {}),
+          : entryPagesFor(index, { issuePageRange: pageRange, configuredPages: configs[index]?.pages })),
       documentDate: record.meta.documentDate,
       normSlug: record.meta.slug,
       versionId: record.versions[0].versionId,
@@ -2713,6 +2852,20 @@ async function readExistingRecord(slug) {
   }
 }
 
+/** Alle gespeicherten Fassungen eines vorhandenen Normordners (leer, wenn es keinen gibt). */
+function storedVersions(directory) {
+  if (!directory) return [];
+  try {
+    return readdirSync(join(directory, 'versions'))
+      .filter((name) => name.endsWith('.json'))
+      .sort()
+      .map((name) => JSON.parse(readFileSync(join(directory, 'versions', name), 'utf8')));
+  } catch (error) {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  }
+}
+
 /**
  * Eine gespeicherte Ausgangsfassung, an die die Konsolidierung eine Folgefassung angeschlossen
  * hat, trägt ihr Gültigkeitsende und ist nicht mehr die geltende Fassung. Die Verkündungsquelle
@@ -2756,6 +2909,19 @@ function mergeWithExisting(record, existing) {
     !entry.affectingVersionId &&
     existing.history.entries.some((candidate) => candidate.type === 'initial' && candidate.affectingVersionId)
   ));
+  // Schlagwörter früherer Erzeuger (Slug-Bruchstücke, Themenwörter, Initialenfolgen;
+  // scripts/lib/norm-title-rules.mjs) kehren mit einem Reimport eigener Vorschriften nicht zurück.
+  // Belegt ist nur, was im Titel oder im Normtext der Vorschrift selbst steht.
+  const ownNorm = !(existing.meta.sourceReferences ?? []).some((reference) => typeof reference?.lawId === 'string' && reference.lawId);
+  const keywordSourceText = ownNorm
+    ? [...record.versions, ...(existing.versions ?? storedVersions(existing.directory))]
+      .map((version) => `${version.title ?? ''} ${normBodyText(version.body ?? [])}`).join(' ')
+    : '';
+  // Eine gepflegte Kurzbeschreibung bleibt erhalten; ersetzt wird nur eine Formel aus Typ und Titel
+  // („Regelt <Titel>.“, abgeleitete Formeln, Zitat des eigenen Titels), und nur durch eine
+  // Kurzbeschreibung der Importkonfiguration.
+  const existingSummaryIsFormula = Boolean(existing.meta.summary)
+    && (isFormulaSummary(existing.meta.summary, existing.meta.title) || isOwnTitleQuotingSummary(existing.meta.summary, existing.meta));
   const preservedMeta = {
     ...record.meta,
     subjects: orderedSubjects([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])], record.meta.primarySubject),
@@ -2765,9 +2931,10 @@ function mergeWithExisting(record, existing) {
       ...(existing.meta.keywords ?? []).filter((keyword) => keyword !== existing.meta.abbr || keyword === record.meta.abbr),
     ])]
       .filter((keyword) => !UNVERIFIED_ABBREVIATIONS.has(keyword))
-      .filter((keyword) => keyword !== record.meta.title && keyword !== record.meta.shortTitle && keyword !== record.meta.abbr),
+      .filter((keyword) => keyword !== record.meta.title && keyword !== record.meta.shortTitle && keyword !== record.meta.abbr)
+      .filter((keyword) => !ownNorm || generatedKeywordProblem(keyword, record.meta, keywordSourceText) === null),
     // Eine gepflegte Kurzbeschreibung bleibt erhalten; ihre Herkunftskennzeichnung folgt ihr.
-    ...(existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary)
+    ...(existing.meta.summary && !(existingSummaryIsFormula && record.meta.summary)
       ? { summary: existing.meta.summary, ...(existing.meta.summarySource ? { summarySource: existing.meta.summarySource } : {}) }
       : record.meta.summary
         ? { summary: record.meta.summary }
@@ -2783,6 +2950,11 @@ function mergeWithExisting(record, existing) {
       : {}),
     ...((existing.meta.relatedNorms ?? record.meta.relatedNorms)
       ? { relatedNorms: existing.meta.relatedNorms ?? record.meta.relatedNorms }
+      : {}),
+    // Redaktionsentscheidungen zu Änderungsbefehlen (data/recht/consolidation-sources.json) gehören
+    // zur gespeicherten Fassungsfolge und überleben einen Reimport der Stammquelle.
+    ...((existing.meta.editorialResolutions ?? record.meta.editorialResolutions)
+      ? { editorialResolutions: existing.meta.editorialResolutions ?? record.meta.editorialResolutions }
       : {}),
     predecessor: existing.meta.predecessor ?? record.meta.predecessor,
     successor: existing.meta.successor ?? record.meta.successor,
@@ -3182,7 +3354,14 @@ for (const fileName of htmlFiles) {
       const parsed = parseConsolidatedHtml(fileName, html, { title: 'Verfassung des Freistaates Ostdeutschland' });
       const parserContractIssues = validateConstitutionParserContract(parsed);
       report.recognized.push({ file: fileName, classification: classification.kind, norms: [{ title: parsed.title, type: 'gesetz' }] });
-      const record = buildConstitutionRecord(parsed);
+      // Die Lesefassung ist nichtamtlich; eine als Konsolidierungsausgang geprüfte Fassung
+      // behält ihren gespeicherten Normtext (scripts/lib/import-reviewed-versions.mjs).
+      const generatedRecord = buildConstitutionRecord(parsed);
+      const { record, preserved: reviewedSeedVersions } = preferReviewedSeedBodies(
+        generatedRecord,
+        existingAuditRecords.get(generatedRecord.meta.slug)?.versions,
+        reviewedSeedVersionIds(consolidationSources, generatedRecord.meta.slug),
+      );
       records.push(preserveExistingHistoryForAudit(record, existingAuditRecords.get(record.meta.slug)));
       recognizedConfiguredSources.set('constitution', fileName);
       report.sourceAudit.push({
@@ -3199,6 +3378,7 @@ for (const fileName of htmlFiles) {
         listCount: summarizeParsedSource(parsed)[0].listCount,
         tableCount: summarizeParsedSource(parsed)[0].tableCount,
         parserContractIssues,
+        ...(reviewedSeedVersions.length ? { reviewedSeedVersions } : {}),
         norms: [{ slug: record.meta.slug, title: record.meta.title, ...compareGeneratedRecordToExisting(record, existingAuditRecords.get(record.meta.slug)) }],
       });
     } else {
