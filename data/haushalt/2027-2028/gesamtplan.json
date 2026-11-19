@@ -3,11 +3,11 @@
   "periode": "2027-2028",
   "jahre": {
     "2027": {
-      "einnahmen": 139620549022,
-      "ausgaben": 139620549022,
-      "haushaltsvolumen": 139620549022,
-      "zahlungen_ohne_zufuehrung": 139620549022,
-      "zufuehrung_liquiditaetsruecklage": 0,
+      "einnahmen": 139654073867,
+      "ausgaben": 139654073867,
+      "haushaltsvolumen": 139654073867,
+      "zahlungen_ohne_zufuehrung": 139641734432,
+      "zufuehrung_liquiditaetsruecklage": 12339435,
       "ungedeckt": 0,
       "strukturelle_nka": 0,
       "kredit_brutto": 0,
@@ -15,28 +15,28 @@
       "nettotilgung": 45922300,
       "zinsen": 3170260314,
       "ruecklagenentnahme": 5039046889,
-      "einnahmen_vor_finanzierung": 134581502133,
+      "einnahmen_vor_finanzierung": 134615026978,
       "haushaltsvolumen_baseline": 141139043496,
       "zufuehrung_baseline": 0,
-      "finanzierungssaldo_vor_ueberschussverwendung": 0,
+      "finanzierungssaldo_vor_ueberschussverwendung": 12339435,
       "hauptgruppen": {
-        "0": 95904507778,
+        "0": 97057799117,
         "1": 4348796444,
-        "2": 26552752093,
-        "3": 12814492707,
+        "2": 27053345542,
+        "3": 11194132764,
         "4": 32176851748,
         "5": 14080972352,
-        "6": 72408821616,
+        "6": 72430007026,
         "7": 2814394600,
         "8": 18139508706,
-        "9": 0
+        "9": 12339435
       }
     },
     "2028": {
-      "einnahmen": 140149153791,
-      "ausgaben": 140149153791,
-      "haushaltsvolumen": 140149153791,
-      "zahlungen_ohne_zufuehrung": 140149153791,
+      "einnahmen": 140169616651,
+      "ausgaben": 140169616651,
+      "haushaltsvolumen": 140169616651,
+      "zahlungen_ohne_zufuehrung": 140169616651,
       "zufuehrung_liquiditaetsruecklage": 0,
       "ungedeckt": 0,
       "strukturelle_nka": 0,
@@ -45,18 +45,18 @@
       "nettotilgung": 455600000,
       "zinsen": 3442950653,
       "ruecklagenentnahme": 0,
-      "einnahmen_vor_finanzierung": 140149153791,
+      "einnahmen_vor_finanzierung": 140169616651,
       "haushaltsvolumen_baseline": 140254332224,
       "zufuehrung_baseline": 311191306,
       "finanzierungssaldo_vor_ueberschussverwendung": 0,
       "hauptgruppen": {
-        "0": 104669683012,
+        "0": 104933346655,
         "1": 4377289987,
-        "2": 25329533667,
-        "3": 5772647125,
+        "2": 25935923762,
+        "3": 4923056247,
         "4": 33578498062,
         "5": 14108270516,
-        "6": 73614495371,
+        "6": 73634958231,
         "7": 2401397300,
         "8": 16446492542,
         "9": 0
@@ -70,8 +70,8 @@
       "gruppe": "011",
       "bezeichnung": "Lohnsteuer",
       "jahre": {
-        "2027": 30698580651,
-        "2028": 33778434898
+        "2027": 31790817663,
+        "2028": 34879671606
       }
     },
     {
@@ -80,8 +80,8 @@
       "gruppe": "012",
       "bezeichnung": "Veranlagte Einkommensteuer",
       "jahre": {
-        "2027": 6733974388,
-        "2028": 7446200141
+        "2027": 7183800462,
+        "2028": 7961141000
       }
     },
     {
@@ -90,8 +90,8 @@
       "gruppe": "013",
       "bezeichnung": "Nicht veranlagte Steuern vom Ertrag",
       "jahre": {
-        "2027": 2003467966,
-        "2028": 2160073067
+        "2027": 2015956953,
+        "2028": 2172964924
       }
     },
     {
@@ -100,8 +100,8 @@
       "gruppe": "014",
       "bezeichnung": "Körperschaftsteuer",
       "jahre": {
-        "2027": 5022431500,
-        "2028": 5534268817
+        "2027": 5315040751,
+        "2028": 6238081055
       }
     },
     {
@@ -110,8 +110,8 @@
       "gruppe": "015",
       "bezeichnung": "Umsatzsteuer",
       "jahre": {
-        "2027": 36504072797,
-        "2028": 37180709431
+        "2027": 36940426520,
+        "2028": 37865814160
       }
     },
     {
@@ -120,8 +120,8 @@
       "gruppe": "017",
       "bezeichnung": "Gewerbesteuerumlage",
       "jahre": {
-        "2027": 824023440,
-        "2028": 886450331
+        "2027": 857697148,
+        "2028": 921075861
       }
     },
     {
@@ -130,8 +130,8 @@
       "gruppe": "051",
       "bezeichnung": "Vermögensteuer",
       "jahre": {
-        "2027": 1301402250,
-        "2028": 3632713288
+        "2027": 441000000,
+        "2028": 1183887500
       }
     },
     {
@@ -150,8 +150,8 @@
       "gruppe": "053",
       "bezeichnung": "Grunderwerbsteuer",
       "jahre": {
-        "2027": 3632221094,
-        "2028": 3935793749
+        "2027": 3484137718,
+        "2028": 3785298591
       }
     },
     {
@@ -190,8 +190,8 @@
       "gruppe": "061",
       "bezeichnung": "Biersteuer",
       "jahre": {
-        "2027": 310697362,
-        "2028": 321695685
+        "2027": 0,
+        "2028": 0
       }
     },
     {
@@ -210,8 +210,8 @@
       "gruppe": "099",
       "bezeichnung": "Sonstige steuerähnliche Abgaben",
       "jahre": {
-        "2027": 6319857857,
-        "2028": 7038718478
+        "2027": 6475143429,
+        "2028": 7170786831
       }
     },
     {
@@ -270,8 +270,8 @@
       "gruppe": "211",
       "bezeichnung": "Allgemeine Zuweisungen vom Bund",
       "jahre": {
-        "2027": 8759565407,
-        "2028": 8785826407
+        "2027": 9260158856,
+        "2028": 9430739531
       }
     },
     {
@@ -301,7 +301,7 @@
       "bezeichnung": "Sonstige Zuweisungen von Sondervermögen",
       "jahre": {
         "2027": 0,
-        "2028": 38523029
+        "2028": 0
       }
     },
     {
@@ -390,8 +390,8 @@
       "gruppe": "356",
       "bezeichnung": "Entnahmen aus Fonds und Stöcken",
       "jahre": {
-        "2027": 1343488317,
-        "2028": 699389593
+        "2027": 688160132,
+        "2028": 609872935
       }
     },
     {
@@ -400,8 +400,8 @@
       "gruppe": "359",
       "bezeichnung": "Entnahmen aus sonstigen Rücklagen",
       "jahre": {
-        "2027": 7588612218,
-        "2028": 1281583768
+        "2027": 6623580460,
+        "2028": 521509548
       }
     },
     {
@@ -730,8 +730,8 @@
       "gruppe": "633",
       "bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
       "jahre": {
-        "2027": 28323654488,
-        "2028": 28994730343
+        "2027": 28344839898,
+        "2028": 29015193203
       }
     },
     {
@@ -1040,7 +1040,7 @@
       "gruppe": "919",
       "bezeichnung": "Zuführungen an sonstige Rücklagen",
       "jahre": {
-        "2027": 0,
+        "2027": 12339435,
         "2028": 0
       }
     }
@@ -1392,8 +1392,8 @@
       "funktion": "261",
       "bezeichnung": "Jugendarbeit und Jugendverbandsarbeit",
       "jahre": {
-        "2027": 1017251026,
-        "2028": 1026977785
+        "2027": 1038436436,
+        "2028": 1047440645
       }
     },
     {
@@ -1782,7 +1782,7 @@
       "funktion": "851",
       "bezeichnung": "Rücklagen",
       "jahre": {
-        "2027": 0,
+        "2027": 12339435,
         "2028": 0
       }
     },

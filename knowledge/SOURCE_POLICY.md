@@ -130,3 +130,9 @@ erst in `current-state.json`, Entitäten, Projekte, Verfahren oder Timeline übe
 eine höher priorisierte Quelle oder eine nach den vorstehenden Regeln eindeutig kanonische
 EAG-Ausspielung vorliegt. `knowledge:check` verhindert, dass reine Gesprächsquellen den aktuellen
 Stand tragen.
+
+Ausdrückliche Festlegungen des Simulationsinhabers können den Bewertungsrahmen oder die Auswahl
+eines Planungsthemas bestimmen. Die Fundstelle benennt Reichweite, Datum und Art der Bestätigung.
+Eine Bestätigung der eigenen Veröffentlichung trägt den Kommunikationsstatus. Rechtswirkung,
+Zustellung und praktischer Vollzug brauchen die jeweils zuständige Quelle. Rekonstruierte
+Gesprächsauszüge werden als solche gekennzeichnet.

@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -911,15 +912,16 @@
       "rechtsgrundlage": "Grundversorgungsgesetz/OGVBl.2026Nr.77; Gesundheits-/Pflegegewährleistung",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "care",
-      "erlaeuterung": "100.000 zusätzliche regionale Beratungs- und Versorgungsfälle zu 4.500/5.500 EUR; bestehende Leistungen 250/300 Mio. EUR angerechnet. Rechtsgrundlage: Grundversorgungsgesetz (OGVBl. 2026 Nr. 77).",
       "jahre": {
         "2027": {
           "id": "T.0803/63301@2027",
-          "betrag": 200000000
+          "betrag": 200000000,
+          "erlaeuterung": "100.000 zusätzliche regionale Beratungs- und Versorgungsfälle zu 4.500/5.500 EUR; bestehende Leistungen 250/300 Mio. EUR angerechnet. Rechtsgrundlage: Grundversorgungsgesetz (OGVBl. 2026 Nr. 77)."
         },
         "2028": {
           "id": "T.0803/63301@2028",
-          "betrag": 250000000
+          "betrag": 250000000,
+          "erlaeuterung": "100.000 zusätzliche regionale Beratungs- und Versorgungsfälle zu 4.500/5.500 EUR; bestehende Leistungen 250/300 Mio. EUR angerechnet. Rechtsgrundlage: Grundversorgungsgesetz (OGVBl. 2026 Nr. 77)."
         }
       }
     },
@@ -940,15 +942,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Vorhandene650/700Mio. plus550/600Mio.Reform; Versorgung/Sicherstellung bleibt. Keine volle Krankenkassenfinanzierung neu.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "hospital",
-      "erlaeuterung": "Laufender Stabilisierungsanteil (3/11 des Programms) für bedarfsnotwendige Häuser in kommunaler Trägerschaft und für die Rekommunalisierung; keine Übernahme der Betriebskosten der Krankenkassen.",
       "jahre": {
         "2027": {
           "id": "T.0804/68201@2027",
-          "betrag": 400000000
+          "betrag": 400000000,
+          "erlaeuterung": "Laufender Stabilisierungsanteil (3/11 des Programms) für bedarfsnotwendige Häuser in kommunaler Trägerschaft und für die Rekommunalisierung; keine Übernahme der Betriebskosten der Krankenkassen."
         },
         "2028": {
           "id": "T.0804/68201@2028",
-          "betrag": 400000000
+          "betrag": 400000000,
+          "erlaeuterung": "Laufender Stabilisierungsanteil (3/11 des Programms) für bedarfsnotwendige Häuser in kommunaler Trägerschaft und für die Rekommunalisierung; keine Übernahme der Betriebskosten der Krankenkassen."
         }
       }
     },
@@ -998,19 +1001,20 @@
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "hospital",
       "einheit": "Maßnahmen (Jahresraten)",
-      "erlaeuterung": "Jahresraten für 20 große Standort- und Verbundmaßnahmen (u. a. Notfallzentren, Zusammenführung von Standorten, Neubau Bettenhäuser); die Auswahl erfolgt nach dem Krankenhausplan. Teilfinanzierung aus fortgeführten investiven Bundesmitteln (F09: 800/900 Mio. EUR für das Programm).",
       "jahre": {
         "2027": {
           "id": "T.0804/89101.einzelfoerderung@2027",
           "betrag": 600000000,
           "menge": "10",
-          "satz": "60000000"
+          "satz": "60000000",
+          "erlaeuterung": "Jahresraten für 20 große Standort- und Verbundmaßnahmen (u. a. Notfallzentren, Zusammenführung von Standorten, Neubau Bettenhäuser); die Auswahl erfolgt nach dem Krankenhausplan. Teilfinanzierung aus fortgeführten investiven Bundesmitteln (F09: 800/900 Mio. EUR für das Programm)."
         },
         "2028": {
           "id": "T.0804/89101.einzelfoerderung@2028",
           "betrag": 715000000,
           "menge": "11",
-          "satz": "65000000"
+          "satz": "65000000",
+          "erlaeuterung": "Jahresraten für 20 große Standort- und Verbundmaßnahmen (u. a. Notfallzentren, Zusammenführung von Standorten, Neubau Bettenhäuser); die Auswahl erfolgt nach dem Krankenhausplan. Teilfinanzierung aus fortgeführten investiven Bundesmitteln (F09: 800/900 Mio. EUR für das Programm)."
         }
       }
     },
@@ -2280,17 +2284,18 @@
       "rechtsgrundlage": "OGVBl.2026Nr.83 Art.1, TeilhabeG§§6/7/10",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "youth",
-      "erlaeuterung": "Laufender Betrieb von 500 Jugendorten (180.000 EUR je Ort) und Beratung/Teilhabepass (60 Mio. EUR); bestehende Mittel 80 Mio. EUR angerechnet; 2027 Anlaufjahr, 2028 volle Jahreswirkung. Rechtsgrundlage: Teilhabegesetz §§ 6, 7, 10.",
       "jahre": {
         "2027": {
           "id": "T.0806/63301@2027",
           "betrag": 70000000,
-          "menge": "500"
+          "menge": "500",
+          "erlaeuterung": "Laufender Betrieb von 500 Jugendorten (180.000 EUR je Ort) und Beratung/Teilhabepass (60 Mio. EUR); bestehende Mittel 80 Mio. EUR angerechnet; 2027 Anlaufjahr, 2028 volle Jahreswirkung. Rechtsgrundlage: Teilhabegesetz §§ 6, 7, 10."
         },
         "2028": {
           "id": "T.0806/63301@2028",
           "betrag": 130000000,
-          "menge": "500"
+          "menge": "500",
+          "erlaeuterung": "Laufender Betrieb von 500 Jugendorten (180.000 EUR je Ort) und Beratung/Teilhabepass (60 Mio. EUR); bestehende Mittel 80 Mio. EUR angerechnet; 2027 Anlaufjahr, 2028 volle Jahreswirkung. Rechtsgrundlage: Teilhabegesetz §§ 6, 7, 10."
         }
       }
     },
@@ -2391,11 +2396,11 @@
       "jahre": {
         "2027": {
           "id": "T.0806/68601.uvg@2027",
-          "betrag": 170012917
+          "betrag": 191198327
         },
         "2028": {
           "id": "T.0806/68601.uvg@2028",
-          "betrag": 164214451
+          "betrag": 184677311
         }
       }
     },

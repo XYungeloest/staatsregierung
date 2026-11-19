@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-12",
+  "asOf": "2026-11-19",
   "questions": [
     {
       "id": "question-holdings-undisclosed-deeper-tiers",
@@ -395,6 +395,35 @@
       "publicContentImpact": "Keine Aussage zum Status bestehender Stützpunkte und Leistungszentren.",
       "priority": "low",
       "questionStatus": "open"
+    },
+    {
+      "id": "question-ust-rundung",
+      "title": "Rundungsbasis des Ostanteils an der Umsatzsteuer",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die Übersicht weist 219,6 Mio. Euro aus, die gerundeten Teilbeträge summieren sich zu 219,5 Mio. Euro.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-breg-umsatzsteuer-2026",
+          "locator": "Teile A und B, insbesondere B.2–B.5, Seiten 4–5",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-breg-umsatzsteuerreform-2026"
+      ],
+      "tags": [],
+      "notes": [],
+      "question": "Rundungsbasis des Ostanteils an der Umsatzsteuer",
+      "reason": "Die Übersicht weist 219,6 Mio. Euro aus, die gerundeten Teilbeträge summieren sich zu 219,5 Mio. Euro.",
+      "requiredSource": "Ungerundete Beträge oder Erläuterung der Bundesregierung zu Teil B.",
+      "priority": "medium",
+      "questionStatus": "open",
+      "affectedIds": [
+        "proceeding-breg-umsatzsteuerreform-2026"
+      ]
     }
   ]
 }

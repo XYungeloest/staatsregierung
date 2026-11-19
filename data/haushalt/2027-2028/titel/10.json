@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -364,15 +365,16 @@
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "transrapid",
-      "erlaeuterung": "Landesverkehrsplan, Netzkonzeption Schiene 2035, Mobilitätsdatenplattform sowie Machbarkeits- und Wirtschaftlichkeitsprüfung eines Transrapid-Korridors (Prüfauftrag aus dem 15-Punkte-Plan II, bis 1 Mio. EUR jährlich). Ein Bau- oder Beschaffungsansatz für den Transrapid ist nicht veranschlagt.",
       "jahre": {
         "2027": {
           "id": "T.1001/54701.planung@2027",
-          "betrag": 15000000
+          "betrag": 15000000,
+          "erlaeuterung": "Landesverkehrsplan, Netzkonzeption Schiene 2035, Mobilitätsdatenplattform sowie Machbarkeits- und Wirtschaftlichkeitsprüfung eines Transrapid-Korridors (Prüfauftrag aus dem 15-Punkte-Plan II, bis 1 Mio. EUR jährlich). Ein Bau- oder Beschaffungsansatz für den Transrapid ist nicht veranschlagt."
         },
         "2028": {
           "id": "T.1001/54701.planung@2028",
-          "betrag": 15000000
+          "betrag": 15000000,
+          "erlaeuterung": "Landesverkehrsplan, Netzkonzeption Schiene 2035, Mobilitätsdatenplattform sowie Machbarkeits- und Wirtschaftlichkeitsprüfung eines Transrapid-Korridors (Prüfauftrag aus dem 15-Punkte-Plan II, bis 1 Mio. EUR jährlich). Ein Bau- oder Beschaffungsansatz für den Transrapid ist nicht veranschlagt."
         }
       }
     },
@@ -547,15 +549,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Weitere laufende Bundeszuweisungen der Herkunftshaushalte im öffentlichen Verkehr (u. a. Ausgleichs- und Erstattungsleistungen); Einzelnachweis nach Bundesbescheiden. Der Ansatz bleibt bis zum Nachweis als Sammelansatz gekennzeichnet.",
       "jahre": {
         "2027": {
           "id": "T.1002/23101.sonstige@2027",
-          "betrag": 1230649434
+          "betrag": 1230649434,
+          "erlaeuterung": "Weitere laufende Bundeszuweisungen der Herkunftshaushalte im öffentlichen Verkehr (u. a. Ausgleichs- und Erstattungsleistungen); Einzelnachweis nach Bundesbescheiden. Der Ansatz bleibt bis zum Nachweis als Sammelansatz gekennzeichnet."
         },
         "2028": {
           "id": "T.1002/23101.sonstige@2028",
-          "betrag": 875585764
+          "betrag": 875585764,
+          "erlaeuterung": "Weitere laufende Bundeszuweisungen der Herkunftshaushalte im öffentlichen Verkehr (u. a. Ausgleichs- und Erstattungsleistungen); Einzelnachweis nach Bundesbescheiden. Der Ansatz bleibt bis zum Nachweis als Sammelansatz gekennzeichnet."
         }
       }
     },
@@ -576,16 +579,17 @@
       "rechtsgrundlage": "Regionalisierungsgesetz des Simulationsbundes § 5; BGBl. I 2026 Nr. 55",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "regionalisierung",
-      "erlaeuterung": "Summe der Länderanteile Berlin, Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach § 5 RegG (2027: 3,182 Mrd. EUR; 2028: 3,241 Mrd. EUR). Die Bundesmittel für Deutschlandticket und Schülerticket werden gesondert im Kapitel 1007 vereinnahmt.",
       "vermerk": "Zweckgebunden für den öffentlichen Personennahverkehr (§ 6 RegG). Die Einnahmen sind mit den Titeln 546 01 und 683 01 dieses Kapitels verbunden.",
       "jahre": {
         "2027": {
           "id": "T.1002/23101.regg@2027",
-          "betrag": 3182087162
+          "betrag": 3182087162,
+          "erlaeuterung": "Summe der Länderanteile Berlin, Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach § 5 RegG (2027: 3,182 Mrd. EUR; 2028: 3,241 Mrd. EUR). Die Bundesmittel für Deutschlandticket und Schülerticket werden gesondert im Kapitel 1007 vereinnahmt."
         },
         "2028": {
           "id": "T.1002/23101.regg@2028",
-          "betrag": 3240734131
+          "betrag": 3240734131,
+          "erlaeuterung": "Summe der Länderanteile Berlin, Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach § 5 RegG (2027: 3,182 Mrd. EUR; 2028: 3,241 Mrd. EUR). Die Bundesmittel für Deutschlandticket und Schülerticket werden gesondert im Kapitel 1007 vereinnahmt."
         }
       }
     },
@@ -604,15 +608,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Investive Bundesmittel des öffentlichen Verkehrs aus den Herkunftshaushalten (Gemeindeverkehrsfinanzierung, Bundesprogramme); nicht identisch mit den fortgeführten Programmen F09/F10 im Kapitel 2003.",
       "jahre": {
         "2027": {
           "id": "T.1002/35901@2027",
-          "betrag": 305062268
+          "betrag": 305062268,
+          "erlaeuterung": "Investive Bundesmittel des öffentlichen Verkehrs aus den Herkunftshaushalten (Gemeindeverkehrsfinanzierung, Bundesprogramme); nicht identisch mit den fortgeführten Programmen F09/F10 im Kapitel 2003."
         },
         "2028": {
           "id": "T.1002/35901@2028",
-          "betrag": 291436737
+          "betrag": 291436737,
+          "erlaeuterung": "Investive Bundesmittel des öffentlichen Verkehrs aus den Herkunftshaushalten (Gemeindeverkehrsfinanzierung, Bundesprogramme); nicht identisch mit den fortgeführten Programmen F09/F10 im Kapitel 2003."
         }
       }
     },
@@ -789,15 +794,16 @@
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "regionalisierung",
-      "erlaeuterung": "Entgelte an Eisenbahnverkehrsunternehmen für bestellte Zugleistungen nach bestehenden Verkehrsverträgen (Brutto- und Nettoverträge), soweit die Herkunftshaushalte diese als sächliche Ausgaben führen; die als Betriebskostenausgleich gebuchten Verträge stehen bei Titel 683 01. Die Leistungen werden überwiegend aus Regionalisierungsmitteln finanziert (Titel 231 11). Die bestehenden Verträge laufen weiter; Verpflichtungsermächtigungen für Folgejahre werden mit der Anlage Verpflichtungsermächtigungen festgelegt.\n",
       "jahre": {
         "2027": {
           "id": "T.1002/54701.besteller@2027",
-          "betrag": 1072650407
+          "betrag": 1072650407,
+          "erlaeuterung": "Entgelte an Eisenbahnverkehrsunternehmen für bestellte Zugleistungen nach bestehenden Verkehrsverträgen (Brutto- und Nettoverträge), soweit die Herkunftshaushalte diese als sächliche Ausgaben führen; die als Betriebskostenausgleich gebuchten Verträge stehen bei Titel 683 01. Die Leistungen werden überwiegend aus Regionalisierungsmitteln finanziert (Titel 231 11). Die bestehenden Verträge laufen weiter; Verpflichtungsermächtigungen für Folgejahre werden mit der Anlage Verpflichtungsermächtigungen festgelegt.\n"
         },
         "2028": {
           "id": "T.1002/54701.besteller@2028",
-          "betrag": 955518958
+          "betrag": 955518958,
+          "erlaeuterung": "Entgelte an Eisenbahnverkehrsunternehmen für bestellte Zugleistungen nach bestehenden Verkehrsverträgen (Brutto- und Nettoverträge), soweit die Herkunftshaushalte diese als sächliche Ausgaben führen; die als Betriebskostenausgleich gebuchten Verträge stehen bei Titel 683 01. Die Leistungen werden überwiegend aus Regionalisierungsmitteln finanziert (Titel 231 11). Die bestehenden Verträge laufen weiter; Verpflichtungsermächtigungen für Folgejahre werden mit der Anlage Verpflichtungsermächtigungen festgelegt.\n"
         }
       }
     },
@@ -894,15 +900,16 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Weitergabe von Regionalisierungsmitteln an die kommunalen Aufgabenträger für den übrigen ÖPNV (Bus, Straßenbahn) nach dem Vorbild der sächsischen Zuschüsse an die Zweckverbände (sächsischer Titel 10 11/637 05).",
       "jahre": {
         "2027": {
           "id": "T.1002/68601.zweckverbaende@2027",
-          "betrag": 801874296
+          "betrag": 801874296,
+          "erlaeuterung": "Weitergabe von Regionalisierungsmitteln an die kommunalen Aufgabenträger für den übrigen ÖPNV (Bus, Straßenbahn) nach dem Vorbild der sächsischen Zuschüsse an die Zweckverbände (sächsischer Titel 10 11/637 05)."
         },
         "2028": {
           "id": "T.1002/68601.zweckverbaende@2028",
-          "betrag": 814610598
+          "betrag": 814610598,
+          "erlaeuterung": "Weitergabe von Regionalisierungsmitteln an die kommunalen Aufgabenträger für den übrigen ÖPNV (Bus, Straßenbahn) nach dem Vorbild der sächsischen Zuschüsse an die Zweckverbände (sächsischer Titel 10 11/637 05)."
         }
       }
     },
@@ -923,15 +930,16 @@
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "regionalisierung",
-      "erlaeuterung": "Ausgleich der Betriebskosten der Eisenbahnverkehrsunternehmen nach den als Nettoverträgen geschlossenen Verkehrsverträgen einschließlich der Ostdeutschen Eisenbahn; finanziert aus Regionalisierungsmitteln (Titel 231 11) und Landesmitteln.",
       "jahre": {
         "2027": {
           "id": "T.1002/68601.spnv@2027",
-          "betrag": 2551418216
+          "betrag": 2551418216,
+          "erlaeuterung": "Ausgleich der Betriebskosten der Eisenbahnverkehrsunternehmen nach den als Nettoverträgen geschlossenen Verkehrsverträgen einschließlich der Ostdeutschen Eisenbahn; finanziert aus Regionalisierungsmitteln (Titel 231 11) und Landesmitteln."
         },
         "2028": {
           "id": "T.1002/68601.spnv@2028",
-          "betrag": 2591942810
+          "betrag": 2591942810,
+          "erlaeuterung": "Ausgleich der Betriebskosten der Eisenbahnverkehrsunternehmen nach den als Nettoverträgen geschlossenen Verkehrsverträgen einschließlich der Ostdeutschen Eisenbahn; finanziert aus Regionalisierungsmitteln (Titel 231 11) und Landesmitteln."
         }
       }
     },
@@ -1135,15 +1143,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; 6AT-802F,2Dash8-400AT,2B737;90,2Mio.Flugzeuge+10,8Erstausstattung+4,5Risiko=105,5. Modellzahlung70/35,5; Infrastruktur15/10; EU2/1 nur eingeplant. Kein Auslieferungsnachweis.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "interflug",
-      "erlaeuterung": "Vorhaltung der Besatzungen, Flugstunden, Wartung und Versicherung für den staatlichen Spezialflugdienst; ab 2029 laufender Betrieb rd. 30 Mio. EUR zuzüglich 10 Mio. EUR Ersatzinvestitionen.",
       "jahre": {
         "2027": {
           "id": "T.1004/68201@2027",
-          "betrag": 25000000
+          "betrag": 25000000,
+          "erlaeuterung": "Vorhaltung der Besatzungen, Flugstunden, Wartung und Versicherung für den staatlichen Spezialflugdienst; ab 2029 laufender Betrieb rd. 30 Mio. EUR zuzüglich 10 Mio. EUR Ersatzinvestitionen."
         },
         "2028": {
           "id": "T.1004/68201@2028",
-          "betrag": 30000000
+          "betrag": 30000000,
+          "erlaeuterung": "Vorhaltung der Besatzungen, Flugstunden, Wartung und Versicherung für den staatlichen Spezialflugdienst; ab 2029 laufender Betrieb rd. 30 Mio. EUR zuzüglich 10 Mio. EUR Ersatzinvestitionen."
         }
       }
     },
@@ -1164,15 +1173,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; 6AT-802F,2Dash8-400AT,2B737;90,2Mio.Flugzeuge+10,8Erstausstattung+4,5Risiko=105,5. Modellzahlung70/35,5; Infrastruktur15/10; EU2/1 nur eingeplant. Kein Auslieferungsnachweis.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "interflug",
-      "erlaeuterung": "Hangar, Abfertigung, Löschmitteldepots und Wartungsausstattung an den Einsatzstandorten (15 Mio. EUR 2027, 10 Mio. EUR 2028).",
       "jahre": {
         "2027": {
           "id": "T.1004/89101.infrastruktur@2027",
-          "betrag": 15000000
+          "betrag": 15000000,
+          "erlaeuterung": "Hangar, Abfertigung, Löschmitteldepots und Wartungsausstattung an den Einsatzstandorten (15 Mio. EUR 2027, 10 Mio. EUR 2028)."
         },
         "2028": {
           "id": "T.1004/89101.infrastruktur@2028",
-          "betrag": 10000000
+          "betrag": 10000000,
+          "erlaeuterung": "Hangar, Abfertigung, Löschmitteldepots und Wartungsausstattung an den Einsatzstandorten (15 Mio. EUR 2027, 10 Mio. EUR 2028)."
         }
       }
     },
@@ -1195,19 +1205,20 @@
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "interflug",
       "einheit": "Luftfahrzeuge (Gesamtvertrag)",
-      "erlaeuterung": "Beschaffung von zehn Löschflugzeugen nach bestehendem Vertrag: sechs Agrar-/Löschflugzeuge AT-802F, zwei Dash 8-400AT (Mehrzweck-Löschflugzeuge) und zwei umgebaute Boeing 737. Gesamtkosten 105,5 Mio. EUR (Flugzeuge 90,2 Mio., Erstausstattung 10,8 Mio., Risikovorsorge 4,5 Mio. EUR). Bis 2026 geleistete Zahlungen sind nicht belegt; veranschlagt ist vorsichtig der volle Restbetrag (70 Mio. EUR 2027, 35,5 Mio. EUR 2028) abzüglich eingeplanter EU-Kofinanzierung. Nach 2028 entstehen keine weiteren Vertragsraten; eine zweite Erstbeschaffung ist ausgeschlossen.\n",
       "jahre": {
         "2027": {
           "id": "T.1004/89101.flugzeuge@2027",
           "betrag": 68000000,
           "menge": "10",
-          "satz": "6800000"
+          "satz": "6800000",
+          "erlaeuterung": "Beschaffung von zehn Löschflugzeugen nach bestehendem Vertrag: sechs Agrar-/Löschflugzeuge AT-802F, zwei Dash 8-400AT (Mehrzweck-Löschflugzeuge) und zwei umgebaute Boeing 737. Gesamtkosten 105,5 Mio. EUR (Flugzeuge 90,2 Mio., Erstausstattung 10,8 Mio., Risikovorsorge 4,5 Mio. EUR). Bis 2026 geleistete Zahlungen sind nicht belegt; veranschlagt ist vorsichtig der volle Restbetrag (70 Mio. EUR 2027, 35,5 Mio. EUR 2028) abzüglich eingeplanter EU-Kofinanzierung. Nach 2028 entstehen keine weiteren Vertragsraten; eine zweite Erstbeschaffung ist ausgeschlossen.\n"
         },
         "2028": {
           "id": "T.1004/89101.flugzeuge@2028",
           "betrag": 34500000,
           "menge": "10",
-          "satz": "3450000"
+          "satz": "3450000",
+          "erlaeuterung": "Beschaffung von zehn Löschflugzeugen nach bestehendem Vertrag: sechs Agrar-/Löschflugzeuge AT-802F, zwei Dash 8-400AT (Mehrzweck-Löschflugzeuge) und zwei umgebaute Boeing 737. Gesamtkosten 105,5 Mio. EUR (Flugzeuge 90,2 Mio., Erstausstattung 10,8 Mio., Risikovorsorge 4,5 Mio. EUR). Bis 2026 geleistete Zahlungen sind nicht belegt; veranschlagt ist vorsichtig der volle Restbetrag (70 Mio. EUR 2027, 35,5 Mio. EUR 2028) abzüglich eingeplanter EU-Kofinanzierung. Nach 2028 entstehen keine weiteren Vertragsraten; eine zweite Erstbeschaffung ist ausgeschlossen.\n"
         }
       }
     },
@@ -1257,17 +1268,18 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Ein belegter15Mio.-Vertrag; Zahlungsreste unbekannt, Modell10/5. Kein zweiter Zeppelin, kein Wasserstoffprojekt.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "zeppelin",
-      "erlaeuterung": "Ein Zeppelin NT für Beobachtungs-, Mess- und Repräsentationsaufgaben; Vertragsrahmen 15 Mio. EUR, Restraten 10/5 Mio. EUR (Zahlungsstand bis 2026 nicht belegt). Kein zweites Luftschiff, keine Wasserstoffvariante.",
       "jahre": {
         "2027": {
           "id": "T.1005/89101@2027",
           "betrag": 10000000,
-          "menge": "1"
+          "menge": "1",
+          "erlaeuterung": "Ein Zeppelin NT für Beobachtungs-, Mess- und Repräsentationsaufgaben; Vertragsrahmen 15 Mio. EUR, Restraten 10/5 Mio. EUR (Zahlungsstand bis 2026 nicht belegt). Kein zweites Luftschiff, keine Wasserstoffvariante."
         },
         "2028": {
           "id": "T.1005/89101@2028",
           "betrag": 5000000,
-          "menge": "1"
+          "menge": "1",
+          "erlaeuterung": "Ein Zeppelin NT für Beobachtungs-, Mess- und Repräsentationsaufgaben; Vertragsrahmen 15 Mio. EUR, Restraten 10/5 Mio. EUR (Zahlungsstand bis 2026 nicht belegt). Kein zweites Luftschiff, keine Wasserstoffvariante."
         }
       }
     },
@@ -1345,15 +1357,16 @@
       "rechtsgrundlage": "OstPNVG § 4a Abs. 2, 4, 5 und § 7",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "ticket",
-      "erlaeuterung": "Ausgleich für 1,5 Mio. Halbpreiskunden (25 EUR je Monat); einschließlich des aus Titel 686 übergeleiteten bestehenden Landesausgleichs.",
       "jahre": {
         "2027": {
           "id": "T.1007/68201.halbpreis@2027",
-          "betrag": 225000000
+          "betrag": 225000000,
+          "erlaeuterung": "Ausgleich für 1,5 Mio. Halbpreiskunden (25 EUR je Monat); einschließlich des aus Titel 686 übergeleiteten bestehenden Landesausgleichs."
         },
         "2028": {
           "id": "T.1007/68201.halbpreis@2028",
-          "betrag": 197100000
+          "betrag": 197100000,
+          "erlaeuterung": "Ausgleich für 1,5 Mio. Halbpreiskunden (25 EUR je Monat); einschließlich des aus Titel 686 übergeleiteten bestehenden Landesausgleichs."
         }
       }
     },
@@ -1375,15 +1388,16 @@
       "rechtsgrundlage": "OstPNVG § 4a Abs. 2, 4, 5 und § 7",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "ticket",
-      "erlaeuterung": "Landesmindestanteil 330 Mio. EUR zuzüglich Bundesanteil 330 Mio. EUR (Titel 232 71); keine doppelte Freifahrt neben dem Ostticket.",
       "jahre": {
         "2027": {
           "id": "T.1007/68201.schueler@2027",
-          "betrag": 660000000
+          "betrag": 660000000,
+          "erlaeuterung": "Landesmindestanteil 330 Mio. EUR zuzüglich Bundesanteil 330 Mio. EUR (Titel 232 71); keine doppelte Freifahrt neben dem Ostticket."
         },
         "2028": {
           "id": "T.1007/68201.schueler@2028",
-          "betrag": 660000000
+          "betrag": 660000000,
+          "erlaeuterung": "Landesmindestanteil 330 Mio. EUR zuzüglich Bundesanteil 330 Mio. EUR (Titel 232 71); keine doppelte Freifahrt neben dem Ostticket."
         }
       }
     },
@@ -1405,15 +1419,16 @@
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "ticket",
-      "erlaeuterung": "Hälftiger Ausgleich der Mindereinnahmen aus dem Deutschlandticket: Bundesanteil 273,5 Mio. EUR (Titel 231 71) und Landesanteil 273,5 Mio. EUR.",
       "jahre": {
         "2027": {
           "id": "T.1007/68601.dt@2027",
-          "betrag": 547000000
+          "betrag": 547000000,
+          "erlaeuterung": "Hälftiger Ausgleich der Mindereinnahmen aus dem Deutschlandticket: Bundesanteil 273,5 Mio. EUR (Titel 231 71) und Landesanteil 273,5 Mio. EUR."
         },
         "2028": {
           "id": "T.1007/68601.dt@2028",
-          "betrag": 547000000
+          "betrag": 547000000,
+          "erlaeuterung": "Hälftiger Ausgleich der Mindereinnahmen aus dem Deutschlandticket: Bundesanteil 273,5 Mio. EUR (Titel 231 71) und Landesanteil 273,5 Mio. EUR."
         }
       }
     },
@@ -1435,15 +1450,16 @@
       "rechtsgrundlage": "OstPNVG § 4a Abs. 2, 4, 5 und § 7",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "ticket",
-      "erlaeuterung": "Erlös- und Mehrkostenausgleich für 2,5 Mio. aktive Freifahrtberechtigte (45 EUR je Monat und Berechtigtem als Erlösäquivalent); bestehende Kompensationen der Herkunftsländer sind angerechnet.",
       "jahre": {
         "2027": {
           "id": "T.1007/68201.freifahrt@2027",
-          "betrag": 405000000
+          "betrag": 405000000,
+          "erlaeuterung": "Erlös- und Mehrkostenausgleich für 2,5 Mio. aktive Freifahrtberechtigte (45 EUR je Monat und Berechtigtem als Erlösäquivalent); bestehende Kompensationen der Herkunftsländer sind angerechnet."
         },
         "2028": {
           "id": "T.1007/68201.freifahrt@2028",
-          "betrag": 445500000
+          "betrag": 445500000,
+          "erlaeuterung": "Erlös- und Mehrkostenausgleich für 2,5 Mio. aktive Freifahrtberechtigte (45 EUR je Monat und Berechtigtem als Erlösäquivalent); bestehende Kompensationen der Herkunftsländer sind angerechnet."
         }
       }
     },
@@ -1463,16 +1479,17 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
       "projekt_id": "rail-vehicles",
-      "erlaeuterung": "100/120 Mio. EUR werden aus dem ungebundenen Infrastrukturrest des Kapitels 1010 der Fahrzeugbeschaffung zugeordnet (Zweckpräzisierung bestehender Kernmittel, keine Einsparung, keine neue Kreditaufnahme).",
       "vermerk": "Die Umwidmung darf nur aus nicht vertraglich gebundenen Mitteln des Kapitels 1010 vollzogen werden; bestehende Infrastrukturverträge gehen vor.",
       "jahre": {
         "2027": {
           "id": "T.1008/89102@2027",
-          "betrag": 100000000
+          "betrag": 100000000,
+          "erlaeuterung": "100/120 Mio. EUR werden aus dem ungebundenen Infrastrukturrest des Kapitels 1010 der Fahrzeugbeschaffung zugeordnet (Zweckpräzisierung bestehender Kernmittel, keine Einsparung, keine neue Kreditaufnahme)."
         },
         "2028": {
           "id": "T.1008/89102@2028",
-          "betrag": 120000000
+          "betrag": 120000000,
+          "erlaeuterung": "100/120 Mio. EUR werden aus dem ungebundenen Infrastrukturrest des Kapitels 1010 der Fahrzeugbeschaffung zugeordnet (Zweckpräzisierung bestehender Kernmittel, keine Einsparung, keine neue Kreditaufnahme)."
         }
       }
     },
@@ -1494,15 +1511,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Vorhandene Erneuerungsmittel und Reformkapital zusammen; zusätzliche Projektkredite nur indikativ, keine Kernhaushaltseinnahme.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "rail-vehicles",
-      "erlaeuterung": "Erneuerung und Erweiterung des landeseigenen Fahrzeugparks (Elektro- und Batterietriebzüge). Planungsgröße: rd. 9,5 Mio. EUR je Triebzug; die Jahresraten entsprechen damit rechnerisch etwa 30 (2027) bzw. 35 (2028) Fahrzeugen. Typen und Stückzahlen werden erst mit der Vergabe festgelegt; die Planungsgröße begründet keine Beschaffungsverpflichtung. Keine Projektkredite der Eisenbahn.\n",
       "jahre": {
         "2027": {
           "id": "T.1008/89101@2027",
-          "betrag": 280000000
+          "betrag": 280000000,
+          "erlaeuterung": "Erneuerung und Erweiterung des landeseigenen Fahrzeugparks (Elektro- und Batterietriebzüge). Planungsgröße: rd. 9,5 Mio. EUR je Triebzug; die Jahresraten entsprechen damit rechnerisch etwa 30 (2027) bzw. 35 (2028) Fahrzeugen. Typen und Stückzahlen werden erst mit der Vergabe festgelegt; die Planungsgröße begründet keine Beschaffungsverpflichtung. Keine Projektkredite der Eisenbahn.\n"
         },
         "2028": {
           "id": "T.1008/89101@2028",
-          "betrag": 330000000
+          "betrag": 330000000,
+          "erlaeuterung": "Erneuerung und Erweiterung des landeseigenen Fahrzeugparks (Elektro- und Batterietriebzüge). Planungsgröße: rd. 9,5 Mio. EUR je Triebzug; die Jahresraten entsprechen damit rechnerisch etwa 30 (2027) bzw. 35 (2028) Fahrzeugen. Typen und Stückzahlen werden erst mit der Vergabe festgelegt; die Planungsgröße begründet keine Beschaffungsverpflichtung. Keine Projektkredite der Eisenbahn.\n"
         }
       }
     },
@@ -1523,15 +1541,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Standorte/Bauvergaben offen; aus bestehendem EP10-Investitionsrahmen.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "rail-works",
-      "erlaeuterung": "Neubau und Ertüchtigung von Werkstätten für den landeseigenen Fahrzeugpark; Standorte und Bauvergaben werden mit dem Wirtschaftsplan der Ostdeutschen Eisenbahn festgelegt.",
       "jahre": {
         "2027": {
           "id": "T.1009/89101@2027",
-          "betrag": 100000000
+          "betrag": 100000000,
+          "erlaeuterung": "Neubau und Ertüchtigung von Werkstätten für den landeseigenen Fahrzeugpark; Standorte und Bauvergaben werden mit dem Wirtschaftsplan der Ostdeutschen Eisenbahn festgelegt."
         },
         "2028": {
           "id": "T.1009/89101@2028",
-          "betrag": 120000000
+          "betrag": 120000000,
+          "erlaeuterung": "Neubau und Ertüchtigung von Werkstätten für den landeseigenen Fahrzeugpark; Standorte und Bauvergaben werden mit dem Wirtschaftsplan der Ostdeutschen Eisenbahn festgelegt."
         }
       }
     },
@@ -1790,19 +1809,20 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Deckenerneuerung auf rd. 600 km Landesstraßen jährlich zu 1 Mio. EUR/km (2028: +2 % Baupreise). Teilweise aus fortgeführten investiven Bundesmitteln (F09/F10) finanziert; Mengen und Preise sind Planungsgrößen, keine vergebene Projektliste.",
       "jahre": {
         "2027": {
           "id": "T.1012/89101@2027",
           "betrag": 600000000,
           "menge": "600",
-          "satz": "1000000"
+          "satz": "1000000",
+          "erlaeuterung": "Deckenerneuerung auf rd. 600 km Landesstraßen jährlich zu 1 Mio. EUR/km (2028: +2 % Baupreise). Teilweise aus fortgeführten investiven Bundesmitteln (F09/F10) finanziert; Mengen und Preise sind Planungsgrößen, keine vergebene Projektliste."
         },
         "2028": {
           "id": "T.1012/89101@2028",
           "betrag": 612000000,
           "menge": "600",
-          "satz": "1020000.00"
+          "satz": "1020000.00",
+          "erlaeuterung": "Deckenerneuerung auf rd. 600 km Landesstraßen jährlich zu 1 Mio. EUR/km (2028: +2 % Baupreise). Teilweise aus fortgeführten investiven Bundesmitteln (F09/F10) finanziert; Mengen und Preise sind Planungsgrößen, keine vergebene Projektliste."
         }
       }
     },
@@ -2007,19 +2027,20 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Sanierung von rd. 100 Brückenbauwerken jährlich zu 4 Mio. EUR je Bauwerk; teilweise aus F09/F10-Bundesmitteln finanziert.",
       "jahre": {
         "2027": {
           "id": "T.1013/89101@2027",
           "betrag": 400000000,
           "menge": "100",
-          "satz": "4000000"
+          "satz": "4000000",
+          "erlaeuterung": "Sanierung von rd. 100 Brückenbauwerken jährlich zu 4 Mio. EUR je Bauwerk; teilweise aus F09/F10-Bundesmitteln finanziert."
         },
         "2028": {
           "id": "T.1013/89101@2028",
           "betrag": 408000000,
           "menge": "100",
-          "satz": "4080000.00"
+          "satz": "4080000.00",
+          "erlaeuterung": "Sanierung von rd. 100 Brückenbauwerken jährlich zu 4 Mio. EUR je Bauwerk; teilweise aus F09/F10-Bundesmitteln finanziert."
         }
       }
     },
@@ -2142,19 +2163,20 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Betriebliche Unterhaltung, Winterdienst und kleine Instandsetzungen auf rd. 25.000 km Landes- und übernommenen Kreisstraßen zu 36.000 EUR/km (2028: +2 %).",
       "jahre": {
         "2027": {
           "id": "T.1014/52101@2027",
           "betrag": 900000000,
           "menge": "25000",
-          "satz": "36000"
+          "satz": "36000",
+          "erlaeuterung": "Betriebliche Unterhaltung, Winterdienst und kleine Instandsetzungen auf rd. 25.000 km Landes- und übernommenen Kreisstraßen zu 36.000 EUR/km (2028: +2 %)."
         },
         "2028": {
           "id": "T.1014/52101@2028",
           "betrag": 918000000,
           "menge": "25000",
-          "satz": "36720.00"
+          "satz": "36720.00",
+          "erlaeuterung": "Betriebliche Unterhaltung, Winterdienst und kleine Instandsetzungen auf rd. 25.000 km Landes- und übernommenen Kreisstraßen zu 36.000 EUR/km (2028: +2 %)."
         }
       }
     },
@@ -2381,19 +2403,20 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Erneuerung und Digitalisierung von rd. 6.000 verkehrstechnischen Anlagen (10.000 EUR je Anlage und Jahr).",
       "jahre": {
         "2027": {
           "id": "T.1015/81201@2027",
           "betrag": 60000000,
           "menge": "6000",
-          "satz": "10000"
+          "satz": "10000",
+          "erlaeuterung": "Erneuerung und Digitalisierung von rd. 6.000 verkehrstechnischen Anlagen (10.000 EUR je Anlage und Jahr)."
         },
         "2028": {
           "id": "T.1015/81201@2028",
           "betrag": 61200000,
           "menge": "6000",
-          "satz": "10200.00"
+          "satz": "10200.00",
+          "erlaeuterung": "Erneuerung und Digitalisierung von rd. 6.000 verkehrstechnischen Anlagen (10.000 EUR je Anlage und Jahr)."
         }
       }
     },
@@ -2500,15 +2523,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Sachausgabenanteil der Herkunftshaushalte im Straßenwesen, der noch keinem Leistungsbereich zugeordnet ist (u. a. Betriebsstoffe, Gerätevorhaltung, Fremdpersonal der Straßenmeistereien). Der Betrag ist gegenüber C0 v2 um die Zinsanteile und die modellierten Leistungsbereiche vermindert.",
       "jahre": {
         "2027": {
           "id": "T.1019/54701.rest@2027",
-          "betrag": 664590727
+          "betrag": 664590727,
+          "erlaeuterung": "Sachausgabenanteil der Herkunftshaushalte im Straßenwesen, der noch keinem Leistungsbereich zugeordnet ist (u. a. Betriebsstoffe, Gerätevorhaltung, Fremdpersonal der Straßenmeistereien). Der Betrag ist gegenüber C0 v2 um die Zinsanteile und die modellierten Leistungsbereiche vermindert."
         },
         "2028": {
           "id": "T.1019/54701.rest@2028",
-          "betrag": 520471691
+          "betrag": 520471691,
+          "erlaeuterung": "Sachausgabenanteil der Herkunftshaushalte im Straßenwesen, der noch keinem Leistungsbereich zugeordnet ist (u. a. Betriebsstoffe, Gerätevorhaltung, Fremdpersonal der Straßenmeistereien). Der Betrag ist gegenüber C0 v2 um die Zinsanteile und die modellierten Leistungsbereiche vermindert."
         }
       }
     },

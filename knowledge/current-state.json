@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-13",
+  "asOf": "2026-11-19",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -8,8 +8,8 @@
       "status": "derived",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-11-13",
-      "summary": "Der öffentlich belegte Ausgangsbestand umfasst 666 Positionszeilen, darunter 217 unmittelbare und 449 mittelbare oder tieferliegende Positionen. Seitdem wurden bis zum 25. August 2026 neun gesamtostdeutsche Rechtsträger und zwei Sondervermögen neu errichtet; MDR und rbb gingen am 1. Mai 2026 durch Gesamtrechtsnachfolge im Ostdeutschen Fernsehfunk auf. Die am 2. September 2026 kraft Gesetzes in Gemeineigentum überführten Geschäftsanteile der Zinnwald Lithium GmbH sind seit 15. Oktober 2026 unentgeltlich auf die Ostdeutschen Rohstoffwerke übergegangen und werden unmittelbar von ihnen gehalten (§ 10 Absatz 1 ORWG, § 5 Absatz 1 ZinnVG); eine Festsetzung der Entschädigung durch Bescheid nach § 7 ZinnVG ist nicht belegt. Seit 3. September 2026 besteht die Interflug, seit 12. September 2026 der Landesbodenfonds Ostdeutschland und seit 15. Oktober 2026 die Ostdeutschen Rohstoffwerke mit Sitz in Freiberg als Anstalten des öffentlichen Rechts. Der 50Hertz-Erwerb ist noch nicht als vollzogen belegt.",
+      "asOf": "2026-11-19",
+      "summary": "Der öffentlich belegte Ausgangsbestand umfasst 666 Positionszeilen, darunter 217 unmittelbare und 449 mittelbare oder tieferliegende Positionen. Seitdem wurden bis zum 25. August 2026 neun gesamtostdeutsche Rechtsträger und zwei Sondervermögen neu errichtet; MDR und rbb gingen am 1. Mai 2026 durch Gesamtrechtsnachfolge im Ostdeutschen Fernsehfunk auf. Die am 2. September 2026 kraft Gesetzes in Gemeineigentum überführten Geschäftsanteile der Zinnwald Lithium GmbH sind seit 15. Oktober 2026 unentgeltlich auf die Ostdeutschen Rohstoffwerke übergegangen und werden unmittelbar von ihnen gehalten (§ 10 Absatz 1 ORWG, § 5 Absatz 1 ZinnVG); eine Festsetzung der Entschädigung durch Bescheid nach § 7 ZinnVG ist nicht belegt. Seit 3. September 2026 besteht die Interflug, seit 12. September 2026 der Landesbodenfonds Ostdeutschland und seit 15. Oktober 2026 die Ostdeutschen Rohstoffwerke mit Sitz in Freiberg als Anstalten des öffentlichen Rechts. Der 50Hertz-Erwerb ist noch nicht als vollzogen belegt. Der Zukunfts- und Generationenfonds Ost und der Versorgungsfonds Ost sind seit 15. Oktober gesetzlich errichtete, nicht rechtsfähige Sondervermögen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
@@ -40,6 +40,11 @@
           "sourceId": "source-ogvbl-2026-78",
           "locator": "Artikel 1 § 3",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 4 § 1, Artikel 5 § 1, Artikel 12 Absatz 7",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -52,7 +57,11 @@
         "holding-zinnwald-lithium",
         "holding-landesbodenfonds",
         "inst-interflug",
-        "inst-landesbodenfonds"
+        "inst-landesbodenfonds",
+        "inst-ostdeutsche-rohstoffwerke",
+        "holding-ostdeutsche-rohstoffwerke",
+        "holding-generationenfonds-ost",
+        "holding-versorgungsfonds-ost"
       ],
       "tags": [
         "current-state",
@@ -487,7 +496,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Volkskammer, Staatsrat, Staatspräsident, Verfassungsgerichtshof und Rechnungshof bilden den belegten aktuellen Organkern. Seit 12. September 2026 sind die Verfassungsartikel 99 und 100 zu Rechnungslegung und Rechnungshof aufgehoben; der Rechnungshof besteht auf gesetzlicher Grundlage fort, seine Prüfungsrechte nennt unter anderem § 12 des Boden- und Naturvermögensgesetzes.",
       "sourceRefs": [
         {
@@ -509,6 +518,11 @@
           "sourceId": "source-ogvbl-2026-84",
           "locator": "Artikel 1 §§ 1 und 2, Artikel 3 bis 5",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-84",
+          "locator": "Artikel 4 Absätze 1 und 2",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -524,7 +538,7 @@
         "institutions"
       ],
       "notes": [
-        "Das neue Rechnungshofgesetz ist mit OGVBl. 2026 Nr. 84 am 14. Oktober 2026 verkündet worden und am 15. Oktober 2026 in Kraft getreten. Zugleich sind das bisherige Rechnungshofgesetz und die Verordnung über die Staatlichen Rechnungsprüfungsämter aufgehoben worden. Bis einschließlich 14. Oktober 2026 galt die bisherige gesetzliche Grundlage; die tatsächliche Besetzung und der organisatorische Vollzug der Neuregelung sind nicht belegt."
+        "Das neue Rechnungshofgesetz ist mit OGVBl. 2026 Nr. 84 am 14. Oktober 2026 verkündet worden und am 15. Oktober 2026 in Kraft getreten. Zugleich sind das bisherige Rechnungshofgesetz und die Verordnung über die Staatlichen Rechnungsprüfungsämter aufgehoben worden. Bis einschließlich 14. Oktober 2026 galt die bisherige gesetzliche Grundlage; Artikel 4 führt die amtierende Leitung für den Rest ihrer Amtszeit fort und ordnet die übrigen Bediensteten dem Staatssekretariat der Finanzen zu. Der praktische Personalübergang ist gesondert zu belegen."
       ],
       "institutionIds": [
         "inst-volkskammer",
@@ -1335,10 +1349,10 @@
       "id": "state-sicherheitsreform-2026",
       "title": "Verkündete Sicherheitsreform vom 13. November 2026",
       "status": "confirmed-primary",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "validFrom": "2026-11-13",
       "validTo": null,
-      "summary": "Die Sicherheitsreform ist in OGVBl. 2026 Nr. 85–99 verkündet. Die Terrorismusabwehr-Novelle gilt ab 14. November; am selben Tag tritt die Verordnungsermächtigung des KRITIS-Gesetzes in Kraft. Polizeibezeichnung, Polizeiorganisation und Beschwerdestelle folgen am 1. Dezember. Polizeiausbildung, Digitalisierung, Sicherheitsarchitektur, Staatsschutz, Kontrolle, Luftverkehrssicherung, Demokratieförderung und Behördenzusammenarbeit gelten überwiegend ab 1. Januar 2027. Verkündung und rechtliches Inkrafttreten belegen keinen abgeschlossenen organisatorischen Vollzug.",
+      "summary": "Seit 14. November gelten die Terrorismusabwehr-Novelle und ausschließlich § 3 Absatz 2 des KRITIS-Gesetzes. Für den Polizeivollzugsdienst gilt bis 30. November die Übergangsfassung. Die Bezeichnung Volkspolizei, ihre Organisation neben der Kasernierten Grenzpolizei und die Fortführung der bestehenden Beschwerdestelle folgen am 1. Dezember. Das Landesamt für Staatsschutz tritt erst am 1. Januar 2027 die Rechtsnachfolge des Landesamtes für Verfassungsschutz an. Dann gelten auch die übrigen KRITIS-Vorschriften und der Großteil der weiteren Sicherheitsreform.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-85",
@@ -1435,6 +1449,16 @@
       "notes": [
         "Die Bezeichnungsänderung „Polizeidirektionen als Bezirkspolizeidirektionen“ aus OGVBl. 2026 Nr. 46 wird nach der redaktionellen Quellenentscheidung vom 13. November 2026 (polizei-direktionen-nummer-6-2026 in data/recht/consolidation-sources.json) auf die durch OGVBl. 2026 Nr. 50 nach § 97 Absatz 1 Nummer 6 OstPVDG verschobenen Polizeidirektionen angewandt; Nummer 5 bleibt die Kasernierte Grenzpolizei. Ab 1. Dezember 2026 fasst OGVBl. 2026 Nr. 86 Artikel 2 den § 97 neu.",
         "Keine der Ausgaben bezeichnet sich als besonderes Gesetz nach Artikel 74a; mangels Beschlussunterlagen ist die Zweidrittelmehrheit nicht belegt."
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-kritis-gesetz",
+          "versionId": "2026-11-14"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+          "versionId": "2026-11-14"
+        }
       ]
     }
   ]

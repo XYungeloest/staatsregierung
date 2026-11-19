@@ -1,14 +1,14 @@
 {
- "asOf": "2026-09-12",
- "purpose": "Vollzugsaufträge aus dem geltenden eigenen Recht des Freistaates Ostdeutschland: Aufträge und Ermächtigungen zu Gesetzen, Verordnungen, Verwaltungsvorschriften, Satzungen, Staatsverträgen und Abkommen sowie Errichtungs-, Bestellungs-, Plan-, Register- und Berichtspflichten, für die am Stichtag kein Rechts- oder Vollzugsakt im Bestand belegt ist.",
+ "asOf": "2026-11-19",
+ "purpose": "Arbeitsregister für belegte Vollzugsaufträge aus geltendem und verkündetem künftigem Recht. Bundesrecht trägt eine eigene BGBl.-Quellenkennung.",
  "humanOverview": "knowledge/VOLLZUGSAUFTRAEGE.md",
  "rules": [
   "Die Datei ist keine Rechtsquelle; maßgeblich ist der Normtext in content/normen.",
   "Ein Auftrag verlässt die Liste, sobald ein Rechts- oder Vollzugsakt im Bestand belegt ist.",
-  "Einträge mit duplicateOf beschreiben denselben Auftrag wie der genannte Eintrag der Stammnorm und werden in AGENDA.md nicht wiederholt.",
+  "Einträge mit duplicateOf verweisen auf den Hauptauftrag und zählen in den Arbeitsansichten nur einmal.",
   "„nicht-pruefbar“ bedeutet nicht „unerfüllt“: Der Beleg läge außerhalb von Normbestand, Verkündungen, Staatsanzeiger und Wissenshub."
  ],
- "method": "Arbeitsliste aus 159 eigenen Normen (Stammnormen, Mantelgesetze, Verordnungen, Verwaltungsvorschriften, Bekanntmachungen). Je Norm Auslesung des aktuellen Normtextes in zwei Lesarten (Ermächtigungen und Rechtsetzungsaufträge; Fristen, Errichtung, Organe, Berichte), Abgleich gegen content/normen, content/verkuendungen, Gesetze/ und knowledge/, danach je Norm zwei Gegenprüfungen (Normtext; Bestand). Eine Widerlegung am Normtext streicht den Auftrag, ein Bestandsbeleg setzt ihn auf erfüllt oder teilweise.",
+ "method": "Bestandsauswertung vom 12. September 2026 mit späteren Einzelprüfungen. Die Normauswertung belegt die Rechtsgrundlage, der Vollzugsstand nur das Ergebnis der jeweils dokumentierten Quellensuche. Bei neu geprüften Aufträgen binden Fassung und Prüfsumme den Befund an seinen Normtext.",
  "statusDefinitions": {
   "offen": "kein Rechts- oder Vollzugsakt belegt",
   "teilweise": "nur ein Teil oder eine Vorstufe belegt",
@@ -24,17 +24,14 @@
   "verfallen": "Kann-Befugnis, deren Zeitfenster am Stichtag abgelaufen ist; nur zur Nachvollziehbarkeit geführt."
  },
  "totals": {
-  "extracted": 2231,
-  "fulfilledOrSuperseded": 193,
-  "refutedAsNoMandate": 73,
-  "open": 1965,
+  "open": 2019,
   "duplicates": 399,
   "listedByTier": {
-   "ueberfaellig": 15,
-   "fristgebunden": 73,
+   "ueberfaellig": 34,
+   "fristgebunden": 105,
    "rechtsetzung": 176,
-   "ermaechtigung": 229,
-   "vollzug": 591,
+   "ermaechtigung": 230,
+   "vollzug": 593,
    "nicht-pruefbar": 478,
    "verfallen": 4
   }
@@ -380,7 +377,7 @@
   },
   {
    "id": "mandate-energie-und-waermevergesellschaftungs-paketgesetz-43",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
    "norm": "Energie- und Wärmevergesellschaftungspaket",
    "provision": "Artikel 5 Absatz 1",
@@ -397,12 +394,12 @@
     "Gesetze/StAnzO.2026Nr.34.html",
     "inst-ostdeutsche-netze"
    ],
-   "note": "Der Verwaltungsrat der Landesenergiewerke Ost handelt, hat sich also konstituiert; eine förmliche Einberufung durch das Staatsministerium ist aber nicht belegt. Für die Ostdeutsche Netze fehlt jeder Beleg. Die Frist endet am 21.09.2026, zum Stichtag ist sie nicht abgelaufen.",
+   "note": "Befund vom 12. September 2026: Der Verwaltungsrat der Landesenergiewerke Ost handelt, hat sich also konstituiert; eine förmliche Einberufung durch das Staatsministerium ist aber nicht belegt. Für die Ostdeutsche Netze fehlt jeder Beleg. Die Frist endet am 21.09.2026, zum Stichtag ist sie nicht abgelaufen.",
    "quote": "Das zuständige Staatsministerium beruft innerhalb von zwei Monaten nach Inkrafttreten dieses Gesetzes die konstituierenden Sitzungen der Verwaltungsräte der Ostdeutsche Netze und der Landesenergiewerke Ost ein."
   },
   {
    "id": "mandate-ostdeutsche-eisenbahn-neuordnungsgesetz-56",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
    "norm": "Gesetz zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs",
    "provision": "Artikel 5 Absatz 1",
@@ -418,12 +415,12 @@
     "stanzo-2026-36",
     "content/presse/mitteilungen/sofortprogramm-oeffentliche-mobilitaet.json"
    ],
-   "note": "Dass der Verwaltungsrat vor dem 23.08.2026 als Organ tätig war und damit zusammengetreten ist, ist belegt. Eine Einberufung durch das Staatssekretariat, das Datum der konstituierenden Sitzung und die Besetzung sind nicht belegt. Die Frist bis 21.09.2026 läuft über den Stichtag hinaus.",
+   "note": "Befund vom 12. September 2026: Dass der Verwaltungsrat vor dem 23.08.2026 als Organ tätig war und damit zusammengetreten ist, ist belegt. Eine Einberufung durch das Staatssekretariat, das Datum der konstituierenden Sitzung und die Besetzung sind nicht belegt. Die Frist bis 21.09.2026 läuft über den Stichtag hinaus.",
    "quote": "Das zuständige Staatsministerium beruft innerhalb von zwei Monaten nach Inkrafttreten dieses Gesetzes die konstituierende Sitzung des Verwaltungsrates der Ostdeutschen Eisenbahn ein."
   },
   {
    "id": "mandate-erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr-4",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr",
    "norm": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
    "provision": "Artikel 2 Absatz 2",
@@ -439,12 +436,12 @@
     "Gesetze/OGVBl. 2026 Nr. 29.md",
     "holding-ostdeutscher-verkehrsverbund"
    ],
-   "note": "Ein vorläufiger Wirtschaftsplan des OVV ist weder in Normen, Verkündungen noch im Hub belegt. Die Frist endet am 2026-09-24, nach dem Stichtag, und ist offen. Ein Wirtschaftsplan muss nicht zwingend amtlich veröffentlicht werden, sodass ein späterer Nachweis womöglich außerhalb des Bestands liegt.",
+   "note": "Befund vom 12. September 2026: Ein vorläufiger Wirtschaftsplan des OVV ist weder in Normen, Verkündungen noch im Hub belegt. Die Frist endet am 2026-09-24, nach dem Stichtag, und ist offen. Ein Wirtschaftsplan muss nicht zwingend amtlich veröffentlicht werden, sodass ein späterer Nachweis womöglich außerhalb des Bestands liegt.",
    "quote": "Die Mitglieder des Ostdeutschen Verkehrsverbundes haben innerhalb von sechs Monaten nach Inkrafttreten dieses Gesetzes die Satzung zu beschließen, die Organe zu bestellen und einen vorläufigen Wirtschaftsplan aufzustellen."
   },
   {
    "id": "mandate-erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr-3",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr",
    "norm": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
    "provision": "Artikel 2 Absatz 2 i. V. m. Artikel 1 Nummer 5 (§ 4 Absatz 4 bis 6 ÖPNVG)",
@@ -467,7 +464,7 @@
   },
   {
    "id": "mandate-erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr-2",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr",
    "norm": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
    "provision": "Artikel 2 Absatz 2 i. V. m. Artikel 1 Nummer 5 (§ 4 Absatz 8, Absatz 5 Satz 2 und 3 ÖPNVG)",
@@ -484,12 +481,12 @@
     "ostdeutsche-eisenbahn-neuordnungsgesetz",
     "inst-ostdeutscher-verkehrsverbund"
    ],
-   "note": "Weder in content/normen noch in den Verkündungen oder im Hub gibt es eine Satzung des OVV oder die Zustimmung der Staatsregierung dazu. Die Frist endet am 2026-09-24, also nach dem Stichtag, und ist daher offen.",
+   "note": "Befund vom 12. September 2026: Weder in content/normen noch in den Verkündungen oder im Hub gibt es eine Satzung des OVV oder die Zustimmung der Staatsregierung dazu. Die Frist endet am 2026-09-24, also nach dem Stichtag, und ist daher offen.",
    "quote": "Der Ostdeutsche Verkehrsverbund regelt seine Angelegenheiten durch Satzung. Die Satzung bedarf der Zustimmung der Staatsregierung. Sie muss insbesondere Bestimmungen enthalten über"
   },
   {
    "id": "mandate-gesetz-zur-anderung-des-gleichstellungsgesetzes-7",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "gesetz-zur-anderung-des-gleichstellungsgesetzes",
    "norm": "Gesetz zur Änderung des Gleichstellungsgesetzes",
    "provision": "Artikel 1 Nummer 22 (§ 31 Absatz 1 OstGleiG)",
@@ -507,12 +504,12 @@
     "Gesetze/",
     "knowledge/"
    ],
-   "note": "Eine Erstbestellung ist nicht belegt. Die Frist endet am 2026-10-01, also nach dem Stichtag 2026-09-12, und ist noch nicht abgelaufen. Der Auftrag ist offen.",
+   "note": "Befund vom 12. September 2026: Eine Erstbestellung ist nicht belegt. Die Frist endet am 2026-10-01, also nach dem Stichtag 2026-09-12, und ist noch nicht abgelaufen. Der Auftrag ist offen.",
    "quote": "Die Landesgleichstellungsbeauftragte oder der Landesgleichstellungsbeauftragte ist innerhalb von sechs Monaten nach Inkrafttreten des Gesetzes zur Änderung des Gleichstellungsgesetzes vom … zu bestellen."
   },
   {
    "id": "mandate-interflug-gesetz-12",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "interflug-gesetz",
    "norm": "InterflugG",
    "provision": "§ 23 Absatz 1",
@@ -534,7 +531,7 @@
   },
   {
    "id": "mandate-sicherheitserlass-kritis-09-2026-1",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "sicherheitserlass-kritis-09-2026",
    "norm": "Sicherheitserlass KRITIS 09/2026",
    "provision": "Nummer 9 Absatz 1 und 2",
@@ -560,7 +557,7 @@
   },
   {
    "id": "mandate-energie-und-waermevergesellschaftungs-paketgesetz-47",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
    "norm": "Energie- und Wärmevergesellschaftungspaket",
    "provision": "Artikel 5 Absätze 14 bis 16",
@@ -577,12 +574,12 @@
     "knowledge/*.json",
     "energie-und-waermevergesellschaftungs-paketgesetz"
    ],
-   "note": "Kein Überführungsprogramm belegt. Die Frist endet am 21.10.2026 und ist zum Stichtag offen.",
+   "note": "Befund vom 12. September 2026: Kein Überführungsprogramm belegt. Die Frist endet am 21.10.2026 und ist zum Stichtag offen.",
    "quote": "Die Vergesellschaftungsbehörde erstellt innerhalb von drei Monaten nach Inkrafttreten dieses Gesetzes ein Überführungsprogramm."
   },
   {
    "id": "mandate-sero-verordnung-23",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "sero-verordnung",
    "norm": "SERO-VO",
    "provision": "§ 34 Absatz 1",
@@ -599,12 +596,12 @@
     "bekanntmachung-bestellung-gruendungsvorstand-interflug",
     "project-sero, inst-kreislaufwirtschafts-kombinat-ost, holding-kreislaufwirtschafts-kombinat-ost"
    ],
-   "note": "Keine Bestellung des KKO-Gründungsvorstandes im Bestand. Frist endet 2026-10-21, also nach dem Stichtag; daher offen, nicht abgelaufen.",
+   "note": "Befund vom 12. September 2026: Keine Bestellung des KKO-Gründungsvorstandes im Bestand. Frist endet 2026-10-21, also nach dem Stichtag; daher offen, nicht abgelaufen.",
    "quote": "Der Staatsrat bestellt innerhalb von drei Monaten nach Inkrafttreten dieser Verordnung einen Gründungsvorstand."
   },
   {
    "id": "mandate-besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts-15",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
    "norm": "Besonderes Gesetz zur Neuregelung des Hoheitszeichenrechts",
    "provision": "Artikel 2 Absatz 3 Satz 1",
@@ -620,12 +617,12 @@
     "project-hoheitszeichen",
     "Gesetze/OGVBl. 2026 Nr. 70.html"
    ],
-   "note": "Der Wissenshub führt die Umstellung als ausstehenden Schritt. Ein Abschluss ist nicht belegt. Die Frist endet am 2026-10-31, liegt nach dem Stichtag und ist noch nicht abgelaufen. Den tatsächlichen Austausch würden die Behörden in der Regel nicht veröffentlichen.",
+   "note": "Befund vom 12. September 2026: Der Wissenshub führt die Umstellung als ausstehenden Schritt. Ein Abschluss ist nicht belegt. Die Frist endet am 2026-10-31, liegt nach dem Stichtag und ist noch nicht abgelaufen. Den tatsächlichen Austausch würden die Behörden in der Regel nicht veröffentlichen.",
    "quote": "Bei Inkrafttreten dieses Gesetzes vorhandene Staatsdienstflaggen, Standarten, Amtsschilder, Druckvorlagen, elektronische Vorlagen und sonstige amtliche Darstellungen des bisherigen Staatswappens dürfen bis zum Ablauf des ersten auf die Verk"
   },
   {
    "id": "mandate-besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts-16",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
    "norm": "Besonderes Gesetz zur Neuregelung des Hoheitszeichenrechts",
    "provision": "Artikel 2 Absatz 3 Satz 2",
@@ -641,12 +638,12 @@
     "project-hoheitszeichen",
     "hoheitszeichenverordnung"
    ],
-   "note": "Ein Ersatz der Staatssiegel ist nicht belegt. Der Wissenshub führt ihn als ausstehend. Die Frist endet am 2026-10-31 und ist zum Stichtag noch nicht abgelaufen.",
+   "note": "Befund vom 12. September 2026: Ein Ersatz der Staatssiegel ist nicht belegt. Der Wissenshub führt ihn als ausstehend. Die Frist endet am 2026-10-31 und ist zum Stichtag noch nicht abgelaufen.",
    "quote": "Vorhandene Staatssiegel dürfen bis zum Ablauf des auf die Verkündung folgenden Kalendermonats weitergeführt werden."
   },
   {
    "id": "mandate-boden-und-naturvermoegensgesetz-37",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "boden-und-naturvermoegensgesetz",
    "norm": "BodNatVG",
    "provision": "§ 9 Absatz 2",
@@ -655,19 +652,19 @@
    "addressee": "Staatssekretariate für Finanzen, Inneres und Wohnungswirtschaft, Land-, Forst- und Küstenwirtschaft, Nachhaltigkeit und Energie sowie Mobilität und regionale Entwicklung",
    "subject": "Jedes der fünf Staatssekretariate benennt ein Mitglied des elfköpfigen Verwaltungsrates.",
    "obligation": "muss",
-   "deadline": "",
+   "deadline": "Innerhalb von zwei Monaten nach Inkrafttreten des Einführungsgesetzes",
    "deadlineDate": "2026-11-12",
    "status": "offen",
    "evidence": [
     "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister",
     "ogvbl-2026-78"
    ],
-   "note": "Keine Benennung durch die fünf Staatssekretariate belegt. Die Frist aus dem Einführungsgesetz endet am 2026-11-12, nach dem Stichtag, und ist daher nicht abgelaufen.",
+   "note": "Befund vom 12. September 2026: Keine Benennung durch die fünf Staatssekretariate belegt. Die Frist aus dem Einführungsgesetz endet am 2026-11-12, nach dem Stichtag, und ist daher nicht abgelaufen.",
    "quote": "Je ein Mitglied wird von dem für 1. Finanzen, 2. Inneres und Wohnungswirtschaft, 3. Land-, Forst- und Küstenwirtschaft, 4. Nachhaltigkeit und Energie sowie 5. Mobilität und regionale Entwicklung zuständigen Staatssekretariat benannt."
   },
   {
    "id": "mandate-gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes-44",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
    "norm": "Einführungsgesetz Boden- und Naturvermögen",
    "provision": "Artikel 2 Absatz 1 i. V. m. Artikel 1 § 9 Absatz 2",
@@ -684,7 +681,7 @@
     "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister",
     "inst-landesbodenfonds"
    ],
-   "note": "Die fünf staatlichen Verwaltungsratsmitglieder sind nicht benannt. Die Frist endet am 2026-11-12 und ist zum Stichtag nicht abgelaufen.",
+   "note": "Befund vom 12. September 2026: Die fünf staatlichen Verwaltungsratsmitglieder sind nicht benannt. Die Frist endet am 2026-11-12 und ist zum Stichtag nicht abgelaufen.",
    "quote": "Die nach § 9 Absatz 2 zu benennenden Mitglieder des Verwaltungsrates sind innerhalb von zwei Monaten nach Inkrafttreten dieses Gesetzes zu benennen."
   },
   {
@@ -719,7 +716,7 @@
    "addressee": "Volkskammer",
    "subject": "Wahl von sechs weiteren Verwaltungsratsmitgliedern für fünf Jahre, davon drei auf gebundene Vorschläge (Beschäftigtenvertretung, kommunale Spitzenverbände, Nutzerkreis).",
    "obligation": "muss",
-   "deadline": "",
+   "deadline": "Innerhalb von drei Monaten nach Inkrafttreten des Einführungsgesetzes",
    "deadlineDate": "2026-12-12",
    "status": "offen",
    "evidence": [
@@ -915,8 +912,8 @@
    "addressee": "Landesenergiewerke Ost (Anstalt des öffentlichen Rechts)",
    "subject": "Die Landesenergiewerke Ost müssen sich eine Satzung geben.",
    "obligation": "muss",
-   "deadline": "",
-   "deadlineDate": "2027-01-20",
+   "deadline": "Binnen sechs Monaten nach Inkrafttreten des Paketgesetzes (Artikel 5 Absatz 3)",
+   "deadlineDate": "2027-01-21",
    "status": "offen",
    "evidence": [
     "landesenergiewerke-gesetz/versions/2026-09-12.json",
@@ -938,8 +935,8 @@
    "addressee": "Zuständiges Staatsministerium (für Nachhaltigkeit und Energie) im Einvernehmen mit dem Staatsministerium der Finanzen",
    "subject": "Das zuständige Staatsministerium muss die Satzung der Landesenergiewerke Ost im Einvernehmen mit dem Finanzressort genehmigen.",
    "obligation": "muss",
-   "deadline": "",
-   "deadlineDate": "2027-01-20",
+   "deadline": "Binnen sechs Monaten nach Inkrafttreten des Paketgesetzes (Artikel 5 Absatz 3)",
+   "deadlineDate": "2027-01-21",
    "status": "offen",
    "evidence": [
     "energie-und-waermevergesellschaftungs-paketgesetz/versions/2026-07-21.json",
@@ -33330,7 +33327,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuhrung-der-landesbank-ostdeutschland-23",
-   "tier": "ueberfaellig",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
    "provision": "Artikel 1 § 18 Absatz 2",
    "duplicateOf": "mandate-ostdeutsches-landesbankgesetz-27"
@@ -33351,14 +33348,14 @@
   },
   {
    "id": "mandate-energie-und-waermevergesellschaftungs-paketgesetz-17",
-   "tier": "fristgebunden",
+   "tier": "rechtsetzung",
    "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
    "provision": "Artikel 2 § 10 Absatz 1 in Verbindung mit Artikel 5 Absatz 3",
    "duplicateOf": "mandate-ostdeutsche-netze-gesetz-1"
   },
   {
    "id": "mandate-energie-und-waermevergesellschaftungs-paketgesetz-18",
-   "tier": "fristgebunden",
+   "tier": "vollzug",
    "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
    "provision": "Artikel 2 § 10 Absatz 2 in Verbindung mit Artikel 5 Absatz 3",
    "duplicateOf": "mandate-ostdeutsche-netze-gesetz-13"
@@ -33421,21 +33418,21 @@
   },
   {
    "id": "mandate-gesetz-zur-errichtung-der-interflug-7",
-   "tier": "fristgebunden",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-errichtung-der-interflug",
    "provision": "Artikel 1 § 14 Absatz 2 (§ 14 Absatz 2 InterflugG)",
    "duplicateOf": "mandate-interflug-gesetz-17"
   },
   {
    "id": "mandate-gesetz-zur-errichtung-der-interflug-3",
-   "tier": "fristgebunden",
+   "tier": "ueberfaellig",
    "normSlug": "gesetz-zur-errichtung-der-interflug",
    "provision": "Artikel 1 § 23 Absatz 1 (§ 23 Absatz 1 InterflugG)",
    "duplicateOf": "mandate-interflug-gesetz-12"
   },
   {
    "id": "mandate-gesetz-zur-forderung-der-gleichbehandlung-und-zum-schutz-vor-11l18kw-3",
-   "tier": "fristgebunden",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-forderung-der-gleichbehandlung-und-zum-schutz-vor-11l18kw",
    "provision": "Artikel 1 § 12 Absatz 2",
    "duplicateOf": "mandate-ostdeutsches-landesantidiskriminierungsgesetz-3"
@@ -33463,7 +33460,7 @@
   },
   {
    "id": "mandate-ostdeutsche-eisenbahn-neuordnungsgesetz-5",
-   "tier": "fristgebunden",
+   "tier": "rechtsetzung",
    "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
    "provision": "Artikel 1 § 4 Absatz 6 Satz 3",
    "duplicateOf": "mandate-ostdeutsches-eisenbahngesetz-2"
@@ -33477,7 +33474,7 @@
   },
   {
    "id": "mandate-besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege-6",
-   "tier": "rechtsetzung",
+   "tier": "ermaechtigung",
    "normSlug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
    "provision": "Artikel 1 § 31 Absatz 2 Nummer 1 in Verbindung mit § 3 Absatz 1 und § 25",
    "duplicateOf": "mandate-soziale-grundversorgungsgesetz-7"
@@ -33505,7 +33502,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes-22",
-   "tier": "rechtsetzung",
+   "tier": "ermaechtigung",
    "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
    "provision": "Artikel 1 § 22 Absatz 2 Nummer 4, § 23 Absatz 2, § 25 Absatz 4 Satz 2",
    "duplicateOf": "mandate-boden-und-naturvermoegensgesetz-25"
@@ -33526,7 +33523,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes-8",
-   "tier": "rechtsetzung",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
    "provision": "Artikel 1 § 9 Absatz 5 Nummer 5, § 10 Absatz 4 Nummer 2, 3 und 5",
    "duplicateOf": "mandate-boden-und-naturvermoegensgesetz-6"
@@ -33561,7 +33558,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuhrung-der-landesbank-ostdeutschland-12",
-   "tier": "rechtsetzung",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
    "provision": "Artikel 1 § 9 Absatz 1 Satz 5",
    "duplicateOf": "mandate-ostdeutsches-landesbankgesetz-29"
@@ -33617,7 +33614,7 @@
   },
   {
    "id": "mandate-gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l-29",
-   "tier": "rechtsetzung",
+   "tier": "nicht-pruefbar",
    "normSlug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
    "provision": "Artikel 3 § 11 Absatz 4 (GWG)",
    "duplicateOf": "mandate-gemeingut-wohnen-gesetz-7"
@@ -33876,7 +33873,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes-31",
-   "tier": "ermaechtigung",
+   "tier": "nicht-pruefbar",
    "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
    "provision": "Artikel 1 § 49 Absatz 1 bis 3, § 4 Absatz 5, § 16 Absatz 3 Satz 2",
    "duplicateOf": "mandate-boden-und-naturvermoegensgesetz-31"
@@ -33995,7 +33992,7 @@
   },
   {
    "id": "mandate-gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l-39",
-   "tier": "ermaechtigung",
+   "tier": "nicht-pruefbar",
    "normSlug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
    "provision": "Artikel 3 § 16 Absatz 3 (GWG)",
    "duplicateOf": "mandate-gemeingut-wohnen-gesetz-12"
@@ -34212,7 +34209,7 @@
   },
   {
    "id": "mandate-sportneuordnungsgesetz-36",
-   "tier": "ermaechtigung",
+   "tier": "vollzug",
    "normSlug": "sportneuordnungsgesetz",
    "provision": "Artikel 4 § 2 Absatz 1 und 3",
    "duplicateOf": "mandate-athletenfoerder-und-versorgungsgesetz-8"
@@ -34254,7 +34251,7 @@
   },
   {
    "id": "mandate-besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege-29",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
    "provision": "Artikel 1 § 21 Absatz 3",
    "duplicateOf": "mandate-soziale-grundversorgungsgesetz-38"
@@ -34345,7 +34342,7 @@
   },
   {
    "id": "mandate-besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts-11",
-   "tier": "vollzug",
+   "tier": "fristgebunden",
    "normSlug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
    "provision": "Artikel 1 (OHzG) § 9 Absatz 1",
    "duplicateOf": "mandate-ostdeutsches-hoheitszeichengesetz-5"
@@ -34415,14 +34412,14 @@
   },
   {
    "id": "mandate-energie-und-waermevergesellschaftungs-paketgesetz-6",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
    "provision": "Artikel 1 § 31 Absätze 1 bis 3",
    "duplicateOf": "mandate-energie-und-waermevergesellschaftungsgesetz-21"
   },
   {
    "id": "mandate-energie-und-waermevergesellschaftungs-paketgesetz-4",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
    "provision": "Artikel 1 § 5 Absatz 2",
    "duplicateOf": "mandate-energie-und-waermevergesellschaftungsgesetz-13"
@@ -34534,7 +34531,7 @@
   },
   {
    "id": "mandate-fuenftes-gesetz-zur-grossen-staatsreform-23",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
    "provision": "Artikel 2 Nummer 2 (§ 14 Absatz 6 OstDVG)",
    "duplicateOf": "mandate-ostdeutsches-daseinsvorsorgegesetz-23"
@@ -34569,7 +34566,7 @@
   },
   {
    "id": "mandate-gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh-9",
-   "tier": "vollzug",
+   "tier": "fristgebunden",
    "normSlug": "gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh",
    "provision": "Artikel 1 § 8 Absatz 2",
    "duplicateOf": "mandate-ostdeutsches-beteiligtendokumentationsund-lobbyregistergesetz-14"
@@ -34646,7 +34643,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge-2",
-   "tier": "vollzug",
+   "tier": "fristgebunden",
    "normSlug": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
    "provision": "Artikel 1 § 12 Absatz 1 bis 3 und 5",
    "duplicateOf": "mandate-ostdeutsches-daseinsvorsorgegesetz-4"
@@ -34660,7 +34657,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge-13",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
    "provision": "Artikel 1 § 7 Absatz 1 und 2",
    "duplicateOf": "mandate-ostdeutsches-daseinsvorsorgegesetz-17"
@@ -34870,7 +34867,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuhrung-der-landesbank-ostdeutschland-16",
-   "tier": "vollzug",
+   "tier": "ermaechtigung",
    "normSlug": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
    "provision": "Artikel 1 § 14",
    "duplicateOf": "mandate-ostdeutsches-landesbankgesetz-14"
@@ -35038,7 +35035,7 @@
   },
   {
    "id": "mandate-gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l-48",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
    "provision": "Artikel 3 § 20 Absatz 2 (GWG)",
    "duplicateOf": "mandate-gemeingut-wohnen-gesetz-15"
@@ -35192,7 +35189,7 @@
   },
   {
    "id": "mandate-ostdeutsche-eisenbahn-neuordnungsgesetz-12",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
    "provision": "Artikel 1 § 8 Absatz 3",
    "duplicateOf": "mandate-ostdeutsches-eisenbahngesetz-16"
@@ -35206,7 +35203,7 @@
   },
   {
    "id": "mandate-ostdeutsche-eisenbahn-neuordnungsgesetz-37",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
    "provision": "Artikel 2 § 23 Absatz 1 und 2",
    "duplicateOf": "mandate-ostdeutsches-verkehrsvergesellschaftungsgesetz-11"
@@ -35269,7 +35266,7 @@
   },
   {
    "id": "mandate-sportneuordnungsgesetz-17",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "sportneuordnungsgesetz",
    "provision": "Artikel 1 § 32 Absatz 4",
    "duplicateOf": "mandate-ostdeutsches-sportfoerdergesetz-32"
@@ -35304,7 +35301,7 @@
   },
   {
    "id": "mandate-sportneuordnungsgesetz-25",
-   "tier": "vollzug",
+   "tier": "nicht-pruefbar",
    "normSlug": "sportneuordnungsgesetz",
    "provision": "Artikel 1 § 45",
    "duplicateOf": "mandate-ostdeutsches-sportfoerdergesetz-41"
@@ -35381,28 +35378,28 @@
   },
   {
    "id": "mandate-boom-europe-umsetzungsgesetz-3",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "boom-europe-umsetzungsgesetz",
    "provision": "Artikel 1 § 5 Absatz 1",
    "duplicateOf": "mandate-hochgeschwindigkeitsluftfahrt-standortgesetz-3"
   },
   {
    "id": "mandate-boom-europe-umsetzungsgesetz-4",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "boom-europe-umsetzungsgesetz",
    "provision": "Artikel 1 § 5 Absatz 3",
    "duplicateOf": "mandate-hochgeschwindigkeitsluftfahrt-standortgesetz-4"
   },
   {
    "id": "mandate-boom-europe-umsetzungsgesetz-5",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "boom-europe-umsetzungsgesetz",
    "provision": "Artikel 1 § 6 Absatz 1 und 3",
    "duplicateOf": "mandate-hochgeschwindigkeitsluftfahrt-standortgesetz-9"
   },
   {
    "id": "mandate-boom-europe-umsetzungsgesetz-6",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "boom-europe-umsetzungsgesetz",
    "provision": "Artikel 1 § 7 Absatz 1 und 4",
    "duplicateOf": "mandate-hochgeschwindigkeitsluftfahrt-standortgesetz-11"
@@ -35458,7 +35455,7 @@
   },
   {
    "id": "mandate-energie-und-waermevergesellschaftungs-paketgesetz-25",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
    "provision": "Artikel 3 § 3 Absätze 1 und 3",
    "duplicateOf": "mandate-landesenergiewerke-gesetz-10"
@@ -35472,7 +35469,7 @@
   },
   {
    "id": "mandate-gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh-2",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh",
    "provision": "Artikel 1 § 8 Absatz 5",
    "duplicateOf": "mandate-ostdeutsches-beteiligtendokumentationsund-lobbyregistergesetz-3"
@@ -35486,14 +35483,14 @@
   },
   {
    "id": "mandate-gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-1",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib",
    "provision": "Artikel 1 § 5 Absatz 5",
    "duplicateOf": "mandate-gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2-9"
   },
   {
    "id": "mandate-gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib",
    "provision": "Artikel 1 § 6 Absatz 5",
    "duplicateOf": "mandate-gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2-11"
@@ -35577,7 +35574,7 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes-15",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
    "provision": "Artikel 1 § 12 Absatz 6",
    "duplicateOf": "mandate-boden-und-naturvermoegensgesetz-49"
@@ -35605,14 +35602,14 @@
   },
   {
    "id": "mandate-gesetz-zur-einfuhrung-der-landesbank-ostdeutschland-3",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
    "provision": "Artikel 1 § 2 Absatz 6",
    "duplicateOf": "mandate-ostdeutsches-landesbankgesetz-41"
   },
   {
    "id": "mandate-gesetz-zur-einfuhrung-der-landesbank-ostdeutschland-8",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
    "provision": "Artikel 1 § 5 Absatz 2",
    "duplicateOf": "mandate-ostdeutsches-landesbankgesetz-17"
@@ -35647,7 +35644,7 @@
   },
   {
    "id": "mandate-gesetz-zur-errichtung-der-interflug-26",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-errichtung-der-interflug",
    "provision": "Artikel 1 § 18 Absatz 3 (§ 18 Absatz 3 InterflugG)",
    "duplicateOf": "mandate-interflug-gesetz-36"
@@ -35668,7 +35665,7 @@
   },
   {
    "id": "mandate-gesetz-zur-errichtung-der-interflug-18",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-errichtung-der-interflug",
    "provision": "Artikel 1 § 7 Absatz 4 (§ 7 Absatz 4 InterflugG)",
    "duplicateOf": "mandate-interflug-gesetz-26"
@@ -35724,14 +35721,14 @@
   },
   {
    "id": "mandate-gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w-6",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
    "provision": "Artikel 1 § 6 Absatz 5 Halbsatz 1",
    "duplicateOf": "mandate-ostdeutsches-fernsehfunkgesetz-8"
   },
   {
    "id": "mandate-gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w-7",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
    "provision": "Artikel 1 § 6 Absatz 5 Halbsatz 2",
    "duplicateOf": "mandate-ostdeutsches-fernsehfunkgesetz-9"
@@ -35815,7 +35812,7 @@
   },
   {
    "id": "mandate-kreis-und-bezirksneuordnungsgesetz-15",
-   "tier": "nicht-pruefbar",
+   "tier": "verfallen",
    "normSlug": "kreis-und-bezirksneuordnungsgesetz",
    "provision": "Artikel 1 § 14 Absatz 3 Satz 2",
    "duplicateOf": "mandate-ostdeutsches-kreis-und-bezirksneuordnungsgesetz-27"
@@ -35850,14 +35847,14 @@
   },
   {
    "id": "mandate-kreis-und-bezirksneuordnungsgesetz-26",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "kreis-und-bezirksneuordnungsgesetz",
    "provision": "Artikel 1 § 18 Absatz 2",
    "duplicateOf": "mandate-ostdeutsches-kreis-und-bezirksneuordnungsgesetz-36"
   },
   {
    "id": "mandate-kreis-und-bezirksneuordnungsgesetz-27",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "kreis-und-bezirksneuordnungsgesetz",
    "provision": "Artikel 1 § 19 Absatz 1, 2 und 4",
    "duplicateOf": "mandate-ostdeutsches-kreis-und-bezirksneuordnungsgesetz-38"
@@ -36039,7 +36036,7 @@
   },
   {
    "id": "mandate-sportneuordnungsgesetz-7",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "sportneuordnungsgesetz",
    "provision": "Artikel 1 § 12 Absatz 2",
    "duplicateOf": "mandate-ostdeutsches-sportfoerdergesetz-22"
@@ -36081,24 +36078,1660 @@
   },
   {
    "id": "mandate-sportneuordnungsgesetz-35",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "sportneuordnungsgesetz",
    "provision": "Artikel 3 § 6 Absatz 2",
    "duplicateOf": "mandate-sportstiftungs-und-sportfondsgesetz-6"
   },
   {
    "id": "mandate-sportneuordnungsgesetz-42",
-   "tier": "nicht-pruefbar",
+   "tier": "vollzug",
    "normSlug": "sportneuordnungsgesetz",
    "provision": "Artikel 4 § 10 Absatz 2",
    "duplicateOf": "mandate-athletenfoerder-und-versorgungsgesetz-11"
   },
   {
    "id": "mandate-sportneuordnungsgesetz-46",
-   "tier": "nicht-pruefbar",
+   "tier": "rechtsetzung",
    "normSlug": "sportneuordnungsgesetz",
    "provision": "Artikel 5 § 4 Absatz 3",
    "duplicateOf": "mandate-betriebssportgemeinschaftengesetz-2"
+  },
+  {
+   "id": "mandate-ogvbl-80-staatsplankommission-erste-sitzung",
+   "tier": "ueberfaellig",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 1 Abs. 1, PDF S. 32; Artikel 12",
+   "instrument": "organbestellung",
+   "instrumentLabel": "Organbestellung/Wahl",
+   "addressee": "Staatsrat; Staatsplankommission",
+   "subject": "Erstes Zusammentreten der Staatsplankommission organisieren und belegen.",
+   "obligation": "muss",
+   "deadline": "Spätestens vierzehn Tage nach Inkrafttreten",
+   "deadlineDate": "2026-10-29",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 1 Abs. 1, PDF S. 32; Artikel 12",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-80-geschaeftsstelle-und-wirtschaftsrat",
+   "tier": "ueberfaellig",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 1 Absatz 2",
+   "instrument": "errichtungsakt",
+   "instrumentLabel": "Errichtungs-/Aufbauakt",
+   "addressee": "Staatsrat",
+   "subject": "Ständige Geschäftsstelle der Staatsplankommission einrichten.",
+   "obligation": "muss",
+   "deadline": "Spätestens einen Monat nach Inkrafttreten",
+   "deadlineDate": "2026-11-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15. Oktober 2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 1 Absatz 2",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-80-plangesetz-2027-2031",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 3 Absatz 8 (Vorbereitung in Absätzen 3–7), PDF S. 33–34",
+   "instrument": "gesetz",
+   "instrumentLabel": "Gesetz",
+   "addressee": "Staatsrat; Vorbereitung durch Staatsplankommission",
+   "subject": "Entwurf des ersten Gesellschafts- und Wirtschaftsplangesetzes 2027–2031 in die Volkskammer einbringen.",
+   "obligation": "muss",
+   "deadline": "Spätestens zwölf Wochen nach Inkrafttreten",
+   "deadlineDate": "2027-01-07",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 3 Absatz 8 (Vorbereitung in Absätzen 3–7), PDF S. 33–34",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-80-perspektivplan-2040",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 4 Abs. 1–3, PDF S. 34; Artikel 1 § 6 Abs. 1",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Staatsrat nach Anhörung des Staatswirtschaftsrates",
+   "subject": "Ersten Perspektivplan Ost 2040 beschließen.",
+   "obligation": "muss",
+   "deadline": "Spätestens bis zum 31. Dezember 2027",
+   "deadlineDate": "2027-12-31",
+   "validFrom": "2026-10-15",
+   "trigger": "Erstmalige Planung nach dem WPGG",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 4 Abs. 1–3, PDF S. 34; Artikel 1 § 6 Abs. 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-80-unternehmenssatzungen",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 5 Abs. 1–3 und § 6 Abs. 1, PDF S. 34–35",
+   "instrument": "satzung",
+   "instrumentLabel": "Satzung",
+   "addressee": "Bestehende landesunmittelbare öffentlich-rechtliche Unternehmen; zuständige Eigentümer- und Aufsichtsstellen",
+   "subject": "Satzungsregeln bestehender öffentlicher Unternehmen zu Kontrollorganen und Beteiligung an die WPGG-Mindestanforderungen anpassen.",
+   "obligation": "muss",
+   "deadline": "Kontrollorgane und Beteiligungsregeln innerhalb von sechs Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-04-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 5 Abs. 1–3 und § 6 Abs. 1, PDF S. 34–35",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-81-ho-handelsregisteranmeldung",
+   "tier": "fristgebunden",
+   "normSlug": "errichtung-handelsorganisation-ost",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 81",
+   "provision": "Artikel 2 Abs. 1–2 und 4–5, PDF S. 11–12; Artikel 4",
+   "instrument": "register",
+   "instrumentLabel": "Register",
+   "addressee": "Zuständiges Mitglied des Staatsrates; zur Anmeldung berufene Gründungsorgane",
+   "subject": "Handelsorganisation Ost zur Eintragung in das Handelsregister anmelden.",
+   "obligation": "soll",
+   "deadline": "Soll innerhalb von drei Monaten nach Inkrafttreten erfolgen",
+   "deadlineDate": "2027-01-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-81",
+     "locator": "Artikel 2 Abs. 1–2 und 4–5, PDF S. 11–12; Artikel 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-81"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-81-ho-geschaeftsbetrieb",
+   "tier": "fristgebunden",
+   "normSlug": "errichtung-handelsorganisation-ost",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 81",
+   "provision": "Artikel 2 Abs. 3, PDF S. 12",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Handelsorganisation Ost GmbH; Geschäftsführung",
+   "subject": "Geschäftsbetrieb der Handelsorganisation Ost aufnehmen.",
+   "obligation": "soll",
+   "deadline": "Soll innerhalb von sechs Monaten nach der Handelsregistereintragung erfolgen",
+   "deadlineDate": "",
+   "validFrom": "2026-10-15",
+   "trigger": "Tatsächliche Eintragung in das Handelsregister; Datum nicht belegt",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-81",
+     "locator": "Artikel 2 Abs. 3, PDF S. 12",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-81"
+   ],
+   "note": "Das Eintragungsdatum ist bisher offen."
+  },
+  {
+   "id": "mandate-ogvbl-82-gruendungsvorstand",
+   "tier": "ueberfaellig",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Abs. 1, PDF S. 38; Artikel 13",
+   "instrument": "organbestellung",
+   "instrumentLabel": "Organbestellung/Wahl",
+   "addressee": "Zuständiges Staatssekretariat",
+   "subject": "Gründungsvorstand der Ostdeutschen Rohstoffwerke bestellen.",
+   "obligation": "muss",
+   "deadline": "Innerhalb eines Monats nach Inkrafttreten",
+   "deadlineDate": "2026-11-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Abs. 1, PDF S. 38; Artikel 13",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-82-verwaltungsrat-und-fonds",
+   "tier": "fristgebunden",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Absatz 2",
+   "instrument": "organbestellung",
+   "instrumentLabel": "Organbestellung/Wahl",
+   "addressee": "Zuständige Staatssekretariate; Wahl- und Benennungsträger des Verwaltungsrats",
+   "subject": "Verwaltungsrat der Ostdeutschen Rohstoffwerke bilden.",
+   "obligation": "muss",
+   "deadline": "Jeweils innerhalb von drei Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-01-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Absatz 2",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-82-rohstoffwerke-satzung",
+   "tier": "fristgebunden",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Abs. 3, PDF S. 38; Artikel 1 § 8, PDF S. 7",
+   "instrument": "satzung",
+   "instrumentLabel": "Satzung",
+   "addressee": "Verwaltungsrat; für Wirtschaft zuständiges Staatssekretariat im Einvernehmen mit dem für Finanzen zuständigen Staatssekretariat",
+   "subject": "Satzung der Ostdeutschen Rohstoffwerke beschließen; Genehmigung und Bekanntmachung nachhalten.",
+   "obligation": "muss",
+   "deadline": "Satzungsbeschluss innerhalb von vier Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-02-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Abs. 3, PDF S. 38; Artikel 1 § 8, PDF S. 7",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-82-kupfer-bergrechtsantraege",
+   "tier": "ueberfaellig",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Abs. 6, PDF S. 39; Artikel 2 § 3 Abs. 2–3, PDF S. 15–16",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Kupfer-Bergbauberechtigte; Ostdeutsche Rohstoffwerke; Kupfer-Projektunternehmen, jeweils im erforderlichen Zusammenwirken",
+   "subject": "Anträge auf Zustimmung zur Übertragung der Kupfer-Bergbauberechtigungen bei den zuständigen Bergbehörden stellen.",
+   "obligation": "muss",
+   "deadline": "Innerhalb von zwei Wochen nach Inkrafttreten",
+   "deadlineDate": "2026-10-29",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Abs. 6, PDF S. 39; Artikel 2 § 3 Abs. 2–3, PDF S. 15–16",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-82-erzgebirgische-bergbaugesellschaft",
+   "tier": "fristgebunden",
+   "normSlug": "ostdeutsches-rohstoffwerkegesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 1 § 11 Abs. 1, PDF S. 9; Artikel 12 Abs. 4, PDF S. 38",
+   "instrument": "errichtungsakt",
+   "instrumentLabel": "Errichtungs-/Aufbauakt",
+   "addressee": "Ostdeutsche Rohstoffwerke",
+   "subject": "Erzgebirgische Bergbaugesellschaft mbH errichten.",
+   "obligation": "muss",
+   "deadline": "Innerhalb von sechs Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-04-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 15.10.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 1 § 11 Abs. 1, PDF S. 9; Artikel 12 Abs. 4, PDF S. 38",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-83-teilhabepass-betriebsbereitschaft",
+   "tier": "fristgebunden",
+   "normSlug": "ostdeutsches-teilhabegesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 83",
+   "provision": "Artikel 1 § 10 Abs. 1, PDF S. 10; § 3 Abs. 1, PDF S. 4",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Zuständige Stelle nach § 3 Abs. 1, das zuständige Staatssekretariat",
+   "subject": "Technische und organisatorische Voraussetzungen schaffen, damit der Teilhabepass Ost ausgegeben und genutzt werden kann.",
+   "obligation": "muss",
+   "deadline": "Ausgabe und Nutzung ab dem 1. Januar 2027 ermöglichen",
+   "deadlineDate": "2027-01-01",
+   "validFrom": "2026-10-15",
+   "trigger": "Vorbereitungsvorschriften seit 15.10.2026; vorgesehener Leistungsbeginn 01.01.2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-83",
+     "locator": "Artikel 1 § 10 Abs. 1, PDF S. 10; § 3 Abs. 1, PDF S. 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-83"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-87-ausbildungspruefungsordnung",
+   "tier": "fristgebunden",
+   "normSlug": "polizeiausbildungsreformgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 87",
+   "provision": "Artikel 2, PDF S. 4",
+   "instrument": "rechtsverordnung",
+   "instrumentLabel": "Rechtsverordnung",
+   "addressee": "Für Ausbildungs- und Prüfungsrecht der Polizei zuständige Landesstelle",
+   "subject": "Ausbildungs- und Prüfungsordnung Polizei an die neuen §§ 22a bis 22d anpassen.",
+   "obligation": "muss",
+   "deadline": "Bis zum 30. Juni 2027",
+   "deadlineDate": "2027-06-30",
+   "validFrom": "2027-01-01",
+   "trigger": "Inkrafttreten der Ausbildungsreform am 01.01.2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-87",
+     "locator": "Artikel 2, PDF S. 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-87"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-87-fuehrungsqualifizierung",
+   "tier": "fristgebunden",
+   "normSlug": "polizeiausbildungsreformgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 87",
+   "provision": "Artikel 3 Abs. 2, PDF S. 4",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Betroffene Führungskräfte; ausbildungs- und personalverantwortliche Stellen",
+   "subject": "Erforderliche Führungsqualifizierung für Inhaberinnen und Inhaber bereits übertragener Führungsfunktionen nachholen.",
+   "obligation": "muss",
+   "deadline": "Nachholung bis zum 31. Dezember 2028",
+   "deadlineDate": "2028-12-31",
+   "validFrom": "2027-01-01",
+   "trigger": "Führungsfunktion wurde vor dem 01.01.2028 übertragen",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-87",
+     "locator": "Artikel 3 Abs. 2, PDF S. 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-87"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-88-ermittlungspersonen-und-geschaeftsordnung",
+   "tier": "fristgebunden",
+   "normSlug": "polizeibeschwerdestellengesetz",
+   "versionId": "2026-12-01",
+   "norm": "OGVBl. 2026 Nr. 88",
+   "provision": "Artikel 1 § 13 Absatz 1",
+   "instrument": "rechtsverordnung",
+   "instrumentLabel": "Rechtsverordnung",
+   "addressee": "Staatsrat",
+   "subject": "Rechtsverordnung über die Bestimmung von Ermittlungspersonen erlassen.",
+   "obligation": "muss",
+   "deadline": "Innerhalb von sechs Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-06-01",
+   "validFrom": "2026-12-01",
+   "trigger": "Inkrafttreten am 01.12.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-88",
+     "locator": "Artikel 1 § 13 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-88"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-89-digitalisierungsplan",
+   "tier": "fristgebunden",
+   "normSlug": "polizeidigitalisierungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 89",
+   "provision": "Artikel 1 § 3 Abs. 1, PDF S. 3",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Zuständiges Mitglied des Staatsrates",
+   "subject": "Digitalisierungsplan der Volkspolizei mit Zielen, Zeitplan, Zuständigkeiten, Finanzbedarf, Risiken und Datenschutz-Folgenabschätzungen aufstellen.",
+   "obligation": "muss",
+   "deadline": "Bis zum 30. September 2027; anschließend jährlich fortschreiben und der Volkskammer zuleiten",
+   "deadlineDate": "2027-09-30",
+   "validFrom": "2027-01-01",
+   "trigger": "Inkrafttreten am 01.01.2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-89",
+     "locator": "Artikel 1 § 3 Abs. 1, PDF S. 3",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-89"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-89-online-wache",
+   "tier": "fristgebunden",
+   "normSlug": "polizeidigitalisierungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 89",
+   "provision": "Artikel 1 § 15 Abs. 2 Satz 1, PDF S. 8; § 3 Abs. 2, PDF S. 3",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Volkspolizei; Polizeiverwaltungsamt als zentrale IT-Stelle; zuständiges Mitglied des Staatsrates",
+   "subject": "Online-Wache in Betrieb nehmen.",
+   "obligation": "muss",
+   "deadline": "Bis zum 31. Dezember 2027",
+   "deadlineDate": "2027-12-31",
+   "validFrom": "2027-01-01",
+   "trigger": "Inkrafttreten am 01.01.2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-89",
+     "locator": "Artikel 1 § 15 Abs. 2 Satz 1, PDF S. 8; § 3 Abs. 2, PDF S. 3",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-89"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-89-altsysteme",
+   "tier": "fristgebunden",
+   "normSlug": "polizeidigitalisierungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 89",
+   "provision": "Artikel 1 § 15 Abs. 3 und § 2 Abs. 4, PDF S. 8 und 3",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Volkspolizei; für entsprechende Systeme auch Kasernierte Grenzpolizei",
+   "subject": "Bestehende IT-Systeme an Rollen-/Berechtigungskonzepte, Prüf-/Löschfristen und Informationssicherheit anpassen oder außer Betrieb nehmen.",
+   "obligation": "muss",
+   "deadline": "Bis zum 31. Dezember 2028",
+   "deadlineDate": "2028-12-31",
+   "validFrom": "2027-01-01",
+   "trigger": "Bestehende Systeme im Anwendungsbereich der Digitalisierungsreform",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-89",
+     "locator": "Artikel 1 § 15 Abs. 3 und § 2 Abs. 4, PDF S. 8 und 3",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-89"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-89-elektronische-ermittlungsvorgaenge",
+   "tier": "fristgebunden",
+   "normSlug": "polizeidigitalisierungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 89",
+   "provision": "Artikel 1 § 15 Abs. 1, PDF S. 8; § 4 Abs. 1 Satz 2",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Volkspolizei; Polizeiverwaltungsamt",
+   "subject": "Neue Ermittlungsvorgänge ab dem gesetzlichen Stichtag elektronisch führen.",
+   "obligation": "muss",
+   "deadline": "Anwendung auf ab dem 1. Januar 2029 angelegte Ermittlungsvorgänge",
+   "deadlineDate": "2029-01-01",
+   "validFrom": "2027-01-01",
+   "trigger": "Ermittlungsvorgang wird ab dem 01.01.2029 angelegt",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-89",
+     "locator": "Artikel 1 § 15 Abs. 1, PDF S. 8; § 4 Abs. 1 Satz 2",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-89"
+   ],
+   "note": "Der Tag bezeichnet den gesetzlichen Anwendungs- oder äußersten Umstellungstermin."
+  },
+  {
+   "id": "mandate-ogvbl-91-regulaere-leitung",
+   "tier": "fristgebunden",
+   "normSlug": "staatsschutzamt-errichtungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 91",
+   "provision": "Artikel 1 § 12 Abs. 4, PDF S. 7; § 7 Abs. 2, PDF S. 5",
+   "instrument": "organbestellung",
+   "instrumentLabel": "Organbestellung/Wahl",
+   "addressee": "Staatsrat auf Vorschlag des zuständigen Mitglieds; Parlamentarisches Kontrollgremium ist vorher anzuhören",
+   "subject": "Reguläre Leitung des Landesamtes für Staatsschutz bestellen und Ende der Übergangsleitung beachten.",
+   "obligation": "muss",
+   "deadline": "Bisherige Präsidentin oder bisheriger Präsident nimmt Leitungsaufgaben längstens bis zum 30. Juni 2027 wahr",
+   "deadlineDate": "2027-06-30",
+   "validFrom": "2027-01-01",
+   "trigger": "Rechtsnachfolge des Landesamtes für Verfassungsschutz ab 01.01.2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-91",
+     "locator": "Artikel 1 § 12 Abs. 4, PDF S. 7; § 7 Abs. 2, PDF S. 5",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-91"
+   ],
+   "note": "Der 30. Juni ist die äußerste Dauer der Übergangsleitung."
+  },
+  {
+   "id": "mandate-ogvbl-93-kontrollorgane",
+   "tier": "fristgebunden",
+   "normSlug": "staatsschutz-kontrollgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 93",
+   "provision": "Artikel 1 § 14, PDF S. 6; Artikel 2",
+   "instrument": "organbestellung",
+   "instrumentLabel": "Organbestellung/Wahl",
+   "addressee": "Volkskammer",
+   "subject": "Parlamentarisches Kontrollgremium wählen und Staatsschutzkommission erstmals bestellen.",
+   "obligation": "muss",
+   "deadline": "Innerhalb eines Monats nach Inkrafttreten",
+   "deadlineDate": "2027-02-01",
+   "validFrom": "2027-01-01",
+   "trigger": "Inkrafttreten am 01.01.2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-93",
+     "locator": "Artikel 1 § 14, PDF S. 6; Artikel 2",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-93"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-ogvbl-94-erste-risikoanalyse-resilienzplaene",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-ostdeutsches-kritis-gesetz",
+   "versionId": "2026-11-14",
+   "norm": "OGVBl. 2026 Nr. 94",
+   "provision": "Artikel 2, PDF S. 6; Artikel 1 §§ 5–6",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Betreiberinnen und Betreiber der betroffenen kritischen Infrastrukturen",
+   "subject": "Erste Risikoanalyse und ersten Resilienzplan für rechtzeitig bestimmte kritische Infrastrukturen erstellen.",
+   "obligation": "muss",
+   "deadline": "Erstmals bis zum 30. Juni 2027",
+   "deadlineDate": "2027-06-30",
+   "validFrom": "2027-01-01",
+   "trigger": "Kritische Infrastruktur wurde bis zum 31.12.2026 durch Rechtsverordnung bestimmt",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-94",
+     "locator": "Artikel 2, PDF S. 6; Artikel 1 §§ 5–6",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-94"
+   ],
+   "note": "Sonderfrist nur bei Bestimmung durch Rechtsverordnung bis 31. Dezember 2026. Die derzeitige Ermächtigung allein löst sie nicht aus."
+  },
+  {
+   "id": "mandate-ogvbl-99-altmassnahmen-kontrolle",
+   "tier": "fristgebunden",
+   "normSlug": "ost-sicherheitsreform-anpassungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 99",
+   "provision": "Artikel 5 Abs. 2, PDF S. 4",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Landesamt für Staatsschutz; Staatsschutzkommission",
+   "subject": "Alte Maßnahmen der Staatsschutzkommission zur Prüfung vorlegen und nötige neue Anordnung einholen oder Maßnahme beenden.",
+   "obligation": "muss",
+   "deadline": "Vorlage unverzüglich nach Konstituierung der Kommission; Fortführung ohne neue Anordnung längstens bis zum 31. März 2027",
+   "deadlineDate": "2027-03-31",
+   "validFrom": "2027-01-01",
+   "trigger": "Vor Inkrafttreten des Staatsschutz- und Nachrichtendienstgesetzes rechtmäßig begonnene Maßnahme, die nach neuem § 5 Abs. 4 einer Anordnung bedarf",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-99",
+     "locator": "Artikel 5 Abs. 2, PDF S. 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-99"
+   ],
+   "note": "Der 31. März ist die Höchstgrenze. Die Vorlage ist bereits unverzüglich nach Konstituierung erforderlich."
+  },
+  {
+   "id": "mandate-ogvbl-99-verwaltungsvorschriften",
+   "tier": "fristgebunden",
+   "normSlug": "ost-sicherheitsreform-anpassungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 99",
+   "provision": "Artikel 5 Abs. 6, PDF S. 5",
+   "instrument": "verwaltungsvorschrift",
+   "instrumentLabel": "Verwaltungsvorschrift",
+   "addressee": "Jeweils für die Verwaltungsvorschrift oder Förderrichtlinie zuständige Landesstelle",
+   "subject": "Verwaltungsvorschriften einschließlich Förderrichtlinien mit bestimmten Verweisen auf das Verfassungsschutzgesetz anpassen.",
+   "obligation": "muss",
+   "deadline": "Bis zum 30. Juni 2027",
+   "deadlineDate": "2027-06-30",
+   "validFrom": "2027-01-01",
+   "trigger": "Inkrafttreten der Überleitungsreform am 01.01.2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-99",
+     "locator": "Artikel 5 Abs. 6, PDF S. 5",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-99"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-99-datenpruefung-loeschfristen",
+   "tier": "fristgebunden",
+   "normSlug": "ost-sicherheitsreform-anpassungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 99",
+   "provision": "Artikel 5 Abs. 3, PDF S. 4",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Landesamt für Staatsschutz; verantwortliche Datenstellen",
+   "subject": "Neue Prüf- und Löschfristen auf die vom bisherigen Landesamt für Verfassungsschutz gespeicherten personenbezogenen Daten anwenden.",
+   "obligation": "muss",
+   "deadline": "Ab dem nächsten regelmäßigen Prüftermin, spätestens ab dem 31. Dezember 2027",
+   "deadlineDate": "2027-12-31",
+   "validFrom": "2027-01-01",
+   "trigger": "Nächster regelmäßiger Prüftermin des jeweiligen Datenbestands",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-99",
+     "locator": "Artikel 5 Abs. 3, PDF S. 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-99"
+   ],
+   "note": "Der Tag bezeichnet den gesetzlichen Anwendungs- oder äußersten Umstellungstermin."
+  },
+  {
+   "id": "mandate-bgbl-95-bfbs-aufbauplan",
+   "tier": "fristgebunden",
+   "norm": "BGBl. 2026 I Nr. 95",
+   "provision": "Artikel 1 § 86 Abs. 1–4, BGBl_2026_I_Nr_95.pdf S. 33",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Bundesministerium des Innern und für Heimatschutz",
+   "subject": "BfBS-Aufbauplan mit organisatorischer, personeller und materieller Reihenfolge sowie mehrjähriger Personal-, Investitions- und Beschaffungsplanung aufstellen.",
+   "obligation": "muss",
+   "deadline": "Bis zum 1. August 2027",
+   "deadlineDate": "2027-08-01",
+   "validFrom": "2027-02-01",
+   "trigger": "Hauptinkrafttreten am 01.02.2027; zehnjähriger Aufbauzeitraum nach § 85",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-bgbl-2026-i-95",
+     "locator": "Artikel 1 § 86 Abs. 1–4, BGBl_2026_I_Nr_95.pdf S. 33",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-bgbl-2026-i-95"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-bgbl-96-gruendungsverordnung",
+   "tier": "fristgebunden",
+   "norm": "BGBl. 2026 I Nr. 96",
+   "provision": "Artikel 1 § 35 Abs. 1 und 4, BGBl_2026_I_Nr_96.pdf S. 17–18; § 36 Abs. 2, S. 18",
+   "instrument": "rechtsverordnung",
+   "instrumentLabel": "Rechtsverordnung",
+   "addressee": "Bundesministerium für Wirtschaft und Energie im gesetzlich bestimmten Einvernehmen; Zustimmung des Bundesrates",
+   "subject": "Rechtsverordnung zu Datensatz, Schnittstellen und Verfahren erlassen; Anwendungsbeginn bekannt machen.",
+   "obligation": "muss",
+   "deadline": "Von der Verordnungsermächtigung innerhalb von sechs Monaten nach Verkündung Gebrauch machen",
+   "deadlineDate": "2027-05-18",
+   "validFrom": "2026-12-01",
+   "trigger": "Verkündung am 18.11.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-bgbl-2026-i-96",
+     "locator": "Artikel 1 § 35 Abs. 1 und 4, BGBl_2026_I_Nr_96.pdf S. 17–18; § 36 Abs. 2, S. 18",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-bgbl-2026-i-96"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-bgbl-96-fachverfahren-anbinden",
+   "tier": "fristgebunden",
+   "norm": "BGBl. 2026 I Nr. 96",
+   "provision": "Artikel 1 § 36 Abs. 3 Satz 1, BGBl_2026_I_Nr_96.pdf S. 18; § 4 Abs. 5, S. 4",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Länder und Gemeinden; beteiligte Finanz-, Gewerbe- und Registerstellen; Bund bei vereinbarten Anschlussleistungen",
+   "subject": "Landes- und Gemeindefachverfahren an das Gründungsportal anschließen.",
+   "obligation": "muss",
+   "deadline": "Innerhalb von 18 Monaten nach Verkündung",
+   "deadlineDate": "2028-05-18",
+   "validFrom": "2026-12-01",
+   "trigger": "Verkündung am 18.11.2026",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-bgbl-2026-i-96",
+     "locator": "Artikel 1 § 36 Abs. 3 Satz 1, BGBl_2026_I_Nr_96.pdf S. 18; § 4 Abs. 5, S. 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-bgbl-2026-i-96"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen."
+  },
+  {
+   "id": "mandate-bgbl-96-ersatzformat-uebergang",
+   "tier": "fristgebunden",
+   "norm": "BGBl. 2026 I Nr. 96",
+   "provision": "Artikel 1 § 36 Abs. 3 Satz 2 und Abs. 4–5, BGBl_2026_I_Nr_96.pdf S. 18",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Beteiligte Stellen, deren Fachverfahren noch nicht angebunden sind; Länder und Gemeinden; Portalbetreiber",
+   "subject": "Auslaufen der befristeten Ersatzformat-Nutzung berücksichtigen und reguläre Anbindung sicherstellen.",
+   "obligation": "muss",
+   "deadline": "Ersatzformat höchstens bis zum Ablauf von 36 Monaten nach Verkündung nutzbar",
+   "deadlineDate": "2029-11-18",
+   "validFrom": "2026-12-01",
+   "trigger": "Verkündung am 18.11.2026; tatsächliche fehlende Anbindung der jeweiligen Stelle",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-bgbl-2026-i-96",
+     "locator": "Artikel 1 § 36 Abs. 3 Satz 2 und Abs. 4–5, BGBl_2026_I_Nr_96.pdf S. 18",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-bgbl-2026-i-96"
+   ],
+   "note": "Kalenderziel aus der genannten Ausgangsvorschrift. Eine Verschiebung wegen des Fristendes an einem arbeitsfreien Tag ist im Einzelfall zu prüfen. Der Ersatzweg verlängert die reguläre Anschlussfrist nicht."
+  },
+  {
+   "id": "mandate-ogvbl-80-wirtschaftsrat",
+   "tier": "ueberfaellig",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 2 Absätze 1–3",
+   "instrument": "organbestellung",
+   "instrumentLabel": "Organbestellung/Wahl",
+   "addressee": "Staatsrat und vorschlagsberechtigte Gruppen",
+   "subject": "Vorschlagsberechtigte Gruppen zur Benennung auffordern und Staatswirtschaftsrat konstituieren.",
+   "obligation": "soll",
+   "deadline": "Konstituierung spätestens einen Monat nach Inkrafttreten",
+   "deadlineDate": "2026-11-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 2 Absätze 1–3",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-80-orientierungsdokument",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 3 Absatz 3",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Staatsplankommission",
+   "subject": "Ausgangsanalyse und Orientierungsdokument für den ersten Plan vorbereiten.",
+   "obligation": "muss",
+   "deadline": "Innerhalb von 30 Tagen nach der ersten Sitzung",
+   "deadlineDate": "",
+   "validFrom": "2026-10-15",
+   "trigger": "Erste Sitzung, Datum offen",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 3 Absatz 3",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-80-durchfuehrungsprogramm",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 3 Absatz 11",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Staatsrat",
+   "subject": "Erstes jährliches Durchführungsprogramm beschließen.",
+   "obligation": "muss",
+   "deadline": "Binnen eines Monats nach Inkrafttreten des ersten Plangesetzes",
+   "deadlineDate": "",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten des ersten Plangesetzes, Datum offen",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 3 Absatz 11",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-80-unternehmensverfahren",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 80",
+   "provision": "Artikel 2 § 5 Absatz 1",
+   "instrument": "satzung",
+   "instrumentLabel": "Satzung",
+   "addressee": "Landesunmittelbare öffentlich-rechtliche Unternehmen",
+   "subject": "Satzungen und interne Planungs- und Berichtsverfahren erforderlichenfalls anpassen.",
+   "obligation": "muss",
+   "deadline": "Innerhalb von zwölf Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-10-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-80",
+     "locator": "Artikel 2 § 5 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-80"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-82-generationenfonds",
+   "tier": "fristgebunden",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Absatz 7",
+   "instrument": "errichtungsakt",
+   "instrumentLabel": "Errichtungs-/Aufbauakt",
+   "addressee": "Zuständiges Staatssekretariat",
+   "subject": "Zukunfts- und Generationenfonds Ost organisatorisch einrichten.",
+   "obligation": "muss",
+   "deadline": "Binnen drei Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-01-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Absatz 7",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-82-versorgungsfonds",
+   "tier": "fristgebunden",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Absatz 7",
+   "instrument": "errichtungsakt",
+   "instrumentLabel": "Errichtungs-/Aufbauakt",
+   "addressee": "Zuständiges Staatssekretariat",
+   "subject": "Versorgungsfonds Ost organisatorisch einrichten.",
+   "obligation": "muss",
+   "deadline": "Binnen drei Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-01-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Absatz 7",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-82-wertgutachten",
+   "tier": "fristgebunden",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Absatz 5",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Vergesellschaftungsbehörde",
+   "subject": "Unabhängige Wertgutachten zu den beiden Vergesellschaftungen in Auftrag geben.",
+   "obligation": "muss",
+   "deadline": "Unverzüglich",
+   "deadlineDate": "",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Absatz 5",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-82-anlageauftrag",
+   "tier": "fristgebunden",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Absatz 13",
+   "instrument": "verwaltungsvorschrift",
+   "instrumentLabel": "Verwaltungsvorschrift",
+   "addressee": "Zuständiges Staatssekretariat",
+   "subject": "Anlageauftrag und Anlagerichtlinien der beiden Fonds erstmals erlassen.",
+   "obligation": "muss",
+   "deadline": "Innerhalb von sechs Monaten nach Inkrafttreten",
+   "deadlineDate": "2027-04-15",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Absatz 13",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-82-unternehmensentwicklungsplan",
+   "tier": "fristgebunden",
+   "normSlug": "rohstoffwirtschafts-neuordnungsgesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 82",
+   "provision": "Artikel 12 Absatz 11",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Ostdeutsche Rohstoffwerke",
+   "subject": "Ersten Unternehmensentwicklungsplan beschließen.",
+   "obligation": "muss",
+   "deadline": "Binnen sechs Monaten nach Bestellung des regulären Vorstands",
+   "deadlineDate": "",
+   "validFrom": "2026-10-15",
+   "trigger": "Erstbestellung des regulären Vorstands, Datum offen",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-82",
+     "locator": "Artikel 12 Absatz 11",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-82"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-83-familienservice",
+   "tier": "fristgebunden",
+   "normSlug": "ostdeutsches-teilhabegesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 83",
+   "provision": "Artikel 1 § 10 Absatz 3 und § 6 Absatz 1",
+   "instrument": "errichtungsakt",
+   "instrumentLabel": "Errichtungs-/Aufbauakt",
+   "addressee": "Örtliche Träger der öffentlichen Jugendhilfe",
+   "subject": "Je örtlichem Träger mindestens eine Familienservicestelle unterhalten.",
+   "obligation": "muss",
+   "deadline": "Spätestens ab 1. Juli 2027",
+   "deadlineDate": "2027-07-01",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-83",
+     "locator": "Artikel 1 § 10 Absatz 3 und § 6 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-83"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-83-jugendhilfeplanung",
+   "tier": "fristgebunden",
+   "normSlug": "ostdeutsches-teilhabegesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 83",
+   "provision": "Artikel 1 § 10 Absatz 4",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Örtliche Träger der Jugendhilfe",
+   "subject": "Jugendhilfeplanung an die Vorgaben für Jugendorte anpassen.",
+   "obligation": "muss",
+   "deadline": "Bis 30. Juni 2027",
+   "deadlineDate": "2027-06-30",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-83",
+     "locator": "Artikel 1 § 10 Absatz 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-83"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-83-jugendorte",
+   "tier": "fristgebunden",
+   "normSlug": "ostdeutsches-teilhabegesetz",
+   "versionId": "2026-10-15",
+   "norm": "OGVBl. 2026 Nr. 83",
+   "provision": "Artikel 1 § 10 Absatz 4",
+   "instrument": "errichtungsakt",
+   "instrumentLabel": "Errichtungs-/Aufbauakt",
+   "addressee": "Örtliche Träger der Jugendhilfe",
+   "subject": "Jugendorte bereitstellen.",
+   "obligation": "muss",
+   "deadline": "Spätestens ab 1. Januar 2028",
+   "deadlineDate": "2028-01-01",
+   "validFrom": "2026-10-15",
+   "trigger": "Inkrafttreten am 2026-10-15",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-83",
+     "locator": "Artikel 1 § 10 Absatz 4",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-83"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-86-kontaktbereich",
+   "tier": "fristgebunden",
+   "normSlug": "volkspolizeiorganisationsgesetz",
+   "versionId": "2026-12-01",
+   "norm": "OGVBl. 2026 Nr. 86",
+   "provision": "Artikel 1 § 17 Absatz 1",
+   "instrument": "organbestellung",
+   "instrumentLabel": "Organbestellung/Wahl",
+   "addressee": "Volkspolizei",
+   "subject": "Kontaktbereichsbeamt:innen bestellen.",
+   "obligation": "muss",
+   "deadline": "Bis 31. Dezember 2026",
+   "deadlineDate": "2026-12-31",
+   "validFrom": "2026-12-01",
+   "trigger": "Inkrafttreten am 2026-12-01",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-86",
+     "locator": "Artikel 1 § 17 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-86"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-86-organisationsverordnung",
+   "tier": "fristgebunden",
+   "normSlug": "volkspolizeiorganisationsgesetz",
+   "versionId": "2026-12-01",
+   "norm": "OGVBl. 2026 Nr. 86",
+   "provision": "Artikel 1 § 16",
+   "instrument": "rechtsverordnung",
+   "instrumentLabel": "Rechtsverordnung",
+   "addressee": "Staatsrat",
+   "subject": "Verordnungen über die Polizeiorganisation vorbereiten und die vorgesehenen Entwürfe der Volkskammer zur Kenntnis geben.",
+   "obligation": "kann",
+   "deadline": "Mindestens einen Monat vor Erlass nach Satz 1 Nummer 1 oder 2",
+   "deadlineDate": "",
+   "validFrom": "2026-12-01",
+   "trigger": "Erlass der jeweiligen Verordnung",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-86",
+     "locator": "Artikel 1 § 16",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-86"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-88-geschaeftsordnung",
+   "tier": "fristgebunden",
+   "normSlug": "einfuehrung-polizeibeschwerdestellengesetz",
+   "versionId": "2026-12-01",
+   "norm": "OGVBl. 2026 Nr. 88",
+   "provision": "Artikel 3 Absatz 3",
+   "instrument": "satzung",
+   "instrumentLabel": "Satzung",
+   "addressee": "Beschwerdestelle",
+   "subject": "Geschäftsordnung der fortbestehenden Polizei-Beschwerdestelle anpassen.",
+   "obligation": "muss",
+   "deadline": "Bisherige Geschäftsordnung längstens sechs Monate nach Inkrafttreten",
+   "deadlineDate": "2027-06-01",
+   "validFrom": "2026-12-01",
+   "trigger": "Inkrafttreten am 2026-12-01",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-88",
+     "locator": "Artikel 3 Absatz 3",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-88"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-94-kritis-bestimmung",
+   "tier": "ermaechtigung",
+   "normSlug": "ostdeutsches-kritis-gesetz",
+   "versionId": "2026-11-14",
+   "norm": "OGVBl. 2026 Nr. 94",
+   "provision": "Artikel 1 § 3 Absatz 2",
+   "instrument": "rechtsverordnung",
+   "instrumentLabel": "Rechtsverordnung",
+   "addressee": "Staatsrat",
+   "subject": "Kritische Infrastrukturen durch Rechtsverordnung bestimmen.",
+   "obligation": "kann",
+   "deadline": "",
+   "deadlineDate": "",
+   "validFrom": "2026-11-14",
+   "trigger": "Inkrafttreten am 2026-11-14",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-94",
+     "locator": "Artikel 1 § 3 Absatz 2",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-94"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-95-flughafenvereinbarungen",
+   "tier": "vollzug",
+   "normSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 95",
+   "provision": "Artikel 1 § 3 Absatz 1",
+   "instrument": "verwaltungsabkommen",
+   "instrumentLabel": "Verwaltungsabkommen",
+   "addressee": "Zuständiges Mitglied des Staatsrates mit Bund und Flughafenbetreiber:innen",
+   "subject": "Verwaltungsvereinbarungen für die Verkehrsflughäfen schließen.",
+   "obligation": "soll",
+   "deadline": "",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Inkrafttreten am 2027-01-01",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-95",
+     "locator": "Artikel 1 § 3 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-95"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-97-demokratieprogramm",
+   "tier": "fristgebunden",
+   "normSlug": "demokratiefoerderungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 97",
+   "provision": "Artikel 2 § 2 Absatz 1",
+   "instrument": "plan",
+   "instrumentLabel": "Plan",
+   "addressee": "Staatsrat",
+   "subject": "Landesprogramm Wehrhafte Demokratie beschließen.",
+   "obligation": "muss",
+   "deadline": "Für jeweils fünf Jahre",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Inkrafttreten am 2027-01-01",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-97",
+     "locator": "Artikel 2 § 2 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-97"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-90-sicherheitsbericht",
+   "tier": "vollzug",
+   "normSlug": "ostdeutsches-sicherheitsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 90",
+   "provision": "Artikel 1 § 12 Absatz 1",
+   "instrument": "bericht",
+   "instrumentLabel": "Bericht",
+   "addressee": "Staatsrat",
+   "subject": "Öffentlichen Sicherheitsbericht für das vorangegangene Kalenderjahr vorlegen.",
+   "obligation": "muss",
+   "deadline": "",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Verlangen der Volkskammer",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-90",
+     "locator": "Artikel 1 § 12 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-90"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-92-staatsschutzbericht",
+   "tier": "fristgebunden",
+   "normSlug": "staatsschutz-und-nachrichtendienstgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 92",
+   "provision": "Artikel 1 § 19 Absatz 1",
+   "instrument": "bericht",
+   "instrumentLabel": "Bericht",
+   "addressee": "Landesamt für Staatsschutz",
+   "subject": "Staatsschutzbericht veröffentlichen.",
+   "obligation": "muss",
+   "deadline": "Jährlich",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Geltung ab 1. Januar 2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-92",
+     "locator": "Artikel 1 § 19 Absatz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-92"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-97-verfassungstreuebericht",
+   "tier": "fristgebunden",
+   "normSlug": "verfassungstreuepruefungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 97",
+   "provision": "Artikel 1 § 8",
+   "instrument": "bericht",
+   "instrumentLabel": "Bericht",
+   "addressee": "Für Frieden zuständiges Mitglied des Staatsrates",
+   "subject": "Der Volkskammer in anonymisierter Form über Verfassungstreueprüfungen berichten.",
+   "obligation": "muss",
+   "deadline": "Jährlich",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Geltung ab 1. Januar 2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-97",
+     "locator": "Artikel 1 § 8",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-97"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-97-demokratiebericht",
+   "tier": "fristgebunden",
+   "normSlug": "demokratiefoerderungsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 97",
+   "provision": "Artikel 2 § 5 Absatz 2",
+   "instrument": "bericht",
+   "instrumentLabel": "Bericht",
+   "addressee": "Staatsrat",
+   "subject": "Der Volkskammer über die Umsetzung des Landesprogramms berichten.",
+   "obligation": "muss",
+   "deadline": "Alle zwei Jahre",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Umsetzung des Landesprogramms",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-97",
+     "locator": "Artikel 2 § 5 Absatz 2",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-97"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-98-datenschutzkontrolle",
+   "tier": "fristgebunden",
+   "normSlug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 98",
+   "provision": "Artikel 1 § 8 Absatz 2 Satz 1",
+   "instrument": "sonstiges",
+   "instrumentLabel": "Sonstiger Vollzugsakt",
+   "addressee": "Ostdeutsche:r Datenschutzbeauftragte:r",
+   "subject": "Datenverarbeitung nach dem Zusammenarbeitsgesetz kontrollieren.",
+   "obligation": "muss",
+   "deadline": "Mindestens alle zwei Jahre",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Geltung ab 1. Januar 2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-98",
+     "locator": "Artikel 1 § 8 Absatz 2 Satz 1",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-98"
+   ],
+   "note": ""
+  },
+  {
+   "id": "mandate-ogvbl-98-unterrichtung-kontrollgremium",
+   "tier": "fristgebunden",
+   "normSlug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
+   "versionId": "2027-01-01",
+   "norm": "OGVBl. 2026 Nr. 98",
+   "provision": "Artikel 1 § 8 Absatz 2 Satz 2",
+   "instrument": "bericht",
+   "instrumentLabel": "Bericht",
+   "addressee": "Berichtspflicht gegenüber dem Parlamentarischen Kontrollgremium",
+   "subject": "Parlamentarisches Kontrollgremium über Zahl und Zweck der Projektdateien und Fallkonferenzen unterrichten.",
+   "obligation": "muss",
+   "deadline": "Jährlich",
+   "deadlineDate": "",
+   "validFrom": "2027-01-01",
+   "trigger": "Geltung ab 1. Januar 2027",
+   "asOf": "2026-11-19",
+   "status": "offen",
+   "sourceRefs": [
+    {
+     "sourceId": "source-ogvbl-2026-98",
+     "locator": "Artikel 1 § 8 Absatz 2 Satz 2",
+     "role": "primary"
+    }
+   ],
+   "evidence": [
+    "source-ogvbl-2026-98"
+   ],
+   "note": ""
   }
- ]
+ ],
+ "baselineAsOf": "2026-09-12",
+ "versionEvidence": {
+  "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz/2026-10-15": "01f819e717432db507d7bb5a23cab2d2622010a06953745fdccc904f8b2641da",
+  "errichtung-handelsorganisation-ost/2026-10-15": "1604a42921e2a43ed47cf5963957206013362245fe561fbb9f7a560e63bdb907",
+  "rohstoffwirtschafts-neuordnungsgesetz/2026-10-15": "42c737889e666d0150a2a00f007e5b92814c8f195815789bea9a1440642f5fe2",
+  "ostdeutsches-rohstoffwerkegesetz/2026-10-15": "2df0a63ef113df616dbc74da7179723c1c3ff7bcd40219906ade200fc9c928c8",
+  "ostdeutsches-teilhabegesetz/2026-10-15": "44b4d828af08f1706f3a414b57761cb87f53b1b255b5930162a57d12ed1071bc",
+  "polizeiausbildungsreformgesetz/2027-01-01": "5a1b3dc836f8e8635eba891604ef9d9733d5efa56ae378947fafe14b1fb8cdc9",
+  "polizeibeschwerdestellengesetz/2026-12-01": "8b1d894ac4c6813c70ad23608826ce3ebcebbe10b697021e0dda1cd70ac2ecf3",
+  "polizeidigitalisierungsgesetz/2027-01-01": "6f857190271928000959c8c2281a7e280a63d3e6b01208b5eabb53076a66cf5b",
+  "staatsschutzamt-errichtungsgesetz/2027-01-01": "47bb9be1f113172100d2ffd59e098dca5e812fa09a8a12ae136b0a44c2ad5ffb",
+  "staatsschutz-kontrollgesetz/2027-01-01": "667a360cc9c609eee71cab3cbc42674e4ae048fb9ecb1b5b364137f99ecddde6",
+  "einfuehrung-ostdeutsches-kritis-gesetz/2026-11-14": "d78e6da65ec5260b7d10d448d19f8443b77f53f39e0eb7d6b3c87e8b99efaefd",
+  "ost-sicherheitsreform-anpassungsgesetz/2027-01-01": "3558fa2d350aac98104575e27c562d51fbf7b7be0e2ab8879ba46559669b1742",
+  "volkspolizeiorganisationsgesetz/2026-12-01": "d53ad7e20f6d0970af9e64b0dfa35f735c326ec9603f4208e088942b284ec892",
+  "einfuehrung-polizeibeschwerdestellengesetz/2026-12-01": "28f329ad504e0b4ba2075fe1f7b992c5270c68ea066dc9b1576c28c414e81233",
+  "ostdeutsches-kritis-gesetz/2026-11-14": "d28dfa8dd0842c921a07e6047eb8f3ff99b918e4fb819f8bdebbcd6cb564be11",
+  "ostdeutsches-luftverkehrssicherungsgesetz/2027-01-01": "bd8680322c4f611c6b4917a5e098e21d04cf06219a38ef3cdd28fbf1615fcaa7",
+  "demokratiefoerderungsgesetz/2027-01-01": "8eb7041c0f6508fa551d7ca893ab846e0de4a9a0cc58101909543b008b9eb681",
+  "ostdeutsches-sicherheitsgesetz/2027-01-01": "fe45ef558d2cee35fc31be31900b780b63a5adbf2cf4ab498fbe41dd95b92c83",
+  "staatsschutz-und-nachrichtendienstgesetz/2027-01-01": "0c244f96e045cf6b1361607fc31b5f977f72cb4b8ef5e1bbfee41648b4780e97",
+  "verfassungstreuepruefungsgesetz/2027-01-01": "83edc009a505c9767235835e89c5546fbda01cda5dc4ce6bb591b3170331da85",
+  "sicherheitsbehoerden-zusammenarbeitsgesetz/2027-01-01": "707ae609af2afd3b482119621fb997adda40d91a93d4af29a814b093f5ada222"
+ }
 }

@@ -1018,11 +1018,12 @@ export function transformSource(context) {
 
   // Kapitelwirkung der Personalreform (Dienstrechtsneuordnung): nachher_eur ist der Stand nach der
   // Dienstrechtsneuordnung; k03_eur (Vollzug der Sicherheitsreform) und k04_eur (Endfassung des
-  // Regierungsentwurfs) sind die Änderungen späterer Stufen derselben Gruppe. Erst ihre Summe ergibt
+  // Regierungsentwurfs) und ab K-05 die Steuerkorrektur sind spätere Stufen derselben Gruppe. Ihre Summe ergibt
   // den Ansatz der Titel (Haushaltsrepo, scripts/haushaltsplan/personal/ausgabe.py).
   const kapitelwirkungCsv = csv('daten/personal/kapitelwirkung.csv');
   const kapitelwirkungFelder = ['vorher', 'basisbereinigung', 'reformwirkung', 'finanzfolge', 'nachher'];
   const kapitelwirkungStufen = [['sicherheitsreform', 'k03_eur'], ['endfassung', 'k04_eur']];
+  if (kapitelwirkungCsv.header.includes('k05_eur')) kapitelwirkungStufen.push(['steuerkorrektur', 'k05_eur']);
   requireColumns(
     kapitelwirkungCsv,
     ['jahr', 'einzelplan', 'kapitel', 'kapitel_bezeichnung', 'bereich', 'gruppe', ...kapitelwirkungFelder.map((field) => `${field}_eur`), ...kapitelwirkungStufen.map(([, column]) => column)],
@@ -1047,8 +1048,8 @@ export function transformSource(context) {
     for (const field of kapitelwirkungFelder) entry[field] = parseIntegerField(record[`${field}_eur`], `${label} ${field}_eur`);
     for (const [field, column] of kapitelwirkungStufen) entry[field] = parseIntegerField(record[column], `${label} ${column}`);
     problems.equal(
-      entry.nachher + entry.sicherheitsreform + entry.endfassung,
-      'nachher_eur + k03_eur + k04_eur (daten/personal/kapitelwirkung.csv)',
+      entry.nachher + kapitelwirkungStufen.reduce((sum, [field]) => sum + entry[field], 0),
+      `nachher_eur + ${kapitelwirkungStufen.map(([, column]) => column).join(' + ')} (daten/personal/kapitelwirkung.csv)`,
       sum(`kg|${record.kapitel}|${record.gruppe}|${jahr}`),
       'Summe der Titel der Gruppe (daten/titel.json)',
       `Kapitelwirkung ${record.kapitel}/${record.gruppe} ${jahr}`,

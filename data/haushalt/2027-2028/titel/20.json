@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -28,11 +29,11 @@
       "jahre": {
         "2027": {
           "id": "T.2001/01101@2027",
-          "betrag": 30698580651
+          "betrag": 31790817663
         },
         "2028": {
           "id": "T.2001/01101@2028",
-          "betrag": 33778434898
+          "betrag": 34879671606
         }
       }
     },
@@ -54,11 +55,11 @@
       "jahre": {
         "2027": {
           "id": "T.2001/01201@2027",
-          "betrag": 6733974388
+          "betrag": 7183800462
         },
         "2028": {
           "id": "T.2001/01201@2028",
-          "betrag": 7446200141
+          "betrag": 7961141000
         }
       }
     },
@@ -80,11 +81,11 @@
       "jahre": {
         "2027": {
           "id": "T.2001/09901@2027",
-          "betrag": 2003467966
+          "betrag": 2015956953
         },
         "2028": {
           "id": "T.2001/09901@2028",
-          "betrag": 2160073067
+          "betrag": 2172964924
         }
       }
     },
@@ -106,11 +107,11 @@
       "jahre": {
         "2027": {
           "id": "T.2001/01401@2027",
-          "betrag": 5022431500
+          "betrag": 5315040751
         },
         "2028": {
           "id": "T.2001/01401@2028",
-          "betrag": 5534268817
+          "betrag": 6238081055
         }
       }
     },
@@ -132,11 +133,11 @@
       "jahre": {
         "2027": {
           "id": "T.2001/01501@2027",
-          "betrag": 21776072797
+          "betrag": 21636174430
         },
         "2028": {
           "id": "T.2001/01501@2028",
-          "betrag": 22452709431
+          "betrag": 22254294633
         }
       }
     },
@@ -155,15 +156,16 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "P Herkunftsländerregel; Bundesrechtsumsetzung fehlt",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Zuschläge im Rahmen der Umsatzsteuerverteilung (Finanzkraftausgleich) nach dem Referenzvektor 2025 der Herkunftsländer; die Herkunftsländer-FAG-Methode bleibt als politische Planungsannahme bestehen. Eine Änderung setzt eine Regelung des Simulationsbundes voraus.",
       "jahre": {
         "2027": {
           "id": "T.2001/01502@2027",
-          "betrag": 14728000000
+          "betrag": 15304252090,
+          "erlaeuterung": "Zuschläge im Rahmen der Umsatzsteuerverteilung (Finanzkraftausgleich) nach dem Referenzvektor 2025 der Herkunftsländer; die Herkunftsländer-FAG-Methode bleibt als politische Planungsannahme bestehen. Eine Änderung setzt eine Regelung des Simulationsbundes voraus."
         },
         "2028": {
           "id": "T.2001/01502@2028",
-          "betrag": 14728000000
+          "betrag": 15611519527,
+          "erlaeuterung": "Zuschläge im Rahmen der Umsatzsteuerverteilung (Finanzkraftausgleich) nach dem Referenzvektor 2025 der Herkunftsländer; die Herkunftsländer-FAG-Methode bleibt als politische Planungsannahme bestehen. Eine Änderung setzt eine Regelung des Simulationsbundes voraus."
         }
       }
     },
@@ -185,11 +187,11 @@
       "jahre": {
         "2027": {
           "id": "T.2001/09902.g017@2027",
-          "betrag": 824023440
+          "betrag": 857697148
         },
         "2028": {
           "id": "T.2001/09902.g017@2028",
-          "betrag": 886450331
+          "betrag": 921075861
         }
       }
     },
@@ -206,17 +208,18 @@
       "funktion": "821",
       "herkunft": "S",
       "qualitaet": "S_fachmodell",
-      "rechtsgrundlage": "Vermögensteuergesetz (BT-Drs. 08/84, verkündet; Inkrafttreten 01.01.2027)",
+      "rechtsgrundlage": "Vermögensteuergesetz in der Fassung Sim-BGBl. 2026 I Nr. 86 Art. 1, Bewertungsgesetz Art. 2",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Kassenprognose der Vermögensteuer nach Fallgruppenmodell (Halbvermögensbewertung, Freibeträge 2/4 Mio. EUR, Abschmelzung, Körperschafts-Freigrenze 200.000 EUR). Jahresforderung, Kasseneingang und Rückstände sind getrennt prognostiziert; Nachzahlungen werden nicht fortgeschrieben.",
       "jahre": {
         "2027": {
           "id": "T.2001/05101@2027",
-          "betrag": 1301402250
+          "betrag": 441000000,
+          "erlaeuterung": "Vermögensteuer nach dem verkündeten Vermögensteuergesetz (Sim-BGBl. 2026 I Nr. 86, ab 01.01.2027): 1 %, Freibeträge 3 Mio. EUR (Einzelveranlagung) bzw. 5 Mio. EUR (Zusammenveranlagung), Abschmelzung bis auf 0,5/1 Mio. EUR, produktives Betriebsvermögen bis 25 Mio. EUR außer Ansatz (§ 4d), zusätzlich 5 Mio. EUR ab 60 Jahren oder GdB 100 (§ 6 Abs. 3), Freigrenze 200.000 EUR für Körperschaften. Kasse 2027 ohne Vorauszahlung (§ 21), Rückstände 2028 ff."
         },
         "2028": {
           "id": "T.2001/05101@2028",
-          "betrag": 3632713288
+          "betrag": 1183887500,
+          "erlaeuterung": "Vermögensteuer nach dem verkündeten Vermögensteuergesetz (Sim-BGBl. 2026 I Nr. 86, ab 01.01.2027): 1 %, Freibeträge 3 Mio. EUR (Einzelveranlagung) bzw. 5 Mio. EUR (Zusammenveranlagung), Abschmelzung bis auf 0,5/1 Mio. EUR, produktives Betriebsvermögen bis 25 Mio. EUR außer Ansatz (§ 4d), zusätzlich 5 Mio. EUR ab 60 Jahren oder GdB 100 (§ 6 Abs. 3), Freigrenze 200.000 EUR für Körperschaften. Kasse 2027 ohne Vorauszahlung (§ 21), Rückstände 2028 ff."
         }
       }
     },
@@ -264,11 +267,11 @@
       "jahre": {
         "2027": {
           "id": "T.2001/05301@2027",
-          "betrag": 3632221094
+          "betrag": 3484137718
         },
         "2028": {
           "id": "T.2001/05301@2028",
-          "betrag": 3935793749
+          "betrag": 3785298591
         }
       }
     },
@@ -361,18 +364,20 @@
       "gruppe": "061",
       "gruppe_bezeichnung": "Biersteuer",
       "funktion": "821",
-      "herkunft": "D",
+      "herkunft": "O",
       "qualitaet": "D_struktur",
-      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "rechtsgrundlage": "Sim-BGBl. 2026 I Nr. 19 Art. 1 (Aufhebung des Biersteuergesetzes)",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "jahre": {
         "2027": {
           "id": "T.2001/09902.g061@2027",
-          "betrag": 310697362
+          "betrag": 0,
+          "erlaeuterung": "Das Biersteuergesetz ist mit Wirkung vom 1. Juni 2026 aufgehoben (Sim-BGBl. 2026 I Nr. 19); der Titel bleibt nachrichtlich."
         },
         "2028": {
           "id": "T.2001/09902.g061@2028",
-          "betrag": 321695685
+          "betrag": 0,
+          "erlaeuterung": "Das Biersteuergesetz ist mit Wirkung vom 1. Juni 2026 aufgehoben (Sim-BGBl. 2026 I Nr. 19); der Titel bleibt nachrichtlich."
         }
       }
     },
@@ -443,15 +448,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Die Berliner kommunalen Steuern (Gewerbesteuer abzüglich Umlage, Grundsteuer, Gemeindeanteile an Einkommen- und Umsatzsteuer) fließen nach der Staatsfusion dem Kernhaushalt zu, weil Berlin als Stadtstaat keinen getrennten Gemeindehaushalt führt. Fortschreibung nach Steuerschätzung W2; die Berliner Bezirke werden aus dem Kernhaushalt finanziert (Kapitel 0302/0310).\n",
       "jahre": {
         "2027": {
           "id": "T.2001/09903@2027",
-          "betrag": 5733215000
+          "betrag": 5888500572,
+          "erlaeuterung": "Die Berliner kommunalen Steuern (Gewerbesteuer abzüglich Umlage, Grundsteuer, Gemeindeanteile an Einkommen- und Umsatzsteuer) fließen nach der Staatsfusion dem Kernhaushalt zu, weil Berlin als Stadtstaat keinen getrennten Gemeindehaushalt führt. Fortschreibung nach Steuerschätzung W2; die Berliner Bezirke werden aus dem Kernhaushalt finanziert (Kapitel 0302/0310).\n"
         },
         "2028": {
           "id": "T.2001/09903@2028",
-          "betrag": 6248591366
+          "betrag": 6380659719,
+          "erlaeuterung": "Die Berliner kommunalen Steuern (Gewerbesteuer abzüglich Umlage, Grundsteuer, Gemeindeanteile an Einkommen- und Umsatzsteuer) fließen nach der Staatsfusion dem Kernhaushalt zu, weil Berlin als Stadtstaat keinen getrennten Gemeindehaushalt führt. Fortschreibung nach Steuerschätzung W2; die Berliner Bezirke werden aus dem Kernhaushalt finanziert (Kapitel 0302/0310).\n"
         }
       }
     },
@@ -470,15 +476,16 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Allgemeine BEZ nach dem Finanzausgleichsgesetz des Simulationsbundes; Fortführung der Ansprüche der Herkunftsländer für den gemeinsamen Empfänger (D-57, volle fiskalische Kontinuität).",
       "jahre": {
         "2027": {
           "id": "T.2002/21101@2027",
-          "betrag": 6823617000
+          "betrag": 7087631831,
+          "erlaeuterung": "Allgemeine BEZ nach dem Finanzausgleichsgesetz des Simulationsbundes; Fortführung der Ansprüche der Herkunftsländer für den gemeinsamen Empfänger (D-57, volle fiskalische Kontinuität)."
         },
         "2028": {
           "id": "T.2002/21101@2028",
-          "betrag": 6845571000
+          "betrag": 7250774563,
+          "erlaeuterung": "Allgemeine BEZ nach dem Finanzausgleichsgesetz des Simulationsbundes; Fortführung der Ansprüche der Herkunftsländer für den gemeinsamen Empfänger (D-57, volle fiskalische Kontinuität)."
         }
       }
     },
@@ -500,11 +507,11 @@
       "jahre": {
         "2027": {
           "id": "T.2002/21102@2027",
-          "betrag": 1410727000
+          "betrag": 1456093025
         },
         "2028": {
           "id": "T.2002/21102@2028",
-          "betrag": 1415034000
+          "betrag": 1463530968
         }
       }
     },
@@ -545,18 +552,18 @@
       "gruppe": "211",
       "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
       "funktion": "821",
-      "herkunft": "S",
+      "herkunft": "O",
       "qualitaet": "S_fachmodell",
-      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "rechtsgrundlage": "Finanzausgleichsgesetz (Sim) § 11 Abs. 3",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "jahre": {
         "2027": {
           "id": "T.2002/21104@2027",
-          "betrag": 36000000
+          "betrag": 268000000
         },
         "2028": {
           "id": "T.2002/21104@2028",
-          "betrag": 36000000
+          "betrag": 268000000
         }
       }
     },
@@ -571,19 +578,20 @@
       "gruppe": "211",
       "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
       "funktion": "821",
-      "herkunft": "S",
+      "herkunft": "O",
       "qualitaet": "S_fachmodell",
-      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "rechtsgrundlage": "Finanzausgleichsgesetz (Sim) § 11 Abs. 4",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Einschließlich der Führungs-Sonder-BEZ von 401,1 Mio. EUR (D-57): Bestandsschutz bis 2031 ist Verhandlungsziel gegenüber dem Simulationsbund, keine behauptete Bundeszusage.",
       "jahre": {
         "2027": {
           "id": "T.2002/21105@2027",
-          "betrag": 428413000
+          "betrag": 401100000,
+          "erlaeuterung": "Einschließlich der Führungs-Sonder-BEZ von 401,1 Mio. EUR (D-57): Bestandsschutz bis 2031 ist Verhandlungsziel gegenüber dem Simulationsbund, keine behauptete Bundeszusage."
         },
         "2028": {
           "id": "T.2002/21105@2028",
-          "betrag": 428413000
+          "betrag": 401100000,
+          "erlaeuterung": "Einschließlich der Führungs-Sonder-BEZ von 401,1 Mio. EUR (D-57): Bestandsschutz bis 2031 ist Verhandlungsziel gegenüber dem Simulationsbund, keine behauptete Bundeszusage."
         }
       }
     },
@@ -598,18 +606,18 @@
       "gruppe": "211",
       "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
       "funktion": "821",
-      "herkunft": "S",
+      "herkunft": "O",
       "qualitaet": "S_fachmodell",
-      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "rechtsgrundlage": "Finanzausgleichsgesetz (Sim), Wortlaut 2022",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "jahre": {
         "2027": {
           "id": "T.2002/21106@2027",
-          "betrag": 13474407
+          "betrag": 0
         },
         "2028": {
           "id": "T.2002/21106@2028",
-          "betrag": 13474407
+          "betrag": 0
         }
       }
     },
@@ -628,15 +636,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Fortgeführte laufende Bundeszuweisungen der Herkunftsländer außerhalb der BEZ, insbesondere Kompensations- und Erstattungsleistungen; Einzelnachweis nach Bundesbescheiden.",
       "jahre": {
         "2027": {
           "id": "T.2002/23101@2027",
-          "betrag": 720074041
+          "betrag": 720074041,
+          "erlaeuterung": "Fortgeführte laufende Bundeszuweisungen der Herkunftsländer außerhalb der BEZ, insbesondere Kompensations- und Erstattungsleistungen; Einzelnachweis nach Bundesbescheiden."
         },
         "2028": {
           "id": "T.2002/23101@2028",
-          "betrag": 656178122
+          "betrag": 656178122,
+          "erlaeuterung": "Fortgeführte laufende Bundeszuweisungen der Herkunftsländer außerhalb der BEZ, insbesondere Kompensations- und Erstattungsleistungen; Einzelnachweis nach Bundesbescheiden."
         }
       }
     },
@@ -681,15 +690,16 @@
       "qualitaet": "S_fachmodell",
       "bindung": "politisch",
       "rechtsgrundlage": "Verwaltungsvereinbarungen mit dem Simulationsbund (Entwurf, Anlage Gesetzgebungspaket)",
-      "erlaeuterung": "Prognose der investiven Bundesmittel aus fortgeführten Programmen der Herkunftsgebiete Berlin, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach Abzug bereits im Basishaushalt enthaltener Mittel (Altfinanzierung). Politisch akzeptierte Planungsgrundlage; die Zahlung setzt Verwaltungsvereinbarungen, Programmfortführung und förderfähige Mittelabrufe voraus (Verhandlungsrahmen im Gesetzgebungspaket). Den Einnahmen stehen bereits veranschlagte Investitionen gegenüber (Schulbau, Krankenhausfonds, Straßen); keine zweite Ausgabe.\n",
       "jahre": {
         "2027": {
           "id": "T.2003/33101@2027",
-          "betrag": 1729813129
+          "betrag": 1729813129,
+          "erlaeuterung": "Prognose der investiven Bundesmittel aus fortgeführten Programmen der Herkunftsgebiete Berlin, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach Abzug bereits im Basishaushalt enthaltener Mittel (Altfinanzierung). Politisch akzeptierte Planungsgrundlage; die Zahlung setzt Verwaltungsvereinbarungen, Programmfortführung und förderfähige Mittelabrufe voraus (Verhandlungsrahmen im Gesetzgebungspaket). Den Einnahmen stehen bereits veranschlagte Investitionen gegenüber (Schulbau, Krankenhausfonds, Straßen); keine zweite Ausgabe.\n"
         },
         "2028": {
           "id": "T.2003/33101@2028",
-          "betrag": 1816388718
+          "betrag": 1816388718,
+          "erlaeuterung": "Prognose der investiven Bundesmittel aus fortgeführten Programmen der Herkunftsgebiete Berlin, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach Abzug bereits im Basishaushalt enthaltener Mittel (Altfinanzierung). Politisch akzeptierte Planungsgrundlage; die Zahlung setzt Verwaltungsvereinbarungen, Programmfortführung und förderfähige Mittelabrufe voraus (Verhandlungsrahmen im Gesetzgebungspaket). Den Einnahmen stehen bereits veranschlagte Investitionen gegenüber (Schulbau, Krankenhausfonds, Straßen); keine zweite Ausgabe.\n"
         }
       }
     },
@@ -708,15 +718,16 @@
       "qualitaet": "S_fachmodell",
       "bindung": "politisch",
       "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
-      "erlaeuterung": "Investive Bundesmittel aus den Brandenburger Originaltiteln (Gruppe 331) ohne Darlehen und ohne bereits im Basishaushalt verbliebene Anteile; titelgenaue Herleitung aus dem Regierungsentwurf 2027/28.",
       "jahre": {
         "2027": {
           "id": "T.2003/33102@2027",
-          "betrag": 130876485
+          "betrag": 130876485,
+          "erlaeuterung": "Investive Bundesmittel aus den Brandenburger Originaltiteln (Gruppe 331) ohne Darlehen und ohne bereits im Basishaushalt verbliebene Anteile; titelgenaue Herleitung aus dem Regierungsentwurf 2027/28."
         },
         "2028": {
           "id": "T.2003/33102@2028",
-          "betrag": 143352602
+          "betrag": 143352602,
+          "erlaeuterung": "Investive Bundesmittel aus den Brandenburger Originaltiteln (Gruppe 331) ohne Darlehen und ohne bereits im Basishaushalt verbliebene Anteile; titelgenaue Herleitung aus dem Regierungsentwurf 2027/28."
         }
       }
     },
@@ -735,15 +746,16 @@
       "qualitaet": "S_fachmodell",
       "bindung": "politisch",
       "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
-      "erlaeuterung": "EU- und Drittmittel (EFRE, ELER und sonstige Programme) der fünf Herkunftsgebiete nach Quellenmatrix; Abruf nach Programmvereinbarungen und Förderfähigkeitsnachweis.",
       "jahre": {
         "2027": {
           "id": "T.2003/34901@2027",
-          "betrag": 512408823
+          "betrag": 512408823,
+          "erlaeuterung": "EU- und Drittmittel (EFRE, ELER und sonstige Programme) der fünf Herkunftsgebiete nach Quellenmatrix; Abruf nach Programmvereinbarungen und Förderfähigkeitsnachweis."
         },
         "2028": {
           "id": "T.2003/34901@2028",
-          "betrag": 437953609
+          "betrag": 437953609,
+          "erlaeuterung": "EU- und Drittmittel (EFRE, ELER und sonstige Programme) der fünf Herkunftsgebiete nach Quellenmatrix; Abruf nach Programmvereinbarungen und Förderfähigkeitsnachweis."
         }
       }
     },
@@ -787,15 +799,16 @@
       "herkunft": "S",
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
-      "erlaeuterung": "Verwaltungs-, Prüf- und Abrechnungskosten für den Mittelabruf der fortgeführten Bundes- und EU-Programme (1,5 % der Bruttoeinnahme).",
       "jahre": {
         "2027": {
           "id": "T.2003/54701@2027",
-          "betrag": 33633329
+          "betrag": 33633329,
+          "erlaeuterung": "Verwaltungs-, Prüf- und Abrechnungskosten für den Mittelabruf der fortgeführten Bundes- und EU-Programme (1,5 % der Bruttoeinnahme)."
         },
         "2028": {
           "id": "T.2003/54701@2028",
-          "betrag": 33815135
+          "betrag": 33815135,
+          "erlaeuterung": "Verwaltungs-, Prüf- und Abrechnungskosten für den Mittelabruf der fortgeführten Bundes- und EU-Programme (1,5 % der Bruttoeinnahme)."
         }
       }
     },
@@ -839,15 +852,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Verbleibender Sachausgabenanteil des Kapitels nach Veranschlagung der Zinsen. Er umfasst Kreditnebenkosten, Entgelte für Wertpapierverwahrung und Emission sowie die Zinsen für Kassenkredite. Im sächsischen Regierungsentwurf 2027/28 betragen allein die Zinsen für Kassenkredite und Darlehen öffentlicher Einrichtungen (Gruppe 571) rd. 8 % der Kreditmarktzinsen; der Ansatz ist im Einzelnen noch nicht nachgewiesen und darf nur für Ausgaben der Schuldenverwaltung verwendet werden.\n",
       "jahre": {
         "2027": {
           "id": "T.2005/54701.nebenkosten@2027",
-          "betrag": 116576979
+          "betrag": 116576979,
+          "erlaeuterung": "Verbleibender Sachausgabenanteil des Kapitels nach Veranschlagung der Zinsen. Er umfasst Kreditnebenkosten, Entgelte für Wertpapierverwahrung und Emission sowie die Zinsen für Kassenkredite. Im sächsischen Regierungsentwurf 2027/28 betragen allein die Zinsen für Kassenkredite und Darlehen öffentlicher Einrichtungen (Gruppe 571) rd. 8 % der Kreditmarktzinsen; der Ansatz ist im Einzelnen noch nicht nachgewiesen und darf nur für Ausgaben der Schuldenverwaltung verwendet werden.\n"
         },
         "2028": {
           "id": "T.2005/54701.nebenkosten@2028",
-          "betrag": 92237632
+          "betrag": 92237632,
+          "erlaeuterung": "Verbleibender Sachausgabenanteil des Kapitels nach Veranschlagung der Zinsen. Er umfasst Kreditnebenkosten, Entgelte für Wertpapierverwahrung und Emission sowie die Zinsen für Kassenkredite. Im sächsischen Regierungsentwurf 2027/28 betragen allein die Zinsen für Kassenkredite und Darlehen öffentlicher Einrichtungen (Gruppe 571) rd. 8 % der Kreditmarktzinsen; der Ansatz ist im Einzelnen noch nicht nachgewiesen und darf nur für Ausgaben der Schuldenverwaltung verwendet werden.\n"
         }
       }
     },
@@ -865,15 +879,16 @@
       "herkunft": "S",
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
-      "erlaeuterung": "Einmalige Umstellungskosten der gemeinsamen Anschlussfinanzierung und Laufzeitsteuerung (F12); die Zinsentlastung ist im Titel 575 01 enthalten.",
       "jahre": {
         "2027": {
           "id": "T.2005/54702@2027",
-          "betrag": 3000000
+          "betrag": 3000000,
+          "erlaeuterung": "Einmalige Umstellungskosten der gemeinsamen Anschlussfinanzierung und Laufzeitsteuerung (F12); die Zinsentlastung ist im Titel 575 01 enthalten."
         },
         "2028": {
           "id": "T.2005/54702@2028",
-          "betrag": 1000000
+          "betrag": 1000000,
+          "erlaeuterung": "Einmalige Umstellungskosten der gemeinsamen Anschlussfinanzierung und Laufzeitsteuerung (F12); die Zinsentlastung ist im Titel 575 01 enthalten."
         }
       }
     },
@@ -893,16 +908,17 @@
       "bindung": "vertraglich",
       "rechtsgrundlage": "LHO § 18; bestehende Kreditverträge und Wertpapiere",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Zinsausgaben für die Kreditmarktverschuldung des Kernhaushalts (Schuldenstand Ende 2027 rd. 150,0 Mrd. EUR, Ende 2028 rd. 149,5 Mrd. EUR). Grundlage sind die Zinsausgaben der sechs Herkunftshaushalte (3,308/3,797 Mrd. EUR), vermindert um die Wirkung der im Plan vermiedenen Anschlusskredite und um die Einsparung aus der gemeinsamen Liquiditäts- und Zinssteuerung (F12: 7,2 Mio. EUR jährlich). Die Zinsen wurden bisher anteilig in den Sachausgaben der Fachressorts geführt und sind mit der Umgliederung K-01 vollständig hier veranschlagt.\nDer Anstieg 2028 beruht auf den Zinsprofilen der Herkunftsländer (Anschlussfinanzierung zu höheren Marktzinsen); strukturelle Neuverschuldung entsteht nicht.\n",
       "vermerk": "Mehrausgaben dürfen aus Minderausgaben bei Titel 546 01 gedeckt werden; Einsparungen aus der Liquiditäts- und Zinssteuerung (F12) sind enthalten.",
       "jahre": {
         "2027": {
           "id": "T.2005/54701.zinsen@2027",
-          "betrag": 3170260314
+          "betrag": 3170260314,
+          "erlaeuterung": "Zinsausgaben für die Kreditmarktverschuldung des Kernhaushalts (Schuldenstand Ende 2027 rd. 150,0 Mrd. EUR, Ende 2028 rd. 149,5 Mrd. EUR). Grundlage sind die Zinsausgaben der sechs Herkunftshaushalte (3,308/3,797 Mrd. EUR), vermindert um die Wirkung der im Plan vermiedenen Anschlusskredite und um die Einsparung aus der gemeinsamen Liquiditäts- und Zinssteuerung (F12: 7,2 Mio. EUR jährlich). Die Zinsen wurden bisher anteilig in den Sachausgaben der Fachressorts geführt und sind mit der Umgliederung K-01 vollständig hier veranschlagt.\nDer Anstieg 2028 beruht auf den Zinsprofilen der Herkunftsländer (Anschlussfinanzierung zu höheren Marktzinsen); strukturelle Neuverschuldung entsteht nicht.\n"
         },
         "2028": {
           "id": "T.2005/54701.zinsen@2028",
-          "betrag": 3442950653
+          "betrag": 3442950653,
+          "erlaeuterung": "Zinsausgaben für die Kreditmarktverschuldung des Kernhaushalts (Schuldenstand Ende 2027 rd. 150,0 Mrd. EUR, Ende 2028 rd. 149,5 Mrd. EUR). Grundlage sind die Zinsausgaben der sechs Herkunftshaushalte (3,308/3,797 Mrd. EUR), vermindert um die Wirkung der im Plan vermiedenen Anschlusskredite und um die Einsparung aus der gemeinsamen Liquiditäts- und Zinssteuerung (F12: 7,2 Mio. EUR jährlich). Die Zinsen wurden bisher anteilig in den Sachausgaben der Fachressorts geführt und sind mit der Umgliederung K-01 vollständig hier veranschlagt.\nDer Anstieg 2028 beruht auf den Zinsprofilen der Herkunftsländer (Anschlussfinanzierung zu höheren Marktzinsen); strukturelle Neuverschuldung entsteht nicht.\n"
         }
       }
     },
@@ -921,15 +937,16 @@
       "qualitaet": "D_ableitung",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "LHO § 18; Doppelhaushaltsgesetz § 2 Abs. 2",
-      "erlaeuterung": "Planmäßige Tilgung der übergegangenen Kreditmarktverbindlichkeiten; sie wird aus laufenden Einnahmen geleistet (Nettotilgung). Eine Anschlussfinanzierung ist nicht veranschlagt (Kapitel 2007 Titel 325 01); die gewöhnliche Umschuldung fälliger Altkredite steht nachrichtlich im Kreditfinanzierungsplan.",
       "jahre": {
         "2027": {
           "id": "T.K-04.2005.59501@2027",
-          "betrag": 45922300
+          "betrag": 45922300,
+          "erlaeuterung": "Planmäßige Tilgung der übergegangenen Kreditmarktverbindlichkeiten; sie wird aus laufenden Einnahmen geleistet (Nettotilgung). Eine Anschlussfinanzierung ist nicht veranschlagt (Kapitel 2007 Titel 325 01); die gewöhnliche Umschuldung fälliger Altkredite steht nachrichtlich im Kreditfinanzierungsplan."
         },
         "2028": {
           "id": "T.K-04.2005.59501@2028",
-          "betrag": 455600000
+          "betrag": 455600000,
+          "erlaeuterung": "Planmäßige Tilgung der übergegangenen Kreditmarktverbindlichkeiten; sie wird aus laufenden Einnahmen geleistet (Nettotilgung). Eine Anschlussfinanzierung ist nicht veranschlagt (Kapitel 2007 Titel 325 01); die gewöhnliche Umschuldung fälliger Altkredite steht nachrichtlich im Kreditfinanzierungsplan."
         }
       }
     },
@@ -1052,16 +1069,17 @@
       "qualitaet": "D_ableitung",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Versorgungsfondsgesetz Ost § 6 Abs. 6 bis 8 in der Fassung des RFNG Art. 2",
-      "erlaeuterung": "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten, nur in Höhe des Deckungsbedarfs des Haushaltsjahres (HG § 4 Abs. 2 und 3); nur als letztes Mittel, wenn übertragbare Rücklagen- und Fondsmittel nicht ausreichen (HG § 4 Abs. 3). Höchstens 750 Mio. EUR und die zugeordneten Ausgaben der Kohorte; nach geltendem Recht (§ 6 Abs. 1 VersFOG) bis 2035 ausgeschlossen. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt. Erstattungen gehen nur zu Lasten des übergeleiteten Altvermögens.\n",
       "vermerk": "Die Einnahme ist mit den Titeln 432 01 und 446 01 des Kapitels 2070/2071 verbunden; Vollzug erst nach Inkrafttreten des RFNG Art. 2 und Vorlage des versicherungsmathematischen Gutachtens (§ 6 Abs. 7 VFOG-E).",
       "jahre": {
         "2027": {
           "id": "T.2007/23201@2027",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten, nur in Höhe des Deckungsbedarfs des Haushaltsjahres (HG § 4 Abs. 2 und 3); nur als letztes Mittel, wenn übertragbare Rücklagen- und Fondsmittel nicht ausreichen (HG § 4 Abs. 3). Höchstens 750 Mio. EUR und die zugeordneten Ausgaben der Kohorte; nach geltendem Recht (§ 6 Abs. 1 VersFOG) bis 2035 ausgeschlossen. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt. Erstattungen gehen nur zu Lasten des übergeleiteten Altvermögens.\n"
         },
         "2028": {
           "id": "T.2007/23201@2028",
-          "betrag": 38523029
+          "betrag": 0,
+          "erlaeuterung": "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten, nur in Höhe des Deckungsbedarfs des Haushaltsjahres (HG § 4 Abs. 2 und 3); nur als letztes Mittel, wenn übertragbare Rücklagen- und Fondsmittel nicht ausreichen (HG § 4 Abs. 3). Höchstens 750 Mio. EUR und die zugeordneten Ausgaben der Kohorte; nach geltendem Recht (§ 6 Abs. 1 VersFOG) bis 2035 ausgeschlossen. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt. Erstattungen gehen nur zu Lasten des übergeleiteten Altvermögens.\n"
         }
       }
     },
@@ -1081,15 +1099,16 @@
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Doppelhaushaltsgesetz 2027/2028 § 3 Abs. 2; LHO § 18",
       "finanzierung": "Vermögensbestand / Refinanzierung",
-      "erlaeuterung": "Nur die tatsächlich erforderliche Anschlussaufnahme nach der aktiven Finanzrechnung. Im Finanzrahmen c0-20261108-v2 waren 29.232.180 EUR (2027) vorgesehen; mit der Personalneuberechnung (K-02) entfällt die Anschlussaufnahme 2027, 2028 ist keine vorgesehen. Die planmäßigen Tilgungen (45.922.300 EUR 2027; 455.600.000 EUR 2028) werden vollständig aus laufenden Mitteln geleistet (Nettotilgung). Eine strukturelle Nettokreditaufnahme ist nicht veranschlagt. Die gewöhnliche Umschuldung fälliger Altkredite (rd. 12 Mrd. EUR jährlich) wird nachrichtlich im Kreditfinanzierungsplan dargestellt und ist nicht Teil der Einnahmen.\n",
       "jahre": {
         "2027": {
           "id": "T.2007/32501@2027",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Nur die tatsächlich erforderliche Anschlussaufnahme nach der aktiven Finanzrechnung. Im Finanzrahmen c0-20261108-v2 waren 29.232.180 EUR (2027) vorgesehen; mit der Personalneuberechnung (K-02) entfällt die Anschlussaufnahme 2027, 2028 ist keine vorgesehen. Die planmäßigen Tilgungen (45.922.300 EUR 2027; 455.600.000 EUR 2028) werden vollständig aus laufenden Mitteln geleistet (Nettotilgung). Eine strukturelle Nettokreditaufnahme ist nicht veranschlagt. Die gewöhnliche Umschuldung fälliger Altkredite (rd. 12 Mrd. EUR jährlich) wird nachrichtlich im Kreditfinanzierungsplan dargestellt und ist nicht Teil der Einnahmen.\n"
         },
         "2028": {
           "id": "T.2007/32501@2028",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Nur die tatsächlich erforderliche Anschlussaufnahme nach der aktiven Finanzrechnung. Im Finanzrahmen c0-20261108-v2 waren 29.232.180 EUR (2027) vorgesehen; mit der Personalneuberechnung (K-02) entfällt die Anschlussaufnahme 2027, 2028 ist keine vorgesehen. Die planmäßigen Tilgungen (45.922.300 EUR 2027; 455.600.000 EUR 2028) werden vollständig aus laufenden Mitteln geleistet (Nettotilgung). Eine strukturelle Nettokreditaufnahme ist nicht veranschlagt. Die gewöhnliche Umschuldung fälliger Altkredite (rd. 12 Mrd. EUR jährlich) wird nachrichtlich im Kreditfinanzierungsplan dargestellt und ist nicht Teil der Einnahmen.\n"
         }
       }
     },
@@ -1109,15 +1128,16 @@
       "bindung": "gesetzlich",
       "rechtsgrundlage": "RFNG Art. 1 § 4 Abs. 3",
       "finanzierung": "Vermögensbestand / Refinanzierung",
-      "erlaeuterung": "Erstattungen aus übergeleiteten Sondervermögen (u. a. Schulbau-, Investitions- und Breitbandsondervermögen) für zweckgleiche, im Kernhaushalt veranschlagte Ausgaben; doppelte Verausgabung ist durch Sperre des Kernhaushaltsansatzes bei unmittelbarer Zahlung ausgeschlossen.",
       "jahre": {
         "2027": {
           "id": "T.2007/35601@2027",
-          "betrag": 1343488317
+          "betrag": 688160132,
+          "erlaeuterung": "Erstattungen aus übergeleiteten Sondervermögen (u. a. Schulbau-, Investitions- und Breitbandsondervermögen) für zweckgleiche, im Kernhaushalt veranschlagte Ausgaben; doppelte Verausgabung ist durch Sperre des Kernhaushaltsansatzes bei unmittelbarer Zahlung ausgeschlossen."
         },
         "2028": {
           "id": "T.2007/35601@2028",
-          "betrag": 609872935
+          "betrag": 609872935,
+          "erlaeuterung": "Erstattungen aus übergeleiteten Sondervermögen (u. a. Schulbau-, Investitions- und Breitbandsondervermögen) für zweckgleiche, im Kernhaushalt veranschlagte Ausgaben; doppelte Verausgabung ist durch Sperre des Kernhaushaltsansatzes bei unmittelbarer Zahlung ausgeschlossen."
         }
       }
     },
@@ -1143,7 +1163,7 @@
         },
         "2028": {
           "id": "T.2007/35602@2028",
-          "betrag": 89516658
+          "betrag": 0
         }
       }
     },
@@ -1163,15 +1183,16 @@
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Rücklagen- und Fondsneuordnungsgesetz Art. 1 § 3; Doppelhaushaltsgesetz § 4 Abs. 1",
       "finanzierung": "Vermögensbestand / Refinanzierung",
-      "erlaeuterung": "Entnahme der übergeleiteten allgemeinen Rücklagen der Herkunftsländer bis auf die Mindestliquidität von 1 Mrd. EUR (Anfangsbestand 2027 nach Rücklagenrevision 6,039 Mrd. EUR). 2028 keine weitere Entnahme. Der Vollzug setzt den Bestands- und Verpflichtungsabgleich nach § 2 RFNG voraus; der Ansatz ist eine Planungsannahme, kein Ist-Kassenbestand.\n",
       "jahre": {
         "2027": {
           "id": "T.2007/35901@2027",
-          "betrag": 5039046889
+          "betrag": 5039046889,
+          "erlaeuterung": "Entnahme der übergeleiteten allgemeinen Rücklagen der Herkunftsländer bis auf die Mindestliquidität von 1 Mrd. EUR (Anfangsbestand 2027 nach Rücklagenrevision 6,039 Mrd. EUR). 2028 keine weitere Entnahme. Der Vollzug setzt den Bestands- und Verpflichtungsabgleich nach § 2 RFNG voraus; der Ansatz ist eine Planungsannahme, kein Ist-Kassenbestand.\n"
         },
         "2028": {
           "id": "T.2007/35901@2028",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Entnahme der übergeleiteten allgemeinen Rücklagen der Herkunftsländer bis auf die Mindestliquidität von 1 Mrd. EUR (Anfangsbestand 2027 nach Rücklagenrevision 6,039 Mrd. EUR). 2028 keine weitere Entnahme. Der Vollzug setzt den Bestands- und Verpflichtungsabgleich nach § 2 RFNG voraus; der Ansatz ist eine Planungsannahme, kein Ist-Kassenbestand.\n"
         }
       }
     },
@@ -1191,15 +1212,16 @@
       "bindung": "gesetzlich",
       "rechtsgrundlage": "RFNG Art. 1 § 4; Anlage 2",
       "finanzierung": "Vermögensbestand / Refinanzierung",
-      "erlaeuterung": "Zweckgleiche Finanzierung bereits veranschlagter Ausgaben aus übergeleiteten Zweckrücklagen der Herkunftsländer; positionsgenau im Verwendungsplan (Anlage Rücklagen und Fonds) mit Zielkapitel und Gegenposten nachgewiesen.",
       "jahre": {
         "2027": {
           "id": "T.2007/35902@2027",
-          "betrag": 2027806969
+          "betrag": 1391763476,
+          "erlaeuterung": "Zweckgleiche Finanzierung bereits veranschlagter Ausgaben aus übergeleiteten Zweckrücklagen der Herkunftsländer; positionsgenau im Verwendungsplan (Anlage Rücklagen und Fonds) mit Zielkapitel und Gegenposten nachgewiesen."
         },
         "2028": {
           "id": "T.2007/35902@2028",
-          "betrag": 550981658
+          "betrag": 373071280,
+          "erlaeuterung": "Zweckgleiche Finanzierung bereits veranschlagter Ausgaben aus übergeleiteten Zweckrücklagen der Herkunftsländer; positionsgenau im Verwendungsplan (Anlage Rücklagen und Fonds) mit Zielkapitel und Gegenposten nachgewiesen."
         }
       }
     },
@@ -1218,15 +1240,16 @@
       "qualitaet": "D_ableitung",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "RFNG Art. 1 § 5",
-      "erlaeuterung": "Nach Aufhebung erledigter landesrechtlicher Zweckbindungen frei gewordene Reste (Fondsneuordnung); Freigabe nach schriftlicher Feststellung und Zustimmung des Haushaltsausschusses.",
       "jahre": {
         "2027": {
           "id": "T.2007/35903@2027",
-          "betrag": 328988265
+          "betrag": 0,
+          "erlaeuterung": "Nach Aufhebung erledigter landesrechtlicher Zweckbindungen frei gewordene Reste (Fondsneuordnung); Freigabe nach schriftlicher Feststellung und Zustimmung des Haushaltsausschusses."
         },
         "2028": {
           "id": "T.2007/35903@2028",
-          "betrag": 582163842
+          "betrag": 0,
+          "erlaeuterung": "Nach Aufhebung erledigter landesrechtlicher Zweckbindungen frei gewordene Reste (Fondsneuordnung); Freigabe nach schriftlicher Feststellung und Zustimmung des Haushaltsausschusses."
         }
       }
     },
@@ -1245,15 +1268,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben (D-34), bisher 2,186 Mrd. EUR (2027) und 1,005 Mrd. EUR (2028). Der Sammelansatz enthielt zudem die planmäßige Tilgung (HG 9 der Herkunftshaushalte einschließlich Tilgung); sie ist im Kapitel 2005 Titel 595 01 veranschlagt. Die übrigen Mittel werden für die gesetzliche Vorsorgezuführung benötigt und gehen vollständig in der Versorgungspauschale nach § 4 VersFOG auf (Kapitel 2070 Titel 634 01, HG § 4 Abs. 3a); kein Ansatz mehr.\n",
       "jahre": {
         "2027": {
           "id": "T.2007/91901@2027",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben (D-34), bisher 2,186 Mrd. EUR (2027) und 1,005 Mrd. EUR (2028). Der Sammelansatz enthielt zudem die planmäßige Tilgung (HG 9 der Herkunftshaushalte einschließlich Tilgung); sie ist im Kapitel 2005 Titel 595 01 veranschlagt. Die übrigen Mittel werden für die gesetzliche Vorsorgezuführung benötigt und gehen vollständig in der Versorgungspauschale nach § 4 VersFOG auf (Kapitel 2070 Titel 634 01, HG § 4 Abs. 3a); kein Ansatz mehr.\n"
         },
         "2028": {
           "id": "T.2007/91901@2028",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben (D-34), bisher 2,186 Mrd. EUR (2027) und 1,005 Mrd. EUR (2028). Der Sammelansatz enthielt zudem die planmäßige Tilgung (HG 9 der Herkunftshaushalte einschließlich Tilgung); sie ist im Kapitel 2005 Titel 595 01 veranschlagt. Die übrigen Mittel werden für die gesetzliche Vorsorgezuführung benötigt und gehen vollständig in der Versorgungspauschale nach § 4 VersFOG auf (Kapitel 2070 Titel 634 01, HG § 4 Abs. 3a); kein Ansatz mehr.\n"
         }
       }
     },
@@ -1271,16 +1295,17 @@
       "herkunft": "D",
       "qualitaet": "D_ableitung",
       "rechtsgrundlage": "Doppelhaushaltsgesetz § 4 Abs. 5, § 7 Abs. 4",
-      "erlaeuterung": "Zuführung eines rechnerischen Planüberschusses an die Liquiditätsrücklage nach der Finanzierungsregel des Finanzrahmens (c0-v2: 311.191.306 EUR 2028). Weil Entnahmen aus Rücklagen, Sondervermögen und dem Versorgungsfonds nur in Höhe des Deckungsbedarfs veranschlagt sind (HG § 4 Abs. 2 und 3), entsteht 2027 und 2028 kein aus Entnahmen finanzierter Überschuss; die Risikovorsorge nach § 7 Abs. 4 HG bilden die nicht veranschlagten Entnahmereserven (§ 4 Abs. 2a HG).",
       "vermerk": "Ein im Vollzug entstehender Überschuss vermindert vorrangig die Entnahmen nach § 4 Abs. 2 und 3 HG (§ 4 Abs. 5 HG).",
       "jahre": {
         "2027": {
           "id": "T.2007/91902@2027",
-          "betrag": 0
+          "betrag": 12339435,
+          "erlaeuterung": "Planüberschuss 2027 aus Steuermehreinnahmen nach Wegfall aller kürzbaren Entnahmen (HG § 4 Abs. 5); Entnahme der allgemeinen Rücklage nach der Finanzierungsregel des Finanzrahmens."
         },
         "2028": {
           "id": "T.2007/91902@2028",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Zuführung eines rechnerischen Planüberschusses an die Liquiditätsrücklage nach der Finanzierungsregel des Finanzrahmens (c0-v2: 311.191.306 EUR 2028). Weil Entnahmen aus Rücklagen, Sondervermögen und dem Versorgungsfonds nur in Höhe des Deckungsbedarfs veranschlagt sind (HG § 4 Abs. 2 und 3), entsteht 2027 und 2028 kein aus Entnahmen finanzierter Überschuss; die Risikovorsorge nach § 7 Abs. 4 HG bilden die nicht veranschlagten Entnahmereserven (§ 4 Abs. 2a HG)."
         }
       }
     },
@@ -1300,16 +1325,17 @@
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Ostdeutsches Beamtenversorgungsgesetz; Entwurf Drs. 08/13 (§ 107: 1,5 % je Dienstjahr, höchstens 60 %, auch laufende Versorgung)",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfängerinnen und -empfänger aller Herkunftsländer. Basis sind die Versorgungsansätze der Herkunftshaushalte (Basisbereinigung K-02a). Die Neuberechnung nach dem Entwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist im Versorgungsmodell enthalten (K-02b); die bisherige pauschale 60-%-Vorbuchung ist ersetzt, nicht zusätzlich abgezogen. Eine Erstattung aus dem Versorgungsfonds Ost (Kapitel 2007 Titel 234 01) ist nur als letztes Mittel nach Bedarf veranschlagt (HG § 4 Abs. 3; § 6 Abs. 6 bis 8 VersFOG in der Fassung des RFNG).\n",
       "vermerk": "Mehreinnahmen aus der Erstattung des Versorgungsfonds (Kapitel 2007 Titel 234 01) dienen der Deckung dieses Titels.",
       "jahre": {
         "2027": {
           "id": "T.2070/43201@2027",
-          "betrag": 4434139635
+          "betrag": 4434139635,
+          "erlaeuterung": "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfängerinnen und -empfänger aller Herkunftsländer. Basis sind die Versorgungsansätze der Herkunftshaushalte (Basisbereinigung K-02a). Die Neuberechnung nach dem Entwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist im Versorgungsmodell enthalten (K-02b); die bisherige pauschale 60-%-Vorbuchung ist ersetzt, nicht zusätzlich abgezogen. Eine Erstattung aus dem Versorgungsfonds Ost (Kapitel 2007 Titel 234 01) ist nur als letztes Mittel nach Bedarf veranschlagt (HG § 4 Abs. 3; § 6 Abs. 6 bis 8 VersFOG in der Fassung des RFNG).\n"
         },
         "2028": {
           "id": "T.2070/43201@2028",
-          "betrag": 4768511190
+          "betrag": 4768511190,
+          "erlaeuterung": "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfängerinnen und -empfänger aller Herkunftsländer. Basis sind die Versorgungsansätze der Herkunftshaushalte (Basisbereinigung K-02a). Die Neuberechnung nach dem Entwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist im Versorgungsmodell enthalten (K-02b); die bisherige pauschale 60-%-Vorbuchung ist ersetzt, nicht zusätzlich abgezogen. Eine Erstattung aus dem Versorgungsfonds Ost (Kapitel 2007 Titel 234 01) ist nur als letztes Mittel nach Bedarf veranschlagt (HG § 4 Abs. 3; § 6 Abs. 6 bis 8 VersFOG in der Fassung des RFNG).\n"
         }
       }
     },
@@ -1328,16 +1354,17 @@
       "qualitaet": "S_fachmodell",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Versorgungsfondsgesetz Ost § 4 (OGVBl. 2026 Nr. 82 Art. 5, Art. 12)",
-      "erlaeuterung": "Pflichtzuführung für alle aktiven Beamtinnen, Beamten, Richterinnen und Richter ab 1. Januar 2027 (§ 4 Abs. 1 VersFOG, Art. 12 OGVBl. 2026 Nr. 82). Bemessung nach den Normalkosten der ab 2027 erdienten Anwartschaften einschließlich Beihilfe (§ 4 Abs. 2 VersFOG) auf Grundlage der Dienstrechtsneuordnung (Drs. 08/13: 1,5 % je Dienstjahr, höchstens 60 %). Die fortgeführten Vorsorgezuführungen der Herkunftshaushalte (bisher 2007/919 01) gehen in der Pauschale auf.",
       "vermerk": "Ausgabebefugnis nach der Rechtsverordnung nach § 4 Abs. 3 VersFOG; bis zu ihrem Erlass nach der Quote dieses Ansatzes. Interne Zuweisung, in der konsolidierten Darstellung zu eliminieren (Gegenposten Wirtschaftsplan Versorgungsfonds Ost).",
       "jahre": {
         "2027": {
           "id": "T.K-04.2070.63401@2027",
-          "betrag": 2728402633
+          "betrag": 2728402633,
+          "erlaeuterung": "Pflichtzuführung für alle aktiven Beamtinnen, Beamten, Richterinnen und Richter ab 1. Januar 2027 (§ 4 Abs. 1 VersFOG, Art. 12 OGVBl. 2026 Nr. 82). Bemessung nach den Normalkosten der ab 2027 erdienten Anwartschaften einschließlich Beihilfe (§ 4 Abs. 2 VersFOG) auf Grundlage der Dienstrechtsneuordnung (Drs. 08/13: 1,5 % je Dienstjahr, höchstens 60 %). Die fortgeführten Vorsorgezuführungen der Herkunftshaushalte (bisher 2007/919 01) gehen in der Pauschale auf."
         },
         "2028": {
           "id": "T.K-04.2070.63401@2028",
-          "betrag": 2758921677
+          "betrag": 2758921677,
+          "erlaeuterung": "Pflichtzuführung für alle aktiven Beamtinnen, Beamten, Richterinnen und Richter ab 1. Januar 2027 (§ 4 Abs. 1 VersFOG, Art. 12 OGVBl. 2026 Nr. 82). Bemessung nach den Normalkosten der ab 2027 erdienten Anwartschaften einschließlich Beihilfe (§ 4 Abs. 2 VersFOG) auf Grundlage der Dienstrechtsneuordnung (Drs. 08/13: 1,5 % je Dienstjahr, höchstens 60 %). Die fortgeführten Vorsorgezuführungen der Herkunftshaushalte (bisher 2007/919 01) gehen in der Pauschale auf."
         }
       }
     },
@@ -1357,15 +1384,16 @@
       "bindung": "gesetzlich",
       "rechtsgrundlage": "P: 1,5% je Dienstjahr, höchstens60% auch Bestand; Beihilfe ungekürzt",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Beihilfen nach den Beihilfevorschriften für Versorgungsempfängerinnen und -empfänger. Basis sind die Beihilfeansätze der Herkunftshaushalte (Basisbereinigung K-02a); Eigenbeteiligung 20 % nach § 80 Abs. 12 OstBG-E mit Belastungshöchstbetrag (Modellannahme 1,5 % der Versorgungsbezüge, K-02b).",
       "jahre": {
         "2027": {
           "id": "T.2071/44601@2027",
-          "betrag": 1091546615
+          "betrag": 1091546615,
+          "erlaeuterung": "Beihilfen nach den Beihilfevorschriften für Versorgungsempfängerinnen und -empfänger. Basis sind die Beihilfeansätze der Herkunftshaushalte (Basisbereinigung K-02a); Eigenbeteiligung 20 % nach § 80 Abs. 12 OstBG-E mit Belastungshöchstbetrag (Modellannahme 1,5 % der Versorgungsbezüge, K-02b)."
         },
         "2028": {
           "id": "T.2071/44601@2028",
-          "betrag": 1164107823
+          "betrag": 1164107823,
+          "erlaeuterung": "Beihilfen nach den Beihilfevorschriften für Versorgungsempfängerinnen und -empfänger. Basis sind die Beihilfeansätze der Herkunftshaushalte (Basisbereinigung K-02a); Eigenbeteiligung 20 % nach § 80 Abs. 12 OstBG-E mit Belastungshöchstbetrag (Modellannahme 1,5 % der Versorgungsbezüge, K-02b)."
         }
       }
     },
@@ -1434,16 +1462,17 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Noch nicht auf die Fachkapitel verteilte aktive Personalausgaben der Herkunftshaushalte. Der bisherige Ansatz (2,04/2,05 Mrd. EUR) war ein Mapping-Rest (Einzelplan-20-Personalausgaben der Länder abzüglich einer zu niedrigen Versorgungsschätzung). Mit der Basisbereinigung K-02a sind daraus die Versorgung, die Beihilfe der Versorgungsempfänger und die zentral veranschlagte Beihilfe der Aktiven auf die Planwerte der Herkunftshaushalte gesetzt worden (Doppelzählungsprüfung Q37). Der verbleibende Betrag umfasst vor allem die Brandenburger Vorsorge für Tarif- und Besoldungsanpassungen und dient der Verstärkung der Personalausgaben aller Einzelpläne. Veranschlagung nach dem Vorbild des sächsischen Titels 15 03/461 02; keine zusätzliche Stellenermächtigung.\n",
       "vermerk": "Die Mittel dürfen zur Verstärkung der Personalausgaben (Hauptgruppe 4) in allen Einzelplänen verwendet werden. Neue Stellen werden dadurch nicht geschaffen; Stellenmehrungen bedürfen der Änderung der Stellenübersicht.",
       "jahre": {
         "2027": {
           "id": "T.2072/42901.g461@2027",
-          "betrag": 737874513
+          "betrag": 737874513,
+          "erlaeuterung": "Noch nicht auf die Fachkapitel verteilte aktive Personalausgaben der Herkunftshaushalte. Der bisherige Ansatz (2,04/2,05 Mrd. EUR) war ein Mapping-Rest (Einzelplan-20-Personalausgaben der Länder abzüglich einer zu niedrigen Versorgungsschätzung). Mit der Basisbereinigung K-02a sind daraus die Versorgung, die Beihilfe der Versorgungsempfänger und die zentral veranschlagte Beihilfe der Aktiven auf die Planwerte der Herkunftshaushalte gesetzt worden (Doppelzählungsprüfung Q37). Der verbleibende Betrag umfasst vor allem die Brandenburger Vorsorge für Tarif- und Besoldungsanpassungen und dient der Verstärkung der Personalausgaben aller Einzelpläne. Veranschlagung nach dem Vorbild des sächsischen Titels 15 03/461 02; keine zusätzliche Stellenermächtigung.\n"
         },
         "2028": {
           "id": "T.2072/42901.g461@2028",
-          "betrag": 698652879
+          "betrag": 698652879,
+          "erlaeuterung": "Noch nicht auf die Fachkapitel verteilte aktive Personalausgaben der Herkunftshaushalte. Der bisherige Ansatz (2,04/2,05 Mrd. EUR) war ein Mapping-Rest (Einzelplan-20-Personalausgaben der Länder abzüglich einer zu niedrigen Versorgungsschätzung). Mit der Basisbereinigung K-02a sind daraus die Versorgung, die Beihilfe der Versorgungsempfänger und die zentral veranschlagte Beihilfe der Aktiven auf die Planwerte der Herkunftshaushalte gesetzt worden (Doppelzählungsprüfung Q37). Der verbleibende Betrag umfasst vor allem die Brandenburger Vorsorge für Tarif- und Besoldungsanpassungen und dient der Verstärkung der Personalausgaben aller Einzelpläne. Veranschlagung nach dem Vorbild des sächsischen Titels 15 03/461 02; keine zusätzliche Stellenermächtigung.\n"
         }
       }
     },
@@ -1462,15 +1491,16 @@
       "qualitaet": "D_struktur",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
-      "erlaeuterung": "Allgemeine Finanzzuweisungen nach Steuerkraft und Bedarf (Hauptansatz Einwohner). Die Gesamtmasse des Finanzausgleichs folgt den fortgeführten Ansätzen der Herkunftsländer; die Gliederung auf die Ausgleichsinstrumente entspricht der sächsischen Systematik.",
       "jahre": {
         "2027": {
           "id": "T.SN.kfa.1530-61301@2027",
-          "betrag": 4123091065
+          "betrag": 4123091065,
+          "erlaeuterung": "Allgemeine Finanzzuweisungen nach Steuerkraft und Bedarf (Hauptansatz Einwohner). Die Gesamtmasse des Finanzausgleichs folgt den fortgeführten Ansätzen der Herkunftsländer; die Gliederung auf die Ausgleichsinstrumente entspricht der sächsischen Systematik."
         },
         "2028": {
           "id": "T.SN.kfa.1530-61301@2028",
-          "betrag": 4113434780
+          "betrag": 4113434780,
+          "erlaeuterung": "Allgemeine Finanzzuweisungen nach Steuerkraft und Bedarf (Hauptansatz Einwohner). Die Gesamtmasse des Finanzausgleichs folgt den fortgeführten Ansätzen der Herkunftsländer; die Gliederung auf die Ausgleichsinstrumente entspricht der sächsischen Systematik."
         }
       }
     },
@@ -1489,15 +1519,16 @@
       "qualitaet": "D_struktur",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
-      "erlaeuterung": "Schlüsselzuweisungen an die 14 Bezirke als Träger der Kreisaufgaben (sächsisches Vorbild: Landkreise).",
       "jahre": {
         "2027": {
           "id": "T.SN.kfa.1530-61302@2027",
-          "betrag": 2817825105
+          "betrag": 2817825105,
+          "erlaeuterung": "Schlüsselzuweisungen an die 14 Bezirke als Träger der Kreisaufgaben (sächsisches Vorbild: Landkreise)."
         },
         "2028": {
           "id": "T.SN.kfa.1530-61302@2028",
-          "betrag": 2811225684
+          "betrag": 2811225684,
+          "erlaeuterung": "Schlüsselzuweisungen an die 14 Bezirke als Träger der Kreisaufgaben (sächsisches Vorbild: Landkreise)."
         }
       }
     },
@@ -1828,15 +1859,16 @@
       "qualitaet": "D_struktur",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "Flüchtlingsaufnahmegesetz Ost (OstFlüAG); AsylbLG",
-      "erlaeuterung": "Pauschalierte Erstattung der Unterbringungs- und Versorgungsleistungen nach dem Asylbewerberleistungsgesetz an die Bezirke und kreisfreien Städte (sächsisches Vorbild Kapitel 03 04 Titel 633 52).",
       "jahre": {
         "2027": {
           "id": "T.SN.kfa.0304-63352@2027",
-          "betrag": 1168578904
+          "betrag": 1168578904,
+          "erlaeuterung": "Pauschalierte Erstattung der Unterbringungs- und Versorgungsleistungen nach dem Asylbewerberleistungsgesetz an die Bezirke und kreisfreien Städte (sächsisches Vorbild Kapitel 03 04 Titel 633 52)."
         },
         "2028": {
           "id": "T.SN.kfa.0304-63352@2028",
-          "betrag": 1140107749
+          "betrag": 1140107749,
+          "erlaeuterung": "Pauschalierte Erstattung der Unterbringungs- und Versorgungsleistungen nach dem Asylbewerberleistungsgesetz an die Bezirke und kreisfreien Städte (sächsisches Vorbild Kapitel 03 04 Titel 633 52)."
         }
       }
     },
@@ -2167,16 +2199,17 @@
       "qualitaet": "D_quellgewicht",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Fortgeführte Kapitalzuführungen und Beteiligungserwerbe der Allgemeinen Finanzverwaltungen der Herkunftsländer (u. a. Flughafen- und Infrastrukturgesellschaften, Förderinstitute, Messe- und Wirtschaftsgesellschaften). Fortschreibung des Basisruns c0-v2; Einzelvorhaben werden mit der Beteiligungsanlage vorgelegt. Eine neue Kapitalausstattung der ElbeLB ist ausgeschlossen.\n",
       "vermerk": "Ausgaben setzen einen Einzelbeschluss nach § 65 LHO und die Zustimmung des Haushaltsausschusses voraus. Kapitalzuführungen an ElbeLB, Landesenergiewerke, HO, Rohstoffwerke und Gemeingut Wohnen sind in den Fachkapiteln veranschlagt und werden hieraus nicht zusätzlich geleistet.",
       "jahre": {
         "2027": {
           "id": "T.2090/83101@2027",
-          "betrag": 1853679662
+          "betrag": 1853679662,
+          "erlaeuterung": "Fortgeführte Kapitalzuführungen und Beteiligungserwerbe der Allgemeinen Finanzverwaltungen der Herkunftsländer (u. a. Flughafen- und Infrastrukturgesellschaften, Förderinstitute, Messe- und Wirtschaftsgesellschaften). Fortschreibung des Basisruns c0-v2; Einzelvorhaben werden mit der Beteiligungsanlage vorgelegt. Eine neue Kapitalausstattung der ElbeLB ist ausgeschlossen.\n"
         },
         "2028": {
           "id": "T.2090/83101@2028",
-          "betrag": 1530689780
+          "betrag": 1530689780,
+          "erlaeuterung": "Fortgeführte Kapitalzuführungen und Beteiligungserwerbe der Allgemeinen Finanzverwaltungen der Herkunftsländer (u. a. Flughafen- und Infrastrukturgesellschaften, Förderinstitute, Messe- und Wirtschaftsgesellschaften). Fortschreibung des Basisruns c0-v2; Einzelvorhaben werden mit der Beteiligungsanlage vorgelegt. Eine neue Kapitalausstattung der ElbeLB ist ausgeschlossen.\n"
         }
       }
     },
@@ -2455,15 +2488,16 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Hochschul-, Forschungs- und Kulturbauten; Umsetzung nach Genehmigung der Bauunterlagen.",
       "jahre": {
         "2027": {
           "id": "T.2007/79901.hochschule@2027",
-          "betrag": 458894423
+          "betrag": 458894423,
+          "erlaeuterung": "Hochschul-, Forschungs- und Kulturbauten; Umsetzung nach Genehmigung der Bauunterlagen."
         },
         "2028": {
           "id": "T.2007/79901.hochschule@2028",
-          "betrag": 340919419
+          "betrag": 340919419,
+          "erlaeuterung": "Hochschul-, Forschungs- und Kulturbauten; Umsetzung nach Genehmigung der Bauunterlagen."
         }
       }
     },
@@ -2482,15 +2516,16 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Neu-, Um- und Erweiterungsbauten für Gerichte, Justizvollzug, Polizei und Grenzsicherheit. Die Mittel werden nach Genehmigung der Bauunterlagen (LHO § 24) in die Fachkapitel umgesetzt.",
       "jahre": {
         "2027": {
           "id": "T.2007/79901.justiz@2027",
-          "betrag": 524450770
+          "betrag": 524450770,
+          "erlaeuterung": "Neu-, Um- und Erweiterungsbauten für Gerichte, Justizvollzug, Polizei und Grenzsicherheit. Die Mittel werden nach Genehmigung der Bauunterlagen (LHO § 24) in die Fachkapitel umgesetzt."
         },
         "2028": {
           "id": "T.2007/79901.justiz@2028",
-          "betrag": 389622193
+          "betrag": 389622193,
+          "erlaeuterung": "Neu-, Um- und Erweiterungsbauten für Gerichte, Justizvollzug, Polizei und Grenzsicherheit. Die Mittel werden nach Genehmigung der Bauunterlagen (LHO § 24) in die Fachkapitel umgesetzt."
         }
       }
     },
@@ -2509,15 +2544,16 @@
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Verwaltungsbauten, insbesondere Zusammenlegung frei gewordener Ministerial- und Behördengebäude nach der Staatsfusion (Q35/Q36).",
       "jahre": {
         "2027": {
           "id": "T.2007/79901.verwaltung@2027",
-          "betrag": 327781731
+          "betrag": 327781731,
+          "erlaeuterung": "Verwaltungsbauten, insbesondere Zusammenlegung frei gewordener Ministerial- und Behördengebäude nach der Staatsfusion (Q35/Q36)."
         },
         "2028": {
           "id": "T.2007/79901.verwaltung@2028",
-          "betrag": 243513870
+          "betrag": 243513870,
+          "erlaeuterung": "Verwaltungsbauten, insbesondere Zusammenlegung frei gewordener Ministerial- und Behördengebäude nach der Staatsfusion (Q35/Q36)."
         }
       }
     },
@@ -2536,16 +2572,17 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Rest der aus den Allgemeinen Finanzverwaltungen der fünf weiteren Herkunftsländer übernommenen laufenden Leistungen, für die keine titelgenauen Originaldaten vorliegen. Inhaltlich handelt es sich nach der Struktur der Herkunftshaushalte überwiegend um kommunale Finanzausgleichsleistungen, Erstattungen an den Bund und sonstige gesetzliche Leistungen. Der Ansatz wurde gegenüber C0 v2 um 80 % auf die Fachkapitel aufgelöst; der verbleibende Betrag ist gesperrt.\n",
       "vermerk": "Die Mittel sind gesperrt, bis die Zuordnung zu Rechtsansprüchen der Kapitel 2080 bis 2088 nachgewiesen ist (Freigabe durch den Haushaltsausschuss).",
       "jahre": {
         "2027": {
           "id": "T.2099/68601.vorbehalt@2027",
-          "betrag": 994534190
+          "betrag": 994534190,
+          "erlaeuterung": "Rest der aus den Allgemeinen Finanzverwaltungen der fünf weiteren Herkunftsländer übernommenen laufenden Leistungen, für die keine titelgenauen Originaldaten vorliegen. Inhaltlich handelt es sich nach der Struktur der Herkunftshaushalte überwiegend um kommunale Finanzausgleichsleistungen, Erstattungen an den Bund und sonstige gesetzliche Leistungen. Der Ansatz wurde gegenüber C0 v2 um 80 % auf die Fachkapitel aufgelöst; der verbleibende Betrag ist gesperrt.\n"
         },
         "2028": {
           "id": "T.2099/68601.vorbehalt@2028",
-          "betrag": 1000815180
+          "betrag": 1000815180,
+          "erlaeuterung": "Rest der aus den Allgemeinen Finanzverwaltungen der fünf weiteren Herkunftsländer übernommenen laufenden Leistungen, für die keine titelgenauen Originaldaten vorliegen. Inhaltlich handelt es sich nach der Struktur der Herkunftshaushalte überwiegend um kommunale Finanzausgleichsleistungen, Erstattungen an den Bund und sonstige gesetzliche Leistungen. Der Ansatz wurde gegenüber C0 v2 um 80 % auf die Fachkapitel aufgelöst; der verbleibende Betrag ist gesperrt.\n"
         }
       }
     },
@@ -2564,16 +2601,17 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Rest der investiven Zuweisungen und Kapitalzuführungen der Herkunfts-Finanzverwaltungen ohne titelgenaue Originaldaten; 80 % gegenüber C0 v2 aufgelöst, verbleibender Betrag gesperrt.",
       "vermerk": "Gesperrt bis zum Nachweis der Zuordnung zu den Kapiteln 2090/2091.",
       "jahre": {
         "2027": {
           "id": "T.2099/89901.vorbehalt@2027",
-          "betrag": 195337887
+          "betrag": 195337887,
+          "erlaeuterung": "Rest der investiven Zuweisungen und Kapitalzuführungen der Herkunfts-Finanzverwaltungen ohne titelgenaue Originaldaten; 80 % gegenüber C0 v2 aufgelöst, verbleibender Betrag gesperrt."
         },
         "2028": {
           "id": "T.2099/89901.vorbehalt@2028",
-          "betrag": 167146063
+          "betrag": 167146063,
+          "erlaeuterung": "Rest der investiven Zuweisungen und Kapitalzuführungen der Herkunfts-Finanzverwaltungen ohne titelgenaue Originaldaten; 80 % gegenüber C0 v2 aufgelöst, verbleibender Betrag gesperrt."
         }
       }
     }

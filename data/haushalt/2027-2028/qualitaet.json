@@ -3,12 +3,12 @@
   "periode": "2027-2028",
   "klassen": {
     "2027": {
-      "D_ableitung": 3416850669,
+      "D_ableitung": 3429190104,
       "D_quellgewicht": 6402240975,
       "D_struktur": 24638502703,
       "S_statusmodell": 16626748845,
       "S_mengenmodell": 2209600000,
-      "S_fachmodell": 76181844048,
+      "S_fachmodell": 76203029458,
       "S_rest": 10144761782
     },
     "2028": {
@@ -17,7 +17,7 @@
       "D_struktur": 24219705562,
       "S_statusmodell": 17223906000,
       "S_mengenmodell": 2323180000,
-      "S_fachmodell": 76666413810,
+      "S_fachmodell": 76686876670,
       "S_rest": 9512218474
     }
   },
@@ -349,15 +349,19 @@
       "ok": true
     },
     {
-      "name": "2027: Haushaltsvolumen = Baseline + Summe K-02-, K-03- und K-04-Journal (Ausgaben)",
+      "name": "2027: Haushaltsvolumen = Baseline + Summe K-02- bis K-05-Journal (Ausgaben)",
       "ok": true
     },
     {
-      "name": "2027: Einnahmen = Baseline + Summe K-02-, K-03- und K-04-Journal (Einnahmen)",
+      "name": "2027: Einnahmen = Baseline + Summe K-02- bis K-05-Journal (Einnahmen)",
       "ok": true
     },
     {
-      "name": "2027: ungedeckter Planbedarf null",
+      "name": "2027: ungedeckter Planbedarf null vor K-05 (Stand K-04)",
+      "ok": true
+    },
+    {
+      "name": "2027: ungedeckter Planbedarf nicht negativ (offen ausgewiesen, kein Ausgleichsposten)",
       "ok": true
     },
     {
@@ -401,15 +405,19 @@
       "ok": true
     },
     {
-      "name": "2028: Haushaltsvolumen = Baseline + Summe K-02-, K-03- und K-04-Journal (Ausgaben)",
+      "name": "2028: Haushaltsvolumen = Baseline + Summe K-02- bis K-05-Journal (Ausgaben)",
       "ok": true
     },
     {
-      "name": "2028: Einnahmen = Baseline + Summe K-02-, K-03- und K-04-Journal (Einnahmen)",
+      "name": "2028: Einnahmen = Baseline + Summe K-02- bis K-05-Journal (Einnahmen)",
       "ok": true
     },
     {
-      "name": "2028: ungedeckter Planbedarf null",
+      "name": "2028: ungedeckter Planbedarf null vor K-05 (Stand K-04)",
+      "ok": true
+    },
+    {
+      "name": "2028: ungedeckter Planbedarf nicht negativ (offen ausgewiesen, kein Ausgleichsposten)",
       "ok": true
     },
     {
@@ -441,7 +449,7 @@
       "ok": true
     },
     {
-      "name": "K-02/K-03/K-04: Maßnahmenauswahl = Baseline + P01 + P02 + P03",
+      "name": "K-02 bis K-05: Maßnahmenauswahl = Baseline + P01 + P02 + P03 + P04",
       "ok": true
     },
     {
@@ -1313,11 +1321,343 @@
       "ok": true
     },
     {
-      "name": "Einzelplan × Hauptgruppe = c0-v2 + Umgliederungsjournal (K-01) + Korrekturjournale (K-02, K-03, K-04)",
+      "name": "K-05 2027: Titeländerungen Steuern/FAG/BEZ + Entnahmen = Einnahmewirkung der Modellzeile P04",
       "ok": true
     },
     {
-      "name": "Hauptgruppensummen = c0-v2 + dokumentierte K-02-, K-03- und K-04-Wirkung",
+      "name": "K-05 2027: Titeländerungen = Summe der Überleitung (neu − K-04)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Unterhaltsvorschuss = Kosten der Modellzeile P04",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Finanzfolge total_interest_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Finanzfolge credit_cash_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Finanzfolge reserve_draw_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/01101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/01201 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/01301 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/01401 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/01501 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/01701 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/05301 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/09903 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/05101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/06101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2001/01502 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2002/21101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2002/21102 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2002/21104 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2002/21105 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: 2002/21106 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Biersteuer aufgehoben (2001/061 01 = 0)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Vermögensteuer = Kasse nach verkündetem VStG (nicht zusätzlich zum K-04-Ansatz)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: jede Wirkung je Effekt und Komponente genau einmal (keine Doppelzählung)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Vermögen- und Biersteuer nicht additiv (Rechtskorrektur ersetzt den K-04-Wert)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: keine Nettokreditaufnahme; Kredit nur Anschlussfinanzierung fälliger Tilgung",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Versorgungsfondsentnahme höchstens wie nach K-04 (§ 6 Abs. 1 VersFOG)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: allgemeine Rücklage höchstens bis zur Mindestliquidität",
+      "ok": true
+    },
+    {
+      "name": "K-05 2027: Zuführung 919 02 nur, wenn alle kürzbaren Entnahmen entfallen sind (Endstand)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Titeländerungen Steuern/FAG/BEZ + Entnahmen = Einnahmewirkung der Modellzeile P04",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Titeländerungen = Summe der Überleitung (neu − K-04)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Unterhaltsvorschuss = Kosten der Modellzeile P04",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Finanzfolge total_interest_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Finanzfolge credit_cash_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Finanzfolge reserve_draw_eur = Solverdifferenz Gesamtlauf gegenüber P01–P03",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/01101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/01201 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/01301 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/01401 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/01501 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/01701 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/05301 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/09903 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/05101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/06101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2001/01502 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2002/21101 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2002/21102 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2002/21104 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2002/21105 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: 2002/21106 = K-04-Ansatz + Simulationswirkung + FAG-Rückwirkung + Rechtskorrektur",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Biersteuer aufgehoben (2001/061 01 = 0)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Vermögensteuer = Kasse nach verkündetem VStG (nicht zusätzlich zum K-04-Ansatz)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: jede Wirkung je Effekt und Komponente genau einmal (keine Doppelzählung)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Vermögen- und Biersteuer nicht additiv (Rechtskorrektur ersetzt den K-04-Wert)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: keine Nettokreditaufnahme; Kredit nur Anschlussfinanzierung fälliger Tilgung",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Versorgungsfondsentnahme höchstens wie nach K-04 (§ 6 Abs. 1 VersFOG)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: allgemeine Rücklage höchstens bis zur Mindestliquidität",
+      "ok": true
+    },
+    {
+      "name": "K-05 2028: Zuführung 919 02 nur, wenn alle kürzbaren Entnahmen entfallen sind (Endstand)",
+      "ok": true
+    },
+    {
+      "name": "K-05 2029: Finanzplanung (Endstand) ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-05 2030: Finanzplanung (Endstand) ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-05 2031: Finanzplanung (Endstand) ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-05 2032: Finanzplanung (Endstand) ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-05 2033: Finanzplanung (Endstand) ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-05 2034: Finanzplanung (Endstand) ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-05 2035: Finanzplanung (Endstand) ohne Deckungslücke und ohne Nettokreditaufnahme",
+      "ok": true
+    },
+    {
+      "name": "K-05: Vergleichsbasis 2025 je Titel summengleich mit der FKA-Abrechnung 2025 der sechs Herkunftsländer (±1 Mio. EUR Rundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: FAG-Modell reproduziert die Zu-/Abschläge 2025 aller 16 Länder (Rundung ≤ 10.000 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 12000 EUR → 0 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 12001 EUR → 0 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 18000 EUR → 1242 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 18001 EUR → 1100 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 75000 EUR → 21198 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 75001 EUR → 20000 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 277825 EUR → 105186 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: § 32a Sim-EStG zvE 277826 EUR → 105021 EUR (Wortlaut, Abrundung)",
+      "ok": true
+    },
+    {
+      "name": "K-05: realer Tarif 2026 an den Zonengrenzen stetig (Sprung ≤ 1 EUR)",
+      "ok": true
+    },
+    {
+      "name": "K-05: Splitting = 2 × Grundtarif auf das halbe zvE",
+      "ok": true
+    },
+    {
+      "name": "K-05: Vermögensteuer – Nettovermögen unter 3 Mio. EUR steuerfrei (§ 6 Abs. 1 VStG)",
+      "ok": true
+    },
+    {
+      "name": "K-05: Vermögensteuer – Kasse kumuliert ≤ Jahressteuer kumuliert (Rückstand nicht negativ)",
+      "ok": true
+    },
+    {
+      "name": "Einzelplan × Hauptgruppe = c0-v2 + Umgliederungsjournal (K-01) + Korrekturjournale (K-02 bis K-05)",
+      "ok": true
+    },
+    {
+      "name": "Hauptgruppensummen = c0-v2 + dokumentierte K-02- bis K-05-Wirkung",
       "ok": true
     },
     {
@@ -1527,10 +1867,46 @@
     {
       "name": "Keine stillschweigend gestrichenen Projekte (Optionen ohne Ansatz gekennzeichnet)",
       "ok": true
+    },
+    {
+      "name": "Bundesrecht: archivierte Verkündungen und Vergleichsquellen mit SHA-256",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: alle Jahrestitel und VE-Fälligkeiten gegen 092cea8 (K-05)",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: Finanzierungsübersicht enthält P04 mit den Werten des K-05-Journals",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: K-05-Titel und Kassenabschluss gewahrt",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: Pflichtprüfung je Ausgabe und Haushaltsjahr",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: Ausgabenvariante aus Einzelstellen ohne Kredit- oder Entnahmegegenbuchung",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: Schwammstadt – Mittelherkunft, Kasse, Zusätzlichkeit und Höchstquote",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: jedes Arbeitspaket einmal je Jahr, Januareffekt nur 2027",
+      "ok": true
+    },
+    {
+      "name": "Bundesrecht: Herkunft, nichtnegative Eurobeträge und finanzierte Bestandsarbeit je Titel",
+      "ok": true
     }
   ],
   "pruefstand": {
-    "bestanden": 306,
-    "gesamt": 306
+    "bestanden": 400,
+    "gesamt": 400
   }
 }

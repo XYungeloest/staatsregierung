@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
+import { agendaItems, planningIndex, recentEvents, renderAgenda, renderMandates, validatePlanning } from './lib/knowledge-planning.mjs';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -66,6 +68,8 @@ function loadModel() {
   });
   return {
     editorial,
+    agenda: readJson('knowledge/agenda.json'),
+    mandates: readJson('knowledge/implementation-mandates.json'),
     sourcesDoc,
     sources: sourcesDoc.sources,
     holdingPositions,
@@ -148,7 +152,7 @@ function validateEntry(entry, file, documentAsOf, sourceIds, errors) {
       }
     }
   }
-  if (confirmedStatuses.has(entry.status) && entry.sourceRefs.length === 0) {
+  if (confirmedStatuses.has(entry.status) && !entry.sourceRefs?.length) {
     errors.push(`${location}: bestätigter Eintrag ohne sourceRefs.`);
   }
 }
@@ -229,6 +233,8 @@ function validateModel(model, compareGenerated) {
       const absolute = path.join(root, sourcePath);
       if (!fs.existsSync(absolute)) {
         errors.push(`knowledge/sources.json:${source.id}: Repositorypfad fehlt: ${sourcePath}.`);
+      } else if (source.sha256 && createHash('sha256').update(fs.readFileSync(absolute)).digest('hex') !== source.sha256) {
+        errors.push(`${source.id}: Prüfsumme des Originals weicht ab.`);
       }
     }
   }
@@ -257,6 +263,15 @@ function validateModel(model, compareGenerated) {
       }
     }
   }
+
+  walkDates(model.agenda, 'knowledge/agenda.json', errors);
+  walkDates(model.mandates, 'knowledge/implementation-mandates.json', errors);
+  errors.push(...validatePlanning({
+    agenda: model.agenda, mandates: model.mandates, sources: sourceById,
+    ids: [...idMap.keys(), ...sourceIds], referenceDate: model.editorial.referenceDate,
+    hasNorm: (slug) => fs.existsSync(path.join(root, 'content/normen', slug, 'meta.json')),
+    loadVersion: loadStoredVersion,
+  }));
 
   const institutions = new Set((model.byType.get('institution') ?? []).map((entry) => entry.id));
   const parties = new Set((model.byType.get('party') ?? []).map((entry) => entry.id));
@@ -468,7 +483,7 @@ function validateHoldingPositions(document, sourceIds, errors) {
 }
 
 function buildIndex(model) {
-  const items = [];
+  const items = planningIndex(model.agenda, model.mandates);
   for (const source of model.sources) {
     items.push({
       id: source.id,
@@ -487,6 +502,8 @@ function buildIndex(model) {
         id: entry.id,
         title: entry.title,
         type: collection.type,
+        ...(entry.effectiveDate ? { effectiveDate: entry.effectiveDate } : {}),
+        ...(entry.partialEffects ? { partialEffects: entry.partialEffects } : {}),
         aliases: entry.aliases ?? entry.nameVariants ?? [],
         tags: entry.tags ?? [],
         validFrom: entry.validFrom ?? entry.date ?? null,
@@ -610,15 +627,35 @@ export function buildContext(model) {
     lines.push(`- **${holding.title}**: ${holding.summary}`);
   }
   lines.push('');
+  if (model.agenda && model.mandates) {
+    lines.push('## Planung und Simulationsrahmen', '');
+    for (const rule of model.agenda.simulationRules ?? []) {
+      if (rule.validFrom <= model.editorial.referenceDate) lines.push('- ' + rule.summary);
+    }
+    const recentPlans = agendaItems(model.agenda).filter((x) => x.asOf)
+      .sort((a, b) => b.asOf.localeCompare(a.asOf));
+    lines.push('', 'Aus der Planungsagenda: ' + recentPlans.slice(0, 8).map((x) => x.title + ' (' + x.stage + ')').join(', ') + '.', '');
+    lines.push('## Gestaffelte Rechtswirkungen', '');
+    const security = currentState.find((x) => x.id === 'state-sicherheitsreform-2026');
+    if (security) lines.push(security.summary, '');
+    const future = timeline.filter((x) => x.date <= model.editorial.referenceDate && x.effectiveDate > model.editorial.referenceDate)
+      .sort((a, b) => a.effectiveDate.localeCompare(b.effectiveDate));
+    for (const x of future.slice(0, 5)) lines.push('- ' + x.effectiveDate + ' · ' + x.title + ' (Haupttermin, Teilgeltung im Ereigniseintrag).');
+    lines.push('', '## Prioritäre Vollzugsaufträge', '');
+    const due = model.mandates.mandates.filter((x) => !x.duplicateOf && x.validFrom <= model.editorial.referenceDate &&
+      x.deadlineDate && x.status !== 'nicht-pruefbar').sort((a, b) => a.deadlineDate.localeCompare(b.deadlineDate));
+    for (const x of due.slice(0, 6)) lines.push('- ' + x.deadlineDate + ' · ' + x.subject + ' (' + x.norm + ', ' + x.provision + ', ' + x.status + ')');
+    lines.push('', 'Alle Fristen, Bedingungen und Einzelnachweise: [Vollzugsaufträge](../VOLLZUGSAUFTRAEGE.md).', '');
+  }
   lines.push('## Wichtigste historische Ereignisse');
   lines.push('');
-  for (const event of [...timeline].sort((a, b) => a.date.localeCompare(b.date)).slice(-10)) {
+  for (const event of recentEvents(timeline, model.editorial.referenceDate)) {
     lines.push(`- **${event.date}: ${event.title}.** ${event.summary}`);
   }
   lines.push('');
   lines.push('## Laufende Verfahren und Abhängigkeiten');
   lines.push('');
-  for (const proceeding of proceedings.filter((item) => !['completed'].includes(item.stage))) {
+  for (const proceeding of proceedings.filter((item) => !['completed', 'no-objection', 'consent-withheld'].includes(item.stage))) {
     lines.push(`- **${proceeding.title}** (${proceeding.stage ?? proceeding.status}): ${proceeding.summary}`);
   }
   lines.push('');
@@ -647,6 +684,8 @@ export function buildContext(model) {
 
 function generateOutputs(model) {
   return {
+    'knowledge/AGENDA.md': renderAgenda(model.agenda),
+    'knowledge/VOLLZUGSAUFTRAEGE.md': renderMandates(model.mandates, model.editorial.referenceDate),
     'knowledge/generated/INDEX.json': buildIndex(model),
     'knowledge/generated/LLM_CONTEXT.md': buildContext(model),
   };

@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -445,15 +446,16 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Nach K-04 verbleibt der fortgeschriebene Bestand 2026 des Althaushalts (vorwiegend Zuschüsse an die Fraktionen, § 3 FraktG; Höhe nach Voranschlag der Volkskammer festzusetzen).",
       "jahre": {
         "2027": {
           "id": "T.0101/68601@2027",
-          "betrag": 15120990
+          "betrag": 15120990,
+          "erlaeuterung": "Nach K-04 verbleibt der fortgeschriebene Bestand 2026 des Althaushalts (vorwiegend Zuschüsse an die Fraktionen, § 3 FraktG; Höhe nach Voranschlag der Volkskammer festzusetzen)."
         },
         "2028": {
           "id": "T.0101/68601@2028",
-          "betrag": 15423410
+          "betrag": 15423410,
+          "erlaeuterung": "Nach K-04 verbleibt der fortgeschriebene Bestand 2026 des Althaushalts (vorwiegend Zuschüsse an die Fraktionen, § 3 FraktG; Höhe nach Voranschlag der Volkskammer festzusetzen)."
         }
       }
     },

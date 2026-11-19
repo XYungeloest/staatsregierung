@@ -64,7 +64,7 @@ Stufen der Haushaltsaufstellung werden gegen die Teilwerte der Quelle geprüft, 
   Finanzplanung trägt `planbetrag` nur den rechnerischen Höchstrahmen (kein Planbetrag, keine
   Bewilligung, keine Entnahmereserve); Seiten zeigen ihn nicht als Planbetrag.
 - Kapitelwirkung der Personalreform (`personal.json`): `nachher` ist der Stand nach der
-  Dienstrechtsneuordnung; erst zuzüglich `sicherheitsreform` und `endfassung` ergibt sich die
+  Dienstrechtsneuordnung; erst zuzüglich `sicherheitsreform` und `endfassung` sowie der ab K-05 ausgewiesenen `steuerkorrektur` ergibt sich die
   Titelsumme der Gruppe im Kapitel.
 - Stellen der Sicherheitsreform sind davon-Angaben der Planäquivalente; der Import prüft sie gegen
   die in der Quelle auf 0,1 VZÄ gerundeten Jahresdurchschnitte (jeder Teil und die Gesamtzahl

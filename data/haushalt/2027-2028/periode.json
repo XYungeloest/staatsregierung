@@ -10,8 +10,8 @@
   "stand": "2026-11-16",
   "titel_datenstatus": "Entwurf 2027/2028 (Simulation)",
   "haushaltsvolumen": {
-    "2027": 139620549022,
-    "2028": 140149153791
+    "2027": 139654073867,
+    "2028": 140169616651
   },
   "haushaltsvolumen_basis": {
     "2027": 141139043496,
@@ -38,6 +38,11 @@
       "id": "K-04",
       "kurzbeschreibung": "Endfassung des Regierungsentwurfs: Versorgungspauschale, Entschädigungen, Pflichtanlagen der Sondervermögen, VE nach § 38 LHO, Entnahmen nach Bedarf",
       "art": "Zwingende Konsistenzkorrektur (geltendes Recht: VersFOG, Vergesellschaftungsgesetze, Sondervermögensgesetze, § 38 LHO) und politische Entscheidung mit Finanzwirkung: Endfassung des Regierungsentwurfs"
+    },
+    {
+      "id": "K-05",
+      "kurzbeschreibung": "Mehreinnahmen aus dem Simulationssteuerrecht, Rückwirkung auf Finanzkraftausgleich und BEZ, Neufestsetzung von Vermögen- und Biersteuer 2027/2028",
+      "art": "Auftrag mit Finanzwirkung und zwingende Konsistenzkorrektur (geltendes Simulationsrecht): Mehreinnahmen aus dem Simulationssteuerrecht auf Basis der Endfassung"
     }
   ],
   "legenden": {

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-13",
+  "asOf": "2026-11-19",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -2596,6 +2596,32 @@
       "type": "agency",
       "predecessorId": null,
       "successorId": null
+    },
+    {
+      "id": "inst-ostdeutsche-rohstoffwerke",
+      "title": "Ostdeutsche Rohstoffwerke",
+      "status": "confirmed-primary",
+      "validFrom": "2026-10-15",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Freiberg. Seit dem 15. Oktober hält sie die Zinnwald-Anteile unmittelbar. Organbestellung, Satzung, Genehmigungen und Betriebsaufnahme sind gesondert nachzuweisen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 1 §§ 1, 2, 10 und Artikel 12",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "holding-ostdeutsche-rohstoffwerke",
+        "project-rohstoffwirtschaft-generationenfonds"
+      ],
+      "tags": [],
+      "notes": [],
+      "type": "public-law-institution",
+      "aliases": [
+        "ORW"
+      ]
     }
   ]
 }

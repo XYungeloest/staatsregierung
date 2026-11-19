@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -677,15 +678,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Bestehende Bodenvorsorge; Eigentumsübertragungen ohne Geld werden nicht als Einnahme gebucht.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "land",
-      "erlaeuterung": "Erwerb von Flächen für Naturvermögen, Wohnungsbau und Infrastruktur durch den Landesbodenfonds (100/130 Mio. EUR); unbare Vermögensübergänge werden nicht als Ausgabe gebucht.",
       "jahre": {
         "2027": {
           "id": "T.1903/89101@2027",
-          "betrag": 100000000
+          "betrag": 100000000,
+          "erlaeuterung": "Erwerb von Flächen für Naturvermögen, Wohnungsbau und Infrastruktur durch den Landesbodenfonds (100/130 Mio. EUR); unbare Vermögensübergänge werden nicht als Ausgabe gebucht."
         },
         "2028": {
           "id": "T.1903/89101@2028",
-          "betrag": 130000000
+          "betrag": 130000000,
+          "erlaeuterung": "Erwerb von Flächen für Naturvermögen, Wohnungsbau und Infrastruktur durch den Landesbodenfonds (100/130 Mio. EUR); unbare Vermögensübergänge werden nicht als Ausgabe gebucht."
         }
       }
     },

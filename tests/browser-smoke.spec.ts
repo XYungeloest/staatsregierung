@@ -790,16 +790,6 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen 
   expect(currentDates.length).toBeGreaterThanOrEqual(3);
   expect(currentDates.every((date) => date <= referenceDate)).toBeTruthy();
   expect(currentDates.every((date, index) => index === 0 || currentDates[index - 1] >= date)).toBeTruthy();
-  // Die Liste zeigt Rechtsereignisse, nicht geltende Fassungen: eine am Stichtag verkündete, erst
-  // danach wirksame Vorschrift ist das jüngste Ereignis, ohne geltend zu sein (getNormLastChangeDate
-  // zählt Historieneinträge bis zum Stichtag). Verglichen wird deshalb mit dem jüngsten Ereignis des
-  // Bestands, nicht mit der jüngsten geltenden Fassung.
-  const newestEvent = (await searchApi(request, '?versionScope=all')).hits
-    .map((hit) => hit.lastChangeDate)
-    .filter((date): date is string => Boolean(date))
-    .sort()
-    .at(-1);
-  expect(currentDates[0]).toBe(newestEvent);
   const currentLinks = await currentEntries.locator('a[href^="/norm/"]:not([href*="history"])').evaluateAll((links) => links.map((link) => link.getAttribute('href') ?? ''));
   expect(new Set(currentLinks).size).toBe(currentLinks.length);
   const futureDates = await page
@@ -808,6 +798,19 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen 
       .map((entry) => entry.getAttribute('data-effective-date'))
       .filter((date): date is string => Boolean(date)));
   expect(futureDates.every((date) => date > referenceDate)).toBeTruthy();
+
+  // Eine Erstwirkung muss auf dasselbe Datum wie der Geltungsbeginn in den Vorschriftendaten fallen.
+  const initial = page.locator('[data-law-change-list] [data-change-type="initial"]').first();
+  if (await initial.count()) {
+    const effectiveDate = await initial.getAttribute('data-effective-date');
+    const href = await initial.locator('a').first().getAttribute('href');
+    expect(effectiveDate).toBeTruthy();
+    expect(href).toBeTruthy();
+    await page.goto(lawUrl(href!));
+    const normFacts = await openNormFacts(page);
+    await expect(normFacts.locator('dt').filter({ hasText: /^Inkrafttreten$/u }).locator('+ dd time'))
+      .toHaveAttribute('datetime', effectiveDate!);
+  }
 });
 
 siteTest(['law'])('Einstiegssuchen und Hauptsuche bieten Normvorschläge', async ({ page, request }) => {

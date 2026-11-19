@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -1143,16 +1144,17 @@
       "qualitaet": "S_rest",
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
-      "erlaeuterung": "Globalsummen der Bezirke für Bürgerdienste, Ordnungsaufgaben, Grünflächen und soziale Infrastruktur, soweit nicht in Fachkapiteln veranschlagt; für die Berliner Bezirke Fortführung des Globalsummenprinzips.",
       "vermerk": "Die Verteilung auf die Bezirke richtet sich nach dem Bezirksfinanzierungsschlüssel (Anlage Bezirke); bis zu dessen Feststellung nach den fortgeschriebenen Ansätzen 2026.",
       "jahre": {
         "2027": {
           "id": "T.0302/68601.global@2027",
-          "betrag": 1090358403
+          "betrag": 1090358403,
+          "erlaeuterung": "Globalsummen der Bezirke für Bürgerdienste, Ordnungsaufgaben, Grünflächen und soziale Infrastruktur, soweit nicht in Fachkapiteln veranschlagt; für die Berliner Bezirke Fortführung des Globalsummenprinzips."
         },
         "2028": {
           "id": "T.0302/68601.global@2028",
-          "betrag": 1092917270
+          "betrag": 1092917270,
+          "erlaeuterung": "Globalsummen der Bezirke für Bürgerdienste, Ordnungsaufgaben, Grünflächen und soziale Infrastruktur, soweit nicht in Fachkapiteln veranschlagt; für die Berliner Bezirke Fortführung des Globalsummenprinzips."
         }
       }
     },
@@ -1257,15 +1259,16 @@
       "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "district",
-      "erlaeuterung": "13 neue Bezirksverwaltungen × 50 VZÄ × 100.000 EUR = 65 Mio. EUR (2028 +2 %); 60 % des Personals werden aus bestehender Verwaltung übergeleitet. Kein zweiter Vollaufbau.",
       "jahre": {
         "2027": {
           "id": "T.0303/68601@2027",
-          "betrag": 65000000
+          "betrag": 65000000,
+          "erlaeuterung": "13 neue Bezirksverwaltungen × 50 VZÄ × 100.000 EUR = 65 Mio. EUR (2028 +2 %); 60 % des Personals werden aus bestehender Verwaltung übergeleitet. Kein zweiter Vollaufbau."
         },
         "2028": {
           "id": "T.0303/68601@2028",
-          "betrag": 66300000
+          "betrag": 66300000,
+          "erlaeuterung": "13 neue Bezirksverwaltungen × 50 VZÄ × 100.000 EUR = 65 Mio. EUR (2028 +2 %); 60 % des Personals werden aus bestehender Verwaltung übergeleitet. Kein zweiter Vollaufbau."
         }
       }
     },
@@ -2167,15 +2170,16 @@
       "herkunft": "S",
       "qualitaet": "S_fachmodell",
       "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
-      "erlaeuterung": "120 Mio. EUR (2027) bzw. 140 Mio. EUR (2028) für Sozial- und Schulträgeraufgaben der Berliner Bezirke; finanziert zweckgleich aus der übergeleiteten Berliner Bezirksrücklage (Los BE-bezirke, RFNG Anlage 2).",
       "jahre": {
         "2027": {
           "id": "T.0310/63301@2027",
-          "betrag": 120000000
+          "betrag": 120000000,
+          "erlaeuterung": "120 Mio. EUR (2027) bzw. 140 Mio. EUR (2028) für Sozial- und Schulträgeraufgaben der Berliner Bezirke; finanziert zweckgleich aus der übergeleiteten Berliner Bezirksrücklage (Los BE-bezirke, RFNG Anlage 2)."
         },
         "2028": {
           "id": "T.0310/63301@2028",
-          "betrag": 140000000
+          "betrag": 140000000,
+          "erlaeuterung": "120 Mio. EUR (2027) bzw. 140 Mio. EUR (2028) für Sozial- und Schulträgeraufgaben der Berliner Bezirke; finanziert zweckgleich aus der übergeleiteten Berliner Bezirksrücklage (Los BE-bezirke, RFNG Anlage 2)."
         }
       }
     },

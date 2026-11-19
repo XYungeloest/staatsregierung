@@ -550,11 +550,11 @@ function pruefeQuerverweise(problems, context) {
   }
 
   // Kapitelwirkung der Personalreform: Stand nach der Dienstrechtsneuordnung (nachher) zuzüglich der
-  // Änderungen späterer Stufen (Sicherheitsreform, Endfassung) = Summe der Titel der Gruppe im Kapitel.
+  // Änderungen späterer Stufen (Sicherheitsreform, Endfassung, gegebenenfalls Steuerkorrektur) = Summe der Titel der Gruppe im Kapitel.
   for (const row of kapitelwirkung) {
     problems.equal(
-      row.nachher + row.sicherheitsreform + row.endfassung,
-      'personal.json kapitelwirkung nachher + sicherheitsreform + endfassung',
+      row.nachher + row.sicherheitsreform + row.endfassung + (row.steuerkorrektur ?? 0),
+      'personal.json kapitelwirkung nachher + sicherheitsreform + endfassung und gegebenenfalls steuerkorrektur',
       sumOf(`kg|${row.kapitel}|${row.gruppe}|${row.jahr}`),
       'Summe der Titel der Gruppe',
       `Kapitelwirkung ${row.kapitel}/${row.gruppe} ${row.jahr}`,

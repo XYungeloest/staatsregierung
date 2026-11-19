@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-13",
+  "asOf": "2026-11-19",
   "projects": [
     {
       "id": "project-state-awards",
@@ -1880,7 +1880,7 @@
       "status": "confirmed-official",
       "validFrom": "2025-12-21",
       "validTo": null,
-      "asOf": "2026-08-11",
+      "asOf": "2026-11-19",
       "summary": "Akzeptierte und für insgesamt 30 Millionen Euro bezahlte Beschaffung von zwei Grenzschutz- und zwei militärischen Ausführungen des Griffon 8100 TD. Die Lieferung ist nicht belegt.",
       "sourceRefs": [
         {
@@ -1892,6 +1892,11 @@
           "sourceId": "source-editorial-clarification-eag-2026-08-11",
           "locator": "Abschnitt Vergaben, Unternehmen und Beschaffungen; redaktionelle Nachklärung zum bezahlten Gesamtpreis",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-HOVER · Besichtigungs- und Kommunikationswunsch vom 19. November",
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -1906,7 +1911,8 @@
         "defence"
       ],
       "notes": [
-        "Der verbindliche und bezahlte Gesamtpreis betrug 30 Millionen Euro."
+        "Der verbindliche und bezahlte Gesamtpreis betrug 30 Millionen Euro.",
+        "Am 19. November wurde ein Besuch mit Vorführung und Mitfahrt gewünscht. Lieferung, Abnahme, Einsatzbereitschaft und Durchführung des Termins sind offen."
       ],
       "aliases": [],
       "projectStage": "order-agreed-delivery-unresolved",
@@ -2203,7 +2209,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-03",
       "validTo": null,
-      "asOf": "2026-09-12",
+      "asOf": "2026-11-19",
       "summary": "Das Interflug-Gesetz vom 2. September 2026 errichtet die Interflug als Anstalt des öffentlichen Rechts für Löschflug-, Katastrophenschutz- und Hilfsaufgaben. Seit 3. September 2026 ist das Gesetz in Kraft; der Staatsrat hat den Gründungsvorstand bestellt, der die Anfangsflotte aus zehn Löschflugzeugen (Beschaffungsprogramm bis zu 105,5 Millionen Euro) beschafft hat. Seit 12. September 2026 stellt § 10 Absatz 4 des Interflug-Gesetzes den Schutz des betriebsnotwendigen Vermögens unter den Vorbehalt des Artikels 95a der Staatsverfassung und des Gemeinvermögensschutzgesetzes.",
       "sourceRefs": [
         {
@@ -2225,6 +2231,11 @@
           "sourceId": "source-ogvbl-2026-79",
           "locator": "Artikel 10",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-INTERFLUG · Prüfauftrag vom 17. November",
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -2238,7 +2249,9 @@
         "civil-protection",
         "public-economy"
       ],
-      "notes": [],
+      "notes": [
+        "Die Prüfung kommerzieller Passagier-, Fracht- und Agrarflüge ist als Ausbauvorhaben in der Agenda erschlossen."
+      ],
       "aliases": [],
       "projectStage": "in-force",
       "responsibleInstitutionIds": [
@@ -2791,12 +2804,22 @@
       "status": "confirmed-primary",
       "validFrom": "2026-10-14",
       "validTo": null,
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Handelsorganisationsgesetz ist am 14. Oktober 2026 verkündet worden und seit dem 15. Oktober 2026 in Kraft. Der Freistaat soll eine vollständig landeseigene Handelsorganisation Ost GmbH mit Grundversorgungssortiment und besonderen Versorgungsaufträgen gründen. Handelsregistereintragung, Gesellschaftsvertrag und Geschäftsbetrieb sind noch nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-81",
           "locator": "gesamte Ausgabe; Inkrafttretensregelung im letzten Artikel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-fresswuerfel-ergebnis",
+          "locator": "result.description",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-81",
+          "locator": "Artikel 1 § 3 Absatz 2",
           "role": "primary"
         }
       ],
@@ -2806,7 +2829,8 @@
         "law"
       ],
       "notes": [
-        "Seit dem 15. Oktober 2026 in Kraft (Inkrafttreten am Tag nach der Verkündung vom 14. Oktober 2026); der tatsächliche Vollzug ist bis zum Stichtag nicht belegt."
+        "Seit dem 15. Oktober 2026 in Kraft (Inkrafttreten am Tag nach der Verkündung vom 14. Oktober 2026); der tatsächliche Vollzug ist bis zum Stichtag nicht belegt.",
+        "Die HO stellte Marcus Würfel am 18. November als Maskottchen vor. Das HOG erlaubt Gastronomie im wirtschaftlichen oder räumlichen Zusammenhang nach § 3 Absatz 2. Der Wettbewerb belegt Markenkommunikation. Registereintragung, eigener Restaurantbetrieb und Filialerwerbe benötigen eigene Belege."
       ],
       "projectStage": "in-force",
       "normRefs": [
@@ -2913,7 +2937,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-10-14",
       "validTo": null,
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Kindheits- und Teilhabepaket ist am 14. Oktober 2026 verkündet worden. Die bezeichneten Vorbereitungs-, Datenschutz- und Ermächtigungsregelungen sind seit dem 15. Oktober 2026 in Kraft; die übrigen Leistungen und Änderungen treten am 1. Januar 2027 in Kraft (Artikel 8). Teilhabepass und Sozialpass, Familienservicestellen, Jugendorte, kostenfreie Kita- und Schulverpflegung sowie Mensa-Grundgerichte sind gesetzlich vorgesehen; tatsächliche Ausgabe und Leistungserbringung sind nicht belegt.",
       "sourceRefs": [
         {
@@ -2930,7 +2954,7 @@
       "notes": [
         "Teilweise seit dem 15. Oktober 2026 in Kraft (Artikel 8 Absatz 1); im Übrigen tritt das Gesetz am 1. Januar 2027 in Kraft (Artikel 8 Absatz 2)."
       ],
-      "projectStage": "promulgated",
+      "projectStage": "partly-in-force",
       "normRefs": [
         {
           "normSlug": "ostdeutsches-teilhabegesetz",
