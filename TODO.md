@@ -108,14 +108,24 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Derselbe Lauf übernimmt für diese Normen die sichtbaren REVOSax-Überschriften statt des
   `title`-Attributs der Gliederungseinheit (veraltete Überschriften, maskierte Zeilenumbrüche;
   bei Anlagen, deren Kopfzeile nur Kennzeichen und Bezug nennt, die folgende Überschriftenzeile),
-  erhält Tabellen in Listeneinträgen als Tabellenblock und übernimmt Tabellenbeschriftungen
-  (`<caption>`) als Tabellentitel; all das liest der Parser bereits so.
+  erhält Tabellen in Listeneinträgen als Tabellenblock, übernimmt Tabellenbeschriftungen
+  (`<caption>`) als Tabellentitel und setzt die sichtbare Kopfzeile des Tabellenkörpers an die
+  Stelle der zugänglichen Wiederholung im `<thead>` (`repeatedTableHeader`); all das liest der
+  Parser bereits so.
   Befund: `grep -rlE '"title": "[^"]*<br' content/normen` (betrifft nur noch Normen ohne lokalen
-  Snapshot).
+  Snapshot); doppelte Tabellenköpfe: Tabellen, deren erste Zeile nur Kopfzellen trägt und deren
+  zweite Zeile mehr als die Hälfte dieser Köpfe wiederholt (316 Tabellen in 122 Normen, etwa
+  `landesentwicklungsplan-2013`).
+  Die Kennzeile von neun dieser Normen endete mit einem Fußnotenzeichen, mit oder ohne Leerzeichen
+  („… – LEP 2013) 1“, „… (NaturschutzdienstVO)1“); ihre Titel sind bereinigt, der Parser
+  verwirft das Zeichen aber noch nicht, weil seine Auszeichnung in der Kennzeile ohne Rohseite
+  nicht prüfbar ist. Vor dem Neuerzeugen an einer gecachten Rohseite (etwa 12896) die Auszeichnung
+  prüfen und das Zeichen in `parseRevosaxSnapshot` mit synthetischem Test verwerfen.
   Fertig, wenn der Plan die drei Akte als CREATE führt, das Import-Audit für sie keine
   post-cutoff-Marke mehr hat, die Materialisierung mit vorhandenem Plan ohne Fehler läuft und der
-  Satzzahl-Befund außer diesen beiden Verfassungsnormen 0 Treffer hat, der `<br`-Befund 0 Treffer hat und
-  keine Überschrift einer übernommenen Norm vom sichtbaren REVOSax-Wortlaut abweicht; den Bezug in
+  Satzzahl-Befund außer diesen beiden Verfassungsnormen 0 Treffer hat, der `<br`-Befund und der
+  Befund doppelter Tabellenköpfe 0 Treffer haben, kein Titel auf das Zeichen einer eigenen Fußnote
+  (`sourceNotes[].label`) endet und keine Überschrift einer übernommenen Norm vom sichtbaren REVOSax-Wortlaut abweicht; den Bezug in
   Anlagenkennzeichen regelt der folgende Eintrag.
 - [ ] Sichtbarer Bezug in REVOSax-Anlagenkennzeichen: `markerFromSection` in
   `scripts/lib/revosax-parser.mjs` übernimmt das Kennzeichen samt Bezug „(zu § …)“ nur aus dem
@@ -226,6 +236,48 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   `scripts/knowledge.mjs check` liest sie nicht. Fertig, wenn die Prüfung `normSlug`, die
   Normfassungen in `evidence`, Wissenshub-IDs und das Feld `norm` (abbr, sonst shortTitle, sonst
   title aus `meta.json`) gegen den Bestand abgleicht, mit synthetischem Test.
+- [ ] Fußnoten übernommener Vorschriften überleiten: `parseSourceNotes` in
+  `scripts/lib/revosax-parser.mjs` legt alle Fußnoten der Quelle als `sourceNotes` ab;
+  `adaptParsedRevosaxSnapshot` in `scripts/lib/revosax-ost-adapter.mjs` passt sie nicht an, und
+  `scripts/audit-ost-residuals.mjs` nimmt sie als Provenienz (`PROVENANCE_KEYS`) vom Audit aus.
+  Viele dieser Fußnoten sind Normtext: Die Datenansicht der VwV-OstHO nennt in den Fußnoten 15, 18
+  und 28 „SäHO“, der Haupttext „OstHO“. Daneben stehen Redaktionshinweise der Quelle
+  (Gerichtsentscheidungen, Inkrafttretensbekanntmachungen, Webadressen). Betroffen sind 68
+  Fußnoten in 40 übernommenen Vorschriften (`hasSaxonResidual` über die `sourceNotes` aller
+  Fassungen). Zugleich gehen Tabellen in Fußnoten verloren, weil eine Fußnote nur Text trägt
+  (VwV-OstHO Fußnote 28: Kopfzeile „Unterscheidung lfd. Buchst. Text“ im Fließtext). Fertig, wenn
+  in `docs/REVOSAX_BULK_IMPORT.md` Abschnitt 3 festgelegt ist, welche Fußnoten übergeleitet werden,
+  der Adapter sie anpasst, der Reststellenaudit sie prüft, Fußnotentabellen strukturiert erhalten
+  bleiben (mit synthetischen Tests) und die betroffenen Vorschriften neu materialisiert sind.
+- [ ] Absatzadressen unter gedruckten Gliederungsnummern eindeutig machen: Steht ein Absatz unter
+  einer gedruckten Nummer mit Überschrift innerhalb einer Einheit („3. Kontaktstelle / (1) … /
+  4. Daten / (1) …“, etwa in den Anhängen der Grenzraumabkommen OVertrBl. 2026 Nr. 2 und 3), bildet
+  `subparagraphId` in `apps/recht/src/components/norms/NormBody.astro` Anker und verborgene
+  Adresse nur aus Einheit und Absatznummer. Gleich nummerierte Absätze verschiedener
+  Nummern heißen dadurch beide „Anhang 5 (1)“ und unterscheiden sich nur durch einen angehängten
+  Zähler im Anker. Fertig, wenn Adresse und Anker solcher Absätze die übergeordnete Nummer
+  enthalten, bestehende Anker als Weiterleitungsanker erhalten bleiben und ein synthetischer Test
+  zwei gleich nummerierte Absätze unter verschiedenen Nummern unterscheidet.
+- [ ] Textverweis vom Zustimmungsgesetz auf das Helsinki-Übereinkommen: Die Rechtsbeziehung ist
+  über `relatedNorms` in
+  `content/normen/gesetz-zu-dem-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets/meta.json`
+  hergestellt, im Normtext von Artikel 1 fehlt aber der Link. `buildNormTextLinkReferences` in
+  `packages/shared/src/lib/norms/references.ts` bildet Textlinks nur aus `abbr` und `shortTitle`
+  der Zielnorm, und `apps/recht/src/components/norms/NormBody.astro` wendet
+  `renderLinkedDisplayText` nur auf Blocktext und Tabellenzellen an, nicht auf Überschriften. Der
+  Text von Artikel 1 nennt das Übereinkommen mit seinem langen Vertragstitel, der weder `title`
+  noch `shortTitle` wörtlich enthält; nur die Überschrift lautet „Zustimmung zum
+  Helsinki-Übereinkommen“. Eine nicht belegte Abkürzung scheidet aus
+  (`UNVERIFIED_ABBREVIATIONS` in `scripts/import-normen.mjs`). Auch eine Verlinkung von
+  Überschriften ergäbe allein keinen Treffer, weil die Überschrift weder `shortTitle` noch `title`
+  der Zielnorm enthält. Jeder Weg braucht deshalb eine zusätzliche Verweisbezeichnung, die wörtlich
+  im verlinkten Text steht: für die Überschrift „Helsinki-Übereinkommen“, für den Absatztext eine
+  Wendung aus dem dort genannten Vertragstitel. Fertig, wenn ein redaktionelles Feld für
+  zusätzliche Verweisbezeichnungen einer Norm von Importer, Konsolidierung und D1-Sync erhalten
+  wird und in die Textlinks eingeht, Artikel 1 des Zustimmungsgesetzes (Absatztext oder, falls die
+  Leitung Überschriftenlinks festlegt, Überschrift) über diese Bezeichnung auf
+  `/norm/helsinki-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets/` verweist
+  und ein synthetischer Test unter `tests/` das abdeckt.
 
 ## Staatsportal
 

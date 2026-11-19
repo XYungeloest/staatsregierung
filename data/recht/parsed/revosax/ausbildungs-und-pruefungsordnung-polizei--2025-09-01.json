@@ -1121,23 +1121,6 @@
                       "children": [
                         {
                           "type": "tableCell",
-                          "text": "Note"
-                        },
-                        {
-                          "type": "tableCell",
-                          "text": "Notenpunkte"
-                        },
-                        {
-                          "type": "tableCell",
-                          "text": "Beschreibung"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "tableRow",
-                      "children": [
-                        {
-                          "type": "tableCell",
                           "text": "sehr gut (1)"
                         },
                         {
@@ -1647,18 +1630,9 @@
                   "children": [
                     {
                       "type": "tableHeaderCell",
-                      "text": "von %",
-                      "scope": "col"
-                    },
-                    {
-                      "type": "tableHeaderCell",
-                      "text": "bis",
-                      "scope": "col"
-                    },
-                    {
-                      "type": "tableHeaderCell",
-                      "text": "bis %",
-                      "scope": "col"
+                      "text": "Prozentanteile der Zählpunkte",
+                      "scope": "col",
+                      "colspan": 3
                     },
                     {
                       "type": "tableHeaderCell",
@@ -1669,24 +1643,6 @@
                       "type": "tableHeaderCell",
                       "text": "Note",
                       "scope": "col"
-                    }
-                  ]
-                },
-                {
-                  "type": "tableRow",
-                  "children": [
-                    {
-                      "type": "tableCell",
-                      "text": "Prozentanteile der Zählpunkte",
-                      "colspan": 3
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Notenpunkte"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Note"
                     }
                   ]
                 },

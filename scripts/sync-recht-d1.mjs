@@ -24,7 +24,7 @@ import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/rou
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/norm-portal-content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases, isAmendmentRecord } from '@ostrecht/recht-search/search.ts';
 
-import { isEmptyScope, metaIdentityChanged, NORM_TARGETS, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
+import { addLogicAffectedSlugs, isEmptyScope, metaIdentityChanged, NORM_TARGETS, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
 import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { FULL_SCOPE, fixtureScope, portalProjectionChangedSince, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
@@ -777,6 +777,7 @@ export function assessSyncDecision({ decision, scope, budgetProfile = null, limi
     if (scope.derivedRebuild) parts.push('abgeleitete Daten aller Normen');
     if (scope.refreshSearchDocuments) parts.push('Suchdokumente aller Normen');
     if (scope.refreshKeywords) parts.push('Stichworteinträge aller Normen');
+    if ((scope.logicAffectedSlugs ?? []).length > 0) parts.push(`davon ${scope.logicAffectedSlugs.length} durch die Logikänderung abweichende Norm(en) vollständig`);
     return { ok: true, code: 'incremental', message: `Inkrementell mit verifizierter Basis: ${parts.join(', ')}.` };
   }
   if (decision.action === 'recovery') return { ok: true, code: 'recovery', message: `Recovery-Vollprojektion mit eigenem Budget (${decision.reason}).` };
@@ -805,6 +806,45 @@ export function isMetadataOnlyRun({ decision, scope, proof = null }) {
   if (!isEmptyScope(scope)) return false;
   if (!proof) return true;
   return proof.result === 'identity' && proof.logicChange === 'ignore' && proof.scopeSignature === scopeSignature(scope);
+}
+
+/**
+ * Wendet einen Äquivalenznachweis auf einen `--git-diff`-Lauf an, fail-closed: zuerst jede
+ * Bindung des Nachweises (validateProof: Schema, Comparator, Ergebnis, Scope, Basis- und
+ * Ziel-Commit der `--git-diff`-Refs, Ziel- und Basisidentität, Form der zusätzlich neu zu
+ * schreibenden Normen), dann der Umfang selbst. `commits` löst der Sync aus `args` auf
+ * (gitDiffCommits); Tests übergeben sie ausdrücklich. Der
+ * Umfang wird mit dem nachgewiesenen `logicChange` und den Normen aus `logicAffectedSlugs` neu
+ * bestimmt (resolveScope, wie im Nachweis) und muss exakt die Umfangssignatur des Nachweises
+ * ergeben; eine veränderte, ergänzte oder entfernte Normliste ergibt einen anderen Umfang, eine
+ * Norm außerhalb des Bestands lehnt resolveScope ab. Ein Nachweis `full` bleibt das Release-Gate.
+ * @returns {Promise<{ ok: true, scope: object } | { ok: false, code: 'full-gate' | 'proof-invalid' | 'proof-scope-mismatch', message: string }>}
+ */
+export async function applyEquivalenceProof({ proof, args, norms, publications, logicPaths, storedFingerprint, headIdentity, commits = null, scopeId = FULL_SCOPE, resolve: resolveProofScope = resolveScope }) {
+  let runCommits = commits;
+  if (!runCommits) {
+    try {
+      runCommits = await gitDiffCommits(args);
+    } catch (error) {
+      runCommits = null;
+      if (proof?.result !== 'full') return { ok: false, code: 'proof-invalid', message: `Äquivalenznachweis nicht anwendbar (fail-closed): Commits des Laufs nicht auflösbar (${error.message})` };
+    }
+  }
+  const validation = validateProof(proof, { storedFingerprint, headIdentity, commits: runCommits, scope: scopeId });
+  if (!validation.ok) {
+    if (proof?.result === 'full') return { ok: false, code: 'full-gate', message: describeProofResult(proof) };
+    return { ok: false, code: 'proof-invalid', message: `Äquivalenznachweis nicht anwendbar (fail-closed): ${validation.problems.join('; ')}` };
+  }
+  let scope;
+  try {
+    scope = await resolveProofScope(args, { norms, publications, logicPaths, logicChange: proof.logicChange, logicAffectedSlugs: proof.logicAffectedSlugs ?? null });
+  } catch (error) {
+    return { ok: false, code: 'proof-scope-mismatch', message: `Äquivalenznachweis nicht anwendbar (fail-closed): ${error.message}` };
+  }
+  if (scope.mode !== 'incremental' || scopeSignature(scope) !== proof.scopeSignature) {
+    return { ok: false, code: 'proof-scope-mismatch', message: `Äquivalenznachweis nicht anwendbar (fail-closed): der Umfang dieses Laufs entspricht nicht dem nachgewiesenen Umfang (${scope.mode}; ${scope.reasons.slice(0, 3).join('; ')})` };
+  }
+  return { ok: true, scope };
 }
 
 /**
@@ -1008,6 +1048,15 @@ export function changedMetaFields(previous, current) {
   return [...keys].filter((key) => JSON.stringify(previous[key] ?? null) !== JSON.stringify(current[key] ?? null)).sort();
 }
 
+/** Aufgelöste Commits von `--git-diff <base> <head>` (Bindung eines Äquivalenznachweises). */
+export async function gitDiffCommits(args) {
+  const index = args.indexOf('--git-diff');
+  const [base, head] = index >= 0 ? [args[index + 1], args[index + 2]] : [];
+  if (!base || !head) throw new Error('--git-diff braucht <base> <head>');
+  const commit = async (ref) => (await execFileAsync('git', ['rev-parse', '--verify', `${ref}^{commit}`], { cwd: ROOT })).stdout.trim();
+  return { base: await commit(base), head: await commit(head) };
+}
+
 async function gitChangedPaths(base, head) {
   const { stdout } = await execFileAsync('git', ['diff', '--name-only', base, head], { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 });
   return stdout.split(/\r?\n/u).filter(Boolean);
@@ -1029,9 +1078,12 @@ export function applyCorpusFilter(norms, fixture, label = 'Fixture') {
 
 /**
  * Bestimmt den Sync-Umfang aus den Kommandozeilenoptionen. Genau eine Umfangsangabe
- * ist erforderlich; ein Aufruf ohne Angabe löst keinen Vollsync mehr aus.
+ * ist erforderlich; ein Aufruf ohne Angabe löst keinen Vollsync mehr aus. `logicChange` und
+ * `logicAffectedSlugs` (zusätzlich vollständig neu zu schreibende Normen einer engen
+ * Logikänderung) setzt nur ein validierter Äquivalenznachweis, und nur zu `--git-diff`.
  */
-export async function resolveScope(args, { norms, publications, logicPaths = null, logicChange = 'full' }) {
+export async function resolveScope(args, { norms, publications, logicPaths = null, logicChange = 'full', logicAffectedSlugs = null }) {
+  if (logicAffectedSlugs !== null && logicAffectedSlugs !== undefined && !args.includes('--git-diff')) throw new Error('logicAffectedSlugs gibt es nur mit --git-diff <base> <head> und einem Äquivalenznachweis (fail-closed)');
   const existingSlugs = new Set(norms.map((norm) => norm.meta.slug));
   const existingPublications = new Set(publications.map((publication) => publication.slug));
   const requestedSlugs = valuesAfter(args, '--slug');
@@ -1096,7 +1148,7 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
   const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, logicPaths, logicChange, portalProjectionChanged, metaFieldsChanged });
   if (referenceDateSlugs && paths.includes(REFERENCE_DATE_PATH)) scope.referenceDate = { from: previousReferenceDate, to: EDITORIAL_REFERENCE_DATE };
   if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) addNormsCitingPublications(scope, publications, existingSlugs);
-  return scope;
+  return addLogicAffectedSlugs(scope, logicAffectedSlugs, { existingSlugs, logicChange });
 }
 
 /**
@@ -1328,22 +1380,18 @@ async function main() {
     // Äquivalenznachweis statt Vollprojektion: jede Bindung wird geprüft, bevor der nachgewiesene
     // Umfang gilt (scripts/lib/d1-projection-proof-format.mjs).
     const proof = await readProof(resolve(ROOT, proofFile));
-    const validation = validateProof(proof, { storedFingerprint: stored?.projection_fingerprint ?? null, headIdentity: fingerprint, scope: scopeId });
-    if (!validation.ok) {
-      const message = `Äquivalenznachweis nicht anwendbar (fail-closed): ${validation.problems.join('; ')}`;
-      if (proof?.result === 'full') assessment = { ok: false, code: 'full-gate', message: `${assessment.message} Nachweis: ${describeProofResult(proof)}.` };
-      else assessment = { ok: false, code: 'proof-invalid', message };
+    const applied = await applyEquivalenceProof({ proof, args, norms, publications, logicPaths, storedFingerprint: stored?.projection_fingerprint ?? null, headIdentity: fingerprint, scopeId });
+    if (!applied.ok) {
+      assessment = applied.code === 'full-gate'
+        ? { ok: false, code: 'full-gate', message: `${assessment.message} Nachweis: ${describeProofResult(proof)}.` }
+        : { ok: false, code: applied.code, message: applied.message };
     } else {
-      scope = await resolveScope(args, { norms, publications, logicPaths, logicChange: proof.logicChange });
-      if (scope.mode !== 'incremental' || scopeSignature(scope) !== proof.scopeSignature) {
-        assessment = { ok: false, code: 'proof-scope-mismatch', message: `Äquivalenznachweis nicht anwendbar (fail-closed): der Umfang dieses Laufs entspricht nicht dem nachgewiesenen Umfang (${scope.mode}; ${scope.reasons.slice(0, 3).join('; ')})` };
-      } else {
-        decision = decide('incremental');
-        appliedProof = proof;
-        assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
-        console.log(`Äquivalenznachweis (${proof.head.commit.slice(0, 9)} gegen ${proof.base.commit.slice(0, 9)}): ${describeProofResult(proof)}`);
-        console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
-      }
+      scope = applied.scope;
+      decision = decide('incremental');
+      appliedProof = proof;
+      assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
+      console.log(`Äquivalenznachweis (${proof.head.commit.slice(0, 9)} gegen ${proof.base.commit.slice(0, 9)}): ${describeProofResult(proof)}`);
+      console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
     }
   }
   if (remoteState) {

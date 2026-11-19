@@ -15,6 +15,16 @@ export function publicationEntryPages(index, { issuePageRange, configuredPages }
   return index === 0 ? issuePageRange : undefined;
 }
 
+/**
+ * Am amtlichen PDF belegter Seitenumfang der ganzen Ausgabe aus ihren Quellenangaben, etwa
+ * „2–39“; ohne belegten Umfang nichts.
+ */
+export function issuePageRangeFromSources(sourceReferences) {
+  const sources = sourceReferences ?? [];
+  return (sources.find((source) => source.kind === 'primary-pdf' && source.pageRange)
+    ?? sources.find((source) => source.sourceRole === 'structure-bearing' && source.pageRange))?.pageRange;
+}
+
 function isMultiPageRange(value) {
   return /^\d+\s*[–-]\s*\d+$/u.test(String(value ?? '').trim());
 }

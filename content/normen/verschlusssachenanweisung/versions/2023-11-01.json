@@ -3706,13 +3706,9 @@
               "children": [
                 {
                   "type": "tableHeaderCell",
-                  "text": "lfd. Nr.",
-                  "scope": "col"
-                },
-                {
-                  "type": "tableHeaderCell",
-                  "text": "Den deutschen Geheimhaltungsgraden entsprechen",
-                  "scope": "col"
+                  "text": "Den deutschen\nGeheimhaltungsgraden\nentsprechen",
+                  "scope": "col",
+                  "colspan": 2
                 },
                 {
                   "type": "tableHeaderCell",
@@ -3733,32 +3729,6 @@
                   "type": "tableHeaderCell",
                   "text": "STRENG GEHEIM",
                   "scope": "col"
-                }
-              ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "Den deutschen\nGeheimhaltungsgraden\nentsprechen",
-                  "colspan": 2
-                },
-                {
-                  "type": "tableCell",
-                  "text": "VS-NUR FÜR DEN DIENSTGEBRAUCH"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "VS-VERTRAULICH"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "GEHEIM"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "STRENG GEHEIM"
                 }
               ]
             },

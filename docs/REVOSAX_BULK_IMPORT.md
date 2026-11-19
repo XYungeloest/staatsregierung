@@ -112,6 +112,14 @@ wiederholte Zeile; bleibt kein Text übrig, entfällt der Punkt und seine Unterp
 Stelle. Gestrichen wird nur bei vollständiger Übereinstimmung ganzer Zeilen – ein Text, der
 lediglich mit demselben Wort beginnt, bleibt unverändert. Gesperrter Satz der Quelle
 (Amtsbezeichnungen, „s o l l“) wird bei der Rechtsüberleitung als gewöhnliches Wort übernommen.
+Tabellenköpfe stehen ebenso genau einmal: REVOSax wiederholt die sichtbare erste Zeile des
+Tabellenkörpers oft als zugängliche Kopfzeile im `<thead>`. Nimmt die erste Körperzeile mehr als
+die Hälfte dieser Köpfe auf oder ist sie durchgehend fett gesetzt und nimmt mindestens einen auf,
+wird sie zur Kopfzeile und der `<thead>` entfällt; beginnt der Körper mit Inhalt, bleibt er.
+Unterscheidet sich ein hochgestufter Kopf vom gleichlautenden `<thead>`-Kopf nur durch die
+Silbentrennung der Druckvorlage („Tarif-“/„stelle“), gilt der Wortlaut des `<thead>`; Einheiten
+und Zusätze der sichtbaren Zeile („Gebühren EUR“) bleiben. Zeilenumbrüche in Zellen bleiben
+erhalten.
 
 Fassungslogik: dynamische Treffer werden über die numerische Stammnorm-URL geladen und auf die
 tatsächlich angezeigte konkrete Fassung festgelegt; „Fassung gültig ab“ muss dem Treffer
@@ -170,8 +178,13 @@ Vor der Überleitung geschützt und im Reststellenaudit nicht als Rest gewertet 
   (einschließlich `Sächsische Schweiz-Osterzgebirge` und `Nationalpark Sächsische Schweiz`),
   `Sächsisch-Böhmische Schweiz` mit Leerzeichen oder Bindestrich (`Sächsisch-Böhmischen-Schweiz`),
   `Sächsisches Elbsandsteingebirge`, der Ortszusatz `Sächs. Schw.`/`Sächs. Schweiz`
-  (`Königstein/Sächs. Schw.`), der Gemeindename `Neustadt in Sachsen` und der Vereinsname
-  `Silicon Saxony`.
+  (`Königstein/Sächs. Schw.`), der Gemeindename `Neustadt in Sachsen`, die Vereinsnamen
+  `Silicon Saxony`, `Sächsischer Bergsteigerbund` und `Sächsisches Burgen- und Heideland`
+  (Tourismusverband) samt dem Vereinsregelwerk `Sächsische Kletterregeln` (auch klein
+  geschrieben), der Zeitungstitel `Sächsische Zeitung` in historischen Fundstellen, der Naturraum
+  `Sächsisches Lösshügelland` (auch `Lößhügelland`), die Eisenbahnmagistrale
+  `Sachsen-Franken-Magistrale` sowie die Radfernwege `Sächsische Städteroute` und
+  `Sächsische Mittelgebirge` (nur unmittelbar nach `Radfernweg` oder `Fernradweg`).
 - Wortlaut aus Patch-Rezepten, der wörtlich in der ostdeutschen Änderungsvorschrift unter
   `Gesetze/` steht, auch wenn er einen Sachsen-Bezug enthält (`literalAmendmentStrings` und
   `adaptBodyBlocks(…, { preserve })`, in `scripts/consolidate-norms.mjs` über `preserveByVersion`).
@@ -389,7 +402,20 @@ Primärschlüssel, Volltextstichproben; normalisiert werden nur `updated_at`, `l
 `sync_mode`, `sync_state`, die Identitätszeilen und die rowid der Suchzeilen). Geprüft wird, ob
 der inkrementelle Umfang des Syncs – zuerst mit der Logikänderung als datenneutral (`ignore`),
 dann als enge Logikprojektion (`narrow`: Suchdokumente, abgeleitete Daten und abgeleitete
-Normspalten aller Normen) – auf die Basis angewendet exakt das Ziel ergibt. Ergebnis `identity`
+Normspalten aller Normen) – auf die Basis angewendet exakt das Ziel ergibt. Weicht `narrow` nur
+in normbezogenen Tabellen ab (`law_norms` ohne neue oder entfernte Norm, `law_versions`,
+`law_version_blocks`, `law_source_objects`, `law_search_units`, `law_search_documents`,
+`law_norm_*`) und nur bei höchstens `MAX_LOGIC_AFFECTED_NORMS` (250) Normen beider Projektionen,
+folgt ein dritter Versuch (im Protokoll `narrow-affected`; die Nachweisdatei trägt weiter
+`logicChange: narrow`, erkennbar an der nicht leeren Liste `logicAffectedSlugs`): genau diese
+Normen – vollständig aus dem Tabellenvergleich (`normIds` je Tabelle, Comparator 3), nicht aus
+den Beispielschlüsseln – werden zusätzlich vollständig neu geschrieben (ohne
+Metadata-only-Einschränkung) und erneut verglichen. Nur bei Identität lautet das Ergebnis
+`incremental`; die Liste steht als `logicAffectedSlugs` im Nachweis und in der Umfangssignatur,
+der Sync nimmt sie über `resolveScope` in den Umfang (und in Plan und Kostenschätzung) auf, und
+die CI-Zusammenfassung nennt sie. Eine Abweichung in anderen Tabellen (`law_publications`,
+`law_runtime_meta` …), eine abweichende Volltextstichprobe ohne abweichende `law_search_units`,
+eine neue oder entfernte Norm oder mehr Normen als die Obergrenze bleiben `full`. Ergebnis `identity`
 (nur Identität und Laufzeitmetadaten: der Sync berechnet dann keine korpusweiten Ableitungen,
 sondern lädt den Bestand nur, um den leeren Umfang zu bestimmen und die korpusabgeleiteten
 Zeilen von `law_runtime_meta` neu zu schreiben – `isMetadataOnlyRun`/`planRun` in
@@ -397,8 +423,10 @@ Zeilen von `law_runtime_meta` neu zu schreiben – `isMetadataOnlyRun`/`planRun`
 den normalen fail-closed Projektionsweg), `incremental` (nachgewiesener Umfang) oder `full`
 (abweichende Tabellen werden genannt; Schemaänderungen sind immer `full`). Die Nachweisdatei ist
 an Basis- und Ziel-Commit, alte und neue Identität, Scope, Comparator-Version und Umfangssignatur
-gebunden; `--equivalence-proof <Datei>` prüft jede Bindung gegen die gespeicherte Identität in D1
-und den Arbeitsbaum, bevor der Sync statt der Vollprojektion den nachgewiesenen Umfang schreibt.
+gebunden; `--equivalence-proof <Datei>` prüft jede Bindung gegen die gespeicherte Identität in D1,
+die aufgelösten Commits der eigenen `--git-diff`-Refs und den Arbeitsbaum, bevor der Sync statt der Vollprojektion den nachgewiesenen Umfang schreibt
+(`applyEquivalenceProof`: eine veränderte, fehlende oder nicht kanonische Normliste oder eine Norm
+außerhalb des Bestands lässt die Prüfung fail-closed scheitern).
 Einen frei setzbaren Bypass (Annahme einer engen Änderung, Neuschreiben der Identität ohne
 Vergleich) gibt es nicht. In CI rechnen `d1_token_check` (Pull Request) und `d1_sync` (`main`)
 den Nachweis selbst (`docs/DEPLOYMENT_RUNBOOK.md`).

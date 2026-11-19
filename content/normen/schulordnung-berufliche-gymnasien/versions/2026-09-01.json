@@ -3297,13 +3297,9 @@
                       "children": [
                         {
                           "type": "tableHeaderCell",
-                          "text": "Laufende Nummer",
-                          "scope": "col"
-                        },
-                        {
-                          "type": "tableHeaderCell",
                           "text": "Prüfungsfach",
-                          "scope": "col"
+                          "scope": "col",
+                          "colspan": 2
                         },
                         {
                           "type": "tableHeaderCell",
@@ -3314,24 +3310,6 @@
                           "type": "tableHeaderCell",
                           "text": "Höchstpunktzahl",
                           "scope": "col"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "tableRow",
-                      "children": [
-                        {
-                          "type": "tableCell",
-                          "text": "Prüfungsfach",
-                          "colspan": 2
-                        },
-                        {
-                          "type": "tableCell",
-                          "text": "Faktor"
-                        },
-                        {
-                          "type": "tableCell",
-                          "text": "Höchstpunktzahl"
                         }
                       ]
                     },
@@ -4112,19 +4090,6 @@
                   "children": [
                     {
                       "type": "tableCell",
-                      "text": "Punkte"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Durchschnittsnote"
-                    }
-                  ]
-                },
-                {
-                  "type": "tableRow",
-                  "children": [
-                    {
-                      "type": "tableCell",
                       "text": "900 – 823"
                     },
                     {
@@ -4576,27 +4541,6 @@
                       "type": "tableHeaderCell",
                       "text": "berufsbezogener Lehrplan",
                       "scope": "col"
-                    }
-                  ]
-                },
-                {
-                  "type": "tableRow",
-                  "children": [
-                    {
-                      "type": "tableCell",
-                      "text": "Fachrichtung"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Zweites Leistungskursfach"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "Zugeordnete anerkannte Ausbildungsberufe"
-                    },
-                    {
-                      "type": "tableCell",
-                      "text": "berufsbezogener Lehrplan"
                     }
                   ]
                 },

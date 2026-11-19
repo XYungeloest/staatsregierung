@@ -11,7 +11,8 @@ import type { NormBodyBlock, NormRecord, NormVersion } from '@ostrecht/shared/li
 import type { NormPublicationReference } from '@ostrecht/shared/lib/norms/publications.ts';
 import { formatSourceLabel } from '../../lib/source-labels.ts';
 import { formatShortDate } from '../../lib/dates.ts';
-import { outOfForceSince, shortCitation } from '../../lib/norm-head.ts';
+import { factsCitation, outOfForceSince } from '../../lib/norm-head.ts';
+import { historyCitationLabel, historyTypeLabel } from '../../lib/history-labels.ts';
 import { referenceDateLabel, validityLabel, VALIDITY_FIELD_LABEL, LEGAL_STATUS_FIELD_LABEL } from '../../lib/vocabulary.ts';
 
 /**
@@ -79,15 +80,20 @@ const originLinks = [
 ];
 
 const amendments = [...origin.ownChanges].sort((left, right) => right.date.localeCompare(left.date));
+/** Art wie im Protokoll der Historie; der Hinweis des Historieneintrags erkennt eine Befristung. */
+const amendmentTypeLabel = (entry: (typeof amendments)[number]): string => historyTypeLabel({
+  type: entry.type,
+  title: entry.title,
+  note: norm.history.entries.find((candidate) => candidate.type === entry.type && candidate.date === entry.date && candidate.citation === entry.citation)?.note,
+  relatedNorm: entry.relatedNormSlug,
+});
 const amendmentTitle = (slug: string | undefined, fallback: string): string => {
   const identity = slug ? amendmentLabels?.get(slug) : undefined;
   return identity ? getNormTitleBlock(identity).heading : toDisplayText(fallback);
 };
 
-/** Stammfundstelle nur, wenn sie nach Normalisierung von der Fundstelle abweicht (keine Doppelung). */
-const normalizeCitation = (value: string) => (shortCitation(value) || toDisplayText(value)).replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de-DE');
-const hasDistinctInitialCitation = Boolean(norm.meta.initialCitation.trim()) && normalizeCitation(norm.meta.initialCitation) !== normalizeCitation(version.citation)
-  && !(publicationReference && normalizeCitation(norm.meta.initialCitation) === normalizeCitation(`${publicationReference.publicationTitle}${publicationReference.startPage ? ` S. ${publicationReference.startPage}` : ''}`));
+/** Fundstelle wie in der Fassungsliste; Stammfundstelle nur, wenn sie davon abweicht (keine Doppelung). */
+const citation = factsCitation(norm, version, { baselineVersionId: origin.baselineVersionId, publicationReference });
 const sourceReference = version.sourceReferences?.[0] ?? norm.meta.sourceReferences?.[0];
 const isAgreement = norm.meta.type === 'verwaltungsabkommen' || norm.meta.type === 'staatsvertrag';
 const documentDateLabel = isAgreement ? 'Abschlussdatum' : 'Normdatum';
@@ -133,7 +139,7 @@ const scope = [
       <span data-full-citation id="norm-facts-full-citation">{toDisplayText(fullCitation)}</span>
       <button class="r-link-btn norm-facts__copy" type="button" data-copy-text="norm-facts-full-citation" data-copy-done="Vollzitat wurde kopiert." data-copy-full-citation>Vollzitat kopieren</button>
     </dd>
-    <dt>Fundstelle</dt>
+    {publicationReference || citation.citation || citation.initialCitation ? <><dt>Fundstelle</dt>
     <dd>
       {publicationReference ? (
         <>
@@ -141,9 +147,9 @@ const scope = [
           {', '}<time datetime={publicationReference.publicationDate}>{formatShortDate(publicationReference.publicationDate)}</time>
           {publicationReference.pages ? `, Seiten ${toDisplayText(publicationReference.pages)}` : publicationReference.startPage ? `, Beginn auf Seite ${toDisplayText(publicationReference.startPage)}` : ''}
         </>
-      ) : shortCitation(version.citation) || toDisplayText(version.citation)}
-      {hasDistinctInitialCitation ? <span class="r-muted norm-facts__initial">Stammfundstelle: {shortCitation(norm.meta.initialCitation) || toDisplayText(norm.meta.initialCitation)}</span> : null}
-    </dd>
+      ) : citation.citation}
+      {citation.initialCitation ? <span class="r-muted norm-facts__initial">Stammfundstelle: {citation.initialCitation}</span> : null}
+    </dd></> : null}
     {showDocumentDate ? <><dt>{documentDateLabel}</dt><dd><time datetime={norm.meta.documentDate}>{formatDate(norm.meta.documentDate!)}</time></dd></> : null}
     {showPublicationDate ? <><dt>Veröffentlicht</dt><dd><time datetime={norm.meta.publicationDate}>{formatDate(norm.meta.publicationDate!)}</time></dd></> : null}
     {inForceSince ? <><dt>Inkrafttreten</dt><dd><time datetime={inForceSince}>{formatDate(inForceSince)}</time></dd></> : null}
@@ -183,7 +189,7 @@ const scope = [
               <td class:list={['r-nowrap', 'r-meta', entry.date > (norm.versions.find((candidate) => classifyNormVersion(norm, candidate) === 'current')?.validFrom ?? '') ? 'r-future-text' : 'r-muted']}>wirksam {formatShortDate(entry.date)}</td>
               <td>
                 {entry.relatedNormSlug ? <a href={getNormUrl(entry.relatedNormSlug)}>{amendmentTitle(entry.relatedNormSlug, entry.title)}</a> : toDisplayText(entry.title)}
-                <div class="r-meta">{entry.type === 'repeal' ? 'Aufhebung' : 'Änderung'}{shortCitation(entry.citation) ? ` · ${shortCitation(entry.citation)}` : ''} · <a href={getNormHistoryUrl(norm.meta.slug)}>Auswirkungen auf geltendes Recht</a></div>
+                <div class="r-meta">{amendmentTypeLabel(entry)}{historyCitationLabel(entry) ? ` · ${historyCitationLabel(entry)}` : ''} · <a href={getNormHistoryUrl(norm.meta.slug)}>Auswirkungen auf geltendes Recht</a></div>
               </td>
             </tr>
           ))}

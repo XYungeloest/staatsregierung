@@ -4,9 +4,11 @@ import { readFile } from 'node:fs/promises';
 
 import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
 
-import { scopeSignature } from '../scripts/lib/d1-sync-scope.mjs';
+import { COMPARATOR_VERSION, PROOF_SCHEMA } from '../scripts/lib/d1-projection-proof-format.mjs';
+import { AFFECTED_ATTEMPT, proofOutcomeFields, proofScopes, runProofAttempts } from '../scripts/lib/d1-projection-proof.mjs';
+import { addLogicAffectedSlugs, scopeFromChangedPaths, scopeSignature } from '../scripts/lib/d1-sync-scope.mjs';
 import {
-  BULK_METADATA_PROFILE, D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertBulkMetadataScope, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, classifyStoredIdentityError, decideSyncAction, estimatePlanCost,
+  BULK_METADATA_PROFILE, applyEquivalenceProof, resolveScope, D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertBulkMetadataScope, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, classifyStoredIdentityError, decideSyncAction, estimatePlanCost,
   createStats, recordResults, identityMetaValues, incrementalStartQueries, isMetadataOnlyRun, isTransientD1Error, planRun, renderStatement, resolveBudget, runtimeMetaQueries,
 } from '../scripts/sync-recht-d1.mjs';
 import { fixtureCorpus } from './helpers/fixture-corpus.ts';
@@ -407,4 +409,151 @@ test('bulk-metadata weist jeden unklassifizierten oder erweiterten Umfang ab', (
   // Der zulässige Fall bleibt zulässig, und ohne das Profil greift der Guard überhaupt nicht.
   assert.doesNotThrow(() => assertBulkMetadataScope({ budgetProfile: BULK_METADATA_PROFILE, decision: incrementalDecision, scope: bulkScope() }));
   assert.doesNotThrow(() => assertBulkMetadataScope({ budgetProfile: 'incremental', decision: { action: 'full' }, scope: bulkScope({ mode: 'full' }) }));
+});
+
+// --- Nachweis mit zusätzlich neu zu schreibenden Normen (logicAffectedSlugs) ---------------
+
+const LOGIC_PATH = 'packages/shared/src/lib/norms/citation.ts';
+/** Aufgelöste Commits des Laufs (`--git-diff`), an die der Nachweis gebunden ist. */
+const COMMITS = { base: 'a'.repeat(40), head: 'b'.repeat(40) };
+const proofFor = (scope, overrides = {}) => ({
+  $schema: PROOF_SCHEMA,
+  comparator: COMPARATOR_VERSION,
+  base: { fingerprint: base.fingerprint, scope: 'full', commit: COMMITS.base },
+  head: { fingerprint: head.fingerprint, scope: 'full', commit: COMMITS.head },
+  result: 'incremental',
+  logicChange: 'narrow',
+  logicAffectedSlugs: scope.logicAffectedSlugs ?? null,
+  scopeSignature: scopeSignature(scope),
+  plan: { slugs: scope.slugs, publicationSlugs: scope.publicationSlugs },
+  ...overrides,
+});
+
+test('(c) der Sync übernimmt die Normliste eines Nachweises nur mit passender Umfangssignatur; eine veränderte, fehlende oder fremde Liste scheitert fail-closed', async () => {
+  const { norms, publications } = await corpus();
+  const [first, second, third] = norms.map((norm) => norm.meta.slug);
+  // Echter resolveScope über --git-diff (leerer Diff HEAD..HEAD), wie im Nachweis.
+  const args = ['--git-diff', 'HEAD', 'HEAD'];
+  const proven = await resolveScope(args, { norms, publications, logicChange: 'narrow', logicAffectedSlugs: [first, second] });
+  assert.deepEqual(proven.slugs, [first, second].sort());
+  assert.deepEqual(proven.logicAffectedSlugs, [first, second].sort());
+  const apply = (proof, commits = COMMITS) => applyEquivalenceProof({ proof, args, norms, publications, logicPaths: null, storedFingerprint: base.fingerprint, headIdentity: head, commits });
+  const accepted = await apply(proofFor(proven));
+  assert.equal(accepted.ok, true, accepted.message);
+  // Ein Nachweis für ein anderes Commit-Paar gilt nicht, auch bei gleicher Identität und gleichem Umfang.
+  const otherCommits = await apply(proofFor(proven), { ...COMMITS, head: 'c'.repeat(40) });
+  assert.equal(otherCommits.code, 'proof-invalid');
+  assert.match(otherCommits.message, /Ziel-Commit des Nachweises/u);
+  // Ohne ausdrückliche Commits löst der Sync die --git-diff-Refs selbst auf (HEAD ≠ 'a'…/'b'…).
+  assert.equal((await apply(proofFor(proven), null)).code, 'proof-invalid');
+  assert.deepEqual(accepted.scope.slugs, proven.slugs);
+  assert.equal(scopeSignature(accepted.scope), scopeSignature(proven));
+  const sorted = [first, second].sort();
+  // Veränderte Liste (andere Norm), ergänzte Liste, fehlende Liste: anderer Umfang → Signatur passt nicht.
+  for (const logicAffectedSlugs of [[sorted[0], third].sort(), [first, second, third].sort(), null]) {
+    const rejected = await apply(proofFor(proven, { logicAffectedSlugs }));
+    assert.equal(rejected.ok, false, JSON.stringify(logicAffectedSlugs));
+    assert.equal(rejected.code, 'proof-scope-mismatch', JSON.stringify(logicAffectedSlugs));
+    assert.match(rejected.message, /entspricht nicht dem nachgewiesenen Umfang/u);
+  }
+  // Eine Norm außerhalb des Bestands lehnt resolveScope ab.
+  const unknown = await apply(proofFor(proven, { logicAffectedSlugs: [...sorted, 'zz-gibt-es-nicht'] }));
+  assert.equal(unknown.code, 'proof-scope-mismatch');
+  assert.match(unknown.message, /nicht enthält: zz-gibt-es-nicht/u);
+  // Nicht kanonische Liste oder Liste an einem anderen Versuch: der Nachweis selbst ist ungültig.
+  assert.equal((await apply(proofFor(proven, { logicAffectedSlugs: [...sorted].reverse() }))).code, 'proof-invalid');
+  assert.equal((await apply(proofFor(proven, { logicChange: 'ignore' }))).code, 'proof-invalid');
+  // Ohne Nachweis gibt es die Liste nicht: nur mit --git-diff und nur zur engen Logikprojektion.
+  await assert.rejects(resolveScope(['--slug', first], { norms, publications, logicAffectedSlugs: [first] }), /nur mit --git-diff/u);
+  await assert.rejects(resolveScope(args, { norms, publications, logicChange: 'ignore', logicAffectedSlugs: [first] }), /nur zur engen Logikprojektion/u);
+  await assert.rejects(resolveScope(args, { norms, publications, logicChange: 'narrow', logicAffectedSlugs: [] }), /nicht leere Slug-Liste/u);
+});
+
+test('(c) Rundlauf: der Nachweis bestimmt Versuche und Erweiterung über den Sync, schreibt die Normliste in die Nachweisdatei, und der Sync nimmt genau dieses Ergebnis an', async () => {
+  const { norms, publications } = await corpus();
+  const [first, second] = norms.map((norm) => norm.meta.slug);
+  const affected = [first, second].sort();
+  const idOf = (slug) => norms.find((norm) => norm.meta.slug === slug).meta.id;
+  // Dieselbe Verdrahtung wie proveProjectionEquivalence: Umfänge über den echten resolveScope.
+  const inputs = { sync: { resolveScope }, norms, publications };
+  const { attempts, extendScope } = await proofScopes({ inputs, baseRef: 'HEAD', headRef: 'HEAD', logicPaths: null });
+  assert.deepEqual(attempts.map((attempt) => attempt.logicChange), ['ignore', 'narrow']);
+  // Simulierter Vergleich: ignore und narrow weichen bei zwei Normen in law_versions ab; erst ein
+  // Umfang, der beide vollständig schreibt, ist identisch.
+  const differing = { identical: false, differingTables: ['law_versions'], tables: { law_versions: { rowsLeft: 2, rowsRight: 2, onlyLeft: 0, onlyRight: 0, changed: 2, changedColumns: [], sampleKeys: [], normIds: affected.map(idOf).sort() } }, fts: {} };
+  const identical = { identical: true, differingTables: [], tables: {}, fts: {} };
+  const labels = [];
+  const { outcome } = await runProofAttempts({
+    attempts,
+    extendScope,
+    slugById: new Map(norms.map((norm) => [norm.meta.id, norm.meta.slug])),
+    evaluate: async (scope, label) => {
+      labels.push(label);
+      const complete = affected.every((slug) => scope.slugs.includes(slug) && !Array.isArray(scope.metadataOnly?.[slug]));
+      return { comparison: complete ? identical : differing, statementCount: scope.slugs.length };
+    },
+  });
+  assert.deepEqual(labels, ['ignore', 'narrow', AFFECTED_ATTEMPT]);
+  assert.ok(outcome, 'der dritte Versuch weist den Umfang nach');
+  const proof = { $schema: PROOF_SCHEMA, comparator: COMPARATOR_VERSION, base: { fingerprint: base.fingerprint, scope: 'full', commit: COMMITS.base }, head: { fingerprint: head.fingerprint, scope: 'full', commit: COMMITS.head }, ...proofOutcomeFields(outcome) };
+  assert.equal(proof.result, 'incremental');
+  assert.equal(proof.logicChange, 'narrow');
+  assert.deepEqual(proof.logicAffectedSlugs, affected, 'die Nachweisdatei trägt die Normliste');
+  assert.deepEqual(proof.plan.logicAffectedSlugs, affected);
+  const applied = await applyEquivalenceProof({ proof: JSON.parse(JSON.stringify(proof)), args: ['--git-diff', 'HEAD', 'HEAD'], norms, publications, logicPaths: null, storedFingerprint: base.fingerprint, headIdentity: head, commits: COMMITS });
+  assert.equal(applied.ok, true, applied.message);
+  assert.deepEqual(applied.scope.logicAffectedSlugs, affected);
+  assert.equal(scopeSignature(applied.scope), proof.scopeSignature);
+});
+
+test('(c) die Normliste bleibt gebunden, auch wenn der Umfang die Norm ohnehin vollständig schreibt', async () => {
+  const { norms, publications } = await corpus();
+  const slug = norms[0].meta.slug;
+  const existingSlugs = new Set(norms.map((norm) => norm.meta.slug));
+  // Norm mit geänderter Fassung (vollständig im Umfang) und zugleich durch die Logik abweichend.
+  const resolveDiff = async (args, { logicChange, logicAffectedSlugs }) => addLogicAffectedSlugs(
+    scopeFromChangedPaths([LOGIC_PATH, `content/normen/${slug}/history.json`], { existingSlugs, logicPaths: new Set([LOGIC_PATH]), logicChange }),
+    logicAffectedSlugs, { existingSlugs, logicChange },
+  );
+  const proven = await resolveDiff([], { logicChange: 'narrow', logicAffectedSlugs: [slug] });
+  const withoutList = await resolveDiff([], { logicChange: 'narrow', logicAffectedSlugs: null });
+  assert.deepEqual(proven.slugs, withoutList.slugs, 'dieselben Normen');
+  assert.notEqual(scopeSignature(proven), scopeSignature(withoutList), 'die Liste selbst steht in der Signatur');
+  const apply = (proof) => applyEquivalenceProof({ proof, args: ['--git-diff', 'x', 'y'], norms, publications, logicPaths: null, storedFingerprint: base.fingerprint, headIdentity: head, commits: COMMITS, resolve: resolveDiff });
+  assert.equal((await apply(proofFor(proven))).ok, true);
+  assert.equal((await apply(proofFor(proven, { logicAffectedSlugs: null }))).code, 'proof-scope-mismatch');
+  // Die Signatur eines Umfangs ohne Liste bleibt unverändert (keine Entwertung bestehender Nachweise).
+  assert.equal(scopeSignature(withoutList).includes('logicAffectedSlugs'), false);
+});
+
+test('(d) die Normen aus dem Nachweis werden vollständig, nicht metadata-only, projiziert und in der Kostenschätzung mitgerechnet', async () => {
+  const { norms, publications, context } = await corpus();
+  const slug = norms.find((norm) => norm.versions.length > 0).meta.slug;
+  const existingSlugs = new Set(norms.map((norm) => norm.meta.slug));
+  // Die Norm ist im Git-Diff nur über ein klassifiziertes meta.json-Feld geändert (Metadata-only).
+  const narrow = () => scopeFromChangedPaths([LOGIC_PATH, `content/normen/${slug}/meta.json`], {
+    existingSlugs, logicPaths: new Set([LOGIC_PATH]), logicChange: 'narrow', metaFieldsChanged: () => ['fundingArea'],
+  });
+  const before = narrow();
+  assert.ok(Array.isArray(before.metadataOnly[slug]), 'ohne Liste metadata-only');
+  const after = addLogicAffectedSlugs(narrow(), [slug], { existingSlugs, logicChange: 'narrow' });
+  assert.equal(after.metadataOnly[slug], undefined, 'der Metadata-only-Eintrag entfällt');
+  assert.deepEqual(after.logicAffectedSlugs, [slug]);
+  const plan = (scope) => buildSyncPlan({ scope, norms, publications, context, now: NOW, identity: head });
+  const planBefore = plan(before);
+  const planAfter = plan(after);
+  assert.equal(planBefore.metadataOnlyCount, 1);
+  assert.equal(planAfter.metadataOnlyCount, 0);
+  const normStatements = (result) => result.groups.find((group) => group.slug === slug).queries.map((query) => query.sql.trim().split(/\s+/u).slice(0, 3).join(' '));
+  for (const statement of ['DELETE FROM law_versions', 'DELETE FROM law_search_units', 'DELETE FROM law_norm_history', 'INSERT INTO law_versions', 'INSERT INTO law_search_units']) {
+    assert.ok(normStatements(planAfter).some((entry) => entry.startsWith(statement)), `${statement} im vollständigen Plan`);
+    assert.ok(!normStatements(planBefore).some((entry) => entry.startsWith(statement)), `${statement} nicht im Metadata-only-Plan`);
+  }
+  assert.ok(planAfter.searchUnitCount > planBefore.searchUnitCount);
+  const costBefore = estimatePlanCost(planBefore);
+  const costAfter = estimatePlanCost(planAfter);
+  assert.ok(costAfter.rowsWrittenMax > costBefore.rowsWrittenMax, 'die Vorabschätzung rechnet den größeren Umfang mit');
+  assert.ok(costAfter.rowsReadApprox > costBefore.rowsReadApprox);
+  // Die Entscheidung nennt die zusätzlichen Normen.
+  assert.match(assessSyncDecision({ decision: incremental, scope: after, budgetProfile: 'incremental' }).message, /davon 1 durch die Logikänderung abweichende Norm/u);
 });

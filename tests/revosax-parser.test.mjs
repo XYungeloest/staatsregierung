@@ -195,6 +195,66 @@ test('die Tabellenbeschriftung wird Tabellentitel, weder Zeile noch Fließtext',
   assert.equal(JSON.stringify(body).split('Stufen').length - 1, 1);
 });
 
+test('eine sichtbare Kopfzeile im Tabellenkörper ersetzt die zugängliche Wiederholung im thead', () => {
+  const body = parsedBody(`
+    <section title="§ 1 Tabellen"><h4>§ 1 Tabellen</h4>
+      <table>
+        <thead><tr><th scope="col">Stufe</th><th scope="col">Wert</th><th scope="col">Wert</th></tr></thead>
+        <tbody>
+          <tr><td>Stufe</td><td colspan="2">Wert<br>(Faktor)</td></tr>
+          <tr><td>bis</td><td>1<br>2</td><td>10<br>20</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <thead><tr><th scope="col">Laufende Nummer</th><th scope="col">Spalte</th><th scope="col">Betrag</th></tr></thead>
+        <tbody>
+          <tr><td><b>Lfd. Nr.</b></td><td><b>Spal-<br>te</b></td><td><b>Betrag<br>EUR</b></td></tr>
+          <tr><td>1.</td><td>Muster</td><td>5</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <thead><tr><th scope="col">bis zu</th><th scope="col">Anzahl</th><th scope="col">Menge</th></tr></thead>
+        <tbody><tr><td>bis zu</td><td>10 Stück</td><td>2</td></tr></tbody>
+      </table>
+    </section>`);
+  const tables = findLabel(body, '§ 1').children.filter((block) => block.type === 'table');
+  const cells = (table) => table.children.map((row) => row.children.map((cell) => [cell.type, cell.text, cell.colspan ?? 1]));
+  assert.deepEqual(cells(tables[0]), [
+    [['tableHeaderCell', 'Stufe', 1], ['tableHeaderCell', 'Wert\n(Faktor)', 2]],
+    [['tableCell', 'bis', 1], ['tableCell', '1\n2', 1], ['tableCell', '10\n20', 1]],
+  ]);
+  assert.equal(tables[0].columns, 3);
+  assert.deepEqual(cells(tables[1]).map((row) => row.map(([type, text]) => `${type}:${text}`)), [
+    // Gleiche Vergleichsform: der bereinigte Wortlaut des thead ersetzt die Silbentrennung der
+    // Druckvorlage; abweichende Köpfe („Lfd. Nr.“, „Betrag EUR“) behalten den sichtbaren Wortlaut.
+    ['tableHeaderCell:Lfd. Nr.', 'tableHeaderCell:Spalte', 'tableHeaderCell:Betrag\nEUR'],
+    ['tableCell:1.', 'tableCell:Muster', 'tableCell:5'],
+  ]);
+  // Beginnt der Körper sofort mit Inhalt, bleibt der thead die einzige Kopfzeile.
+  assert.deepEqual(cells(tables[2]).map((row) => row.map(([type, text]) => `${type}:${text}`)), [
+    ['tableHeaderCell:bis zu', 'tableHeaderCell:Anzahl', 'tableHeaderCell:Menge'],
+    ['tableCell:bis zu', 'tableCell:10 Stück', 'tableCell:2'],
+  ]);
+});
+
+test('die hochgestufte Kopfzeile übernimmt bei gleicher Vergleichsform den bereinigten Wortlaut des thead', () => {
+  const body = parsedBody(`
+    <section title="§ 1 Tabellen"><h4>§ 1 Tabellen</h4>
+      <table>
+        <thead><tr><th scope="col">Tarifstelle</th><th scope="col">Gegenstand</th><th scope="col">Schlichthoheitliche Leistung</th><th scope="col">Gebühren</th></tr></thead>
+        <tbody>
+          <tr><td>Tarif-<br>stelle</td><td>Gegen­stand</td><td>Schlicht-<br>hoheit-<br>liche<br>Leis-<br>tung</td><td>Gebühren<br>EUR</td></tr>
+          <tr><td>1</td><td>Muster</td><td>ja</td><td>10</td></tr>
+        </tbody>
+      </table>
+    </section>`);
+  const [table] = findLabel(body, '§ 1').children.filter((block) => block.type === 'table');
+  assert.deepEqual(table.children.map((row) => row.children.map((cell) => `${cell.type}:${cell.text}`)), [
+    ['tableHeaderCell:Tarifstelle', 'tableHeaderCell:Gegenstand', 'tableHeaderCell:Schlichthoheitliche Leistung', 'tableHeaderCell:Gebühren\nEUR'],
+    ['tableCell:1', 'tableCell:Muster', 'tableCell:ja', 'tableCell:10'],
+  ]);
+});
+
 test('historische Zitierungen verwerfen spätere Änderungsfundstellen im REVOSax-Seitenkopf', () => {
   const currentPageCitation = 'VwV vom 20. Juni 2018, die zuletzt durch Ziffer II der Verwaltungsvorschrift vom 23. Juli 2026 geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025';
   assert.deepEqual(amendmentDatesFromCitation(currentPageCitation), ['2026-07-23']);

@@ -453,6 +453,7 @@ test('Tabellen bleiben im strukturierten Vergleich als Tabellen erhalten', () =>
       children: [
         { type: 'tableHeaderCell', text: 'Bezeichnung', scope: 'col' },
         { type: 'tableCell', text: 'alt' },
+        { type: 'tableCell', text: 'bis 10\nbis 20' },
       ],
     }],
   }];
@@ -465,15 +466,54 @@ test('Tabellen bleiben im strukturierten Vergleich als Tabellen erhalten', () =>
       children: [
         { type: 'tableHeaderCell', text: 'Bezeichnung', scope: 'col' },
         { type: 'tableCell', text: 'neu' },
+        { type: 'tableCell', text: 'bis 10\nbis 20' },
       ],
     }],
   }];
 
   const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom);
   assert.match(html, /<table class="norm-table">/u);
-  assert.match(html, /<th scope="col">Bezeichnung<\/th>/u);
-  assert.match(html, /<td><del>alt<\/del><\/td>/u);
-  assert.match(html, /<td><ins>neu<\/ins><\/td>/u);
+  // Der Zelltext steht wie auf der Normseite in einem <span>; die Zeilenumbrüche der Vorlage
+  // bleiben im Text erhalten und werden über `.norm-table td > span` dargestellt.
+  assert.match(html, /<th scope="col"><span>Bezeichnung<\/span><\/th>/u);
+  assert.match(html, /<td><span><del>alt<\/del><\/span><\/td>/u);
+  assert.match(html, /<td><span><ins>neu<\/ins><\/span><\/td>/u);
+  assert.match(html, /<td><span>bis 10\nbis 20<\/span><\/td>/u);
+});
+
+test('Geänderte mehrzeilige Tabellenzelle behält im Wortvergleich ihre Zeilenumbrüche', () => {
+  const table = (cell: string) => [{
+    type: 'table' as const,
+    title: 'Staffel',
+    children: [{
+      type: 'tableRow' as const,
+      children: [
+        { type: 'tableCell' as const, text: 'Stufe A' },
+        { type: 'tableCell' as const, text: cell },
+      ],
+    }],
+  }];
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [
+    ...table('10 bis 20\nje  angefangene Stunde\nhöchstens 80'),
+    { type: 'paragraphText', text: 'Die Gebühr wird\nnach Aufwand bemessen.' },
+  ];
+  const after = version('b', '2026-07-01', null);
+  after.body[0].children = [
+    ...table('10 bis 30\nje angefangene Stunde\nhöchstens 80'),
+    { type: 'paragraphText', text: 'Die Gebühr wird\nnach dem Aufwand bemessen.' },
+  ];
+
+  const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom);
+  assert.match(html, /<td><span>10 bis <del>20<\/del>\nje angefangene Stunde\nhöchstens 80<\/span><\/td>/u);
+  assert.match(html, /<td><span>10 bis <ins>30<\/ins>\nje angefangene Stunde\nhöchstens 80<\/span><\/td>/u);
+  assert.match(html, /<td><span>Stufe A<\/span><\/td>/u);
+
+  // Fließtext vergleicht weiterhin ohne Zeilenumbrüche.
+  const text = buildStructuralVersionDiff(before, after).find((unit) => unit.type === 'paragraphText' && unit.kind === 'changed');
+  assert.ok(text?.textDiff);
+  assert.ok(text.textDiff.every((chunk) => !chunk.text.includes('\n')));
+  assert.match(html, /Die Gebühr wird nach <ins>dem <\/ins>Aufwand bemessen\./u);
 });
 
 test('Diff-Zusammenfassung zählt dieselben strukturellen Einheiten wie der Vergleich', () => {

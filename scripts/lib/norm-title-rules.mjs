@@ -133,6 +133,10 @@ export function abbreviationProblem(abbr, { title, shortTitle } = {}) {
     return `ist mit ${length} Zeichen länger als ${ABBR_MAX_LENGTH_WITHOUT_WHITESPACE} Zeichen`;
   }
   if (isTitleInitialism(value, title)) return 'ist nur die Initialenfolge des Titels';
+  // Ein einzelnes ausgeschriebenes Wort („Unterbringung“, „Justiz“) ist keine Abkürzung, sondern
+  // meist der zweite Teil einer amtlichen Kurzbezeichnung wie „VwV IT – Justiz“. Als Abkürzung
+  // würde es überall im Normtext als Verweis auf die Vorschrift gelten.
+  if (/^\p{Lu}\p{Ll}{4,}$/u.test(value)) return 'ist ein ausgeschriebenes Wort und keine Abkürzung';
   return null;
 }
 

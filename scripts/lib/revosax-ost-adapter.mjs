@@ -28,7 +28,8 @@ export const PROTECTED_SOURCE_TOKENS = ['SächsGVBl.', 'SächsABl.', 'SächsJMBl
 
 /**
  * Feststehende Eigennamen mit „Sachsen“ oder „sächsisch“, die kein Bezug auf das Land sind:
- * Landschafts-, Gebiets-, Landkreis- und Ortsnamen sowie Vereinsnamen. Sie werden wie die
+ * Landschafts-, Gebiets-, Landkreis- und Ortsnamen, Vereinsnamen, Zeitungstitel sowie Namen von
+ * Verkehrswegen und Radfernwegen. Sie werden wie die
  * Fundstellenkürzel vor der Überleitung geschützt und gelten im Reststellenaudit nicht als Rest.
  * „Mittelsachsen“, „Nordsachsen“, „Niedersachsen“ und „Sachsen-Anhalt“ erfassen die Regeln ohnehin
  * nicht (Wortgrenzen); sie brauchen keinen eigenen Eintrag.
@@ -45,6 +46,19 @@ const PROTECTED_NAME_PATTERNS = [
   /(?<!\p{L})Neustadt in Sachsen(?!\p{L})/gu,
   // Vereinsname
   /(?<!\p{L})Silicon Saxony(?!\p{L})/gu,
+  // Zeitungstitel in historischen Fundstellen („Amtliche Bekanntmachungen der Sächsischen Zeitung“)
+  /(?<!\p{L})Sächsische[n]? Zeitung(?!\p{L})/gu,
+  // Vereinsnamen und das Regelwerk des Vereins
+  /(?<!\p{L})Sächsische[nr]? Bergsteigerbund(?:es|s)?(?!\p{L})/gu,
+  /(?<!\p{L})[Ss]ächsische[n]? Kletterregeln(?!\p{L})/gu,
+  /(?<!\p{L})Sächsische[ns]? Burgen- und Heideland(?:es|s)?(?!\p{L})/gu,
+  // Naturraum
+  /(?<!\p{L})Sächsische[ns]? L(?:ö|o)(?:ss|ß)hügelland(?:es|s)?(?!\p{L})/gu,
+  // Eisenbahnmagistrale über die Landesgrenze
+  /(?<!\p{L})Sachsen-Franken-Magistrale(?!\p{L})/gu,
+  // Radfernwege
+  /(?<=(?:Radfernweg|Fernradweg)(?:es|s)? „?)Sächsische Mittelgebirge(?!\p{L})/gu,
+  /(?<!\p{L})Sächsische[n]? Städteroute(?!\p{L})/gu,
 ];
 
 function protectPatterns(value, patterns, protectedValues) {

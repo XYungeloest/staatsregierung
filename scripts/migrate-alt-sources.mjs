@@ -1016,6 +1016,11 @@ const promulgationActSlug = 'gesetz-zur-veranderung-der-verfassung-zur-anderung-
 const promulgationAct = await json(`content/normen/${promulgationActSlug}/meta.json`);
 const insigniaActSlug = 'gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes';
 const insigniaAct = await json(`content/normen/${insigniaActSlug}/meta.json`);
+// Artikel 1 beider Artikelgesetze ändert die Verfassung; das Vollzitat nennt den ändernden Artikel.
+const articleOneCitation = (citation) => {
+  if (!/^Gesetz vom /u.test(citation)) throw new Error(`Unerwartetes Zitat des Änderungsgesetzes: ${citation}`);
+  return citation.replace(/^Gesetz vom /u, 'Artikel 1 des Gesetzes vom ');
+};
 const constitution2026Body = apply2026PromulgationAmendment(constitution2025Body);
 const constitutionInsigniaBody = apply2026InsigniaAmendment(constitution2026Body);
 const constitutionMeta = await json(`content/normen/${CONSTITUTION_SLUG}/meta.json`);
@@ -1109,7 +1114,7 @@ await writeJson(`content/normen/${CONSTITUTION_SLUG}/versions/2025-03-12.json`, 
   validFrom: '2025-03-12',
   validTo: '2026-01-27',
   isCurrent: false,
-  citation: 'Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5–32), geändert durch Gesetz vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 15)',
+  citation: 'Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5–32), geändert durch Artikel 1 des Gesetzes vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 15)',
   changeNote: 'Artikel 114 durch das Gesetz zur Änderung der Landesverfassung neu gefasst.',
   sourceReferences: constitutionReferences2025,
   body: constitution2025Body,
@@ -1119,7 +1124,7 @@ await writeJson(`content/normen/${CONSTITUTION_SLUG}/versions/2026-01-28.json`, 
   validFrom: '2026-01-28',
   validTo: '2026-03-23',
   isCurrent: false,
-  citation: `Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024, zuletzt geändert durch ${promulgationAct.initialCitation}`,
+  citation: `Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024, zuletzt geändert durch ${articleOneCitation(promulgationAct.initialCitation)}`,
   changeNote: 'Artikel 76 durch das Gesetz zur Änderung der Verkündungsregeln geändert.',
   sourceReferences: promulgationAct.sourceReferences,
   body: constitution2026Body,
@@ -1129,7 +1134,7 @@ await writeJson(`content/normen/${CONSTITUTION_SLUG}/versions/2026-03-24.json`, 
   validFrom: '2026-03-24',
   validTo: '2026-07-20',
   isCurrent: false,
-  citation: `Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024, zuletzt geändert durch ${insigniaAct.initialCitation}`,
+  citation: `Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024, zuletzt geändert durch ${articleOneCitation(insigniaAct.initialCitation)}`,
   changeNote: 'Artikel 2 Absatz 2 um die Landesfarbe Blau ergänzt.',
   sourceReferences: insigniaAct.sourceReferences,
   sourceNotes: [{

@@ -1399,6 +1399,10 @@ function isQuoteTrigger(token, nextToken, followingToken) {
   // ohne eigene Gliederungsnummer leitet ebenfalls eine Neufassung ein.
   if (/\bwie\s+folgt\s+geändert\s*:\s*$/iu.test(token.text) && nextToken?.kind === 'paragraph' &&
     opensQuotation(nextToken)) return true;
+  // „… Betriebsräte.“ / Bei der Behandlung … werden zusätzlich verbindlich: / „…“ – ein Befehlssatz
+  // hinter einem geschlossenen Zitat, der mit Doppelpunkt vor erneut angeführtem Wortlaut endet,
+  // leitet ein weiteres Zitat desselben Befehls ein.
+  if (token.continuesAmendmentCommand && /:\s*$/u.test(token.text) && opensQuotation(nextToken)) return true;
   return QUOTE_TRIGGER_WITHOUT_COLON_PATTERN.test(token.text) && opensQuotation(nextToken);
 }
 
@@ -1534,6 +1538,19 @@ function subdividedTriggerList(token, nextToken, followingToken) {
   return { listId: nextToken.listId, level: nextToken.level };
 }
 
+// „… eingefügt: / „… Betriebsräte.“ / Bei der Behandlung … werden zusätzlich verbindlich:“ – ein
+// nicht angeführter Absatz nach dem schließenden Anführungszeichen, der vom einheitlichen Einzug
+// des Zitats auf den Einzug des Änderungsbefehls zurückkehrt, setzt den Befehl fort und gehört
+// nicht mehr zum eingefügten Wortlaut.
+function returnsToCommandIndent(candidate, trigger, quotedTokens) {
+  if (candidate.kind !== 'paragraph' || opensQuotation(candidate)) return false;
+  if (!endsAmendmentQuote(quotedTokens.at(-1)) || !opensQuotation(quotedTokens[0])) return false;
+  const quoteIndent = quotedTokens[0].indent ?? 0;
+  const candidateIndent = candidate.indent ?? 0;
+  return quotedTokens.every((quoted) => quoted.kind === 'paragraph' && Math.abs((quoted.indent ?? 0) - quoteIndent) <= 0.5) &&
+    Math.abs(candidateIndent - quoteIndent) > 0.5 && Math.abs(candidateIndent - (trigger.indent ?? 0)) <= 0.5;
+}
+
 function groupAmendmentQuotes(tokens) {
   const grouped = [];
   let subdivided = null;
@@ -1575,6 +1592,10 @@ function groupAmendmentQuotes(tokens) {
         candidate.numberingStyle === 'decimal' &&
         endsAmendmentQuote(tokens[end - 1])
       ) break;
+      if (sawContent && returnsToCommandIndent(candidate, token, tokens.slice(index + 1, end))) {
+        candidate.continuesAmendmentCommand = true;
+        break;
+      }
       sawContent = true;
       end += 1;
     }
@@ -1688,6 +1709,57 @@ function isOutlineHeadingItem(token, multilevelOutline) {
     /^[\p{Lu}§]/u.test(text) && text.length <= 160 && !/[.,;:!?“”"]$/u.test(text);
 }
 
+// „1. Ziel und Gegenstand / (1) … / (2) … / 2. Pilotgebiet und Korridore / (1) …“ – eine einstufig
+// gedruckte Gliederung, deren Nummern unmittelbar Absätze folgen, gliedert wie eine mehrstufige:
+// Die fortlaufend gezählten Überschriften einer Gliederungseinheit tragen ihre Absätze und Listen.
+// Eine innerhalb eines Absatzes neu beginnende Zählung („(1) Es werden folgende Produkte
+// eingeführt: / 1. … / 2. …“) setzt die Folge nicht fort und bleibt Aufzählung dieses Absatzes.
+// In einer Anlage gliedert eine solche Folge auch ohne Absatznummern („1. Stufenplan / Stufe 1 … /
+// 2. Grenzzonen / Korridor E …“), wenn jeder ihrer Nummern eigener Inhalt folgt; unmittelbar
+// aufeinander folgende Nummern („1. Pflege / 2. Rettungsdienst“) bleiben Aufzählung.
+function subparagraphOutlineHeadings(tokens) {
+  const headings = new Set();
+  let run = [];
+  let expected = 1;
+  let inAnnex = false;
+  let runInAnnex = false;
+  const headingWithContent = (index) => {
+    const next = tokens[index + 1];
+    // Unmittelbar folgende gedruckte Buchstaben oder Nummern („1. Nach Regel 1 Absatz 3 / a) hat …“)
+    // setzen den Satz der Nummer fort; sie ist dann keine Überschrift.
+    return Boolean(next) && !next.opensQuote && (['paragraph', 'table'].includes(next.kind) ||
+      (next.kind === 'listItem' && next.listId !== 'printed-outline'));
+  };
+  const flush = () => {
+    const subparagraphs = run.some((index) => tokens[index + 1]?.kind === 'paragraph' && /^\(1\)\s/u.test(tokens[index + 1].text ?? ''));
+    const annexOutline = runInAnnex && run.length >= 2 && run.every(headingWithContent);
+    if (subparagraphs || annexOutline) {
+      for (const index of run) headings.add(tokens[index]);
+    }
+    run = [];
+    expected = 1;
+  };
+  tokens.forEach((token, index) => {
+    if (token.kind === 'structure' || token.kind === 'signature') {
+      flush();
+      // Wie beim Aufbau der Gliederung: Einheiten nach einer Anlage gliedern diese weiter; erst die
+      // Unterschrift beendet sie.
+      if (token.kind === 'signature') inAnnex = false;
+      else if (token.marker?.type === 'annex') inAnnex = true;
+      runInAnnex = inAnnex;
+      return;
+    }
+    if (token.kind !== 'listItem' || token.listId !== 'printed-outline' || token.opensQuote ||
+      token.numberingStyle !== 'decimal' || token.label !== `${expected}.`) return;
+    const text = String(token.text ?? '').trim();
+    if (!/^[\p{Lu}§]/u.test(text) || text.length > 160 || /[.,;:!?]$/u.test(text)) return;
+    run.push(index);
+    expected += 1;
+  });
+  flush();
+  return headings;
+}
+
 // Ein mit Satzzeichen abgeschlossener Text aus mindestens sechs Wörtern ist ein Satz; Überschriften
 // enden ohne Satzzeichen oder nur mit dem schließenden Zeichen eines Zitats („Übergangsregelung“.“).
 function isSentenceText(value) {
@@ -1727,6 +1799,8 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
   let outlineHeading = null;
   const multilevelOutline = tokens.some((entry) => entry.kind === 'listItem' && entry.listId === 'printed-outline' &&
     /^\d+(?:\.\d+)+\.?$/u.test(entry.label ?? ''));
+  const subparagraphHeadings = !inQuote && parseAmendmentQuotes ? subparagraphOutlineHeadings(tokens) : new Set();
+  const subparagraphHeadingBlocks = new WeakSet();
 
   const append = (block) => {
     currentChildren(stack).push(block);
@@ -1900,7 +1974,11 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         token.indent >= (lastListState.indent ?? 0) - 0.5;
       const continuationAfterNestedCorrectionList = !parseAmendmentQuotes && !subparagraph && lastListState?.semanticLevel > 0 &&
         token.indent >= (lastListState.indent ?? 0) - 0.5;
-      if (continuationOfListItem || continuationAfterNestedCorrectionList) {
+      // Der Befehlssatz hinter dem schließenden Anführungszeichen (returnsToCommandIndent) bleibt im
+      // Punkt, dessen Zitat er fortsetzt.
+      const continuationAfterQuotedCommand = token.continuesAmendmentCommand && !subparagraph && lastListState &&
+        lastListState.block.children?.at(-1)?.type === 'quotedProvision';
+      if (continuationOfListItem || continuationAfterNestedCorrectionList || continuationAfterQuotedCommand) {
         if (continuationAfterNestedCorrectionList) {
           lastListState.destination.push(paragraphBlock);
           lastBlock = paragraphBlock;
@@ -1992,7 +2070,31 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
           destination = parent.children;
         }
       }
-      if (outlineHeading && token.listId !== 'printed-outline' && destination === currentChildren(stack)) {
+      const subparagraphHeading = subparagraphHeadings.has(token);
+      // Neu gezählte Punkte unter einer solchen Überschrift gehören zu deren letztem Absatz.
+      const innerSubparagraphOutlineItem = !subparagraphHeading && token.listId === 'printed-outline' &&
+        subparagraphHeadingBlocks.has(outlineHeading);
+      if (subparagraphHeading) {
+        semanticLevel = 0;
+        destination = currentChildren(stack);
+        listBaselines.set(token.listId, token.level);
+        parents.clear();
+      } else if (innerSubparagraphOutlineItem && token.label === '1.') {
+        const lastChild = outlineHeading.children.at(-1);
+        const owner = lastChild?.type === 'subparagraph' ? lastChild : outlineHeading;
+        semanticLevel = 1;
+        owner.children ??= [];
+        destination = owner.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+        parents.set(0, owner);
+      }
+      // Tiefer eingerückte Unterpunkte eines solchen neu gezählten Punkts gliedern diesen weiter.
+      const opensUnderInnerOutlineItem = subparagraphHeadingBlocks.has(outlineHeading) && lastListState &&
+        lastBlock === lastListState.block && lastBlock !== outlineHeading && lastBlock.listId === 'printed-outline' &&
+        (token.indent ?? 0) > (lastListState.indent ?? 0) + 0.5;
+      if (outlineHeading && token.listId !== 'printed-outline' && destination === currentChildren(stack) &&
+        !opensUnderInnerOutlineItem) {
         // Eine Liste im Inhalt einer gedruckten Gliederungsnummer: unter einem unmittelbar
         // vorangehenden, als Absatz gesetzten „(n)“ mit tieferem Einzug, sonst unter der Nummer.
         const subparagraphOwner = lastBlock?.type === 'subparagraph' && !lastBlock.listId &&
@@ -2140,7 +2242,10 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       for (const level of [...parents.keys()]) if (level > semanticLevel) parents.delete(level);
       lastBlock = block;
       if (token.listId === 'printed-outline') {
-        outlineHeading = !inQuote && parseAmendmentQuotes && isOutlineHeadingItem(token, multilevelOutline) ? block : null;
+        if (subparagraphHeading) subparagraphHeadingBlocks.add(block);
+        outlineHeading = subparagraphHeading || (!inQuote && parseAmendmentQuotes && isOutlineHeadingItem(token, multilevelOutline))
+          ? block
+          : innerSubparagraphOutlineItem ? outlineHeading : null;
       }
       lastListState = {
         block,

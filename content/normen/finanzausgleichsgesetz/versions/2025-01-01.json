@@ -2896,26 +2896,8 @@
                 },
                 {
                   "type": "tableHeaderCell",
-                  "text": "Prozentsatz (Gewichtungsfaktor)",
-                  "scope": "col"
-                },
-                {
-                  "type": "tableHeaderCell",
-                  "text": "Prozentsatz (Gewichtungsfaktor)",
-                  "scope": "col"
-                }
-              ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "Einwohner und Einwohnerinnen"
-                },
-                {
-                  "type": "tableCell",
                   "text": "Prozentsatz\n(Gewichtungsfaktor)",
+                  "scope": "col",
                   "colspan": 2
                 }
               ]

@@ -33,6 +33,18 @@ test('eine echte Abkürzung besteht die Regel, Titel- und Kurztitelwiederholunge
   assert.equal(abbreviationProblem(undefined, identity), null);
 });
 
+test('ein ausgeschriebenes Wort ist keine Abkürzung, auch nicht als Teil einer Kurzbezeichnung', () => {
+  const identity = { title: 'Verwaltungsvorschrift über den Einsatz von Testgeräten im Testwesen', shortTitle: 'VwV Geräte – Testwesen' };
+  assert.equal(abbreviationProblem('Testwesen', identity), 'ist ein ausgeschriebenes Wort und keine Abkürzung');
+  assert.equal(abbreviationProblem('Prüfung', { title: 'Verordnung über etwas anderes' }), 'ist ein ausgeschriebenes Wort und keine Abkürzung');
+  // Echte Kürzel mit mehreren Großbuchstaben oder kurzer Wortform bleiben zulässig.
+  assert.equal(abbreviationProblem('TestwesenVO', identity), null);
+  assert.equal(abbreviationProblem('Test', identity), null);
+  assert.equal(abbreviationProblem('VwV Testwesen', identity), null);
+  // Die amtliche Klammerform „Kurzbezeichnung – Wort“ liefert keine Abkürzung.
+  assert.equal(resolveIdentityFields({ title: identity.title, abbr: 'Testwesen' }).abbr, undefined);
+});
+
 test('Längengrenze: mit Leerzeichen höchstens 20, zusammengeschrieben höchstens 30 Zeichen', () => {
   const identity = { title: 'Verordnung über die Prüfung von Testfällen im Testwesen' };
   assert.equal(ABBR_MAX_LENGTH, 20);

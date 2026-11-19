@@ -572,6 +572,12 @@ a.norm-abs__addr:hover {
   border-bottom: var(--line) solid var(--border-hairline);
 }
 
+/* Zeilenumbrüche innerhalb einer Zelle (Staffelwerte, Anschriften) bleiben wie in der Vorlage erhalten. */
+.norm-table th > span,
+.norm-table td > span {
+  white-space: pre-line;
+}
+
 .norm-table th {
   font-weight: 500;
   background: var(--surface-muted);
@@ -814,6 +820,11 @@ a.norm-timeline__date:hover {
 .norm-facts__links {
   display: block;
   margin-top: var(--space-1);
+}
+
+/* Stammfundstelle in eigener Zeile unter der Fundstelle der Fassung. */
+.norm-facts__initial {
+  display: block;
 }
 
 .norm-facts__link-tools {

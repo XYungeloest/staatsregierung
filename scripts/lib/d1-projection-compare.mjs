@@ -22,7 +22,10 @@ export { COMPARATOR_VERSION };
  * einige Volltextabfragen als Stichprobe verglichen.
  *
  * Ausgabe je Tabelle: Zeilenzahlen, Anzahl nur links / nur rechts / geändert und wenige
- * Beispielschlüssel – nie ganze Zeilen oder Dumps.
+ * Beispielschlüssel – nie ganze Zeilen oder Dumps. Für Tabellen, deren Zeilen über ihren
+ * Primärschlüssel genau einer Norm gehören (`id` von law_norms, sonst `norm_id`), zusätzlich die
+ * vollständige, sortierte Liste der Normen mit abweichenden Zeilen (`normIds`); andere Tabellen
+ * tragen `normIds: null`. Die Entscheidung `identical` hängt davon nicht ab.
  *
  * `narrowEligible` sagt, ob sich zwei Projektionen nur in den Zeilen unterscheiden, die eine enge
  * Logikprojektion neu schreibt (abgeleitete Daten, Suchdokumente, abgeleitete Spalten von
@@ -54,9 +57,16 @@ function keyColumns(db, table) {
   return keys;
 }
 
-/** Zeilen einer Tabelle als Map Schlüssel → { hash, row } (Zeile ohne volatile Spalten). */
+/** Schlüsselspalte, über die jede Zeile der Tabelle genau einer Norm gehört, sonst `null`. */
+export function normKeyColumn(table, keys) {
+  if (table === 'law_norms') return keys.length === 1 && keys[0] === 'id' ? 'id' : null;
+  return keys.includes('norm_id') ? 'norm_id' : null;
+}
+
+/** Zeilen einer Tabelle als Map Schlüssel → { hash, row, normId } (Zeile ohne volatile Spalten). */
 function tableRows(db, table, { keepRows = false } = {}) {
   const keys = keyColumns(db, table);
+  const normColumn = normKeyColumn(table, keys);
   const rows = new Map();
   for (const row of db.prepare(`SELECT * FROM ${table}`).all()) {
     if (table === 'law_runtime_meta' && VOLATILE_META_KEYS.has(row.key)) continue;
@@ -68,9 +78,9 @@ function tableRows(db, table, { keepRows = false } = {}) {
     }
     const key = keys.map((column) => String(row[column])).join('|');
     if (rows.has(key)) throw new Error(`Tabelle ${table}: Schlüssel ${key} ist nicht eindeutig`);
-    rows.set(key, { hash: createHash('sha256').update(JSON.stringify(entry)).digest('hex'), row: keepRows ? entry : null });
+    rows.set(key, { hash: createHash('sha256').update(JSON.stringify(entry)).digest('hex'), row: keepRows ? entry : null, normId: normColumn ? String(row[normColumn]) : null });
   }
-  return rows;
+  return { rows, normBound: Boolean(normColumn) };
 }
 
 function changedColumns(left, right) {
@@ -98,16 +108,24 @@ export async function compareProjections(leftPath, rightPath, { root = process.c
       const inLeft = projectionTables(left).includes(table);
       const inRight = projectionTables(right).includes(table);
       if (!inLeft || !inRight) {
-        tables[table] = { missing: inLeft ? 'rechts' : 'links', rowsLeft: 0, rowsRight: 0, onlyLeft: 0, onlyRight: 0, changed: 0, sampleKeys: [], changedColumns: [] };
+        tables[table] = { missing: inLeft ? 'rechts' : 'links', rowsLeft: 0, rowsRight: 0, onlyLeft: 0, onlyRight: 0, changed: 0, sampleKeys: [], changedColumns: [], normIds: null };
         continue;
       }
-      const rowsLeft = tableRows(left, table, { keepRows: table === 'law_norms' });
-      const rowsRight = tableRows(right, table, { keepRows: table === 'law_norms' });
+      const { rows: rowsLeft, normBound: leftBound } = tableRows(left, table, { keepRows: table === 'law_norms' });
+      const { rows: rowsRight, normBound: rightBound } = tableRows(right, table, { keepRows: table === 'law_norms' });
       const onlyLeft = [...rowsLeft.keys()].filter((key) => !rowsRight.has(key));
       const onlyRight = [...rowsRight.keys()].filter((key) => !rowsLeft.has(key));
       const changed = [...rowsLeft.keys()].filter((key) => rowsRight.has(key) && rowsRight.get(key).hash !== rowsLeft.get(key).hash);
       const columns = new Set();
       if (table === 'law_norms') for (const key of changed) for (const column of changedColumns(rowsLeft.get(key).row, rowsRight.get(key).row)) columns.add(column);
+      // Vollständig, nicht als Stichprobe: der Nachweis schreibt genau diese Normen neu.
+      let normIds = null;
+      if (leftBound && rightBound) {
+        const ids = new Set();
+        for (const key of [...onlyLeft, ...changed]) ids.add(rowsLeft.get(key).normId);
+        for (const key of onlyRight) ids.add(rowsRight.get(key).normId);
+        normIds = [...ids].sort();
+      }
       tables[table] = {
         rowsLeft: rowsLeft.size,
         rowsRight: rowsRight.size,
@@ -116,6 +134,7 @@ export async function compareProjections(leftPath, rightPath, { root = process.c
         changed: changed.length,
         sampleKeys: [...onlyLeft, ...onlyRight, ...changed].slice(0, SAMPLE_KEYS),
         changedColumns: [...columns].sort(),
+        normIds,
       };
     }
     const fts = {};

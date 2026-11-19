@@ -1208,3 +1208,78 @@ test('als Überschrift gesetzte Nummern unter einer römischen Gliederung gliede
     <p>Dresden, den 27. August 2026</p></body></html>`);
   assert.deepEqual(flat.body.filter((block) => block.type === 'section').map((block) => block.label), ['1.', '2.']);
 });
+
+test('ein Befehlssatz hinter dem schließenden Anführungszeichen auf dem Einzug des Befehls gehört nicht mehr zum Zitat', () => {
+  const css = listCss('lb', 0, 'lower-latin', '', ') ');
+  const { section: s } = nestingFixture(`
+    <ol class="lst-kix_lb-0 start" start="1"><li style="margin-left:36pt">Im Bereich 1 wird vor den bisherigen Beispielen eingefügt:</li></ol>
+    <p style="margin-left:30pt">„Prüfung der Unterlagen; Prüfung vor Ort;“</p>
+    <p style="margin-left:36pt">Die bisherigen Beispiele bleiben erhalten.</p>
+    <ol class="lst-kix_lb-0" start="2"><li style="margin-left:36pt">Bereich 2</li></ol>
+    <p style="margin-left:36pt">Im Bereich 2 wird nach dem Inhalt „Ziele“ eingefügt:</p>
+    <p style="margin-left:30pt">„Kennen der Prüfschritte</p>
+    <p style="margin-left:30pt">Antrag; Prüfung; Bescheid.“</p>
+    <p style="margin-left:36pt">Bei der Behandlung des Verfahrens werden zusätzlich verbindlich:</p>
+    <p style="margin-left:30pt">„Fristen und Rechtsbehelfe.“</p>`, css);
+  const [first, second] = listItems(s.children);
+  assert.deepEqual(first.children.map((block) => block.type), ['quotedProvision', 'paragraphText']);
+  assert.deepEqual(quoteOf(first).children.map((block) => block.text), ['„Prüfung der Unterlagen; Prüfung vor Ort;“']);
+  assert.equal(first.children[1].text, 'Die bisherigen Beispiele bleiben erhalten.');
+  assert.deepEqual(second.children.map((block) => block.type), ['paragraphText', 'quotedProvision', 'paragraphText', 'quotedProvision']);
+  assert.deepEqual(second.children[1].children.map((block) => block.text), ['„Kennen der Prüfschritte', 'Antrag; Prüfung; Bescheid.“']);
+  assert.equal(second.children[2].text, 'Bei der Behandlung des Verfahrens werden zusätzlich verbindlich:');
+  assert.deepEqual(second.children[3].children.map((block) => block.text), ['„Fristen und Rechtsbehelfe.“']);
+});
+
+test('einstufig gedruckte Gliederungsnummern mit nachfolgenden Absätzen tragen diese; eine im Absatz neu beginnende Zählung bleibt dessen Aufzählung', () => {
+  const css = listCss('aufz', 0, 'decimal');
+  const { section: s } = nestingFixture(`
+    <p>1. Ziel</p><p>Die Vereinbarung regelt die gemeinsame Prüfung.</p>
+    <p>2. Kontaktstelle „Prüfung“</p><p>(1) Jede Seite benennt eine Stelle.</p><p>(2) Die Stelle berichtet jährlich.</p>
+    <p>3. Produkte</p><p>(1) Dieser Abschnitt regelt die Produkte, einschließlich</p>
+    <ol class="lst-kix_aufz-0 start" start="1"><li style="margin-left:36pt">der Geltung,</li><li style="margin-left:36pt">der Preise.</li></ol>
+    <p>(2) Es werden folgende Produkte eingeführt:</p><p>1. Tageskarte</p><p>2. Wochenkarte</p>
+    <p>(3) Die Produkte gelten im Prüfgebiet.</p>
+    <p>4. Daten</p><p>(1) Daten werden sparsam verarbeitet.</p>`, css);
+  const headings = listItems(s.children);
+  assert.deepEqual(headings.map((item) => item.label), ['1.', '2.', '3.', '4.']);
+  assert.equal(headings[0].children[0].text, 'Die Vereinbarung regelt die gemeinsame Prüfung.');
+  assert.deepEqual(listLabels(headings[1].children), ['(1)', '(2)']);
+  const [scope, products, validity] = listItems(headings[2].children);
+  assert.deepEqual([scope.label, products.label, validity.label], ['(1)', '(2)', '(3)']);
+  assert.deepEqual(listLabels(scope.children), ['1.', '2.']);
+  assert.deepEqual(listItems(products.children).map((item) => item.text), ['Tageskarte', 'Wochenkarte']);
+  assert.deepEqual(listLabels(headings[3].children), ['(1)']);
+});
+
+test('in einer Anlage tragen gedruckte Gliederungsnummern mit Überschrift ihren Inhalt auch ohne Absatznummern; Aufzählungen und Satzanfänge bleiben Punkte', () => {
+  const css = listCss('pkt', 0, 'decimal', '', '');
+  const html = `<!doctype html><html><head><style>${css}</style></head><body>
+    <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>
+    <p>Nr. 99</p><p>Ausgegeben zu Dresden am 27. August 2026</p>
+    <p>Inhaltsverzeichnis</p><p>27. August 2026 Richtlinie über einen Anlagentest Seite 2</p>
+    <p>Richtlinie<br>über einen Anlagentest<br>vom 27. August 2026</p>
+    <h2>I.<br>Prüfbereich</h2><p>Die Einzelheiten regeln die Anlagen.</p>
+    <h3>Anlage 1<br>(zu Nummer I)</h3><h3>Prüfplan</h3>
+    <p>1. Stufenplan</p><p>Stufe 1: Prüfung der Unterlagen.</p><p>Stufe 2: Prüfung vor Ort.</p>
+    <p>2. Prüfstellen</p><ul class="lst-kix_pkt-0 start"><li style="margin-left:36pt">Stelle Nord</li><li style="margin-left:36pt">Stelle Süd</li></ul>
+    <p>3. Kennzahlen</p><p>bearbeitete Anträge je Monat</p>
+    <h3>Anlage 2<br>(zu Nummer I)</h3><h3>Prüfgegenstände</h3>
+    <p>1. Unterlagen</p><p>2. Bauteile</p><p>Weitere Gegenstände bestimmt die Prüfstelle.</p>
+    <h3>Anlage 3<br>(zu Nummer I)</h3><h3>Zuständigkeit</h3>
+    <p>1. Nach Nummer I</p><p>a) prüft die Stelle Nord,</p><p>b) berichtet die Stelle Süd.</p>
+    <p>2. Die Prüfstellen tauschen Ergebnisse aus über</p><p>a) die Unterlagen,</p><p>b) die Bauteile.</p>
+    <p>Dresden, den 27. August 2026</p></body></html>`;
+  const parsed = parsePublicationHtml('anlagen-fixture.html', html);
+  const [plan, objects, competence] = parsed.body.filter((block) => block.type === 'annex');
+  const headings = listItems(plan.children);
+  assert.deepEqual(plan.children.map((block) => block.label), ['1.', '2.', '3.']);
+  assert.deepEqual(headings[0].children.map((block) => block.text), ['Stufe 1: Prüfung der Unterlagen.', 'Stufe 2: Prüfung vor Ort.']);
+  assert.deepEqual(listItems(headings[1].children).map((item) => item.text), ['Stelle Nord', 'Stelle Süd']);
+  assert.deepEqual(headings[2].children.map((block) => block.text), ['bearbeitete Anträge je Monat']);
+  assert.deepEqual(objects.children.map((block) => [block.label, block.children?.length ?? 0]),
+    [['1.', 0], ['2.', 0], [undefined, 0]]);
+  assert.ok(listItems(competence.children).every((item) => !item.children.some((child) => child.type === 'paragraphText')),
+    'Nummern, deren Satz in Buchstaben weiterläuft, sind keine Überschriften');
+  assert.match(readingOrder(plan.children), /^1\. Stufenplan Stufe 1: .* 2\. Prüfstellen .*Stelle Nord .*Stelle Süd 3\. Kennzahlen bearbeitete Anträge je Monat$/u);
+});

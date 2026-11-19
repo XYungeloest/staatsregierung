@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { getNormHistoryUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 
-import { buildChangeFeed, CHANGE_FEED_PATH, type ChangeServiceColumn } from '../apps/recht/src/lib/change-service.ts';
+import { buildChangeFeed, CHANGE_FEED_PATH, eventLabel, futureEventLabel, type ChangeServiceColumn } from '../apps/recht/src/lib/change-service.ts';
 import type { NormChange } from '../apps/recht/src/lib/runtime/store.ts';
 
 /** Verlaufslinks folgen den Routen des Rechtsportals (relativ im Rechtsportal, sonst absolut) und werden gegen die Feed-Adresse aufgelöst. */
@@ -75,4 +75,15 @@ test('Einträge tragen Titel wie die Startseite, Kategorie, Verlaufslink und sta
   // Platzhaltertitel liefern keine Ursache: die Fundstelle steht allein.
   assert.match(xml, /<guid isPermaLink="false">kuenftiges-gesetz:2099-01-01:initial<\/guid><category>Verkündet, noch nicht in Kraft<\/category><pubDate>[^<]+<\/pubDate><description>OGVBl\. 2026 Nr\. 970 S\. 2<\/description>/u);
   assert.match(xml, /<title>Alt &amp; Neu aufgehoben<\/title>/u);
+});
+
+test('eine Befristung heißt im Änderungsdienst nicht „aufgehoben“, eine Aufhebung durch eine andere Vorschrift schon', () => {
+  const sunset = change({ slug: 'befristet', date: '2026-06-01', changeType: 'repeal', title: 'Tritt durch Befristung im Text außer Kraft.', relatedNorm: null });
+  assert.equal(eventLabel(sunset), 'außer Kraft getreten (Befristung)');
+  assert.equal(futureEventLabel(sunset), 'tritt außer Kraft (Befristung)');
+  const noteOnly = change({ slug: 'befristet-hinweis', date: '2026-06-01', changeType: 'repeal', title: 'Mit Ablauf des 31. Mai 2026 außer Kraft getreten.', note: 'Befristung nach der Schlussbestimmung.' });
+  assert.equal(eventLabel(noteOnly), 'außer Kraft getreten (Befristung)');
+  const repealed = change({ slug: 'aufgehoben', date: '2026-06-01', changeType: 'repeal', title: 'Befristung aufgehoben.', relatedNorm: 'testaufhebungsgesetz' });
+  assert.equal(eventLabel(repealed), 'aufgehoben');
+  assert.equal(futureEventLabel(repealed), 'tritt außer Kraft');
 });

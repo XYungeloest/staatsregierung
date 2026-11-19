@@ -146,6 +146,31 @@ test('Landschafts-, Kreis- und Ortsnamen mit „Sachsen“ bleiben Eigennamen un
   );
 });
 
+test('Zeitungstitel, Vereins-, Naturraum- und Verkehrswegnamen bleiben Eigennamen und keine Reststelle', () => {
+  const names = [
+    'Musterbeschluss vom 2. März 1960 (Amtliche Bekanntmachungen der Sächsischen Zeitung Nr. 9 vom 9. März 1960)',
+    'veröffentlicht in der Sächsische Zeitung, Ausgabe Musterstadt',
+    'nach den Sächsischen Kletterregeln, bestimmt durch den Sächsischen Bergsteigerbund',
+    'nach Maßgabe der sächsischen Kletterregeln; Satzung des Sächsischer Bergsteigerbund e. V.',
+    'des Tourismusverbandes „Sächsisches Burgen- und Heideland“',
+    'im Sächsischen Lösshügelland und im Sächsischen Lößhügelland',
+    'entlang der Sachsen-Franken-Magistrale',
+    'Radfernweg Sächsische Mittelgebirge, Fernradweges „Sächsische Mittelgebirge“ und Sächsische Städteroute',
+  ];
+  for (const text of names) {
+    assert.equal(adaptSaxonText(text), text);
+    assert.equal(hasSaxonResidual(text), false, text);
+  }
+  // Außerhalb des Eigennamens wird weiterhin übergeleitet.
+  assert.equal(
+    adaptSaxonText('Die Sächsische Musterbehörde und die sächsischen Mittelgebirge entlang der Sachsen-Franken-Magistrale in Sachsen'),
+    'Die Ostdeutsche Musterbehörde und die ostdeutschen Mittelgebirge entlang der Sachsen-Franken-Magistrale in Ostdeutschland',
+  );
+  assert.equal(adaptSaxonText('Die Sächsische Mittelgebirgsregion'), 'Die Ostdeutsche Mittelgebirgsregion');
+  assert.equal(adaptSaxonText('Sächsische Mittelgebirge'), 'Ostdeutsche Mittelgebirge');
+  assert.equal(hasSaxonResidual('die Sächsische Musterzeitung'), true);
+});
+
 test('Fußnotenziffern, fehlende Leerzeichen und Abkürzungskomposita verhindern die Überleitung nicht', () => {
   assert.equal(adaptSaxonText('Präsident der Landesdirektion Sachsen3)'), 'Präsident der Landesdirektion Ostdeutschland3)');
   assert.equal(adaptSaxonText('Musterbetrieb Musterland Sachsens2)'), 'Musterbetrieb Musterland Ostdeutschlands2)');
