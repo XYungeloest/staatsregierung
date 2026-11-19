@@ -2058,14 +2058,20 @@
           "role": "primary"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "event-bgbl-2026-i-93",
+        "event-bgbl-2026-i-94",
+        "event-bgbl-2026-i-97",
+        "event-bgbl-2026-i-98"
+      ],
       "tags": [],
       "notes": [
         "Titelplan für 2027 und 2028: 139.654.073.867 und 140.169.616.651 Euro. K-05 setzt auf den K-04-Ansätzen auf. Simulationsbedingte Steuer-, FKA- und BEZ-Mehreinnahmen von 1.653.884.788 und 908.576.767 Euro sind Planwerte gegenüber der steuerlichen Vergleichsbasis. Die Gesamtvolumina ändern sich um 33.524.845 und 20.462.860 Euro. Der FKA wird je Herkunftsland gerechnet und für sechs Länder addiert.",
         "Das Steuermodell setzt für die Biersteuer null, für die Körperschaftsteuer 15 %, für die Grunderwerbsteuer 5,5 % und für Gastronomie 19 % an. Vermögensteuerfreibeträge nach dem verkündeten Recht: 3 bzw. 5 Mio. Euro. Die BReg-Umsatzsteuerübersicht bleibt ein eigenes Szenario.",
         "Der Entwurf sieht keine strukturelle Nettokreditaufnahme, eine Tilgung von 45.922.300 und 455.600.000 Euro und 2027 eine Zuführung von 12.339.435 Euro zur Liquiditätsrücklage vor.",
         "K-03 modelliert für die Sicherheitsreform 52.248.095 und 119.283.826 Euro. K-04 enthält für die Versorgungspauschale 2.728.402.633 und 2.758.921.677 Euro sowie 69.129.489 und null Euro Entschädigungen. Das sind Ansätze des Entwurfs, keine Auszahlungsbelege.",
-        "Im Quellmanifest bezeichnet stand den 16. November und korrekturvorlagen endet bei K-05. Der Import-Commit vom 19. November enthält zusätzlich die Prüfanlage K-06. Die öffentliche Freigabe des Entwurfs ist auf den 11. November datiert."
+        "Im Quellmanifest bezeichnet stand den 16. November und korrekturvorlagen endet bei K-05. Der Import-Commit vom 19. November enthält zusätzlich die Prüfanlage K-06. Die öffentliche Freigabe des Entwurfs ist auf den 11. November datiert.",
+        "Die Prüfanlage K-06 hatte für BGBl. I Nr. 93, 94, 97 und 98 noch keine Volltexte. Der Hub erschließt inzwischen die vier Originale. Daraus folgt keine neue Ausgabe- oder Einnahmebuchung im Titelplan."
       ],
       "proceedingType": "budget",
       "stage": "government-draft-published",
