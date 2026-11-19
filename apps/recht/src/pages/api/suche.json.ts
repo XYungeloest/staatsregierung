@@ -200,6 +200,7 @@ function toHit(primary: ScoredSearchResult, others: ScoredSearchResult[]): Searc
       versionId: other.documentEntry.versionId,
       versionKind: other.documentEntry.versionKind,
       validFrom: other.documentEntry.validFrom,
+      validTo: other.documentEntry.validTo,
       url: other.documentEntry.url,
       matchLabel: other.matchLabel,
     })),

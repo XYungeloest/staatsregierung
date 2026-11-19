@@ -1244,5 +1244,5 @@ export interface SearchHit {
   unitAnchor?: string;
   unitType?: string;
   /** Weitere passende Fassungen derselben Vorschrift. */
-  otherVersions: Array<{ versionId: string; versionKind: VersionTemporalKind; validFrom: string; url: string; matchLabel: string }>;
+  otherVersions: Array<{ versionId: string; versionKind: VersionTemporalKind; validFrom: string; validTo: string | null; url: string; matchLabel: string }>;
 }
