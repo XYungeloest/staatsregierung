@@ -1,0 +1,34 @@
+name: Inhaltskorrektur
+description: Fehler in Texten, Normfassungen, Quellenangaben oder Organisationsdaten melden.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Die Portale gehören zu einer politischen Simulation. Bitte den simulierten Rechtsstand beachten.
+        Personenbezogene Einreichungen und andere private Daten gehören nicht in öffentliche Issues.
+  - type: input
+    id: location
+    attributes:
+      label: Betroffene Seite oder Datei
+      description: URL oder Dateipfad; bei einer Norm möglichst auch die Fassungskennung.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Fehler und gewünschte Korrektur
+      description: Nenne die betroffene Textstelle und erläutere die Abweichung.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Quellenbeleg
+      description: Fundstelle, Datum, Seite oder Link angeben. Falls kein Beleg vorliegt, dies ausdrücklich sagen.
+    validations:
+      required: true
+  - type: input
+    id: validity
+    attributes:
+      label: Gültigkeitszeitraum oder Stichtag
+      description: Falls bekannt angeben, ab wann oder für welche Fassung die Korrektur gilt.

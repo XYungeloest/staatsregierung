@@ -132,6 +132,15 @@ Inventur; sie ist kein Deployment-Gate (`docs/DEPLOYMENT_RUNBOOK.md`). Veröffen
 ausschließlich über den Workflow `Deploy to Cloudflare Workers` aus dem geprüften Commit auf
 `main`.
 
+## Mitwirken und Meldungen
+
+Die [Beitragsanleitung](CONTRIBUTING.md) beschreibt den Einstieg und passende Prüfungen.
+Für Fehler, Inhaltskorrekturen und Vorschläge gibt es
+[Issue-Vorlagen](https://github.com/XYungeloest/staatsregierung/issues/new/choose).
+[SUPPORT.md](SUPPORT.md) ordnet Fragen und Meldewege ein; für den Umgang miteinander gilt der
+[Verhaltenskodex](CODE_OF_CONDUCT.md). Sicherheitslücken bitte vertraulich gemäß
+[SECURITY.md](SECURITY.md) melden.
+
 ## Dokumentation
 
 | Dokument | Maßgeblich für |

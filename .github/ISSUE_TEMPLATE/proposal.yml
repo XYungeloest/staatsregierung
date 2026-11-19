@@ -1,0 +1,20 @@
+name: Vorschlag oder Frage
+description: Eine Verbesserung anregen oder eine Frage zum Projekt stellen.
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Anliegen
+      description: Welche Frage hast du, oder welches Problem möchtest du lösen?
+    validations:
+      required: true
+  - type: input
+    id: area
+    attributes:
+      label: Betroffener Bereich
+      description: Zum Beispiel Staatsportal, OstRecht, Barrierefreiheit, Redaktion oder lokale Entwicklung.
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Vorschlag und Alternativen
+      description: Optional eine mögliche Lösung, Beispiele oder Alternativen beschreiben.
