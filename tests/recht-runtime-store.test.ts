@@ -287,3 +287,17 @@ test('seitenweise Übersichten mit Buchstaben-, Freitext-, Herkunfts- und Sachge
   assert.ok(secondPage.entries.length > 0);
   assert.ok(secondPage.entries.every((entry) => !keywords.entries.some((first) => first.keyword === entry.keyword)), 'Stichwortseiten überschneiden sich nicht');
 });
+
+test('Eine Verkündung vor dem Stichtag erscheint erst am belegten Geltungsbeginn als wirksam', async () => {
+  const record = structuredClone(norms[0]);
+  record.meta.publicationDate = '2030-11-13';
+  record.meta.effectiveDate = '2031-01-01';
+  record.history.entries = [{ type: 'initial', title: 'Verkündung.', date: '2030-11-13', citation: 'Testfundstelle' }];
+  const corpus = createFileNormStore({ loadAllNorms: async () => [record], loadAllVerkuendungen: async () => [], buildSearchDocument });
+  const query = { changeTypes: ['initial' as const], order: 'asc' as const, limit: 5, distinctNorms: true };
+  assert.deepEqual(await corpus.listChanges({ ...query, until: '2030-11-19' }), []);
+  assert.deepEqual((await corpus.listChanges({ ...query, after: '2030-11-19' })).map((x) => x.date), ['2031-01-01']);
+  assert.equal((await corpus.listChanges({ ...query, until: '2031-01-01' }))[0].date, '2031-01-01');
+  delete record.meta.effectiveDate;
+  assert.deepEqual(await corpus.listChanges(query), []);
+});

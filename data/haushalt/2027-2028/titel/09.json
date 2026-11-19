@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -1798,15 +1799,16 @@
       "rechtsgrundlage": "Landesenergiewerke-Gesetz; Haushaltsbegleitgesetz Art. 3 (Beteiligungsrecht)",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "energy",
-      "erlaeuterung": "Werthaltige Eigenkapitalzuführung an die Landesenergiewerke für Wind- und Offshore-Projekte von 300 MW (2027) und 400 MW (2028) zu 1,5 Mio. EUR/MW: Investitionen 450/600 Mio. EUR, davon 35 % Eigenkapital aus dem Kernhaushalt (157,5/210 Mio. EUR), 50 Mio. EUR Eigenmittel und eigenwirtschaftliche Projektkredite 242,5/340 Mio. EUR (F06; Kreditnehmer LEW, keine Landesbürgschaft). Wirtschaftlichkeit: 2.500 Volllaststunden, 70 EUR/MWh, Betriebskosten 45.000 EUR/MW; Schuldendienstdeckungsgrad 3,2 (2027) bzw. 2,3 (2028).\n",
       "jahre": {
         "2027": {
           "id": "T.0904/83101@2027",
-          "betrag": 157500000
+          "betrag": 157500000,
+          "erlaeuterung": "Werthaltige Eigenkapitalzuführung an die Landesenergiewerke für Wind- und Offshore-Projekte von 300 MW (2027) und 400 MW (2028) zu 1,5 Mio. EUR/MW: Investitionen 450/600 Mio. EUR, davon 35 % Eigenkapital aus dem Kernhaushalt (157,5/210 Mio. EUR), 50 Mio. EUR Eigenmittel und eigenwirtschaftliche Projektkredite 242,5/340 Mio. EUR (F06; Kreditnehmer LEW, keine Landesbürgschaft). Wirtschaftlichkeit: 2.500 Volllaststunden, 70 EUR/MWh, Betriebskosten 45.000 EUR/MW; Schuldendienstdeckungsgrad 3,2 (2027) bzw. 2,3 (2028).\n"
         },
         "2028": {
           "id": "T.0904/83101@2028",
-          "betrag": 210000000
+          "betrag": 210000000,
+          "erlaeuterung": "Werthaltige Eigenkapitalzuführung an die Landesenergiewerke für Wind- und Offshore-Projekte von 300 MW (2027) und 400 MW (2028) zu 1,5 Mio. EUR/MW: Investitionen 450/600 Mio. EUR, davon 35 % Eigenkapital aus dem Kernhaushalt (157,5/210 Mio. EUR), 50 Mio. EUR Eigenmittel und eigenwirtschaftliche Projektkredite 242,5/340 Mio. EUR (F06; Kreditnehmer LEW, keine Landesbürgschaft). Wirtschaftlichkeit: 2.500 Volllaststunden, 70 EUR/MWh, Betriebskosten 45.000 EUR/MW; Schuldendienstdeckungsgrad 3,2 (2027) bzw. 2,3 (2028).\n"
         }
       }
     },

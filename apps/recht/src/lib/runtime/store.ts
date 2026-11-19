@@ -1005,24 +1005,30 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async listChanges({ changeTypes, until, after, order, limit, distinctNorms = false }) {
       if (changeTypes.length === 0 || limit <= 0) return [];
-      const conditions = [`h.change_type IN (${changeTypes.map(() => '?').join(', ')})`];
+      // Die Historie datiert den Verkündungsakt. Im Änderungsdienst zählt bei der
+      // Erstfassung allein der belegte Geltungsbeginn, auch bei einer Teilgeltung.
+      const effectDate = changeTypes.includes('initial')
+        ? "CASE WHEN h.change_type = 'initial' THEN n.effective_date ELSE h.change_date END" : 'h.change_date';
+      const conditions = [`h.change_type IN (${changeTypes.map(() => '?').join(', ')})`, `${effectDate} IS NOT NULL`];
       const params: unknown[] = [...changeTypes];
       if (until) {
-        conditions.push('h.change_date <= ?');
+        conditions.push(`${effectDate} <= ?`);
         params.push(until);
       }
       if (after) {
-        conditions.push('h.change_date > ?');
+        conditions.push(`${effectDate} > ?`);
         params.push(after);
       }
       const direction = order === 'asc' ? 'ASC' : 'DESC';
-      const select = `SELECT n.slug, n.title, n.short_title, n.type, n.origin_kind, n.sort_title, h.change_date, h.change_type, h.title AS entry_title, h.citation, h.note, h.affecting_version_id, h.related_norm
+      const rank = distinctNorms
+        ? `, row_number() OVER (PARTITION BY h.norm_id ORDER BY ${effectDate} ${direction}, h.change_type, h.title, h.entry_index) AS rn`
+        : '';
+      const select = `SELECT n.slug, n.title, n.short_title, n.type, n.origin_kind, n.sort_title, ${effectDate} AS change_date,
+        h.change_type, h.title AS entry_title, h.citation, h.note, h.affecting_version_id, h.related_norm${rank}
         FROM law_norm_history h JOIN law_norms n ON n.id = h.norm_id WHERE ${conditions.join(' AND ')}`;
-      // Je Norm nur ein Ereignis: Fensterfunktion über den Datumsindex, deterministisch nach
-      // Datum, Ereignistyp und Titel; die Liste bleibt nach Ereignisdatum und Titel sortiert.
       const sql = distinctNorms
-        ? `SELECT * FROM (${select.replace('h.related_norm', `h.related_norm, row_number() OVER (PARTITION BY h.norm_id ORDER BY h.change_date ${direction}, h.change_type, h.title) AS rn`)}) WHERE rn = 1 ORDER BY change_date ${direction}, sort_title, slug LIMIT ?`
-        : `${select} ORDER BY h.change_date ${direction}, n.sort_title, n.slug LIMIT ?`;
+        ? `SELECT * FROM (${select}) WHERE rn = 1 ORDER BY change_date ${direction}, sort_title, slug LIMIT ?`
+        : `${select} ORDER BY ${effectDate} ${direction}, n.sort_title, n.slug LIMIT ?`;
       const rows = await db.prepare(sql).bind(...params, limit).all<Record<string, string | null>>();
       return rows.results.map((row) => ({
         slug: row.slug as string,
@@ -1442,7 +1448,11 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         const identity = identityFor(record);
         const originKind = originBySlug.get(record.meta.slug);
         return record.history.entries
-          .filter((entry) => wanted.has(entry.type) && (!until || entry.date <= until) && (!after || entry.date > after))
+          .flatMap((entry) => {
+            const date = entry.type === 'initial' ? record.meta.effectiveDate : entry.date;
+            return date && wanted.has(entry.type) && (!until || date <= until) && (!after || date > after)
+              ? [{ ...entry, date }] : [];
+          })
           .map((entry): NormChange => ({
             slug: record.meta.slug,
             normTitle: identity.title,

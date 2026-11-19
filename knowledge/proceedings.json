@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-13",
+  "asOf": "2026-11-19",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment",
@@ -2017,6 +2017,308 @@
       "decision": null,
       "nextAction": "Rechtsverordnungen nach § 31 SoGrVG, Planentwürfe, Anhörungen und Beschlüsse nur bei Verkündung oder amtlicher Vorlage fortschreiben.",
       "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-doppelhaushalt-2027-2028",
+      "title": "Doppelhaushalt 2027/2028 – veröffentlichter Regierungsentwurf",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Der Portalimport folgt dem Titelstand K-05. K-06 prüft das Bundesrecht vom 18. November und enthält eine bedingte Vollzugsvariante ohne zusätzliche Veranschlagung. Das Periodenregister weist den veröffentlichten Regierungsentwurf aus. Einbringung, Annahme oder Verkündung eines Haushaltsgesetzes für diese Periode sind gesondert zu belegen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-haushalt-k06",
+          "locator": "Gesamtwirkung gegenüber K-05, Zeilen Einnahmen und Ausgaben",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-portal-haushaltsimport",
+          "locator": "quelle, kontrollsummen, artefakte",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-haushaltsperioden",
+          "locator": "2027-2028, status und freigabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-haushalt-k05",
+          "locator": "Ergebnis und Berechnung je Herkunftsland",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-haushalt-sicherheitsreform",
+          "locator": "Zusatzbedarf der Sicherheitsreform",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-haushalt-endfassung",
+          "locator": "Versorgungspauschale und Entschädigungen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [
+        "Titelplan für 2027 und 2028: 139.654.073.867 und 140.169.616.651 Euro. K-05 setzt auf den K-04-Ansätzen auf. Simulationsbedingte Steuer-, FKA- und BEZ-Mehreinnahmen von 1.653.884.788 und 908.576.767 Euro sind Planwerte gegenüber der steuerlichen Vergleichsbasis. Die Gesamtvolumina ändern sich um 33.524.845 und 20.462.860 Euro. Der FKA wird je Herkunftsland gerechnet und für sechs Länder addiert.",
+        "Das Steuermodell setzt für die Biersteuer null, für die Körperschaftsteuer 15 %, für die Grunderwerbsteuer 5,5 % und für Gastronomie 19 % an. Vermögensteuerfreibeträge nach dem verkündeten Recht: 3 bzw. 5 Mio. Euro. Die BReg-Umsatzsteuerübersicht bleibt ein eigenes Szenario.",
+        "Der Entwurf sieht keine strukturelle Nettokreditaufnahme, eine Tilgung von 45.922.300 und 455.600.000 Euro und 2027 eine Zuführung von 12.339.435 Euro zur Liquiditätsrücklage vor.",
+        "K-03 modelliert für die Sicherheitsreform 52.248.095 und 119.283.826 Euro. K-04 enthält für die Versorgungspauschale 2.728.402.633 und 2.758.921.677 Euro sowie 69.129.489 und null Euro Entschädigungen. Das sind Ansätze des Entwurfs, keine Auszahlungsbelege.",
+        "Im Quellmanifest bezeichnet stand den 16. November und korrekturvorlagen endet bei K-05. Der Import-Commit vom 19. November enthält zusätzlich die Prüfanlage K-06. Die öffentliche Freigabe des Entwurfs ist auf den 11. November datiert."
+      ],
+      "proceedingType": "budget",
+      "stage": "government-draft-published",
+      "sourceRevision": "2548cee8a7b25196160df52988669d5e81a02e6a",
+      "titleRevision": "092cea8915d15803c708f9d242e8f75fb7577724",
+      "snapshotRef": "data/haushalt/2027-2028/import-manifest.json",
+      "aliases": [
+        "K-05",
+        "K-06",
+        "Finanzkraftausgleich",
+        "BEZ"
+      ]
+    },
+    {
+      "id": "proceeding-beamtenrecht-vk-08-13",
+      "title": "Volkskammer-Drs. 08/13 – Neuordnung des öffentlichen Dienstrechts",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Der Staatsrat beschloss die zur Einbringung bestimmte Endfassung. Das Schreiben trägt den 11. November. Die Haushaltsrechnung nimmt den 1. Januar 2027 als Reformbeginn an. Ein späterer parlamentarischer Eingang, Gesetzesbeschluss oder eine Verkündung sind nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-dienstrecht-vk-08-13",
+          "locator": "Anschreiben, Artikel 1 (§§ 3a, 5a und 7 Beamtengesetz), Versorgungsrecht und Begründung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-dienstrecht-quellen",
+          "locator": "reform/Beamtenrechtneuordnung_4.html, SHA-256 0b3a0a9b6b90b66f41f6e52a01161dd81fb2917c14a3a78641b985fac02cf6be",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-arbeitszeit-beamte",
+          "locator": "§ 1 regelmäßige Arbeitszeit",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-arbeitszeit-lehrkraefte",
+          "locator": "regelmäßige Arbeitszeit und Unterrichtsverpflichtung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-DIENST · Nutzerangabe vom 13. November zum damaligen Stand der Einbringung",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-doppelhaushalt-2027-2028"
+      ],
+      "tags": [],
+      "notes": [
+        "Der Entwurf setzt für die erstmalige Berufung auf Probe oder Lebenszeit grundsätzlich die noch ausstehende Vollendung des 28. Lebensjahres voraus. § 7 regelt Verlängerungen und Ausnahmen. Eine Zeitverbeamtung setzt gesetzlich bestimmte, vorübergehende hoheitliche Aufgaben voraus. Vorgesehen sind 1,5 % Ruhegehaltssatz je Dienstjahr bis 60 %.",
+        "Die regelmäßige Arbeitszeit beträgt 39 Wochenstunden. Unterrichtspflichtstunden und der tarifpolitische 35-Stunden-Vorschlag sind gesondert zu beurteilen."
+      ],
+      "proceedingType": "legislation",
+      "stage": "cabinet-approved-draft",
+      "documentDate": "2026-11-11",
+      "aliases": [
+        "Volkskammer 08/13",
+        "Beamtenrechtsneuordnung",
+        "39-Stunden-Woche"
+      ]
+    },
+    {
+      "id": "proceeding-breg-umsatzsteuerreform-2026",
+      "title": "Bund-Länder-Abstimmung zur Umsatzsteuerreform",
+      "status": "planned",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die BReg-Übersicht weist bei voller Jahreswirkung 219,6 Mio. Euro für Ostdeutschland einschließlich Gemeinden aus. Davon sind 211,3 Mio. Länderanteil, 7,3 Mio. Gemeindeanteil und 0,9 Mio. finanzkraftabhängiger Zuschlag ausgewiesen. Die gerundeten Komponenten ergeben 219,5 Mio. Euro. Gesetzesbeschluss, Zustimmung, Auszahlung und Buchung sind offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-breg-umsatzsteuer-2026",
+          "locator": "Teile A und B, insbesondere B.2–B.5, Seiten 4–5",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-haushalt-k05",
+          "locator": "Steuerszenario des Regierungsentwurfs",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-doppelhaushalt-2027-2028"
+      ],
+      "tags": [],
+      "notes": [
+        "Die Übersicht sieht 19 % für Beherbergung und Camping sowie 7 % für Restaurantverpflegung ohne Getränke vor. Fisch, Zucker und Filmvorführungen verbleiben beim ermäßigten Satz. Die Übersicht enthält keinen Inkrafttretensartikel. Der volle Ostbetrag wird weder als Landeseinnahme angesetzt noch zu K-05 addiert."
+      ],
+      "proceedingType": "federal-state-coordination",
+      "stage": "proposal"
+    },
+    {
+      "id": "proceeding-br-31-gebaeudetyp-e",
+      "title": "Bundesrat – Gebäudetyp E (Vorlage 320/26, Empfehlung 341/26)",
+      "status": "confirmed-official",
+      "validFrom": "2026-11-12",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die Ausschüsse empfahlen in BR-Drs. 341/26 zur Vorlage 320/26 die Vermittlung mit dem Ziel der Aufgabe des Gesetzgebungsverfahrens. Das Plenum lehnte diese Empfehlung am 12. November ab. Laut Beschlussliste erhob der Bundesrat keinen Einspruch. Das Gesetz ist in BGBl. 2026 I Nr. 89 verkündet und gilt ab 1. Februar 2027.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-br-31-341",
+          "locator": "Empfehlung der Ausschüsse, zu Vorlage 320/26",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-br-31-beschluesse",
+          "locator": "Anlage, TOP 5",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-redaktion-br-31-top-5",
+          "locator": "Nutzerklarstellung vom 19. November zur Ablehnung der Empfehlung",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-bgbl-2026-i-89",
+          "locator": "Titel, Ausfertigung und Artikel 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "event-bgbl-2026-i-89"
+      ],
+      "tags": [],
+      "notes": [
+        "Die Tagesordnung umfasst 22 Punkte mit Empfehlungen 337/26–358/26. Das Überweisungsschreiben nennt Karl Honecker als Bundesratspräsidenten. Versanddatum und Eingang sind nicht belegt."
+      ],
+      "proceedingType": "federal-council",
+      "stage": "no-objection",
+      "aliases": [
+        "Bundesrat 341/26",
+        "Bundesrat 320/26",
+        "TOP 5"
+      ]
+    },
+    {
+      "id": "proceeding-br-31-zuckersteuer",
+      "title": "Bundesrat – Zuckersteuergesetz (Vorlage 326/26, Empfehlung 347/26)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-12",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Der Bundesrat verlangte am 12. November Vermittlung wegen vollzugsgefährdender Fehler aus den angenommenen Änderungsanträgen. Die Ausschüsse hatten dies empfohlen. Nach Nutzerangabe vom 13. November standen Konstituierung und Geschäftsordnung des Vermittlungsausschusses dieser Wahlperiode aus.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-br-31-347",
+          "locator": "Empfehlung zu BR-Drs. 326/26",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-br-31-beschluesse",
+          "locator": "Anlage, TOP 11, Artikel 77 Absatz 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-BR · 13. November, Konstituierung und Geschäftsordnung",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [
+        "Die Tagesordnung umfasst 22 Punkte mit Empfehlungen 337/26–358/26. Das Überweisungsschreiben nennt Karl Honecker als Bundesratspräsidenten. Versanddatum und Eingang sind nicht belegt."
+      ],
+      "proceedingType": "federal-council",
+      "stage": "mediation-requested",
+      "aliases": [
+        "Bundesrat 326/26",
+        "Bundesrat 347/26",
+        "Vermittlungsausschuss"
+      ]
+    },
+    {
+      "id": "proceeding-br-31-schutzraum",
+      "title": "Bundesrat – Schutzrauminfrastruktur (Vorlage 255/26, Empfehlung 353/26)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-12",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Im Ausschuss erhielt die Empfehlung zur Zustimmung keine Mehrheit. Auch im Plenum kam die nach Artikel 77 Absatz 2a erforderliche Zustimmungsmehrheit nicht zustande. Die bedingten Vorschriften des BfBS-Gesetzes sind davon gesondert zu prüfen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-br-31-353",
+          "locator": "Empfehlung zur Vorlage 255/26",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-br-31-beschluesse",
+          "locator": "Anlage, TOP 17",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-bgbl-2026-i-95",
+          "locator": "Artikel 11 Absatz 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "event-bgbl-2026-i-95"
+      ],
+      "tags": [],
+      "notes": [
+        "Die Tagesordnung umfasst 22 Punkte mit Empfehlungen 337/26–358/26. Das Überweisungsschreiben nennt Karl Honecker als Bundesratspräsidenten. Versanddatum und Eingang sind nicht belegt."
+      ],
+      "proceedingType": "federal-council",
+      "stage": "consent-withheld",
+      "aliases": [
+        "Bundesrat 255/26",
+        "Bundesrat 353/26",
+        "Schutzrauminfrastrukturgesetz"
+      ]
+    },
+    {
+      "id": "proceeding-schwammstadt-bundesfoerderung",
+      "title": "Schwammstadtförderung – Verteilung und Kofinanzierung",
+      "status": "planned",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Nach BGBl. 2026 I Nr. 91 besteht ein bundesweiter Förderrahmen unter Haushaltsvorbehalt. Für ein Schreiben an Bundesminister Wilhelm Fahrenholz wurden Verteilung, Verwaltungsvereinbarung, Auszahlung und Kofinanzierung zur Klärung vorgesehen. Versand, Bewilligung und Mittelabruf sind offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-91",
+          "locator": "Förderberechtigung, Finanzhilfen und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-haushalt-k06",
+          "locator": "Bedingte Teilnahmevariante",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-BUND · Briefauftrag vom 18. November",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "event-bgbl-2026-i-91",
+        "proceeding-doppelhaushalt-2027-2028"
+      ],
+      "tags": [],
+      "notes": [
+        "56 und 52 Mio. Euro Bundesförderung sowie rund 12 und 11,1 Mio. Euro Landesanteil sind ein bedingtes Rechenbeispiel mit 20 % Ostanteil und hälftiger Landesübernahme des Restes. Im Titelplan ist daraus kein zusätzlicher Anspruch veranschlagt."
+      ],
+      "proceedingType": "funding",
+      "stage": "correspondence-draft"
     }
   ]
 }

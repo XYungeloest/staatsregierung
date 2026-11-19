@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-13",
+  "asOf": "2026-11-19",
   "sources": [
     {
       "id": "source-stanzo-2026-02",
@@ -3946,6 +3946,427 @@
         "editorial"
       ],
       "notes": "Dokumentiert die gestaffelte Wirksamkeit der Ausgaben, die Reihenfolge der gleichtägigen Änderungen des Polizeivollzugsdienstgesetzes, die Teilfassung des KRITIS-Gesetzes, die redaktionelle Quellenentscheidung zu § 97 Absatz 1 und die nicht belegte Eigenschaft als besondere Gesetze."
+    },
+    {
+      "id": "source-gespraechsabgleich-2026-11",
+      "type": "conversation",
+      "path": "conversation://wissensabgleich-2026-11-19",
+      "title": "Rekonstruierte Gesprächsbelege, September bis November 2026",
+      "date": "2026-11-19",
+      "status": "unverified",
+      "scope": [
+        "Planungsaufträge",
+        "Kommunikation"
+      ],
+      "notes": [
+        "GESPRAECHSABGLEICH.txt, SHA-256 1902caadd4709fcfa655262c79e8ca98b097611294b608ec5da6885375008476. Abschnittskennungen lokalisieren die mitgelieferte Rekonstruktion. Sie unterscheidet Nutzerentscheidungen, Vorschläge und fehlende Originale."
+      ]
+    },
+    {
+      "id": "source-eu-beihilfe-festlegung",
+      "type": "editorial-decision",
+      "path": "https://chatgpt.com/library?file_id=libfile_1f644fb35660819198babaac77756ec6&account_id=personal",
+      "title": "Festlegung zur Berücksichtigung des EU-Beihilferechts in der Simulation",
+      "date": "2026-11-14",
+      "status": "confirmed-primary",
+      "scope": [
+        "Simulationsregel"
+      ],
+      "notes": [
+        "Wortlaut der Nutzerentscheidung im Abschnitt C-FRESS und im Redaktionsauftrag vom 19. November bestätigt."
+      ]
+    },
+    {
+      "id": "source-fresswuerfel-ergebnis",
+      "type": "official-communication",
+      "path": "content/kampagnen/fresswuerfel.json",
+      "title": "Fresswürfel – Ergebnis des Maskottchenwettbewerbs",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "HO",
+        "Kommunikation"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-haushalt-k06",
+      "type": "repository",
+      "path": "https://github.com/XYungeloest/osthaushalt-2027-2028/blob/2548cee8a7b25196160df52988669d5e81a02e6a/haushalt/2027-2028/dokumente/BUNDESRECHT_2026_11_18.md",
+      "title": "Prüfanlage K-06 zum Regierungsentwurf 2027/2028",
+      "date": "2026-11-19",
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Personal"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-haushalt-k05",
+      "type": "repository",
+      "path": "https://github.com/XYungeloest/osthaushalt-2027-2028/blob/092cea8915d15803c708f9d242e8f75fb7577724/haushalt/2027-2028/dokumente/STEUERN.md",
+      "title": "Steuern, Finanzkraftausgleich und Bundesergänzungszuweisungen im Titelstand K-05",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Personal"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-haushalt-sicherheitsreform",
+      "type": "repository",
+      "path": "https://github.com/XYungeloest/osthaushalt-2027-2028/blob/2548cee8a7b25196160df52988669d5e81a02e6a/haushalt/2027-2028/dokumente/SICHERHEITSREFORM.md",
+      "title": "Planwirkungen der Sicherheitsreform",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Personal"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-haushalt-endfassung",
+      "type": "repository",
+      "path": "https://github.com/XYungeloest/osthaushalt-2027-2028/blob/2548cee8a7b25196160df52988669d5e81a02e6a/haushalt/2027-2028/dokumente/ENDFASSUNG.md",
+      "title": "Planwirkungen der Versorgungspauschale und Entschädigungen",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Personal"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-dienstrecht-vk-08-13",
+      "type": "proposal",
+      "path": "https://github.com/XYungeloest/osthaushalt-2027-2028/blob/2548cee8a7b25196160df52988669d5e81a02e6a/haushalt/2027-2028/quellen/personal/reform/Beamtenrechtneuordnung_4.html",
+      "title": "Volkskammer-Drucksache 08/13 – vom Staatsrat beschlossener Entwurf",
+      "date": "2026-11-11",
+      "status": "planned",
+      "scope": [
+        "Haushalt",
+        "Personal"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-dienstrecht-quellen",
+      "type": "repository",
+      "path": "https://github.com/XYungeloest/osthaushalt-2027-2028/blob/2548cee8a7b25196160df52988669d5e81a02e6a/haushalt/2027-2028/quellen/personal/QUELLEN.json",
+      "title": "Quellenregister Personal – Endfassung und frühere Entwürfe",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Personal"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-portal-haushaltsimport",
+      "type": "structured-content",
+      "path": "data/haushalt/2027-2028/import-manifest.json",
+      "title": "Importmanifest Doppelhaushalt 2027/2028",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Arbeitszeit"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-haushaltsperioden",
+      "type": "structured-content",
+      "path": "content/haushalt/perioden.json",
+      "title": "Freigabe und Verfahrensstatus der Haushaltsperioden",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Arbeitszeit"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-arbeitszeit-beamte",
+      "type": "structured-content",
+      "path": "content/normen/ostdeutsche-arbeitszeitverordnung/versions/2026-02-20.json",
+      "title": "Arbeitszeitverordnung – regelmäßige Wochenarbeitszeit",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Arbeitszeit"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-arbeitszeit-lehrkraefte",
+      "type": "structured-content",
+      "path": "content/normen/ostdeutsche-lehrkraefte-arbeitszeitverordnung/versions/2026-02-20.json",
+      "title": "Lehrkräfte-Arbeitszeitverordnung – Arbeitszeit und Unterrichtspflicht",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Haushalt",
+        "Arbeitszeit"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-br-31-to",
+      "type": "parliamentary-document",
+      "path": "https://docs.google.com/document/d/160VqFF0KqLXrxYdj31VQzcrCQsTj10Zto7pTgvVm9xo/edit?tab=t.v0qb2ub8csxq",
+      "title": "31. Sitzung des Bundesrates – Tagesordnung und Sitzungsnotizen",
+      "date": "2026-11-12",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrat",
+        "31. Sitzung"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-br-31-beschluesse",
+      "type": "parliamentary-document",
+      "path": "https://docs.google.com/document/d/160VqFF0KqLXrxYdj31VQzcrCQsTj10Zto7pTgvVm9xo/edit?tab=t.1ylxhiyze4it",
+      "title": "31. Sitzung des Bundesrates – Liste der Beschlüsse und Überweisungsschreiben",
+      "date": "2026-11-12",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrat",
+        "31. Sitzung"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-br-31-341",
+      "type": "parliamentary-document",
+      "path": "https://docs.google.com/document/d/160VqFF0KqLXrxYdj31VQzcrCQsTj10Zto7pTgvVm9xo/edit?tab=t.33kf2f9qlayw",
+      "title": "31. Sitzung des Bundesrates – Ausschussempfehlung 341/26 zu BR-Drs. 320/26",
+      "date": "2026-11-12",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrat",
+        "31. Sitzung"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-br-31-347",
+      "type": "parliamentary-document",
+      "path": "https://docs.google.com/document/d/160VqFF0KqLXrxYdj31VQzcrCQsTj10Zto7pTgvVm9xo/edit?tab=t.3mivkx8w6o9o",
+      "title": "31. Sitzung des Bundesrates – Ausschussempfehlung 347/26 zu BR-Drs. 326/26",
+      "date": "2026-11-12",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrat",
+        "31. Sitzung"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-br-31-353",
+      "type": "parliamentary-document",
+      "path": "https://docs.google.com/document/d/160VqFF0KqLXrxYdj31VQzcrCQsTj10Zto7pTgvVm9xo/edit?tab=t.eswugmbrp2em",
+      "title": "31. Sitzung des Bundesrates – Ausschussempfehlung 353/26 zu BR-Drs. 255/26",
+      "date": "2026-11-12",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrat",
+        "31. Sitzung"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-bgbl-2026-i-89",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_89.pdf",
+      "title": "BGBl. 2026 I Nr. 89 – Gesetz zur Einführung des Gebäudetyps E im Bauvertragsrecht (Gebäudetyp-E-Gesetz)",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "8180a436e84ef3af9c7d612f4d37e07421c64e62fe6a4fa8d623b424c95e1478"
+    },
+    {
+      "id": "source-bgbl-2026-i-90",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_90.pdf",
+      "title": "BGBl. 2026 I Nr. 90 – Gesetz zur Änderung des Gesetzes zur kontrollierten Abgabe und zum Umgang mit Cannabis",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "edbb20dd118999253af9887a4d8ec6c4254af44b0abe3a1a931f3f16512b851f"
+    },
+    {
+      "id": "source-bgbl-2026-i-91",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_91.pdf",
+      "title": "BGBl. 2026 I Nr. 91 – Gesetz zur Förderung wassersensibler Stadtentwicklung (Schwammstadtförderungsgesetz)",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "6cc9119e55f09ffbbeda877120206f76764cffa377e401cd9222097ed0a2c8d0"
+    },
+    {
+      "id": "source-bgbl-2026-i-92",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_92.pdf",
+      "title": "BGBl. 2026 I Nr. 92 – Gesetz zum Schutz militärischer Anlagen und Kritischer Infrastruktur vor unbefugten Drohnenüberflügen und Ausspähversuchen (Drohnen-Schutz-Gesetz – DroSchG)",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "85b3b04820a2cf6eb854e8d2bcb7c99b056cc710f0c1bf77f106da38a8f896b2"
+    },
+    {
+      "id": "source-bgbl-2026-i-93",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_93.pdf",
+      "title": "BGBl. 2026 I Nr. 93 – Gesetz zur kostendeckenden Finanzierung der Gesundheitsversorgung von Beziehern von Arbeitslosengeld II (GKV-Bundesbeitragsgesetz - GKV-BBG)",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "69dae19eadbdf9997b141234fd712fb4725e0c45040b5481c8f27c6c59aaab42"
+    },
+    {
+      "id": "source-bgbl-2026-i-94",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_94.pdf",
+      "title": "BGBl. 2026 I Nr. 94 – Verordnung über die Freigabe von Vorräten des Erdölbevorratungsverbandes (7. ErdölFrV)",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "b95aedf159a33b8c7b301c5027bd538ee8c62286c4b6f86374425a38982d8a29"
+    },
+    {
+      "id": "source-bgbl-2026-i-95",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_95.pdf",
+      "title": "BGBl. 2026 I Nr. 95 – Gesetz zur Errichtung der Bundesbehörde für Bevölkerungsschutz und zur Neuordnung des Bevölkerungsschutzes (BfBS-Errichtungsgesetz – BfBSErrG)",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "b1dbb476f7ead3817c169dedc4f8a9160f523e143a823be1a32efff610099ff1"
+    },
+    {
+      "id": "source-bgbl-2026-i-96",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_96.pdf",
+      "title": "BGBl. 2026 I Nr. 96 – Gesetz zur Beschleunigung der Unternehmensgründung (Gründungsbeschleunigungsgesetz)",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "8b3a66599dc4e50a87e3ecf8dad6598b782233d06679a1e1726486688e6e362c"
+    },
+    {
+      "id": "source-bgbl-2026-i-97",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_97.pdf",
+      "title": "BGBl. 2026 I Nr. 97 – Gesetz zur Änderung der Bundesrechtsanwaltsordnung",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "ece075d712820cc4d7d38ed75b884580cbd78dbd769186d93642ecd6402e758b"
+    },
+    {
+      "id": "source-bgbl-2026-i-98",
+      "type": "official-gazette",
+      "path": "context/amtliche-dokumente/2026-11-18/BGBl_2026_I_Nr_98.pdf",
+      "title": "BGBl. 2026 I Nr. 98 – Gesetz zur Stärkung der Wettbewerbsaufsicht und zur Verbesserung des Marktzugangs",
+      "date": "2026-11-18",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrecht"
+      ],
+      "notes": [],
+      "sha256": "5e3c6cdc4ea73e243ab797c9211ec7f711f078d0f6b6e75f89a6a558d06ba2a6"
+    },
+    {
+      "id": "source-breg-umsatzsteuer-2026",
+      "type": "proposal",
+      "path": "context/entwürfe/bund/Umsatzsteuerreform_2026_Uebersicht.pdf",
+      "title": "Umsatzsteuerreform 2026 – Übersicht der Bundesregierung",
+      "date": null,
+      "status": "planned",
+      "scope": [
+        "Bund",
+        "Gemeinden",
+        "Finanzplanung"
+      ],
+      "notes": [],
+      "sha256": "f9dd5f0a2061ac3b30758c9c41dd11b3a3df633326d3647e2fd816321e81e6a1"
+    },
+    {
+      "id": "source-redaktion-br-31-top-5",
+      "type": "editorial-decision",
+      "path": "conversation://wissenshub-2026-11-19/top-5",
+      "title": "Redaktionelle Klarstellung zur Abstimmung über BR-Empfehlung 341/26",
+      "date": "2026-11-19",
+      "status": "confirmed-primary",
+      "scope": [
+        "Bundesrat"
+      ],
+      "notes": [
+        "Die Ausschussempfehlung wurde im Plenum abgelehnt. Der Nachweis zum Ergebnis steht in der Beschlussliste der 31. Sitzung unter TOP 5."
+      ]
+    },
+    {
+      "id": "source-ra-programm-2026",
+      "type": "programme",
+      "path": "context/programme/roter-aufbruch-2026/regierungsprogramm-roter-aufbruch-2026.md",
+      "title": "Regierungsprogramm Roter Aufbruch – Aufbauprogramm 2030",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Wahlprogramm",
+        "politische Planung"
+      ],
+      "notes": []
+    },
+    {
+      "id": "source-agenda-redaktion-2026-08",
+      "type": "editorial-decision",
+      "path": "https://github.com/XYungeloest/staatsregierung/blob/17965da1ed9ae4d75645ff96d0202dee3986e4f3/knowledge/agenda.json",
+      "title": "Redaktionell ausgewählte zusätzliche Gesetzesideen der Planungsagenda",
+      "date": null,
+      "status": "confirmed-primary",
+      "scope": [
+        "Planung"
+      ],
+      "notes": []
     }
   ]
 }

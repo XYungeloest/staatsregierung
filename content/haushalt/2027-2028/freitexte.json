@@ -309,10 +309,6 @@
     "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2": {
       "anzeige": null
     },
-    "Vermögensteuergesetz (BT-Drs. 08/84, verkündet; Inkrafttreten 01.01.2027)": {
-      "anzeige": "Vermögensteuergesetz (Inkrafttreten am 1. Januar 2027)",
-      "art": "verkuendet"
-    },
     "Versorgungsfondsgesetz Ost § 4 (OGVBl. 2026 Nr. 82 Art. 5, Art. 12)": {
       "anzeige": "Versorgungsfondsgesetz Ost, § 4 (OGVBl. 2026 Nr. 82)",
       "normSlug": "versorgungsfondsgesetz-ost",
@@ -352,6 +348,21 @@
           "art": "geltend"
         }
       ]
+    },
+    "Vermögensteuergesetz in der Fassung Sim-BGBl. 2026 I Nr. 86 Art. 1, Bewertungsgesetz Art. 2": {
+      "anzeige": "Vermögensteuergesetz und Bewertungsgesetz in der Fassung des BGBl. 2026 I Nr. 86"
+    },
+    "Sim-BGBl. 2026 I Nr. 19 Art. 1 (Aufhebung des Biersteuergesetzes)": {
+      "anzeige": "Artikel 1 des Gesetzes zur Aufhebung des Biersteuergesetzes (BGBl. 2026 I Nr. 19)"
+    },
+    "Finanzausgleichsgesetz (Sim) § 11 Abs. 3": {
+      "anzeige": "§ 11 Absatz 3 Finanzausgleichsgesetz"
+    },
+    "Finanzausgleichsgesetz (Sim) § 11 Abs. 4": {
+      "anzeige": "§ 11 Absatz 4 Finanzausgleichsgesetz"
+    },
+    "Finanzausgleichsgesetz (Sim), Wortlaut 2022": {
+      "anzeige": "Finanzausgleichsgesetz in der Fassung von 2022"
     }
   },
   "finanzierung": {
@@ -522,9 +533,6 @@
     "Kapitalausstattung der neu gegründeten Handelsorganisation Ost (5 Mio. EUR 2027, 7,5 Mio. EUR 2028). Beteiligungserwerbe – insbesondere eine etwaige Übernahme von tegut-Filialen (Modell: 250 Filialen, Kaufpreis 180 Mio. EUR, davon 60 Mio. EUR Eigenkapital) – sind nicht vertraglich vereinbart, nicht veranschlagt und bedürfen eines gesonderten Beschlusses (§ 65 LHO) mit Wirtschaftsplan.": {
       "anzeige": "Kapitalausstattung der neu gegründeten Handelsorganisation Ost (5 Mio. EUR 2027, 7,5 Mio. EUR 2028). Beteiligungserwerbe, insbesondere eine etwaige Übernahme bestehender Filialen, sind nicht vertraglich vereinbart, nicht veranschlagt und bedürfen eines gesonderten Beschlusses (§ 65 LHO) mit Wirtschaftsplan."
     },
-    "Kassenprognose der Vermögensteuer nach Fallgruppenmodell (Halbvermögensbewertung, Freibeträge 2/4 Mio. EUR, Abschmelzung, Körperschafts-Freigrenze 200.000 EUR). Jahresforderung, Kasseneingang und Rückstände sind getrennt prognostiziert; Nachzahlungen werden nicht fortgeschrieben.": {
-      "anzeige": "Kassenprognose der Vermögensteuer nach Fallgruppen (Halbvermögensbewertung, Freibeträge 2/4 Mio. EUR, Abschmelzung, Körperschafts-Freigrenze 200.000 EUR). Jahresforderung, Kasseneingang und Rückstände sind getrennt prognostiziert; Nachzahlungen werden nicht fortgeschrieben."
-    },
     "Komponente Frühstück (1,00 EUR je Verpflegungstag) des Gesamtpakets 6,00 EUR (2027) / 6,12 EUR (2028); 2,15 Mio. Kinder und Schüler × 195 Tage.": {
       "anzeige": "Komponente Frühstück (1,00 EUR je Verpflegungstag) des Gesamtpakets 6,00 EUR (2027) / 6,12 EUR (2028); 2,15 Mio. Kinder und Schüler:innen × 195 Tage."
     },
@@ -662,6 +670,15 @@
     },
     "Zweckgleiche Finanzierung bereits veranschlagter Ausgaben aus übergeleiteten Zweckrücklagen der Herkunftsländer; positionsgenau im Verwendungsplan (Anlage Rücklagen und Fonds) mit Zielkapitel und Gegenposten nachgewiesen.": {
       "anzeige": "Zweckgleiche Finanzierung bereits veranschlagter Ausgaben aus übergeleiteten Zweckrücklagen der Herkunftsländer; positionsgenau im Verwendungsplan (Anlage Rücklagen und Fonds) mit Zielkapitel und Gegenposten nachgewiesen."
+    },
+    "Vermögensteuer nach dem verkündeten Vermögensteuergesetz (Sim-BGBl. 2026 I Nr. 86, ab 01.01.2027): 1 %, Freibeträge 3 Mio. EUR (Einzelveranlagung) bzw. 5 Mio. EUR (Zusammenveranlagung), Abschmelzung bis auf 0,5/1 Mio. EUR, produktives Betriebsvermögen bis 25 Mio. EUR außer Ansatz (§ 4d), zusätzlich 5 Mio. EUR ab 60 Jahren oder GdB 100 (§ 6 Abs. 3), Freigrenze 200.000 EUR für Körperschaften. Kasse 2027 ohne Vorauszahlung (§ 21), Rückstände 2028 ff.": {
+      "anzeige": null
+    },
+    "Das Biersteuergesetz ist mit Wirkung vom 1. Juni 2026 aufgehoben (Sim-BGBl. 2026 I Nr. 19); der Titel bleibt nachrichtlich.": {
+      "anzeige": "Der Titel weist die zum 1. Juni 2026 aufgehobene Biersteuer nachrichtlich aus."
+    },
+    "Planüberschuss 2027 aus Steuermehreinnahmen nach Wegfall aller kürzbaren Entnahmen (HG § 4 Abs. 5); Entnahme der allgemeinen Rücklage nach der Finanzierungsregel des Finanzrahmens.": {
+      "anzeige": "Der für 2027 geplante Überschuss fließt in die Liquiditätsrücklage."
     }
   },
   "vermerk": {
@@ -770,6 +787,7 @@
     "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Entgelte der Arbeitnehmer:innen": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Entgelte der Arbeitnehmer:innen",
     "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Erwerb von Geräten und sonstigen beweglichen Sachen": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Erwerb von Geräten und sonstigen beweglichen Sachen",
     "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
-    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Nicht aufteilbare sächliche Verwaltungsausgaben": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Nicht aufteilbare sächliche Verwaltungsausgaben"
+    "Gemeinsames Lage- und Analysezentrum, Landeskrisenstab und Übungen: Nicht aufteilbare sächliche Verwaltungsausgaben": "Gemeinsames Lage- und Abwehrzentrum Ost, Landeskrisenstab und Übungen: Nicht aufteilbare sächliche Verwaltungsausgaben",
+    "Neuberechnung der Steuereinnahmen, des Finanzkraftausgleichs und der BEZ (K-05)": "Steuereinnahmen, Finanzkraftausgleich und Bundesergänzungszuweisungen"
   }
 }

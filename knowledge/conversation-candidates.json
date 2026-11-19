@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-29",
+  "asOf": "2026-11-19",
   "candidates": [
     {
       "id": "candidate-honecker-biography",
@@ -196,6 +196,206 @@
       ],
       "priority": "high",
       "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-kommunikation-november",
+      "title": "ECHO, Reden und Fragestunde",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die ECHO-Antwort zu Novembererinnerung und DDR-Parallelen, die Rede zu Haushalt und Dienstrecht, Repliken sowie der Presseentwurf zum 3. Oktober in Halle sind Entwürfe. Humoristische Antworten zu Kaffeemaschinen, Verfassungsaushängen und Petitionen liefern keine Statistik.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-KOMM / C-OKT · Presse- und Redeentwürfe, Oktober und November",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Veröffentlichung, versandte Antworten oder Plenarprotokoll"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
+    },
+    {
+      "id": "candidate-wohnungsbau-bilanz",
+      "title": "Wohnungsbau 2025/26 – Annahmen für eine Bilanz",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Vollständiger Mittelabfluss und Umsetzung wurden am 6. November als Simulationsannahme zugelassen. 35.000 neue, 15.000 modernisierte Wohnungen und rund 70.000 Bewohner:innen stammen aus einer Modellantwort.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-WOHNEN · Bilanzauftrag und Modell vom 6. November",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Bauabnahmen, Mittelabrechnung oder ausdrücklich festgelegte Bilanz"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
+    },
+    {
+      "id": "candidate-sicherheitskraefte-modell",
+      "title": "Personalstärken von Sicherheits- und Hilfsdiensten",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die Rekonstruktion nennt die Länderbestände als Modellbasis mit gesonderter Betrachtung der KGP und der Bundesabkommen. 1.200 KGP-Kräfte und die Aufteilung 750/450 sind unbestätigte Annahmen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-SICH-ZAHLEN · Nutzerauftrag und Modellantwort vom 5. November",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Abgegrenzte Personalstatistik mit Bezugsjahren und Zuordnungen"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
+    },
+    {
+      "id": "candidate-br-verfahrensberatung",
+      "title": "Bundesratsberatung und Entwürfe für Schreiben",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Ein 2:2 im vierstimmigen Ausschuss war Gegenstand einer Verfahrensfrage. Das Schreiben zur Entsendung Elias Ohlingers und die Stellungnahme zur EU-Rettungsdienstrichtlinie liegen als rekonstruierte Entwürfe vor. Ein Votum, eine Änderung der Geschäftsordnung oder eine Zustellung ist offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-BR / C-OKT · Verfahrensfragen und Stellungnahme zu Artikeln 4, 15, 16 und 20 der Richtlinie",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Plenarbeschluss, beschlossene Geschäftsordnung oder Versandnachweis"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
+    },
+    {
+      "id": "candidate-wendepunkt-sueddeutschland",
+      "title": "Wendepunkt – Haushaltsdebatte in Süddeutschland",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die Kritik richtet sich gegen Bablers ersten, abgelehnten Entwurf für 2026. Sie betrifft weder den ostdeutschen Haushalt noch ein anderes verkündetes Haushaltsgesetz. Die journalistische Arbeit und der berichtete Ausgang eines Erdbebenhilfe-Verfahrens benötigen eigene Belege.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-MEDIEN · Korrigierter Artikel vom 16. November, Abschnitt zu Bablers Entwurf · wendepunkt-haushalt-sueddeutschland.md (SHA-256 aba4ca1b2522c54f39e6db246c9dadca67fe202393ea71ae2b7807aed8bdd7c1)",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Publikationsnachweis und Originalurteil"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
+    },
+    {
+      "id": "candidate-verfassungswiki",
+      "title": "Wikiartikel zur Staatsverfassung",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Am 18. November wurde eine redaktionelle Überarbeitung beauftragt. Die maßgebliche Normfassung datiert vom 12. September. Der Entwurf verwechselt Nr. 80 mit einer Hoheitszeichenregelung. Nr. 80 führt das WPGG ein.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-WIKI · Arbeitsentwurf vom 18. November, Fundstelle Nr. 80 · Ostdeutsche_Staatsverfassung_Wikiartikel.txt (SHA-256 28461939664fb01fd890e342eee49fdbb2aa00eb30ba600d3bc486ba9258dd38)",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Veröffentlichte Wiki-Revision"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
+    },
+    {
+      "id": "candidate-fresswuerfel-modell",
+      "title": "Ausgestaltung des Fresswürfel-Ausbaus",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Sechs Pilotstandorte, 8–13 Mio. Euro und mögliche Filialübernahmen sind Entwurfsoptionen. Für konkrete Standorte oder Erwerbe von tegut, McDonald’s oder Burger King fehlt ein Vollzugsbeleg.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-FRESS / C-SEPT · Entwurfsmodell und leere Standortanlage",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Erwerbsverträge, Registerauszug und Nachweis der Betriebsaufnahme"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
+    },
+    {
+      "id": "candidate-ausbau-modelle",
+      "title": "Ausgestaltungen von Abraumklub, Interflug und Windenergie",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "F60/Bergheider See, 3.000–5.000 Plätze und ein Pilot 2027 sind Vorschläge. Gleiches gilt für Leipzig/Halle, Partner- und anschließenden Eigenbetrieb bei Interflug sowie 5 GW, 13 TWh jährlich und 11 Mrd. Euro für die OEG.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-ABRAUM / C-INTERFLUG / C-OKT · Assistentenvorschläge zu den ausgewählten Ausbauideen",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "classification": "conversation-reconstruction",
+      "searchTargets": [
+        "Bestätigtes Konzept, Standort-, Investitions- oder Gründungsbeschluss"
+      ],
+      "priority": "normal",
+      "promotionRule": "Konkrete Primärquelle für Handlung oder Ergebnis prüfen."
     }
   ]
 }

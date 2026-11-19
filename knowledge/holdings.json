@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-13",
+  "asOf": "2026-11-19",
   "holdings": [
     {
       "id": "holding-rechtsnachfolge-2023",
@@ -1363,7 +1363,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-02",
       "validTo": null,
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Sämtliche Geschäftsanteile gingen am 2. September 2026 kraft Gesetzes auf den Freistaat über. Die Gesellschaft besteht als Rechtsträgerin fort; ein späterer Übertragungsakt ist für diesen Eigentumsübergang nicht erforderlich. Seit 15. Oktober 2026 halten die Ostdeutschen Rohstoffwerke die Geschäftsanteile unmittelbar; die Beteiligung des Freistaates besteht seitdem mittelbar über diese Anstalt.",
       "sourceRefs": [
         {
@@ -1379,7 +1379,9 @@
       ],
       "relatedIds": [
         "project-zinnwald-lithium",
-        "inst-sek-wirtschaft-arbeit"
+        "inst-sek-wirtschaft-arbeit",
+        "inst-ostdeutsche-rohstoffwerke",
+        "holding-ostdeutsche-rohstoffwerke"
       ],
       "tags": [
         "holding",
@@ -1422,6 +1424,128 @@
       ],
       "kind": "public-law-carrier",
       "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-ostdeutsche-rohstoffwerke",
+      "title": "Ostdeutsche Rohstoffwerke",
+      "status": "confirmed-primary",
+      "validFrom": "2026-10-15",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Unmittelbare Trägerposition des Freistaates an der rechtsfähigen Anstalt in Freiberg. Die Anstalt hält die übertragenen Projektanteile in eigenem Namen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 1 §§ 1–3, 9–11",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-ostdeutsche-rohstoffwerke",
+        "project-rohstoffwirtschaft-generationenfonds"
+      ],
+      "tags": [],
+      "notes": [],
+      "kind": "public-law-institution",
+      "direct": true
+    },
+    {
+      "id": "holding-lausitzer-kupfer",
+      "title": "Kupfer-Projektunternehmen Spremberg–Graustein–Schleife",
+      "status": "confirmed-primary",
+      "validFrom": "2026-10-15",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die Geschäftsanteile am gesetzlich bestimmten Kupfer-Projektunternehmen gingen kraft Gesetzes auf die Rohstoffwerke über. Die Übertragung bergrechtlicher Berechtigungen bedarf gesonderter Zustimmung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 2 §§ 1–3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-ostdeutsche-rohstoffwerke",
+        "project-rohstoffwirtschaft-generationenfonds"
+      ],
+      "tags": [],
+      "notes": [],
+      "kind": "company",
+      "direct": false,
+      "stakePercent": 100
+    },
+    {
+      "id": "holding-ohmgebirge",
+      "title": "Kali-Projektunternehmen Ohmgebirge",
+      "status": "confirmed-primary",
+      "validFrom": "2026-10-15",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Gesamtheit der Anteile am Unternehmen mit dem Bergwerkseigentum Ohmgebirge kraft Gesetzes auf die Rohstoffwerke übertragen. Beim Gesetzesbeschluss war dies die Südharz Kali GmbH. Die Rechtspersönlichkeit bleibt bestehen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 3 §§ 1–3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-ostdeutsche-rohstoffwerke",
+        "project-rohstoffwirtschaft-generationenfonds"
+      ],
+      "tags": [],
+      "notes": [],
+      "kind": "company",
+      "direct": false,
+      "stakePercent": 100
+    },
+    {
+      "id": "holding-generationenfonds-ost",
+      "title": "Zukunfts- und Generationenfonds Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-10-15",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Nicht rechtsfähiges Sondervermögen des Freistaates. Die organisatorische Einrichtung und erste Zuführungen benötigen gesonderte Belege.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 4 § 1 und Artikel 12 Absatz 7",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-ostdeutsche-rohstoffwerke",
+        "project-rohstoffwirtschaft-generationenfonds"
+      ],
+      "tags": [],
+      "notes": [],
+      "kind": "special-fund",
+      "direct": true
+    },
+    {
+      "id": "holding-versorgungsfonds-ost",
+      "title": "Versorgungsfonds Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-10-15",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Nicht rechtsfähiges Sondervermögen zur Vorsorge für Versorgung und Beihilfe. Aufstellung und tatsächliche Zuführung sind getrennt zu prüfen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 5 § 1 und Artikel 12 Absatz 7",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-ostdeutsche-rohstoffwerke",
+        "project-rohstoffwirtschaft-generationenfonds"
+      ],
+      "tags": [],
+      "notes": [],
+      "kind": "special-fund",
       "direct": true
     }
   ]

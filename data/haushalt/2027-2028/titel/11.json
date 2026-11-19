@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -2265,19 +2266,20 @@
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "culture",
       "einheit": "Sonntage",
-      "erlaeuterung": "Freier Eintritt an jedem ersten Sonntag im Monat und an Feiertagssonntagen in den Museen des Freistaates und den geförderten kommunalen Museen; Ausgleich entgangener Eintrittserlöse (52 Öffnungstage × durchschnittlich 150.000 EUR landesweit).",
       "jahre": {
         "2027": {
           "id": "T.1104/68401.museumssonntag@2027",
           "betrag": 7800000,
           "menge": "52",
-          "satz": "150000"
+          "satz": "150000",
+          "erlaeuterung": "Freier Eintritt an jedem ersten Sonntag im Monat und an Feiertagssonntagen in den Museen des Freistaates und den geförderten kommunalen Museen; Ausgleich entgangener Eintrittserlöse (52 Öffnungstage × durchschnittlich 150.000 EUR landesweit)."
         },
         "2028": {
           "id": "T.1104/68401.museumssonntag@2028",
           "betrag": 8320000,
           "menge": "52",
-          "satz": "160000"
+          "satz": "160000",
+          "erlaeuterung": "Freier Eintritt an jedem ersten Sonntag im Monat und an Feiertagssonntagen in den Museen des Freistaates und den geförderten kommunalen Museen; Ausgleich entgangener Eintrittserlöse (52 Öffnungstage × durchschnittlich 150.000 EUR landesweit)."
         }
       }
     },
@@ -2299,15 +2301,16 @@
       "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 1/6; KulturpassG §§ 1, 2, 5",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "culture",
-      "erlaeuterung": "Kulturpass für 0,5 Mio. berechtigte junge Menschen und Sozialleistungsbeziehende (Theater, Konzerte, Kinos, Bibliotheken); Abrechnung über die Kultureinrichtungen.",
       "jahre": {
         "2027": {
           "id": "T.1104/68401.kulturpass@2027",
-          "betrag": 62200000
+          "betrag": 62200000,
+          "erlaeuterung": "Kulturpass für 0,5 Mio. berechtigte junge Menschen und Sozialleistungsbeziehende (Theater, Konzerte, Kinos, Bibliotheken); Abrechnung über die Kultureinrichtungen."
         },
         "2028": {
           "id": "T.1104/68401.kulturpass@2028",
-          "betrag": 65680000
+          "betrag": 65680000,
+          "erlaeuterung": "Kulturpass für 0,5 Mio. berechtigte junge Menschen und Sozialleistungsbeziehende (Theater, Konzerte, Kinos, Bibliotheken); Abrechnung über die Kultureinrichtungen."
         }
       }
     },
