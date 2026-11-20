@@ -186,6 +186,12 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
 
 ### Geschlossene Portalvorschauen
 
+Die PR-Prüfung vermerkt die hochgeladene Versionskennung vor dem HTTP-Test im Bot-Kommentar.
+So bleibt sie auch nach einem fehlgeschlagenen Erreichbarkeitstest für die Bereinigung verfügbar.
+Für die Zugangsbeschränkung gilt die Access-Richtlinie des Workers. In **Workers & Pages →
+ostrecht-portal → Access** umfasst **Previews only** die Versionsvorschauen. Die Freigabe lässt
+sich mit einem für die Richtlinie nicht zugelassenen Zugang prüfen. [Cloudflare Access für einen Worker](https://developers.cloudflare.com/workers/configuration/cloudflare-access/#protect-one-worker)
+
 Beim Schließen des PR und nach dem erfolgreichen Main-Release seines Merge-Commits prüft
 `preview-cleanup.yml` die Versionskennungen im Vorschaukommentar von `github-actions[bot]`.
 Für jede Version des Workers `ostrecht-portal` prüft der Job das aktuelle Deployment (auch
