@@ -93,6 +93,10 @@ portabler SQLite-Snapshot (`npm run norms:runtime:d1-seed`, Fixture über
 `tests/helpers/fixture-corpus.ts`, kein Auszug aus `content/`); `npm run norms:runtime:d1-seed-fingerprint`
 liefert den deterministischen Seed-Fingerabdruck. Die produktive Datenbank wird dabei nie berührt.
 
+Der [technische Datenfluss](docs/architektur/datenfluss.d2) lässt sich mit
+`mise run docs:diagram` als SVG unter `.cache/docs/datenfluss.svg` erzeugen.
+Mit D2 0.9.0 im Suchpfad steht dafür auch `npm run docs:diagram` zur Verfügung.
+
 ## Wichtige Verzeichnisse
 
 ```text

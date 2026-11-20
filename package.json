@@ -23,6 +23,7 @@
     "knowledge:query": "node --experimental-strip-types packages/knowledge-query/cli.mjs",
     "knowledge:mcp": "node --experimental-strip-types packages/knowledge-query/mcp.mjs",
     "knowledge:check": "node scripts/knowledge.mjs check",
+    "docs:diagram": "mkdir -p .cache/docs && d2 --layout dagre --salt staatsregierung docs/architektur/datenfluss.d2 .cache/docs/datenfluss.svg",
     "docs:check": "node scripts/check-docs.mjs",
     "knowledge:build": "node scripts/knowledge.mjs build && npm run holdings:build",
     "holdings:build": "node scripts/build-public-holdings.mjs",

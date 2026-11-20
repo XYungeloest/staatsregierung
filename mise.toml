@@ -11,3 +11,7 @@ test = "npm run test:fast"
 "knowledge:check" = "npm run knowledge:check"
 "content:check" = "npm run content:check"
 build = "npm run build"
+
+[tasks."docs:diagram"]
+tools = { d2 = "0.9.0" }
+run = "npm run docs:diagram"
