@@ -794,7 +794,7 @@ Unterseiten folgen der Hierarchie Behördenkopf, bereichsbezogener Einstieg (`Se
 mit den Varianten `government`, `topics`, `law`, `budget`, `reform`, `press`, `service`, `freestate`,
 `plain`), lokale Orientierung, fachliche Module, Serviceband und Footer. Die fachliche Variante bestimmt Akzent und Medienanteil.
 Die Dichte richtet sich nach dem Zweck. `compact` führt mit kurzer Einführung zum Fachinhalt,
-`dossier` leitet zur Inhaltsnavigation über, `tool` hält den Arbeitsweg zur Suche oder zum
+`dossier` leitet zur aufklappbaren Inhaltsnavigation über, die auf schmalen Bildschirmen geschlossen beginnt. `tool` hält den Arbeitsweg zur Suche oder zum
 Verzeichnis kurz. `section` kennzeichnet den regulären Bereichseinstieg. Seitentitel stehen in
 `--text-title`, Langtitel in `--text-title-long`; im Einstieg gibt es höchstens eine primäre Aktion.
 Die Bereichsnavigation (`SectionNavigation`) bleibt ein semantisches `nav` mit echten Links und

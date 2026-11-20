@@ -139,7 +139,7 @@ const dossierLinks = [
       status={formatTopicStatus(topic.status)} variant="topics" density={pageType === 'application' ? 'tool' : pageType}
       actions={application ? [{ ...application, primary: true }] : []} />
 
-    {pageType === 'dossier' && <SectionNavigation label="In diesem Dossier" variant="topics" items={dossierLinks} />}
+    {pageType === 'dossier' && <SectionNavigation collapsible label="In diesem Dossier" variant="topics" items={dossierLinks} />}
     <TopicBriefing {topic} referenceDate={PORTAL_REFERENCE_DATE} />
     {topic.modules.map((module) => <TopicModule module={module} referenceDate={PORTAL_REFERENCE_DATE} />)}
 

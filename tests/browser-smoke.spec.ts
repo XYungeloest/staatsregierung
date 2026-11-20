@@ -2525,6 +2525,21 @@ siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape
   }
 });
 
+siteTest(['portal'])('Reformdossier bietet auf dem Smartphone ein aufklappbares Inhaltsverzeichnis', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/themen/oeffentliche-wirtschaft-und-strukturwandel/');
+  const contents = page.getByRole('navigation', { name: 'In diesem Dossier' });
+  const section = contents.locator('a[href="#industrieprojekte"]');
+  await expect(section).toBeHidden();
+  await contents.locator('summary').press('Enter');
+  await expect(section).toBeVisible();
+  await section.click();
+  await expect(page).toHaveURL(/#industrieprojekte$/u);
+  await page.setViewportSize({ width: 1280, height: 920 });
+  await expect(section).toBeVisible();
+});
+
 siteTest(['law'])('Verfassungszugang leitet permanent weiter und explizite Fassungslinks bleiben dauerhaft', async ({ page, request }) => {
   const redirect = await request.get(lawUrl('/verfassung/?ansicht=text'), { maxRedirects: 0 });
   expect(redirect.status()).toBe(308);

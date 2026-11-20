@@ -8,10 +8,12 @@ interface Item {
 interface Props {
   label: string;
   items: Item[];
+  collapsible?: boolean;
   variant?: 'government' | 'topics' | 'law' | 'budget' | 'reform' | 'press' | 'service' | 'freestate' | 'plain';
 }
 
-const { label, items, variant = 'plain' } = Astro.props as Props;
+const { label, items, variant = 'plain', collapsible = false } = Astro.props as Props;
+const Container = collapsible ? 'details' : 'div';
 const currentPath = Astro.url.pathname.replace(/\/+$/u, '/') || '/';
 const pathFromHref = (href: string) => {
   if (href.startsWith('#')) return null;
@@ -25,9 +27,9 @@ const pathFromHref = (href: string) => {
 };
 ---
 
-<nav class:list={['section-navigation', `section-navigation--${variant}`]} aria-label={label}>
-  <div class="section-navigation__inner">
-    <span class="section-navigation__label">{label}</span>
+<nav class:list={['section-navigation', `section-navigation--${variant}`, collapsible && 'section-navigation--contents']} aria-label={label}>
+  <Container class="section-navigation__inner">
+    {collapsible ? <summary>{label}</summary> : <span class="section-navigation__label">{label}</span>}
     <ul>
       {items.map((item) => {
         const isCurrent = item.current ?? pathFromHref(item.href) === currentPath;
@@ -38,5 +40,13 @@ const pathFromHref = (href: string) => {
         );
       })}
     </ul>
-  </div>
+  </Container>
 </nav>
+
+<script>
+  const wide = window.matchMedia('(min-width: 48.001rem)');
+  for (const contents of document.querySelectorAll<HTMLDetailsElement>('.section-navigation--contents details')) {
+    contents.open = wide.matches;
+    wide.addEventListener('change', (event) => { contents.open = event.matches; });
+  }
+</script>
