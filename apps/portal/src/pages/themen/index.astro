@@ -22,12 +22,11 @@ import { loadMinistries, loadTopics } from '@ostrecht/shared/lib/portal/content.
 const [topics, ministries] = await Promise.all([loadTopics(), loadMinistries()]);
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const currentTopics = getActiveTopicHighlights(topics, PORTAL_REFERENCE_DATE);
-const currentTopicSlugs = new Set(currentTopics.map((topic) => topic.slug));
-const focusTopics = topics.filter((topic) => topic.pageType === 'dossier').filter((topic) => !currentTopicSlugs.has(topic.slug));
+const focusTopics = topics.filter((topic) => topic.pageType === 'dossier');
 const topicGroups = groupTopicsByCluster(topics);
 ---
 
-<BaseLayout title="Politik & Vorhaben" description="Aktuelle Vorhaben, dauerhafte Schwerpunkte und alle Themen des Ostdeutschen Freistaates mit Rechtsstand und Zuständigkeit.">
+<BaseLayout title="Politik & Vorhaben" description="Aktuelle Vorhaben, Reformdossiers und alle Themen des Ostdeutschen Freistaates mit dem Stand der Vorhaben und den zuständigen Ressorts.">
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Politik & Vorhaben' }]} />
 
   <SectionHero
@@ -74,8 +73,7 @@ const topicGroups = groupTopicsByCluster(topics);
 
   <section id="schwerpunkte" class="section section-muted topics-focus" aria-labelledby="topics-focus-title">
     <div class="section-header">
-      <p class="eyebrow">Schwerpunkte</p>
-      <h2 id="topics-focus-title">Große Reformbereiche</h2>
+      <h2 id="topics-focus-title">Reformdossiers</h2>
       <p>Die Dossiers erläutern Teilvorhaben, rechtliche Grundlagen und ihre Auswirkungen.</p>
     </div>
     <ul class="topic-reference-list">

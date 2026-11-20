@@ -11,8 +11,8 @@ const { title, description } = campaignSummary(c);
 const uploads = uploadsConnected(env);
 const open = isSubmissionPhase(c) && isConnected(env, c);
 Astro.response.headers.set('Cache-Control', 'no-store');
-const breadcrumbs = [{ label: 'Startseite', href: '/' }, { label: 'Themen & Projekte', href: '/themen/' }, { label: 'Fresswürfel-Maskottchen' }];
-const labels = { vorbereitet: 'In Vorbereitung', einreichung: 'Ideen gesucht', sichtung: 'Die HO sichtet die Ideen', ergebnis: 'Ergebnis' };
+const breadcrumbs = [{ label: 'Startseite', href: '/' }, { label: 'Politik & Vorhaben', href: '/themen/' }, { label: 'Fresswürfel-Maskottchen' }];
+const labels = { vorbereitet: 'In Vorbereitung', einreichung: isSubmissionPhase(c) ? 'Ideen gesucht' : 'Einreichungszeitraum', sichtung: 'Die HO sichtet die Ideen', ergebnis: 'Ergebnis' };
 ---
 <BaseLayout {title} {description} {breadcrumbs} noindex={env.APP_ENV === 'local' || env.APP_ENV === 'preview'}>
   <Breadcrumbs items={breadcrumbs} />

@@ -7,16 +7,25 @@
   "cluster": "bildung-gesellschaft",
   "priority": 65,
   "featured": false,
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-15",
+  "reportedEvents": [
+    {
+      "kind": "norm-effective",
+      "slug": "ostdeutsches-teilhabegesetz"
+    }
+  ],
   "knowledgeProjectRefs": [
     "project-sportneuordnung",
     "project-kostenfreie-kindheit-teilhabe"
+  ],
+  "relatedTopicSlugs": [
+    "soziale-sicherheit-und-teilhabe"
   ],
   "beschlossen": [
     "Zum Sportförderrecht gehören die Landesagentur für Spitzensport, die Athletenförderung und der Betriebssport."
   ],
   "geltendesRecht": [
-    "Das Sportneuordnungsgesetz ist seit dem 21. Juli 2026 in Kraft."
+    "Seit dem 21. Juli 2026 haben unter 18-Jährige für schulische und vereinsgebundene Sportangebote kostenfreien Zugang zu öffentlichen Sportstätten, die nach dem Sportfördergesetz mit Landesmitteln gefördert werden."
   ],
   "umgesetzt": [],
   "naechsteSchritte": [
@@ -24,7 +33,7 @@
   ],
   "impacts": [
     {
-      "text": "Ab 1. Januar 2027 können unter 18-Jährige landesgeförderte öffentliche Sportstätten für nichtkommerzielle Zwecke kostenfrei nutzen. Eine Vereinsmitgliedschaft ist dafür nicht erforderlich.",
+      "text": "Ab 1. Januar 2027 gilt der kostenfreie Zugang für jede nichtkommerzielle sportliche Nutzung dieser Sportstätten durch unter 18-Jährige, unabhängig von einer Vereinsmitgliedschaft. Kommerzielle Sportveranstaltungen können weiterhin Eintritt kosten.",
       "normSlug": "ostdeutsches-sportfoerdergesetz"
     }
   ],

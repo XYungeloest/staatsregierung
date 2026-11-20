@@ -79,6 +79,7 @@ npm run links:check
 npm run seo:check
 npm run test:a11y
 npm run test:browsers
+npm run test:browsers:compat  # gezielte Firefox- und WebKit-Prüfung auf dem vorhandenen Build
 npm run test:visual
 ```
 

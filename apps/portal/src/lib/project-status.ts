@@ -23,6 +23,8 @@ export function publicLegalSources(norms: NormMeta[], publications: Verkuendung[
   });
 }
 
+export type PublicLegalSource = ReturnType<ReturnType<typeof publicLegalSources>>;
+
 export function projectPublicStatus(items: ActionPlanItem[], topics: Themenseite[], procedures: LegislativeProcedure[],
   resolveSource: ReturnType<typeof publicLegalSources>) {
   // Redigierte hrefs sind kanonische Portalpfade, auch bei einem Build mit abweichender Basis.

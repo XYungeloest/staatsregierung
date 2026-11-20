@@ -2,12 +2,12 @@
   "slug": "soziale-sicherheit-und-teilhabe",
   "title": "Soziale Sicherheit & Teilhabe",
   "pageType": "dossier",
-  "teaser": "Welche Hilfe bei drohendem Wohnungsverlust vorgesehen ist, wie Pflege organisiert werden soll und wer künftig einen Teilhabepass erhält.",
+  "teaser": "Hilfe bei drohender Wohnungslosigkeit, Pflegeberatung und die Voraussetzungen für den Teilhabe- und den Sozialpass Ost.",
   "status": "in-umsetzung",
   "cluster": "bildung-gesellschaft",
   "priority": 57,
   "featured": false,
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-15",
   "knowledgeProjectRefs": [
     "project-soziale-grundversorgung",
     "project-kostenfreie-kindheit-teilhabe"
@@ -15,64 +15,142 @@
   "relatedTopicSlugs": [
     "familie-und-soziales",
     "krankenhausfonds",
-    "wohnen-und-vergesellschaftung"
+    "wohnen-und-vergesellschaftung",
+    "kulturpass"
   ],
   "beschlossen": [
-    "Das Teilhabegesetz führt den Teilhabepass und den Sozialpass Ost ein. Die Vorbereitungs- und Datenschutzregeln gelten seit dem 15. Oktober 2026."
+    "Das Regierungsprogramm sieht Housing First sowie Hilfen bei Mietschulden und Energiearmut vor. Das Gesetz zur sozialen Grundversorgung regelt bereits, wie Behörden bei unmittelbar drohender Wohnungslosigkeit handeln müssen."
   ],
   "geltendesRecht": [
-    "Das Soziale Grundversorgungsgesetz verpflichtet die Bezirke zu jährlichen Grundversorgungskonferenzen. Es verlangt Pflegeplanung, Pflegestützpunkte, Gemeindepflege und ein landesweites Pflegenottelefon.",
-    "§ 14a des Krankenhausgesetzes sieht regionale Strukturzulagen für psychologische, psychotherapeutische und psychiatrische Fachkräfte im öffentlichen Dienst und in kommunalen Einrichtungen vor. Höhe und Ausgestaltung regelt eine Verordnung."
+    "Seit September 2026 müssen die Bezirke die Grundversorgung jährlich in Konferenzen beraten. Seit dem 15. Oktober gelten die Vorschriften zur Vorbereitung der neuen Pässe und zum Schutz der dafür erhobenen Daten."
   ],
   "umgesetzt": [],
   "naechsteSchritte": [
-    "Die Leistungsregeln für die Pässe gelten ab dem 1. Januar 2027. Familienservicestellen müssen ihre Aufgaben spätestens ab dem 1. Juli 2027 erfüllen.",
-    "Housing First und Hilfen bei Mietschulden und Energiearmut gehören zum Regierungsprogramm."
+    "Die Ausgabe der Teilhabepässe und die vorgesehenen Leistungen beginnen am 1. Januar 2027. Die Familienservicestellen müssen ihre gesetzlichen Aufgaben spätestens ab 1. Juli 2027 erfüllen."
+  ],
+  "modules": [
+    {
+      "type": "facts",
+      "id": "grundversorgung",
+      "title": "Wohnung sichern und Pflege organisieren",
+      "items": [
+        {
+          "label": "Wohnraumbedarf",
+          "value": "Der Freistaat muss erfassen, wo bezahlbare, barrierefreie und altersgerechte Wohnungen fehlen. Die Planung berücksichtigt auch Haushalte mit erschwertem Zugang zum Wohnungsmarkt."
+        },
+        {
+          "label": "Pflegeberatung",
+          "value": "Das Gesetz verlangt regional abgestimmte Pflegestützpunkte und Gemeindepflege. Bei dringendem Pflegebedarf außerhalb der üblichen Beratungszeiten soll ein landesweites Pflegenottelefon Orientierung geben und Hilfe vermitteln."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "gesundheitsversorgung",
+      "title": "Krankenhäuser und psychische Gesundheit",
+      "items": [
+        {
+          "label": "Wohnortnahe Versorgung",
+          "value": "Der Krankenhausfonds kann versorgungsnotwendige Standorte sichern, kommunale Übernahmen ermöglichen und regionale Klinikverbünde unterstützen. Dünn besiedelte und strukturschwache Regionen sind besonders zu berücksichtigen."
+        },
+        {
+          "label": "Fachkräfte",
+          "value": "Das Krankenhausgesetz sieht regionale Strukturzulagen für psychologische, psychotherapeutische und psychiatrische Fachkräfte im öffentlichen Dienst des Freistaates und in kommunalen Einrichtungen vor. Höhe und Ausgestaltung regelt eine Verordnung."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "teilhabe-und-kultur",
+      "title": "Teilhabepass, Sozialpass und Kulturpass",
+      "items": [
+        {
+          "label": "Sozialpass ab 2027",
+          "value": "Anspruch haben Menschen mit Hauptwohnung im Freistaat, die etwa Wohngeld, Kinderzuschlag, Ausbildungsförderung oder Leistungen nach dem Asylbewerberleistungsgesetz beziehen. Der Sozialpass wird auf dem Teilhabepass vermerkt. Der Nachweis gegenüber Einrichtungen gibt die bezogene Leistung nicht preis."
+        },
+        {
+          "label": "Kulturpass für 18-Jährige",
+          "value": "Wer im Kalenderjahr 18 wird und bei der Freischaltung die Hauptwohnung im Freistaat hat, kann 100 Euro Kulturguthaben beantragen. Ab Januar 2027 schaltet die zuständige Stelle den Kulturpass von Amts wegen als Teil des Teilhabepasses frei."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "aufnahme-und-unterbringung",
+      "title": "Unterbringung geflüchteter Menschen",
+      "items": [
+        {
+          "label": "Wohnen",
+          "value": "Die Unterbringung soll vorrangig dezentral in Wohnungen erfolgen. Gemeinschaftsunterkünfte sind nur zulässig, solange eine dezentrale Unterbringung tatsächlich unmöglich ist."
+        },
+        {
+          "label": "Mitwirkung",
+          "value": "In Unterkünften mit mehr als 50 Plätzen ist ein Beirat der Bewohner:innen zu bilden. Vor wichtigen Entscheidungen etwa zu Hausordnung und Verpflegung muss er Gelegenheit zur Stellungnahme erhalten."
+        }
+      ]
+    }
   ],
   "impacts": [
     {
-      "text": "Droht eine Zwangsräumung, muss die zuständige Stelle nach § 11 unverzüglich handeln, um den Wohnungsverlust abzuwenden oder eine geeignete Unterkunft zu sichern.",
+      "text": "Erfährt die zuständige Stelle, dass eine bevorstehende Räumung jemanden wohnungslos machen würde, muss sie unverzüglich handeln. Lässt sich weder die Wohnung erhalten noch rechtzeitig Ersatz finden, muss spätestens beim Wohnungsverlust eine menschenwürdige Unterkunft bereitstehen.",
       "normSlug": "soziale-grundversorgungsgesetz"
     },
     {
-      "text": "Ab dem 1. Januar 2027 erhalten unter 18-Jährige mit Hauptwohnung im Freistaat den Teilhabepass von Amts wegen. Auf Verlangen erhalten sie einen analogen Nachweis. Der Sozialpass ist unter anderem für Wohngeldberechtigte vorgesehen.",
+      "text": "Ab 1. Januar 2027 erhalten unter 18-Jährige mit Hauptwohnung im Freistaat den Teilhabepass automatisch und kostenlos. Auf Wunsch erhalten sie einen analogen Nachweis. Für unter 18-Jährige und Menschen mit gültigem Sozialpass ist dann der Zugang zu den allgemein zugänglichen Angeboten der staatlichen Museen, Gedenkstätten, Ausstellungen und Bibliotheken kostenlos.",
       "normSlug": "ostdeutsches-teilhabegesetz"
+    },
+    {
+      "text": "Bewohner:innen einer Flüchtlingsunterkunft können sich mündlich oder in Textform beschweren, auch anonym. Unterkünfte müssen in mehreren Sprachen über das unabhängige Beschwerdeverfahren und über externe Beratungsstellen informieren.",
+      "normSlug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq"
     }
   ],
   "rechtsgrundlagen": [
     {
       "label": "Soziale Grundversorgungsgesetz",
-      "normSlug": "soziale-grundversorgungsgesetz"
+      "normSlug": "soziale-grundversorgungsgesetz",
+      "group": "grundversorgung"
     },
     {
       "label": "Verfassung des Freistaates Ostdeutschland",
-      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+      "group": "grundversorgung"
     },
     {
       "label": "Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
-      "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz"
+      "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
+      "group": "gesundheitsversorgung"
     },
     {
       "label": "Ostdeutsches Kulturpassgesetz",
-      "normSlug": "ostdeutsches-kulturpassgesetz"
+      "normSlug": "ostdeutsches-kulturpassgesetz",
+      "group": "teilhabe-und-kultur"
     },
     {
       "label": "Ostdeutsches Teilhabegesetz",
       "normSlug": "ostdeutsches-teilhabegesetz",
-      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027."
+      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027.",
+      "group": "teilhabe-und-kultur"
     },
     {
       "label": "Gesetz über kostenfreie Kindheit und soziale Teilhabe",
       "normSlug": "kostenfreie-kindheit-und-soziale-teilhabe",
-      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027."
+      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027.",
+      "group": "teilhabe-und-kultur"
     },
     {
       "label": "Gesetz zur Stärkung der psychologischen, psychotherapeutischen und psychiatrischen Versorgung",
-      "normSlug": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung"
+      "normSlug": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung",
+      "group": "gesundheitsversorgung"
     },
     {
       "label": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen",
-      "normSlug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq"
+      "normSlug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
+      "group": "aufnahme-und-unterbringung"
+    },
+    {
+      "label": "Ostdeutsches Krankenhausgesetz",
+      "normSlug": "ostdeutsches-krankenhausgesetz",
+      "group": "gesundheitsversorgung"
     }
   ],
   "faq": [],

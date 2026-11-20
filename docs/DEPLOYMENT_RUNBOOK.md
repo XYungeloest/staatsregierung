@@ -164,8 +164,8 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
 
 - `d1_seed` und `full_corpus_smoke` bei `run_full_corpus_smoke` (Seed aus dem Cache, Verifikation,
   A11y und Browser gegen den Vollbestand);
-- `visual` bei `run_visual` im Playwright-Container: die kritische Auswahl
-  (`npm run test:visual:critical`, wenige Minuten);
+- `visual` bei `run_visual` im Playwright-Container prüft die zentralen Bedienwege in Firefox
+  und WebKit sowie die kritische Screenshot-Auswahl gegen dasselbe Build-Artefakt.
 - `d1_token_check` bei `run_d1_sync`: dieselbe D1-Basissuche, dann `--remote-state` für den ausgecheckten PR-Mergebaum gegen Produktion (Identität, gespeicherte
   Identität, Umfang und Entscheidung des künftigen Main-Syncs in Sekunden, kein Sync-Plan, kein
   Schreibzugriff) – grün bei No-op oder verifiziertem inkrementellem Lauf. Meldet er eine nötige
@@ -179,12 +179,34 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
   im PR und im Release jeweils gegen die dortigen Commits.
 - `preview` für Pull Requests mit Staatsportal-Wirkung, wenn `CLOUDFLARE_PREVIEWS_ENABLED=true`,
   `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` gesetzt sind (Worker-Version mit
-  PR-Alias, durch Cloudflare Access zu schützen). Beim Schließen fordert `cleanup-preview` die
-  Löschung an. Lehnt Cloudflare die neueste Worker-Version mit Fehler 10339 ab, den
-  Aufräumjob nach der nächsten veröffentlichten Version erneut starten. Der
+  PR-Alias und Versions-Tag `pr-<Nummer>`, durch Cloudflare Access zu schützen). Der
   PR-Build läuft mit `HAUSHALT_VORSCHAU=1`; enthält er nicht freigegebene Haushaltsperioden
   (Marker `apps/portal/dist/haushalt-vorschau.json`), wird keine Vorschau hochgeladen. Ohne solche
   Perioden entsteht kein Marker und die Vorschau wird wie gewohnt hochgeladen.
+
+### Geschlossene Portalvorschauen
+
+Die PR-Prüfung vermerkt die hochgeladene Versionskennung vor dem HTTP-Test im Bot-Kommentar.
+So bleibt sie auch nach einem fehlgeschlagenen Erreichbarkeitstest für die Bereinigung verfügbar.
+Für die Zugangsbeschränkung gilt die Access-Richtlinie des Workers. In **Workers & Pages →
+ostrecht-portal → Access** umfasst **Previews only** die Versionsvorschauen. Die Freigabe lässt
+sich mit einem für die Richtlinie nicht zugelassenen Zugang prüfen. [Cloudflare Access für einen Worker](https://developers.cloudflare.com/workers/configuration/cloudflare-access/#protect-one-worker)
+
+Beim Schließen des PR und nach dem erfolgreichen Main-Release seines Merge-Commits prüft
+`preview-cleanup.yml` die Versionskennungen im Vorschaukommentar von `github-actions[bot]`.
+Für jede Version des Workers `ostrecht-portal` prüft der Job das aktuelle Deployment (auch
+bei anteiliger Auslieferung) und die PR-Kennzeichnung der Version. Alte Uploads lassen sich
+über die exakte Kennung im Bot-Kommentar und ihre `APP_ENV=preview`-Bindung prüfen.
+Eine belegbar fehlende Version ist bereits bereinigt. Eine aktive Version und die von
+Cloudflare geschützte neueste Version (HTTP 409, Code 10339) bleiben mit Begründung
+im Kommentar. Ein API-, Berechtigungs- oder Zuordnungsfehler lässt den Job fehlschlagen
+und erhält die Kennung für den nächsten Versuch.
+
+Bleibt nach dem Release eine Version vorgemerkt, lässt sich die Bereinigung nach einem
+weiteren Upload gezielt wiederholen. Im Workflow „Geschlossene Portalvorschau bereinigen“
+auf `main` die Nummer des geschlossenen PR angeben. Das Token benötigt auf dem angegebenen
+Cloudflare-Konto **Workers Scripts Write**. Für den Bot-Kommentar braucht der Workflow
+`pull-requests: write`. [Cloudflare-Version löschen](https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/subresources/versions/methods/delete/)
 
 Actions-Caches eines PR-Branches sind nur für diesen Branch sichtbar; `main` liest eigene und
 Standardbranch-Caches. Nach dem Merge einer Änderung an den Seed-Eingaben projiziert `main` deshalb
@@ -397,6 +419,7 @@ wiederholt:
 | Visual | `tests/visual.spec.ts` | Layout und Design (kritisch / breit) einschließlich horizontalem Überlauf, keine funktionalen Assertions | bei Oberflächenänderungen |
 | Vollbestand | `full_corpus_smoke`, Workflow „OstRecht-Vollbestand-Smoke und Korpus-Audit“ | Datenintegrität, Suche und D1 über den echten Bestand; vollständige Content-Audits und Korpus-Tests | bei relevanten Änderungen, wöchentlich, manuell, vor größeren Releases |
 | Browsermatrix | `test:browsers:run` | Browser-Smoke und Beteiligungsnavigator in Firefox und WebKit | manuell |
+| Gezielte Browserprüfung | `test:browsers:compat` auf vorhandenem Build, im CI mit dem Fixture | Haupt- und Mobilnavigation, Escape und Fokus, Dossier- und Rechtsgruppennavigation, Fachanwendungs-Sprungziele, Suchfilter und Normgliederung in Firefox und WebKit | bei Oberflächenänderungen im PR und lokal |
 
 Jeder Test schützt eine dauerhafte Invariante des aktuellen Systems, keinen historischen
 Einzelstand:

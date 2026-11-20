@@ -1,18 +1,17 @@
 ---
-import { publicLegalSources } from '../../lib/project-status.ts';
+import { publicLegalSources, type PublicLegalSource } from '../../lib/project-status.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import TopicLegalSources from '../../components/portal/TopicLegalSources.astro';
+import { campaign, campaignPath, campaignSummary } from '../../lib/fresswuerfel/config.ts';
 import TopicBriefing from '../../components/portal/TopicBriefing.astro';
 import TopicModule from '../../components/portal/TopicModule.astro';
 import ThemaHaushalt from '../../components/haushalt/ThemaHaushalt.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
-import { formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import { getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
-import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { loadAllNormMetas } from '@ostrecht/shared/lib/norms/loader.ts';
 import {
   getPublicationLabel,
@@ -51,7 +50,7 @@ export async function getStaticPaths() {
 
 const { topic, legalReferences } = Astro.props as {
   topic: Themenseite;
-  legalReferences: ReturnType<ReturnType<typeof publicLegalSources>>[];
+  legalReferences: PublicLegalSource[];
 };
 const topics = await loadTopics();
 const ministries = await loadMinistries();
@@ -69,9 +68,6 @@ const [pressReleases, events, legislativeProcedures] = topic
     ])
   : [[], [], []];
 const pageType = topic?.pageType ?? 'compact';
-const lawLimit = pageType === 'dossier' ? 4 : 2;
-const visibleLegalReferences = legalReferences.slice(0, lawLimit);
-const additionalLegalReferences = legalReferences.slice(lawLimit);
 const relatedProcedures = topic
   ? legislativeProcedures.filter((procedure) => procedure.relatedTopics.includes(topic.slug))
   : [];
@@ -103,12 +99,13 @@ const applications = {
   holdings: { label: 'Beteiligungen durchsuchen', href: `${getHoldingsUrl()}#beteiligungsnavigator` },
 };
 const application = topic?.application ? applications[topic.application] : undefined;
+const Background = application ? 'details' : 'div';
 const heading = pageType === 'dossier' ? 'Reformdossier' : 'Politik & Vorhaben';
 const dossierLinks = [
-  { label: 'Stand des Vorhabens', href: '#ueberblick' },
-  ...(topic.impacts?.length ? [{ label: 'Auswirkungen', href: '#auswirkungen' }] : []),
   ...topic.modules.map((module) => ({ label: module.title, href: `#${module.id}` })),
   ...(legalReferences.length ? [{ label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' }] : []),
+  { label: 'Stand des Vorhabens', href: '#ueberblick' },
+  ...(topic.impacts?.length ? [{ label: 'Auswirkungen', href: '#auswirkungen' }] : []),
   ...(hasFurtherInformation ? [{ label: 'Verfahren und Veröffentlichungen', href: '#aktuelle-bezuege' }] : []),
   ...(topic.faq.length ? [{ label: 'Häufige Fragen', href: '#faq' }] : []),
   { label: 'Zuständigkeit', href: '#zustaendigkeit' },
@@ -135,56 +132,22 @@ const dossierLinks = [
     />
 
     <div class={`topic-page topic-page--${pageType}`}>
-    <SectionHero eyebrow={heading} title={topic.title} titleSize="long" lead={topic.hero ?? topic.teaser}
+    <SectionHero eyebrow={heading} title={topic.title} titleSize="long" lead={application ? topic.teaser : topic.hero ?? topic.teaser}
       status={formatTopicStatus(topic.status)} variant="topics" density={pageType === 'application' ? 'tool' : pageType}
       actions={application ? [{ ...application, primary: true }] : []} />
 
     {pageType === 'dossier' && <SectionNavigation collapsible label="In diesem Dossier" variant="topics" items={dossierLinks} />}
-    <TopicBriefing {topic} referenceDate={PORTAL_REFERENCE_DATE} />
-    {topic.modules.map((module) => <TopicModule module={module} referenceDate={PORTAL_REFERENCE_DATE} />)}
+    {topic.modules.map((module) => <TopicModule {module} referenceDate={PORTAL_REFERENCE_DATE}
+      hasLegalGroup={legalReferences.some((entry) => entry.group === module.id)} />)}
+    <TopicBriefing {topic} referenceDate={PORTAL_REFERENCE_DATE} compact={Boolean(application)} />
 
-    <ThemaHaushalt topicSlug={topic.slug} />
+    {!application && <ThemaHaushalt topicSlug={topic.slug} />}
 
-    {legalReferences.length > 0 && <section id="rechtsgrundlagen" class="section topic-legal-section" aria-labelledby="rechtsgrundlagen-title" data-visual-section="topic-legal-bases">
-      <div class="section-header topic-section-heading">
-        <div>
-          <p class="eyebrow">Rechtlicher Rahmen</p>
-          <h2 id="rechtsgrundlagen-title">Rechtsgrundlagen</h2>
-          <p>Vorschriften, Fassungen und amtliche Fundstellen in OstRecht.</p>
-        </div>
-        <PortalIcon name="law" />
-      </div>
-      <div class="topic-legal-grid">
-        {visibleLegalReferences.map((entry) => (
-          <article class="topic-legal-card">
-            <p class="topic-legal-card__type">{entry.norm ? formatNormStatus(entry.norm.status) : 'Quellenhinweis'}</p>
-            <h3>
-              {entry.norm ? <a href={getNormUrl(entry.norm.slug)}>{entry.label}</a> : entry.label}
-            </h3>
-            {entry.note ? <p>{entry.note}</p> : entry.norm && getPublicNormSummary(entry.norm) ? <p>{toDisplayText(getPublicNormSummary(entry.norm) ?? '')}</p> : null}
-            {entry.norm?.effectiveDate ? (
-              <p class="topic-legal-card__date">{entry.norm.effectiveDate > PORTAL_REFERENCE_DATE ? 'Wirksam ab' : 'Geltungsbeginn'} <time datetime={entry.norm.effectiveDate}>{siteConfig.date.formatLong(entry.norm.effectiveDate)}</time></p>
-            ) : null}
-            {entry.publication ? <a class="topic-legal-card__publication" href={getPublicationUrl(entry.publication.slug)}>{getPublicationLabel(entry.publication)}</a> : null}
-          </article>
-        ))}
-      </div>
-      {additionalLegalReferences.length > 0 ? (
-        <details class="topic-more-references">
-          <summary>{additionalLegalReferences.length} weitere Rechtsgrundlagen anzeigen</summary>
-          <ul>
-            {additionalLegalReferences.map((entry) => (
-              <li>
-                {entry.norm ? <a href={getNormUrl(entry.norm.slug)}>{entry.label}</a> : <span>{entry.label}</span>}
-                {entry.note ? <small>{entry.note}</small> : null}
-                {entry.publication && <small><a href={getPublicationUrl(entry.publication.slug)}>{getPublicationLabel(entry.publication)}</a></small>}
-              </li>
-            ))}
-          </ul>
-        </details>
-      ) : null}
-    </section>}
+    <TopicLegalSources {topic} references={legalReferences} />
 
+    <Background class:list={[application && 'section topic-application-background']}>
+    {application && <summary>Hintergründe, Quellen und Zuständigkeit</summary>}
+    {application && <ThemaHaushalt topicSlug={topic.slug} />}
     {hasFurtherInformation ? (
       <section id="aktuelle-bezuege" class="section section-muted topic-relations" aria-labelledby="aktuelle-bezuege-title">
         <div class="section-header">
@@ -279,8 +242,9 @@ const dossierLinks = [
     {topic.slug === 'staatsreform-und-verfassung' && <p class="section-link-row"><a href={getFreestatePageUrl('staatsaufbau')}>Die heutige Staatsorganisation</a></p>}
     {topic.slug === 'oeffentliche-wirtschaft-und-strukturwandel' && <nav class="section link-list" aria-label="Unternehmen und Beteiligungen">
       <a href={applications.holdings.href}>Öffentliche Beteiligungen im Verzeichnis</a>
-      <a href={getTopicUrl('fresswuerfel-maskottchen')}>Maskottchenwettbewerb der Handelsorganisation Ost</a>
+      <a href={campaignPath}>{campaignSummary(campaign).title}</a>
     </nav>}
+    </Background>
     </div>
   </BaseLayout>
 ) : (

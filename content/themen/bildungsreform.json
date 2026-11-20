@@ -2,127 +2,238 @@
   "slug": "bildungsreform",
   "title": "Bildungsreform",
   "pageType": "dossier",
-  "teaser": "Die Reform führt die polytechnische Schule ein. Sie regelt Schulwechsel, Abschlüsse und die künftige Entlastung bei den Kosten des Schulbesuchs.",
+  "teaser": "Schulwege von der ersten Klasse bis zum Abitur, Unterricht an Förderschulen und die Kosten von Schulessen und Klassenfahrten.",
   "status": "in-umsetzung",
   "cluster": "bildung-gesellschaft",
   "priority": 86,
   "featured": true,
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-15",
   "knowledgeProjectRefs": [
     "project-schulreform",
     "project-kostenfreie-kindheit-teilhabe"
   ],
   "beschlossen": [
-    "Die Schulordnungen regeln die polytechnische und die erweiterte Oberschule, den zweiten Bildungsweg, sorbische Schulen und den Ethik- und Religionsunterricht.",
-    "Für Förderschulen gelten seit September Lehrpläne der polytechnischen Oberschule für Primar- und Sekundarstufenteil.",
-    "Seit dem 20. Juli 2026 sollen die Hochschulen ihr wissenschaftliches Personal durch Satzung verpflichten, dienstlich entstandene Beiträge aus mindestens zweimal jährlich erscheinenden Sammlungen sechs Monate nach der Erstveröffentlichung nichtkommerziell zweitzuveröffentlichen; Ausnahmen regelt die Satzung."
+    "Die Reform hat die Schularten neu geordnet. Seit August 2026 bilden die Polytechnische Oberschule und die Erweiterte Oberschule den allgemeinen Bildungsweg."
   ],
   "geltendesRecht": [
-    "Die neuen Schulordnungen gelten überwiegend seit dem 1. September 2026. Für laufende Übergangsfälle gilt die schulrechtliche Bereinigungsverordnung.",
-    "Die allgemeine Schulpflicht dauert zehn Jahre. Sechzehn Verwaltungsvorschriften regeln unter anderem Stundentafeln, Prüfungen und Zeugnisse."
+    "Die allgemeine Schulpflicht dauert zehn Jahre. Die Schulordnungen und die Vorschriften etwa zu Stundentafeln, Prüfungen und Zeugnissen gelten seit September 2026. Für bereits begonnene Bildungsgänge enthält die Bereinigungsverordnung Übergangsregeln."
   ],
   "umgesetzt": [],
   "naechsteSchritte": [
-    "Für die Leistungen ab Januar 2027 sind Kostenausgleich und Ausführungsregelungen vorzubereiten."
+    "Für die neuen Leistungen ab Januar 2027 regelt der Freistaat, wie Schulträger die notwendigen Kosten abrechnen und erstattet bekommen."
+  ],
+  "modules": [
+    {
+      "type": "facts",
+      "id": "schulweg",
+      "title": "Von der ersten Klasse bis zum Abitur",
+      "items": [
+        {
+          "label": "Polytechnische Oberschule",
+          "value": "Die Klassen 1 bis 10 verbinden allgemeine Bildung mit praktischer und beruflicher Orientierung. Je nach Bildungsgang ist ein Abschluss nach Klasse 9 oder 10 möglich."
+        },
+        {
+          "label": "Erweiterte Oberschule",
+          "value": "Aufnahme und Kurswahl richten sich nach der Schulordnung. Die Jahrgangsstufen 11 und 12 führen in der Regel in vier Kurshalbjahren zur Abiturprüfung."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "unterricht-und-foerderung",
+      "title": "Unterricht, Sprachen und Förderung",
+      "items": [
+        {
+          "label": "Ethik und Religion",
+          "value": "Ethik ist Pflichtfach. Die Teilnahme an Religions- oder Weltanschauungsunterricht ist freiwillig."
+        },
+        {
+          "label": "Sorbische Bildung",
+          "value": "Im sorbischen Siedlungsgebiet regelt die Schulverordnung Sorbischunterricht, sorbischsprachige und zweisprachige Angebote."
+        },
+        {
+          "label": "Förderschulen",
+          "value": "Für den Primar- und den Sekundarstufenteil gelten grundsätzlich die Lehrpläne der Polytechnischen Oberschule. Die Schulordnung berücksichtigt den jeweiligen Förderbedarf."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "kosten-im-schulalltag",
+      "title": "Schulessen und Kosten für Familien",
+      "items": [
+        {
+          "label": "Schulmilch",
+          "value": "An öffentlichen Schulen können Schüler:innen an jedem Unterrichtstag unentgeltlich Schulmilch oder eine der vorgesehenen Alternativen erhalten."
+        },
+        {
+          "label": "Ab Januar 2027",
+          "value": "Öffentliche Schulen müssen an Unterrichtstagen ein kostenfreies Frühstück anbieten. Bei regelmäßigem Unterricht oder Betreuung über die Mittagszeit kommt ein warmes Mittagessen hinzu. Das gilt auch für staatlich anerkannte Schulen in freier Trägerschaft, die Finanzhilfe des Freistaates erhalten."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "zweiter-bildungsweg",
+      "title": "Schulabschlüsse nachholen",
+      "items": [
+        {
+          "label": "Abendoberschule",
+          "value": "Erwachsene können den Abschluss der Polytechnischen Oberschule nach Klasse 9 oder 10 nachholen."
+        },
+        {
+          "label": "Abitur",
+          "value": "Abendgymnasien führen berufsbegleitend zur allgemeinen Hochschulreife. Am Kolleg findet die Ausbildung in Vollzeit statt."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "weiterbildung-und-hochschule",
+      "title": "Weiterbildung und Hochschule",
+      "items": [
+        {
+          "label": "Bildungsfreistellung",
+          "value": "Wer länger als sechs Monate bei demselben Arbeitgeber im Freistaat beschäftigt ist, kann für anerkannte Weiterbildung bezahlte Freistellung beanspruchen. Bei einer Fünftagewoche sind es fünf Arbeitstage im Kalenderjahr."
+        },
+        {
+          "label": "Wissenschaftliche Veröffentlichungen",
+          "value": "Hochschulen sollen per Satzung regeln, dass wissenschaftliche Beschäftigte bestimmte dienstlich entstandene Beiträge nach sechs Monaten auch nichtkommerziell veröffentlichen. Erfasst sind Beiträge in mindestens zweimal jährlich erscheinenden Sammlungen. Die Satzung regelt Ausnahmen."
+        }
+      ]
+    }
   ],
   "impacts": [
     {
-      "text": "An der Polytechnischen Oberschule lernen Schüler:innen von Klasse 1 bis 10. Der Übergang von Klasse 4 nach Klasse 5 erfordert keinen Schulartwechsel. Eltern erhalten Beratung zur Lernentwicklung.",
+      "text": "Beim Aufstieg von Klasse 4 nach Klasse 5 bleibt Ihr Kind in derselben Schulart. Die Schule berät Familien zu Lernentwicklung, Förderung und möglichen Abschlüssen.",
       "normSlug": "schulordnung-polytechnische-oberschulen"
     },
     {
-      "text": "Ab 1. Januar 2027 sind die regelmäßige Schulverpflegung und Schulveranstaltungen kostenfrei. Für die Kindertagesbetreuung gelten die eigenen Regeln zur Beitragsfreiheit.",
+      "text": "Ab Januar 2027 dürfen öffentliche Schulen und staatlich anerkannte, vom Freistaat geförderte Schulen in freier Trägerschaft für genehmigte Klassenfahrten keine Teilnahmeentgelte erheben. Die Kostenfreiheit umfasst notwendige Fahrt, Eintritt, Übernachtung und Programm. Persönliche Ausgaben tragen die Familien selbst.",
       "normSlug": "kostenfreie-kindheit-und-soziale-teilhabe"
     }
   ],
   "rechtsgrundlagen": [
     {
       "label": "Viertes Gesetz zur Großen Staatsreform",
-      "normSlug": "viertes-gesetz-zur-grossen-staatsreform"
+      "normSlug": "viertes-gesetz-zur-grossen-staatsreform",
+      "group": "schulweg"
     },
     {
       "label": "Fünftes Gesetz zur Großen Staatsreform",
-      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform"
+      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "group": "schulweg"
     },
     {
       "label": "Verfassung des Freistaates Ostdeutschland",
-      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+      "group": "schulweg"
     },
     {
       "label": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems",
-      "normSlug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems"
+      "normSlug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
+      "group": "schulweg"
     },
     {
       "label": "Gesetz zur Abschaffung des Elternbeitrags",
-      "normSlug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w"
+      "normSlug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w",
+      "group": "kosten-im-schulalltag"
     },
     {
       "label": "Schulordnung Polytechnische Oberschulen (SOPOS)",
       "normSlug": "schulordnung-polytechnische-oberschulen",
-      "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026."
+      "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026.",
+      "group": "schulweg"
     },
     {
       "label": "Schulordnung Erweiterte Oberschulen und Abiturprüfung (SOEOSA)",
       "normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung",
-      "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026."
+      "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026.",
+      "group": "schulweg"
     },
     {
       "label": "Schulordnung Abendoberschulen (SOAbO)",
-      "normSlug": "schulordnung-abendoberschulen"
+      "normSlug": "schulordnung-abendoberschulen",
+      "group": "zweiter-bildungsweg"
     },
     {
       "label": "Abendgymnasien- und Kollegverordnung (AGyKoVO)",
-      "normSlug": "abendgymnasien-und-kollegverordnung"
+      "normSlug": "abendgymnasien-und-kollegverordnung",
+      "group": "zweiter-bildungsweg"
     },
     {
       "label": "Sorbische Schulverordnung",
-      "normSlug": "sorbische-schulverordnung"
+      "normSlug": "sorbische-schulverordnung",
+      "group": "unterricht-und-foerderung"
     },
     {
       "label": "Ethik und Religionsunterrichtverordnung",
-      "normSlug": "ethik-und-religionsunterrichtverordnung"
+      "normSlug": "ethik-und-religionsunterrichtverordnung",
+      "group": "unterricht-und-foerderung"
     },
     {
       "label": "Bereinigung des allgemeinbildenden Schulordnungsrechts",
-      "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026"
+      "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+      "group": "schulweg"
     },
     {
       "label": "Änderungsverordnung Schulordnung Förderschulen 2026",
       "normSlug": "verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026",
-      "note": "Verkündet am 15. August 2026; Inkrafttreten am 1. September 2026."
+      "note": "Verkündet am 15. August 2026; Inkrafttreten am 1. September 2026.",
+      "group": "unterricht-und-foerderung"
     },
     {
       "label": "Schulmilcherlass",
-      "normSlug": "schulmilcherlass"
+      "normSlug": "schulmilcherlass",
+      "group": "kosten-im-schulalltag"
     },
     {
       "label": "VwV Stundentafel EOS",
       "normSlug": "vwv-stundentafel-eos",
-      "note": "Verkündet am 16. August 2026; Inkrafttreten am 1. September 2026."
+      "note": "Verkündet am 16. August 2026; Inkrafttreten am 1. September 2026.",
+      "group": "schulweg"
     },
     {
       "label": "Bildungsfreistellungsgesetz",
-      "normSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland"
+      "normSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland",
+      "group": "weiterbildung-und-hochschule"
     },
     {
       "label": "Gesetz über die Einführung einer Zweitveröffentlichungspflicht",
       "normSlug": "gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht",
-      "note": "Fügt § 59a in das Ostdeutsche Hochschulgesetz ein; in Kraft seit 20. Juli 2026."
+      "note": "Fügt § 59a in das Ostdeutsche Hochschulgesetz ein; in Kraft seit 20. Juli 2026.",
+      "group": "weiterbildung-und-hochschule"
     },
     {
       "label": "Ostdeutsches Teilhabegesetz",
       "normSlug": "ostdeutsches-teilhabegesetz",
-      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027."
+      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027.",
+      "group": "kosten-im-schulalltag"
     },
     {
       "label": "Gesetz über kostenfreie Kindheit und soziale Teilhabe",
       "normSlug": "kostenfreie-kindheit-und-soziale-teilhabe",
-      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027."
+      "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027.",
+      "group": "kosten-im-schulalltag"
+    },
+    {
+      "label": "Ostdeutsches Schulgesetz",
+      "normSlug": "ostdeutsches-schulgesetz",
+      "group": "schulweg"
+    },
+    {
+      "label": "Ostdeutsches Hochschulgesetz",
+      "normSlug": "ostdeutsches-hochschulgesetz",
+      "group": "weiterbildung-und-hochschule"
     }
   ],
   "faq": [],
   "federfuehrendesRessort": "bildung-und-sportliche-ertuechtigung",
   "mitzeichnungsressorts": [
     "soziale-und-gesundheitliche-fuersorge"
+  ],
+  "relatedTopicSlugs": [
+    "familie-und-soziales",
+    "soziale-sicherheit-und-teilhabe"
   ]
 }

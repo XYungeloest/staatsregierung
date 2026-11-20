@@ -99,6 +99,7 @@ export const THEMENCLUSTER = [
 export type Themencluster = (typeof THEMENCLUSTER)[number];
 
 export interface ThemenRechtsgrundlage {
+  group?: string;
   label: string;
   normSlug?: string;
   /**
@@ -185,6 +186,8 @@ export type TopicApplication = 'territory' | 'budget' | 'holdings';
 export interface Themenseite {
   pageType?: TopicPageType;
   application?: TopicApplication;
+  legalGroups?: Array<{ id: string; title: string }>;
+  reportedEvents?: Array<{ kind: 'campaign-result' | 'press' | 'publication' | 'norm-effective'; slug: string }>;
   geltendesRecht?: string[];
   impacts?: Array<{ text: string; normSlug: string }>;
   slug: string;
@@ -729,6 +732,7 @@ function parseThemenRechtsgrundlagen(
 
     return {
       label: expectString(record.label, `${path}[${index}].label`),
+      group: record.group === undefined ? undefined : expectSlug(record.group, `${path}[${index}].group`),
       normSlug: expectOptionalString(record.normSlug, `${path}[${index}].normSlug`),
       publicationSlug: expectOptionalString(record.publicationSlug, `${path}[${index}].publicationSlug`),
       note: expectOptionalString(record.note, `${path}[${index}].note`),
@@ -895,6 +899,47 @@ export function parseThemenseite(value: unknown, path: string): Themenseite {
     throw new PortalContentValidationError(`${path}.application: Fachanwendung und Seitentyp müssen zusammenpassen`);
   }
   const rechtsgrundlagen = parseThemenRechtsgrundlagen(entry.rechtsgrundlagen, createPath(path, 'rechtsgrundlagen'));
+  const modules = parseThemenModule(entry.modules, createPath(path, 'modules'));
+  if (entry.legalGroups !== undefined && !Array.isArray(entry.legalGroups)) {
+    throw new PortalContentValidationError(`${path}.legalGroups: Liste erwartet`);
+  }
+  const legalGroups = (entry.legalGroups ?? []).map((value: unknown, i: number) => {
+    const itemPath = `${path}.legalGroups[${i}]`;
+    const group = expectRecord(value, itemPath);
+    return { id: expectSlug(group.id, `${itemPath}.id`), title: expectString(group.title, `${itemPath}.title`) };
+  });
+  const groupIds = [...modules, ...legalGroups].map(({ id }) => id);
+  if (new Set(groupIds).size !== groupIds.length) {
+    throw new PortalContentValidationError(`${path}: Modul- und Gruppenkennungen müssen eindeutig sein`);
+  }
+  if (legalGroups.length || rechtsgrundlagen.some((reference) => reference.group)) {
+    if (pageType !== 'dossier' || rechtsgrundlagen.some(({ group }) => !group || !groupIds.includes(group))) {
+      throw new PortalContentValidationError(`${path}.rechtsgrundlagen: jede Grundlage braucht eine ausgewiesene Dossiergruppe`);
+    }
+    for (const { id } of legalGroups) {
+      if (!rechtsgrundlagen.some((reference) => reference.group === id)) {
+        throw new PortalContentValidationError(`${path}.legalGroups: Gruppe ohne Rechtsgrundlage: ${id}`);
+      }
+    }
+    const norms = rechtsgrundlagen.flatMap(({ normSlug }) => normSlug ? [normSlug] : []);
+    if (new Set(norms).size !== norms.length) throw new PortalContentValidationError(`${path}.rechtsgrundlagen: doppelte Norm`);
+  }
+  if (entry.reportedEvents !== undefined && !Array.isArray(entry.reportedEvents)) {
+    throw new PortalContentValidationError(`${path}.reportedEvents: Liste erwartet`);
+  }
+  const reportedEvents = (entry.reportedEvents ?? []).map((value: unknown, i: number): NonNullable<Themenseite['reportedEvents']>[number] => {
+    const itemPath = `${path}.reportedEvents[${i}]`;
+    const event = expectRecord(value, itemPath);
+    const kind = event.kind;
+    if (kind !== 'campaign-result' && kind !== 'press' && kind !== 'publication' && kind !== 'norm-effective') {
+      throw new PortalContentValidationError(`${itemPath}.kind: unbekannte Ereignisquelle`);
+    }
+    const slug = expectSlug(event.slug, `${itemPath}.slug`);
+    if (kind === 'norm-effective' && !rechtsgrundlagen.some((reference) => reference.normSlug === slug)) {
+      throw new PortalContentValidationError(`${itemPath}.slug: Rechtsgrundlage fehlt`);
+    }
+    return { kind, slug };
+  });
   if (entry.impacts !== undefined && !Array.isArray(entry.impacts)) {
     throw new PortalContentValidationError(`${path}.impacts: Liste erwartet`);
   }
@@ -919,7 +964,7 @@ export function parseThemenseite(value: unknown, path: string): Themenseite {
       entry.naechsteSchritte,
       createPath(path, 'naechsteSchritte'),
     ),
-    pageType, application: application as TopicApplication | undefined, impacts, rechtsgrundlagen,
+    pageType, application: application as TopicApplication | undefined, impacts, rechtsgrundlagen, legalGroups, reportedEvents,
     geltendesRecht: entry.geltendesRecht === undefined ? undefined : expectStringArray(entry.geltendesRecht, createPath(path, 'geltendesRecht')),
     faq: parseThemenFaq(entry.faq, createPath(path, 'faq')),
     federfuehrendesRessort: expectSlug(
@@ -936,7 +981,7 @@ export function parseThemenseite(value: unknown, path: string): Themenseite {
     highlightUntil,
     updatedAt: expectDate(entry.updatedAt, createPath(path, 'updatedAt')),
     keyDates: parseThemenDaten(entry.keyDates, createPath(path, 'keyDates')),
-    modules: parseThemenModule(entry.modules, createPath(path, 'modules')),
+    modules,
     relatedTopicSlugs: expectOptionalSlugArray(entry.relatedTopicSlugs, createPath(path, 'relatedTopicSlugs')),
     knowledgeProjectRefs: expectOptionalSlugArray(entry.knowledgeProjectRefs, createPath(path, 'knowledgeProjectRefs')) ?? [],
   };

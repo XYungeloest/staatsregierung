@@ -811,9 +811,18 @@ gleichartigen Einheiten vorbehalten. Fehlerseiten beider Portale zeigen im eigen
 nicht gefunden“ mit Suche und Verzeichniszugängen; die englische Astro-Standardseite wird nie
 ausgeliefert.
 
-In der Themenübersicht stehen Titel, vollständige Kurzbeschreibung, gegebenenfalls Termin,
-Zuständigkeit und Stand innerhalb jeder Karte untereinander. Bei ausreichend Platz stehen zwei
-Karten nebeneinander.
+Die Themenübersicht nennt aktuelle Vorhaben und sämtliche Reformdossiers jeweils als Linkliste.
+Im gesamten Verzeichnis stehen Titel, vollständige Kurzbeschreibung, gegebenenfalls Termin,
+Zuständigkeit, Datum und „Stand des Vorhabens“ innerhalb jeder Karte untereinander. Die
+Statuszeile ist auch ohne Farbe verständlich. Bei ausreichend Platz stehen zwei Karten
+nebeneinander.
+
+Die Inhaltsnavigation eines Reformdossiers führt zuerst zu den Fachabschnitten. Ein Fachabschnitt
+verlinkt seine Rechtsgrundlagen direkt. Jede Quellengruppe hat eine aussagekräftige Überschrift
+als bedienbares `summary`; jeder Normlink nennt den Rechtsstatus im Text daneben. Auf schmalen
+Bildschirmen können Normtitel über mehrere Zeilen laufen. Bei Fachanwendungen führt der erste
+Link zum Werkzeug. Die Überschrift des angesprungenen Abschnitts bleibt unter der klebenden
+Bereichsnavigation sichtbar.
 
 Lange Datenansichten blättern zu 25 Zeilen (`DEFAULT_PORTAL_PAGE_SIZE`). Beteiligungsnavigator und
 Kreistabelle teilen Rechnung (`getPageState`), Wortlaut und Leiste (`DataPagination.astro`); beide

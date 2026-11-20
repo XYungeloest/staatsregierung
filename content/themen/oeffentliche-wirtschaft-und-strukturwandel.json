@@ -2,12 +2,12 @@
   "slug": "oeffentliche-wirtschaft-und-strukturwandel",
   "title": "Öffentliche Wirtschaft & Strukturwandel",
   "pageType": "dossier",
-  "teaser": "Öffentliche Unternehmen, Industrieansiedlungen und Gemeinvermögen haben unterschiedliche Rechtsgrundlagen. Die Vorhaben reichen von der gesetzlichen Errichtung bis zum abgeschlossenen Vertrag.",
+  "teaser": "Welche Unternehmen der Freistaat gesetzlich errichtet hat, welche Verträge geschlossen sind und was für die Nahversorgung und das öffentliche Vermögen gilt.",
   "status": "in-umsetzung",
   "cluster": "wirtschaft-arbeit",
   "priority": 84,
   "featured": true,
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-11-18",
   "knowledgeProjectRefs": [
     "project-50hertz-acquisition",
     "project-boden-volksacker",
@@ -27,14 +27,32 @@
     "wohnen-und-vergesellschaftung"
   ],
   "beschlossen": [
-    "Der Koalitionsvertrag sieht eine Beteiligungsholding und eine Industriestiftung vor. Förderung soll an Standort, Tarifbindung, Mitbestimmung und Gemeinwohl geknüpft werden."
+    "Der 15-Punkte-Plan II sieht eine Beteiligungsholding und eine Industriestiftung vor. Wirtschaftsförderung soll an Standort, Tarifbindung und Mitbestimmung geknüpft werden."
   ],
   "geltendesRecht": [],
-  "umgesetzt": [
-    "Der Gründungsvorstand der Interflug ist bestellt. Für zehn Löschflugzeuge sind Beschaffungsverträge geschlossen."
+  "umgesetzt": [],
+  "reportedEvents": [
+    {
+      "kind": "campaign-result",
+      "slug": "fresswuerfel"
+    },
+    {
+      "kind": "publication",
+      "slug": "stanzo-2026-39"
+    },
+    {
+      "kind": "publication",
+      "slug": "stanzo-2026-40"
+    }
   ],
   "naechsteSchritte": [
-    "Ein Subventionsrückholgesetz, ein Gemeinwohl-TÜV und ein Transformationsrat für Strukturfördermittel sind in Vorbereitung."
+    "Der 15-Punkte-Plan II schlägt Rückzahlungsklauseln für Fördermittel, eine Gemeinwohlprüfung und einen Transformationsrat für die Beratung über Strukturfördermittel vor."
+  ],
+  "impacts": [
+    {
+      "text": "Wenn Lebensmittel und Waren des täglichen Bedarfs in einem Gebiet schwer erreichbar sind, muss vor einem besonderen Versorgungsauftrag der Bedarf festgestellt werden. Dabei werden Bezirk, Gemeinden und Landkreise angehört. Die Handelsorganisation kann einen Auftrag erhalten, wenn die Versorgung auf anderem Weg nicht rechtzeitig zu sichern ist.",
+      "normSlug": "handelsorganisationsgesetz"
+    }
   ],
   "modules": [
     {
@@ -44,35 +62,35 @@
       "items": [
         {
           "label": "50Hertz",
-          "value": "80 Prozent für 3,8 Mrd. Euro",
-          "note": "Vereinbarte schrittweise Übernahme der Elia-Beteiligung in drei Jahresraten ab dem Haushaltsjahr 2026."
+          "value": "Erwerb der Elia-Beteiligung vereinbart",
+          "note": "Vereinbart sind 80 Prozent für 3,8 Milliarden Euro in drei Jahresraten ab dem Haushaltsjahr 2026. Ein Eigentumsübergang ist bisher nicht bestätigt."
         },
         {
           "label": "NVIDIA",
           "value": "Ansiedlungsangebot angenommen",
-          "note": "900 Millionen Euro Förderung und das frühere Intel-Gelände wurden akzeptiert; eine Betriebsaufnahme ist nicht belegt."
+          "note": "Das Unternehmen hat die angebotene Förderung von 900 Millionen Euro und das frühere Intel-Gelände akzeptiert. Ein Eröffnungstermin ist bisher nicht bestätigt."
         },
         {
           "label": "Boom Europe Leipzig/Halle",
-          "value": "Abkommen in Kraft",
-          "note": "Seit 14. Mai 2026; eine spätere Standorteröffnung ist nicht belegt."
+          "value": "Standortabkommen in Kraft",
+          "note": "Das Abkommen gilt seit dem 14. Mai 2026, das Gesetzespaket seit dem 21. Juli 2026. Eine Standorteröffnung ist bisher nicht bestätigt."
         }
       ]
     },
     {
       "type": "facts",
       "id": "handel",
-      "title": "Handelsorganisation und öffentliche Gastronomie",
+      "title": "Nahversorgung und Fresswürfel",
       "items": [
         {
           "label": "Handelsorganisation Ost",
           "value": "Gesetzlich errichtet",
-          "note": "Das Handelsorganisationsgesetz gilt seit dem 15. Oktober 2026."
+          "note": "Seit dem 15. Oktober 2026 regelt das Handelsorganisationsgesetz die Nahversorgung. Die Handelsorganisation darf Gaststätten in wirtschaftlichem oder räumlichem Zusammenhang mit ihren Verkaufs- oder Versorgungseinrichtungen betreiben."
         },
         {
           "label": "Fresswürfel",
-          "value": "Öffentliche Gastronomie der Handelsorganisation",
-          "note": "Die Handelsorganisation hat für Fresswürfel einen Maskottchenwettbewerb ausgerichtet."
+          "value": "Marcus Würfel gewinnt den Maskottchenwettbewerb",
+          "note": "Fresswürfel ist die geplante Schnellrestaurantkette der Handelsorganisation Ost. Die HO hat Marcus Würfel aus 15 eingereichten Ideen ausgewählt und am 18. November 2026 vorgestellt."
         }
       ]
     },
@@ -90,6 +108,11 @@
           "label": "Öffentliche Energieversorgung",
           "value": "Gesetzliche Grundlagen seit 21. Juli 2026",
           "note": "Landesenergiewerke Ost und Ostdeutsche Netze sind gesetzlich errichtet. Die angekündigte Netzübernahme hat einen eigenen vertraglichen Zeitplan."
+        },
+        {
+          "label": "Generationen- und Versorgungsfonds",
+          "value": "Regeln für die Verwendung von Erträgen",
+          "note": "Die Gesetze verbinden die Rohstoffwirtschaft mit der Bildung von Rücklagen. Die erste Altersdividende ist für 2036 vorgesehen."
         }
       ]
     },
@@ -100,8 +123,8 @@
       "items": [
         {
           "label": "Interflug",
-          "value": "Gesetzlich errichtet im September 2026",
-          "note": "Die Bestellung des Gründungsvorstands und die Beschaffungsverträge betreffen den Aufbau der Gesellschaft."
+          "value": "Gründungsvorstand bestellt",
+          "note": "Die Interflug ist als Anstalt des öffentlichen Rechts errichtet. Der Gründungsvorstand hat mit Zustimmung des Verwaltungsrates Beschaffungsverträge für zehn Löschflugzeuge geschlossen. Auslieferung und Einsatzbereitschaft sind bisher nicht bestätigt."
         },
         {
           "label": "Ostdeutsche Eisenbahn",
@@ -139,100 +162,132 @@
         },
         {
           "label": "Gesellschafts- und Wirtschaftsplan 2027–2031",
-          "value": "In Vorbereitung",
-          "note": "Der Perspektivplan Ost 2040 ist bis Ende 2027 vorgesehen."
+          "value": "Gesetzlicher Auftrag zur Aufstellung",
+          "note": "Das Einführungsgesetz legt den Planungszeitraum fest und verpflichtet den Staatsrat, der Volkskammer einen Gesetzentwurf vorzulegen. Der erste Perspektivplan Ost 2040 ist bis Ende 2027 zu beschließen."
         }
       ]
+    }
+  ],
+  "legalGroups": [
+    {
+      "id": "finanzierung-und-vergabe",
+      "title": "Finanzierung, Vergabe und Daseinsvorsorge"
     }
   ],
   "rechtsgrundlagen": [
     {
       "label": "Gemeinvermögensschutzgesetz",
-      "normSlug": "gemeinvermoegensschutzgesetz"
+      "normSlug": "gemeinvermoegensschutzgesetz",
+      "group": "gemeinvermoegen"
     },
     {
       "label": "Boden- und Naturvermögensgesetz",
-      "normSlug": "boden-und-naturvermoegensgesetz"
+      "normSlug": "boden-und-naturvermoegensgesetz",
+      "group": "gemeinvermoegen"
     },
     {
       "label": "Ostdeutsche-Eisenbahn-Neuordnungsgesetz",
-      "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz"
+      "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+      "group": "mobilitaet"
     },
     {
       "label": "Energie- und Wärmevergesellschaftungs-Paketgesetz",
-      "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz"
+      "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
+      "group": "rohstoffe"
     },
     {
       "label": "Boom-Europe-Umsetzungsgesetz",
-      "normSlug": "boom-europe-umsetzungsgesetz"
+      "normSlug": "boom-europe-umsetzungsgesetz",
+      "group": "industrieprojekte"
     },
     {
       "label": "Hochgeschwindigkeitsluftfahrt-Standortgesetz",
-      "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz"
+      "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
+      "group": "industrieprojekte"
     },
     {
       "label": "Vergesellschaftungsrahmengesetz",
-      "normSlug": "vergesellschaftungsrahmengesetz"
+      "normSlug": "vergesellschaftungsrahmengesetz",
+      "group": "gemeinvermoegen"
     },
     {
       "label": "Ostdeutsches Landesbankgesetz",
-      "normSlug": "ostdeutsches-landesbankgesetz"
+      "normSlug": "ostdeutsches-landesbankgesetz",
+      "group": "finanzierung-und-vergabe"
     },
     {
       "label": "Ostdeutsches Tariftreue- und Vergabegesetz",
-      "normSlug": "ostdeutsches-tariftreueund-vergabegesetz"
+      "normSlug": "ostdeutsches-tariftreueund-vergabegesetz",
+      "group": "finanzierung-und-vergabe"
     },
     {
       "label": "Ostdeutsches Daseinsvorsorgegesetz",
-      "normSlug": "ostdeutsches-daseinsvorsorgegesetz"
+      "normSlug": "ostdeutsches-daseinsvorsorgegesetz",
+      "group": "finanzierung-und-vergabe"
     },
     {
       "label": "Zinnwald-Vergesellschaftungsgesetz",
-      "normSlug": "zinnwald-vergesellschaftungsgesetz"
+      "normSlug": "zinnwald-vergesellschaftungsgesetz",
+      "group": "rohstoffe"
     },
     {
       "label": "Interflug-Gesetz",
-      "normSlug": "interflug-gesetz"
+      "normSlug": "interflug-gesetz",
+      "group": "mobilitaet"
     },
     {
       "label": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
       "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "wirtschaftsplanung"
     },
     {
       "label": "Handelsorganisationsgesetz",
       "normSlug": "handelsorganisationsgesetz",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "handel"
     },
     {
       "label": "Ostdeutsches Rohstoffwerkegesetz",
       "normSlug": "ostdeutsches-rohstoffwerkegesetz",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "rohstoffe"
     },
     {
       "label": "Lausitzer Kupfervergesellschaftungsgesetz",
       "normSlug": "lausitzer-kupfervergesellschaftungsgesetz",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "rohstoffe"
     },
     {
       "label": "Ohmgebirge-Vergesellschaftungsgesetz",
       "normSlug": "ohmgebirge-vergesellschaftungsgesetz",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "rohstoffe"
     },
     {
       "label": "Generationenfondsgesetz Ost",
       "normSlug": "generationenfondsgesetz-ost",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "rohstoffe"
     },
     {
       "label": "Versorgungsfondsgesetz Ost",
       "normSlug": "versorgungsfondsgesetz-ost",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "rohstoffe"
     },
     {
       "label": "Altersdividendengesetz Ost",
       "normSlug": "altersdividendengesetz-ost",
-      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft."
+      "note": "Am 14. Oktober 2026 verkündet; seit 15. Oktober 2026 in Kraft.",
+      "group": "rohstoffe"
+    },
+    {
+      "label": "Einführungsgesetz zum Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
+      "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "note": "Artikel 2 §§ 3 und 4 regelt die Aufstellung des ersten Fünfjahresplans und des Perspektivplans.",
+      "group": "wirtschaftsplanung"
     }
   ],
   "faq": [],

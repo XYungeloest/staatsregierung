@@ -131,11 +131,12 @@ const footerServiceLinks = [
       <header class="law-header">
         <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
         <div class="r-container law-header__bar">
-          <a class="law-wordmark" href={homeUrl} aria-label="Startseite OstRecht">
+          <a class="law-wordmark" href={homeUrl}>
             <img src={coatOfArmsAssetUrl} alt="" width="596" height="694" />
             <span>
               <strong>{lawSiteConfig.brand}</strong>
               <small>{lawSiteConfig.bandSubline}</small>
+              <span class="visually-hidden">Zur Startseite</span>
             </span>
           </a>
 

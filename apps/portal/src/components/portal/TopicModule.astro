@@ -6,9 +6,10 @@ import type { ThemenModul } from '@ostrecht/shared/lib/portal/index.ts';
 interface Props {
   module: ThemenModul;
   referenceDate: string;
+  hasLegalGroup?: boolean;
 }
 
-const { module, referenceDate } = Astro.props as Props;
+const { module, referenceDate, hasLegalGroup } = Astro.props as Props;
 const formatDateRange = (date: string, endDate?: string) => endDate && endDate !== date
   ? `${siteConfig.date.formatLong(date)} bis ${siteConfig.date.formatLong(endDate)}`
   : siteConfig.date.formatLong(date);
@@ -87,4 +88,5 @@ const timelineState = (date: string, endDate?: string) => {
       ))}
     </div>
   ) : null}
+  {hasLegalGroup && <a class="inline-link topic-module__sources" href={`#recht-${module.id}`}>Rechtsgrundlagen zu „{module.title}“</a>}
 </section>

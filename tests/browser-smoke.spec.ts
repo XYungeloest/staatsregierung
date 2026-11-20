@@ -1,5 +1,7 @@
 import { expect, test, type APIRequestContext, type Locator, type Page } from '@playwright/test';
 
+import { loadTopics } from '../packages/shared/src/lib/portal/norm-portal-content.ts';
+import { formatTopicStatus } from '../packages/shared/src/lib/portal/presentation.ts';
 import { legacyRoutes } from '../apps/portal/src/config/legacy-routes.mjs';
 import { lawPaths, siteUrls } from '../packages/shared/src/config/site-routing.ts';
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
@@ -231,7 +233,7 @@ siteTest(['portal'])('Kreisreform bleibt ohne Karte nutzbar: Tabellenfilter und 
   await page.locator('#kreisreform-table-query').fill('Berlin');
   await expect(page.locator('[data-kreisreform-table-status]')).toContainText('gefunden');
 
-  const input = page.locator('[data-kreisreform-search-input]');
+  const input = page.getByRole('search', { name: 'Gebiet suchen' }).getByRole('searchbox');
   await expect(input).toBeVisible();
   await input.fill('Abtsbessingen');
   await expect(page.locator('[data-kreisreform-search-result]')).toHaveCount(1, { timeout: 15_000 });
@@ -1886,7 +1888,7 @@ siteTest(['law'])('Bereichsseiten funktionieren ohne JavaScript und unbekannte F
   }
 });
 
-siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersicht', async ({ page, request }) => {
+siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersicht', { tag: '@kompatibilitaet' }, async ({ page, request }) => {
   await prepareFunctionalPage(page);
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.current.currentUrl));
@@ -1908,7 +1910,7 @@ siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersic
   await expect(page.getByRole('dialog')).toBeHidden();
 });
 
-siteTest(['law'])('Zentrale Suche bietet Tastaturvorschläge und ein mobiles Filterblatt', async ({ page, request }) => {
+siteTest(['law'])('Zentrale Suche bietet Tastaturvorschläge und ein mobiles Filterblatt', { tag: '@kompatibilitaet' }, async ({ page, request }) => {
   await prepareFunctionalPage(page);
   await page.goto(lawUrl('/suche/'));
   const field = page.locator('[data-search-query]');
@@ -2505,7 +2507,7 @@ siteTest(['law'])('Restpunkte 2: die Ansicht „Ausgaben“ nennt hinter der Aus
   expect(await extents.first().evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeLessThanOrEqual(13.5);
 });
 
-siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape und ordnen Sonderwege ihrem Bereich zu', async ({ page }) => {
+siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape und ordnen Sonderwege ihrem Bereich zu', { tag: '@kompatibilitaet' }, async ({ page }) => {
   await prepareFunctionalPage(page);
   for (const width of [375, 1280]) {
     await page.setViewportSize({ width, height: 900 });
@@ -2518,11 +2520,82 @@ siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape
     await trigger.press('Enter');
     const areaSearch = nav.getByRole('link', { name: 'Gebietssuche zur Kreisreform' });
     await expect(areaSearch).toBeVisible();
+    await areaSearch.scrollIntoViewIfNeeded();
+    const reachable = await areaSearch.evaluate((link) => {
+      const box = link.getBoundingClientRect();
+      return link.contains(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2));
+    });
+    expect(reachable, 'Der Menülink ist innerhalb des sichtbaren Menüs erreichbar').toBe(true);
     await areaSearch.focus();
     await page.keyboard.press('Escape');
     await expect(trigger).toBeFocused();
     await expect(areaSearch).toBeHidden();
     await expect(nav.getByRole('link', { name: 'OstRecht' })).toHaveAttribute('href', new URL('/', siteUrls.law).href);
+  }
+});
+
+siteTest(['portal'])('Themenverzeichnis, Dossiers und aktuelle Vorhaben sind vollständig und richtig beschriftet', async ({ page }) => {
+  await page.goto('/themen/');
+  const topics = await loadTopics();
+  expect(topics.length).toBeGreaterThan(0);
+  const referenceDate = editorialReferenceDate();
+  const linksIn = (id: string) => page.locator(`#${id} .topic-reference > a`).evaluateAll((items) =>
+    items.map((item) => new URL((item as HTMLAnchorElement).href).pathname).sort());
+  const paths = (entries: typeof topics) => entries.map((topic) => `/themen/${topic.slug}/`).sort();
+  expect(await linksIn('schwerpunkte')).toEqual(paths(topics.filter((topic) => topic.pageType === 'dossier')));
+  expect(await linksIn('aktuell')).toEqual(paths(topics.filter((topic) => topic.highlightFrom && topic.highlightFrom <= referenceDate
+    && (!topic.highlightUntil || topic.highlightUntil >= referenceDate))));
+  await expect(page.locator('#alle-themen .topic-card')).toHaveCount(topics.length);
+  for (const topic of topics) {
+    const card = page.locator(`#thema-${topic.slug}`);
+    await expect(card.getByRole('heading').getByRole('link')).toHaveAttribute('href', `/themen/${topic.slug}/`);
+    await expect(card.getByText(`Stand des Vorhabens · ${formatTopicStatus(topic.status)}`, { exact: true })).toBeVisible();
+  }
+});
+
+siteTest(['portal'])('Fachabschnitte verlinken ihre Rechtsgruppen, deren Quellen per Tastatur erreichbar sind', { tag: '@kompatibilitaet' }, async ({ page }) => {
+  await prepareFunctionalPage(page);
+  const topics = await loadTopics();
+  const dossier = topics.find((topic) => topic.modules.some((module) =>
+    topic.rechtsgrundlagen.some((entry) => entry.group === module.id && entry.normSlug)))!;
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto(`/themen/${dossier.slug}/`);
+  const link = page.locator('.topic-module__sources').first();
+  const hash = await link.getAttribute('href');
+  const group = page.locator(`details${hash}`);
+  await link.click();
+  await expect(group).toHaveJSProperty('open', true);
+  const summary = group.locator('summary');
+  await summary.press('Enter');
+  await expect(group).toHaveJSProperty('open', false);
+  await summary.press('Space');
+  await expect(group.getByRole('link').first()).toBeVisible();
+  await expect(group.locator('a').first()).toHaveAttribute('href', /^https?:/u);
+  const normLinks = await page.locator('.topic-law-group a').evaluateAll((items) => items
+    .map((item) => new URL((item as HTMLAnchorElement).href)).filter((url) => url.pathname.startsWith('/norm/'))
+    .map((url) => url.pathname).sort());
+  expect(normLinks).toEqual(dossier.rechtsgrundlagen.flatMap((entry) => entry.normSlug ? [`/norm/${entry.normSlug}/`] : []).sort());
+});
+
+siteTest(['portal'])('Fachanwendungen führen direkt zum sichtbaren Werkzeug oder zur Periodenauswahl', { tag: '@kompatibilitaet' }, async ({ page }) => {
+  await prepareFunctionalPage(page);
+  const topics = (await loadTopics()).filter((topic) => topic.pageType === 'application');
+  expect(topics.length).toBeGreaterThan(0);
+  const targets = { budget: '/haushalt/#perioden', territory: '/kreisreform/#bezirk-suche', holdings: '/staatsregierung/beteiligungen/#beteiligungsnavigator' };
+  for (const topic of topics) {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(`/themen/${topic.slug}/`);
+    await expect(page.locator('.topic-application-background')).toHaveJSProperty('open', false);
+    const target = targets[topic.application!];
+    await page.locator(`.section-hero a[href="${target}"]`).click();
+    await page.waitForLoadState('load');
+    await expect(page).toHaveURL(new RegExp(target + '$', 'u'));
+    const section = page.locator(target.slice(target.indexOf('#')));
+    await expect.poll(() => section.evaluate((element) => {
+      const heading = element.querySelector('h2') ?? element;
+      const box = heading.getBoundingClientRect();
+      return heading.contains(document.elementFromPoint(box.left + 5, box.top + box.height / 2));
+    })).toBe(true);
   }
 });
 
@@ -2551,7 +2624,7 @@ siteTest(['portal'])('Kreistabelle behält ihre erste Seite, bis Filter und Blä
   await expect(page.locator('[data-pagination="kreise"] [data-pagination-page]')).toHaveText(/Seite 2 von /u);
 });
 
-siteTest(['portal'])('Reformdossier bietet auf dem Smartphone ein aufklappbares Inhaltsverzeichnis', async ({ page }) => {
+siteTest(['portal'])('Reformdossier bietet auf dem Smartphone ein aufklappbares Inhaltsverzeichnis', { tag: '@kompatibilitaet' }, async ({ page }) => {
   await prepareFunctionalPage(page);
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/themen/oeffentliche-wirtschaft-und-strukturwandel/');

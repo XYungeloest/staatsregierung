@@ -389,6 +389,8 @@ Optionale Felder:
 - `relatedTopicSlugs`
 - `keyDates`
 - `modules`
+- `legalGroups` und `rechtsgrundlagen[].group` für fachlich gegliederte Dossiers
+- `reportedEvents` für bereits eingetretene, datierte Ereignisse
 
 `cluster` ordnet jedes Thema genau einem Bereich zu. Erlaubt sind `staat-demokratie`,
 `bildung-gesellschaft`, `wirtschaft-arbeit`, `infrastruktur-wohnen`, `umwelt-versorgung` und
@@ -397,6 +399,16 @@ dauerhaften Schwerpunkt. Ein Thema wird im Zeitraum von `highlightFrom` bis eins
 `highlightUntil` im Bereich „Aktuell“ der Themenübersicht und auf der Startseite hervorgehoben.
 Fehlt `highlightUntil`, bleibt die Hervorhebung offen; das ist nur für tatsächlich dauerhaft
 aktuelle Vorhaben sinnvoll. `updatedAt` ist ein fachliches Redaktionsdatum, kein Build-Zeitpunkt.
+„Reformdossiers“ führt alle Dossiers und „Alle Themen“ den gesamten Themenbestand. Ein aktuell
+hervorgehobenes Dossier bleibt in beiden Verzeichnissen auffindbar.
+
+Berichtet ein Thema von einer bereits veröffentlichten Entscheidung oder einem Kampagnenergebnis,
+verweist `reportedEvents` mit `kind` und `slug` auf den Beleg. `publication` liest das Ausgabedatum
+der Verkündung, `press` das Datum der Mitteilung und `campaign-result` das Veröffentlichungsdatum
+des freigegebenen Ergebnisses. `norm-effective` belegt den berichteten (auch teilweisen)
+Geltungsbeginn mit `effectiveDate` einer aufgeführten Norm. `npm run content:check` meldet fehlende Belege und ein `updatedAt`
+vor dem berichteten Ereignis. Angekündigte Maßnahmen und ihr künftiger Geltungsbeginn gehören in
+`naechsteSchritte` oder `keyDates`.
 
 **Seitentyp und Gliederung.** `compact` (auch bei fehlendem `pageType`) eignet sich für
 abgegrenzte Fragen wie den Kulturpass. `dossier` bündelt mehrere Teilvorhaben mit
@@ -404,7 +416,15 @@ Inhaltsnavigation und passenden Fachmodulen. Im Wirtschaftsdossier führen diese
 Handel, Industrie, Rohstoffen und öffentlicher Mobilität. `application` verweist auf ein
 vorhandenes Werkzeug. `application: "territory"`, `"budget"` oder `"holdings"` wählt dafür
 Gebietssuche, Haushalt oder Beteiligungsnavigator. Die Daten der Anwendung bleiben an ihrem
-Fachort.
+Fachort. Der Einstieg nennt zuerst das Werkzeug, die wichtigste Entscheidung und die belegten
+Auswirkungen. Im aufklappbaren Hintergrund bleiben Zuständigkeiten und weitere Bezüge erreichbar.
+
+In umfangreichen Dossiers erhält jede Rechtsgrundlage genau eine redaktionell gewählte
+`group`. Der Wert verweist auf die `id` eines Fachmoduls oder auf eine eigene Gruppe in
+`legalGroups` mit `id` und `title`. Das Fachmodul verlinkt seine Quellengruppe unter
+`#recht-<id>`. Die stabilen IDs bleiben bei Titeländerungen erhalten. Normstatus und
+Fundstellen stammen aus den vorhandenen Norm- und Verkündungsverweisen. Ohne Gliederung
+erscheint die kompakte Quellenliste.
 
 **Beschluss, Recht und Vollzug.** `beschlossen` nennt Entscheidungen, `geltendesRecht` die
 bereits wirksamen Bestimmungen und `umgesetzt` den durch Quellen belegten Vollzug. Ein leeres

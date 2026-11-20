@@ -1,0 +1,92 @@
+---
+import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import { formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormUrl, getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { getPublicationLabel } from '@ostrecht/shared/lib/norms/publications.ts';
+import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
+import type { Themenseite } from '@ostrecht/shared/lib/portal/schema.ts';
+import type { PublicLegalSource } from '../../lib/project-status.ts';
+
+interface Props { topic: Themenseite; references: PublicLegalSource[] }
+const { topic, references } = Astro.props;
+const groups = [...topic.modules, ...(topic.legalGroups ?? [])]
+  .map(({ id, title }) => ({ id, title, entries: references.filter((entry) => entry.group === id) }))
+  .filter((group) => group.entries.length > 0);
+const limit = topic.pageType === 'dossier' ? 4 : 2;
+const visibleLegalReferences = references.slice(0, limit);
+const additionalLegalReferences = references.slice(limit);
+---
+{references.length > 0 && <section id="rechtsgrundlagen" class="section topic-legal-section" aria-labelledby="rechtsgrundlagen-title" data-visual-section="topic-legal-bases">
+      <div class="section-header topic-section-heading">
+        <div>
+          <p class="eyebrow">Rechtlicher Rahmen</p>
+          <h2 id="rechtsgrundlagen-title">Rechtsgrundlagen</h2>
+          <p>Vorschriften, Fassungen und amtliche Fundstellen in OstRecht.</p>
+        </div>
+        <PortalIcon name="law" />
+      </div>
+      {groups.length > 0 ? <div class="topic-law-groups">
+        {groups.map(({ id, title, entries }) => <details id={`recht-${id}`} class="topic-law-group">
+          <summary>{title} <span>({entries.length})</span></summary>
+          <ul>
+            {entries.map((entry) => <li>
+              <div>
+                {entry.norm ? <a href={getNormUrl(entry.norm.slug)}>{entry.label}</a> : <strong>{entry.label}</strong>}
+                {entry.norm && <span class="topic-law-state">{formatNormStatus(entry.norm.status)}</span>}
+              </div>
+              {entry.note && <p>{entry.note}</p>}
+              {entry.publication && <a class="topic-law-issue" href={getPublicationUrl(entry.publication.slug)}>{getPublicationLabel(entry.publication)}</a>}
+            </li>)}
+          </ul>
+        </details>)}
+      </div> : <>
+      <div class="topic-legal-grid">
+        {visibleLegalReferences.map((entry) => (
+          <article class="topic-legal-card">
+            <p class="topic-legal-card__type">{entry.norm ? formatNormStatus(entry.norm.status) : 'Quellenhinweis'}</p>
+            <h3>
+              {entry.norm ? <a href={getNormUrl(entry.norm.slug)}>{entry.label}</a> : entry.label}
+            </h3>
+            {entry.note ? <p>{entry.note}</p> : entry.norm && getPublicNormSummary(entry.norm) ? <p>{toDisplayText(getPublicNormSummary(entry.norm) ?? '')}</p> : null}
+            {entry.norm?.effectiveDate ? (
+              <p class="topic-legal-card__date">{entry.norm.effectiveDate > PORTAL_REFERENCE_DATE ? 'Wirksam ab' : 'Geltungsbeginn'} <time datetime={entry.norm.effectiveDate}>{siteConfig.date.formatLong(entry.norm.effectiveDate)}</time></p>
+            ) : null}
+            {entry.publication ? <a class="topic-legal-card__publication" href={getPublicationUrl(entry.publication.slug)}>{getPublicationLabel(entry.publication)}</a> : null}
+          </article>
+        ))}
+      </div>
+      {additionalLegalReferences.length > 0 ? (
+        <details class="topic-more-references">
+          <summary>{additionalLegalReferences.length} weitere Rechtsgrundlagen anzeigen</summary>
+          <ul>
+            {additionalLegalReferences.map((entry) => (
+              <li>
+                {entry.norm ? <a href={getNormUrl(entry.norm.slug)}>{entry.label}</a> : <span>{entry.label}</span>}
+                {entry.norm && <small>{formatNormStatus(entry.norm.status)}</small>}
+                {entry.note ? <small>{entry.note}</small> : null}
+                {entry.publication && <small><a href={getPublicationUrl(entry.publication.slug)}>{getPublicationLabel(entry.publication)}</a></small>}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
+      </>}
+    </section>}
+
+<script>
+  function openLinkedGroup() {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target instanceof HTMLDetailsElement && target.classList.contains('topic-law-group')) {
+      target.open = true;
+    }
+  }
+  openLinkedGroup();
+  window.addEventListener('hashchange', openLinkedGroup);
+  document.querySelectorAll<HTMLAnchorElement>('.topic-module__sources').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (link.hash === location.hash) openLinkedGroup();
+    });
+  });
+</script>

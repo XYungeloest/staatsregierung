@@ -3,8 +3,8 @@ import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { getNextTopicDate, type Themenseite } from '@ostrecht/shared/lib/portal/index.ts';
 import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 
-interface Props { topic: Themenseite; referenceDate: string }
-const { topic, referenceDate } = Astro.props;
+interface Props { topic: Themenseite; referenceDate: string; compact?: boolean }
+const { topic, referenceDate, compact = false } = Astro.props;
 const nextDate = getNextTopicDate(topic, referenceDate);
 const groups = [
   { title: 'Beschlüsse und Aufträge', items: topic.beschlossen },
@@ -19,9 +19,9 @@ const groups = [
     <p class="topic-briefing__updated">{siteConfig.vocabulary.portalContentAsOf} <time datetime={topic.updatedAt}>{siteConfig.date.formatLong(topic.updatedAt)}</time></p>
   </div>
   {nextDate && <p class="topic-next-date"><strong>Nächster Termin</strong> <time datetime={nextDate.date}>{siteConfig.date.formatLong(nextDate.date)}</time>{nextDate.endDate && nextDate.endDate !== nextDate.date && <> bis <time datetime={nextDate.endDate}>{siteConfig.date.formatLong(nextDate.endDate)}</time></>} · {nextDate.label}</p>}
-  <div class="topic-status-groups">
+  {compact ? <p>{topic.beschlossen[0] ?? topic.geltendesRecht?.[0]}</p> : <div class="topic-status-groups">
     {groups.map(({ title, items }) => <section><h3>{title}</h3><ul>{items.map((text) => <li>{text}</li>)}</ul></section>)}
-  </div>
+  </div>}
 </section>
 {Boolean(topic.impacts?.length) && <section class="section topic-impacts" id="auswirkungen" aria-labelledby="topic-impacts-title">
   <h2 id="topic-impacts-title">Was bedeutet das konkret?</h2>

@@ -2,7 +2,7 @@
   "slug": "oepnv-und-mobilitaet",
   "title": "ÖPNV & Mobilität",
   "pageType": "dossier",
-  "teaser": "Was das Ost-Ticket kostet, wer kostenfrei fahren kann und welche Linien noch in Planung sind.",
+  "teaser": "Das Ost-Ticket, die Anerkennung von Verbundfahrausweisen im Fernverkehr und der geplante Takt im Landesnetz.",
   "status": "in-umsetzung",
   "cluster": "infrastruktur-wohnen",
   "priority": 85,
@@ -17,34 +17,31 @@
     "oeffentliche-wirtschaft-und-strukturwandel",
     "kommunen-regionen-und-berlin"
   ],
-  "beschlossen": [
-    "Mobilität und Infrastruktur wurden als eigenständiger Schwerpunkt der Regierungsarbeit verankert.",
-    "Planungs- und Finanzierungsfragen werden ressortübergreifend mit Landesentwicklung und Haushaltssteuerung gekoppelt.",
-    "Der Ausbau eines stärkeren öffentlichen Verkehrsnetzes wurde politisch priorisiert.",
-    "Die Gesetze zur Ostdeutschen Eisenbahn, Verkehrsvergesellschaftung und Hochgeschwindigkeitsluftfahrt wurden am 20. Juli 2026 verkündet.",
-    "Für reimportierte DDR-Kleinkrafträder ist eine Verwaltungsvorschrift verkündet, die seit dem 9. September 2026 in Kraft ist. Sie regelt den Nachweis der ersten Inbetriebnahme, das erforderliche Gutachten und die Erteilung der Betriebserlaubnis.",
-    "Seit dem 12. September 2026 sind Ausnahmen vom Privatisierungsverbot des Ostdeutschen Eisenbahngesetzes nur durch ein besonderes Einzelfallgesetz nach dem Gemeinvermögensschutzgesetz möglich; das gilt auch für das betriebsnotwendige Vermögen der Interflug."
-  ],
+  "beschlossen": [],
   "geltendesRecht": [
-    "Die gesetzlichen Grundlagen für die Ostdeutsche Eisenbahn und die Vergesellschaftung privater Verkehrsproduktionsmittel sind seit 21. Juli 2026 in Kraft.",
-    "Die betriebsnotwendigen Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes zugunsten der Ostdeutschen Eisenbahn in Gemeineigentum überführt. Die ODEG wurde nicht als Unternehmen gekauft.",
-    "Nicht vergesellschaftete private Verkehrsunternehmen, die öffentlich finanzierte Verkehrsleistungen erbringen, sind seit 21. Juli 2026 an gemeinwirtschaftliche Pflichten gebunden: OVV-Tarif, gemeinsamer Vertrieb, offene Kosten- und Erlösrechnung, Gewinnobergrenze in öffentlichen Dienstleistungsaufträgen. Überwiegend öffentlich finanzierte Fahrzeuge, Werkstätten und Vertriebsinfrastrukturen sollen Eigentum der Ostdeutschen Eisenbahn oder eines öffentlichen Aufgabenträgers werden.",
-    "Seit 1. September 2026 gelten der soziale Nulltarif und die grundsätzlich kostenfreie Fahrradmitnahme. Die Bekanntmachung regelt außerdem verbindliche Mindeststandards für Anschlusssicherung und Fahrgastinformation.",
-    "Die gemeinwirtschaftlichen Betriebsgrundsätze der Ostdeutschen Eisenbahn und die Planungsgrundsätze für Landesnetz Ost und Ostdeutschlandtakt gelten seit 24. August 2026."
+    "Seit dem 21. Juli 2026 gelten die Gesetze zur Ostdeutschen Eisenbahn und zur Vergesellschaftung von Verkehrsproduktionsmitteln. Sie überführen die erfassten betriebsnotwendigen Mittel der ODEG in Gemeineigentum. Die ODEG als Unternehmen bleibt davon unberührt.",
+    "Private Verkehrsunternehmen mit öffentlich finanzierten Leistungen sind an den Verbundtarif, den gemeinsamen Vertrieb und die Offenlegung von Kosten und Erlösen gebunden. Die Betriebs- und Planungsgrundsätze der Ostdeutschen Eisenbahn und des Landesnetzes gelten seit dem 24. August 2026."
   ],
   "umgesetzt": [
-    "Mit DB Fernverkehr ist die Anerkennung von OVV-Fahrausweisen in IC- und ICE-Verbindungen vereinbart. Die konkret freigegebenen Verbindungen und Bedingungen werden gesondert veröffentlicht."
+    "Mit DB Fernverkehr ist vereinbart, dass Verbundfahrausweise auf ausdrücklich freigegebenen IC- und ICE-Verbindungen gelten."
+  ],
+  "reportedEvents": [
+    {
+      "kind": "publication",
+      "slug": "stanzo-2026-37"
+    }
   ],
   "naechsteSchritte": [
-    "Ostdeutsche Eisenbahn organisatorisch aufbauen und die gesetzlichen Überführungs- und Bindungsregeln praktisch umsetzen.",
-    "Das rechtskräftig unterzeichnete Boom-Europe-Abkommen sowie Standort- und Sondervermögensgesetze umsetzen; eine Standorteröffnung ist noch nicht belegt.",
-    "Weiterentwicklung des Verkehrsverbundes zu einem Mobilitätskombinat Ost.",
-    "Die konkret für die OVV-Ticketanerkennung freigegebenen IC- und ICE-Verbindungen und Bedingungen gesondert veröffentlichen.",
-    "Landesnetz Ost und Ostdeutschlandtakt stufenweise umsetzen und barrierefreie Haltepunkte ausbauen. Die im März vorgeschlagenen Fernverkehrsreaktivierungen gelten erst nach Bestellungs- oder Betriebsnachweis als umgesetzt."
+    "Der Verkehrsverbund soll die freigegebenen Fernzüge und die Bedingungen für ihre Nutzung veröffentlichen.",
+    "Die neuen Takt- und Betriebszeitstandards sollen zum nächstmöglichen betrieblich umsetzbaren Fahrplanwechsel schrittweise eingeführt werden."
   ],
   "impacts": [
     {
-      "text": "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 landesweit 15 Euro im Monat; zu viel gezahlte Augustbeträge werden erstattet oder gutgeschrieben.",
+      "text": "Seit dem 1. August 2026 kostet das landesweite Ost-Ticket 15 Euro im Monat. Wer für August mehr gezahlt hat, erhält den Mehrbetrag ohne Antrag zurück oder gutgeschrieben. Die Monatskarte ist auch ohne Abonnement erhältlich.",
+      "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung"
+    },
+    {
+      "text": "Wer Leistungen nach dem Zweiten oder Zwölften Buch Sozialgesetzbuch bezieht, fährt seit dem 1. September 2026 zum Nulltarif. Daneben gelten die bestehenden kostenfreien Angebote, unter anderem für Schüler:innen, Auszubildende und Personen unter 21 Jahren.",
       "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung"
     }
   ],
@@ -52,120 +49,154 @@
     {
       "type": "facts",
       "id": "verkehrsstand",
-      "title": "Belegter Verkehrsstand",
-      "intro": "Verkündete Tarife und Planungsgrundsätze sind vom praktischen Ausbau einzelner Verbindungen zu unterscheiden.",
+      "title": "Landesnetz und Taktfahrplan",
       "items": [
         {
-          "label": "Ost-Ticket",
-          "value": "15 Euro",
-          "note": "Landesweiter Monatspreis seit 1. August 2026; seit 1. September gilt für Berechtigte der soziale Nulltarif."
-        },
-        {
-          "label": "Landesnetz Ost",
+          "label": "Täglicher Takt auf den Hauptachsen",
           "value": "5 bis 24 Uhr",
-          "note": "Planungszeitraum für den täglichen Taktverkehr mit abgestimmten Knoten und Anschlüssen."
+          "note": "Auf den Hauptachsen soll das Angebot schrittweise mindestens diesen Zeitraum abdecken. Die Anschlüsse an den Knoten sollen aufeinander abgestimmt werden."
         },
         {
-          "label": "Vorgeschlagene Reaktivierungen",
-          "value": "6 Relationen",
-          "note": "Für keine dieser Relationen ist durch den Deal automatisch eine Bestellung oder Betriebsaufnahme belegt."
+          "label": "Schienenpersonennahverkehr",
+          "value": "Mindestens stündlich als Planungsziel",
+          "note": "Für nachfragestarke Hauptachsen sieht das Landesnetz mindestens einen Halbstundentakt vor."
         },
         {
-          "label": "ODEG",
-          "value": "Vergesellschaftung statt Kauf",
-          "note": "Überführt wurden die erfassten betriebsnotwendigen Verkehrsproduktionsmittel, nicht das Unternehmen als solches."
+          "label": "Fernverkehr",
+          "value": "Sechs Reaktivierungen vorgeschlagen",
+          "note": "Die Vorschläge vom März bezeichnen mögliche Verbindungen. Für diese Strecken sind weder Bestellung noch Betriebsaufnahme belegt."
         }
       ]
+    },
+    {
+      "type": "facts",
+      "id": "fahrgastrechte",
+      "title": "Fahrräder und Anschlüsse",
+      "items": [
+        {
+          "label": "Fahrradmitnahme",
+          "value": "Grundsätzlich kostenfrei im Verbund",
+          "note": "Bei knapper Kapazität haben Rollstühle, Mobilitätshilfen und Kinderwagen Vorrang. In freigegebenen IC- oder ICE-Zügen gelten die Bedingungen der Anerkennungsvereinbarung."
+        },
+        {
+          "label": "Letzter Anschluss des Tages",
+          "value": "Besondere Priorität",
+          "note": "Bei einer Verspätung soll der letzte Anschluss innerhalb der betrieblich vertretbaren Wartezeit grundsätzlich warten."
+        }
+      ]
+    }
+  ],
+  "legalGroups": [
+    {
+      "id": "eisenbahn-und-eigentum",
+      "title": "Eisenbahn, Vergesellschaftung und öffentliche Aufträge"
+    },
+    {
+      "id": "luftverkehr",
+      "title": "Interflug und Luftfahrtstandort Leipzig/Halle"
+    },
+    {
+      "id": "kleinkraftraeder",
+      "title": "Betriebserlaubnis für Kleinkrafträder"
     }
   ],
   "rechtsgrundlagen": [
     {
       "label": "VwV DDR-Reimport-Kleinkrafträder",
       "normSlug": "vwv-ddr-reimport-kleinkraftraeder",
-      "note": "Gilt ab 9. September 2026."
+      "note": "Gilt ab 9. September 2026.",
+      "group": "kleinkraftraeder"
     },
     {
       "label": "Leitlinie gemeinwirtschaftlicher Eisenbahnbetrieb",
-      "normSlug": "bekanntmachung-ode-betriebsgrundsaetze"
+      "normSlug": "bekanntmachung-ode-betriebsgrundsaetze",
+      "group": "verkehrsstand"
     },
     {
       "label": "OVV-Tarif und Anschlusssicherung",
-      "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung"
+      "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung",
+      "group": "fahrgastrechte"
     },
     {
       "label": "Landesnetz Ost und Ostdeutschlandtakt",
-      "normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt"
+      "normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt",
+      "group": "verkehrsstand"
     },
     {
       "label": "Ostdeutsche-Eisenbahn-Neuordnungsgesetz",
-      "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz"
+      "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+      "group": "eisenbahn-und-eigentum"
     },
     {
       "label": "Ostdeutsches Eisenbahngesetz",
-      "normSlug": "ostdeutsches-eisenbahngesetz"
+      "normSlug": "ostdeutsches-eisenbahngesetz",
+      "group": "eisenbahn-und-eigentum"
     },
     {
       "label": "Ostdeutsches Verkehrsvergesellschaftungsgesetz",
-      "normSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz"
+      "normSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
+      "group": "eisenbahn-und-eigentum"
     },
     {
       "label": "Verkehrsbindungsgesetz",
       "normSlug": "verkehrsbindungsgesetz",
-      "note": "Gemeinwirtschaftliche Bindung nicht vergesellschafteter privater Verkehrsunternehmen; in Kraft seit 21. Juli 2026."
+      "note": "Gemeinwirtschaftliche Bindung nicht vergesellschafteter privater Verkehrsunternehmen; in Kraft seit 21. Juli 2026.",
+      "group": "eisenbahn-und-eigentum"
     },
     {
       "label": "Boom-Europe-Umsetzungsgesetz",
-      "normSlug": "boom-europe-umsetzungsgesetz"
+      "normSlug": "boom-europe-umsetzungsgesetz",
+      "group": "luftverkehr"
     },
     {
       "label": "Hochgeschwindigkeitsluftfahrt-Standortgesetz",
-      "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz"
+      "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
+      "group": "luftverkehr"
     },
     {
       "label": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
-      "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz"
+      "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
+      "group": "luftverkehr"
     },
     {
       "label": "Interflug-Gesetz",
       "normSlug": "interflug-gesetz",
-      "note": "Errichtet die Interflug als Anstalt des öffentlichen Rechts für öffentliche Spezialflugaufgaben wie Brandbekämpfung, Katastrophenschutz sowie Hilfs- und Versorgungsflüge; in Kraft seit 3. September 2026."
+      "note": "Errichtet die Interflug als Anstalt des öffentlichen Rechts für öffentliche Spezialflugaufgaben wie Brandbekämpfung, Katastrophenschutz sowie Hilfs- und Versorgungsflüge; in Kraft seit 3. September 2026.",
+      "group": "luftverkehr"
     },
     {
       "label": "Vergesellschaftungsrahmengesetz",
       "normSlug": "vergesellschaftungsrahmengesetz",
-      "note": "Allgemeiner Rahmen für Anwendungsgesetze zur Überführung in Gemeineigentum oder andere Formen der Gemeinwirtschaft."
+      "note": "Allgemeiner Rahmen für Anwendungsgesetze zur Überführung in Gemeineigentum oder andere Formen der Gemeinwirtschaft.",
+      "group": "eisenbahn-und-eigentum"
     },
     {
       "label": "Landesplanungsgesetz",
-      "normSlug": "landesplanungsgesetz"
+      "normSlug": "landesplanungsgesetz",
+      "group": "verkehrsstand"
     },
     {
       "label": "Haushaltsgesetz 2025/2026",
       "normSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
-      "note": "Dient als finanzpolitischer Rahmen für Ausbauprogramme."
+      "note": "Dient als finanzpolitischer Rahmen für Ausbauprogramme.",
+      "group": "eisenbahn-und-eigentum"
     },
     {
       "label": "Ostdeutsches Tariftreue- und Vergabegesetz",
       "normSlug": "ostdeutsches-tariftreueund-vergabegesetz",
-      "note": "Relevanter Beschaffungsrahmen für öffentliche Investitionen."
+      "note": "Relevanter Beschaffungsrahmen für öffentliche Investitionen.",
+      "group": "eisenbahn-und-eigentum"
     },
     {
       "label": "Gemeinvermögensschutzgesetz",
-      "normSlug": "gemeinvermoegensschutzgesetz"
+      "normSlug": "gemeinvermoegensschutzgesetz",
+      "group": "eisenbahn-und-eigentum"
     }
   ],
   "faq": [
     {
-      "question": "Welche Rolle spielt die Ostdeutsche Eisenbahn?",
-      "answer": "Sie soll öffentliche Verkehrsleistungen, Fahrzeuge, Werkstätten und weitere betriebsnotwendige Mittel dauerhaft gemeinwirtschaftlich sichern. Die erfassten Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes überführt; ein Unternehmenskauf fand nicht statt."
-    },
-    {
-      "question": "Welche Rolle spielt Dresden dabei?",
-      "answer": "Dresden ist Regierungssitz und ein zentraler politischer Knoten für die Koordinierung landesweiter Mobilitätsachsen."
-    },
-    {
       "question": "Wie wird eine Betriebserlaubnis für ein DDR-Reimport-Kleinkraftrad beantragt?",
-      "answer": "Ab 9. September 2026 kann der Antrag unmittelbar mit dem Gutachten nach § 21 StVZO gestellt werden; eine vorherige Zweitschrift oder Ablehnung des Kraftfahrt-Bundesamtes ist nicht erforderlich. Die Verwaltungsvorschrift erfasst Fahrzeuge, die spätestens am 28. Februar 1992 erstmals in Betrieb genommen wurden. Für den Bestandsschutz müssen die weiteren technischen und sicherheitsbezogenen Voraussetzungen erfüllt sein."
+      "answer": "Seit dem 9. September 2026 kann der Antrag unmittelbar mit dem Gutachten nach § 21 StVZO gestellt werden; eine vorherige Zweitschrift oder Ablehnung des Kraftfahrt-Bundesamtes ist nicht erforderlich. Die Verwaltungsvorschrift erfasst Fahrzeuge, die spätestens am 28. Februar 1992 erstmals in Betrieb genommen wurden. Für den Bestandsschutz müssen die weiteren technischen und sicherheitsbezogenen Voraussetzungen erfüllt sein."
     }
   ],
   "federfuehrendesRessort": "mobilitaet-infrastruktur-und-landesentwicklung",

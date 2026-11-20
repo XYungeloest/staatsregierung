@@ -1,0 +1,72 @@
+name: Geschlossene Portalvorschau bereinigen
+
+on:
+  workflow_call:
+    inputs:
+      pull_number: { type: number, required: true }
+    secrets:
+      CLOUDFLARE_ACCOUNT_ID: { required: true }
+      CLOUDFLARE_API_TOKEN: { required: true }
+  workflow_dispatch:
+    inputs:
+      pull_number: { description: 'Geschlossener Pull Request auf main', type: number, required: true }
+  workflow_run:
+    workflows: ['Deploy to Cloudflare Workers']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  select:
+    if: ${{ vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-26.04
+    outputs:
+      numbers: ${{ steps.select.outputs.numbers }}
+    steps:
+      - id: select
+        uses: actions/github-script@v9
+        env:
+          PULL_NUMBER: ${{ inputs.pull_number }}
+        with:
+          script: |
+            let numbers;
+            if (context.eventName === 'workflow_run') {
+              const run = context.payload.workflow_run;
+              const { owner, repo } = context.repo;
+              const prs = await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit,
+                { owner, repo, commit_sha: run.head_sha });
+              numbers = prs.filter(pr => pr.merged_at && pr.base.ref === 'main' && pr.merge_commit_sha === run.head_sha).map(pr => pr.number);
+            } else {
+              const number = Number(process.env.PULL_NUMBER);
+              if (!Number.isSafeInteger(number) || number < 1) throw new Error('Ungültige PR-Nummer.');
+              numbers = [number];
+            }
+            core.setOutput('numbers', JSON.stringify(numbers));
+  cleanup:
+    needs: select
+    if: ${{ needs.select.outputs.numbers != '[]' }}
+    strategy:
+      matrix:
+        number: ${{ fromJSON(needs.select.outputs.numbers) }}
+    concurrency:
+      group: cleanup-portal-preview-${{ matrix.number }}
+      cancel-in-progress: false
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - name: Verzeichnete Vorschauversionen prüfen und bereinigen
+        uses: actions/github-script@v9
+        env:
+          PULL_NUMBER: ${{ matrix.number }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        with:
+          script: |
+            const { runPreviewCleanup } = await import(`${process.env.GITHUB_WORKSPACE}/scripts/cleanup-portal-preview.mjs`);
+            await runPreviewCleanup({ github, context, core, number: Number(process.env.PULL_NUMBER) });

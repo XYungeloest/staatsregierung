@@ -97,6 +97,7 @@
     "test:a11y:ci": "playwright test tests/accessibility.spec.ts --project=desktop-wide --project=mobile-390",
     "test:browsers": "npm run build && npm run test:browsers:run",
     "test:browsers:run": "playwright test tests/browser-smoke.spec.ts tests/holdings-navigator.spec.ts --config=playwright.quality.config.ts",
+    "test:browsers:compat": "playwright test tests/browser-smoke.spec.ts --config=playwright.quality.config.ts --grep @kompatibilitaet --project=firefox --project=webkit",
     "test:browsers:ci": "playwright test tests/browser-smoke.spec.ts tests/holdings-navigator.spec.ts --config=playwright.quality.config.ts --project=chromium",
     "preview": "npm run preview:portal",
     "preview:portal": "npm run preview --workspace @ostrecht/portal",

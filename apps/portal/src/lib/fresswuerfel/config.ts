@@ -14,7 +14,7 @@ export interface Campaign {
   privacyContact: string | null;
   retentionDays: number | null;
   candidates: Candidate[];
-  result: { title: string; description: string; explanation?: string; image?: { src: string; alt: string; width: number; height: number } } | null;
+  result: { title: string; description: string; publishedOn?: string; explanation?: string; image?: { src: string; alt: string; width: number; height: number } } | null;
 }
 export function validateCampaign(value: unknown): Campaign {
   const c = value as Campaign;
@@ -30,7 +30,12 @@ export function validateCampaign(value: unknown): Campaign {
     if (item.image && (!/^\/images\/fresswuerfel\/auswahl\/[0-9a-f-]+\.webp$/.test(item.image.src) || !item.image.alt?.trim())) throw new Error('Ungültiges freigegebenes Bild');
   }
   if (new Set(c.candidates.map(x => x.slug)).size !== c.candidates.length) throw new Error('Doppelte Kandidatur');
-  if (c.result !== null && (!c.result.title || !c.result.description || Object.keys(c.result).some(k => !['title', 'description', 'explanation', 'image'].includes(k)))) throw new Error('Ungültiges Ergebnis');
+  if (c.result !== null && (!c.result.title || !c.result.description || Object.keys(c.result).some(k => !['title', 'description', 'publishedOn', 'explanation', 'image'].includes(k)))) throw new Error('Ungültiges Ergebnis');
+  const publishedOn = c.result?.publishedOn;
+  if (publishedOn !== undefined && (!/^\d{4}-\d{2}-\d{2}$/u.test(publishedOn)
+    || new Date(publishedOn).toJSON()?.slice(0, 10) !== publishedOn)) {
+    throw new Error('Ungültiges Veröffentlichungsdatum des Ergebnisses');
+  }
   const image = c.result?.image;
   if (image && (!/^\/images\/fresswuerfel\/[a-z0-9-]+\.webp$/.test(image.src) || !image.alt?.trim()
     || !Number.isInteger(image.width) || image.width <= 0 || !Number.isInteger(image.height) || image.height <= 0)) {
@@ -39,11 +44,16 @@ export function validateCampaign(value: unknown): Campaign {
   return c;
 }
 export const campaign = validateCampaign(source);
-export function campaignSummary(c: Campaign) {
-  const result = c.phase === 'ergebnis' ? c.result : null;
-  return result
-    ? { title: `${result.title} – das Fresswürfel-Maskottchen`, description: result.description }
-    : { title: campaignTitle, description: campaignLead };
+export function campaignSummary(c: Campaign, now = Date.now()) {
+  if (c.phase === 'ergebnis' && c.result) {
+    return { title: `${c.result.title} – das Fresswürfel-Maskottchen`, description: c.result.description };
+  }
+  if (isSubmissionPhase(c, now)) return { title: campaignTitle, description: campaignLead };
+  const title = 'Maskottchenwettbewerb für Fresswürfel';
+  if (c.phase === 'sichtung') return { title, description: 'Die Handelsorganisation Ost sichtet die eingereichten Ideen für das Maskottchen ihrer geplanten Schnellrestaurantkette.' };
+  if (c.phase === 'ergebnis') return { title, description: 'Die Handelsorganisation Ost gibt das Ergebnis des Wettbewerbs nach der Freigabe bekannt.' };
+  if (c.endsAt && now >= Date.parse(c.endsAt)) return { title, description: 'Die Einreichungsfrist für den Maskottchenwettbewerb ist abgelaufen.' };
+  return { title, description: 'Die Handelsorganisation Ost bereitet den Maskottchenwettbewerb für ihre geplante Schnellrestaurantkette vor.' };
 }
 export function isSubmissionPhase(c: Campaign, now = Date.now()): boolean {
   return c.phase === 'einreichung' && (!c.startsAt || now >= Date.parse(c.startsAt)) && (!c.endsAt || now < Date.parse(c.endsAt));

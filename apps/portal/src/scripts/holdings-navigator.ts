@@ -256,7 +256,7 @@ function initializeHoldingsNavigator(root: HTMLElement): void {
     pageSize.value = String(state.perPage);
     directionButton.value = state.direction;
     directionButton.textContent = state.direction === 'asc' ? 'A–Z' : 'Z–A';
-    directionButton.setAttribute('aria-label', `Sortierreihenfolge ${state.direction === 'asc' ? 'aufsteigend' : 'absteigend'}`);
+    directionButton.setAttribute('aria-label', `${directionButton.textContent}, Sortierreihenfolge ${state.direction === 'asc' ? 'aufsteigend' : 'absteigend'}`);
 
     root.querySelectorAll<HTMLButtonElement>('[data-holdings-view]').forEach((button) => {
       const active = button.dataset.holdingsView === state.view;

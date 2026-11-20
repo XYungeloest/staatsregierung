@@ -2,41 +2,32 @@
   "slug": "wohnen-und-vergesellschaftung",
   "title": "Wohnen & Vergesellschaftung",
   "pageType": "dossier",
-  "teaser": "Welche Mietverhältnisse die Preisleitlinie erfasst und wie der Freistaat die öffentliche Wohnungswirtschaft regelt.",
+  "teaser": "Wie sich die Miete bei Gemeingut Wohnen berechnet, wo Mietpreisgrenzen gelten und wie der Freistaat bezahlbaren Wohnraum sichert.",
   "status": "in-umsetzung",
   "cluster": "infrastruktur-wohnen",
   "priority": 96,
   "featured": true,
   "highlightFrom": "2026-08-08",
   "highlightUntil": "2026-09-01",
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-10-15",
   "knowledgeProjectRefs": [
     "project-soziale-grundversorgung",
     "project-wohnen"
   ],
   "relatedTopicSlugs": [
+    "soziale-sicherheit-und-teilhabe",
     "kommunen-regionen-und-berlin",
     "oeffentliche-wirtschaft-und-strukturwandel"
   ],
   "beschlossen": [
-    "Der Verwaltungsrat von Gemeingut Wohnen hat am 8. August 2026 die Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung beschlossen."
+    "Der Verwaltungsrat von Gemeingut Wohnen beschloss am 8. August 2026 die Leitlinie für die Mietpreisbildung im eigenen Wohnungsbestand."
   ],
   "geltendesRecht": [
-    "Die Verfassung gewährleistet seit dem 12. September 2026 angemessenen, dauerhaft gesicherten und bezahlbaren Wohnraum. Staatliche Maßnahmen und Räumungen dürfen keine Wohnungslosigkeit verursachen.",
-    "Das Soziale Grundversorgungsgesetz verpflichtet zur landesweiten Wohnraumbedarfsplanung. Gemeingut Wohnen ist an die festgestellten Bedarfe gebunden.",
-    "In angespannten Wohnungsmärkten gelten Begrenzungen für Mieten und Mieterhöhungen. Für öffentliche Wohnungen und vergesellschaftete Bestände gelten zusätzliche Vorschriften.",
-    "Eine Ausnahme vom Veräußerungsverbot für Gemeingut Wohnen setzt ein besonderes Einzelfallgesetz voraus. Das Vergesellschaftungsrahmengesetz erlaubt auch eine gesetzesvertretende Verordnung des Staatsrates."
+    "Seit 12. September 2026 gewährleistet die Staatsverfassung angemessenen, dauerhaft gesicherten und bezahlbaren Wohnraum. Gemeingut Wohnen muss bei Neubau, Erwerb und Modernisierung die ermittelten regionalen Wohnraumbedarfe im Rahmen seiner Aufgaben und wirtschaftlichen Möglichkeiten berücksichtigen."
   ],
   "umgesetzt": [],
   "naechsteSchritte": [
-    "Wohnungsbezogene Mindestversorgungsstandards, Wohnraumbedarfsplanung und Mindestanforderungen an die Unterbringung durch Rechtsverordnung ausgestalten.",
-    "Jährliche Überprüfung der tatsächlichen Bewirtschaftungskosten und Weitergabe möglicher weiterer Entlastungen."
-  ],
-  "impacts": [
-    {
-      "text": "Bei Gemeingut Wohnen sinkt die am 31. August 2026 geschuldete Nettokaltmiete ab 1. September um 25 Prozent. Die Anpassung erfolgt von Amts wegen. Mieter:innen müssen keinen Antrag stellen.",
-      "normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
-    }
+    "Gemeingut Wohnen muss die nachgewiesenen Bewirtschaftungskosten jährlich überprüfen. Sinken die notwendigen Mieterlöse, sind die Vorteile an die Mieter:innen weiterzugeben."
   ],
   "keyDates": [
     {
@@ -53,90 +44,215 @@
       "label": "Recht auf Wohnraum in der Verfassung, Soziale Grundversorgungsgesetz in Kraft"
     }
   ],
-  "rechtsgrundlagen": [
+  "modules": [
     {
-      "label": "Soziale Grundversorgungsgesetz",
-      "normSlug": "soziale-grundversorgungsgesetz"
+      "type": "facts",
+      "id": "gemeingut-wohnen",
+      "title": "Mieten und Mitwirkung bei Gemeingut Wohnen",
+      "items": [
+        {
+          "label": "Kostenmiete",
+          "value": "Die Miete richtet sich nach notwendigen Aufwendungen etwa für Bewirtschaftung, Instandhaltung und Rücklagen. Gewinnmargen und Wertsteigerungen der Gebäude fließen nicht in die Kostenmiete ein."
+        },
+        {
+          "label": "Vertretung der Mieter:innen",
+          "value": "Das Gesetz sieht Siedlungsräte, Gebietsräte und einen Gesamtrat vor. Der Gesamtrat wirkt an den Leitlinien der Anstalt mit und entsendet fünf Mitglieder in den Verwaltungsrat."
+        }
+      ]
     },
     {
-      "label": "Verfassung des Freistaates Ostdeutschland",
-      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+      "type": "facts",
+      "id": "mietpreisgrenzen",
+      "title": "Mietpreisgrenzen am Wohnort",
+      "items": [
+        {
+          "label": "Neuer Mietvertrag",
+          "value": "Die Mietpreisbegrenzungsverordnung führt die Städte und Gemeinden auf, in denen bei Mietbeginn die Mietpreisbegrenzung nach § 556d BGB gilt."
+        },
+        {
+          "label": "Bestehender Mietvertrag",
+          "value": "Für Erhöhungen in laufenden Verträgen gelten eigene Bestimmungen. Die Mieterhöhungsbegrenzungsverordnung und die Kappungsgrenzen-Verordnung benennen die jeweils betroffenen Orte."
+        }
+      ]
     },
     {
-      "label": "Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung",
+      "type": "facts",
+      "id": "wohnraumplanung",
+      "title": "Wohnraum planen und schützen",
+      "items": [
+        {
+          "label": "Bedarfsplanung",
+          "value": "Der Freistaat plant anhand kommunaler und regionaler Daten. Dabei berücksichtigt er unter anderem Leerstand, Wohnkosten, Barrierefreiheit und die Erreichbarkeit sozialer Einrichtungen."
+        },
+        {
+          "label": "Ferienunterkünfte",
+          "value": "Wo eine Gemeinde eine Zweckentfremdungssatzung erlassen hat, muss das Angebot von Wohnraum zur Fremdenbeherbergung vorab der Gemeinde angezeigt werden. Für das Bewerben der Unterkunft ist die zugeteilte Registriernummer anzugeben."
+        },
+        {
+          "label": "Öffentlicher Boden",
+          "value": "Bei der Bewirtschaftung öffentlicher Flächen ist auch die Versorgung der Bevölkerung mit Wohnraum zu berücksichtigen."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "eigentum-und-entschaedigung",
+      "title": "Wohnungsbestände und Entschädigung",
+      "items": [
+        {
+          "label": "Rechtsgrundlage",
+          "value": "Das Vergesellschaftungsrahmengesetz sieht für die Überführung in Gemeineigentum ein eigenes Anwendungsgesetz oder eine gesetzesvertretende Verordnung vor. Für große Wohnungsbestände regelt das Wohnvergesellschaftungsgesetz Umfang und Entschädigung."
+        },
+        {
+          "label": "Erfasste Bestände",
+          "value": "Das Wohnvergesellschaftungsgesetz erfasst Unternehmensverbünde mit mehr als 3.000 Wohnungen. Es regelt den Selbstbehalt von 3.000 Wohnungen und Ausnahmen unter anderem für gemeinwirtschaftliche Genossenschaften."
+        },
+        {
+          "label": "Entschädigung",
+          "value": "Die Entschädigung richtet sich nach dem gesetzlich bestimmten Vergesellschaftungswert. Der Freistaat gibt hierfür verzinste Schuldverschreibungen aus. Eigene Vorschriften regeln Bewertung, Übergabe und zwischenzeitliche Bewirtschaftung."
+        },
+        {
+          "label": "Verkauf öffentlichen Eigentums",
+          "value": "Gibt die Gemeinde den beherrschenden Einfluss auf ein erfasstes Wohnungsunternehmen ab, verlangt die kommunale Privatisierungsbremse grundsätzlich eine Zweidrittelmehrheit im Gemeinderat oder einen erfolgreichen Bürgerentscheid. Für Veräußerungen von Gemeingut Wohnen, die unter Artikel 95a der Staatsverfassung fallen, ist ein besonderes Einzelfallgesetz erforderlich."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "wohnraumfoerderung",
+      "title": "Wohnraumförderung und Bauvorgaben",
+      "items": [
+        {
+          "label": "Sozialer Wohnraum",
+          "value": "Für die Wohnraumförderung richtet sich die maßgebliche Einkommensgrenze unter anderem nach Haushaltsgröße und Zahl der Kinder."
+        },
+        {
+          "label": "Selbstgenutztes Wohneigentum",
+          "value": "Das Landesbaukindergeld kann Familien beim Ersterwerb oder bei der Sanierung selbstgenutzten Wohnraums unterstützen. Die Förderung hängt von den Richtlinienvoraussetzungen und den verfügbaren Haushaltsmitteln ab."
+        },
+        {
+          "label": "Grundstücksflächen",
+          "value": "Nach der Bauordnung gelten Schotter- und Kiesgärten mit überwiegend steinernen Flächen nicht als zulässige Gestaltung unbebauter Grundstücksflächen. Für bereits angelegte Flächen sieht das Stadtbildgesetz eine Übergangsfrist vor."
+        }
+      ]
+    }
+  ],
+  "impacts": [
+    {
+      "text": "Mieter:innen von Gemeingut Wohnen müssen keinen Antrag stellen. Ihre am 31. August 2026 geschuldete Nettokaltmiete sinkt ab 1. September um 25 Prozent. Liegt die bisherige Miete bereits unter der so ermittelten gemeinwirtschaftlichen Miete, wird sie nicht erhöht.",
       "normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
     },
     {
+      "text": "Wer zum Beispiel in Dresden, Leipzig, Potsdam oder Rostock eine Wohnung neu mietet, findet den Ort in der Mietpreisbegrenzungsverordnung. Die Regelung für diese Gebiete gilt unabhängig davon, ob die Wohnung zu Gemeingut Wohnen gehört.",
+      "normSlug": "verordnung-zur-bestimmung-der-gebiete-mit-mietpreisbegrenzung-bei-mietbeginn"
+    }
+  ],
+  "rechtsgrundlagen": [
+    {
+      "label": "Soziale Grundversorgungsgesetz",
+      "normSlug": "soziale-grundversorgungsgesetz",
+      "group": "wohnraumplanung"
+    },
+    {
+      "label": "Verfassung des Freistaates Ostdeutschland",
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+      "group": "wohnraumplanung"
+    },
+    {
+      "label": "Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung",
+      "normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung",
+      "group": "gemeingut-wohnen"
+    },
+    {
       "label": "Vergesellschaftungsrahmengesetz",
-      "normSlug": "vergesellschaftungsrahmengesetz"
+      "normSlug": "vergesellschaftungsrahmengesetz",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Wohnvergesellschaftungsgesetz",
-      "normSlug": "wohnvergesellschaftungsgesetz"
+      "normSlug": "wohnvergesellschaftungsgesetz",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
-      "normSlug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l"
+      "normSlug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Gesetz zur Stärkung des Schutzes von Wohnraum",
-      "normSlug": "gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx"
+      "normSlug": "gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx",
+      "group": "wohnraumplanung"
     },
     {
       "label": "Kommunale Privatisierungsbremse",
-      "normSlug": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo"
+      "normSlug": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Stadtbildgesetz",
-      "normSlug": "gesetz-zur-verbesserung-des-stadtbilds"
+      "normSlug": "gesetz-zur-verbesserung-des-stadtbilds",
+      "group": "wohnraumfoerderung"
     },
     {
       "label": "Gemeingut-Wohnen-Gesetz",
-      "normSlug": "gemeingut-wohnen-gesetz"
+      "normSlug": "gemeingut-wohnen-gesetz",
+      "group": "gemeingut-wohnen"
     },
     {
       "label": "Gemeingut-Wohnen-Übergangsverordnung",
-      "normSlug": "gemeingut-wohnen-ubergangsverordnung"
+      "normSlug": "gemeingut-wohnen-ubergangsverordnung",
+      "note": "Die Übergangsverordnung galt bis einschließlich 31. August 2026. Sie regelte die vorläufigen Organe der Anstalt.",
+      "group": "gemeingut-wohnen"
     },
     {
       "label": "Wohnvergesellschaftungs-Durchführungsverordnung",
-      "normSlug": "wohnvergesellschaftungs-durchfuhrungsverordnung"
+      "normSlug": "wohnvergesellschaftungs-durchfuhrungsverordnung",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Wohnvergesellschaftungs-Schuldverschreibungsverordnung",
-      "normSlug": "wohnvergesellschaftungs-schuldverschreibungsverordnung"
+      "normSlug": "wohnvergesellschaftungs-schuldverschreibungsverordnung",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Mietpreisbegrenzungsverordnung",
-      "normSlug": "verordnung-zur-bestimmung-der-gebiete-mit-mietpreisbegrenzung-bei-mietbeginn"
+      "normSlug": "verordnung-zur-bestimmung-der-gebiete-mit-mietpreisbegrenzung-bei-mietbeginn",
+      "group": "mietpreisgrenzen"
     },
     {
       "label": "Mieterhöhungsbegrenzungsverordnung",
-      "normSlug": "verordnung-zur-bestimmung-der-gebiete-mit-mieterhohungsbegrenzung"
+      "normSlug": "verordnung-zur-bestimmung-der-gebiete-mit-mieterhohungsbegrenzung",
+      "group": "mietpreisgrenzen"
     },
     {
       "label": "Ostdeutsche Kappungsgrenzen-Verordnung",
-      "normSlug": "ostdeutsche-kappungsgrenzen-verordnung"
+      "normSlug": "ostdeutsche-kappungsgrenzen-verordnung",
+      "group": "mietpreisgrenzen"
     },
     {
       "label": "Ostdeutsche Einkommensgrenzen-Verordnung",
-      "normSlug": "ostdeutsche-einkommensgrenzen-verordnung"
+      "normSlug": "ostdeutsche-einkommensgrenzen-verordnung",
+      "group": "wohnraumfoerderung"
     },
     {
       "label": "VwV Vergesellschaftungswert",
-      "normSlug": "vwv-vergesellschaftungswert"
+      "normSlug": "vwv-vergesellschaftungswert",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Förderrichtlinie Landesbaukindergeld",
-      "normSlug": "forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23"
+      "normSlug": "forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23",
+      "group": "wohnraumfoerderung"
     },
     {
       "label": "Gemeinvermögensschutzgesetz",
-      "normSlug": "gemeinvermoegensschutzgesetz"
+      "normSlug": "gemeinvermoegensschutzgesetz",
+      "group": "eigentum-und-entschaedigung"
     },
     {
       "label": "Boden- und Naturvermögensgesetz",
-      "normSlug": "boden-und-naturvermoegensgesetz"
+      "normSlug": "boden-und-naturvermoegensgesetz",
+      "group": "wohnraumplanung"
     }
   ],
   "faq": [],

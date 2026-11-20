@@ -9,7 +9,7 @@
   "featured": true,
   "highlightFrom": "2026-09-08",
   "highlightUntil": "2026-12-31",
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-15",
   "knowledgeProjectRefs": [
     "project-staatsreform"
   ],
@@ -18,22 +18,30 @@
     "transparenz-und-lobbyregister"
   ],
   "beschlossen": [
-    "Die vier Reformgesetze wurden am 20. Juli 2026 verkündet und traten am 21. Juli 2026 in Kraft.",
-    "Die Volkskammer hat am 11. September 2026 das Fünfte Gesetz zur Großen Staatsreform beschlossen; es setzt das Ergebnis der Volksbefragung 2026 um, wurde am 12. September 2026 verkündet und gilt seit diesem Tag.",
-    "Beschäftigte wirken an Leitung und Kontrolle von Betrieben und öffentlichen Unternehmen mit; alle Bürger:innen haben das Recht, das politische, wirtschaftliche, soziale und kulturelle Leben mitzugestalten und Rechenschaft zu verlangen."
+    "Die vier Reformgesetze zu Staatswesen, Finanzen, Staatszielen sowie Bildung und Religion wurden am 20. Juli 2026 verkündet. Die Volkskammer beschloss nach der Volksbefragung am 11. September ein fünftes Reformgesetz."
   ],
   "geltendesRecht": [
-    "Die Verfassung gliedert sich seither in dreizehn Abschnitte. Neu sind die Abschnitte über die sozialen und die ökonomischen Grundlagen der sozialistischen Gesellschaft mit Recht auf Arbeit, sozialer Sicherheit, Volkseigentum, Genossenschaften, öffentlichen Unternehmen und einem fünfjährigen Gesellschafts- und Wirtschaftsplan.",
-    "Der Staatsrat kann gesetzesvertretende Rechtsverordnungen mit Gesetzeskraft erlassen, die Verfassung und Gesetze weder ändern noch ihnen widersprechen dürfen. Die Abschnitte über Rechtspflege, Verwaltung, Finanzwesen und Staatsvermögen, Bildungs- und Erziehungswesen sowie Weltanschauungsgemeinschaften wurden neu gefasst.",
-    "Am selben Tag sind drei besondere Gesetze in Kraft getreten, die die neuen Verfassungsaufträge ausfüllen: das Soziale Grundversorgungsgesetz, das Boden- und Naturvermögensgesetz mit dem Landesbodenfonds und das Gemeinvermögensschutzgesetz."
+    "Die ersten vier Gesetze gelten seit dem 21. Juli 2026. Das fünfte wurde am 12. September verkündet und trat am selben Tag in Kraft. Seitdem regelt die Verfassung unter anderem das Recht auf Arbeit und soziale Sicherheit, das Volkseigentum und die Wirtschaftsplanung.",
+    "Gesetzesvertretende Rechtsverordnungen des Staatsrates haben Gesetzeskraft. Sie dürfen die Verfassung und bestehende Gesetze weder ändern noch ihnen widersprechen.",
+    "Drei Gesetze konkretisieren seit dem 12. September die Verfassungsaufträge zur sozialen Grundversorgung, zum Boden- und Naturvermögen und zum Schutz des Gemeinvermögens."
   ],
   "umgesetzt": [
-    "Die achte Volkskammer hat sich am 7. September 2026 konstituiert und den zweiten Staatsrat gewählt; der Organisationserlass 09/2026 grenzt seit demselben Tag vier Geschäftsbereiche ab und ordnet ihnen zehn Staatssekretariate zu."
+    "Am 7. September 2026 konstituierte sich die achte Volkskammer und wählte den zweiten Staatsrat. Der Organisationserlass vom selben Tag ordnet den vier Geschäftsbereichen zehn Staatssekretariate zu."
+  ],
+  "reportedEvents": [
+    {
+      "kind": "publication",
+      "slug": "stanzo-2026-42"
+    }
   ],
   "naechsteSchritte": [
-    "Den ersten Gesellschafts- und Wirtschaftsplan 2027–2031 auf Grundlage des am 14. Oktober verkündeten Wirtschaftsplanungs- und Gemeinwirtschaftsgesetzes vorbereiten; das besondere Gesetz zur Wirtschaftsdemokratie und Mitbestimmung sowie Regeln für gesellschaftliche Schlichtungsstellen weiter ausgestalten.",
-    "Umsetzung der neuen Staatsorganisation und der Übergangsvorschriften.",
-    "Anpassung nachgeordneten Rechts an die neue Verfassungsordnung, insbesondere an die aufgehobenen Artikel 99 und 100 zu Rechnungslegung und Rechnungshof."
+    "Für den ersten Gesellschafts- und Wirtschaftsplan 2027–2031 muss der Staatsrat der Volkskammer einen Gesetzentwurf vorlegen. Das Einführungsgesetz gibt dafür zwölf Wochen ab seinem Inkrafttreten vor."
+  ],
+  "impacts": [
+    {
+      "text": "Bürger:innen können nach Artikel 35a von den Volksvertretungen und den Leitungen öffentlicher Einrichtungen und Unternehmen Rechenschaft verlangen. Sie können sich mit Vorschlägen, Eingaben und Beschwerden an staatliche und wirtschaftliche Organe wenden und eine begründete Antwort verlangen.",
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+    }
   ],
   "keyDates": [
     {
@@ -85,58 +93,66 @@
       ]
     }
   ],
+  "legalGroups": [
+    {
+      "id": "soziale-und-wirtschaftliche-grundlagen",
+      "title": "Soziale Grundversorgung, Boden und Wirtschaftsplanung"
+    }
+  ],
   "rechtsgrundlagen": [
     {
       "label": "Verfassung des Freistaates Ostdeutschland",
-      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+      "group": "institutioneller-uebergang"
     },
     {
       "label": "Erstes Gesetz zur Großen Staatsreform",
-      "normSlug": "erstes-gesetz-zur-grossen-staatsreform"
+      "normSlug": "erstes-gesetz-zur-grossen-staatsreform",
+      "group": "institutioneller-uebergang"
     },
     {
       "label": "Zweites Gesetz zur Großen Staatsreform",
-      "normSlug": "zweites-gesetz-zur-grossen-staatsreform"
+      "normSlug": "zweites-gesetz-zur-grossen-staatsreform",
+      "group": "institutioneller-uebergang"
     },
     {
       "label": "Drittes Gesetz zur Großen Staatsreform",
-      "normSlug": "drittes-gesetz-zur-grossen-staatsreform"
+      "normSlug": "drittes-gesetz-zur-grossen-staatsreform",
+      "group": "institutioneller-uebergang"
     },
     {
       "label": "Viertes Gesetz zur Großen Staatsreform",
-      "normSlug": "viertes-gesetz-zur-grossen-staatsreform"
+      "normSlug": "viertes-gesetz-zur-grossen-staatsreform",
+      "group": "institutioneller-uebergang"
     },
     {
       "label": "Fünftes Gesetz zur Großen Staatsreform",
-      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform"
+      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "group": "institutioneller-uebergang"
     },
     {
       "label": "Gemeinvermögensschutzgesetz",
-      "normSlug": "gemeinvermoegensschutzgesetz"
+      "normSlug": "gemeinvermoegensschutzgesetz",
+      "group": "soziale-und-wirtschaftliche-grundlagen"
     },
     {
       "label": "Soziale Grundversorgungsgesetz",
-      "normSlug": "soziale-grundversorgungsgesetz"
+      "normSlug": "soziale-grundversorgungsgesetz",
+      "group": "soziale-und-wirtschaftliche-grundlagen"
     },
     {
       "label": "Boden- und Naturvermögensgesetz",
-      "normSlug": "boden-und-naturvermoegensgesetz"
-    }
-  ],
-  "faq": [
-    {
-      "question": "Handelt es sich um ein einziges Gesetz?",
-      "answer": "Nein. Es sind fünf getrennte Gesetze: die vier Gesetze zur Großen Staatsreform vom 20. Juli 2026 aus den Drucksachen 07/23 bis 07/26 und das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens vom 12. September 2026."
+      "normSlug": "boden-und-naturvermoegensgesetz",
+      "group": "soziale-und-wirtschaftliche-grundlagen"
     },
     {
-      "question": "Sind die Vorhaben bereits beschlossen?",
-      "answer": "Ja. Die vier Reformgesetze traten am 21. Juli 2026 in Kraft, das Fünfte Gesetz am 12. September 2026, dem Tag seiner Verkündung."
-    },
-    {
-      "question": "Was ändert das Fünfte Gesetz zur Großen Staatsreform?",
-      "answer": "Es erklärt Ostdeutschland zum sozialistischen Freistaat, verankert Recht auf Arbeit, Wohnraum, Gesundheit, Freizeit und soziale Sicherheit, führt Volkseigentum, Gesellschafts- und Wirtschaftsplan und Wirtschaftsdemokratie ein, lässt gesetzesvertretende Rechtsverordnungen des Staatsrates zu und unterwirft Privatisierungen gemeinwirtschaftlichen Vermögens einem besonderen Gesetz."
+      "label": "Einführungsgesetz zum Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
+      "normSlug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "note": "Artikel 2 § 3 regelt Frist, Verfahren und Zeitraum für den ersten Plan.",
+      "group": "soziale-und-wirtschaftliche-grundlagen"
     }
   ],
+  "faq": [],
   "federfuehrendesRessort": "staatskanzlei",
   "mitzeichnungsressorts": [
     "kapitalakkumulation-des-fiskus",
