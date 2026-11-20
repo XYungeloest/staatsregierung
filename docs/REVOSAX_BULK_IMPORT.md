@@ -488,8 +488,13 @@ und Entscheidung in Sekunden (Exit 3, wenn das Gate nötig ist); `--dry-run` bau
 vollständigen Plan mit Anweisungen je Tabelle, Schätzung und Budget.
 
 **Transport.** Mit `CLOUDFLARE_API_TOKEN` (D1 Read/Write) läuft der Sync über die REST-API mit
-parametrisierten Batches (`--transport api`, so in CI); ohne Token über die lokale
-Wrangler-Anmeldung mit SQL-Dateien unter `.cache/d1-sync/`. Vorübergehende Netz- oder
+parametrisierten Batches (`--transport api` in CI). Der Lauf baut den Textverweisindex einmal
+pro Rechtsbestand und Stichtag auf. Mehrdeutige Bezeichnungen werden je Zielnorm aufgelöst.
+Kurze Ableitungsgruppen werden bis zur Batchgröße (standardmäßig 40 Anweisungen) und bis
+zu 1 MB zusammengefasst. Ihre SQL-Reihenfolge bleibt erhalten. Einzelne Normen, Reset und
+Identitätsabschluss haben eigene Batchgrenzen. Jede Antwort wird vor dem nächsten Batch
+auf Vollständigkeit und Budget geprüft. Der Wrangler-Transport verwendet die lokale
+Anmeldung und SQL-Dateien unter `.cache/d1-sync/`. Vorübergehende Netz- oder
 Anmeldefehler werden je Datei wiederholt. `--local [--persist-to <Verzeichnis>]` schreibt in eine
 Miniflare-D1, `--apply-schema` spielt davor die Migrationen ein (nur lokal). Token und
 Anmeldedaten werden nie committed.

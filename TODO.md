@@ -261,7 +261,7 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 - [ ] Textverweis vom Zustimmungsgesetz auf das Helsinki-Übereinkommen: Die Rechtsbeziehung ist
   über `relatedNorms` in
   `content/normen/gesetz-zu-dem-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets/meta.json`
-  hergestellt, im Normtext von Artikel 1 fehlt aber der Link. `buildNormTextLinkReferences` in
+  hergestellt, im Normtext von Artikel 1 fehlt aber der Link. `buildNormTextReferenceIndex` in
   `packages/shared/src/lib/norms/references.ts` bildet Textlinks nur aus `abbr` und `shortTitle`
   der Zielnorm, und `apps/recht/src/components/norms/NormBody.astro` wendet
   `renderLinkedDisplayText` nur auf Blocktext und Tabellenzellen an, nicht auf Überschriften. Der

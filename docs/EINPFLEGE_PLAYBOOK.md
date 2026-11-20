@@ -622,7 +622,10 @@ lesen aus diesem Verzeichnis; `impressum.astro` ist vollständig hartcodiert. Ei
 
 Nach der Zuordnung einer Ausgabe zeigt `npm run content:impact -- --publication <slug>`
 die betroffenen Fassungen, Konsolidierungen, Wissenseinträge und freigegebenen Portalwege.
-`--norm <slug>` untersucht die gespeicherte Norm über ihre Historie. Für Agenten liefert
+`--norm <slug>` untersucht die gespeicherte Norm über ihre Historie.
+`--source-file "<Dateiname>.html"` ordnet eine Eingangsdatei über die Quellenverweise der
+Verkündung zu. Die Option kann für mehrere Dateien wiederholt werden. Mit `--summary` zeigt
+der Textbericht die Anzahl je Nachweisstufe. Für Agenten liefert
 `npm run --silent content:impact -- --publication <slug> --json` einen lesenden Bericht mit
 Quellpfad, Fundstelle, Nachweisstufe und Prüfhandlung je Fund. Der Normworkflow zeigt die
 Anzahl je Nachweisstufe und meldet Eingangsdateien ohne strukturierte Ausgabenzuordnung.
@@ -816,11 +819,11 @@ OstRecht liest zur Laufzeit **ausschließlich** aus D1. Eine neue Verkündung is
 die Projektion fortgeschrieben ist — die Website liest nie eine Datei.
 
 Die Projektionsidentität ist ein SHA-256 über genau vier Bestandteile
-(`scripts/lib/d1-projection-fingerprint.mjs:280`):
+(`scripts/lib/d1-projection-fingerprint.mjs`):
 
 | Bestandteil | Inhalt |
 | --- | --- |
-| `logic` | transitiver Code-Abschluss von `scripts/sync-recht-d1.mjs` (heute 33 Dateien) + Schema unter `data/recht/d1/` + Versionen externer Pakete |
+| `logic` | transitiver Code-Abschluss von `scripts/sync-recht-d1.mjs` + Schema unter `data/recht/d1/` + Versionen externer Pakete |
 | `corpus` | `content/normen`, `content/verkuendungen`, `content/stichwortregister.json` |
 | `portal` | projektionsrelevanter Auszug aus `content/themen` und `content/presse` (Slug, Titel, Normbezüge; Presse zusätzlich Datum) |
 | `scope` | `full` oder `fixture:<Pfad>@<Hash>` |
@@ -833,9 +836,8 @@ Base-State-Guard verifiziert den Ausgangszustand.
 
 1. **Was bewegt den Portal-Hash?** Nur Slug, Titel, Normbezüge und (bei Presse) Datum. Teaser,
    Hervorhebung, Priorität, Fließtext und Bild sind projektionsneutral. Ändert sich der Auszug,
-   läuft ein inkrementeller Sync mit `derivedRebuild` **aller** Normen (~15 600 Anweisungen) — nie
-   eine Vollprojektion.
-2. **Wann ist es eine Logikänderung?** Sobald eine der 33 Abschlussdateien berührt wird. Dazu
+   läuft ein inkrementeller Sync mit `derivedRebuild` aller Normen. Der Sync bündelt kurze Ableitungsgruppen zu API-Anfragen.
+2. **Wann ist es eine Logikänderung?** Bei Änderungen im Code-Abschluss des Syncs. Dazu
    gehören `packages/shared/src/config/editorial.json`, `packages/shared/src/config/law-subjects.json`
    und `packages/shared/src/lib/portal/schema.ts`. Vor dem Commit prüfen:
 
@@ -856,7 +858,7 @@ Migration zuerst, dann Vollprojektion, dann Verifikation.
 
 **Verboten:** `--stamp-fingerprint` als Abkürzung, jede Fingerabdruck-Manipulation, um einen
 nötigen Sync zu überspringen, ein produktives `--full` außerhalb des Release-Gates. Der Nachweis
-läuft über `--prove-equivalence` beziehungsweise `--equivalence-proof <Datei>`; einen frei setzbaren
+entsteht mit `npm run norms:runtime:d1-prove` und wird mit `--equivalence-proof <Datei>` übergeben; einen frei setzbaren
 Bypass gibt es nicht.
 
 ---
@@ -1050,28 +1052,29 @@ git diff --name-only origin/main...HEAD | node scripts/classify-change-scope.mjs
 | `public/assets/recht/**` | law | nein | ja | OstRecht |
 | `packages/shared/src/config/editorial.json` | shared | ja | ja | beide |
 | `packages/shared/src/config/law-subjects.json` | shared | ja | ja | beide |
-| `data/recht/d1/**` (Schema) | — | **nein** (bekannte Lücke) | nein | — |
+| `data/recht/d1/**` (Schema) | ci-only | manuelle Migration | nein | Vollbestand-Smoke |
 | ≥ 25 berührte Normverzeichnisse | portal | ja | nein | Portal + `full_corpus_smoke` |
 | `knowledge/**.json` | ci-only | nein | nein | keins |
 | `knowledge/**.md`, `docs/**.md` | docs-only | nein | nein | keins |
 
-Die Tabelle in `docs/DEPLOYMENT_RUNBOOK.md` ist an dieser Stelle veraltet; maßgeblich ist allein
-der Klassifikator.
+Bei mehreren geänderten Pfaden vereinigt der Klassifikator deren Wirkungen.
+Der Release-Ablauf und die Nachweise stehen im [Betriebsrunbook](DEPLOYMENT_RUNBOOK.md).
 
 ### 12.2 Welche Checks was blockieren
 
 - **Pflichtchecks des Rulesets „main geschützt“ sind exakt vier:** `classify`, `quality`,
   `accessibility_smoke`, `browser_smoke`.
-- **Das Deployment blockieren auf `main` nur** `build`, `runtime_smoke` und `d1_sync`.
+- Auf `main` müssen der Release-Build und sämtliche vom Scope verlangten Smokes und
+  D1-Prüfungen erfolgreich sein. Für denselben Git-Baum, dieselbe Basis und identische
+  Prüfungen kann `main` den erfolgreichen Quellprüflauf des PR verwenden.
 - **`visual` blockiert nichts** — weder Merge noch Deployment.
 - **`d1_token_check` ist kein Pflichtcheck.** Ein Pull Request mit rotem `d1_token_check` ist
   mergebar und macht `main` danach zuverlässig rot. **Vor jedem Merge ist er von Hand zu prüfen.**
 - **`docs_check` ist kein Pflichtcheck**, und bei `scope=docs-only` sind drei der vier Pflichtchecks
   übersprungen. Übersprungene Pflichtchecks gelten als bestanden. Der Pflichtcheck `quality` führt
-  `node scripts/check-docs.mjs` allerdings bedingungslos aus (`pull-request.yml:244`) — die
+  `node scripts/check-docs.mjs` über die gemeinsame Quellprüfung aus. Die
   Dokumentationshygiene ist also in jedem Nicht-`docs-only`-Lauf ein hartes Gate.
-- Ein rotes `d1_seed` lässt `runtime_smoke` und `d1_sync` auf `skipped` fallen — und `deploy`
-  veröffentlicht trotzdem.
+- Ein fehlgeschlagener benötigter Vollbestand-Seed blockiert die Veröffentlichung.
 - Repository-Admins können das Ruleset umgehen (`bypass_mode: always`). **Diese Möglichkeit wird
   nicht genutzt.**
 

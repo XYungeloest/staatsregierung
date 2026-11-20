@@ -468,6 +468,11 @@ beim Reiterwechsel bleibt die Version-ID erhalten. „Fassungen und Änderungen�
 keine angehängten vollständigen Daten- oder Beziehungsbereiche. Seitennavigation verwendet keine
 Hash-Umschaltung oder künstliche Übernahme der Scrollposition.
 
+Auf der Beziehungsseite führen ab drei belegten Beziehungsarten Sprunglinks zu den Gruppen.
+Jede Gruppe zeigt zunächst fünf Einträge. Weitere Einträge öffnen sich über ein natives
+`details`-Element per Tastatur und ohne JavaScript. Datum, Fundstelle und Fassungslink stehen
+direkt am jeweiligen Eintrag.
+
 Die Fassungen stehen in der Seitenspalte der Vorschrift (`NormAside.astro`, „Fassungen dieser
 Vorschrift“) als senkrechte Zeitleiste (auf Smartphones vor dem Normtext als horizontaler Streifen): je Fassung Datum, Art (geltend, historisch, künftig,
 Inkrafttreten nicht belegt, Ausgangsfassung) in Wort und Marke, Fundstelle; die angezeigte Fassung

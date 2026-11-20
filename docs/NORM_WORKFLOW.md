@@ -20,6 +20,11 @@ mit der dort bezeichneten gespeicherten Fassung. Neue Quellen können vor dem Im
 geprüft werden. Die Vorschau schreibt ausschließlich ihre lokale Ausgabedatei.
 Der strikte Normworkflow und die redaktionelle Sichtprüfung bleiben maßgeblich.
 
+Am Ende des Normworkflows stehen die Zahl der direkten Belege, der abgeleiteten Folgen
+und der offenen Prüfkandidaten. Den vollständigen lesenden Bericht für dieselbe Quelle liefert
+`npm run content:impact -- --source-file "OGVBl. 2026 Nr. 60.html"`. Mit `--json` enthält
+die Ausgabe auch die noch keiner Verkündung zugeordneten Dateien.
+
 ## Ablauf
 
 1. Amtliche HTML- und PDF-Dateien nach `Gesetze/` übernehmen und gegeneinander prüfen.
