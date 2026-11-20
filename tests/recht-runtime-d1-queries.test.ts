@@ -213,12 +213,13 @@ test('Aktuelle Änderungen der Startseite: je Norm ein Ereignis über eine Fenst
   await store.listChanges({ changeTypes: ['initial', 'amendment', 'repeal'], until: '2026-09-04', order: 'desc', limit: 12, distinctNorms: true });
   await store.listChanges({ changeTypes: ['initial', 'amendment', 'repeal'], after: '2026-09-04', order: 'asc', limit: 12, distinctNorms: true });
   const [latest, upcoming] = log.filter((query) => query.sql.includes('FROM law_norm_history h'));
-  assert.match(latest.sql, /row_number\(\) OVER \(PARTITION BY h\.norm_id ORDER BY h\.change_date DESC, h\.change_type, h\.title\) AS rn/u);
-  assert.match(latest.sql, /WHERE rn = 1 ORDER BY change_date DESC, sort_title, slug LIMIT \?/u);
-  assert.match(latest.sql, /h\.change_date <= \?/u);
+  const effect = "CASE WHEN h.change_type = 'initial' THEN n.effective_date ELSE h.change_date END";
+  assert.ok(latest.sql.includes(`row_number() OVER (PARTITION BY h.norm_id ORDER BY ${effect} DESC`));
+  assert.ok(latest.sql.includes(`${effect} <= ?`));
+  assert.ok(latest.sql.includes('WHERE rn = 1 ORDER BY change_date DESC, sort_title, slug LIMIT ?'));
   assert.deepEqual(latest.params, ['initial', 'amendment', 'repeal', '2026-09-04', 12]);
-  assert.match(upcoming.sql, /PARTITION BY h\.norm_id ORDER BY h\.change_date ASC/u);
-  assert.match(upcoming.sql, /h\.change_date > \?/u);
+  assert.ok(upcoming.sql.includes(`PARTITION BY h.norm_id ORDER BY ${effect} ASC`));
+  assert.ok(upcoming.sql.includes(`${effect} > ?`));
   assert.ok(log.every((query) => !loadsCorpus(query)));
 });
 

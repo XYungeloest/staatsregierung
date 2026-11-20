@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-13",
+  "asOf": "2026-11-19",
   "events": [
     {
       "id": "event-off-holdings-succession-2026",
@@ -3956,7 +3956,7 @@
       "title": "Gesellschafts- und Wirtschaftsplanung und öffentliche Gemeinwirtschaft: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-10-14",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz ist am 14. Oktober 2026 verkündet worden und am 15. Oktober 2026 in Kraft getreten. Es regelt den fünfjährigen Gesellschafts- und Wirtschaftsplan, Perspektivplan Ost, Staatsplankommission und Staatswirtschaftsrat sowie Beteiligung und Führung öffentlicher Unternehmen. Ein erster Plangesetzbeschluss oder tatsächlicher Aufbau der neuen Gremien ist noch nicht belegt.",
       "sourceRefs": [
         {
@@ -3972,14 +3972,15 @@
         "law",
         "publication"
       ],
-      "notes": []
+      "notes": [],
+      "effectiveDate": "2026-10-15"
     },
     {
       "id": "event-ogvbl-2026-81-promulgated",
       "title": "Handelsorganisation Ost und Grundversorgungssortiment: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-10-14",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Handelsorganisationsgesetz ist am 14. Oktober 2026 verkündet worden und am 15. Oktober 2026 in Kraft getreten. Der Freistaat soll eine vollständig landeseigene Handelsorganisation Ost GmbH mit Grundversorgungssortiment und besonderen Versorgungsaufträgen gründen. Handelsregistereintragung, Gesellschaftsvertrag und Geschäftsbetrieb sind noch nicht belegt.",
       "sourceRefs": [
         {
@@ -3995,14 +3996,15 @@
         "law",
         "publication"
       ],
-      "notes": []
+      "notes": [],
+      "effectiveDate": "2026-10-15"
     },
     {
       "id": "event-ogvbl-2026-82-promulgated",
       "title": "Rohstoffwerke, Rohstoffvergesellschaftung und Generationenvermögen: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-10-14",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Sechs Stammgesetze sind am 14. Oktober 2026 verkündet worden und am 15. Oktober 2026 in Kraft getreten. Sie errichten die Ostdeutschen Rohstoffwerke, übertragen Zinnwald und die bezeichneten Kupfer- und Kali-Projektanteile, sehen bedingte Übergänge von Kupfer-Bergbauberechtigungen vor und regeln Generationen- und Versorgungsfonds. Eine Altersdividende wird erstmals für 2036 gewährt.",
       "sourceRefs": [
         {
@@ -4018,14 +4020,15 @@
         "law",
         "publication"
       ],
-      "notes": []
+      "notes": [],
+      "effectiveDate": "2026-10-15"
     },
     {
       "id": "event-ogvbl-2026-83-promulgated",
       "title": "Kostenfreie Kindheit, Teilhabepass und Sozialpass Ost: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-10-14",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Kindheits- und Teilhabepaket ist am 14. Oktober 2026 verkündet worden. Die bezeichneten Vorbereitungs-, Datenschutz- und Ermächtigungsregelungen sind am 15. Oktober 2026 in Kraft getreten; die übrigen Leistungen und Änderungen treten am 1. Januar 2027 in Kraft. Teilhabepass und Sozialpass, Familienservicestellen, Jugendorte, kostenfreie Kita- und Schulverpflegung sowie Mensa-Grundgerichte sind gesetzlich vorgesehen; tatsächliche Ausgabe und Leistungserbringung sind nicht belegt.",
       "sourceRefs": [
         {
@@ -4041,14 +4044,21 @@
         "law",
         "publication"
       ],
-      "notes": []
+      "notes": [],
+      "effectiveDate": "2027-01-01",
+      "partialEffects": [
+        {
+          "date": "2026-10-15",
+          "provision": "Artikel 1 §§ 3, 4, 9, 10, Ermächtigungen in KitaG § 16a Absatz 4 Satz 3 und SchulG § 38f Absatz 2 sowie Artikel 7"
+        }
+      ]
     },
     {
       "id": "event-ogvbl-2026-84-promulgated",
       "title": "Neuordnung von Rechnungshof und Haushaltsprüfung: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-10-14",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das neue Rechnungshofgesetz ist am 14. Oktober 2026 verkündet worden und am 15. Oktober 2026 in Kraft getreten. Die Volkskammer wählt die Leitung für zwölf Jahre; Wiederwahl ist ausgeschlossen. Gleichzeitig werden das bisherige Rechnungshofgesetz und die Verordnung über Staatliche Rechnungsprüfungsämter aufgehoben und die Haushaltsordnung geändert.",
       "sourceRefs": [
         {
@@ -4064,7 +4074,8 @@
         "law",
         "publication"
       ],
-      "notes": []
+      "notes": [],
+      "effectiveDate": "2026-10-15"
     },
     {
       "id": "event-vereinsverbote-2026-10-28",
@@ -4109,7 +4120,7 @@
       "title": "Bezeichnung der Polizei als Volkspolizei: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Gesetz über die Bezeichnung der Polizei als Volkspolizei ist verkündet und tritt am 1. Dezember 2026 in Kraft. Die Polizeidienststellen nach dem Volkspolizeiorganisationsgesetz führen dann die Bezeichnung „Volkspolizei des Freistaates Ostdeutschland“, die Hochschule heißt Hochschule der Volkspolizei (FH). Beim Einsatz der Kasernierten Grenzpolizei gibt deren Leitung besondere Waffen frei.",
       "sourceRefs": [
         {
@@ -4140,14 +4151,15 @@
           "normSlug": "ostdeutsches-polizeifachhochschulgesetz",
           "versionId": "2026-12-01"
         }
-      ]
+      ],
+      "effectiveDate": "2026-12-01"
     },
     {
       "id": "event-ogvbl-2026-86-promulgated",
       "title": "Organisation der Volkspolizei und bürgernahe Polizeiarbeit: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Volkspolizeiorganisationsgesetz ist verkündet und tritt am 1. Dezember 2026 in Kraft. Es sieht je Bezirk eine Bezirkspolizeidirektion und für Berlin die Bezirkspolizeidirektion Berlin vor, regelt Polizeireviere, Kontaktbereichsbeamt:innen, Erreichbarkeit und individuelle Kennzeichnung; § 97 Polizeivollzugsdienstgesetz wird neu gefasst, §§ 99 und 100 werden aufgehoben. Die Kontaktbereichsbeamt:innen sind bis 31. Dezember 2026 zu bestellen; die Polizeiorganisationsverordnung gilt bis zu ihrer Ablösung fort.",
       "sourceRefs": [
         {
@@ -4178,14 +4190,15 @@
           "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
           "versionId": "2026-12-01"
         }
-      ]
+      ],
+      "effectiveDate": "2026-12-01"
     },
     {
       "id": "event-ogvbl-2026-87-promulgated",
       "title": "Reform der Polizeiausbildung: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Gesetz zur Reform der Polizeiausbildung ist verkündet und tritt am 1. Januar 2027 in Kraft. Es fügt Pflichtkompetenzen, Fortbildungspflicht, Führungsqualifizierung und Evaluation in das Polizeifachhochschulgesetz ein (§§ 22a bis 22d). Die Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei ist bis 30. Juni 2027 anzupassen.",
       "sourceRefs": [
         {
@@ -4211,14 +4224,15 @@
           "normSlug": "ostdeutsches-polizeifachhochschulgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-88-promulgated",
       "title": "Unabhängige Polizei-Beschwerde- und Ermittlungsstelle: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Polizeibeschwerdestellengesetz ist verkündet und tritt am 1. Dezember 2026 in Kraft. Es regelt Rechtsstellung, Wahl der Leitung durch die Volkskammer, Verfahren, Befugnisse und Jahresbericht der Beschwerdestelle bei der Volkskammer; § 98 Polizeivollzugsdienstgesetz verweist künftig darauf. Die bestehende Stelle nach § 98 besteht als Beschwerdestelle fort (Artikel 3 Absatz 1).",
       "sourceRefs": [
         {
@@ -4249,14 +4263,15 @@
           "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
           "versionId": "2026-12-01"
         }
-      ]
+      ],
+      "effectiveDate": "2026-12-01"
     },
     {
       "id": "event-ogvbl-2026-89-promulgated",
       "title": "Digitalisierung der Volkspolizei: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Polizeidigitalisierungsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt Digitalisierungsplan, elektronische Vorgangsbearbeitung, Online-Wache, Leitstellen, Interoperabilität, Datenschutz durch Technikgestaltung und Informationssicherheit. Der Digitalisierungsplan ist bis 30. September 2027 aufzustellen, die Online-Wache bis 31. Dezember 2027 in Betrieb zu nehmen.",
       "sourceRefs": [
         {
@@ -4282,14 +4297,15 @@
           "normSlug": "polizeidigitalisierungsgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-90-promulgated",
       "title": "Sicherheitsarchitektur und Krisenbewältigung: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Ostdeutsche Sicherheitsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es bildet beim Staatsrat ein Sicherheitskabinett, errichtet das Gemeinsame Lage- und Abwehrzentrum Ost mit einem Landeslagebild innere Sicherheit und regelt Landeskrisenstab, Krisenkommunikation, Übungen, Sicherheitsbericht und die Unterrichtung der Volkskammer in der Krise.",
       "sourceRefs": [
         {
@@ -4316,14 +4332,15 @@
           "normSlug": "ostdeutsches-sicherheitsgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-91-promulgated",
       "title": "Errichtung des Landesamtes für Staatsschutz: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Staatsschutzamt-Errichtungsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es errichtet das Landesamt für Staatsschutz als obere Landesbehörde im Geschäftsbereich Frieden mit Sitz in Dresden und Verfassungsschutzbehörde des Freistaates; das Landesamt für Verfassungsschutz geht darin auf. Die bisherige Präsident:in nimmt die Leitung bis zur Ernennung nach § 7 Absatz 2 wahr, längstens bis 30. Juni 2027.",
       "sourceRefs": [
         {
@@ -4350,14 +4367,15 @@
           "normSlug": "staatsschutzamt-errichtungsgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-92-promulgated",
       "title": "Staatsschutz und nachrichtendienstliche Aufklärung: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Staatsschutz- und Nachrichtendienstgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt Aufgaben, Befugnisse, nachrichtendienstliche Mittel, Datenverarbeitung und Übermittlungen des Landesamtes für Staatsschutz sowie einen Staatsschutzbericht. Bestimmte Maßnahmen bedürfen einer Anordnung der Staatsschutzkommission (§ 5 Absatz 4).",
       "sourceRefs": [
         {
@@ -4384,14 +4402,15 @@
           "normSlug": "staatsschutz-und-nachrichtendienstgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-93-promulgated",
       "title": "Parlamentarische und unabhängige Kontrolle des Staatsschutzes: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Staatsschutz-Kontrollgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt das Parlamentarische Kontrollgremium für den Staatsschutz und die Staatsschutzkommission. Die Volkskammer wählt und bestellt beide erstmals innerhalb eines Monats nach Inkrafttreten; bis dahin nehmen die nach bisherigem Recht gebildeten Gremien die Aufgaben wahr (§ 14).",
       "sourceRefs": [
         {
@@ -4419,14 +4438,15 @@
           "normSlug": "staatsschutz-kontrollgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-94-promulgated",
       "title": "Schutz kritischer Infrastrukturen: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Ostdeutsche KRITIS-Gesetz ist verkündet. § 3 Absatz 2 (Verordnungsermächtigung zur Bestimmung kritischer Infrastrukturen) gilt ab 14. November 2026, im Übrigen gilt das Gesetz ab 1. Januar 2027. Es regelt Registrierung, Risikoanalyse, Resilienzplan und Störungsmeldungen der Betreiber:innen sowie eine Zentrale KRITIS-Stelle.",
       "sourceRefs": [
         {
@@ -4457,6 +4477,13 @@
           "normSlug": "ostdeutsches-kritis-gesetz",
           "versionId": "2027-01-01"
         }
+      ],
+      "effectiveDate": "2027-01-01",
+      "partialEffects": [
+        {
+          "date": "2026-11-14",
+          "provision": "Artikel 1 § 3 Absatz 2"
+        }
       ]
     },
     {
@@ -4464,7 +4491,7 @@
       "title": "Luftverkehrssicherung und Zentralstelle Drohnenabwehr: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Ostdeutsche Luftverkehrssicherungsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es bestimmt die Luftsicherheitsbehörde, richtet beim Landeskriminalamt eine Zentralstelle Drohnenabwehr ein (§ 2) und sieht Verwaltungsvereinbarungen zur Zusammenarbeit an Verkehrsflughäfen vor.",
       "sourceRefs": [
         {
@@ -4491,14 +4518,15 @@
           "normSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-96-promulgated",
       "title": "Terrorismus- und Drohnenabwehr im Polizeirecht: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Gesetz zur Stärkung der Terrorismusabwehr ist verkündet und tritt am 14. November 2026 in Kraft. Es fügt Schutzbereiche um kritische Infrastruktur und Verkehrsflughäfen (§ 15a), Meldeauflagen zur Abwehr terroristischer Gefahren (§ 20a) und Maßnahmen gegen unbemannte Fluggeräte (§ 46a) in das Polizeivollzugsdienstgesetz ein.",
       "sourceRefs": [
         {
@@ -4526,14 +4554,15 @@
           "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
           "versionId": "2026-11-14"
         }
-      ]
+      ],
+      "effectiveDate": "2026-11-14"
     },
     {
       "id": "event-ogvbl-2026-97-promulgated",
       "title": "Wehrhafte Demokratie und Demokratieförderung: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Gesetz zur Stärkung der wehrhaften Demokratie ist verkündet und tritt am 1. Januar 2027 in Kraft. Es führt das Verfassungstreueprüfungsgesetz für Einstellungen in besonders sicherheitsrelevante Bereiche und das Demokratieförderungsgesetz mit Landesprogramm, Förderung freier Träger, Ausstiegsprogramm und Beirat ein. Das Landesprogramm ist erstmals bis 30. Juni 2027 zu beschließen.",
       "sourceRefs": [
         {
@@ -4564,14 +4593,15 @@
           "normSlug": "demokratiefoerderungsgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-98-promulgated",
       "title": "Zusammenarbeit der Sicherheitsbehörden: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Sicherheitsbehörden-Zusammenarbeitsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt Übermittlungen an den Staatsschutz, die Zusammenarbeit von Volkspolizei und Kasernierter Grenzpolizei, Ersuchen, gemeinsame Projektdateien, Fallkonferenzen sowie Protokollierung und Kontrolle.",
       "sourceRefs": [
         {
@@ -4599,14 +4629,15 @@
           "normSlug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
           "versionId": "2027-01-01"
         }
-      ]
+      ],
+      "effectiveDate": "2027-01-01"
     },
     {
       "id": "event-ogvbl-2026-99-promulgated",
       "title": "Einführung der Ost-Sicherheitsreform und Anpassung des Landesrechts: Gesetzgebung verkündet",
       "status": "confirmed-primary",
       "date": "2026-11-13",
-      "asOf": "2026-11-13",
+      "asOf": "2026-11-19",
       "summary": "Das Anpassungsgesetz zur Ost-Sicherheitsreform ist verkündet und tritt am 1. Januar 2027 in Kraft. Es hebt das Ostdeutsche Verfassungsschutzgesetz und das Artikel-10-Gesetz-Ausführungsgesetz mit Ablauf des 31. Dezember 2026 auf, passt Bezeichnungen und Verweisungen an und regelt die Überleitung. Fortgeführte Maßnahmen ohne Anordnung der Staatsschutzkommission sind längstens bis 31. März 2027 zulässig; Verwaltungsvorschriften sind bis 30. Juni 2027 an das Staatsschutz- und Nachrichtendienstgesetz anzupassen.",
       "sourceRefs": [
         {
@@ -4629,7 +4660,325 @@
           "normSlug": "ost-sicherheitsreform-anpassungsgesetz",
           "versionId": "2027-01-01"
         }
+      ],
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "id": "event-fresswuerfel-marcus-2026",
+      "title": "HO stellt Marcus Würfel vor",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Aus 15 Einsendungen wählte die HO Marcus Würfel als Maskottchen der Marke Fresswürfel.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-fresswuerfel-ergebnis",
+          "locator": "phase und result.description",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-handelsorganisation-ost"
+      ],
+      "tags": [],
+      "notes": [],
+      "date": "2026-11-18",
+      "eventType": "communication"
+    },
+    {
+      "id": "event-gedenktag-2026-11-09",
+      "title": "Tweet zum Tag der Friedlichen Revolution",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-11-09",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Der Nutzer bestätigte die Veröffentlichung zum erstmals gesetzlich begangenen Feiertag. Die Erklärung verbindet Freiheit, Selbstbestimmung und demokratischen Sozialismus mit Demokratie in der Arbeitswelt und sozialer Gerechtigkeit.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gespraechsabgleich-2026-11",
+          "locator": "C-KOMM · ausdrückliche Veröffentlichungsbestätigung für den 9. November",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-feiertagsrecht-current",
+          "locator": "gesetzlicher Feiertag am 9. November",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [],
+      "notes": [],
+      "date": "2026-11-09",
+      "eventType": "communication"
+    },
+    {
+      "id": "event-bgbl-2026-i-89",
+      "title": "BGBl. 2026 I Nr. 89 – Gesetz zur Einführung des Gebäudetyps E im Bauvertragsrecht (Gebäudetyp-E-Gesetz)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Für den Gebäudetyp E gelten ab Februar 2027 neue bauvertragliche Regeln. Vor dem 1. Februar entstandene Schuldverhältnisse verbleiben im bisherigen Recht. Die öffentlich-rechtlichen Anforderungen bestehen fort.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-89",
+          "locator": "S. 1: Titel, Ausfertigung und Ausgabe / S. 2–3: neue §§ 650a, 650na und 650nb BGB / S. 4: Artikel 2 Überleitung; Artikel 3 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2027-02-01",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-90",
+      "title": "BGBl. 2026 I Nr. 90 – Gesetz zur Änderung des Gesetzes zur kontrollierten Abgabe und zum Umgang mit Cannabis",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Das Änderungsgesetz gilt seit 19. November. Es bestimmt den 1. Januar 2027 für die übrigen Vorschriften des Cannabis-Stammgesetzes. Dessen Lizenzsystem- und Verordnungsvorschriften gelten nach Artikel 3 Absatz 1 und Fußnote 1 des Originals bereits seit 29. Juli 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-90",
+          "locator": "S. 1: Artikel 1 Änderung des Inkrafttretens im Stammgesetz / S. 1: Artikel 2 Inkrafttreten des Änderungsgesetzes",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-bgbl-2026-i-64",
+          "locator": "Ausgabe vom 28. Juli 2026, Seite 1, Artikel 3 Absatz 1 und Fußnote 1 auf Seite 7",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [
+        "Nr. 90 nennt als Datum des Stammgesetzes den 12. Juli. Nr. 64 trägt den 28. Juli. Titel, neu gefasster Artikel 3 und sein Lizenzvorbehalt identifizieren dasselbe Gesetz. Die frühere Fußnote 2 in Nr. 64 nannte für die übrigen Vorschriften den 1. Februar 2027."
+      ],
+      "date": "2026-11-18",
+      "effectiveDate": "2026-11-19",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-91",
+      "title": "BGBl. 2026 I Nr. 91 – Gesetz zur Förderung wassersensibler Stadtentwicklung (Schwammstadtförderungsgesetz)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Für wassersensible Stadtentwicklung stehen unter Haushaltsvorbehalt bundesweit 280 Mio. Euro 2027 und 260 Mio. Euro 2028 im Förderrahmen. Der Bund kann bis zu 70 Prozent der förderfähigen Investitionen tragen. Ostquote, Verwaltungsvereinbarung und Bewilligung bleiben offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-91",
+          "locator": "S. 1: § 1 Finanzhilfen und Verwaltungsvereinbarung / S. 2: §§ 3–5 Empfänger, Kriterien und Kofinanzierung / S. 3: § 5 Absatz 2 Jahresbeträge; § 6 Laufzeit / S. 4: Artikel 2 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2027-01-01",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-92",
+      "title": "BGBl. 2026 I Nr. 92 – Gesetz zum Schutz militärischer Anlagen und Kritischer Infrastruktur vor unbefugten Drohnenüberflügen und Ausspähversuchen (Drohnen-Schutz-Gesetz – DroSchG)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Bundesrechtlicher Schutz militärischer Anlagen und kritischer Infrastruktur. Das Bußgeld ist ein Sanktionsrahmen. Eine Landeszuweisung ist damit nicht verbunden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-92",
+          "locator": "S. 2: §§ 3–4 Überflugverbot und Maßnahmen / S. 3: §§ 5–6 Zuständigkeit und Amtshilfe / S. 4: §§ 8–10 Betreiberpflichten und Sanktionen; Artikel 2 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2026-12-01",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-93",
+      "title": "BGBl. 2026 I Nr. 93 – Gesetz zur kostendeckenden Finanzierung der Gesundheitsversorgung von Beziehern von Arbeitslosengeld II (GKV-Bundesbeitragsgesetz - GKV-BBG)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Ab 1. Januar 2027 zahlt der Bund monatlich 400 Euro für jedes GKV-Mitglied, dessen Versicherungspflicht auf dem Bezug von Arbeitslosengeld II beruht. Die erste jährliche Neufestsetzung ist zum 1. Januar 2028 vorgesehen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-93",
+          "locator": "S. 2: neuer § 251 Absatz 4a SGB V / S. 3: Artikel 2 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2027-01-01",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-94",
+      "title": "BGBl. 2026 I Nr. 94 – Verordnung über die Freigabe von Vorräten des Erdölbevorratungsverbandes (7. ErdölFrV)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die Verordnung gibt Vorräte des Erdölbevorratungsverbands frei und senkt die Vorratspflicht von 90 auf 84 Tage. Sie gilt seit dem 19. November.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-94",
+          "locator": "S. 1: § 1 Pflichtbevorratung; § 2 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2026-11-19",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-95",
+      "title": "BGBl. 2026 I Nr. 95 – Gesetz zur Errichtung der Bundesbehörde für Bevölkerungsschutz und zur Neuordnung des Bevölkerungsschutzes (BfBS-Errichtungsgesetz – BfBSErrG)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Die zivile Bundesbehörde für Bevölkerungsschutz übernimmt ab Februar 2027 organisatorisch BBK und THW. Das Landeskommando Ostdeutschland ist eine regionale Bundesstelle. Artikel 1 § 88 gilt bereits seit 19. November. § 31 Absatz 4 sowie § 82 Absätze 2 und 3 setzen zusätzlich das Inkrafttreten des Schutzrauminfrastrukturgesetzes voraus. Aufbauplan bis 1. August 2027, Aufbau über zehn Jahre unter Haushaltsvorbehalt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-95",
+          "locator": "S. 6–7: §§ 4–6 zivile Bundesorganisation und Landesabgrenzung / S. 9: §§ 12–15 Landeskommandos/Standorte / S. 17: § 41 Absatz 2 Sirenen-Finanzhilfen / S. 26: § 66 öffentliche Arbeitgeber / S. 32–33: §§ 82–86 Schutzräume, Finanzierung, Kosten und Aufbau / S. 35–39: Artikel 2 BBK/THW-Zuordnung und Bestandsschutz / S. 41: Artikel 11 gestuftes Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2027-02-01",
+      "eventType": "federal-promulgation",
+      "partialEffects": [
+        {
+          "date": "2026-11-19",
+          "provision": "Artikel 1 § 88"
+        },
+        {
+          "date": null,
+          "provision": "Artikel 1 § 31 Absatz 4 und § 82 Absätze 2 und 3",
+          "condition": "Frühestens mit dem Schutzrauminfrastrukturgesetz, Artikel 11 Absatz 3"
+        }
       ]
+    },
+    {
+      "id": "event-bgbl-2026-i-96",
+      "title": "BGBl. 2026 I Nr. 96 – Gesetz zur Beschleunigung der Unternehmensgründung (Gründungsbeschleunigungsgesetz)",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Das Gründungsbeschleunigungsgesetz gilt ab Dezember. Der Anwendungsbeginn insbesondere der §§ 11–26 richtet sich nach § 36 Absatz 2 und der Verordnung nach § 35. Die dreitägige Registerentscheidungsfrist beginnt mit sechsmonatigem Aufschub. Ein Anschlussanspruch an Bundeskomponenten begründet keine pauschale Landeszuweisung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-96",
+          "locator": "S. 4: § 4 Portal, Anschluss und Bundesleistungen / S. 9–11: §§ 14–19 Gebühren, Fristen und steuerliche Erfassung / S. 17–18: §§ 35–36 Verordnung und Übergang / S. 19: Artikel 3 Registerverfahren / S. 20: Artikel 5 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2026-12-01",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-97",
+      "title": "BGBl. 2026 I Nr. 97 – Gesetz zur Änderung der Bundesrechtsanwaltsordnung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Änderung der Bundesrechtsanwaltsordnung zu den Voraussetzungen für eine Kanzlei ab Dezember 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-97",
+          "locator": "S. 1: Artikel 1 Kanzleivoraussetzungen; Artikel 2 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2026-12-01",
+      "eventType": "federal-promulgation"
+    },
+    {
+      "id": "event-bgbl-2026-i-98",
+      "title": "BGBl. 2026 I Nr. 98 – Gesetz zur Stärkung der Wettbewerbsaufsicht und zur Verbesserung des Marktzugangs",
+      "status": "confirmed-primary",
+      "validFrom": "2026-11-18",
+      "validTo": null,
+      "asOf": "2026-11-19",
+      "summary": "Das Wettbewerbsrecht stärkt Datenportabilität, Interoperabilität und Marktzugang. Für Zusammenschlüsse und bereits eingeleitete Verfahren gelten die Übergänge nach § 186 GWB. Die Umsatzschwelle von 2 Mio. Euro ist ein Tatbestandsmerkmal.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bgbl-2026-i-98",
+          "locator": "S. 1–3: Artikel 1 Datenportabilität, Interoperabilität und technische Anforderungen / S. 3–4: § 39a und Übergang in § 186 GWB / S. 4: Artikel 2 Inkrafttreten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "Bundesrecht",
+        "Verkündung"
+      ],
+      "notes": [],
+      "date": "2026-11-18",
+      "effectiveDate": "2026-12-01",
+      "eventType": "federal-promulgation"
     }
   ]
 }

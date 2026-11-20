@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -1275,15 +1276,16 @@
       "rechtsgrundlage": "GWG §§ 2, 4, 18; WoVergG § 11",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "housing",
-      "erlaeuterung": "Neubau von Wohnungen mit dauerhaft begrenzten Mieten durch Gemeingut Wohnen; Ergänzung der sozialen Wohnraumförderung (Kapitel 0701/0707 und Herkunftsprogramme).",
       "jahre": {
         "2027": {
           "id": "T.0704/89101.neubau@2027",
-          "betrag": 56291272
+          "betrag": 56291272,
+          "erlaeuterung": "Neubau von Wohnungen mit dauerhaft begrenzten Mieten durch Gemeingut Wohnen; Ergänzung der sozialen Wohnraumförderung (Kapitel 0701/0707 und Herkunftsprogramme)."
         },
         "2028": {
           "id": "T.0704/89101.neubau@2028",
-          "betrag": 74290072
+          "betrag": 74290072,
+          "erlaeuterung": "Neubau von Wohnungen mit dauerhaft begrenzten Mieten durch Gemeingut Wohnen; Ergänzung der sozialen Wohnraumförderung (Kapitel 0701/0707 und Herkunftsprogramme)."
         }
       }
     },
@@ -1332,15 +1334,16 @@
       "rechtsgrundlage": "GWG §§ 2, 4, 18; WoVergG § 11",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "housing",
-      "erlaeuterung": "Sanierungs- und Modernisierungsprogramm für die 500.000 übertragenen bzw. zu übertragenden Wohnungen (gezieltes Jahresprogramm 1.200/1.400 EUR je Wohnung; Gesamtvolumen 450/520 Mio. EUR, davon Kernhaushalt 187,6/247,6 Mio. EUR, Eigenmittel der AöR 262,4/272,4 Mio. EUR). Die Entschädigungen für vergesellschaftete Bestände sind durch Anleihen der AöR abgegolten; der Kernhaushalt leistet keine Entschädigungszahlung und übernimmt keinen Schuldendienst.\n",
       "jahre": {
         "2027": {
           "id": "T.0704/89101.modernisierung@2027",
-          "betrag": 112582544
+          "betrag": 112582544,
+          "erlaeuterung": "Sanierungs- und Modernisierungsprogramm für die 500.000 übertragenen bzw. zu übertragenden Wohnungen (gezieltes Jahresprogramm 1.200/1.400 EUR je Wohnung; Gesamtvolumen 450/520 Mio. EUR, davon Kernhaushalt 187,6/247,6 Mio. EUR, Eigenmittel der AöR 262,4/272,4 Mio. EUR). Die Entschädigungen für vergesellschaftete Bestände sind durch Anleihen der AöR abgegolten; der Kernhaushalt leistet keine Entschädigungszahlung und übernimmt keinen Schuldendienst.\n"
         },
         "2028": {
           "id": "T.0704/89101.modernisierung@2028",
-          "betrag": 148580144
+          "betrag": 148580144,
+          "erlaeuterung": "Sanierungs- und Modernisierungsprogramm für die 500.000 übertragenen bzw. zu übertragenden Wohnungen (gezieltes Jahresprogramm 1.200/1.400 EUR je Wohnung; Gesamtvolumen 450/520 Mio. EUR, davon Kernhaushalt 187,6/247,6 Mio. EUR, Eigenmittel der AöR 262,4/272,4 Mio. EUR). Die Entschädigungen für vergesellschaftete Bestände sind durch Anleihen der AöR abgegolten; der Kernhaushalt leistet keine Entschädigungszahlung und übernimmt keinen Schuldendienst.\n"
         }
       }
     },
@@ -1362,17 +1365,18 @@
       "rechtsgrundlage": "HOG §§ 2, 9–12; WPGG §§ 52, 53",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "ho",
-      "erlaeuterung": "Ausgleich der Nettokosten gemeinwirtschaftlicher Versorgungsaufträge in unterversorgten Gemeinden (200 ländliche und mobile Verkaufsstellen zu 300.000/350.000 EUR brutto; bestehende Regionalversorgung 20 Mio. EUR angerechnet). Handelsumsätze bleiben bei der HO und sind keine Landeseinnahmen; der gesamte Warenumsatz wird nicht subventioniert.\n",
       "jahre": {
         "2027": {
           "id": "T.0705/68201@2027",
           "betrag": 20000000,
-          "menge": "200"
+          "menge": "200",
+          "erlaeuterung": "Ausgleich der Nettokosten gemeinwirtschaftlicher Versorgungsaufträge in unterversorgten Gemeinden (200 ländliche und mobile Verkaufsstellen zu 300.000/350.000 EUR brutto; bestehende Regionalversorgung 20 Mio. EUR angerechnet). Handelsumsätze bleiben bei der HO und sind keine Landeseinnahmen; der gesamte Warenumsatz wird nicht subventioniert.\n"
         },
         "2028": {
           "id": "T.0705/68201@2028",
           "betrag": 25000000,
-          "menge": "200"
+          "menge": "200",
+          "erlaeuterung": "Ausgleich der Nettokosten gemeinwirtschaftlicher Versorgungsaufträge in unterversorgten Gemeinden (200 ländliche und mobile Verkaufsstellen zu 300.000/350.000 EUR brutto; bestehende Regionalversorgung 20 Mio. EUR angerechnet). Handelsumsätze bleiben bei der HO und sind keine Landeseinnahmen; der gesamte Warenumsatz wird nicht subventioniert.\n"
         }
       }
     },
@@ -1419,16 +1423,17 @@
       "qualitaet": "S_fachmodell",
       "bindung": "gesetzlich",
       "rechtsgrundlage": "ZinnVG §§ 6, 7; LKVG §§ 5, 6, 8; OhmVG §§ 5, 7 (OGVBl. 2026 Nr. 73 und 82)",
-      "erlaeuterung": "Gesetzliche Entschädigung der bisherigen Inhaber; Schuldner ist der Freistaat, nicht die Ostdeutschen Rohstoffwerke. Zinsanteil nachrichtlich in der Anlage Entschädigungen. Keine Verpflichtungsermächtigung (Zahlungspflicht kraft Gesetzes und Bescheides).",
       "vermerk": "Ausgaben dürfen nur aufgrund eines bekanntgegebenen Entschädigungsbescheides nach § 7 ZinnVG, § 8 LKVG oder § 7 OhmVG geleistet werden. Die Mittel sind übertragbar. Mehrausgaben bei höheren Festsetzungen sind nach § 37 LHO zu leisten (HG § 6 Abs. 4). Zahlungen an Pfand- oder Sicherungsgläubiger sind auf die Entschädigung anzurechnen; bei unklarer Berechtigung wird hinterlegt.",
       "jahre": {
         "2027": {
           "id": "T.K-04.0706.83101@2027",
-          "betrag": 69129489
+          "betrag": 69129489,
+          "erlaeuterung": "Gesetzliche Entschädigung der bisherigen Inhaber; Schuldner ist der Freistaat, nicht die Ostdeutschen Rohstoffwerke. Zinsanteil nachrichtlich in der Anlage Entschädigungen. Keine Verpflichtungsermächtigung (Zahlungspflicht kraft Gesetzes und Bescheides)."
         },
         "2028": {
           "id": "T.K-04.0706.83101@2028",
-          "betrag": 0
+          "betrag": 0,
+          "erlaeuterung": "Gesetzliche Entschädigung der bisherigen Inhaber; Schuldner ist der Freistaat, nicht die Ostdeutschen Rohstoffwerke. Zinsanteil nachrichtlich in der Anlage Entschädigungen. Keine Verpflichtungsermächtigung (Zahlungspflicht kraft Gesetzes und Bescheides)."
         }
       }
     },
@@ -1449,15 +1454,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Kein unterstellter Rohstoffverkaufsgewinn ohne Förder-/Preisnachweis; Entschädigung aus Neuvergesellschaftung nicht pauschal erneut.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "raw",
-      "erlaeuterung": "Erkundung, Planfeststellung und Pilotaufbereitung des Lithiumvorkommens Zinnwald durch die Ostdeutschen Rohstoffwerke. Rohstofferlöse sind nicht unterstellt.",
       "jahre": {
         "2027": {
           "id": "T.0706/89101.zinnwald@2027",
-          "betrag": 24000000
+          "betrag": 24000000,
+          "erlaeuterung": "Erkundung, Planfeststellung und Pilotaufbereitung des Lithiumvorkommens Zinnwald durch die Ostdeutschen Rohstoffwerke. Rohstofferlöse sind nicht unterstellt."
         },
         "2028": {
           "id": "T.0706/89101.zinnwald@2028",
-          "betrag": 36000000
+          "betrag": 36000000,
+          "erlaeuterung": "Erkundung, Planfeststellung und Pilotaufbereitung des Lithiumvorkommens Zinnwald durch die Ostdeutschen Rohstoffwerke. Rohstofferlöse sind nicht unterstellt."
         }
       }
     },
@@ -2182,15 +2188,16 @@
       "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Getrennte Versorgungsausgleiche; Handelsumsätze bleiben bei HO und sind keine Landeseinnahmen.",
       "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
       "projekt_id": "ho",
-      "erlaeuterung": "Kapitalausstattung der neu gegründeten Handelsorganisation Ost (5 Mio. EUR 2027, 7,5 Mio. EUR 2028). Beteiligungserwerbe – insbesondere eine etwaige Übernahme von tegut-Filialen (Modell: 250 Filialen, Kaufpreis 180 Mio. EUR, davon 60 Mio. EUR Eigenkapital) – sind nicht vertraglich vereinbart, nicht veranschlagt und bedürfen eines gesonderten Beschlusses (§ 65 LHO) mit Wirtschaftsplan.",
       "jahre": {
         "2027": {
           "id": "T.0710/89101@2027",
-          "betrag": 5000000
+          "betrag": 5000000,
+          "erlaeuterung": "Kapitalausstattung der neu gegründeten Handelsorganisation Ost (5 Mio. EUR 2027, 7,5 Mio. EUR 2028). Beteiligungserwerbe – insbesondere eine etwaige Übernahme von tegut-Filialen (Modell: 250 Filialen, Kaufpreis 180 Mio. EUR, davon 60 Mio. EUR Eigenkapital) – sind nicht vertraglich vereinbart, nicht veranschlagt und bedürfen eines gesonderten Beschlusses (§ 65 LHO) mit Wirtschaftsplan."
         },
         "2028": {
           "id": "T.0710/89101@2028",
-          "betrag": 7500000
+          "betrag": 7500000,
+          "erlaeuterung": "Kapitalausstattung der neu gegründeten Handelsorganisation Ost (5 Mio. EUR 2027, 7,5 Mio. EUR 2028). Beteiligungserwerbe – insbesondere eine etwaige Übernahme von tegut-Filialen (Modell: 250 Filialen, Kaufpreis 180 Mio. EUR, davon 60 Mio. EUR Eigenkapital) – sind nicht vertraglich vereinbart, nicht veranschlagt und bedürfen eines gesonderten Beschlusses (§ 65 LHO) mit Wirtschaftsplan."
         }
       }
     },

@@ -66,7 +66,7 @@ förmlicher Staatsratsbeschluss.
 Wahlkontext des Roten Aufbruchs zur 8. Volkskammerwahl und einen Rechtsbestandsabgleich, damit
 bereits verkündete Normen oder bloß herangezogenes westdeutsches Vergleichsrecht nicht als offene
 ostdeutsche Gesetzesvorhaben erscheinen.  
-`implementation-mandates.json` enthält die Vollzugsaufträge aus dem geltenden eigenen Recht: Aufträge
+`implementation-mandates.json` enthält die Vollzugsaufträge aus dem geltenden und verkündeten künftigen Recht einschließlich ausgewählter Bundesvorschriften: Aufträge
 und Ermächtigungen zu Verordnungen, Verwaltungsvorschriften, Satzungen, besonderen Gesetzen und
 Abkommen sowie Errichtungs-, Bestellungs-, Plan- und Berichtspflichten, für die am Stichtag kein
 Rechts- oder Vollzugsakt belegt ist. Sie ist nach Dringlichkeit gestuft; die Arbeitsansicht ist
@@ -146,6 +146,8 @@ npm run knowledge:build
 `knowledge:build` erzeugt deterministisch:
 
 ```text
+knowledge/AGENDA.md
+knowledge/VOLLZUGSAUFTRAEGE.md
 knowledge/generated/LLM_CONTEXT.md
 knowledge/generated/INDEX.json
 ```
@@ -159,7 +161,7 @@ gepflegt; `npm run holdings:check` prüft ihre Aktualität und Feldfreigabe.
 `knowledge:check` prüft JSON, IDs, Quellen, Pfade, Datumswerte, Statuswerte, Verweise,
 Rollenintervalle, den Ausschluss ungeprüfter Gesprächsfakten aus dem aktuellen Stand und die
 Übereinstimmung der generierten Dateien. `agenda.json` ist eine getrennte Planungsdatei und wird
-nicht als Rechts- oder Gegenwartsbestand interpretiert.
+mit eigenen Planungsstufen geprüft. Verbindliche Simulationsregeln stehen dort unter `simulationRules`. Der Index führt Hauptaufträge einmal und erschließt die Fundstellen von Mantelduplikaten als Suchbegriffe. Neu ausgewertete Landesaufträge nennen die Fassung. `versionEvidence` bindet die Auswertung an den SHA-256-Wert des strukturierten Normkörpers. Geänderte oder abgelaufene Fassungen lösen eine erneute Prüfung aus. Bundesaufträge verweisen auf das unveränderte Original im Quellenregister.
 
 Generierte Dateien werden nicht manuell bearbeitet.
 

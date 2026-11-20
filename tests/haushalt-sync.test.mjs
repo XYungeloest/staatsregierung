@@ -884,7 +884,7 @@ function updateCsv(path, mutate) {
   const text = readFileSync(path, 'utf8');
   const ende = text.includes('\r\n') ? '\r\n' : '\n';
   const { header, records } = parseCsv(text, path);
-  mutate(records);
+  mutate(records, header);
   writeFileSync(path, `${[header.join(','), ...records.map((record) => header.map((key) => csvField(record[key])).join(','))].join(ende)}${ende}`);
 }
 
@@ -1036,4 +1036,28 @@ test('Versorgungsfonds: Zeilen des Verwendungsplans ohne Erstattungszeile werden
   const result = sync(source.repo, source.ziel, '--dry-run');
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Versorgungsfonds 2036: daten\/personal\/versorgungsfonds_erstattung\.csv hat 0 Zeilen für das Jahr, der Verwendungsplan \(daten\/fonds_gegenposten\.csv\) 1 Zeilen des Versorgungsfonds/u);
+});
+
+test('Steuerkorrektur ist eine gesonderte geprüfte Stufe der Kapitelwirkung', (t) => {
+  const source = createSourceRepo();
+  t.after(source.cleanup);
+  const path = join(source.repo, aktiv, 'daten', 'personal', 'kapitelwirkung.csv');
+  updateCsv(path, (rows, header) => {
+    header.push('k05_eur');
+    for (const row of rows) row.k05_eur = '0';
+    rows[0].k03_eur = '6';
+    rows[0].k05_eur = '4';
+  });
+  rehash(source.repo);
+  commitAll(source.repo, 'Steuerkorrektur ausweisen');
+  const result = sync(source.repo, source.ziel);
+  assert.equal(result.status, 0, result.stderr);
+  const personal = JSON.parse(readFileSync(join(source.ziel, '2027-2028', 'personal.json'), 'utf8'));
+  assert.equal(personal.kapitelwirkung[0].steuerkorrektur, 4);
+  updateCsv(path, (rows) => { rows[0].k05_eur = '5'; });
+  rehash(source.repo);
+  commitAll(source.repo, 'Abweichende Summe');
+  const invalid = sync(source.repo, source.ziel, '--dry-run');
+  assert.notEqual(invalid.status, 0);
+  assert.match(invalid.stderr, /k05_eur.*Summe der Titel/u);
 });

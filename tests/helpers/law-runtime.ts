@@ -47,7 +47,7 @@ export interface ApiDocument {
   snippet: string;
   unitLabel?: string;
   unitAnchor?: string;
-  otherVersions: Array<{ versionId: string; versionKind: string; validFrom: string; url: string; matchLabel: string }>;
+  otherVersions: Array<{ versionId: string; versionKind: string; validFrom: string; validTo: string | null; url: string; matchLabel: string }>;
 }
 
 export interface ApiPayload {
@@ -137,7 +137,7 @@ export async function multiVersionNorm(request: APIRequestContext, { oldestHisto
   const payload = await searchApi(request, '?versionScope=all&includeAmendments=1');
   for (const hit of payload.hits) {
     // Die weiteren passenden Fassungen einer Vorschrift stehen am Treffer selbst.
-    const versions = [{ versionId: hit.versionId, versionKind: hit.versionKind, validFrom: hit.validFrom, url: hit.url }, ...hit.otherVersions];
+    const versions = [{ versionId: hit.versionId, versionKind: hit.versionKind, validFrom: hit.validFrom, validTo: hit.validTo, url: hit.url }, ...hit.otherVersions];
     const current = versions.find((version) => version.versionKind === 'current');
     const historicalVersions = versions.filter((version) => version.versionKind === 'historical');
     const historical = oldestHistorical

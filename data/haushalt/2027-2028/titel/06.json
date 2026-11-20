@@ -7,7 +7,8 @@
     "betrag",
     "ve",
     "menge",
-    "satz"
+    "satz",
+    "erlaeuterung"
   ],
   "titel": [
     {
@@ -598,15 +599,16 @@
       "bindung": "politisch",
       "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
       "projekt_id": "steuervollzug",
-      "erlaeuterung": "Prognostizierte Landesanteile aus zusätzlicher Betriebsprüfung wirtschaftlich bedeutender Unternehmen (170/346,8 Mio. EUR); nicht zusätzlich als allgemeiner Wachstumseffekt der Steuerschätzung gerechnet.",
       "jahre": {
         "2027": {
           "id": "T.0602/09901@2027",
-          "betrag": 170000000
+          "betrag": 170000000,
+          "erlaeuterung": "Prognostizierte Landesanteile aus zusätzlicher Betriebsprüfung wirtschaftlich bedeutender Unternehmen (170/346,8 Mio. EUR); nicht zusätzlich als allgemeiner Wachstumseffekt der Steuerschätzung gerechnet."
         },
         "2028": {
           "id": "T.0602/09901@2028",
-          "betrag": 346800000
+          "betrag": 346800000,
+          "erlaeuterung": "Prognostizierte Landesanteile aus zusätzlicher Betriebsprüfung wirtschaftlich bedeutender Unternehmen (170/346,8 Mio. EUR); nicht zusätzlich als allgemeiner Wachstumseffekt der Steuerschätzung gerechnet."
         }
       }
     },
@@ -1800,15 +1802,16 @@
       "bindung": "politisch",
       "rechtsgrundlage": "LandesbankG §§ 1, 2, 4; Beschluss der Trägerversammlung (Gewinnverwendung)",
       "projekt_id": "bank",
-      "erlaeuterung": "Prognostizierter Zufluss aus der Gewinnverwendung der ElbeLB (63/66,8 Mio. EUR). Voraussetzung: ausschüttbarer Bilanzgewinn nach Risikovorsorge und aufsichtsrechtlichen Eigenmittelanforderungen; die Mindereinnahmen aus der Energiefinanzierung (F06) sind bereits abgezogen.",
       "jahre": {
         "2027": {
           "id": "T.0604/12101@2027",
-          "betrag": 63000000
+          "betrag": 63000000,
+          "erlaeuterung": "Prognostizierter Zufluss aus der Gewinnverwendung der ElbeLB (63/66,8 Mio. EUR). Voraussetzung: ausschüttbarer Bilanzgewinn nach Risikovorsorge und aufsichtsrechtlichen Eigenmittelanforderungen; die Mindereinnahmen aus der Energiefinanzierung (F06) sind bereits abgezogen."
         },
         "2028": {
           "id": "T.0604/12101@2028",
-          "betrag": 66780000
+          "betrag": 66780000,
+          "erlaeuterung": "Prognostizierter Zufluss aus der Gewinnverwendung der ElbeLB (63/66,8 Mio. EUR). Voraussetzung: ausschüttbarer Bilanzgewinn nach Risikovorsorge und aufsichtsrechtlichen Eigenmittelanforderungen; die Mindereinnahmen aus der Energiefinanzierung (F06) sind bereits abgezogen."
         }
       }
     },

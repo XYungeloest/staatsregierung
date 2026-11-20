@@ -588,9 +588,10 @@ export interface Kapitelwirkung {
   sicherheitsreform: number;
   /**
    * Änderung derselben Gruppe durch die Endfassung des Regierungsentwurfs.
-   * nachher + sicherheitsreform + endfassung = Σ Titel der Gruppe im Kapitel.
+   * Mit der späteren Steuerkorrektur ergibt sich die Titelsumme dieser Gruppe.
    */
   endfassung: number;
+  steuerkorrektur?: number;
 }
 
 /** Bezeichnung eines Rechtsstands der Vergleichs- und Versorgungsreihen (z. B. R0, A, A2, B, C). */
