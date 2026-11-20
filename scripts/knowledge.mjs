@@ -47,20 +47,21 @@ const dataSpecs = [
   ['knowledge/entities/territories.json', 'territories', 'territory'],
 ];
 
-function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(path.join(root, relativePath), 'utf8'));
+function readJson(relativePath, repository = root) {
+  return JSON.parse(fs.readFileSync(path.join(repository, relativePath), 'utf8'));
 }
 
 function stableJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
-function loadModel() {
-  const editorial = readJson('packages/shared/src/config/editorial.json');
-  const sourcesDoc = readJson('knowledge/sources.json');
-  const holdingPositions = readJson('knowledge/holding-positions.json');
+export function loadModel(repository = root) {
+  const read = (file) => readJson(file, repository);
+  const editorial = read('packages/shared/src/config/editorial.json');
+  const sourcesDoc = read('knowledge/sources.json');
+  const holdingPositions = read('knowledge/holding-positions.json');
   const collections = dataSpecs.map(([file, key, type]) => {
-    const document = readJson(file);
+    const document = read(file);
     if (!Array.isArray(document[key])) {
       throw new Error(`${file}: Feld ${key} muss ein Array sein.`);
     }
@@ -68,8 +69,8 @@ function loadModel() {
   });
   return {
     editorial,
-    agenda: readJson('knowledge/agenda.json'),
-    mandates: readJson('knowledge/implementation-mandates.json'),
+    agenda: read('knowledge/agenda.json'),
+    mandates: read('knowledge/implementation-mandates.json'),
     sourcesDoc,
     sources: sourcesDoc.sources,
     holdingPositions,

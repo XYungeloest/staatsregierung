@@ -620,6 +620,15 @@ lesen aus diesem Verzeichnis; `impressum.astro` ist vollständig hartcodiert. Ei
 
 ### 5.1 Beziehungen pflegen
 
+Nach der Zuordnung einer Ausgabe zeigt `npm run content:impact -- --publication <slug>`
+die betroffenen Fassungen, Konsolidierungen, Wissenseinträge und freigegebenen Portalwege.
+`--norm <slug>` untersucht die gespeicherte Norm über ihre Historie. Für Agenten liefert
+`npm run --silent content:impact -- --publication <slug> --json` einen lesenden Bericht mit
+Quellpfad, Fundstelle, Nachweisstufe und Prüfhandlung je Fund. Der Normworkflow zeigt die
+Anzahl je Nachweisstufe und meldet Eingangsdateien ohne strukturierte Ausgabenzuordnung.
+Frist- und Auftragsformulierungen sind Prüfkandidaten. Die Entscheidung über Geltung und
+Vollzug benötigt die angegebene Primärquelle.
+
 `relatedTopicSlugs`, `relatedNormSlugs`, `relatedPressSlugs` müssen auf vorhandene Slugs zeigen
 (`scripts/check-content.mjs:629-645`). Themenseiten leiten ihre Pressebox automatisch aus
 `relatedTopicSlugs` der Meldungen ab (die drei jüngsten).

@@ -114,7 +114,7 @@ export async function checkDocs(root = process.cwd()) {
 
 /** Wörtliche Root-Befehle in Codebeispielen und Fließtext. */
 export function documentedNpmScripts(markdown) {
-  return new Set(Array.from(markdown.matchAll(/\bnpm run ([\w-]+(?::[\w-]+)*)(?=[\s`),.;]|$)/gu), (match) => match[1]));
+  return new Set(Array.from(markdown.matchAll(/\bnpm (?:--silent )?run (?:--silent )?(\w[\w-]*(?::[\w-]+)*)(?=[\s`),.;]|$)/gu), (match) => match[1]));
 }
 
 async function main() {

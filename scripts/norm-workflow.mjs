@@ -53,6 +53,9 @@ run('npm', ['run', 'knowledge:check'], 'Wissenshub vor der Generierung prüfen')
 if (write) run('npm', ['run', 'knowledge:build'], 'Wissenshub generieren');
 run('npm', ['run', 'knowledge:check'], 'Wissenshub nach der Generierung prüfen');
 
+run('npm', ['run', 'content:impact', '--', '--summary', ...files.flatMap((file) => ['--source-file', file])],
+  'belegte Beziehungen und redaktionelle Prüfkandidaten der ausgewählten Ausgaben ermitteln');
+
 if (!quick) {
   for (const [script, label] of [
     ['test:unit', 'Unit- und Regressionstests'],
