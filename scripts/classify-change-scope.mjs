@@ -328,6 +328,10 @@ function pathImpact(path, logicPaths = null) {
   // Rechtsinhalte laufen über D1; die Screenshot-Suite arbeitet mit dem Fixture und wird
   // von reinem Normcontent nicht angestoßen.
   if (isLawContentPath(path)) return runtimeImpact(['portal'], { content: true, d1Sync: true, visual: false });
+  if (path === 'data/responsive-images.json') return verificationImpact({ content: true });
+  if (/^public\/images\/(?:generated\/)?(?:regierung|ministerien|jobs|ui)\//u.test(path)) {
+    return runtimeImpact(isSharedRuntimePath(path) ? SITE_TARGETS : ['portal'], { content: true });
+  }
   if (isLawRuntimePath(path)) return runtimeImpact(['law'], { d1Sync: isD1ProjectionCodePath(path, logicPaths), fullCorpus: isFullCorpusPath(path, logicPaths) });
   if (isPortalRuntimePath(path)) {
     return runtimeImpact(['portal'], {

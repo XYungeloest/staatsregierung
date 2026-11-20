@@ -555,22 +555,15 @@ Slug-Wechsel mit Fernwirkung.
 npm run images:generate
 ```
 
-Alle erzeugten Dateien unter `public/images/generated/<gruppe>/` **committen** — die CI erzeugt
-niemals Bildvarianten. `ResponsivePicture.astro` erwartet die Varianten `-240/-360/-480` als
-`.avif`/`.webp`/`.jpg`; **kein Validator prüft ihre Existenz**, sie fehlen dann nur im Browser.
+Für ein einzelnes Motiv lässt sich der Lauf mit `-- --source regierung/dateiname.jpg`
+eingrenzen. Der Generator prüft Originale, Encoderrezept und Varianten anhand der SHA-256-Werte
+in `data/responsive-images.json`. Er schreibt nur betroffene Varianten in den Gruppen
+`regierung`, `ministerien`, `jobs` und `ui`. Social-Vorschauen werden redaktionell gepflegt.
 
-**Warnungen:**
+Original, geänderte Varianten und aktualisierte Prüfsummen gemeinsam committen.
+`npm run images:check` prüft den Stand lesend und gehört zur Content-Prüfung.
+Beim Entfernen eines Motivs auch dessen Dateien unter `public/images/generated/` entfernen.
 
-- `npm run images:generate` **überschreibt** `public/images/social/portal-preview.png` mit einem
-  eingebauten SVG-Platzhalter (1200×630). Vor dem Commit prüfen.
-- Für die Gruppen `presse/` und `social/` werden **keine** responsiven Varianten erzeugt.
-- Das Skript benötigt `sharp`. Das Paket ist in keinem `package.json` deklariert und heute nur
-  transitiv vorhanden; nach einem `npm ci` kann es fehlen. Läuft der Befehl nicht, ist das zu
-  melden, nicht zu umgehen.
-- **Der Lauf ist heute nicht reproduzierbar.** Mit `sharp` 0.35.4 weichen 144 der eingecheckten
-  `.avif`-Varianten byteweise ab (`.webp` und `.jpg` sind identisch). Nach dem Lauf gehören deshalb
-  nur die Varianten der tatsächlich geänderten Motive in den Commit; alles andere wird
-  zurückgesetzt. Der offene Punkt steht in [`TODO.md`](../TODO.md).
 - Der `/images/`-Existenzcheck greift nur bei den Feldnamen `bild`, `image` und `hero`
   (`scripts/check-content.mjs:188-190`); ein Bildpfad in einem anders benannten Feld wird nicht
   geprüft.
@@ -1158,7 +1151,7 @@ einem manuellen Eingriff.
 [ ] topic-coverage: jede neue Wissenshub-ID eingetragen, Rückverweis gesetzt
 [ ] Stichtagskette vollständig (Audit, Hervorhebung, --write, Snapshot, Fixture, asOf)
 [ ] knowledge:build ausgeführt, generierte Dateien im Commit
-[ ] images:generate ausgeführt, Varianten im Commit, social/-Platzhalter geprüft
+[ ] images:generate ausgeführt, Varianten und Prüfsummen im Commit, images:check erfolgreich
 [ ] Titel portalweit eindeutig
 [ ] Sprachregeln eingehalten, Markdown aufgelöst
 [ ] Abschlusskette nach Kapitel 8 gelaufen (inkl. docs:check und build)

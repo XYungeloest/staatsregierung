@@ -1489,6 +1489,8 @@ In JSON wird daraus zum Beispiel:
 
 Fotografische Motive sollten als webtaugliche JPEG-Dateien gepflegt werden. Transparente oder grafische Platzhalter können PNG bleiben.
 
+Für neue oder geänderte responsive Motive beschreibt das [Einpflege-Playbook](docs/EINPFLEGE_PLAYBOOK.md#48-zweig-h--bilder-pdfs-assets) die Erzeugung und den Prüfsummenabgleich.
+
 `npm run content:check` prüft Bildpfade für Felder wie `bild`, `image` und `hero`, wenn sie mit `/images/` beginnen.
 
 Das PDF einer Verkündung wird unter dem Slug der Ausgabe ausgeliefert: `pdf` lautet stets

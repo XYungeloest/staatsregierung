@@ -291,17 +291,3 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Bereichsnavigation auch mobil erreichbar bleibt, je eine Messung beides festhält und die
   Reflow-Messung „200-Prozent-Zoom und reduzierte Bewegung bewahren die Kernfunktionen“
   (`tests/browser-smoke.spec.ts`, 320 × 360 CSS-Pixel bei Gerätepixelverhältnis 2) grün bleibt.
-
-## Bilder
-
-- [ ] Erzeugung der Bildvarianten reproduzierbar machen: `npm run images:generate` erzeugte bei der
-  Messung mit `sharp` 0.35.4 andere `.avif`-Dateien als die eingecheckten; damals wichen
-  144 der eingecheckten AVIF-Varianten byteweise ab (regierung 75, ministerien 42, jobs 24, ui 3);
-  `.webp` und `.jpg` sind identisch. Ob die Abweichung mit dem heute installierten `sharp`
-  0.35.5 fortbesteht, ist nicht neu gemessen. `sharp` ist in `apps/portal/package.json` nur als
-  Bereich `^0.35.5` deklariert, eine feste Version also nirgends vorgegeben. Ein unbedachter Vollauf schreibt
-  deshalb über hundert fachfremde Binärdateien in einen Vorgang, und kein Validator prüft die
-  Varianten überhaupt auf Existenz. Zusätzlich überschreibt derselbe Lauf
-  `public/images/social/portal-preview.png` mit einem eingebauten Platzhalter. Fertig, wenn `sharp`
-  mit fester Version deklariert ist, ein Lauf auf unverändertem Bestand keine Datei ändert und die
-  Social-Vorschau nicht mehr überschrieben wird.
