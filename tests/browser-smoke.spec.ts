@@ -2526,6 +2526,31 @@ siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape
   }
 });
 
+siteTest(['portal'])('Kreistabelle behält ihre erste Seite, bis Filter und Blätterung bereit sind', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  let releaseData!: () => void;
+  const pending = new Promise<void>((resolve) => { releaseData = resolve; });
+  await page.route('**/data/kreisreform/neue-kreise.geojson', async (route) => {
+    await pending;
+    await route.continue();
+  });
+  const next = page.locator('[data-pagination="kreise"] [data-page-action="next"]');
+  try {
+    await page.goto('/kreisreform/', { waitUntil: 'domcontentloaded' });
+    await expect(next).toBeDisabled();
+    const rows = page.locator('[data-kreisreform-table-body] tr');
+    const first = await rows.first().innerText();
+    const query = page.locator('[data-kreisreform-table-query]');
+    await query.fill('zzzz');
+    await expect(rows.first()).toHaveText(first.replace(/\s+/gu, ' '), { useInnerText: true });
+    await query.clear();
+  } finally {
+    releaseData();
+  }
+  await next.click();
+  await expect(page.locator('[data-pagination="kreise"] [data-pagination-page]')).toHaveText(/Seite 2 von /u);
+});
+
 siteTest(['portal'])('Reformdossier bietet auf dem Smartphone ein aufklappbares Inhaltsverzeichnis', async ({ page }) => {
   await prepareFunctionalPage(page);
   await page.setViewportSize({ width: 375, height: 812 });

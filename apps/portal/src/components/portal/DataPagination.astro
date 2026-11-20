@@ -27,6 +27,6 @@ const state = getPageState(total, 1, perPage);
   <div>
     <button type="button" data-page-action="previous" disabled>Zurück</button>
     <span data-pagination-page aria-live="polite">{state.pageLabel}</span>
-    <button type="button" data-page-action="next" disabled={!state.hasNext}>Weiter</button>
+    <button type="button" data-page-action="next" disabled>Weiter</button>
   </div>
 </nav>

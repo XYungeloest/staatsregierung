@@ -50,7 +50,7 @@ if (root && body && pagination) {
   const baseUrl = root.dataset.baseUrl ?? '/';
   const dataUrl = `${baseUrl.replace(/\/?$/u, '/')}data/kreisreform/neue-kreise.geojson`;
 
-  let rows: KreisRow[] = [];
+  let rows: KreisRow[] | undefined;
   let page = 1;
 
   const createRow = (kreis: KreisRow): string => `
@@ -64,6 +64,7 @@ if (root && body && pagination) {
     </tr>`;
 
   const render = () => {
+    if (!rows) return;
     const term = normalize(query?.value.trim() ?? '');
     const selected = district?.value ?? '';
     const matches = rows.filter(
@@ -127,6 +128,6 @@ if (root && body && pagination) {
       render();
     })
     .catch(() => {
-      // Ohne die Datei bleibt die vorgerenderte erste Seite stehen.
+      if (status) status.textContent = 'Die vollständigen Kreisdaten konnten nicht geladen werden. Die erste Tabellenseite bleibt sichtbar.';
     });
 }
