@@ -4,6 +4,7 @@ import test from 'node:test';
 import { loadNormsOnce as loadAllNorms, sampleCorpus } from '../helpers/corpus.ts';
 import {
   buildNormTextLinkReferences,
+  buildNormTextReferenceIndex,
   buildRelatedNormRecommendationIndex,
   getRelatedNormRecommendations,
   selectMatchingTextLinkReferences,
@@ -15,6 +16,7 @@ test('Textverweise werden über den Präfixindex genauso gefunden wie beim Rende
   const norms = await loadAllNorms();
   // Deterministische Stichprobe über den Bestand: der Präfixindex wird je Norm gegen alle
   // Referenzen des Vollbestands gebaut; zwölf verteilte Normen genügen als Regressionsschutz.
+  const index = buildNormTextReferenceIndex(norms);
   const step = Math.max(1, Math.floor(norms.length / 12));
   const sample = norms.filter((_, position) => position % step === 0).slice(0, 12);
   for (const norm of sample) {
@@ -33,7 +35,7 @@ test('Textverweise werden über den Präfixindex genauso gefunden wie beim Rende
       return parts;
     });
     const matched = selectMatchingTextLinkReferences(references, texts);
-    const matchedLabels = new Set(matched.map((reference) => reference.label));
+    assert.deepEqual(index.matching(norm.meta.slug, texts), matched);
     // Jeder beim Rendern erzeugte Link muss aus der Teilmenge stammen; die Teilmenge
     // darf keine Labels enthalten, die im Text nicht vorkommen.
     for (const text of texts) {
@@ -44,7 +46,6 @@ test('Textverweise werden über den Präfixindex genauso gefunden wie beim Rende
     for (const reference of matched) {
       assert.ok(texts.some((text) => text.includes(reference.label)), `${norm.meta.slug}: ${reference.label}`);
     }
-    void matchedLabels;
   }
 });
 

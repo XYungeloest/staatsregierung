@@ -8,9 +8,8 @@ import {
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/publications.ts';
 import {
-  buildNormTextLinkReferences,
+  buildNormTextReferenceIndex,
   buildRelatedNormRecommendationIndex,
-  selectMatchingTextLinkReferences,
   type NormRelationKind as RecommendationKind,
 } from '@ostrecht/shared/lib/norms/references.ts';
 import {
@@ -72,6 +71,7 @@ export interface DerivedContext {
   lookup: NormRecordLookup;
   relations: NormRelationLookup;
   recommendations: ReturnType<typeof buildRelatedNormRecommendationIndex>;
+  textReferences: ReturnType<typeof buildNormTextReferenceIndex>;
   publicationReferences: Map<string, NormPublicationReference>;
   topicsByNorm: Map<string, NormPortalLinks['topics']>;
   pressByNorm: Map<string, NormPortalLinks['pressReleases']>;
@@ -150,6 +150,7 @@ export function buildDerivedContext({
     lookup: buildNormRecordLookup(norms),
     relations: buildNormRelations(norms),
     recommendations: buildRelatedNormRecommendationIndex(norms, { asOf }),
+    textReferences: buildNormTextReferenceIndex(norms, asOf),
     publicationReferences: buildNormPublicationReferenceLookup(publications),
     topicsByNorm,
     pressByNorm,
@@ -158,10 +159,7 @@ export function buildDerivedContext({
 
 export function deriveNorm(norm: NormRecord, context: DerivedContext): NormDerivedData {
   const asOf = context.asOf ?? EDITORIAL_REFERENCE_DATE;
-  const textReferences = selectMatchingTextLinkReferences(
-    buildNormTextLinkReferences(context.norms, norm.meta.slug, asOf),
-    collectVersionTexts(norm),
-  );
+  const textReferences = context.textReferences.matching(norm.meta.slug, collectVersionTexts(norm));
   const relations = toNormRelationViews(context.relations.get(norm.meta.slug) ?? [], {
     identityFor: (related) => identityFor(related, asOf),
     versionUrlFor: (related, versionId) => versionUrlFor(related, versionId, asOf),

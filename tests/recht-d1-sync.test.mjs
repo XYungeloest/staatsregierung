@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { groupStatementFiles, renderStatement, sqlLiteral } from '../scripts/sync-recht-d1.mjs';
+import { apiBatches, groupStatementFiles, renderStatement, sendBatches, sqlLiteral } from '../scripts/sync-recht-d1.mjs';
 
 test('D1-SQL-Literale und Anweisungen werden sicher gerendert', () => {
   assert.equal(sqlLiteral(null), 'NULL');
@@ -28,6 +28,37 @@ test('SQL-Dateien fassen Normen zusammen, ohne eine Norm zu zerteilen', () => {
   const large = groupStatementFiles(norms, { maxBytes: 8 });
   assert.deepEqual(large.map((file) => file.slugs), [['a'], ['b'], ['c']]);
   assert.deepEqual(groupStatementFiles(norms).map((file) => file.slugs), [['a', 'b', 'c']]);
+});
+
+test('Der API-Transport bündelt Ableitungen, hält Normgruppen, Reihenfolge und Identitätsgrenzen ein', () => {
+  const groups = [
+    { queries: ['Start'] },
+    ...Array.from({ length: 5200 }, (_, i) => ({ combine: true, queries: [i, i, i] })),
+    { queries: ['Norm'] }, { queries: [] }, { queries: ['Abschluss'] },
+  ];
+  const batches = [...apiBatches(groups)];
+  assert.deepEqual(batches.flat(), groups.flatMap(({ queries }) => queries));
+  assert.equal(batches.length, 403);
+  assert.deepEqual(batches[0], ['Start']);
+  assert.deepEqual(batches.slice(-2), [['Norm'], ['Abschluss']]);
+  assert.ok(batches.slice(1, -2).every((batch) => batch.length % 3 === 0 && batch.length <= 40));
+  const large = [{ combine: true, queries: ['ü'.repeat(100)] }, { combine: true, queries: [1, 2, 3] }];
+  assert.deepEqual([...apiBatches(large, 2, 60)], [large[0].queries, [1, 2], [3]]);
+  assert.throws(() => [...apiBatches(groups, 0)], /positive Ganzzahl/u);
+});
+
+test('Nach unvollständiger Antwort, Transportfehler oder Budgetüberschreitung erreicht kein Abschlussbatch D1', async () => {
+  const groups = [{ queries: ['Daten'] }, { queries: ['Identität'] }];
+  for (const response of [null, [], [{ meta: { rows_written: 3 } }]]) {
+    const sent = [];
+    const stats = { queries: 0, batches: 0, rowsRead: 0, rowsWritten: 0, durationMs: 0, limits: { maxRowsWritten: 2 } };
+    await assert.rejects(sendBatches({}, groups, 40, stats, async (_config, batch) => {
+      sent.push(batch);
+      if (!response) throw new Error('Transport unterbrochen');
+      return { result: response };
+    }), /Transport|Unvollständige D1-Antwort|budget überschritten/iu);
+    assert.deepEqual(sent, [['Daten']]);
+  }
 });
 
 // ---------------------------------------------------------------------------
