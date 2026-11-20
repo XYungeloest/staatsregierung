@@ -1,0 +1,23 @@
+---
+import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import type { NormRelationView } from '@ostrecht/shared/lib/norms/relations.ts';
+import { formatShortDate } from '../../lib/dates.ts';
+import { shortCitation } from '../../lib/norm-head.ts';
+
+interface Props { entries: NormRelationView[] }
+const { entries } = Astro.props;
+---
+
+<ul class="norm-relations__list">
+  {entries.map((relation) => (
+    <li>
+      <a class="norm-relations__title" href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle || relation.title)}</a>
+      <span class="r-meta norm-relations__detail">
+        {relation.date ? <span>Rechtsänderung am <time datetime={relation.date}>{formatShortDate(relation.date)}</time></span> : null}
+        {relation.citation ? <span>{shortCitation(relation.citation) || toDisplayText(relation.citation)}</span> : null}
+        {relation.resultingVersionUrl && relation.resultingVersionValidFrom ? <span>Entstandene Fassung: <a href={relation.resultingVersionUrl}><time datetime={relation.resultingVersionValidFrom}>{formatShortDate(relation.resultingVersionValidFrom)}</time></a></span> : null}
+      </span>
+    </li>
+  ))}
+</ul>

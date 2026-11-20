@@ -339,6 +339,17 @@ erscheint im Quellenaudit als „ohne Rechtsvorschrift“ und nicht als mehrdeut
 
 Die folgenden Content-Typen liegen jeweils als einzelne JSON-Datei. Pflichtfelder sind die Felder, die der Parser erwartet. Optionale Felder sind gekennzeichnet.
 
+### Hinweise auf der Startseite
+
+Die Redaktion pflegt die Hinweise in `content/portal/home.json` unter `importantItems`.
+`validFrom` und `validUntil` schließen den angegebenen Kalendertag ein und beziehen sich auf
+den redaktionellen Stichtag. `enabled: false` blendet einen Hinweis aus. Ein `governmentSlug`
+bindet ihn an die amtierende Regierung. Mit `replaces` und der ID eines regulären Hinweises
+lässt sich ein freigegebener Ersatz hinterlegen. Er erscheint, sobald der reguläre Hinweis
+entfällt und der Ersatz selbst gültig ist. Die höhere `priority` (0 bis 100, standardmäßig 0)
+hat Vorrang. Bei Gleichstand gilt die redaktionelle Reihenfolge. Fehlt ein gültiger Ersatz,
+entfällt der Hinweis. Themenhervorhebungen folgen weiter ihrem eigenen Zeitraum.
+
 ### Themenseiten
 
 Pfad: `content/themen/[slug].json`
@@ -1304,6 +1315,15 @@ Häufig redigierte Dashboarddaten liegen als validiertes JSON vor:
 Die gleichnamigen Dateien unter `apps/portal/src/data/dashboard/` laden nur das JSON. Die erlaubten Typen und
 Parser stehen in `packages/shared/src/lib/portal/dashboard-content.ts`.
 
+Die statische API `/api/project-status.json` veröffentlicht die Planeinträge mit ihrem
+redigierten Status und dem gemeinsamen `referenceDate`. `legalReferences` löst die Quellen
+jedes Punkts über Normkennung oder ausdrücklich benannte Ausgabe auf. Ein Themenpfad in
+`href` verbindet den Punkt mit dem öffentlichen Themenprofil unter `topic`. Dort stammen
+`beschlossen`, `umgesetzt` und `naechsteSchritte` aus der freigegebenen Themenseite.
+`procedures` nennt nur ausdrücklich zugehörige parlamentarische Verfahren und deren belegte
+Einzeldaten. Verkündungsdatum, Rechtswirksamkeit und Vollzug sind eigenständige Angaben.
+Fehlt ein passendes Themenprofil, ist `topic` gleich `null`.
+
 Wichtige Werte:
 
 - `ActionPlanStatus`: `umgesetzt`, `teilweise_umgesetzt`, `angelegt`
@@ -1488,6 +1508,8 @@ In JSON wird daraus zum Beispiel:
 ```
 
 Fotografische Motive sollten als webtaugliche JPEG-Dateien gepflegt werden. Transparente oder grafische Platzhalter können PNG bleiben.
+
+Für neue oder geänderte responsive Motive beschreibt das [Einpflege-Playbook](docs/EINPFLEGE_PLAYBOOK.md#48-zweig-h--bilder-pdfs-assets) die Erzeugung und den Prüfsummenabgleich.
 
 `npm run content:check` prüft Bildpfade für Felder wie `bild`, `image` und `hero`, wenn sie mit `/images/` beginnen.
 

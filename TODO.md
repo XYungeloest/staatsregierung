@@ -231,11 +231,11 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Sicherheit“ in `allowedNormMinistries` und `allowedEnactingBodies` nutzt keine Norm mehr. Fertig,
   wenn die Einträge entfernt sind und `npm run content:check` sowie
   `tests/law-publication-presentation.test.ts` bestehen.
-- [ ] Prüfung der Vollzugsaufträge im Wissenshub: `knowledge/implementation-mandates.json` und
-  `knowledge/VOLLZUGSAUFTRAEGE.md` werden von keinem Skript geprüft oder erzeugt;
-  `scripts/knowledge.mjs check` liest sie nicht. Fertig, wenn die Prüfung `normSlug`, die
-  Normfassungen in `evidence`, Wissenshub-IDs und das Feld `norm` (abbr, sonst shortTitle, sonst
-  title aus `meta.json`) gegen den Bestand abgleicht, mit synthetischem Test.
+- [ ] Belege in älteren Vollzugsaufträgen präzisieren. In `evidence` stehen Wissenshub-IDs und
+  verkürzte Fassungsangaben neben Freitext. Das Anzeigefeld `norm` enthält teilweise die
+  Verkündungsfundstelle. Fertig, wenn diese Angaben eindeutig typisiert, die IDs und Fassungen
+  auflösbar und Normbezeichnung (`abbr`, sonst `shortTitle`, sonst `title`) und Fundstelle
+  getrennt prüfbar sind. Die Prüfung braucht synthetische Fälle für beide Belegarten.
 - [ ] Fußnoten übernommener Vorschriften überleiten: `parseSourceNotes` in
   `scripts/lib/revosax-parser.mjs` legt alle Fußnoten der Quelle als `sourceNotes` ab;
   `adaptParsedRevosaxSnapshot` in `scripts/lib/revosax-ost-adapter.mjs` passt sie nicht an, und
@@ -261,7 +261,7 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 - [ ] Textverweis vom Zustimmungsgesetz auf das Helsinki-Übereinkommen: Die Rechtsbeziehung ist
   über `relatedNorms` in
   `content/normen/gesetz-zu-dem-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets/meta.json`
-  hergestellt, im Normtext von Artikel 1 fehlt aber der Link. `buildNormTextLinkReferences` in
+  hergestellt, im Normtext von Artikel 1 fehlt aber der Link. `buildNormTextReferenceIndex` in
   `packages/shared/src/lib/norms/references.ts` bildet Textlinks nur aus `abbr` und `shortTitle`
   der Zielnorm, und `apps/recht/src/components/norms/NormBody.astro` wendet
   `renderLinkedDisplayText` nur auf Blocktext und Tabellenzellen an, nicht auf Überschriften. Der
@@ -291,17 +291,3 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Bereichsnavigation auch mobil erreichbar bleibt, je eine Messung beides festhält und die
   Reflow-Messung „200-Prozent-Zoom und reduzierte Bewegung bewahren die Kernfunktionen“
   (`tests/browser-smoke.spec.ts`, 320 × 360 CSS-Pixel bei Gerätepixelverhältnis 2) grün bleibt.
-
-## Bilder
-
-- [ ] Erzeugung der Bildvarianten reproduzierbar machen: `npm run images:generate` erzeugte bei der
-  Messung mit `sharp` 0.35.4 andere `.avif`-Dateien als die eingecheckten; damals wichen
-  144 der eingecheckten AVIF-Varianten byteweise ab (regierung 75, ministerien 42, jobs 24, ui 3);
-  `.webp` und `.jpg` sind identisch. Ob die Abweichung mit dem heute installierten `sharp`
-  0.35.5 fortbesteht, ist nicht neu gemessen. `sharp` ist in `apps/portal/package.json` nur als
-  Bereich `^0.35.5` deklariert, eine feste Version also nirgends vorgegeben. Ein unbedachter Vollauf schreibt
-  deshalb über hundert fachfremde Binärdateien in einen Vorgang, und kein Validator prüft die
-  Varianten überhaupt auf Existenz. Zusätzlich überschreibt derselbe Lauf
-  `public/images/social/portal-preview.png` mit einem eingebauten Platzhalter. Fertig, wenn `sharp`
-  mit fester Version deklariert ist, ein Lauf auf unverändertem Bestand keine Datei ändert und die
-  Social-Vorschau nicht mehr überschrieben wird.

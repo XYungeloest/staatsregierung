@@ -82,3 +82,15 @@ export async function getNormStore(_locals?: App.Locals): Promise<NormStore> {
 export function notFound(message = 'Nicht gefunden'): Response {
   return new Response(message, { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } });
 }
+
+/** Alle drei Metadaten aus demselben SQLite-Lesestand. Ein Fixture oder laufender Sync ist kein Vollbestandsnachweis. */
+export async function publishedProjectionFingerprint(): Promise<string | null> {
+  const db = (await resolveWorkerEnv())?.ostrecht_recht;
+  if (!db) return null;
+  const row = await db.prepare(`
+    SELECT value FROM law_runtime_meta WHERE key = 'projection_fingerprint'
+    AND EXISTS (SELECT 1 FROM law_runtime_meta WHERE key = 'projection_scope' AND value = 'full')
+    AND EXISTS (SELECT 1 FROM law_runtime_meta WHERE key = 'sync_state' AND value = 'complete')
+  `).first<{ value: string }>();
+  return row && /^[a-f0-9]{64}$/u.test(row.value) ? row.value : null;
+}

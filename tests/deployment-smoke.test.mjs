@@ -116,3 +116,45 @@ test('ein falsches Ziel des permanenten Altpfads wird abgewiesen', async () => {
     /erwartet wurde.*testgesetz/u,
   );
 });
+
+const release = {
+  schemaVersion: 1, target: 'law', commit, buildId: 'law-840.1', builtAt: '2032-10-03T10:00:00.000Z',
+  referenceDate: '2032-09-01', projectionFingerprint: 'a'.repeat(64),
+};
+
+function inspect({ live = release, actual = live.projectionFingerprint, mixedPath, unavailable, ...options } = {}) {
+  return checkDeployment({
+    lawSiteUrl: lawOrigin, targets: ['law'], expectedBuilds: { law: release }, representativeNorm, verifyProjection: true,
+    fetchImpl: async (input) => {
+      const path = new URL(input).pathname;
+      const headers = { 'x-portal-commit': live.commit, 'x-portal-build': path === mixedPath ? 'anderer-build' : live.buildId };
+      if (path === unavailable) return new Response(null, { status: 503 });
+      if (path === '/build-info.json') return Response.json(live, { headers });
+      if (path === '/api/projektionsstand.json') return Response.json({ fingerprint: actual }, { headers });
+      return new Response(html(live.commit).replace('</head>', '<meta name="build-id" content="' + live.buildId + '"></head>'), { headers });
+    }, ...options,
+  });
+}
+
+test('Freigabeartefakt bestätigt Build, Stichtag und D1 auch bei einem neueren Repository-Stand', async () => {
+  assert.equal((await inspect()).releases[0].status, 'expected');
+  const { releases } = await inspect({ repositoryCommit: 'b'.repeat(40), isAncestor: () => true });
+  assert.equal(releases[0].status, 'repository-pending');
+  assert.equal(releases[0].verifiedProjection, release.projectionFingerprint);
+});
+
+test('Nachkontrolle trennt ausstehende Auslieferung und widersprüchliche Freigabedaten', async () => {
+  await assert.rejects(inspect({ unavailable: '/suche/' }), { status: 'deployment-incomplete' });
+  await assert.rejects(inspect({ live: { ...release, commit: 'c'.repeat(40) }, isAncestor: () => true }), { status: 'deployment-incomplete' });
+  for (const options of [
+    { mixedPath: '/robots.txt' }, { actual: 'b'.repeat(64) },
+    { live: { ...release, referenceDate: '2032-09-02' } },
+    { live: { ...release, buildId: 'law-999.1' } },
+  ]) await assert.rejects(inspect(options), { status: 'inconsistent' });
+});
+
+test('eine spätere unabhängige D1-Projektion ändert den archivierten Buildnachweis nicht', async () => {
+  const { releases } = await inspect({ verifyProjection: false, actual: 'b'.repeat(64) });
+  assert.equal(releases[0].status, 'expected');
+  assert.equal(releases[0].verifiedProjection, null);
+});

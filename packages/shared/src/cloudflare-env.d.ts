@@ -5,6 +5,7 @@ declare namespace Cloudflare {
 }
 
 interface ImportMetaEnv {
+  readonly PORTAL_BUILD_INFO: { readonly buildId: string };
   readonly PORTAL_BUILD_COMMIT: string;
 }
 

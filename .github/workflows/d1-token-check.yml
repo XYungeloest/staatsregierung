@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 2
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: mise.toml
           cache: npm
       - run: npm ci
       - name: Produktive D1 lesen (Fingerabdruck, kein Schreibzugriff)

@@ -338,3 +338,21 @@ test('Testscope: D1 und Vollbestand folgen dem Code-Abschluss, Darstellung nur d
   assert.ok(!CONTENT_PIPELINE_SCRIPTS.has('scripts/measure-font-fallbacks.mjs'));
   assert.deepEqual([...scriptsReferencedBy(['x:'], { 'x:a': 'node scripts/a.mjs --flag && node --experimental-strip-types scripts/lib/b.ts', 'y:b': 'node scripts/c.mjs' })].sort(), ['scripts/a.mjs', 'scripts/lib/b.ts']);
 });
+
+test('Interne npm-Einstiege und exklusive MCP-Abhängigkeiten sind nur bei belegtem Manifestvergleich intern', async () => {
+  const { internalManifestChange } = await import('../scripts/classify-change-scope.mjs');
+  const root = { scripts: { build: 'astro build' } };
+  assert.equal(internalManifestChange('package.json', root, { scripts: { ...root.scripts, 'knowledge:mcp': 'node server.mjs' } }), true);
+  assert.equal(internalManifestChange('package.json', root, { scripts: { ...root.scripts, 'norms:preview': 'node scripts/preview-norm-source.mjs' } }), true);
+  assert.deepEqual(classifyChangeScope(['scripts/preview-norm-source.mjs', 'scripts/lib/norm-source-preview.mjs']).deployTargets, []);
+  assert.equal(internalManifestChange('package.json', root, { scripts: { build: 'changed' } }), false);
+  const lock = { packages: { '': {}, 'node_modules/zod': { version: '1' } } };
+  const internal = structuredClone(lock);
+  internal.packages['node_modules/@modelcontextprotocol/server'] = { version: '2' };
+  assert.equal(internalManifestChange('package-lock.json', lock, internal), true);
+  internal.packages['node_modules/zod'].version = '2';
+  assert.equal(internalManifestChange('package-lock.json', lock, internal), false);
+  const publicUse = structuredClone(lock);
+  publicUse.packages['apps/recht'] = { dependencies: { '@modelcontextprotocol/server': '1' } };
+  assert.equal(internalManifestChange('package-lock.json', publicUse, publicUse), false);
+});

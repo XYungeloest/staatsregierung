@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 import { access, readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { resolveBuildCommit, withBuildCommitHeader } from './lib/build-commit.mjs';
+import { checkKnowledgeAssets } from './lib/internal-knowledge.mjs';
+import { validateBuildInfo } from './lib/release-info.mjs';
 
 const commit = resolveBuildCommit();
 const target = process.argv[2];
@@ -25,6 +27,16 @@ for (const candidate of candidates) {
 }
 
 if (!headerPath) throw new Error('Erzeugte Cloudflare-_headers-Datei wurde nicht gefunden.');
+await checkKnowledgeAssets(dirname(headerPath));
 const headers = await readFile(headerPath, 'utf8');
-await writeFile(headerPath, withBuildCommitHeader(headers, commit), 'utf8');
+const infoPath = resolve(dirname(headerPath), 'build-info.json');
+const info = validateBuildInfo(JSON.parse(await readFile(infoPath, 'utf8')), target);
+if (info.commit !== commit) throw new Error('HTML-Build und Header gehören zu unterschiedlichen Commits.');
+if (target === 'law') {
+  const { projectionIdentity } = await import('./lib/d1-projection-fingerprint.mjs');
+  const identity = await projectionIdentity({ root: repositoryRoot });
+  if (!identity.closureUncertain) info.projectionFingerprint = identity.fingerprint;
+}
+await writeFile(infoPath, JSON.stringify(info, null, 2) + '\n');
+await writeFile(headerPath, withBuildCommitHeader(headers, commit, info.buildId), 'utf8');
 console.log(`Buildkennung ${commit} in ${headerPath} eingetragen.`);

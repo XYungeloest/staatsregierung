@@ -57,6 +57,12 @@ Der redaktionelle Stichtag steht ausschließlich in `packages/shared/src/config/
 
 ## Entwicklung
 
+`mise install` richtet die in [mise.toml](mise.toml) festgelegte Node-Version ein.
+Danach installiert `npm ci` die Workspace-Abhängigkeiten. Mit `mise run dev`,
+`mise run dev:recht`, `mise run check`, `mise run test` und `mise run build` stehen die
+npm-Aufrufe auch als Tasks bereit. Die regulären CI-Jobs lesen dieselbe Node-Version.
+Die folgenden Befehle laufen auch direkt mit npm.
+
 ```sh
 npm ci
 npm run dev            # Staatsportal
@@ -86,6 +92,15 @@ portabler SQLite-Snapshot (`npm run norms:runtime:d1-seed`, Fixture über
 `OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json` – ein synthetischer Bestand aus
 `tests/helpers/fixture-corpus.ts`, kein Auszug aus `content/`); `npm run norms:runtime:d1-seed-fingerprint`
 liefert den deterministischen Seed-Fingerabdruck. Die produktive Datenbank wird dabei nie berührt.
+
+Für die Redaktion erschließt die [Änderungsfolgenanalyse](docs/EINPFLEGE_PLAYBOOK.md)
+betroffene Fassungen, Verfahren und Themen. Die [lokale Quellenprüfung](docs/NORM_WORKFLOW.md)
+stellt den strukturierten Import neben das amtliche PDF. Agenten finden die lesende CLI und
+die Konfiguration des lokalen MCP-Servers im [Wissenshub](knowledge/README.md).
+
+Der [technische Datenfluss](docs/architektur/datenfluss.d2) lässt sich mit
+`mise run docs:diagram` als SVG unter `.cache/docs/datenfluss.svg` erzeugen.
+Mit D2 0.9.0 im Suchpfad steht dafür auch `npm run docs:diagram` zur Verfügung.
 
 ## Wichtige Verzeichnisse
 
@@ -149,10 +164,11 @@ Ob eine Datei die D1-Projektion betrifft, bestimmt der Code-Abschluss des Syncs,
 Verzeichnis; ändert sich die Projektionslogik, ersetzt ein vollständiger Vergleich von Basis- und
 Zielprojektion die Annahme (`docs/REVOSAX_BULK_IMPORT.md`). Die Screenshot-Suite läuft bei
 Oberflächenänderungen im Playwright-Container gegen das Testfixture und vergleicht strikt mit den
-committeten Linux-Baselines – in Pull Requests die kritische Auswahl, auf `main` die breite
-Inventur; sie ist kein Deployment-Gate (`docs/DEPLOYMENT_RUNBOOK.md`). Veröffentlicht wird
-ausschließlich über den Workflow `Deploy to Cloudflare Workers` aus dem geprüften Commit auf
-`main`.
+committeten Linux-Baselines. Pull Requests prüfen die kritische Auswahl. Die breite Inventur
+läuft wöchentlich und manuell. Der Release-Workflow auf `main` kann bestandene Quellprüfungen
+für denselben Git-Baum und Änderungsumfang übernehmen. Produktionsbuild, Laufzeittests und
+Veröffentlichungsnachweise entstehen im Release-Lauf. Die Zuordnung und der Wiederanlauf
+sind im [Betriebsrunbook](docs/DEPLOYMENT_RUNBOOK.md) beschrieben.
 
 ## Mitwirken und Meldungen
 

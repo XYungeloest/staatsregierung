@@ -1,0 +1,38 @@
+direction: right
+quellen: Git {
+  roh: "Gesetze/ und REVOSax-Snapshots"
+  rezept: "Geprüfte Patch-Rezepte"
+  normen: "content/normen und Verkündungen"
+  portal: "Freigegebene Portalinhalte und Haushaltssnapshots"
+  wissen: "knowledge/ mit Quellen und Fundstellen"
+}
+import: "Normimport und Konsolidierung"
+shared: "packages/shared"
+portal: "apps/portal · Astro / Worker"
+recht: "apps/recht · Astro / Worker"
+sync: "D1-Projektion mit Identitätsprüfung"
+d1: "D1 · Rechtsbestand" {shape: cylinder}
+r2: "R2 · Rohquellenarchiv" {shape: cylinder}
+analyse: "Änderungsfolgen"
+query: "Lokale Wissensabfragen"
+agent: "CLI / MCP über stdio"
+
+quellen.roh -> import
+quellen.rezept -> import
+import -> quellen.normen: "geprüfter Schreiblauf"
+quellen.roh -> r2: "unveränderte Rohquellen"
+quellen.normen -> sync
+quellen.portal -> sync: "Normverknüpfungen"
+sync -> d1
+d1 -> recht: "begrenzte Laufzeitabfragen"
+quellen.portal -> portal
+quellen.normen -> portal: "Verweise beim Build"
+shared -> portal
+shared -> recht
+quellen.normen -> analyse
+quellen.portal -> analyse
+quellen.wissen -> analyse
+quellen.wissen -> query
+quellen.normen -> query
+analyse -> query
+query -> agent

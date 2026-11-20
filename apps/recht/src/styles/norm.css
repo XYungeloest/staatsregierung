@@ -878,6 +878,19 @@ a.norm-timeline__date:hover {
   gap: var(--space-1) var(--space-4);
 }
 
+.norm-relations__index ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.norm-relations__more > summary {
+  cursor: pointer;
+  padding-block: var(--space-2);
+}
+
 .norm-relations__note {
   padding-top: var(--space-3);
   border-top: var(--line) solid var(--border-hairline);

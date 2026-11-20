@@ -648,12 +648,12 @@ export function runtimeMetaQueries({ now, norms, publications, fingerprint, iden
     norm_count: String(norms.length),
     publication_count: String(publications.length),
     corpus_hash: corpusFingerprint(norms, publications, register),
-    ...identityMetaValues(identity),
     sync_mode: mode,
     search_filters_json: JSON.stringify(buildFilterOptions(norms)),
     search_document_count: String(norms.reduce((sum, norm) => sum + norm.versions.length, 0)),
     search_publications_json: JSON.stringify(buildSearchPublications(publications)),
     ...corpusOverviewMeta(norms, publications),
+    ...identityMetaValues(identity),
   };
   return Object.entries(values).map(([key, value]) => q('INSERT INTO law_runtime_meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value', [key, value]));
 }
@@ -917,11 +917,36 @@ async function cloudflareQuery({ accountId, databaseId, apiToken }, batch) {
   return payload;
 }
 
-async function sendBatches(config, queries, batchSize, stats) {
-  for (let index = 0; index < queries.length; index += batchSize) {
-    const batch = queries.slice(index, index + batchSize);
-    const payload = await cloudflareQuery(config, batch);
-    recordResults(stats, payload.result ?? [], { queries: batch.length, batches: 1 });
+/** Bündelt kurze Ableitungsgruppen in Planreihenfolge. Reset, einzelne Normen und der
+ * Abschluss mit der neuen Identität behalten ihre bisherigen Batchgrenzen. */
+export function* apiBatches(groups, batchSize = DEFAULT_BATCH_SIZE, maxCombinedBytes = 1_000_000) {
+  if (!Number.isSafeInteger(batchSize) || batchSize < 1) throw new Error('--batch-size braucht eine positive Ganzzahl');
+  let pending = [];
+  const envelopeBytes = Buffer.byteLength('{"batch":[]}');
+  let bytes = envelopeBytes;
+  for (const { queries, combine } of groups) {
+    if (!queries.length) continue;
+    const groupBytes = combine ? Buffer.byteLength(JSON.stringify(queries)) : 0;
+    if (pending.length && (!combine || pending.length + queries.length > batchSize || bytes + groupBytes > maxCombinedBytes)) {
+      yield pending;
+      pending = [];
+      bytes = envelopeBytes;
+    }
+    if (combine && queries.length <= batchSize && envelopeBytes + groupBytes <= maxCombinedBytes) {
+      pending.push(...queries);
+      bytes += groupBytes;
+    } else {
+      for (let index = 0; index < queries.length; index += batchSize) yield queries.slice(index, index + batchSize);
+    }
+  }
+  if (pending.length) yield pending;
+}
+
+export async function sendBatches(config, groups, batchSize, stats, query = cloudflareQuery) {
+  for (const batch of apiBatches(groups, batchSize)) {
+    const { result } = await query(config, batch);
+    if (!Array.isArray(result) || result.length !== batch.length) throw new Error('Unvollständige D1-Antwort auf den Schreibbatch');
+    recordResults(stats, result, { queries: batch.length, batches: 1 });
   }
 }
 
@@ -1227,7 +1252,7 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
             ...keywordQueries(norm, getNormVersionIdentity(norm, getApplicableVersion(norm, asOf)), register.get(norm.meta.slug) ?? [])]
           : []),
       ];
-      groups.push({ slug: `(abgeleitet ${norm.meta.slug})`, queries });
+      groups.push({ slug: `(abgeleitet ${norm.meta.slug})`, queries, combine: true });
       if (scope.derivedRebuild) derivedCount += 1;
       if (scope.refreshSearchDocuments) documentRefreshCount += 1;
     }
@@ -1279,7 +1304,8 @@ async function main() {
   // Ableitungen und ohne Sync-Plan (Sekunden statt Minuten); schreibt nie.
   const remoteState = args.includes('--remote-state');
   const dryRun = args.includes('--dry-run') || remoteState;
-  const batchSize = Number.parseInt(valueAfter(args, '--batch-size') ?? String(DEFAULT_BATCH_SIZE), 10);
+  const batchSize = args.includes('--batch-size') ? Number(valueAfter(args, '--batch-size')) : DEFAULT_BATCH_SIZE;
+  if (!Number.isSafeInteger(batchSize) || batchSize < 1) throw new Error('--batch-size braucht eine positive Ganzzahl');
   const config = {
     accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? DEFAULT_CLOUDFLARE_ACCOUNT_ID,
     databaseId: process.env.OSTRECHT_D1_DATABASE_ID ?? DEFAULT_D1_DATABASE_ID,
@@ -1451,11 +1477,7 @@ async function main() {
   if (!dryRun) assertEstimateWithinBudget(cost, stats.limits);
 
   if (transport === 'api') {
-    if (!dryRun) {
-      for (const group of plan.groups) {
-        await sendBatches(config, group.queries, batchSize, stats);
-      }
-    }
+    if (!dryRun) await sendBatches(config, plan.groups, batchSize, stats);
   } else {
     const normStatements = plan.groups.map((group) => ({ slug: group.slug, statements: group.queries.map(renderStatement) }));
     const files = groupStatementFiles(normStatements);

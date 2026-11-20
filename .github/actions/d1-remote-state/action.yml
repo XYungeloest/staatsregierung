@@ -1,0 +1,38 @@
+name: Verifizierte D1-Basis und Änderungsumfang bestimmen
+description: Liest die produktive Projektionsidentität und prüft den vollständigen Diff seit dem passenden Vorgänger.
+inputs:
+  base:
+    description: Basis-Commit des PR oder Vorgänger des Pushs auf main
+    required: true
+  head:
+    description: Ausgecheckter Zielcommit
+    required: true
+outputs:
+  base:
+    description: Bestätigter Ausgangscommit für Diff und Nachweis
+    value: ${{ steps.state.outputs.base }}
+  rc:
+    description: 0 für No-op oder inkrementell, 3 für das D1-Release-Gate
+    value: ${{ steps.state.outputs.rc }}
+runs:
+  using: composite
+  steps:
+    - name: D1-Metadaten lesen und Diff ab der nachgewiesenen Basis prüfen
+      id: state
+      shell: bash
+      env:
+        BEFORE: ${{ inputs.base }}
+        TARGET: ${{ inputs.head }}
+      run: |
+        START=$(date +%s)
+        STATE=$(mktemp "$RUNNER_TEMP/d1-state.XXXXXXXX")
+        npx --no-install wrangler d1 execute ostrecht-recht --config apps/recht/wrangler.jsonc --remote --json \
+          --command "SELECT key, value FROM law_runtime_meta WHERE key IN ('projection_fingerprint','projection_scope','sync_state')" > "$STATE"
+        BASE=$(node scripts/ci-d1-base.mjs "$BEFORE" "$TARGET" < "$STATE")
+        echo "base=$BASE" >> "$GITHUB_OUTPUT"
+        echo "D1-Basis für den Git-Diff: $BASE (Ereignisbasis $BEFORE)" | tee -a "$GITHUB_STEP_SUMMARY"
+        RC=0
+        npm run norms:runtime:d1-sync -- --transport api --remote-state --git-diff "$BASE" "$TARGET" --budget incremental || RC=$?
+        echo "rc=$RC" >> "$GITHUB_OUTPUT"
+        echo "Remote-State: $(( $(date +%s) - START )) s (Exit $RC)" >> "$GITHUB_STEP_SUMMARY"
+        if [[ $RC != 0 && $RC != 3 ]]; then exit "$RC"; fi

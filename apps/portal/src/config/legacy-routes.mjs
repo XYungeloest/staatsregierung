@@ -60,3 +60,25 @@ export const legacyRedirects = Object.fromEntries(
 );
 
 export const legacyRouteHelpLinks = legacyRoutes.filter((route) => route.label);
+
+/** Permanente Weiterleitungen vom Staatsportal zur konfigurierten OstRecht-Origin. */
+export function buildLegacyLawRedirects(origin = 'https://recht.freistaat-ostdeutschland.de') {
+  const lawSiteUrl = origin.replace(/\/+$/u, '');
+  const redirects = [
+    `/recht/suche/ ${lawSiteUrl}/suche/ 301`,
+    `/recht/archiv/ ${lawSiteUrl}/a-z/ 301`,
+    `/recht/sachgebiete/ ${lawSiteUrl}/sachgebiete/ 301`,
+    `/recht/foerderrichtlinien/ ${lawSiteUrl}/foerderrichtlinien/ 301`,
+    `/recht/fundstellen/ ${lawSiteUrl}/verkuendungen/?ansicht=eintraege 301`,
+    `/recht/verkuendungen/ ${lawSiteUrl}/verkuendungen/ 301`,
+    `/recht/verfassung/ ${lawSiteUrl}/norm/staatsverfassung-des-freistaates-ostdeutschland/ 301`,
+    `/recht/rechtsentwicklung/ ${lawSiteUrl}/suche/ 301`,
+    `/recht/hilfe/ ${lawSiteUrl}/hilfe/ 301`,
+    `/recht/verkuendungen/index.json ${lawSiteUrl}/verkuendungen/index.json 301`,
+    `/recht/norm/sachsische-landkreisordnung/ ${lawSiteUrl}/norm/saechsische-landkreisordnung/ 301`,
+    `/recht/norm/* ${lawSiteUrl}/norm/:splat 301`,
+    `/recht/verkuendungen/* ${lawSiteUrl}/verkuendungen/:splat 301`,
+    `/recht/sachgebiete/* ${lawSiteUrl}/sachgebiete/:splat 301`,
+  ].join('\n');
+  return redirects + '\n';
+}

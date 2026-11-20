@@ -1,0 +1,12 @@
+{
+  "name": "@ostrecht/knowledge-query",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "exports": "./query.mjs",
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "@ostrecht/shared": "^0.0.1",
+    "zod": "4.6.7"
+  }
+}

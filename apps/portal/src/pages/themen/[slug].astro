@@ -1,4 +1,5 @@
 ---
+import { publicLegalSources } from '../../lib/project-status.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/portal/FaqAccordion.astro';
@@ -14,7 +15,7 @@ import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import { getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
+import { loadAllNormMetas } from '@ostrecht/shared/lib/norms/loader.ts';
 import {
   getPublicationLabel,
   loadAllVerkuendungen,
@@ -41,14 +42,18 @@ import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
 import type { Themenseite } from '@ostrecht/shared/lib/portal/index.ts';
 
 export async function getStaticPaths() {
-  const topics = await loadTopics();
+  const [topics, norms, publications] = await Promise.all([loadTopics(), loadAllNormMetas(), loadAllVerkuendungen()]);
+  const resolveSource = publicLegalSources(norms, publications);
   return topics.map((topic) => ({
     params: { slug: topic.slug },
-    props: { topic },
+    props: { topic, legalReferences: topic.rechtsgrundlagen.map(resolveSource) },
   }));
 }
 
-const { topic } = Astro.props as { topic: Themenseite };
+const { topic, legalReferences } = Astro.props as {
+  topic: Themenseite;
+  legalReferences: ReturnType<ReturnType<typeof publicLegalSources>>[];
+};
 const topics = await loadTopics();
 const ministries = await loadMinistries();
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
@@ -57,33 +62,13 @@ const coMinistries = (topic?.mitzeichnungsressorts ?? [])
   .map((slug) => ministryLookup.get(slug))
   .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
 
-const [norms, publications, pressReleases, events, legislativeProcedures] = topic
+const [pressReleases, events, legislativeProcedures] = topic
   ? await Promise.all([
-      loadAllNorms(),
-      loadAllVerkuendungen(),
       loadPressReleases(),
       loadEvents(),
       loadLegislativeProcedures(),
     ])
-  : [[], [], [], [], []];
-const normLookup = new Map(norms.map((norm) => [norm.meta.slug, norm]));
-const publicationByNormSlug = new Map<string, (typeof publications)[number]>();
-for (const publication of publications) {
-  for (const entry of publication.entries) {
-    if (entry.normSlug && !publicationByNormSlug.has(entry.normSlug)) {
-      publicationByNormSlug.set(entry.normSlug, publication);
-    }
-  }
-}
-const publicationBySlug = new Map(publications.map((publication) => [publication.slug, publication]));
-const legalReferences = (topic?.rechtsgrundlagen ?? []).map((entry) => ({
-  ...entry,
-  norm: entry.normSlug ? normLookup.get(entry.normSlug) : undefined,
-  // Eine ausdrücklich benannte Ausgabe geht vor; sonst die Ausgabe der verknüpften Norm.
-  publication: entry.publicationSlug
-    ? publicationBySlug.get(entry.publicationSlug)
-    : entry.normSlug ? publicationByNormSlug.get(entry.normSlug) : undefined,
-}));
+  : [[], [], []];
 const visibleLegalReferences = legalReferences.slice(0, 6);
 const additionalLegalReferences = legalReferences.slice(6);
 const relatedProcedures = topic
@@ -187,13 +172,13 @@ const heroActions = topic ? [
       <div class="topic-legal-grid">
         {visibleLegalReferences.map((entry) => (
           <article class="topic-legal-card">
-            <p class="topic-legal-card__type">{entry.norm ? formatNormStatus(entry.norm.meta.status) : 'Quellenhinweis'}</p>
+            <p class="topic-legal-card__type">{entry.norm ? formatNormStatus(entry.norm.status) : 'Quellenhinweis'}</p>
             <h3>
-              {entry.norm ? <a href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a> : entry.label}
+              {entry.norm ? <a href={getNormUrl(entry.norm.slug)}>{entry.label}</a> : entry.label}
             </h3>
-            {entry.note ? <p>{entry.note}</p> : entry.norm && getPublicNormSummary(entry.norm.meta) ? <p>{toDisplayText(getPublicNormSummary(entry.norm.meta) ?? '')}</p> : null}
-            {entry.norm?.meta.effectiveDate ? (
-              <p class="topic-legal-card__date">Wirksam seit <time datetime={entry.norm.meta.effectiveDate}>{siteConfig.date.formatLong(entry.norm.meta.effectiveDate)}</time></p>
+            {entry.note ? <p>{entry.note}</p> : entry.norm && getPublicNormSummary(entry.norm) ? <p>{toDisplayText(getPublicNormSummary(entry.norm) ?? '')}</p> : null}
+            {entry.norm?.effectiveDate ? (
+              <p class="topic-legal-card__date">{entry.norm.effectiveDate > PORTAL_REFERENCE_DATE ? 'Wirksam ab' : 'Wirksam seit'} <time datetime={entry.norm.effectiveDate}>{siteConfig.date.formatLong(entry.norm.effectiveDate)}</time></p>
             ) : null}
             {entry.publication ? <a class="topic-legal-card__publication" href={getPublicationUrl(entry.publication.slug)}>{getPublicationLabel(entry.publication)}</a> : null}
           </article>
@@ -205,7 +190,7 @@ const heroActions = topic ? [
           <ul>
             {additionalLegalReferences.map((entry) => (
               <li>
-                {entry.norm ? <a href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a> : <span>{entry.label}</span>}
+                {entry.norm ? <a href={getNormUrl(entry.norm.slug)}>{entry.label}</a> : <span>{entry.label}</span>}
                 {entry.note ? <small>{entry.note}</small> : null}
               </li>
             ))}

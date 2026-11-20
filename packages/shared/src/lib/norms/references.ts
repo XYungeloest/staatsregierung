@@ -62,54 +62,48 @@ const FEDERAL_REFERENCES: TextLinkReference[] = [
   },
 ];
 
-function addUniqueReference(
-  references: Map<string, TextLinkReference | null>,
-  label: string,
-  reference: TextLinkReference,
-): void {
-  const normalizedLabel = toDisplayText(label).trim();
-  if (normalizedLabel.length < 3) {
-    return;
+/** Ein Korpusindex für alle Normtexte eines Projektionslaufs. Beim Auflösen entfällt
+ * die jeweilige Norm vor der Prüfung auf eindeutige Kurzbezeichnungen. */
+export function buildNormTextReferenceIndex(norms: NormRecord[], asOf = EDITORIAL_REFERENCE_DATE) {
+  type Source = { slug?: string; reference: TextLinkReference; order: number };
+  const sources = new Map<string, Source[]>();
+  let order = 0;
+  function add(reference: TextLinkReference, slug?: string) {
+    if (reference.label.length < 3) return;
+    const list = sources.get(reference.label) ?? [];
+    list.push({ reference, slug, order: order++ });
+    sources.set(reference.label, list);
   }
-
-  if (references.has(normalizedLabel)) {
-    references.set(normalizedLabel, null);
-    return;
+  for (const norm of norms) {
+    const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, asOf));
+    const url = getNormUrl(norm.meta.slug);
+    for (const label of [identity.abbr, identity.shortTitle]) {
+      if (label) add({ label: toDisplayText(label).trim(), url }, norm.meta.slug);
+    }
   }
+  for (const federal of FEDERAL_REFERENCES) add(federal);
 
-  references.set(normalizedLabel, {
-    ...reference,
-    label: normalizedLabel,
-  });
+  const matcher = buildReferenceMatcher(Array.from(sources.keys(), (label) => ({ label })));
+  function resolve(labels: Iterable<string>, currentSlug: string): TextLinkReference[] {
+    const found: Source[] = [];
+    for (const label of labels) {
+      const entries = sources.get(label)!;
+      const local = entries.filter((entry) => entry.slug !== undefined && entry.slug !== currentSlug);
+      if (local.length === 1) found.push(local[0]);
+      for (const entry of entries) if (entry.slug === undefined) found.push(entry);
+    }
+    return found.sort((left, right) => right.reference.label.length - left.reference.label.length
+      || left.reference.label.localeCompare(right.reference.label, 'de') || left.order - right.order)
+      .map((entry) => entry.reference);
+  }
+  return {
+    allFor: (slug: string) => resolve(sources.keys(), slug),
+    matching: (slug: string, texts: Iterable<string>) => resolve(matchingLabels(matcher, texts, true), slug),
+  };
 }
 
-export function buildNormTextLinkReferences(
-  norms: NormRecord[],
-  currentSlug: string,
-  asOf = EDITORIAL_REFERENCE_DATE,
-): TextLinkReference[] {
-  const references = new Map<string, TextLinkReference | null>();
-
-  for (const norm of norms) {
-    if (norm.meta.slug === currentSlug) {
-      continue;
-    }
-
-    const reference = {
-      label: '',
-      url: getNormUrl(norm.meta.slug),
-    };
-
-    const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, asOf));
-
-    if (identity.abbr) addUniqueReference(references, identity.abbr, reference);
-    addUniqueReference(references, identity.shortTitle, reference);
-  }
-
-  return [
-    ...[...references.values()].filter((entry): entry is TextLinkReference => Boolean(entry)),
-    ...FEDERAL_REFERENCES,
-  ].sort((left, right) => right.label.length - left.label.length || left.label.localeCompare(right.label, 'de'));
+export function buildNormTextLinkReferences(norms: NormRecord[], currentSlug: string, asOf = EDITORIAL_REFERENCE_DATE): TextLinkReference[] {
+  return buildNormTextReferenceIndex(norms, asOf).allFor(currentSlug);
 }
 
 export function getRelatedNormsBySubjects(norm: NormRecord, norms: NormRecord[]): NormRecord[] {
@@ -351,8 +345,12 @@ export function selectMatchingTextLinkReferences(
   texts: Iterable<string>,
   { delimited = true }: { delimited?: boolean } = {},
 ): TextLinkReference[] {
-  const matcher = buildReferenceMatcher(references);
-  const matched = new Map<string, TextLinkReference>();
+  const matched = matchingLabels(buildReferenceMatcher(references), texts, delimited);
+  return references.filter((reference) => matched.has(reference.label));
+}
+
+function matchingLabels(matcher: ReferenceMatcher<{ label: string }>, texts: Iterable<string>, delimited: boolean): Set<string> {
+  const matched = new Set<string>();
   for (const rawText of texts) {
     const text = toDisplayText(rawText);
     for (let index = 0; index + PREFIX_LENGTH <= text.length; index += 1) {
@@ -362,11 +360,11 @@ export function selectMatchingTextLinkReferences(
         if (matched.has(candidate.label)) continue;
         if (!text.startsWith(candidate.label, index)) continue;
         if (delimited && !isWordDelimited(text, index, candidate.label.length)) continue;
-        matched.set(candidate.label, candidate);
+        matched.add(candidate.label);
       }
     }
   }
-  return references.filter((reference) => matched.has(reference.label));
+  return matched;
 }
 
 export function collectNormBodyText(norm: NormRecord): string {

@@ -9,6 +9,22 @@ einschließlich der Schritte, die `npm run norms:workflow` nicht ausführt (`doc
 `norms:publications:pdf-sync`, Screenshot-Baselines, D1-Prüfung, Organisations-Snapshot) — steht in
 [`docs/EINPFLEGE_PLAYBOOK.md`](EINPFLEGE_PLAYBOOK.md).
 
+## Lokale Gegenprüfung im Browser
+
+`npm run norms:preview -- --file "OGVBl. 2026 Nr. 60.html"` erzeugt unter
+`.cache/norm-preview/` eine lokal zu öffnende HTML-Datei. Die Ansicht zeigt den Originaltext,
+die zugeordnete PDF, den strukturierten Parsertext einschließlich Listen und Tabellen sowie
+Parserbefunde und offene Konflikte des Konsolidierungsmanifests. Bei einem eindeutigen
+Titel innerhalb der über die Quelldatei belegten Verkündung vergleicht sie den Parsertext
+mit der dort bezeichneten gespeicherten Fassung. Neue Quellen können vor dem Import
+geprüft werden. Die Vorschau schreibt ausschließlich ihre lokale Ausgabedatei.
+Der strikte Normworkflow und die redaktionelle Sichtprüfung bleiben maßgeblich.
+
+Am Ende des Normworkflows stehen die Zahl der direkten Belege, der abgeleiteten Folgen
+und der offenen Prüfkandidaten. Den vollständigen lesenden Bericht für dieselbe Quelle liefert
+`npm run content:impact -- --source-file "OGVBl. 2026 Nr. 60.html"`. Mit `--json` enthält
+die Ausgabe auch die noch keiner Verkündung zugeordneten Dateien.
+
 ## Ablauf
 
 1. Amtliche HTML- und PDF-Dateien nach `Gesetze/` übernehmen und gegeneinander prüfen.

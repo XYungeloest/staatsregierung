@@ -165,6 +165,43 @@ mit eigenen Planungsstufen geprüft. Verbindliche Simulationsregeln stehen dort 
 
 Generierte Dateien werden nicht manuell bearbeitet.
 
+## Gezielte Agentenabfragen
+
+Die Bibliothek `@ostrecht/knowledge-query` erschließt die Wissensdateien lesend. CLI und
+lokaler MCP-Server verwenden dieselben Abfragen. `INDEX.json` und `LLM_CONTEXT.md`
+liefern weiterhin den Gesamtüberblick. „Intern“ bezeichnet die Nutzung im Repository.
+Die Dateien im öffentlichen Git-Repository sind einsehbar.
+
+```sh
+npm run --silent knowledge:query -- search_knowledge '{"query":"Verfassung","limit":5}'
+npm run --silent knowledge:query -- get_project_context '{"id":"<Projekt-ID>"}'
+npm run --silent knowledge:query -- get_legal_state '{"norm":"<Norm-Slug>","version":"<Fassungs-ID>"}'
+npm run --silent knowledge:query -- list_open_mandates '{"offset":0,"limit":10}'
+npm run --silent knowledge:query -- --help
+```
+
+| Abfrage | Eingabe und Ergebnis |
+| --- | --- |
+| `search_knowledge`, `get_entity`, `get_roles` | Suche über `query`, Sachstand und zeitliche Rollen über `id` |
+| `get_project_context`, `get_proceeding` | Projekt- oder Verfahrens-ID mit Rechtsgrundlagen und Quellen |
+| `list_open_proceedings` | Aktive Stufen und ausdrücklich ungeklärte Verfahrensausgänge, optional `type` |
+| `list_open_mandates` | Eigenständige Vollzugsbefunde mit Frist und Bedingung, optional `norm` |
+| `trace_sources`, `list_source_conflicts` | Quellen und Fundstellen einer ID bzw. offene Quellenfragen |
+| `get_legal_state` | Norm-Slug mit optionaler Fassung, Gültigkeit am redaktionellen Stichtag |
+| `analyze_publication_impact` | `publication` als Verkündungs-Slug, Folgebefunde mit Nachweisstufe |
+
+Jede Antwort enthält `referenceDate`, `total`, `items` und `nextOffset` für die nächste
+Seite. Je Seite sind höchstens 25 Treffer möglich. Umfangreiche Einzelangaben bleiben über
+Quelldatei und Fundstelle auffindbar. Ein Vollzugsbefund übernimmt seinen Prüfstand aus
+dem Einzelbeleg oder dem Erhebungsstand des Altbestands. Bei `nicht-pruefbar` liegt der
+Nachweis außerhalb des Bestands. Die CLI meldet Eingabefehler mit Exitcode 2, fehlende IDs
+oder Fassungen mit 3 und Lesefehler mit 1.
+
+Nach `npm ci` startet `npm run --silent knowledge:mcp` den lokalen stdio-Server. Für einen
+MCP-Client lässt sich `node` mit den Argumenten `--experimental-strip-types` und dem absoluten
+Pfad zu `packages/knowledge-query/mcp.mjs` eintragen. Der Server liest aus diesem Checkout
+und bietet die oben genannten Werkzeuge an.
+
 ## Pflegeablauf
 
 1. Neue Primärquelle einpflegen.

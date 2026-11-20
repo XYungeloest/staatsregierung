@@ -44,9 +44,9 @@ fail-closed die konservative Obermenge dieser Verzeichnisse.
 | --- | --- | --- |
 | `docs-only` | Root-Dokumentation, `docs/`, interne Knowledge-Markdown-Dateien | kein Build, kein Deployment; Whitespace- und Dokumentationsstrukturprüfung |
 | `ci-only` | Tests, Workflows, Validatoren, Audits, Importer, `Gesetze/`, `data/recht/`, interne Knowledge-Daten | kein Deployment; nur die angeforderten Prüfungen |
-| `portal` | `apps/portal/`, portalbezogene Inhalte, Kreisreform, portalbezogene Daten | nur Staatsportal |
+| `portal` | `apps/portal/`, portalbezogene Inhalte, Kreisreform, Normen und Verkündungen | Staatsportal, für Rechtsdaten zusätzlich D1-Sync |
 | `law` | `apps/recht/`, `packages/recht-*`, `public/assets/recht/` | nur OstRecht |
-| `shared` | `packages/shared/`, `content/normen/`, `content/verkuendungen/`, gemeinsame Buildskripte, Root-Konfiguration, Abhängigkeiten | beide Anwendungen |
+| `shared` | `packages/shared/`, gemeinsame Buildskripte, Root-Konfiguration, gemeinsame Abhängigkeiten | beide Anwendungen |
 
 Drei weitere Flags bestimmen den Prüfumfang unabhängig vom Deploymentziel:
 
@@ -75,11 +75,16 @@ Drei weitere Flags bestimmen den Prüfumfang unabhängig vom Deploymentziel:
   Workflows. Der Deploy prüft keine Bilder; die vollständige Inventur läuft geplant und manuell
   (siehe Screenshot-Suite).
 
-Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie für Suche,
-Fundstellen und die Rechtsbrücke einliest; ihre Änderung löst kein OstRecht-Deployment aus,
-sondern eine D1-Projektion. Die Buildartefakte liegen unter `apps/portal/dist/` und
-`apps/recht/dist/`; sie werden einmal gebaut, als Artefakt hochgeladen und vor Smokes und
-Deployment wieder unter `apps/` hergestellt.
+Normen und Verkündungen fließen in die statische Suche und Rechtsbrücke des Staatsportals
+sowie in die D1-Projektion von OstRecht ein. Der Portal-Worker wird dafür neu gebaut und
+veröffentlicht. OstRecht liest die neuen Fassungen aus D1. Ab der Schwelle für umfangreiche
+Bestandsänderungen wird der OstRecht-Worker zusätzlich für den Vollbestand-Smoke gebaut.
+Die geprüften Builds liegen unter `apps/portal/dist/` und `apps/recht/dist/`.
+
+Das interne Paket `packages/knowledge-query/` erhält die Wissens- und Unit-Prüfung.
+Ändern sich im Root-Manifest ausschließlich die internen Agentenbefehle oder im Lockfile
+ausschließlich deren eigene SDK-Pakete, weist die CI dies am tatsächlichen Git-Diff nach.
+Gemeinsame Abhängigkeiten und ein unbekannter Vergleichsstand durchlaufen die regulären Gates.
 
 ## Regulärer Ablauf auf `main`
 
@@ -93,16 +98,20 @@ classify ─┬─ build ───────────────┬─ run
 Screenshots laufen nicht im Deploy: Pull Requests prüfen die kritische Auswahl, die vollständige
 Inventur läuft geplant und manuell (`visual-extended.yml`).
 
-1. `classify` bestimmt Deployment- und Verifikationswirkung (mit `node_modules`, weil der
-   Code-Abschluss der Projektion esbuild braucht).
-2. `build` stellt `node_modules` aus dem Actions-Cache her (`.github/actions/setup-node-modules`,
-   Schlüssel aus Betriebssystem, Architektur, Linux-Distribution mit Versionsnummer, Node-Version
-   und `package-lock.json`; ohne Treffer `npm ci`), führt
-   `npm audit` mit Wiederholung bei Registryfehlern aus (`scripts/npm-audit-retry.mjs`: nur
-   HTTP 5xx, 429 und Netzfehler werden bis zu dreimal wiederholt; ein Befund ab Stufe `high` schlägt
-   sofort fehl), prüft Dokumentationsstruktur, Inhalte, Wissenshub, Typen, schnelle Unit-Tests
-   und je Scope die Korpus-Tests, baut einmal, prüft Assets, Links und SEO und lädt den Build als
-   Artefakt hoch.
+1. `classify` bestimmt Ziele und Prüfungen aus dem tatsächlichen Diff und dem mit esbuild
+   ermittelten Code-Abschluss. Bei einem Push sucht der Job den zugehörigen gemergten PR aus
+   demselben Repository. Ein bestandener `quality`-Job des erfolgreichen PR-Workflows kann
+   die Quellprüfungen für diesen Merge belegen. Dafür müssen Basis-Commit, Git-Baum des
+   geprüften Checkouts und alle sechs Flags für Inhalte, Wissenshub, beide Typprüfungen, Unit-
+   und Korpustests übereinstimmen. Der geprüfte Baum schließt Workflows und Lockdatei ein.
+   GitHub liefert den Prüfvermerk als Schritt des konkreten Jobversuchs. Der Job-Summary
+   verlinkt den verwendeten Lauf.
+2. `build` prüft die Abhängigkeiten bei jedem Release aktuell mit `npm audit` (ab `high`).
+   Ohne passenden PR-Nachweis, bei unbekanntem Code-Abschluss, API-Fehler oder manuellem
+   Start führt die gemeinsame Action `.github/actions/source-checks` alle für den Scope
+   angeforderten Quellprüfungen aus. Den Release-Build erzeugt `main` immer selbst mit den
+   Ziel-Origins und der Haushaltsfreigabe. Assets, Links, SEO und Laufzeit-Smokes prüfen
+   dieses Artefakt. Das PR-Artefakt gehört ausschließlich zur Vorschau.
 3. `d1_seed` läuft parallel zum Build, nur bei `run_full_corpus_smoke`: Seed-Fingerabdruck
    bestimmen, Snapshot aus dem Actions-Cache (`d1-seed-<Fingerabdruck>`) wiederherstellen und
    verifizieren; ohne Treffer genau eine Projektion, danach Snapshot im Cache speichern.
@@ -110,14 +119,21 @@ Inventur läuft geplant und manuell (`visual-extended.yml`).
    fehlender Cache-Eintrag führt zu einer Projektion als Rückfall, nie zu einem Abbruch),
    verifiziert die Projektion gegen Git (`norms:runtime:d1-verify --local --fts-integrity`) und
    führt Barrierefreiheits- und Browser-Smoke gegen denselben Worker aus.
-5. `d1_sync` projiziert bei `run_d1_sync` die Rechtsdaten nach Cloudflare D1:
-   `--git-diff <before> <sha> --budget incremental --recover`. Der Lauf ist ein No-op, wenn D1
+5. `d1_sync` verwendet bei `run_d1_sync` den geprüften Bereich
+   `--git-diff <D1-Basis> <sha> --budget incremental --recover`. Die gemeinsame Action
+   `.github/actions/d1-remote-state` liest Fingerabdruck, Scope und Abschlusszustand
+   aus D1. Trägt die Datenbank nach einem ausgebliebenen Release noch eine ältere
+   vollständige Projektion, sucht sie den passenden Fingerabdruck unter den letzten
+   32 Commits der Hauptlinie vor dem Push (einschließlich Ereignisbasis). Der gesamte
+   ausstehende Diff fließt in den Lauf ein. Bei einem bereits ausgerollten Ziel greift
+   der No-op. Unbekannte, unvollständige oder nicht sicher zuordenbare Zustände stoppen
+   vor dem Schreibzugriff. Der Lauf ist ein No-op, wenn D1
    bereits die Projektionsidentität des Commits trägt; er schreibt inkrementell nur mit
    verifizierter Basis (Base-State-Guard) und fällt sonst auf eine markierte Recovery zurück. Eine
    Vollprojektion führt der automatische Sync nie aus: Entscheidung und Budgetprofil werden vor
    dem Planbau abgeglichen, ein `full`-Beschluss endet fail-closed. Verlangt er die Vollprojektion
    nur wegen geänderter Projektionslogik (Remote-State meldet Exit 3), rechnet der Job zuerst den
-   Äquivalenznachweis (`npm run norms:runtime:d1-prove -- --base <before> --head <sha>`:
+   Äquivalenznachweis (`npm run norms:runtime:d1-prove -- --base <D1-Basis> --head <sha>`:
    Basisprojektion aus dem Seed-Cache oder aus einem Worktree des Basis-Commits, Zielprojektion
    aus dem Seed des Laufs, vollständiger Tabellenvergleich) und übergibt ihn dem Sync
    (`--equivalence-proof`): nachgewiesen gleiche Daten übernehmen nur die neue Identität und die
@@ -128,10 +144,10 @@ Inventur läuft geplant und manuell (`visual-extended.yml`).
    unten). Migrationen spielt der Workflow nie ein.
 6. `deploy` veröffentlicht zuerst OstRecht, danach das Staatsportal, und prüft den
    Produktionsstand (`npm run test:deployment:production`).
-7. `visual` läuft bei `run_visual` im Playwright-Container gegen das Fixture und vergleicht die
-   breite Inventur (`npm run test:visual:extended`, drei Viewports: 1440, 768, 390) strikt mit den
-   committeten Linux-Baselines; es ist kein Deployment-Gate, ein Fehlschlag wird aber wie eine
-   Regression behandelt.
+Konkurrierende Releases warten in der Actions-Warteschlange. Der automatische D1-Sync
+verlangt einen auflösbaren Basis-Commit. Fehlt er, endet der Job vor dem Schreiben.
+Ein laut Scope erforderlicher, wegen eines fehlgeschlagenen Vorgängers übersprungener Smoke
+oder D1-Sync sperrt das Deployment.
 
 Bei `docs-only` endet der Lauf nach `docs_check`, bei `ci-only` nach den angeforderten Prüfungen.
 Ein manuell gestarteter Workflow bietet die Ziele `portal`, `law` und `both` und verwendet
@@ -150,18 +166,22 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
   A11y und Browser gegen den Vollbestand);
 - `visual` bei `run_visual` im Playwright-Container: die kritische Auswahl
   (`npm run test:visual:critical`, wenige Minuten);
-- `d1_token_check` bei `run_d1_sync`: `--remote-state` gegen Produktion (Identität, gespeicherte
+- `d1_token_check` bei `run_d1_sync`: dieselbe D1-Basissuche, dann `--remote-state` für den ausgecheckten PR-Mergebaum gegen Produktion (Identität, gespeicherte
   Identität, Umfang und Entscheidung des künftigen Main-Syncs in Sekunden, kein Sync-Plan, kein
   Schreibzugriff) – grün bei No-op oder verifiziertem inkrementellem Lauf. Meldet er eine nötige
   Vollprojektion (Exit 3), rechnet der Job den Äquivalenznachweis wie `d1_sync` auf `main`
   (Basis-Seed aus dem Cache von `main`, Ziel-Seed aus `d1_seed`, sonst lokale Projektionen) und
   wiederholt den Remote-State mit dem Nachweis: grün, wenn `main` nach dem Merge nur Identität
   oder einen nachgewiesenen inkrementellen Umfang schreibt, rot mit den abweichenden Tabellen,
-  wenn tatsächlich eine Vollprojektion nötig ist; dazu ein Teilsync der Verkündungen gegen
-  Staging als Schreibnachweis des Tokens;
+  wenn tatsächlich eine Vollprojektion nötig ist. Die Schreibberechtigung auf Staging belegt
+  `norms:runtime:d1-write-probe` mit Einfügen, Lesen, Löschen und Kontrolllesen in
+  `law_ci_write_probe`. Die Action `.github/actions/d1-equivalence` berechnet den Nachweis
+  im PR und im Release jeweils gegen die dortigen Commits.
 - `preview` für Pull Requests mit Staatsportal-Wirkung, wenn `CLOUDFLARE_PREVIEWS_ENABLED=true`,
   `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` gesetzt sind (Worker-Version mit
-  PR-Alias, durch Cloudflare Access zu schützen; Versionen werden beim Schließen gelöscht). Der
+  PR-Alias, durch Cloudflare Access zu schützen). Beim Schließen fordert `cleanup-preview` die
+  Löschung an. Lehnt Cloudflare die neueste Worker-Version mit Fehler 10339 ab, den
+  Aufräumjob nach der nächsten veröffentlichten Version erneut starten. Der
   PR-Build läuft mit `HAUSHALT_VORSCHAU=1`; enthält er nicht freigegebene Haushaltsperioden
   (Marker `apps/portal/dist/haushalt-vorschau.json`), wird keine Vorschau hochgeladen. Ohne solche
   Perioden entsteht kein Marker und die Vorschau wird wie gewohnt hochgeladen.
@@ -262,8 +282,10 @@ Die Screenshot-Suite bleibt im exakt zur Lockdatei passenden Playwright-Containe
 zu den Linux-Baselines. Playwright wird exakt versioniert; vor einem Update muss das passende
 `v<Version>-noble`-Image für die Runner-Architektur veröffentlicht sein. Ein npm-Release allein
 ist dafür kein Nachweis. Ein Wechsel auf `-resolute` ist eine eigenständige Änderung mit Sichtprüfung
-und neuem striktem Vergleich; ein Runner-Upgrade ist dafür kein Anlass. Browser- und
-Accessibility-Smokes auf dem Host verwenden Playwright mit Ubuntu-26.04-Unterstützung.
+und neuem striktem Vergleich; ein Runner-Upgrade ist dafür kein Anlass. PR- und
+Release-Smokes verwenden denselben Noble-Container mit vorinstalliertem Chromium und der
+Node-Version aus `mise.toml`. Der eigenständige wöchentliche Vollbestand-Smoke prüft
+Chromium zusätzlich direkt auf dem Ubuntu-26.04-Host.
 
 ## D1-Seed-Cache
 
@@ -484,8 +506,35 @@ curl -fsSI https://recht.freistaat-ostdeutschland.de/ | sed -n '/^x-portal-commi
 curl -fsS https://recht.freistaat-ostdeutschland.de/ | grep -o 'meta name="build-commit" content="[0-9a-f]\{40\}"'
 ```
 
-Der öffentliche Stand gilt erst dann als bestätigt, wenn Header und HTML dieselbe vollständige
-Kennung ausgeben und sie dem freigegebenen Commit auf `main` entspricht.
+Für jedes Ziel liegt unter `/build-info.json` das Manifest mit Commit, Build-ID,
+UTC-Erzeugungszeit und redaktionellem Stichtag. OstRecht nennt zusätzlich den Fingerabdruck
+der erwarteten Vollprojektion, soweit ihr Code-Abschluss bestimmbar ist.
+`/api/projektionsstand.json` liefert den Fingerabdruck der abgeschlossenen Vollprojektion aus D1.
+Bei einer fehlenden oder laufenden Projektion antwortet die Route mit HTTP 503.
+
+Die Produktionsnachkontrolle vergleicht das Manifest mit dem heruntergeladenen Freigabeartefakt,
+die Kennungen in den Routenheadern mit dem HTML und bei OstRecht einmalig den aktuellen
+D1-Stand mit der erwarteten Projektion. Spätere reine Datensyncs haben einen eigenen Lebenszyklus.
+Je Ziel enthält das Actions-Artefakt `release-evidence-<Lauf>-<Versuch>` den geprüften Build,
+das Ergebnis und den Zeitpunkt der Beobachtung. Die Aufbewahrung beträgt 90 Tage.
+Bei gesetztem `SOURCE_DATE_EPOCH` verwendet ein lokaler Build die angegebene Unix-Zeit.
+
+Für einen späteren Vergleich kann `EXPECTED_PORTAL_BUILD` oder `EXPECTED_LAW_BUILD` auf
+das freigegebene Manifest oder den zugehörigen Nachweis zeigen. Die Prüfung verwendet den
+Stichtag aus diesem Artefakt. Beispiel für einen Portalvergleich mit dem lokalen Git-Stand:
+
+```sh
+PORTAL_SITE_URL=https://freistaat-ostdeutschland.de LAW_SITE_URL=https://recht.freistaat-ostdeutschland.de \
+DEPLOY_TARGETS=portal EXPECTED_PORTAL_BUILD=/pfad/zum/nachweis/portal.json \
+REPOSITORY_COMMIT="$(git rev-parse HEAD)" npm run test:deployment:production
+```
+
+`expected` bestätigt die Freigabe. `repository-pending` bestätigt dieselbe Freigabe und
+kennzeichnet einen nachweislich jüngeren Repository-Commit. `deployment-incomplete` meldet
+eine unerreichbare Route oder einen erkennbaren Vorgängerbuild. `inconsistent` meldet
+widersprüchliche Kennungen oder Daten. Die beiden letzten Zustände haben Exitcode 1.
+Für Abstammungsvergleiche müssen beide Commits in der lokalen Git-Historie vorliegen.
+`VERIFY_RELEASE_PROJECTION=1` schaltet den Vergleich mit der aktuellen D1-Projektion hinzu.
 
 ## Korrektur und Wiederanlauf
 

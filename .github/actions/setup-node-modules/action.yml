@@ -5,9 +5,9 @@ description: >-
   Beschleuniger – jeder Job kann ihn jederzeit verlieren und fällt dann auf npm ci zurück.
 inputs:
   node-version:
-    description: Node.js-Version (leer = Node.js des Runners bzw. Containers verwenden)
+    description: project = mise.toml, leer = Node.js des Containers, sonst explizite Version
     required: false
-    default: '22'
+    default: 'project'
 outputs:
   cache-hit:
     description: true, wenn node_modules aus dem Cache kam
@@ -19,7 +19,8 @@ runs:
       if: ${{ inputs.node-version != '' }}
       uses: actions/setup-node@v7
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{ inputs.node-version != 'project' && inputs.node-version || '' }}
+        node-version-file: mise.toml
     - name: Node-Version für den Cache-Schlüssel ermitteln
       id: node
       shell: bash
