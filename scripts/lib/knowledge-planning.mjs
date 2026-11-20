@@ -75,6 +75,7 @@ export function validatePlanning({ agenda, mandates, sources, ids, hasNorm, load
   const byId = new Map(rows.map((x) => [x.id, x]));
   const counts = new Map(tiers.map((tier) => [tier, 0]));
   const proofs = new Set();
+  const evidenceVersions = new Map();
   let duplicates = 0;
   for (const x of rows) {
     register(x.id);
@@ -92,6 +93,19 @@ export function validatePlanning({ agenda, mandates, sources, ids, hasNorm, load
     counts.set(x.tier, (counts.get(x.tier) ?? 0) + 1);
     if (!['offen','teilweise','nicht-pruefbar'].includes(x.status) || !['kann','soll','muss'].includes(x.obligation) ||
         !x.subject || !x.addressee || !x.instrument || !x.evidence?.length) errors.push(x.id + ': unvollständiger Vollzugsbefund.');
+    // Ältere Belege enthalten neben Freitext auch vollständige Pfade zu gespeicherten Fassungen.
+    for (const evidence of Array.isArray(x.evidence) ? x.evidence : []) {
+      if (typeof evidence !== 'string') {
+        errors.push(x.id + ': ungültiger Eintrag in evidence.');
+        continue;
+      }
+      for (const match of evidence.matchAll(/(?:^|[\s(])(?:content\/normen\/)?([a-z0-9-]+)\/versions\/([a-z0-9-]+)\.json\b/gu)) {
+        const [, slug, versionId] = match;
+        const key = slug + '/' + versionId;
+        if (!evidenceVersions.has(key)) evidenceVersions.set(key, loadVersion(slug, versionId)?.versionId === versionId);
+        if (!evidenceVersions.get(key)) errors.push(x.id + ': Normfassung aus evidence fehlt: ' + key);
+      }
+    }
     if (x.sourceRefs || x.asOf) refs(x.id, x.sourceRefs);
     if (x.deadlineDate && (!validDate(x.deadlineDate) || !x.deadline)) errors.push(x.id + ': Frist ist ungültig.');
     if ((x.tier === 'fristgebunden' && x.deadlineDate && x.deadlineDate < referenceDate) ||

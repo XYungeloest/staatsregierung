@@ -231,11 +231,11 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Sicherheit“ in `allowedNormMinistries` und `allowedEnactingBodies` nutzt keine Norm mehr. Fertig,
   wenn die Einträge entfernt sind und `npm run content:check` sowie
   `tests/law-publication-presentation.test.ts` bestehen.
-- [ ] Prüfung der Vollzugsaufträge im Wissenshub: `knowledge/implementation-mandates.json` und
-  `knowledge/VOLLZUGSAUFTRAEGE.md` werden von keinem Skript geprüft oder erzeugt;
-  `scripts/knowledge.mjs check` liest sie nicht. Fertig, wenn die Prüfung `normSlug`, die
-  Normfassungen in `evidence`, Wissenshub-IDs und das Feld `norm` (abbr, sonst shortTitle, sonst
-  title aus `meta.json`) gegen den Bestand abgleicht, mit synthetischem Test.
+- [ ] Belege in älteren Vollzugsaufträgen präzisieren. In `evidence` stehen Wissenshub-IDs und
+  verkürzte Fassungsangaben neben Freitext. Das Anzeigefeld `norm` enthält teilweise die
+  Verkündungsfundstelle. Fertig, wenn diese Angaben eindeutig typisiert, die IDs und Fassungen
+  auflösbar und Normbezeichnung (`abbr`, sonst `shortTitle`, sonst `title`) und Fundstelle
+  getrennt prüfbar sind. Die Prüfung braucht synthetische Fälle für beide Belegarten.
 - [ ] Fußnoten übernommener Vorschriften überleiten: `parseSourceNotes` in
   `scripts/lib/revosax-parser.mjs` legt alle Fußnoten der Quelle als `sourceNotes` ab;
   `adaptParsedRevosaxSnapshot` in `scripts/lib/revosax-ost-adapter.mjs` passt sie nicht an, und

@@ -86,11 +86,15 @@ export function extractRelativeLinks(markdown) {
 
 export async function checkDocs(root = process.cwd()) {
   const problems = [];
+  const { scripts } = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
   for (const document of CANONICAL_DOCUMENTS) {
     if (!(await exists(join(root, document)))) problems.push(`kanonisches Dokument fehlt: ${document}`);
   }
   for (const file of await markdownFiles(root)) {
     const markdown = await readFile(join(root, file), 'utf8');
+    for (const command of documentedNpmScripts(markdown)) {
+      if (!Object.hasOwn(scripts, command)) problems.push(`${file}: unbekannter npm-Befehl npm run ${command}`);
+    }
     for (const pattern of RETIRED_DOCUMENT_PATTERNS) {
       if (pattern.test(markdown)) problems.push(`${file}: Verweis auf entferntes Dokument (${pattern.source})`);
     }
@@ -106,6 +110,11 @@ export async function checkDocs(root = process.cwd()) {
     }
   }
   return problems;
+}
+
+/** Wörtliche Root-Befehle in Codebeispielen und Fließtext. */
+export function documentedNpmScripts(markdown) {
+  return new Set(Array.from(markdown.matchAll(/\bnpm run ([\w-]+(?::[\w-]+)*)(?=[\s`),.;]|$)/gu), (match) => match[1]));
 }
 
 async function main() {

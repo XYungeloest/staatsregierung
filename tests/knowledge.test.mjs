@@ -124,6 +124,15 @@ test('Planungsprüfung verwirft unbekannte Quellen, Stufen, Fristen, Duplikate u
   }
 });
 
+test('Vollzugsbelege prüfen explizite Fassungspfade auch im Altbestand', () => {
+  const model = planningFixture();
+  const [row] = model.mandates.mandates;
+  row.evidence = ['Aktenvermerk', 'Test (content/normen/testnorm/versions/2031-01-01.json, § 1)'];
+  assert.deepEqual(validatePlanning(model), []);
+  row.evidence.push('testnorm/versions/2030-01-01.json');
+  assert.match(validatePlanning(model).join('\n'), /auftrag: Normfassung aus evidence fehlt: testnorm\/2030-01-01/u);
+});
+
 test('Zeitüberblick lässt ein Gesetzespaket andere Themen nicht verdrängen und zeigt nur eingetretene Ereignisse', () => {
   const events = Array.from({ length: 15 }, (_, i) => ({ id: 'norm-' + i, date: '2030-11-12', tags: ['law'] }));
   events.push({ id: 'wettbewerb', date: '2030-11-12', eventType: 'communication' },
