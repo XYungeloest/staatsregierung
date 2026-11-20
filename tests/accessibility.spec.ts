@@ -173,7 +173,7 @@ for (const target of selected(auditTargets)) {
     // Genau ein <main> je Seite: Hilfstechnik braucht einen eindeutigen Hauptbereich.
     expect(await page.locator('main').count(), `${url}: genau ein main`).toBe(1);
     const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
       .analyze();
     expect(results.violations, url).toEqual([]);
   });
@@ -200,7 +200,7 @@ lawA11yTest('Zum Seitenanfang ist im gescrollten Zustand zugänglich', async ({ 
   const size = await button.boundingBox();
   expect(size!.width).toBeGreaterThanOrEqual(44);
   expect(size!.height).toBeGreaterThanOrEqual(44);
-  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
   expect(results.violations).toEqual([]);
 });
 
@@ -216,7 +216,7 @@ lawA11yTest('Der geöffnete Verlauf einer Einheit ist zugänglich', async ({ pag
   // ihre Werkzeugzeile unter dem fixierten Kopf, meldet axe sie sonst als verdeckt.
   await details.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
   await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
-  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
   expect(results.violations).toEqual([]);
 });
 
@@ -231,7 +231,7 @@ lawA11yTest('Der verdichtete Normkopf auf dem Smartphone ist zugänglich', async
   const miniHead = page.locator('[data-norm-mini-head]');
   await expect(miniHead).toBeVisible();
   await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
-  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
   expect(results.violations).toEqual([]);
 });
 

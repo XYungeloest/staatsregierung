@@ -805,14 +805,17 @@
 
 .topic-data-grid dd {
   margin: var(--space-xs) 0 0;
-  color: var(--color-heading);
+}
+
+.topic-data-grid__text {
+  color: var(--color-text);
   font-size: var(--text-base);
-  font-weight: 700;
-  line-height: var(--lh-heading);
+  line-height: var(--lh-body);
 }
 
 /* Nur ein Zahlenwert bekommt die Kennzahlengröße; ein Satz bleibt Fließtext. */
 .topic-data-grid__metric {
+  color: var(--color-heading);
   font-size: var(--text-metric);
   font-weight: 780;
   line-height: var(--lh-display);
@@ -1543,3 +1546,24 @@
   .topic-briefing__heading { align-items: flex-start; }
 }
 .status-badge--muted { color: var(--color-text-muted); background: var(--color-surface-muted); }
+
+.topic-module__sources { display: inline-block; margin-top: var(--space-3); }
+.topic-law-group { border-bottom: 1px solid var(--color-border); scroll-margin-top: var(--space-5); }
+.topic-law-group summary, .topic-application-background > summary {
+  padding-block: var(--space-3);
+  color: var(--color-heading);
+  font-weight: 700;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.topic-law-group summary span, .topic-law-state, .topic-law-issue { color: var(--color-text-muted); font-size: var(--text-sm); }
+.topic-law-group ul { margin: 0; padding: 0 0 var(--space-3) var(--space-4); list-style: none; }
+.topic-law-group li { padding-block: var(--space-2); overflow-wrap: anywhere; }
+.topic-law-group li > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-3); }
+.topic-law-group li p { margin: var(--space-1) 0; }
+.topic-law-issue { display: inline-block; padding-block: var(--space-1); }
+.topic-application-background > summary { border-block: 1px solid var(--color-border); }
+
+@media (min-width: 64.001rem) {
+  :is(#perioden, #bezirk-suche, #beteiligungsnavigator) { scroll-margin-block-start: 8rem; }
+}

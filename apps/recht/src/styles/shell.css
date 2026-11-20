@@ -87,7 +87,7 @@
   object-fit: contain;
 }
 
-.law-wordmark span {
+.law-wordmark > span {
   display: grid;
   gap: 1px;
   border-left: var(--line) solid var(--surface-band-border);

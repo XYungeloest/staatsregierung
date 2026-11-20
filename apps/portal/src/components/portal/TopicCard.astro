@@ -1,4 +1,5 @@
 ---
+import { formatTopicStatus } from '@ostrecht/shared/lib/portal/presentation.ts';
 import StatusBadge from './StatusBadge.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
@@ -23,20 +24,16 @@ interface Props {
 const { topic, ministryName, variant = 'default', headingLevel = 3, anchorId } = Astro.props as Props;
 const nextDate = getNextTopicDate(topic, PORTAL_REFERENCE_DATE);
 const Heading = `h${headingLevel}`;
-/**
- * Das Statusabzeichen steht dort, wo es unterscheidet. In der Vollübersicht trüge es bei 18 von
- * 21 Themen dasselbe Wort; dort tragen Fachgebiet, nächster Termin und Fachstand die Auskunft.
- */
-const showStatus = variant !== 'compact';
 ---
 
 <article id={anchorId} class:list={['panel', 'topic-card', `topic-card--${variant}`]}>
-  {showStatus && <div class="topic-card__header">
-    {showStatus ? <StatusBadge status={topic.status} /> : null}
+  {variant !== 'compact' && <div class="topic-card__header">
+    <StatusBadge status={topic.status} />
     <p class="topic-card__cluster">{TOPIC_CLUSTER_LABELS[topic.cluster]}</p>
   </div>}
   <Heading><a href={getTopicUrl(topic.slug)}>{topic.title}</a></Heading>
   <p>{topic.teaser}</p>
+  {variant === 'compact' && <p class="topic-card__meta">Stand des Vorhabens · <strong>{formatTopicStatus(topic.status)}</strong></p>}
   {nextDate ? (
     <p class="topic-card__date"><PortalIcon name="calendar" /><span><time datetime={nextDate.date}>{siteConfig.date.formatLong(nextDate.date)}</time> · {nextDate.label}</span></p>
   ) : null}

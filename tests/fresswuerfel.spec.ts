@@ -49,7 +49,7 @@ test('Desktop und Mobil: echte Speicherung, Tastatur, Validierung und private UR
   }
   await page.goto(path);
   await expect(page.locator('input[type=file]')).toHaveCount(1);
-  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
   mkdirSync('test-results/fresswuerfel', { recursive: true });
   await page.screenshot({ path: 'test-results/fresswuerfel/desktop.png', fullPage: true });
   for (const width of [390, 320]) {
@@ -58,7 +58,7 @@ test('Desktop und Mobil: echte Speicherung, Tastatur, Validierung und private UR
     await page.locator('#figure-description').fill('Eine mobile Testbeschreibung mit ausreichend Zeichen.');
     await expect(page.locator('#figure-description')).toBeVisible();
   }
-  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
   await page.screenshot({ path: 'test-results/fresswuerfel/mobile.png', fullPage: true });
   await page.goto(path);
   await page.locator('#figure-description').fill('Eine private synthetische Skizze für den Bildtest.');
@@ -172,7 +172,7 @@ test('Teilbare Sichtung: Linkzugriff, WebP, Großansicht, Filter und keine Konta
   await page.getByLabel('Ideen auf dieser Seite filtern').fill('kein-passender-vorschlag');
   await expect(page.locator('#filter-empty')).toBeVisible();
   await page.getByLabel('Ideen auf dieser Seite filtern').fill('');
-  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto(reviewPath);

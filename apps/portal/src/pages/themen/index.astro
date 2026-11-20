@@ -22,8 +22,7 @@ import { loadMinistries, loadTopics } from '@ostrecht/shared/lib/portal/content.
 const [topics, ministries] = await Promise.all([loadTopics(), loadMinistries()]);
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const currentTopics = getActiveTopicHighlights(topics, PORTAL_REFERENCE_DATE);
-const currentTopicSlugs = new Set(currentTopics.map((topic) => topic.slug));
-const focusTopics = topics.filter((topic) => topic.pageType === 'dossier').filter((topic) => !currentTopicSlugs.has(topic.slug));
+const focusTopics = topics.filter((topic) => topic.pageType === 'dossier');
 const topicGroups = groupTopicsByCluster(topics);
 ---
 
