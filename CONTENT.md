@@ -1315,6 +1315,15 @@ Häufig redigierte Dashboarddaten liegen als validiertes JSON vor:
 Die gleichnamigen Dateien unter `apps/portal/src/data/dashboard/` laden nur das JSON. Die erlaubten Typen und
 Parser stehen in `packages/shared/src/lib/portal/dashboard-content.ts`.
 
+Die statische API `/api/project-status.json` veröffentlicht die Planeinträge mit ihrem
+redigierten Status und dem gemeinsamen `referenceDate`. `legalReferences` löst die Quellen
+jedes Punkts über Normkennung oder ausdrücklich benannte Ausgabe auf. Ein Themenpfad in
+`href` verbindet den Punkt mit dem öffentlichen Themenprofil unter `topic`. Dort stammen
+`beschlossen`, `umgesetzt` und `naechsteSchritte` aus der freigegebenen Themenseite.
+`procedures` nennt nur ausdrücklich zugehörige parlamentarische Verfahren und deren belegte
+Einzeldaten. Verkündungsdatum, Rechtswirksamkeit und Vollzug sind eigenständige Angaben.
+Fehlt ein passendes Themenprofil, ist `topic` gleich `null`.
+
 Wichtige Werte:
 
 - `ActionPlanStatus`: `umgesetzt`, `teilweise_umgesetzt`, `angelegt`
