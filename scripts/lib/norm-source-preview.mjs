@@ -63,9 +63,10 @@ export function renderSourcePreview({ name, digest, review, pdf, saved = [], war
       ...(row.problems ?? []), row.action].filter(Boolean).join(' · '))];
   const list = issues.length ? '<ul>' + issues.map((item) => '<li>' + e(item) + '</li>').join('') + '</ul>'
     : '<p>Keine Befunde aus Parser und zugeordnetem Konsolidierungsmanifest.</p>';
+  const byTitle = Map.groupBy(review.norms, (norm) => norm.title);
   const norms = review.norms.map((norm, index) => {
     const summary = review.summaries[index];
-    const matches = saved.filter(({ entry }) => entry.title === norm.title);
+    const matches = byTitle.get(norm.title).length === 1 ? saved.filter(({ entry }) => entry.title === norm.title) : [];
     return '<article><h3>' + e(norm.title) + '</h3><p>' + summary.structureCount + ' Gliederungseinheiten · '
       + summary.listCount + ' Listeneinträge · ' + summary.tableCount + ' Tabellen</p>' + comparisonMarkup(norm, matches)
       + blocksMarkup(norm.body) + '</article>';
@@ -77,6 +78,7 @@ export function renderSourcePreview({ name, digest, review, pdf, saved = [], war
 h1,h2,h3{line-height:1.2}code,dd,pre,li{overflow-wrap:anywhere}pre{font:inherit;white-space:pre-wrap}
 .grid{display:grid;gap:1.5rem;grid-template-columns:repeat(2,minmax(0,1fr))}section{min-width:0}iframe{width:100%;height:70vh;border:1px solid #687b86}
 summary{cursor:pointer}details{margin:.75rem 0}small{color:#3c5a64}.blocks{padding-left:1.1rem}.blocks p{margin:.35rem 0}
+@media(min-width:55.01rem){.grid{align-items:start}.grid>section:first-child{position:sticky;top:.5rem;max-height:calc(100vh - 1rem);overflow:auto}}
 @media(max-width:55rem){.grid{grid-template-columns:1fr}iframe{height:55vh}}</style></head><body>
 <main><h1>Lokale Quellenprüfung</h1><p>${e(name)} · SHA-256 <code>${e(digest)}</code></p><p>${e(review.reason)}</p>
 <h2>Prüfbefunde</h2>${list}<div class="grid"><section><h2>Originalquelle</h2>

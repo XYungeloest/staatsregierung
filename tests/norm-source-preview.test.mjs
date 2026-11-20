@@ -21,6 +21,8 @@ test('Quellenprüfung nutzt den Importparser und vergleicht nur eine eindeutig b
   assert.match(render([{ ...saved[0], version: { ...saved[0].version, body: [] } }]), /Hinzugekommen/u);
   assert.match(render([{ ...saved[0], version: undefined }]), /bezeichnete Fassung fehlt/u);
   assert.match(render([...saved, ...saved]), /keine eindeutige gespeicherte Vergleichsfassung/u);
+  const repeated = { ...review, norms: [norm, norm], summaries: [...review.summaries, ...review.summaries] };
+  assert.doesNotMatch(renderSourcePreview({ name, digest: '123', review: repeated, saved }), /abweichende Texteinheiten/u);
   assert.equal(render(saved), render(saved));
 });
 
