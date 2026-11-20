@@ -122,7 +122,10 @@ const auditTargets: AuditTarget[] = [
   { name: 'Stichwortregister', site: 'law', resolve: lawPage('/a-z/stichwortregister/?buchstabe=S') },
   { name: 'Abkürzungen und Kurztitel', site: 'law', resolve: lawPage('/a-z/abkuerzungen/?buchstabe=A') },
   { name: 'Vorschriftendaten', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/daten/`) },
-  { name: 'Rechtsbeziehungen', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/beziehungen/`) },
+  { name: 'Rechtsbeziehungen', site: 'law', resolve: async (request) => {
+    const slug = process.env.OSTRECHT_D1_FIXTURE ? fixtureRole('portal-relations') : (await multiVersionNorm(request)).slug;
+    return lawUrl(`/norm/${slug}/beziehungen/`);
+  } },
   { name: 'Historische Vorschriftendaten', site: 'law', resolve: async (request) => lawUrl(`${(await multiVersionNorm(request)).historical.url}daten/`) },
   { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'Förderrichtlinien', site: 'law', resolve: lawPage('/foerderrichtlinien/') },

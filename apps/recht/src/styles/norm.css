@@ -857,6 +857,19 @@ a.norm-timeline__date:hover {
   margin-bottom: var(--space-2);
 }
 
+.norm-relations__directory {
+  margin-bottom: var(--space-2);
+}
+
+.norm-relations__directory a {
+  display: inline-block;
+  min-height: 1.5rem;
+}
+
+.norm-relations__list + .norm-relations__directory {
+  margin-top: var(--space-4);
+}
+
 .norm-relations__list {
   display: flex;
   flex-direction: column;

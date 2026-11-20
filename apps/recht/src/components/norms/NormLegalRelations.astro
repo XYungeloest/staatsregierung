@@ -88,13 +88,13 @@ const hasAnything = visibleSections.length > 0 || recommendations.length > 0 || 
       <section class="norm-relations__group" data-visual-section="norm-portal-relations" aria-labelledby="norm-portal-title">
         <h3 id="norm-portal-title" class="r-label">Im Staatsportal</h3>
         {topics.length > 0 ? (
-          <><p class="r-meta"><a href={getTopicsUrl()}>Themen und Vorhaben</a></p>
+          <><h4 class="r-meta norm-relations__directory"><a href={getTopicsUrl()}>Themen und Vorhaben</a></h4>
           <ul class="norm-relations__list">
             {topics.map((topic) => <li><a class="norm-relations__title" href={topic.url}>{topic.title}</a></li>)}
           </ul></>
         ) : null}
         {pressReleases.length > 0 ? (
-          <><p class="r-meta"><a href={getPressReleaseIndexUrl()}>Pressemitteilungen</a></p>
+          <><h4 class="r-meta norm-relations__directory"><a href={getPressReleaseIndexUrl()}>Pressemitteilungen</a></h4>
           <ul class="norm-relations__list">
             {pressReleases.map((release) => <li><a class="norm-relations__title" href={release.url}>{release.title}</a><span class="r-meta norm-relations__detail"><span>Pressemitteilung vom <time datetime={release.date}>{formatShortDate(release.date)}</time></span></span></li>)}
           </ul></>

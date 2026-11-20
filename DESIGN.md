@@ -468,10 +468,12 @@ beim Reiterwechsel bleibt die Version-ID erhalten. „Fassungen und Änderungen�
 keine angehängten vollständigen Daten- oder Beziehungsbereiche. Seitennavigation verwendet keine
 Hash-Umschaltung oder künstliche Übernahme der Scrollposition.
 
-Auf der Beziehungsseite führen ab drei belegten Beziehungsarten Sprunglinks zu den Gruppen.
-Jede Gruppe zeigt zunächst fünf Einträge. Weitere Einträge öffnen sich über ein natives
-`details`-Element per Tastatur und ohne JavaScript. Datum, Fundstelle und Fassungslink stehen
-direkt am jeweiligen Eintrag.
+Auf der Beziehungsseite führen ab drei belegten Gruppen Sprunglinks zu den Abschnitten.
+Je Rechtsbeziehungsart erscheinen zunächst fünf Einträge. Weitere Einträge öffnen sich über ein
+natives `details`-Element per Tastatur und ohne JavaScript. Datum, Fundstelle und Fassungslink
+stehen direkt am jeweiligen Eintrag. Unter „Im Staatsportal“ verlinken die Zwischenüberschriften
+auf das Themen- und das Presseverzeichnis. Ihre Klickflächen sind mindestens 24 Pixel hoch und
+haben Abstand zum ersten zugehörigen Eintrag.
 
 Die Fassungen stehen in der Seitenspalte der Vorschrift (`NormAside.astro`, „Fassungen dieser
 Vorschrift“) als senkrechte Zeitleiste (auf Smartphones vor dem Normtext als horizontaler Streifen): je Fassung Datum, Art (geltend, historisch, künftig,
