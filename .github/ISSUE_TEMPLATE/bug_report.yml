@@ -10,7 +10,7 @@ body:
     id: location
     attributes:
       label: Betroffene Seite oder Komponente
-      description: URL, Dateipfad oder lokaler Befehl; bei Bedarf mit Commit-Kennung.
+      description: Öffentliche URL, Seitenname, Dateipfad oder lokaler Befehl. Für die private Fresswürfel-Sichtung genügt der Seitenname. Ihr Link enthält den Zugangsschlüssel.
     validations:
       required: true
   - type: textarea
@@ -36,4 +36,4 @@ body:
     id: evidence
     attributes:
       label: Ergänzende Belege
-      description: Optional Screenshots oder bereinigte Fehlermeldungen hinzufügen.
+      description: Optional Screenshots oder bereinigte Fehlermeldungen hinzufügen. Verwende für Bilder aus privaten Ansichten die lokale Vorschau mit Testdaten.

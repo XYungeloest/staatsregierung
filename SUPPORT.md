@@ -4,7 +4,7 @@ Für Fragen zur Mitarbeit und zur lokalen Entwicklung helfen zunächst [README.m
 [CONTRIBUTING.md](CONTRIBUTING.md) und die dort verlinkten Runbooks.
 
 - **Technischer Fehler oder Barriere:** Öffne ein Issue mit der Vorlage „Technischer Fehler oder
-  Barriere“. Nenne die URL und die Schritte, mit denen sich das Problem nachvollziehen lässt.
+  Barriere“. Nenne den Seitennamen oder eine öffentliche URL und beschreibe deine Schritte.
 - **Inhaltskorrektur:** Nutze die Vorlage „Inhaltskorrektur“ und nenne den Quellenbeleg, bei
   Rechtstexten möglichst auch Fundstelle und Fassung.
 - **Idee oder allgemeine Frage:** Nutze „Vorschlag oder Frage“. Beschreibe den Bedarf und den

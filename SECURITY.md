@@ -15,14 +15,9 @@ möglichst mit dem Betreff „Sicherheitsmeldung Staatsportal/OstRecht“.
 Veröffentliche noch nicht behobene Schwachstellen, Zugangsdaten und personenbezogene Daten nicht
 in Issues oder Pull Requests.
 
-Falls GitHubs private Schwachstellenmeldungen für das Repository aktiviert sind, kannst du auch
-unter [Security → Advisories](https://github.com/XYungeloest/staatsregierung/security/advisories)
-die Funktion „Report a vulnerability“ verwenden. Die Kontaktadresse bleibt unabhängig davon
-verfügbar.
-
 Hilfreich sind:
 
-- betroffene URL, Komponente oder Commit-Kennung;
+- Name der betroffenen Ansicht, öffentliche URL, Komponente oder Commit-Kennung;
 - erwartetes und beobachtetes Verhalten sowie eine Einschätzung der Auswirkungen;
 - möglichst kleine, nachvollziehbare Schritte zur Reproduktion;
 - bereinigte Belege ohne Zugangsdaten oder personenbezogene Daten.
