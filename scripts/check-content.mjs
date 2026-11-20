@@ -1,3 +1,5 @@
+import { parseThemenseite } from '../packages/shared/src/lib/portal/schema.ts';
+import { reportedEventProblems } from './lib/topic-event-dates.mjs';
 import { access, readdir, readFile, stat } from 'node:fs/promises';
 import {
   abbreviationProblem,
@@ -581,14 +583,17 @@ const byPrefix = (prefix) => {
 const ministrySlugs = new Set(byPrefix('ressorts/').map(({ json }) => json.slug).filter(Boolean));
 const topicSlugs = new Set(byPrefix('themen/').map(({ json }) => json.slug).filter(Boolean));
 const pressSlugs = new Set(byPrefix('presse/mitteilungen/').map(({ json }) => json.slug).filter(Boolean));
-const normSlugs = new Set(
-  byPrefix('normen/')
-    .filter(({ file }) => basename(file) === 'meta.json')
-    .map(({ json }) => json.slug)
-    .filter(Boolean),
-);
+const normRecords = byPrefix('normen/').filter(({ file }) => basename(file) === 'meta.json');
+const normSlugs = new Set(normRecords.map(({ json }) => json.slug).filter(Boolean));
 const normVersionIds = new Map();
 const publicationSlugs = new Set(byPrefix('verkuendungen/').map(({ json }) => json.slug).filter(Boolean));
+const topicEventDates = {
+  'norm-effective': new Map(normRecords.map(({ json }) => [json.slug, json.effectiveDate])),
+  press: new Map(byPrefix('presse/mitteilungen/').map(({ json }) => [json.slug, json.date])),
+  publication: new Map(byPrefix('verkuendungen/').map(({ json }) => [json.slug, json.date])),
+  'campaign-result': new Map(byPrefix('kampagnen/').filter(({ json }) => json.phase === 'ergebnis')
+    .map(({ file, json }) => [basename(file, '.json'), json.result?.publishedOn])),
+};
 const legislationRecords = byPrefix('gesetzgebung/');
 const governmentMemberRecords = byPrefix('regierung/mitglieder/');
 const ministryRecords = byPrefix('ressorts/');
@@ -633,6 +638,12 @@ for (const { file, json } of records) {
   }
 
   if (rel.startsWith('themen/')) {
+    try {
+      const topic = parseThemenseite(json, rel);
+      for (const problem of reportedEventProblems(topic, topicEventDates)) addProblem(file, problem);
+    } catch (error) {
+      addProblem(file, error.message);
+    }
     if (typeof json.federfuehrendesRessort === 'string' && !ministrySlugs.has(json.federfuehrendesRessort)) {
       addProblem(file, `federfuehrendesRessort verweist auf unbekanntes Ressort: ${json.federfuehrendesRessort}`);
     }

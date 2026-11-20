@@ -7,7 +7,7 @@
   "cluster": "bildung-gesellschaft",
   "priority": 64,
   "featured": false,
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-10-15",
   "knowledgeProjectRefs": [
     "project-luxemburg-liebknecht-memorial"
   ],
@@ -16,17 +16,20 @@
     "rundfunkreform"
   ],
   "beschlossen": [
-    "Der Organisationserlass 09/2026 trennt Kultur, Medien und kulturelle Emanzipation von Justiz und Rechtsstaatlichkeit. Tourismus gehört zum Wirtschaftsressort.",
-    "Der 15-Punkte-Plan II sieht Kulturhäuser der Grundversorgung, Mindestgagen, Erinnerungspolitik und regionale Medienförderung vor.",
-    "Kulturpass, Gedenkstätten, Industriekultur und nichtkommerzielle Medien werden als zusammenhängende öffentliche Aufgaben behandelt.",
-    "Seit dem 12. September 2026 zählt die Verfassung die demokratisch-sozialistische Kultur zu den Grundlagen der Gesellschaft und verpflichtet den Freistaat, die humanistischen, demokratischen, antifaschistischen und sozialen Werte des regionalen, nationalen und internationalen Kulturerbes zu pflegen."
+    "Der 15-Punkte-Plan II sieht Kulturhäuser der Grundversorgung, Mindestgagen und regionale Medienförderung vor."
   ],
-  "geltendesRecht": [],
+  "geltendesRecht": [
+    "Die Verfassung verpflichtet den Freistaat zur Pflege des Kulturerbes. Kulturpass und öffentlich-rechtlicher Rundfunk haben eigene gesetzliche Grundlagen."
+  ],
   "umgesetzt": [],
   "naechsteSchritte": [
-    "Weiterentwicklung des Kulturpasses und der kulturellen Teilhabe.",
-    "Vorbereitung eines Landeskulturkonvents und eines Programms Kulturhäuser der Grundversorgung.",
-    "Aufbau regionaler Medien- und Erinnerungsstrukturen in enger Abstimmung mit Bildung und Staatskanzlei."
+    "Das Regierungsprogramm sieht einen Landeskulturkonvent und ein Programm für Kulturhäuser vor."
+  ],
+  "impacts": [
+    {
+      "text": "Ab 1. Januar 2027 haben unter 18-Jährige und Menschen mit gültigem Sozialpass Ost freien Zugang zu den allgemein zugänglichen Angeboten der Museen, Gedenkstätten, Ausstellungen und Bibliotheken in Trägerschaft des Freistaates. Gesondert beauftragte Leistungen wie Reproduktionen können kostenpflichtig sein.",
+      "normSlug": "ostdeutsches-teilhabegesetz"
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -44,6 +47,11 @@
     {
       "label": "Verfassung des Freistaates Ostdeutschland",
       "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+    },
+    {
+      "label": "Ostdeutsches Teilhabegesetz",
+      "normSlug": "ostdeutsches-teilhabegesetz",
+      "note": "§ 5 gilt ab 1. Januar 2027."
     }
   ],
   "faq": [],

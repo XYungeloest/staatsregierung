@@ -8,15 +8,17 @@ Adresse: `/themen/fresswuerfel-maskottchen/`. Kampagnenkonfiguration:
 
 `phase` steuert `vorbereitet`, `einreichung`, `sichtung`, `ergebnis`. Die API nimmt nur bei
 `einreichung` innerhalb von `startsAt` (inklusive) und `endsAt` (exklusive) Beiträge an.
-Termine als ISO-8601 mit Offset/Z; öffentliche Ausgabe Europe/Berlin. Der Einreichungsschluss
-am 30. November 2026 umfasst den ganzen Tag: gespeichert ist `2026-12-01T00:00:00+01:00`.
+Termine als ISO-8601 mit Offset/Z; öffentliche Ausgabe Europe/Berlin. Für eine bis Tagesende
+offene Einreichung ist `endsAt` die Mitternacht zu Beginn des Folgetags.
 Ohne Startdatum erscheint „Der Starttermin wird hier bekannt gegeben.“ Der Wettbewerb ist
 unabhängig vom Betriebsbeginn der Restaurantkette.
 
 Nach der Frist `phase: "sichtung"` wählen. `candidates` enthält ausschließlich freigegebene
 `{slug,title,description,image?}`; Bilder als `{src,alt}`. Die Auswahl erscheint nur bei Sichtung.
-Für die Ergebnisfreigabe `result: {title,description,explanation?,image?}` pflegen und `phase: "ergebnis"`
-setzen. Das optionale Siegerbild enthält `src`, `alt`, `width` und `height`. Die URL bleibt erhalten. Die HO trifft die
+Für die Ergebnisfreigabe `result` mit `title`, `description` und dem belegten Veröffentlichungstag
+`publishedOn` (JJJJ-MM-TT) pflegen und `phase: "ergebnis"` setzen. Die Themenredaktion kann
+das Ergebnis anschließend über `reportedEvents` belegen. `explanation` und `image` sind optional.
+Das Siegerbild enthält `src`, `alt`, `width` und `height`. Die URL bleibt erhalten. Die HO trifft die
 Auswahl nach Wiedererkennbarkeit, Fresswürfel-Bezug, Eigenständigkeit und Kostümtauglichkeit.
 Es gibt keine öffentliche Abstimmung.
 

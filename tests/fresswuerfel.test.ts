@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 import { submitIdea, runtimeCampaign, isConnected, type CampaignEnv, type CampaignDB } from '../apps/portal/src/lib/fresswuerfel/server.ts';
-import { campaign, isSubmissionPhase, showTeaser, validateCampaign, formatCampaignDate } from '../apps/portal/src/lib/fresswuerfel/config.ts';
+import { campaign, campaignSummary, isSubmissionPhase, showTeaser, validateCampaign, formatCampaignDate } from '../apps/portal/src/lib/fresswuerfel/config.ts';
 
 function fixture() {
   const db = new DatabaseSync(':memory:');
@@ -71,6 +71,18 @@ test('Phasen, Terminränder, Freigaben und Vorschau bleiben getrennt', () => {
   assert.equal(runtimeCampaign({ APP_ENV: 'local', FRESSWUERFEL_PREVIEW_PHASE: 'ergebnis' }).result!.title, 'Lokales Prüfergebnis');
   assert.throws(() => validateCampaign({ ...campaign, phase: 'abstimmung' }));
   assert.throws(() => validateCampaign({ ...campaign, candidates: [{ slug: 'privat', title: 'Test', description: 'Test', email: 'privat@example.org' }] }));
+});
+
+test('Der öffentliche Wettbewerbsverweis folgt Einreichungsfrist, Sichtung und Ergebnisfreigabe', () => {
+  const c = { ...campaign, phase: 'einreichung' as const, result: null, startsAt: '2026-03-01T00:00:00Z', endsAt: '2026-03-08T00:00:00Z' };
+  assert.match(campaignSummary(c, Date.parse(c.startsAt) - 1).description, /bereitet/u);
+  assert.match(campaignSummary(c, Date.parse(c.startsAt)).description, /reichen Sie/u);
+  assert.match(campaignSummary(c, Date.parse(c.endsAt)).description, /abgelaufen/u);
+  assert.match(campaignSummary({ ...c, phase: 'sichtung' }).description, /sichtet/u);
+  assert.match(campaignSummary({ ...c, phase: 'ergebnis' }).description, /nach der Freigabe/u);
+  const result = { title: 'Eine Figur', description: 'Das freigegebene Ergebnis.', publishedOn: '2026-03-10' };
+  assert.match(campaignSummary({ ...c, phase: 'ergebnis', result }).title, /Eine Figur/u);
+  assert.throws(() => validateCampaign({ ...c, result: { ...result, publishedOn: '2026-02-30' } }), /Veröffentlichungsdatum/u);
 });
 
 test('Gleichzeitige identische Anfragen speichern nur einmal; Multipart wird abgelehnt', async () => {

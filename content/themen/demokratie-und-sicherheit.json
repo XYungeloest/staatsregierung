@@ -2,251 +2,382 @@
   "slug": "demokratie-und-sicherheit",
   "title": "Demokratie & Sicherheit",
   "pageType": "dossier",
-  "teaser": "Die Sicherheitsreform ordnet Polizeiaufgaben, Beschwerdeverfahren und den Schutz kritischer Infrastruktur in mehreren Schritten neu.",
+  "teaser": "Wer Beschwerden über die Polizei prüft, welche Aufgaben die Grenzpolizei hat und wann die neuen Regeln für Staatsschutz und kritische Infrastruktur gelten.",
   "status": "in-umsetzung",
   "cluster": "staat-demokratie",
   "priority": 82,
   "featured": false,
-  "updatedAt": "2026-11-13",
+  "updatedAt": "2026-11-14",
   "knowledgeProjectRefs": [
     "project-grenzpolizei"
   ],
   "beschlossen": [
-    "Die unabhängige Polizei-Beschwerde- und Ermittlungsstelle ist gesetzlich vorgesehen.",
-    "Am 13. November 2026 wurden die Gesetze zur Sicherheitsreform verkündet. Neue Befugnisse zur Terrorismus- und Drohnenabwehr gelten ab 14. November. Polizeibezeichnung, Organisation und Beschwerdestelle werden ab 1. Dezember neu geregelt; die weiteren Gesetze folgen überwiegend am 1. Januar 2027."
+    "Die am 13. November 2026 verkündeten Gesetze ordnen Polizei und Staatsschutz neu. Die Regelungen treten gestaffelt im November, Dezember und Januar in Kraft."
   ],
   "geltendesRecht": [
-    "Das Errichtungsgesetz und das Fachgesetz der Kasernierten Grenzpolizei wurden am 20. Juli 2026 verkündet und sind seit 21. Juli 2026 in Kraft.",
-    "Das Verwaltungsabkommen zur Wahrnehmung grenzpolizeilicher Aufgaben wurde am 28. Juli 2026 in Leipzig geschlossen und am 29. Juli 2026 im Gemeinsamen Ministerialblatt veröffentlicht.",
-    "Seit dem 8. September 2026 gilt für besonders gefährdete kritische Infrastruktur ein erhöhtes Sicherheitsniveau. Der Sicherheitserlass KRITIS 09/2026 konkretisiert die vorläufigen Schutzmaßnahmen und ist bis zum Ablauf des 8. Dezember 2026 befristet.",
-    "Seit dem 12. September 2026 ist das Landesantidiskriminierungsgesetz ein besonderes Gesetz der Verfassung; sein Diskriminierungsverbot wurde neu gefasst. Die Verfassung gewährleistet Gleichheit und Antidiskriminierung als soziale Grundlage und bindet Maßnahmen eines Geheimdienstes, die Grundrechte Dritter berühren, an eine gesetzliche Grundlage."
+    "Seit dem 14. November 2026 gelten die Änderungen des Polizeivollzugsdienstgesetzes zur Terrorismusabwehr. Vom neuen KRITIS-Gesetz gilt zunächst die Ermächtigung, Arten und Schwellenwerte kritischer Anlagen durch Verordnung festzulegen."
   ],
   "umgesetzt": [
-    "Die Kasernierte Grenzpolizei befindet sich im organisatorischen Aufbau.",
-    "Am 10. September 2026 haben Staatsschutz, Landespolizei und Staatsanwaltschaften 31 Objekte rechtsextremer Gruppierungen durchsucht und 13 Haftbefehle vollstreckt."
+    "Am 10. September 2026 durchsuchten Staatsschutz, Landespolizei und Staatsanwaltschaften 31 Objekte und vollstreckten 13 Haftbefehle. Am 28. Oktober 2026 wurden die Verbote der Vereinigungen „Chemnitz Revolte“ und „Deutsche Jugend Voran“ bekannt gemacht."
   ],
   "naechsteSchritte": [
-    "Die für Dezember und Januar vorgesehenen Organisationsänderungen, Kontrollgremien und Berichtsverfahren vorbereiten.",
-    "Für die grenzpolizeilichen Aufgaben sind die zentrale Dienststelle und die Zusammenarbeit mit Bundespolizei und Zoll organisatorisch festzulegen."
+    "Zum 1. Dezember 2026 ändern sich Polizeiorganisation und Beschwerdeverfahren. Die Regeln zum Staatsschutz, zur Zusammenarbeit der Behörden und zur Demokratieförderung treten am 1. Januar 2027 in Kraft."
+  ],
+  "modules": [
+    {
+      "type": "facts",
+      "id": "grenzpolizei",
+      "title": "Grenzpolizei",
+      "items": [
+        {
+          "label": "Auftrag",
+          "value": "Das Errichtungs- und das Fachgesetz gelten seit 21. Juli 2026. Mit dem Verwaltungsabkommen vom 28. Juli übernahm der Freistaat Aufgaben des grenzpolizeilichen Einzeldienstes an Land- und Seegrenzen, an zugelassenen Grenzübergangsstellen und im gesetzlichen Grenzgebiet."
+        },
+        {
+          "label": "Zuständigkeit",
+          "value": "Der Bund behält die fachliche Steuerung. Das Abkommen regelt die Zusammenarbeit der Kasernierten Grenzpolizei mit Bundespolizei und Zoll. Die Grenzpolizei befindet sich im organisatorischen Aufbau."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "polizei-vor-ort",
+      "title": "Polizei vor Ort und Ausbildung",
+      "items": [
+        {
+          "label": "Dienststellen",
+          "value": "Ab dem 1. Dezember 2026 trägt die Polizei den Namen Volkspolizei. Das Organisationsgesetz regelt Bezirkspolizeidirektionen, Reviere, Polizeiposten und die Erreichbarkeit vor Ort."
+        },
+        {
+          "label": "Ausbildung",
+          "value": "Ab Januar 2027 gelten neue Vorgaben für die Aus- und Fortbildung sowie die unabhängige Evaluation der Polizeiausbildung."
+        },
+        {
+          "label": "Online-Wache",
+          "value": "Das Digitalisierungsgesetz gilt ab 1. Januar 2027. Für die Inbetriebnahme der Online-Wache setzt es eine eigene Frist bis zum 31. Dezember 2027."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "polizeibeschwerden",
+      "title": "Beschwerden über die Polizei",
+      "items": [
+        {
+          "label": "Bisheriges Verfahren",
+          "value": "Schon das im April 2026 in Kraft getretene Gesetz sieht eine unabhängige Stelle vor, die Beschwerden entgegennimmt, prüft und auf Abhilfe hinwirkt."
+        },
+        {
+          "label": "Neues Verfahren",
+          "value": "Ab 1. Dezember 2026 regelt ein eigenes Gesetz die Stelle bei der Volkskammer. Es bestimmt, wer die Leitung wählt, wie Beschwerden geprüft werden und wie sich das Verfahren zu Straf- und Disziplinarverfahren verhält."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "kritische-infrastruktur",
+      "title": "Kritische Infrastruktur und Luftsicherheit",
+      "items": [
+        {
+          "label": "Schutz kritischer Anlagen",
+          "value": "Der Erlass vom September sieht vorläufige Schutzmaßnahmen im Rahmen der bestehenden Befugnisse vor. Die Pflichten zur Registrierung und zur Meldung erheblicher Störungen nach dem KRITIS-Gesetz gelten ab 1. Januar 2027."
+        },
+        {
+          "label": "Sicherheitsüberprüfungen",
+          "value": "Für sicherheitsempfindliche Tätigkeiten gelten das Sicherheitsüberprüfungsgesetz und die Verordnung zu lebens- und verteidigungswichtigen Einrichtungen."
+        },
+        {
+          "label": "Luftverkehr",
+          "value": "Ab Januar 2027 ordnet das Luftverkehrssicherungsgesetz die Zuständigkeiten der Luftsicherheitsbehörde und die Zusammenarbeit an Verkehrsflughäfen."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "staatsschutz-und-kontrolle",
+      "title": "Staatsschutz und parlamentarische Kontrolle",
+      "items": [
+        {
+          "label": "Aufgaben und Aufsicht",
+          "value": "Zum 1. Januar 2027 treten die Gesetze zum Landesamt für Staatsschutz und seinen Aufgaben in Kraft. Der Staatsrat muss das parlamentarische Kontrollgremium über die Tätigkeit des Staatsschutzes unterrichten. Daneben sieht das Kontrollgesetz eine unabhängige Staatsschutzkommission vor."
+        },
+        {
+          "label": "Zusammenarbeit der Behörden",
+          "value": "Das Sicherheitsgesetz regelt die Koordinierung in Krisen und die Warnung der Bevölkerung. Der Informationsaustausch der Sicherheitsbehörden unterliegt eigenen Vorschriften zu Datenschutz, Protokollierung und Kontrolle. Diese Regeln gelten ebenfalls ab Januar 2027."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "gleichbehandlung",
+      "title": "Gleichbehandlung und Schutz vor Diskriminierung",
+      "items": [
+        {
+          "label": "Kontakt mit Behörden",
+          "value": "Das Landesantidiskriminierungsgesetz verbietet Diskriminierung bei öffentlich-rechtlichem Handeln. Es hat seit dem 12. September 2026 den Rang eines besonderen Gesetzes der Verfassung."
+        },
+        {
+          "label": "Öffentlicher Dienst",
+          "value": "Das Gleichstellungsgesetz regelt unter anderem den Schutz vor sexueller Belästigung am Arbeitsplatz und die Zusammensetzung von Auswahlkommissionen."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "demokratiefoerderung",
+      "title": "Demokratieförderung und Vereinsverbote",
+      "items": [
+        {
+          "label": "Landesprogramm",
+          "value": "Das Demokratieförderungsgesetz sieht ab 1. Januar 2027 ein Landesprogramm, die Förderung freier Träger und ein Ausstiegsprogramm vor."
+        },
+        {
+          "label": "Prüfung vor einer Einstellung",
+          "value": "Für besonders sicherheitsrelevante Tätigkeiten regelt das Verfassungstreueprüfungsgesetz ab Januar 2027 die Prüfung, die Anhörung und den Umgang mit personenbezogenen Daten."
+        }
+      ]
+    }
+  ],
+  "impacts": [
+    {
+      "text": "Ab 1. Dezember 2026 kann jede Person eine Beschwerde über polizeiliches Fehlverhalten oder eine rechtswidrige Maßnahme formfrei und auch anonym einreichen. Sie soll sich innerhalb eines Jahres an die Beschwerdestelle wenden.",
+      "normSlug": "polizeibeschwerdestellengesetz"
+    },
+    {
+      "text": "Für Gemeinden oder einzelne Kontaktbereiche sind bis Ende Dezember 2026 feste Ansprechpersonen der Polizei zu bestellen. Name, dienstliche Erreichbarkeit und regelmäßige Sprechzeiten werden öffentlich bekannt gemacht.",
+      "normSlug": "volkspolizeiorganisationsgesetz"
+    },
+    {
+      "text": "Wer sich bei einer Behörde diskriminiert sieht, kann sich an die Ombudsstelle wenden. Sie berät Betroffene bei der Durchsetzung ihrer Rechte und kann eine gütliche Einigung unterstützen.",
+      "normSlug": "ostdeutsches-landesantidiskriminierungsgesetz"
+    }
   ],
   "rechtsgrundlagen": [
     {
       "label": "Kasernierte-Grenzpolizei-Errichtungsgesetz",
-      "normSlug": "kasernierte-grenzpolizei-errichtungsgesetz"
+      "normSlug": "kasernierte-grenzpolizei-errichtungsgesetz",
+      "group": "grenzpolizei"
     },
     {
       "label": "Kasernierte-Grenzpolizei-Gesetz",
-      "normSlug": "kasernierte-grenzpolizei-gesetz"
+      "normSlug": "kasernierte-grenzpolizei-gesetz",
+      "group": "grenzpolizei"
     },
     {
       "label": "Verwaltungsabkommen zur Kasernierten Grenzpolizei",
-      "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei"
+      "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
+      "group": "grenzpolizei"
     },
     {
       "label": "Ostdeutsches Polizeivollzugsdienstgesetz",
-      "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz"
+      "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Gesetz über die unabhängige Polizei-Beschwerde- und Ermittlungsstelle",
-      "normSlug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo"
+      "normSlug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
+      "group": "polizeibeschwerden"
     },
     {
       "label": "Schmerzgriffe-Gesetz",
-      "normSlug": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe"
+      "normSlug": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe",
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Ostdeutsches Landesantidiskriminierungsgesetz",
-      "normSlug": "ostdeutsches-landesantidiskriminierungsgesetz"
+      "normSlug": "ostdeutsches-landesantidiskriminierungsgesetz",
+      "group": "gleichbehandlung"
     },
     {
       "label": "Gesetz zur Änderung des Gleichstellungsgesetzes",
-      "normSlug": "gesetz-zur-anderung-des-gleichstellungsgesetzes"
+      "normSlug": "gesetz-zur-anderung-des-gleichstellungsgesetzes",
+      "group": "gleichbehandlung"
     },
     {
       "label": "Änderungsverordnung für die Fachrichtung Polizei",
-      "normSlug": "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k"
+      "normSlug": "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k",
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Beschluss zum Schutz kritischer Infrastruktur",
       "publicationSlug": "stanzo-2026-44",
-      "note": "Beschluss vom 8. September 2026 zur Aufklärung des Vorfalls am Flughafen Leipzig/Halle Carl Ulbricht und zur Überprüfung der Sicherheitsarchitektur."
+      "note": "Der Staatsrat beauftragte am 8. September 2026 die Aufklärung des Vorfalls am Flughafen Leipzig/Halle Carl Ulbricht. Die Frage der Urheberschaft blieb offen.",
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Sicherheitserlass KRITIS 09/2026",
-      "normSlug": "sicherheitserlass-kritis-09-2026"
+      "normSlug": "sicherheitserlass-kritis-09-2026",
+      "note": "Vorläufiger Erlass, befristet bis zum Ablauf des 8. Dezember 2026.",
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Sicherheitsüberprüfungsfeststellungsverordnung",
       "normSlug": "sicherheitsueberpruefungsfeststellungsverordnung",
-      "note": "Verordnung des Staatsrates vom 31. August 2026; in Kraft seit 1. September 2026."
+      "note": "In Kraft seit 1. September 2026.",
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Ostdeutsches Sicherheitsüberprüfungsgesetz",
-      "normSlug": "ostdeutsches-sicherheitsueberpruefungsgesetz"
+      "normSlug": "ostdeutsches-sicherheitsueberpruefungsgesetz",
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Fünftes Gesetz zur Großen Staatsreform",
-      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform"
+      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "group": "gleichbehandlung"
     },
     {
       "label": "Gesetz über die Bezeichnung der Polizei des Freistaates Ostdeutschland als Volkspolizei",
       "normSlug": "volkspolizei-bezeichnungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
       "normSlug": "volkspolizei-organisationsreform",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Volkspolizeiorganisationsgesetz",
       "normSlug": "volkspolizeiorganisationsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Gesetz zur Reform der Polizeiausbildung",
       "normSlug": "polizeiausbildungsreformgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Gesetz zur Einführung der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle",
       "normSlug": "einfuehrung-polizeibeschwerdestellengesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizeibeschwerden"
     },
     {
       "label": "Polizeibeschwerdestellengesetz",
       "normSlug": "polizeibeschwerdestellengesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizeibeschwerden"
     },
     {
       "label": "Gesetz zur Digitalisierung der Volkspolizei des Freistaates Ostdeutschland",
       "normSlug": "einfuehrung-polizeidigitalisierungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Polizeidigitalisierungsgesetz",
       "normSlug": "polizeidigitalisierungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Gesetz über die Einführung eines Ostdeutschen Sicherheitsgesetzes",
       "normSlug": "einfuehrung-ostdeutsches-sicherheitsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Ostdeutsches Sicherheitsgesetz",
       "normSlug": "ostdeutsches-sicherheitsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Gesetz zur Einführung eines Staatsschutzamt-Errichtungsgesetzes",
       "normSlug": "einfuehrung-staatsschutzamt-errichtungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Staatsschutzamt-Errichtungsgesetz",
       "normSlug": "staatsschutzamt-errichtungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Gesetz zur Einführung eines Staatsschutz- und Nachrichtendienstgesetzes",
       "normSlug": "einfuehrung-staatsschutz-nachrichtendienstgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Staatsschutz- und Nachrichtendienstgesetz",
       "normSlug": "staatsschutz-und-nachrichtendienstgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Gesetz über die Einführung eines Staatsschutz-Kontrollgesetzes",
       "normSlug": "einfuehrung-staatsschutz-kontrollgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Staatsschutz-Kontrollgesetz",
       "normSlug": "staatsschutz-kontrollgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Gesetz zur Einführung eines Gesetzes zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland",
       "normSlug": "einfuehrung-ostdeutsches-kritis-gesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Ostdeutsches KRITIS-Gesetz",
       "normSlug": "ostdeutsches-kritis-gesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "note": "§ 3 Absatz 2 gilt seit 14. November 2026, die übrigen Vorschriften gelten ab 1. Januar 2027.",
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Gesetz zur Einführung eines Luftverkehrssicherungsgesetzes",
       "normSlug": "einfuehrung-luftverkehrssicherungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Ostdeutsches Luftverkehrssicherungsgesetz",
       "normSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "kritische-infrastruktur"
     },
     {
       "label": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Stärkung der Terrorismusabwehr",
       "normSlug": "terrorismusabwehr-polizeivollzugsdienstgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "polizei-vor-ort"
     },
     {
       "label": "Gesetz zur Stärkung der wehrhaften Demokratie im Freistaat Ostdeutschland",
       "normSlug": "wehrhafte-demokratie-gesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "demokratiefoerderung"
     },
     {
       "label": "Verfassungstreueprüfungsgesetz",
       "normSlug": "verfassungstreuepruefungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "demokratiefoerderung"
     },
     {
       "label": "Demokratieförderungsgesetz",
       "normSlug": "demokratiefoerderungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "demokratiefoerderung"
     },
     {
       "label": "Verbot der Vereinigung „Chemnitz Revolte“",
       "publicationSlug": "stanzo-2026-46",
-      "note": "Bekanntmachung eines Vereinsverbots gemäß § 3 des Vereinsgesetzes vom 28. Oktober 2026."
+      "note": "Bekanntmachung eines Vereinsverbots gemäß § 3 des Vereinsgesetzes vom 28. Oktober 2026.",
+      "group": "demokratiefoerderung"
     },
     {
       "label": "Verbot der Vereinigung „Deutsche Jugend Voran“",
       "publicationSlug": "stanzo-2026-47",
-      "note": "Bekanntmachung eines Vereinsverbots gemäß § 3 des Vereinsgesetzes vom 28. Oktober 2026."
+      "note": "Bekanntmachung eines Vereinsverbots gemäß § 3 des Vereinsgesetzes vom 28. Oktober 2026.",
+      "group": "demokratiefoerderung"
     },
     {
       "label": "Gesetz zur Einführung eines Sicherheitsbehörden-Zusammenarbeitsgesetzes",
       "normSlug": "einfuehrung-sicherheitsbehoerden-zusammenarbeitsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Sicherheitsbehörden-Zusammenarbeitsgesetz",
       "normSlug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     },
     {
       "label": "Gesetz zur Einführung der Ost-Sicherheitsreform und zur Anpassung des Landesrechts",
       "normSlug": "ost-sicherheitsreform-anpassungsgesetz",
-      "note": "Verkündet am 13. November 2026; Inkrafttreten und Übergangsfristen ergeben sich aus dem jeweiligen Gesetz."
+      "group": "staatsschutz-und-kontrolle"
     }
   ],
-  "faq": [
-    {
-      "question": "Hat der Bund bereits Aufgaben auf die Kasernierte Grenzpolizei übertragen?",
-      "answer": "Ja. Das Verwaltungsabkommen wurde am 28. Juli 2026 geschlossen und am 29. Juli 2026 veröffentlicht. Es überträgt Aufgaben des grenzpolizeilichen Einzeldienstes an Land- und Seegrenzen, an zugelassenen Grenzübergangsstellen und im gesetzlichen Grenzgebiet. Die praktische Umsetzung wird damit nicht als bereits vollständig abgeschlossen dargestellt."
-    },
-    {
-      "question": "Schaffen die vorläufigen Schutzmaßnahmen zusätzliche Polizeibefugnisse?",
-      "answer": "Nein. Beschluss und Erlass binden die Maßnahmen an die bestehenden gesetzlichen Befugnisse. Zusätzliche Eingriffsbefugnisse müssen durch Gesetz geschaffen werden. Die Ermittlungen zum Vorfall am Flughafen Leipzig/Halle Carl Ulbricht bleiben ergebnisoffen; eine Urheberschaft wird nicht vorweggenommen."
-    }
-  ],
+  "faq": [],
   "federfuehrendesRessort": "inneres-bau-und-kommunale-angelegenheiten",
   "mitzeichnungsressorts": [
-    "rechtsstaatlichkeit-und-angelegenheiten-des-staates",
-    "inneres-bau-und-kommunale-angelegenheiten"
+    "rechtsstaatlichkeit-und-angelegenheiten-des-staates"
   ]
 }

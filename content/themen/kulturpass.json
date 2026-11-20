@@ -2,12 +2,18 @@
   "slug": "kulturpass",
   "title": "Kulturpass und kulturelle Teilhabe",
   "pageType": "compact",
-  "teaser": "Der Kulturpass unterstützt junge Erwachsene beim Besuch von Kulturangeboten. Ab 2027 wird er mit dem Teilhabepass verbunden.",
+  "teaser": "Einmalig 100 Euro für Kultur im Jahr des 18. Geburtstags. Ab 2027 ändert sich, wie der Kulturpass freigeschaltet wird.",
   "status": "in-kraft",
   "cluster": "bildung-gesellschaft",
   "priority": 66,
   "featured": false,
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-15",
+  "reportedEvents": [
+    {
+      "kind": "norm-effective",
+      "slug": "ostdeutsches-teilhabegesetz"
+    }
+  ],
   "knowledgeProjectRefs": [
     "project-kulturpass",
     "project-kostenfreie-kindheit-teilhabe"
@@ -16,21 +22,24 @@
     "kultur-erinnerung-und-medien"
   ],
   "beschlossen": [
-    "Ab 1. Januar 2027 wird der Kulturpass als Kulturmodul des Teilhabepasses von Amts wegen bereitgestellt. Auf Verlangen gibt es einen eigenständigen Nachweis."
+    "Ab 1. Januar 2027 stellt die zuständige Stelle den Anspruch von Amts wegen fest und schaltet das Kulturmodul des Teilhabepasses frei. Auf Wunsch stellt sie einen eigenständigen Nachweis aus."
   ],
-  "geltendesRecht": [],
+  "geltendesRecht": [
+    "2026 gilt das Antragsverfahren. Wer in diesem Jahr 18 wird und bei der Freischaltung die Hauptwohnung im Freistaat hat, kann das persönliche Guthaben von 100 Euro einmalig beantragen."
+  ],
   "umgesetzt": [],
   "naechsteSchritte": [],
   "impacts": [
     {
-      "text": "Wer 2026 das 18. Lebensjahr vollendet und die Hauptwohnung im Freistaat hat, kann für dieses Kalenderjahr einmalig ein Kulturguthaben von 100 Euro beantragen.",
+      "text": "Wer 2026 seinen 18. Geburtstag feiert, kann das Guthaben bis zum 31. Dezember 2027 bei zugelassenen Kulturpartnern einlösen, etwa für Bücher, Kino- oder Konzertkarten. Eine Barauszahlung ist ausgeschlossen.",
       "normSlug": "ostdeutsches-kulturpassgesetz"
     }
   ],
   "rechtsgrundlagen": [
     {
       "label": "Ostdeutsches Kulturpassgesetz",
-      "normSlug": "ostdeutsches-kulturpassgesetz"
+      "normSlug": "ostdeutsches-kulturpassgesetz",
+      "note": "Die §§ 1 bis 6 regeln Anspruch, Guthaben, Geltungsdauer und Freischaltung. Die neue Fassung gilt ab 1. Januar 2027."
     },
     {
       "label": "Ostdeutsches Teilhabegesetz",

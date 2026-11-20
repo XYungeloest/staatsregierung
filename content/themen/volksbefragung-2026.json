@@ -2,32 +2,42 @@
   "slug": "volksbefragung-2026",
   "title": "Volksbefragung 2026",
   "pageType": "dossier",
-  "teaser": "Die Volksbefragung fand am 5. und 6. September 2026 statt. Alle fünf Fragen wurden mehrheitlich mit Ja beantwortet; das Endergebnis steht seit dem 6. September 2026 fest.",
+  "teaser": "Am 5. und 6. September 2026 stimmten die Wahlberechtigten über fünf politische Fragen ab. Jede Frage erhielt eine Mehrheit für Ja.",
   "status": "abgeschlossen",
   "cluster": "staat-demokratie",
   "priority": 100,
   "featured": false,
   "highlightFrom": "2026-08-09",
   "highlightUntil": "2026-09-10",
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-15",
   "knowledgeProjectRefs": [],
   "relatedTopicSlugs": [
     "staatsreform-und-verfassung"
   ],
   "beschlossen": [
-    "Die Volksbefragungsverordnung legte fünf getrennte Fragen fest. Bei jeder Frage entschied die Mehrheit der gültigen Ja- und Nein-Stimmen. Ein Mindestanteil an der Wahlbeteiligung war nicht vorgeschrieben."
+    "Die Volksbefragungsverordnung sah eine getrennte Auszählung für jede Frage vor. Es zählte die Mehrheit der gültigen Ja- und Nein-Stimmen, ohne Mindestbeteiligung."
   ],
   "geltendesRecht": [
-    "Die Verfassungsnovelle vom 12. September 2026 bestimmt in Artikel 1, dass Ostdeutschland ein sozialistischer Freistaat ist.",
-    "Artikel 13b sieht einen gesetzlich festgestellten Fünfjahresplan und einen jährlichen öffentlichen Bericht des Staatsrates vor. Das Ausführungsgesetz vom Oktober gilt seit dem 15. Oktober 2026 und errichtet Staatsplankommission und Staatswirtschaftsrat."
+    "Die im Bericht angekündigte Verfassungsänderung wurde am 11. September 2026 von der Volkskammer beschlossen und trat am 12. September in Kraft. Artikel 1 bezeichnet Ostdeutschland seitdem als sozialistischen Freistaat.",
+    "Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz gilt seit dem 15. Oktober 2026. Es regelt Staatsplankommission, Staatswirtschaftsrat und das Verfahren der Wirtschaftsplanung."
   ],
   "umgesetzt": [
-    "Die freiwillige Befragung fand am 5. und 6. September 2026 in den Wahlräumen der Volkskammerwahl statt.",
-    "Die Bundeswahlleitung hat das endgültige Ergebnis am 6. September 2026 festgestellt. Alle fünf Fragen wurden mehrheitlich mit Ja beantwortet.",
-    "Der Staatsrat hat seinen Bericht über die Ergebnisse und die daraus gezogenen politischen Schlussfolgerungen am 6. September 2026 im Staatsanzeiger Nr. 41 veröffentlicht. Damit ist auch die politische Auswertung abgeschlossen."
+    "Die Bundeswahlleitung stellte am 6. September 2026 das amtliche Endergebnis fest. Der Staatsrat veröffentlichte am selben Tag seinen Bericht mit den politischen Schlussfolgerungen."
+  ],
+  "reportedEvents": [
+    {
+      "kind": "publication",
+      "slug": "stanzo-2026-41"
+    }
   ],
   "naechsteSchritte": [
     "Über die organisatorischen Grundlagen und die nächsten Schritte einer Bewerbung um Olympische und Paralympische Spiele will der Staatsrat gesondert beschließen."
+  ],
+  "impacts": [
+    {
+      "text": "Die Teilnahme war freiwillig. Das Ergebnis diente der politischen Willensbildung. Aus der Abstimmung selbst ergaben sich weder neue Rechte noch Pflichten.",
+      "normSlug": "volksbefragungsverordnung-2026"
+    }
   ],
   "modules": [
     {
@@ -105,7 +115,7 @@
       "type": "facts",
       "id": "schlussfolgerungen",
       "title": "Politische Schlussfolgerungen des Staatsrates",
-      "intro": "Der Bericht des Staatsrates vom 6. September 2026 ordnet jedes Ergebnis politisch ein. Er begründet selbst keine unmittelbar geltenden Rechte oder Pflichten; die genannten Vorhaben durchlaufen die dafür vorgesehenen Verfahren.",
+      "intro": "So ordnete der Staatsrat das Ergebnis in seinem Bericht vom 6. September 2026 ein.",
       "items": [
         {
           "label": "Gesamtbewertung",
@@ -129,8 +139,8 @@
         },
         {
           "label": "Zu Frage 4",
-          "value": "Wirtschaftsplanung wird ausgebaut",
-          "note": "Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz ist am 14. Oktober 2026 verkündet worden und gilt seit 15. Oktober 2026. Perspektiv-, Fünfjahr- und Jahresplanung, Staatsplankommission und Staatswirtschaftsrat sind darin geregelt. Kleine und mittlere Unternehmen, Handwerk, Handel, freie Berufe und private Gründungen bleiben Bestandteil der Wirtschaftsordnung."
+          "value": "Wirtschaftsgesetz und Planungsgremien vorgeschlagen",
+          "note": "Der Bericht sieht eine Staatsplankommission und einen Wirtschaftsrat vor. Planung soll vor allem langfristige Infrastruktur, Versorgungssicherheit, natürliche Monopole und größere öffentliche Investitionen betreffen. Kleine und mittlere Unternehmen und freie Berufe bleiben Teil der Wirtschaftsordnung."
         },
         {
           "label": "Zu Frage 5",
@@ -143,7 +153,6 @@
       "type": "timeline",
       "id": "ablauf",
       "title": "Ablauf",
-      "intro": "Anordnung, Information, Abstimmung, Ergebnis und politische Auswertung sind getrennte Schritte. Alle Schritte des Verfahrens sind abgeschlossen.",
       "items": [
         {
           "date": "2026-08-09",
@@ -178,44 +187,38 @@
     {
       "label": "Volksbefragungsverordnung 2026",
       "normSlug": "volksbefragungsverordnung-2026",
-      "note": "Regelt Fragen, Stimmberechtigung, Durchführung, Neutralität, Ergebnisermittlung und politische Auswertung."
+      "note": "Regelt Fragen, Stimmberechtigung, Durchführung, Neutralität, Ergebnisermittlung und politische Auswertung.",
+      "group": "fragen"
     },
     {
       "label": "Verfassung des Freistaates Ostdeutschland",
       "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
-      "note": "Die Verordnung stützt sich auf Artikel 75a Absatz 1 und 4 sowie Artikel 83 Absatz 2 in der bei ihrem Erlass geltenden Fassung."
+      "note": "Die Verordnung stützt sich auf Artikel 75a Absatz 1 und 4 sowie Artikel 83 Absatz 2 in der bei ihrem Erlass geltenden Fassung.",
+      "group": "fragen"
     },
     {
       "label": "Bericht des Staatsrates über die Ergebnisse der Volksbefragung 2026",
       "publicationSlug": "stanzo-2026-41",
-      "note": "Der Bericht vom 6. September 2026 erfüllt die Berichtspflicht nach § 8 der Volksbefragungsverordnung. Er ist keine Rechtsnorm und begründet selbst keine Rechte oder Pflichten."
+      "note": "Der Bericht vom 6. September 2026 erfüllt die Berichtspflicht nach § 8 der Volksbefragungsverordnung. Er ist keine Rechtsnorm und begründet selbst keine Rechte oder Pflichten.",
+      "group": "ergebnis"
     },
     {
       "label": "Fünftes Gesetz zur Großen Staatsreform",
       "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
-      "note": "Setzt nach seinem Titel den Volkswillen um; von der Volkskammer am 11. September 2026 beschlossen, am 12. September 2026 verkündet und seit diesem Tag in Kraft."
+      "note": "Setzt nach seinem Titel den Volkswillen um; von der Volkskammer am 11. September 2026 beschlossen, am 12. September 2026 verkündet und seit diesem Tag in Kraft.",
+      "group": "schlussfolgerungen"
+    },
+    {
+      "label": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
+      "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "note": "Ausführung des Verfassungsauftrags zur Wirtschaftsplanung nach der Befragung.",
+      "group": "schlussfolgerungen"
     }
   ],
   "faq": [
     {
-      "question": "Ist die Volksbefragung ein Volksentscheid?",
-      "answer": "Nein. Sie diente der politischen Willensbildung von Staatsrat und Volkskammer und entfaltet keine unmittelbare rechtliche Bindungswirkung."
-    },
-    {
-      "question": "Wie ist die Volksbefragung ausgegangen?",
-      "answer": "Alle fünf Fragen wurden mehrheitlich mit Ja beantwortet: 88,89 Prozent zur politischen Grundrichtung, 76,47 Prozent zur Großen Staatsreform, 82,35 Prozent zum öffentlichen und gemeinwirtschaftlichen Eigentum, 88,24 Prozent zur Wirtschaftslenkung und -planung und 58,82 Prozent zur Olympiabewerbung."
-    },
-    {
-      "question": "Wer hat das Ergebnis festgestellt?",
-      "answer": "Die Bundeswahlleitung hat das amtliche Endergebnis am 6. September 2026 endgültig festgestellt und gemeinsam mit dem Endergebnis der Volkskammerwahl beurkundet."
-    },
-    {
       "question": "Wer durfte abstimmen?",
       "answer": "Stimmberechtigt war, wer bei der gleichzeitig stattfindenden Wahl zur Volkskammer wahlberechtigt war. Für die Feststellung wurden die Wahlscheine der Volkskammerwahl verwendet. Die Teilnahme war freiwillig, und jede Frage wurde einzeln bewertet."
-    },
-    {
-      "question": "Was folgt aus dem Ergebnis?",
-      "answer": "Der Staatsrat hat am 6. September 2026 einen Bericht mit seinen politischen Schlussfolgerungen veröffentlicht. Die darin angekündigte Sozialistische Verfassungsnovelle hat die Volkskammer am 11. September 2026 als Fünftes Gesetz zur Großen Staatsreform beschlossen; es gilt seit seiner Verkündung am 12. September 2026. Am selben Tag traten auch das Soziale Grundversorgungsgesetz, das Boden- und Naturvermögensgesetz und das Gemeinvermögensschutzgesetz in Kraft, die die Volkskammer ebenfalls am 11. September 2026 beschlossen hat. Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz hat die Volkskammer am 12. Oktober 2026 beschlossen; es gilt seit dem 15. Oktober 2026. Über die Olympiabewerbung ist noch nicht entschieden; sie durchläuft die dafür vorgesehenen Verfahren. Die Volksbefragung selbst bleibt rechtlich nicht bindend."
     }
   ],
   "federfuehrendesRessort": "staatskanzlei",

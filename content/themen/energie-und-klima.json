@@ -2,12 +2,12 @@
   "slug": "energie-und-klima",
   "title": "Energie & Klima",
   "pageType": "dossier",
-  "teaser": "Welche Grundbedarfstarife bei den Landesenergiewerken Ost gelten und wie der Freistaat die öffentliche Energieinfrastruktur aufbaut.",
+  "teaser": "Was Haushalte bei den Landesenergiewerken Ost für Strom und Wärme zahlen und welche Aufgaben Versorger, Netzbetreiber und Landeswärmebüro haben.",
   "status": "in-umsetzung",
   "cluster": "umwelt-versorgung",
   "priority": 88,
   "featured": true,
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-10-15",
   "knowledgeProjectRefs": [
     "project-50hertz-acquisition",
     "project-energie-waerme",
@@ -19,81 +19,162 @@
     "kreislaufwirtschaft"
   ],
   "beschlossen": [
-    "Das Gesetzespaket errichtet den Rechtsrahmen für öffentliche Energie- und Wärmeinfrastrukturen, Landesenergiewerke, Netzträger und ein Sondervermögen.",
-    "Wasser, Kreislaufwirtschaft, Reparaturstrukturen und Klimaanpassung werden als staatliche Schwerpunktfelder gesetzt.",
-    "Kommunale und genossenschaftliche Beteiligung an erneuerbaren Energien soll gestärkt werden.",
-    "Das Gesetzespaket zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum wurde am 20. Juli 2026 verkündet.",
-    "Seit dem 12. September 2026 sind Ausnahmen vom Reprivatisierungsverbot und von den Vermögensbindungen der Landesenergiewerke Ost und der Ostdeutschen Netze nur noch durch ein besonderes Einzelfallgesetz nach dem Gemeinvermögensschutzgesetz möglich. Öffentlicher Wald, Moore, Gewässer und Naturschätze stehen nach dem Boden- und Naturvermögensgesetz unter besonderem Schutz; gewerblicher Torfabbau auf öffentlichen Flächen ist unzulässig."
+    "Das im Juli 2026 verkündete Gesetzespaket regelt, welche Energie- und Wärmeanlagen in Gemeineigentum überführt werden können und wie die Überführung finanziert wird.",
+    "Für 50Hertz ist die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung für 3,8 Milliarden Euro vereinbart. Ein Eigentumsübergang ist bislang nicht bestätigt."
   ],
   "geltendesRecht": [
-    "Landesenergiewerke Ost und Ostdeutsche Netze sind gesetzlich errichtet; der weitere operative Aufbau und die Überführung von Infrastruktur bleiben laufende Aufgaben.",
-    "Die Strom- und Wärmepreisleitlinien der Landesenergiewerke Ost wurden am 22. August 2026 veröffentlicht. Sie gelten seit 1. September 2026 und führen vergünstigte Grundbedarfstarife ein."
+    "Die Strom- und Wärmepreisleitlinien gelten für Haushaltskund:innen der Landesenergiewerke Ost seit dem 1. September 2026."
   ],
-  "umgesetzt": [
-    "Die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz ist für 3,8 Milliarden Euro vereinbart."
-  ],
+  "umgesetzt": [],
   "naechsteSchritte": [
-    "Landesenergiewerke Ost und Ostdeutsche Netze aufbauen und die vorgesehenen Überführungen schrittweise vollziehen."
+    "Ostdeutsche Netze und Landesenergiewerke Ost sollen die gesetzlich erfasste Infrastruktur schrittweise übernehmen."
+  ],
+  "modules": [
+    {
+      "type": "facts",
+      "id": "strom-und-waermetarife",
+      "title": "Tarife für Strom und Wärme",
+      "items": [
+        {
+          "label": "Strom",
+          "value": "Die Leitlinie legt je nach Haushaltsgröße ein jährliches Grundbedarfskontingent fest. Für Wärmepumpen oder einen medizinisch notwendigen Mehrverbrauch können zusätzliche Mengen anerkannt werden."
+        },
+        {
+          "label": "Wärme",
+          "value": "Der Grundwärmetarif erfasst Raumwärme und Warmwasser. Für Gebäude mit erheblichem Sanierungsbedarf kann das begünstigte Kontingent vorübergehend erhöht werden."
+        },
+        {
+          "label": "Abrechnung",
+          "value": "Verhindern laufende Verträge oder Fristen die sofortige Tarifanpassung, schreiben die Landesenergiewerke die Differenz automatisch gut. Beim Strom erfolgt das bei den Abschlägen oder spätestens mit der nächsten Verbrauchsabrechnung."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "energieversorgung-und-netze",
+      "title": "Landesenergiewerke und öffentliche Netze",
+      "items": [
+        {
+          "label": "Landeswärmebüro",
+          "value": "Das Gesetz weist dem Landeswärmebüro die Aufgabe zu, Kommunen, Wohnungsunternehmen, Genossenschaften und Eigentümer:innen etwa bei der Wärmeplanung und bei der Umstellung fossiler Heizungen zu unterstützen."
+        },
+        {
+          "label": "Energie- und Wärmebeirat",
+          "value": "Vor wesentlichen Entscheidungen etwa zur Wärmeplanung sind unter anderem Kommunen, Energiegenossenschaften und Verbraucher:innen im Beirat anzuhören."
+        },
+        {
+          "label": "Netzbetrieb",
+          "value": "Ostdeutsche Netze ist als eigene Anstalt errichtet. Sie muss den Betrieb der Übertragungs-, Stromverteil- und Gasnetze rechnerisch trennen."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "ueberfuehrung-und-finanzierung",
+      "title": "Überführung und Finanzierung",
+      "items": [
+        {
+          "label": "Sondervermögen",
+          "value": "Das Sondervermögen Energie- und Wärmevergesellschaftung dient unter anderem der Finanzierung von Entschädigungen, Investitionen in Netze und dem Umbau überführter Anlagen."
+        },
+        {
+          "label": "Öffentliches Eigentum",
+          "value": "Für Ausnahmen vom Reprivatisierungsverbot gilt der Schutz des Gemeinvermögens. Wo die Staatsverfassung ein besonderes Einzelfallgesetz verlangt, muss die Volkskammer über die einzelne Maßnahme entscheiden."
+        }
+      ]
+    },
+    {
+      "type": "facts",
+      "id": "klima-und-ressourcen",
+      "title": "Klima, Gewässer und Kreislaufwirtschaft",
+      "items": [
+        {
+          "label": "Moore und Gewässer",
+          "value": "Der Landesbodenfonds soll Flächen für Moorrenaturierung, Hochwasser- und Küstenschutz sichern. Auf öffentlichen Flächen ist gewerblicher Torfabbau untersagt. Das Helsinki-Übereinkommen dient dem Schutz der Ostsee vor Verschmutzung."
+        },
+        {
+          "label": "Wiederverwendung und Reparatur",
+          "value": "Die SERO-Verordnung regelt die Rücknahme und Weiterverwendung von Wertstoffen. Für die Reparatur privat genutzter Elektrogeräte in gelisteten Betrieben sieht eine eigene Richtlinie Zuschüsse vor."
+        }
+      ]
+    }
   ],
   "impacts": [
     {
-      "text": "Für Kund:innen der Landesenergiewerke Ost gilt seit dem 1. September 2026 der Grundbedarfstarif für Strom. Die Gutschrift erfolgt spätestens mit der nächsten Verbrauchsabrechnung.",
+      "text": "Im Ost-Stromtarif zahlen Einpersonenhaushalte für die ersten 1.500 Kilowattstunden im Jahr 24,90 Cent je Kilowattstunde. Für höheren Verbrauch gilt regulär ein Arbeitspreis von 28,51 Cent. Der Grundpreis beträgt 10 Euro im Monat.",
       "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie"
+    },
+    {
+      "text": "Bei der Wärmeversorgung durch die Landesenergiewerke Ost sinkt die vergleichbare Belastung für die ersten 70 Kilowattstunden je Quadratmeter beheizter Wohnfläche und Jahr um 30 Prozent gegenüber dem Tarif vom 31. August 2026. Für darüber liegenden Verbrauch beträgt die allgemeine Absenkung 25 Prozent.",
+      "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie"
     }
   ],
   "rechtsgrundlagen": [
     {
       "label": "Energie- und Wärmevergesellschaftungs-Paketgesetz",
-      "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz"
+      "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
+      "group": "ueberfuehrung-und-finanzierung"
     },
     {
       "label": "Energie- und Wärmevergesellschaftungsgesetz",
-      "normSlug": "energie-und-waermevergesellschaftungsgesetz"
+      "normSlug": "energie-und-waermevergesellschaftungsgesetz",
+      "group": "ueberfuehrung-und-finanzierung"
     },
     {
       "label": "Landesenergiewerke-Gesetz",
-      "normSlug": "landesenergiewerke-gesetz"
+      "normSlug": "landesenergiewerke-gesetz",
+      "group": "energieversorgung-und-netze"
     },
     {
       "label": "Gemeinwirtschaftliche Strompreisleitlinie",
-      "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie"
+      "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie",
+      "group": "strom-und-waermetarife"
     },
     {
       "label": "Gemeinwirtschaftliche Wärmepreisleitlinie",
-      "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie"
+      "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie",
+      "group": "strom-und-waermetarife"
     },
     {
       "label": "Ostdeutsche-Netze-Gesetz",
-      "normSlug": "ostdeutsche-netze-gesetz"
+      "normSlug": "ostdeutsche-netze-gesetz",
+      "group": "energieversorgung-und-netze"
     },
     {
       "label": "Energie- und Wärmefinanzierungsgesetz",
-      "normSlug": "energie-und-waermefinanzierungsgesetz"
+      "normSlug": "energie-und-waermefinanzierungsgesetz",
+      "group": "ueberfuehrung-und-finanzierung"
     },
     {
       "label": "SERO-Verordnung",
-      "normSlug": "sero-verordnung"
+      "normSlug": "sero-verordnung",
+      "group": "klima-und-ressourcen"
     },
     {
       "label": "Vergesellschaftungsrahmengesetz",
       "normSlug": "vergesellschaftungsrahmengesetz",
-      "note": "Allgemeiner Rechtsrahmen für Anwendungsgesetze zur Gemeinwirtschaft."
+      "note": "Allgemeiner Rechtsrahmen für Anwendungsgesetze zur Gemeinwirtschaft.",
+      "group": "ueberfuehrung-und-finanzierung"
     },
     {
       "label": "Förderrichtlinie Umwelt, Energie und Klimaschutz",
-      "normSlug": "forderrichtlinie-des-staatsministeriums-fur-umwelt-energie-u-mlo1f1"
+      "normSlug": "forderrichtlinie-des-staatsministeriums-fur-umwelt-energie-u-mlo1f1",
+      "group": "klima-und-ressourcen"
     },
     {
       "label": "Helsinki-Übereinkommen Ostsee",
-      "normSlug": "helsinki-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets"
+      "normSlug": "helsinki-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
+      "group": "klima-und-ressourcen"
     },
     {
       "label": "Gemeinvermögensschutzgesetz",
-      "normSlug": "gemeinvermoegensschutzgesetz"
+      "normSlug": "gemeinvermoegensschutzgesetz",
+      "group": "ueberfuehrung-und-finanzierung"
     },
     {
       "label": "Boden- und Naturvermögensgesetz",
-      "normSlug": "boden-und-naturvermoegensgesetz"
+      "normSlug": "boden-und-naturvermoegensgesetz",
+      "group": "klima-und-ressourcen"
     }
   ],
   "faq": [],
