@@ -1,0 +1,13 @@
+[tools]
+node = "22.23.5"
+
+[tasks]
+dev = "npm run dev"
+"dev:recht" = "npm run dev:recht"
+check = "npm run check"
+test = "npm run test:fast"
+"test:pr" = "npm run test:pr"
+"docs:check" = "npm run docs:check"
+"knowledge:check" = "npm run knowledge:check"
+"content:check" = "npm run content:check"
+build = "npm run build"

@@ -57,6 +57,12 @@ Der redaktionelle Stichtag steht ausschließlich in `packages/shared/src/config/
 
 ## Entwicklung
 
+`mise install` richtet die in [mise.toml](mise.toml) festgelegte Node-Version ein.
+Danach installiert `npm ci` die Workspace-Abhängigkeiten. Mit `mise run dev`,
+`mise run dev:recht`, `mise run check`, `mise run test` und `mise run build` stehen die
+npm-Aufrufe auch als Tasks bereit. Die regulären CI-Jobs lesen dieselbe Node-Version.
+Die folgenden Befehle laufen auch direkt mit npm.
+
 ```sh
 npm ci
 npm run dev            # Staatsportal

@@ -289,7 +289,8 @@ function isUiSmokeSpec(path) {
 }
 
 function isCiOnlyRootPath(path) {
-  return path === '.editorconfig'
+  return path === 'mise.toml'
+    || path === '.editorconfig'
     || path === '.gitattributes'
     || path === '.gitignore'
     || path === '.npmrc'

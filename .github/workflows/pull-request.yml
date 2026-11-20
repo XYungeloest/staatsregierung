@@ -212,7 +212,7 @@ jobs:
       - name: Node.js einrichten
         uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: mise.toml
       - name: Dokumentationsänderung auf Whitespace- und Patchfehler prüfen
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
