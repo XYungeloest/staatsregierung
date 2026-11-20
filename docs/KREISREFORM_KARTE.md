@@ -78,8 +78,12 @@ KREISREFORM_VG250_GPKG=/pfad/zu/DE_VG250.gpkg npm run kreisreform:prepare
 Mit `node scripts/prepare-kreisreform-map.mjs --with-vg250` bricht die Pipeline verständlich ab,
 wenn VG250 fehlt. Ohne VG250 werden alte Vergleichslayer als nicht verfügbar markiert.
 
-Die Quellenangabe für öffentliche Wiedergaben lautet gemäß BKG-Hinweis sinngemäß:
-© BKG, dl-de/by-2-0, Datenquellen siehe BKG/GDZ-Dokumentation.
+Für die früheren Kreis-, Bezirks- und Ländergrenzen gilt die Datenlizenz Deutschland –
+Namensnennung 2.0. Der [Quellennachweis bei den Webdaten](../public/data/kreisreform/quellennachweis-vg250.txt)
+nennt Bezugsjahr, Produktstand, Datenquellen und Bearbeitungen. Bei einem Wechsel der Quelldaten
+diesen Nachweis und die Quellenangabe auf der Kartenseite mit den
+[BKG-Produktbedingungen](https://gdz.bkg.bund.de/index.php/default/digitale-geodaten/verwaltungsgebiete/verwaltungsgebiete-1-250-000-stand-01-01-vg250-01-01.html)
+abgleichen.
 
 ## Geladene Layer
 

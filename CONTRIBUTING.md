@@ -36,8 +36,10 @@ stehen in der README.
 Wähle die Prüfungen passend zur Änderung und nenne im Pull Request auch nicht ausgeführte Prüfungen:
 
 - Dokumentation: `npm run docs:check`.
-- Code und Oberfläche: `npm run test:pr`; bei sichtbaren Änderungen zusätzlich die betroffenen
-  Ansichten prüfen. Die Testkategorien stehen im [Deployment-Runbook](docs/DEPLOYMENT_RUNBOOK.md).
+- Für Code und Oberfläche prüft `npm run test:pr` die Änderung. Auf einem neuen Rechner lädt
+  `npx playwright install chromium` den benötigten Browser vor dem ersten Lauf. Prüfe sichtbare
+  Änderungen auch in den betroffenen Ansichten. Die Testkategorien stehen im
+  [Deployment-Runbook](docs/DEPLOYMENT_RUNBOOK.md).
 - Kanonische Inhalte: `npm run content:check` und die Prüfungen des jeweiligen Redaktionsworkflows.
 - Wissenshub: `npm run knowledge:check`, `npm run knowledge:build`, erneut `npm run knowledge:check`.
 
@@ -49,7 +51,11 @@ benötigt dafür keine produktiven Zugangsdaten.
 
 ## Quellen und Rechte
 
-Nenne für beigefügte Texte, Bilder und Daten die Herkunft und vorhandene Nutzungserlaubnisse.
-Füge nur Material bei, das du für diesen Beitrag verwenden darfst. Beachte bestehende
-Lizenzhinweise einzelner Dateien; die öffentliche Sichtbarkeit des Repositorys ersetzt keine
-Lizenzentscheidung für seinen gesamten Bestand.
+Eigener Programmcode wird unter MIT aufgenommen, eigene redaktionelle Texte und Simulationsnormen
+unter CC BY-NC 4.0. Das gilt auch, wenn ein Beitrag Code und Text in derselben Datei enthält.
+Der [Geltungsbereich der Lizenzen](README.md#lizenzen) beschreibt die Zuordnung.
+
+Gib für übernommene Texte, Bilder und Daten die Quelle und die Grundlage für die Veröffentlichung
+an, etwa eine Lizenz oder eine Freigabe. Mache kenntlich, was du am Material geändert hast.
+Für die Nachnutzung veröffentlichter Simulationsinhalte gelten die Hinweise am jeweiligen Werk
+und die [Nutzungshinweise im Impressum des Staatsportals](https://freistaat-ostdeutschland.de/service/impressum/#nutzungsrechte).

@@ -66,3 +66,15 @@ if (target === 'portal') {
     copy('images/social/recht-preview.png'),
   ]);
 }
+
+// Die Lizenztexte zusammen mit der Software und den lokal ausgelieferten Schriften bereitstellen.
+const licensesDir = resolve(outputRoot, 'lizenzen');
+const fontsDir = resolve(root, 'packages/shared/src/assets/fonts');
+await mkdir(licensesDir, { recursive: true });
+await Promise.all([
+  cp(resolve(root, 'LICENSE'), resolve(licensesDir, 'mit.txt')),
+  cp(resolve(root, 'LICENSES/CC-BY-NC-4.0.txt'), resolve(licensesDir, 'cc-by-nc-4.0.txt')),
+  cp(resolve(fontsDir, 'LICENSE-Jost.txt'), resolve(licensesDir, 'jost.txt')),
+  cp(resolve(fontsDir, 'LICENSE-SourceSerif4.md'), resolve(licensesDir, 'source-serif-4.txt')),
+  cp(resolve(fontsDir, 'LICENSE-OstGrotesk.md'), resolve(licensesDir, 'ost-grotesk.txt')),
+]);

@@ -4,10 +4,13 @@ Alle Familien werden lokal ausgeliefert, ohne Anfragen an Dritte.
 
 | Datei | Familie | Achsen | Größe |
 | --- | --- | --- | --- |
-| `Jost-Variable.woff2` | Jost (OFL) | wght 100–900 | 34 KB |
-| `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, OFL, `LICENSE-SourceSerif4.md`) | wght 400–700, opsz 12–48 | 86 KB |
-| `OstGrotesk-Regular.woff2` | Ost Grotesk (aus Neu5Land, OFL, `LICENSE-OstGrotesk.md`) | fester Schnitt 400 | 8 KB |
+| `Jost-Variable.woff2` | Jost ([SIL OFL 1.1](LICENSE-Jost.txt)) | wght 100–900 | 34 KB |
+| `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, [SIL OFL 1.1](LICENSE-SourceSerif4.md)) | wght 400–700, opsz 12–48 | 86 KB |
+| `OstGrotesk-Regular.woff2` | Ost Grotesk (aus Neu5Land, [SIL OFL 1.1](LICENSE-OstGrotesk.md)) | fester Schnitt 400 | 8 KB |
 | `OstGrotesk-Bold.woff2` | Ost Grotesk | fester Schnitt 700 | 8 KB |
+
+Die Jost-Beilage stammt aus der [Fontdistribution bei Google Fonts](https://github.com/google/fonts/blob/main/ofl/jost/OFL.txt).
+Beide Portale liefern die Urhebervermerke und Lizenztexte der drei Familien unter `/lizenzen/` aus.
 
 Rollen: Jost trägt die Oberfläche (Navigation, Titel der Bereichsseiten, Verzeichnisse,
 Trefferlisten, Formulare, Metadaten), Source Serif 4 das Dokument (Normtext samt Gliederung,

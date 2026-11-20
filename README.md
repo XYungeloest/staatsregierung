@@ -7,6 +7,28 @@ Das Projekt ist eine politische Simulation und stellt keine echte amtliche Verö
 Der entsprechende Hinweis erscheint in der oberen Hinweisleiste, im Footer und ausführlich im
 Impressum.
 
+## Lizenzen
+
+Die Lizenz richtet sich nach dem jeweiligen Bestandteil. Eine Astro-Datei kann zum Beispiel
+MIT-lizenzierten Programmcode und einen redaktionellen Text unter CC BY-NC 4.0 enthalten.
+
+| Bestandteil | Bedingungen für die Nachnutzung |
+| --- | --- |
+| Eigener Programmcode der Portale, Importwerkzeuge und Tests | [MIT](LICENSE). Der Code darf auch kommerziell genutzt und bearbeitet werden. Bei Weitergabe sind Copyright- und Lizenzvermerk beizubehalten. |
+| Eigene redaktionelle Texte, Dokumentation und selbst verfasste Simulationsnormen | [CC BY-NC 4.0](LICENSES/CC-BY-NC-4.0.txt), soweit die Mitwirkenden über die Rechte verfügen. Teilen und Bearbeiten sind für nichtkommerzielle Zwecke erlaubt. Angegebene Urheber:innen und Quelle nennen, auf die Lizenz verweisen und Änderungen kenntlich machen. [Deutscher Lizenzvertrag](https://creativecommons.org/licenses/by-nc/4.0/legalcode.de). |
+| Übernommene und konsolidierte Vorschriften | Bei gemischten Fassungen erfasst CC BY-NC 4.0 nur die eigenen geschützten Textbeiträge. Für echte amtliche Gesetzes- und Verordnungstexte gilt [§ 5 Abs. 1 UrhG](https://www.gesetze-im-internet.de/urhg/__5.html). Ihr Wortlaut darf auch kommerziell genutzt werden. |
+| Karten und Schriften | Die historischen VG250-Vergleichsdaten des BKG stehen unter [Datenlizenz Deutschland – Namensnennung 2.0](https://www.govdata.de/dl-de/by-2-0). Der [Quellennachweis](public/data/kreisreform/quellennachweis-vg250.txt) nennt die bearbeiteten Ebenen. Für die Hintergrundkarte gelten die [OpenStreetMap-Hinweise](https://www.openstreetmap.org/copyright). Jost, Source Serif 4 und Ost Grotesk haben [eigene Schriftlizenzen](packages/shared/src/assets/fonts/README.md). |
+
+[REVOSax](https://www.revosax.sachsen.de/hilfe) stellt konsolidiertes sächsisches Landesrecht
+bereit. Weder die Hilfe noch das [Impressum von REVOSax](https://www.revosax.sachsen.de/impressum)
+weisen eine pauschale Nachnutzungslizenz für die gesamte Sammlung aus. Für andere amtliche
+Werke, die unter § 5 Abs. 2 UrhG fallen, gelten die dort genannten Vorgaben zu Änderungen
+und Quellenangaben. Bei HTML-Snapshots, Original-PDFs, Anlagen und redaktionellen Zusätzen
+sind die Rechte an der jeweiligen Quelle zu beachten. Das gilt auch für importierte
+Haushaltsunterlagen und Material in `context/`. Für
+Abbildungen, Wappen, Logos und Wettbewerbseinreichungen gelten die Nutzungsrechte am jeweiligen
+Werk. Gesetzlich erlaubte Nutzungen und bereits erteilte Nutzungsrechte bleiben unberührt.
+
 ## Architektur
 
 Ein npm-Workspace-Monorepo mit einem gemeinsamen Daten- und Wissensbestand und zwei öffentlichen
