@@ -343,6 +343,8 @@ test('Interne npm-Einstiege und exklusive MCP-Abhängigkeiten sind nur bei beleg
   const { internalManifestChange } = await import('../scripts/classify-change-scope.mjs');
   const root = { scripts: { build: 'astro build' } };
   assert.equal(internalManifestChange('package.json', root, { scripts: { ...root.scripts, 'knowledge:mcp': 'node server.mjs' } }), true);
+  assert.equal(internalManifestChange('package.json', root, { scripts: { ...root.scripts, 'norms:preview': 'node scripts/preview-norm-source.mjs' } }), true);
+  assert.deepEqual(classifyChangeScope(['scripts/preview-norm-source.mjs', 'scripts/lib/norm-source-preview.mjs']).deployTargets, []);
   assert.equal(internalManifestChange('package.json', root, { scripts: { build: 'changed' } }), false);
   const lock = { packages: { '': {}, 'node_modules/zod': { version: '1' } } };
   const internal = structuredClone(lock);

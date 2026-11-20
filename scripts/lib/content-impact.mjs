@@ -1,11 +1,11 @@
 import { buildNormRelations } from '@ostrecht/shared/lib/norms/relations.ts';
 import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { consolidationFindings } from './consolidation-findings.mjs';
 import { agendaItems } from './knowledge-planning.mjs';
 import { normFile, validId, versionFile } from './impact-repository.mjs';
 
 const gazetteFile = (slug) => 'content/verkuendungen/' + slug + '.json';
 const at = (file, locator, citation) => ({ file, locator, ...(citation && { citation }) });
-const consolidationFile = 'data/recht/consolidation-manifest.json';
 const uncertain = new Set(['disputed', 'unresolved', 'unverified']);
 
 function reviewPassages(value, pointer, visit) {
@@ -217,17 +217,7 @@ export function analyzeImpact(model, { publication, norm }) {
         { act, date: rel.date ?? null, versionId });
     }
   }
-  for (const [i, target] of model.consolidation.targets.entries()) {
-    const related = [...target.amendmentActs, ...target.enactingActs, ...target.correctionActs].some((a) => acts.has(a.slug));
-    if (!affected.has(target.canonicalSlug) && !related) continue;
-    const blocked = target.status !== 'complete';
-    add('consolidation', target.canonicalSlug, blocked ? 'candidate' : 'derived', [at(consolidationFile, '/targets/' + i, target.title)],
-      target.nextAction, { status: target.status, problems: target.problems, effectiveDates: target.effectiveDates });
-  }
-  for (const [i, finding] of model.consolidation.ambiguousFindings.entries()) {
-    if (acts.has(finding.amendmentAct)) add('ambiguous-target', finding.candidate, 'candidate',
-      [at(consolidationFile, '/ambiguousFindings/' + i, finding.evidence)], 'Zielvorschrift an der Primärquelle klären.');
-  }
+  findings.push(...consolidationFindings(model.consolidation, acts, affected));
   addKnowledgeFindings(model, affected, sourcePaths, publications, add);
   const files = [...new Set([source.file, ...sourcePaths, ...findings.flatMap((f) => f.evidence.map((e) => e.file))])].sort();
   return { schemaVersion: 1, source, referenceDate, findings, files };

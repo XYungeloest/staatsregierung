@@ -30,6 +30,7 @@
     "holdings:check": "node scripts/build-public-holdings.mjs --check",
     "norms:audit": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:metadata:audit": "node scripts/audit-norm-metadata.mjs",
+    "norms:preview": "node --experimental-strip-types scripts/preview-norm-source.mjs",
     "norms:workflow": "node scripts/norm-workflow.mjs",
     "norms:import": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:consolidation:audit": "node scripts/audit-consolidation.mjs",

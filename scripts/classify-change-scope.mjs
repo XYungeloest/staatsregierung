@@ -327,7 +327,7 @@ function scriptImpact(path, logicPaths) {
 
 // Nur Änderungen an diesen internen Einstiegen können den Laufzeitvertrag des Root-Manifests
 // unverändert lassen. Andere Felder und gemeinsam benutzte Lockfile-Einträge werden vollständig verglichen.
-const internalCommands = new Set(['knowledge:query', 'knowledge:mcp', 'content:impact', 'docs:diagram']);
+const internalCommands = new Set(['knowledge:query', 'knowledge:mcp', 'content:impact', 'docs:diagram', 'norms:preview']);
 const privatePackages = new Set(['@ostrecht/knowledge-query', '@modelcontextprotocol/server', '@modelcontextprotocol/core']);
 
 export function internalManifestChange(path, before, after) {
