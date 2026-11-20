@@ -434,26 +434,15 @@ jobs:
           fetch-depth: 0
       - name: Node.js und Abhängigkeiten
         uses: ./.github/actions/setup-node-modules
-      - name: Basis-Commit und Entscheidung des Syncs bestimmen (Remote-State, kein Schreibzugriff)
+      - name: Ausgelieferte D1-Basis und Umfang lesend prüfen
         id: remote_state
+        uses: ./.github/actions/d1-remote-state
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          EVENT_BEFORE: ${{ github.event.before }}
-          EVENT_SHA: ${{ github.sha }}
-        run: |
-          if [ -n "$EVENT_BEFORE" ] && [ "$EVENT_BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$EVENT_BEFORE^{commit}" 2>/dev/null; then
-            echo "base=$EVENT_BEFORE" >> "$GITHUB_OUTPUT"
-            set +e
-            npm run norms:runtime:d1-sync -- --transport api --remote-state --git-diff "$EVENT_BEFORE" "$EVENT_SHA" --budget incremental
-            RC=$?
-            set -e
-            echo "rc=$RC" >> "$GITHUB_OUTPUT"
-            if [ "$RC" != "0" ] && [ "$RC" != "3" ]; then exit "$RC"; fi
-          else
-            echo "::error::Kein verifizierbarer Basis-Commit für den automatischen D1-Sync."
-            exit 1
-          fi
+        with:
+          base: ${{ github.event.before }}
+          head: ${{ github.sha }}
       - name: D1-Äquivalenz nachweisen
         id: proof
         if: ${{ steps.remote_state.outputs.rc == '3' }}

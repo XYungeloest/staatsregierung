@@ -829,8 +829,9 @@ Die Projektionsidentität ist ein SHA-256 über genau vier Bestandteile
 | `scope` | `full` oder `fixture:<Pfad>@<Hash>` |
 
 **Für den redaktionellen Alltag gilt: nichts tun.** Der Klassifikator setzt `run_d1_sync=true`,
-der Job `d1_sync` läuft mit `--git-diff <before> <sha> --budget incremental --recover`, der
-Base-State-Guard verifiziert den Ausgangszustand.
+der Job `d1_sync` läuft mit `--git-diff <D1-Basis> <sha> --budget incremental --recover`.
+Bei einem früher ausgebliebenen Release umfasst der Diff alle Änderungen seit dem letzten
+per Fingerabdruck bestätigten Stand. Der Base-State-Guard verifiziert ihn vor dem Schreiben erneut.
 
 **Zwei Dinge muss ein Agent trotzdem wissen:**
 

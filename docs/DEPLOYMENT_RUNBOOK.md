@@ -119,14 +119,21 @@ Inventur läuft geplant und manuell (`visual-extended.yml`).
    fehlender Cache-Eintrag führt zu einer Projektion als Rückfall, nie zu einem Abbruch),
    verifiziert die Projektion gegen Git (`norms:runtime:d1-verify --local --fts-integrity`) und
    führt Barrierefreiheits- und Browser-Smoke gegen denselben Worker aus.
-5. `d1_sync` projiziert bei `run_d1_sync` die Rechtsdaten nach Cloudflare D1:
-   `--git-diff <before> <sha> --budget incremental --recover`. Der Lauf ist ein No-op, wenn D1
+5. `d1_sync` verwendet bei `run_d1_sync` den geprüften Bereich
+   `--git-diff <D1-Basis> <sha> --budget incremental --recover`. Die gemeinsame Action
+   `.github/actions/d1-remote-state` liest Fingerabdruck, Scope und Abschlusszustand
+   aus D1. Trägt die Datenbank nach einem ausgebliebenen Release noch eine ältere
+   vollständige Projektion, sucht sie den passenden Fingerabdruck unter den letzten
+   32 Commits der Hauptlinie vor dem Push (einschließlich Ereignisbasis). Der gesamte
+   ausstehende Diff fließt in den Lauf ein. Bei einem bereits ausgerollten Ziel greift
+   der No-op. Unbekannte, unvollständige oder nicht sicher zuordenbare Zustände stoppen
+   vor dem Schreibzugriff. Der Lauf ist ein No-op, wenn D1
    bereits die Projektionsidentität des Commits trägt; er schreibt inkrementell nur mit
    verifizierter Basis (Base-State-Guard) und fällt sonst auf eine markierte Recovery zurück. Eine
    Vollprojektion führt der automatische Sync nie aus: Entscheidung und Budgetprofil werden vor
    dem Planbau abgeglichen, ein `full`-Beschluss endet fail-closed. Verlangt er die Vollprojektion
    nur wegen geänderter Projektionslogik (Remote-State meldet Exit 3), rechnet der Job zuerst den
-   Äquivalenznachweis (`npm run norms:runtime:d1-prove -- --base <before> --head <sha>`:
+   Äquivalenznachweis (`npm run norms:runtime:d1-prove -- --base <D1-Basis> --head <sha>`:
    Basisprojektion aus dem Seed-Cache oder aus einem Worktree des Basis-Commits, Zielprojektion
    aus dem Seed des Laufs, vollständiger Tabellenvergleich) und übergibt ihn dem Sync
    (`--equivalence-proof`): nachgewiesen gleiche Daten übernehmen nur die neue Identität und die
@@ -159,7 +166,7 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
   A11y und Browser gegen den Vollbestand);
 - `visual` bei `run_visual` im Playwright-Container: die kritische Auswahl
   (`npm run test:visual:critical`, wenige Minuten);
-- `d1_token_check` bei `run_d1_sync`: `--remote-state` gegen Produktion (Identität, gespeicherte
+- `d1_token_check` bei `run_d1_sync`: dieselbe D1-Basissuche, dann `--remote-state` für den ausgecheckten PR-Mergebaum gegen Produktion (Identität, gespeicherte
   Identität, Umfang und Entscheidung des künftigen Main-Syncs in Sekunden, kein Sync-Plan, kein
   Schreibzugriff) – grün bei No-op oder verifiziertem inkrementellem Lauf. Meldet er eine nötige
   Vollprojektion (Exit 3), rechnet der Job den Äquivalenznachweis wie `d1_sync` auf `main`

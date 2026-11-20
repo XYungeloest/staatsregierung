@@ -91,36 +91,29 @@ jobs:
           fetch-depth: 0
       - name: Node.js und Abhängigkeiten
         uses: ./.github/actions/setup-node-modules
-      - name: Produktive D1 lesen (Remote-State, kein Schreibzugriff, kein Sync-Plan)
+      - name: Ausgelieferte D1-Basis und Umfang lesend prüfen
         id: remote_state
+        uses: ./.github/actions/d1-remote-state
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          START=$(date +%s)
-          set +e
-          npm run norms:runtime:d1-sync -- --transport api --remote-state --git-diff "$BASE_SHA" "$HEAD_SHA" --budget incremental
-          RC=$?
-          set -e
-          echo "rc=$RC" >> "$GITHUB_OUTPUT"
-          echo "Remote-State-Check: $(( $(date +%s) - START )) s (Exit $RC)" >> "$GITHUB_STEP_SUMMARY"
-          if [ "$RC" != "0" ] && [ "$RC" != "3" ]; then exit "$RC"; fi
+        with:
+          base: ${{ github.event.pull_request.base.sha }}
+          head: ${{ github.sha }}
       - name: D1-Äquivalenz nachweisen
         id: proof
         if: ${{ steps.remote_state.outputs.rc == '3' }}
         uses: ./.github/actions/d1-equivalence
         with:
-          base: ${{ github.event.pull_request.base.sha }}
-          head: ${{ github.event.pull_request.head.sha }}
+          base: ${{ steps.remote_state.outputs.base }}
+          head: ${{ github.sha }}
       - name: Remote-State mit Nachweis (so entscheidet d1_sync auf main)
         if: ${{ steps.remote_state.outputs.rc == '3' }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: ${{ steps.remote_state.outputs.base }}
+          HEAD_SHA: ${{ github.sha }}
           PROOF: ${{ steps.proof.outputs.path }}
         run: npm run norms:runtime:d1-sync -- --transport api --remote-state --git-diff "$BASE_SHA" "$HEAD_SHA" --budget incremental --equivalence-proof "$PROOF"
       - name: Schreibberechtigung auf Staging nachweisen
