@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { appendFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
+import { sourceCheckKey } from './ci-source-checks.mjs';
 import { isProjectionLogicPath } from './lib/d1-sync-scope.mjs';
 
 /**
@@ -595,7 +596,10 @@ async function main() {
     : classifyChangeScope(await readInput(args), { logicPaths, base: process.env.SCOPE_BASE, head: process.env.SCOPE_HEAD });
   const outputPath = argumentValue(args, '--github-output') ?? process.env.GITHUB_OUTPUT;
   if (outputPath) {
+    const base = process.env.SCOPE_BASE;
+    const tree = base ? execFileSync('git', ['rev-parse', 'HEAD^{tree}'], { encoding: 'utf8' }).trim() : '';
     const lines = [
+      `source_check_key=${sourceCheckKey(base, tree, result)}`,
       `scope=${result.scope}`,
       `deploy_portal=${result.deployPortal}`,
       `deploy_law=${result.deployLaw}`,
@@ -615,6 +619,20 @@ async function main() {
       `run_visual=${result.runVisual}`,
     ];
     await appendFile(outputPath, `${lines.join('\n')}\n`, 'utf8');
+  }
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    const sites = (selected) => selected.map((site) => site === 'portal' ? 'Staatsportal' : 'OstRecht').join(', ') || '–';
+    const enabled = (value) => value ? 'ja' : 'nein';
+    const lines = [
+      '## Änderungswirkung', '', '| Prüfung | Umfang |', '| --- | --- |',
+      `| Geänderte Pfade | ${result.paths.length} |`, `| Deployment | ${sites(result.deployTargets)} |`,
+      `| Build | ${sites(result.buildTargets)} |`, `| UI-Smokes | ${sites(result.uiTargets)} |`,
+      `| Content / Wissenshub | ${enabled(result.runContentCheck)} / ${enabled(result.runKnowledgeCheck)} |`,
+      `| Unit- / Korpustests | ${enabled(result.runUnitTests)} / ${enabled(result.runCorpusTests)} |`,
+      `| D1-Sync / Vollbestand-Smoke | ${enabled(result.runD1Sync)} / ${enabled(result.runFullCorpusSmoke)} |`,
+      `| Kritische Screenshots im PR | ${enabled(result.runVisual)} |`,
+    ];
+    await appendFile(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n', 'utf8');
   }
   console.log(JSON.stringify(result));
 }

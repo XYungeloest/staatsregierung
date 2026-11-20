@@ -1,0 +1,58 @@
+name: D1-Projektionen vergleichen
+description: Berechnet den an Basis, Ziel und Umfang gebundenen Nachweis für den inkrementellen Sync.
+inputs:
+  base:
+    description: Basis-Commit
+    required: true
+  head:
+    description: Ziel-Commit
+    required: true
+outputs:
+  path:
+    description: Gültiger lokaler Nachweis
+    value: ${{ steps.proof.outputs.path }}
+runs:
+  using: composite
+  steps:
+    - name: Fingerabdruck des Basis-Seeds bestimmen
+      id: base_seed
+      shell: bash
+      env:
+        BASE_SHA: ${{ inputs.base }}
+      run: |
+        node --experimental-strip-types scripts/d1-runtime-seed.mjs fingerprint --json --ref "$BASE_SHA" > "$RUNNER_TEMP/base-seed.json"
+        node -e '
+          const seed = JSON.parse(require("node:fs").readFileSync(process.argv[1], "utf8"));
+          console.log("key=d1-seed-" + seed.fingerprint);
+          console.log("snapshot=" + seed.snapshot);
+        ' "$RUNNER_TEMP/base-seed.json" >> "$GITHUB_OUTPUT"
+    - name: Basis-Seed wiederherstellen
+      uses: actions/cache/restore@v6
+      with:
+        key: ${{ steps.base_seed.outputs.key }}
+        path: |
+          ${{ steps.base_seed.outputs.snapshot }}
+          ${{ steps.base_seed.outputs.snapshot }}.json
+    - name: Verifizierten Ziel-Seed bereitstellen
+      uses: ./.github/actions/d1-seed
+    - name: Tabellen und Suchergebnisse der Projektionen vergleichen
+      id: proof
+      shell: bash
+      env:
+        BASE_SHA: ${{ inputs.base }}
+        HEAD_SHA: ${{ inputs.head }}
+      run: |
+        START=$(date +%s)
+        PROOF_DIR=$(mktemp -d "$RUNNER_TEMP/d1-equivalence.XXXXXXXX")
+        RC=0
+        npm run norms:runtime:d1-prove -- --base "$BASE_SHA" --head "$HEAD_SHA" --out "$PROOF_DIR" || RC=$?
+        shopt -s nullglob
+        PROOFS=("$PROOF_DIR"/proof-*.json)
+        if [[ ${#PROOFS[@]} != 1 ]]; then echo "::error::Eindeutiger D1-Nachweis fehlt"; exit 1; fi
+        node -e '
+          const proof = JSON.parse(require("node:fs").readFileSync(process.argv[1], "utf8"));
+          console.log("D1-Äquivalenznachweis: " + proof.result + ". Abweichende Tabellen: " + (proof.comparison?.differingTables?.join(", ") || "keine") + ".");
+        ' "${PROOFS[0]}" >> "$GITHUB_STEP_SUMMARY"
+        echo "Laufzeit: $(( $(date +%s) - START )) s" >> "$GITHUB_STEP_SUMMARY"
+        if [[ $RC != 0 ]]; then exit "$RC"; fi
+        echo "path=${PROOFS[0]}" >> "$GITHUB_OUTPUT"

@@ -1,0 +1,37 @@
+name: Quellen und Code prüfen
+description: Prüft denselben Git-Bestand und dieselben Scope-Flags in Pull Request und Release.
+inputs:
+  scope:
+    description: JSON-Ausgaben von classify
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Dokumentation, Inhalte, Wissenshub, Typen und Tests
+      shell: bash
+      env:
+        CONTENT: ${{ fromJSON(inputs.scope).run_content_check }}
+        KNOWLEDGE: ${{ fromJSON(inputs.scope).run_knowledge_check }}
+        PORTAL: ${{ fromJSON(inputs.scope).check_portal }}
+        LAW: ${{ fromJSON(inputs.scope).check_law }}
+        UNIT: ${{ fromJSON(inputs.scope).run_unit_tests }}
+        CORPUS: ${{ fromJSON(inputs.scope).run_corpus_tests }}
+      run: |
+        START=$(date +%s)
+        node scripts/check-docs.mjs
+        if [[ "$KNOWLEDGE" == true ]]; then
+          npm run knowledge:build
+          git diff --exit-code -- knowledge/generated content/regierung/beteiligungsinventar.json
+          EXTRA=$(git ls-files --others --exclude-standard -- knowledge/generated content/regierung/beteiligungsinventar.json)
+          if [[ -n "$EXTRA" ]]; then printf 'Generierte Dateien fehlen im Commit:\n%s\n' "$EXTRA"; exit 1; fi
+        fi
+        if [[ "$CONTENT" == true ]]; then
+          npm run content:check
+        elif [[ "$KNOWLEDGE" == true ]]; then
+          npm run knowledge:check
+        fi
+        if [[ "$PORTAL" == true ]]; then npm run check:portal; fi
+        if [[ "$LAW" == true ]]; then npm run check:recht; fi
+        if [[ "$UNIT" == true ]]; then npm run test:fast; fi
+        if [[ "$CORPUS" == true ]]; then npm run test:corpus; fi
+        echo "sources=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
