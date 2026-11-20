@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionNavigation from '../../../components/portal/SectionNavigation.astro';
 import HoldingsCountryCards from '../../../components/portal/HoldingsCountryCards.astro';
 import HoldingsNavigator from '../../../components/portal/HoldingsNavigator.astro';
 import HoldingsSharedPositions from '../../../components/portal/HoldingsSharedPositions.astro';
@@ -84,6 +85,11 @@ const inventoryFacts = [
     variant="government"
   />
 
+  <SectionNavigation label="Beteiligungen" variant="government" items={[
+    { label: 'Suche und Filter', href: '#beteiligungsnavigator' },
+    { label: 'Herkunft der Beteiligungen', href: `#${inheritedSection.id}` },
+    { label: 'Veränderungen', href: '#veraenderungen' },
+  ]} />
   <HoldingsNavigator {inventory} />
 
   <section class="section">
