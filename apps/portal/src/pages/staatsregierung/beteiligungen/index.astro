@@ -71,12 +71,13 @@ const heroFacts = [
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Staat & Behörden', href: getGovernmentUrl() },
       { label: 'Beteiligungsnavigator' },
     ]}
   />
 
   <SectionHero
+    density="tool"
     eyebrow="Staatsrat"
     title="Beteiligungsnavigator des Freistaates"
     titleSize="long"
@@ -89,6 +90,8 @@ const heroFacts = [
     ]}
   />
   <GovernmentNavigation />
+
+  <HoldingsNavigator {inventory} />
 
   <section class="section">
     <div class="content-grid">
@@ -126,7 +129,6 @@ const heroFacts = [
   </section>
 
   <HoldingsCountryCards section={inheritedSection} originTotals={inventory.totals.originTotals} />
-  <HoldingsNavigator {inventory} />
   <HoldingsSharedPositions section={sharedSection} sharedPositions={inventory.sharedPositions} />
 
   <section id={specialSection.id} class="section section-muted holdings-special" aria-labelledby={`${specialSection.id}-title`}>

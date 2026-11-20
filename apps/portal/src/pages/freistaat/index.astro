@@ -5,11 +5,10 @@ import FreestateNavigation from '../../components/portal/FreestateNavigation.ast
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import {
-  getBudgetUrl,
+  getKreisreformUrl,
   getFreestatePageUrl,
   getGovernmentUrl,
   getHomeUrl,
-  getTopicsUrl,
 } from '@ostrecht/shared/lib/portal/index.ts';
 import { loadCurrentGovernment, loadFreestatePages } from '@ostrecht/shared/lib/portal/content.ts';
 import { getLawConstitutionUrl } from '@ostrecht/shared/lib/norms/index.ts';
@@ -65,34 +64,9 @@ const orderedPages = [
       <p>Direkte Zugänge zu den wichtigsten Institutionen und Grundlagen des Freistaates.</p>
     </div>
     <ul class="direct-entry-list">
-      <li>
-        <strong>Staatsaufbau</strong>
-        <span><a class="inline-link" href={getFreestatePageUrl('staatsaufbau')}>Volkskammer, Staatsrat und Verfassungsgerichtshof</a></span>
-      </li>
-      <li>
-        <strong>Große Staatsreform</strong>
-        <span><a class="inline-link" href={getFreestatePageUrl('grosse-staatsreform')}>Neuordnung seit dem 21. Juli 2026</a></span>
-      </li>
-      <li>
-        <strong>Berlin</strong>
-        <span><a class="inline-link" href={getFreestatePageUrl('berlin')}>Bundeshauptstadt, Stadtbezirke und Sonderregeln</a></span>
-      </li>
-      <li>
-        <strong>Staatsrat</strong>
-        <span><a class="inline-link" href={getGovernmentUrl()}>Staatspräsident, Mitglieder und Staatssekretariate</a></span>
-      </li>
-      <li>
-        <strong>Recht</strong>
-        <span><a class="inline-link" href={getLawConstitutionUrl()}>Verfassung und Rechtsordnung</a></span>
-      </li>
-      <li>
-        <strong>Themen</strong>
-        <span><a class="inline-link" href={getTopicsUrl()}>Vorhaben, Zuständigkeiten und nächste Schritte</a></span>
-      </li>
-      <li>
-        <strong>Haushalt</strong>
-        <span><a class="inline-link" href={getBudgetUrl()}>Doppelhaushalt, Einzelpläne und Fonds</a></span>
-      </li>
+      <li><strong>Örtliche Zuständigkeit</strong><a href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde, Kreis und Bezirk finden</a></li>
+      <li><strong>Staatsleitung</strong><a href={getGovernmentUrl()}>Staatspräsident und Staatsrat</a></li>
+      <li><strong>Verfassungstext</strong><a href={getLawConstitutionUrl()}>Geltende Fassung in OstRecht lesen</a></li>
     </ul>
   </section>
 
@@ -106,23 +80,11 @@ const orderedPages = [
     <div class="card-grid card-grid--three">
       {orderedPages.map((page) => (
         <article class="panel">
-          <h2><a class="inline-link" href={getFreestatePageUrl(page.slug)}>{page.title}</a></h2>
+          <h3><a class="inline-link" href={getFreestatePageUrl(page.slug)}>{page.title}</a></h3>
           <p>{page.body[0]}</p>
         </article>
       ))}
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-header">
-      <h2>Direkter Verfassungszugang</h2>
-      <p>
-        Die geltende Verfassung und die vier Gesetze zur Großen Staatsreform sind im integrierten
-        Rechtsportal mit Fundstellen und Fassungen zugänglich.
-      </p>
-    </div>
-    <p class="section-link-row">
-      <a class="inline-link" href={getLawConstitutionUrl()}>Zur Verfassung im Rechtsportal</a>
-    </p>
-  </section>
 </BaseLayout>

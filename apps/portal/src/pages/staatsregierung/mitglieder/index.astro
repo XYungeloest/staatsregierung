@@ -28,9 +28,11 @@ const stateSecretarySlugs = new Set(
     .map((entry) => entry.personSlug),
 );
 const councilMembers = members.filter((member) => memberSlugs.has(member.slug));
-const leadership = councilMembers.slice(0, 2);
-const stateCouncilMembers = councilMembers.slice(2);
-const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
+const leadershipSlugs = [currentGovernment.headPersonSlug, currentGovernment.deputyPersonSlug];
+const leadership = leadershipSlugs.flatMap((slug) => councilMembers.filter((member) => member.slug === slug));
+const stateCouncilMembers = councilMembers.filter((member) => !leadershipSlugs.includes(member.slug));
+const officeLeads = organization.assignments.filter((entry) => entry.officeSlug === 'chef-staatskanzlei' && isActiveInterval(entry.validFrom, entry.validTo, PORTAL_REFERENCE_DATE));
+const chancelleryLeadership = members.filter((member) => officeLeads.some((entry) => entry.personSlug === member.slug));
 const stateSecretaries = members.filter((member) => stateSecretarySlugs.has(member.slug));
 ---
 
@@ -38,7 +40,7 @@ const stateSecretaries = members.filter((member) => stateSecretarySlugs.has(memb
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Staat & Behörden', href: getGovernmentUrl() },
       { label: 'Mitglieder' },
     ]}
   />
@@ -70,7 +72,7 @@ const stateSecretaries = members.filter((member) => stateSecretarySlugs.has(memb
   <section class="section">
     <div class="section-header">
       <h2>Weitere Mitglieder des Staatsrates</h2>
-      <p>Alle weiteren Mitglieder sind mit ihren jeweiligen Geschäftsbereichen erschlossen.</p>
+
     </div>
     <div class="card-grid card-grid--two">
       {stateCouncilMembers.map((member) => (
@@ -82,7 +84,7 @@ const stateSecretaries = members.filter((member) => stateSecretarySlugs.has(memb
   <section class="section section-muted">
     <div class="section-header">
       <h2>Büro des Staatspräsidenten</h2>
-      <p>Die Leitung des Büros des Staatspräsidenten wird eigenständig neben den Mitgliedern des Staatsrates ausgewiesen.</p>
+
     </div>
     <div class="card-grid card-grid--two">
       {chancelleryLeadership.map((member) => (

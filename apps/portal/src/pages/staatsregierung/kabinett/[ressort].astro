@@ -3,18 +3,19 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import TopicCard from '../../../components/portal/TopicCard.astro';
 import RessortHaushalt from '../../../components/haushalt/RessortHaushalt.astro';
 import {
   getGovernmentUrl,
   getHomeUrl,
   getMinistriesUrl,
+  getTopicUrl,
   resolvePortalPath,
 } from '@ostrecht/shared/lib/portal/index.ts';
-import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { publicLegalSources } from '../../../lib/project-status.ts';
+import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { loadAllNormMetas } from '@ostrecht/shared/lib/norms/loader.ts';
 import { loadMinistries, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
-import { getNormUrl } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormUrl, getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import type { Ministerium } from '@ostrecht/shared/lib/portal/index.ts';
 
 export async function getStaticPaths() {
@@ -27,15 +28,8 @@ export async function getStaticPaths() {
 
 const { ministry } = Astro.props as { ministry: Ministerium };
 
-const [topics, normMetas] = await Promise.all([loadTopics(), loadAllNormMetas()]);
-const normLookup = new Map(normMetas.map((meta) => [
-  meta.slug,
-  {
-    slug: meta.slug,
-    title: toDisplayText(meta.title),
-    summary: toDisplayText(meta.summary),
-  },
-]));
+const [topics, norms, publications] = await Promise.all([loadTopics(), loadAllNormMetas(), loadAllVerkuendungen()]);
+const resolveSource = publicLegalSources(norms, publications);
 const relatedTopics = ministry
   ? topics.filter(
       (topic) =>
@@ -47,11 +41,10 @@ const legalReferences = Array.from(
   new Map(
     relatedTopics.flatMap((topic) =>
       topic.rechtsgrundlagen.map((entry) => [
-        entry.normSlug ?? `${topic.slug}:${entry.label}`,
+        entry.normSlug ?? entry.publicationSlug ?? `${topic.slug}:${entry.label}`,
         {
-          ...entry,
+          ...resolveSource(entry),
           topicTitle: topic.title,
-          norm: entry.normSlug ? normLookup.get(entry.normSlug) : undefined,
         },
       ]),
     ),
@@ -65,7 +58,7 @@ const legalReferences = Array.from(
     description={ministry.teaser}
     breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Staat & Behörden', href: getGovernmentUrl() },
       { label: 'Geschäftsbereiche', href: getMinistriesUrl() },
       { label: ministry.kurzname },
     ]}
@@ -73,7 +66,7 @@ const legalReferences = Array.from(
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Staat & Behörden', href: getGovernmentUrl() },
         { label: 'Geschäftsbereiche', href: getMinistriesUrl() },
         { label: ministry.kurzname },
       ]}
@@ -182,15 +175,15 @@ const legalReferences = Array.from(
       <section class="section section-muted" data-visual-section="ministry-topics">
         <div class="section-header">
           <h2>Zugeordnete Themen & Projekte</h2>
-          <p>
-            Diese Themenseiten werden federführend oder mitzeichnend von diesem Ressort begleitet.
-          </p>
         </div>
-        <div class="card-grid card-grid--two">
+        <ul class="record-list">
           {relatedTopics.map((topic) => (
-            <TopicCard topic={topic} ministryName={ministry.kurzname} />
+            <li class="record-list__item">
+              <strong><a href={getTopicUrl(topic.slug)}>{topic.title}</a></strong>
+              <span>{topic.federfuehrendesRessort === ministry.slug ? 'Federführung' : 'Mitwirkung'}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
     ) : null}
 
@@ -198,13 +191,14 @@ const legalReferences = Array.from(
       <section class="section">
         <div class="section-header">
           <h2>Rechtsgrundlagen aus den zugeordneten Themen</h2>
-          <p>Hier finden Sie die Rechtsgrundlagen der zugeordneten Themen.</p>
         </div>
         <ul class="record-list">
           {legalReferences.map((entry) => (
             <li class="record-list__item">
               {entry.norm ? (
                 <strong><a class="inline-link" href={getNormUrl(entry.norm.slug)}>{entry.label}</a></strong>
+              ) : entry.publication ? (
+                <strong><a class="inline-link" href={getPublicationUrl(entry.publication.slug)}>{entry.label}</a></strong>
               ) : (
                 <strong>{entry.label}</strong>
               )}
@@ -222,7 +216,7 @@ const legalReferences = Array.from(
     description="Die angeforderte Ressortseite konnte nicht geladen werden."
     breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Staat & Behörden', href: getGovernmentUrl() },
       { label: 'Kabinett', href: getMinistriesUrl() },
       { label: 'Nicht gefunden' },
     ]}
@@ -230,7 +224,7 @@ const legalReferences = Array.from(
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Staat & Behörden', href: getGovernmentUrl() },
         { label: 'Kabinett', href: getMinistriesUrl() },
         { label: 'Nicht gefunden' },
       ]}

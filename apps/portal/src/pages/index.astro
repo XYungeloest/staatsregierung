@@ -1,7 +1,6 @@
 ---
 import { campaign, campaignPath, showTeaser } from '../lib/fresswuerfel/config.ts';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FreestateSummary from '../components/portal/FreestateSummary.astro';
 import HomeMinistryList from '../components/portal/HomeMinistryList.astro';
 import HomePressList from '../components/portal/HomePressList.astro';
 import { selectHomeNotices } from '../lib/home-notices.ts';
@@ -15,19 +14,13 @@ import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts
 import { getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
 import {
-  getActionPlanUrl,
   getActiveTopicHighlights,
   getBalancedColumnCount,
   getBudgetUrl,
   getCareerUrl,
-  getContactUrl,
-  getFreestateUrl,
-  getKreisreformUrl,
-  getLawConstitutionUrl,
   getLawHomeUrl,
   getNextTopicDate,
   getPortalSearchUrl,
-  getPressUrl,
   getTopicsUrl,
   getTopicUrl,
   resolvePortalPath,
@@ -58,7 +51,7 @@ const [ministries, topics, latestReleases, publications, currentJobs, currentGov
   loadHomeContent(),
 ]);
 
-const latestPublication = publications[0];
+const latestPublication = publications.find((issue) => issue.date <= PORTAL_REFERENCE_DATE);
 const latestJob = currentJobs[0];
 const publicationEntryLabel = (count: number) => count === 1 ? 'Eintrag' : 'Einträge';
 const currentTopics = getActiveTopicHighlights(topics, PORTAL_REFERENCE_DATE, 3);
@@ -134,14 +127,6 @@ if (showTeaser(campaign, Date.now())) {
               />
               <button type="submit"><PortalIcon name="search" /><span>Suchen</span></button>
             </div>
-            <nav class="home-search-chips" aria-label="Häufige Sucheinstiege">
-              <span>Häufig gesucht:</span>
-              <a href={getKreisreformUrl()}>Kreisreform</a>
-              <a href={getLawConstitutionUrl()}>Verfassung</a>
-              <a href={getTopicUrl('bildungsreform')}>Bildungsreform</a>
-              <a href={getBudgetUrl()}>Haushalt</a>
-              <a href={getActionPlanUrl()}>15-Punkte-Plan</a>
-            </nav>
           </form>
         </div>
       </div>
@@ -150,11 +135,7 @@ if (showTeaser(campaign, Date.now())) {
     <section class="home-band home-access-section" aria-labelledby="home-access-title">
       <div class="container">
         <header class="home-section-heading home-section-heading--compact">
-          <div>
-            <p class="eyebrow">Direkteinstiege</p>
-            <h2 id="home-access-title">Zentrale Portalbereiche</h2>
-          </div>
-          <a href={getFreestateUrl()}>Portal im Überblick <span aria-hidden="true">→</span></a>
+          <h2 id="home-access-title">Häufige Anliegen</h2>
         </header>
         <div class="portal-access-grid" style={`--access-count: ${getBalancedColumnCount(portalAccesses.length)}`}>
           {portalAccesses.map((access) => <PortalAccessCard {...access} />)}
@@ -162,25 +143,17 @@ if (showTeaser(campaign, Date.now())) {
       </div>
     </section>
 
+    <span id="home-freestate-title"></span>
     {importantItems.length > 0 && <section class="home-band home-important-section">
       <div class="container"><ImportantNoticeBand items={importantItems} /></div>
     </section>}
 
-    <section class="home-band home-information-section" aria-label="Aktuelles, Staatssekretariate und Orientierung">
-      <div class="container home-information-grid">
-        <HomePressList releases={latestReleases} />
-        <HomeMinistryList ministries={ministries.slice(0, 6)} />
-        <FreestateSummary />
-      </div>
-    </section>
-
-    <section class="home-band home-priority-section" aria-labelledby="home-priority-title" data-visual-section="home-current-topics">
+    {homeLeadTopic && <section class="home-band home-priority-section" aria-labelledby="home-priority-title" data-visual-section="home-current-topics">
       <div class="container">
         <header class="home-section-heading">
           <div>
             <p class="eyebrow">Aktuelles Regierungshandeln</p>
             <h2 id="home-priority-title">Was im Freistaat jetzt passiert</h2>
-            <p>Zeitkritische Vorhaben und jüngste Statusänderungen – mit Termin, Rechtsstand und nächstem Schritt.</p>
           </div>
           <a href={getTopicsUrl()}>Alle Themen und Reformen <span aria-hidden="true">→</span></a>
         </header>
@@ -189,12 +162,12 @@ if (showTeaser(campaign, Date.now())) {
             <article class:list={['home-lead-feature', homeSecondaryTopics.length === 0 && 'home-lead-feature--wide']}>
               <div class="home-lead-feature__icon"><PortalIcon name="topics" /></div>
               <div class="home-lead-feature__status"><StatusBadge status={homeLeadTopic.status} /><span>{siteConfig.vocabulary.portalContentAsOf} {siteConfig.date.formatLong(homeLeadTopic.updatedAt)}</span></div>
-              <p class="eyebrow">Aktuelles Vorhaben</p>
+
               <h3>{homeLeadTopic.title}</h3>
               <p>{homeLeadTopic.teaser}</p>
               <dl class="home-lead-feature__facts">
                 {homeLeadDate ? <div><dt>Nächster Termin</dt><dd><time datetime={homeLeadDate.date}>{siteConfig.date.formatLong(homeLeadDate.date)}</time><span>{homeLeadDate.label}</span></dd></div> : null}
-                <div><dt>Nächster Schritt</dt><dd>{homeLeadTopic.naechsteSchritte[0]}</dd></div>
+                {homeLeadTopic.naechsteSchritte[0] && <div><dt>Nächster Schritt</dt><dd>{homeLeadTopic.naechsteSchritte[0]}</dd></div>}
               </dl>
               <a class="button-link" href={getTopicUrl(homeLeadTopic.slug)}>{homeLeadTopic.title} öffnen <PortalIcon name="arrow" /></a>
             </article>
@@ -209,7 +182,6 @@ if (showTeaser(campaign, Date.now())) {
                 <h3><a href={getTopicUrl(topic.slug)}>{topic.title}</a></h3>
                 <p>{topic.teaser}</p>
                 {nextDate ? <p class="home-topic-list__date"><time datetime={nextDate.date}>{siteConfig.date.formatLong(nextDate.date)}</time> · {nextDate.label}</p> : null}
-                <a class="home-topic-list__link" href={getTopicUrl(topic.slug)} aria-label={`${topic.title} ansehen`}><PortalIcon name="arrow" /></a>
               </article>
               );
             })}
@@ -217,20 +189,20 @@ if (showTeaser(campaign, Date.now())) {
           ) : null}
         </div>
       </div>
-    </section>
+    </section>}
 
     <section class="home-band home-resource-section" aria-labelledby="home-resource-title">
       <div class="container">
         <header class="home-section-heading home-section-heading--compact">
           <div>
-            <p class="eyebrow">Transparenz und Service</p>
-            <h2 id="home-resource-title">Recht, Haushalt und Regierungsarbeit</h2>
+            <p class="eyebrow">Recht und Finanzen</p>
+            <h2 id="home-resource-title">Amtliche Veröffentlichungen</h2>
           </div>
         </header>
-        <div class:list={['home-resource-grid', latestJob && 'home-resource-grid--four']}>
+        <div class="home-resource-grid">
           <article class="home-resource-card">
             <PortalIcon name="law" />
-            <p class="eyebrow">Recht schnell finden</p>
+            <p class="eyebrow">Neueste Verkündung</p>
             <h3>{latestPublication?.title ?? 'Gesetze und Vorschriften'}</h3>
             {latestPublication ? (
               <p>
@@ -243,19 +215,12 @@ if (showTeaser(campaign, Date.now())) {
           <article class="home-resource-card">
             <PortalIcon name="budget" />
             <p class="eyebrow">{budgetMainPeriod ? budgetMainPeriod.bezeichnung : 'Haushalt'}</p>
-            <h3>Öffentliche Finanzen nachvollziehen</h3>
+            <h3>Haushaltsunterlagen</h3>
             <p>
               Gesamtplan, Einzelpläne, Jahresvergleich, Sondervermögen und offene Datenausgabe.
               {budgetNewerText ? ` Außerdem: ${budgetNewerText}.` : null}
             </p>
             <a href={getBudgetUrl()}>Zum Haushalt <PortalIcon name="arrow" /></a>
-          </article>
-          <article class="home-resource-card">
-            <PortalIcon name="government" />
-            <p class="eyebrow">Arbeitsprogramm</p>
-            <h3>15-Punkte-Plan II</h3>
-            <p>Vorhaben des Staatsrates mit Umsetzungsstand und Rechtsgrundlagen.</p>
-            <a href={getActionPlanUrl()}>Programm ansehen <PortalIcon name="arrow" /></a>
           </article>
           {latestJob ? (
             <article class="home-resource-card">
@@ -270,19 +235,12 @@ if (showTeaser(campaign, Date.now())) {
             </article>
           ) : null}
         </div>
-        <div class="home-follow-row">
-          <div>
-            <PortalIcon name="rss" />
-            <span><strong>Pressemitteilungen abonnieren</strong><small>Neue Mitteilungen stehen als RSS-Feed bereit.</small></span>
-          </div>
-          <a href={`${getPressUrl()}rss.xml`}>RSS-Feed öffnen</a>
-          <div>
-            <PortalIcon name="calendar" />
-            <span><strong>Termine im Kalender</strong><small>Öffentliche Termine als Kalenderdatei.</small></span>
-          </div>
-          <a href={`${getPressUrl()}termine/kalender.ics`}>Kalender abonnieren</a>
-        </div>
-        <p class="home-contact-link"><a href={getContactUrl()}>Kontakt und weitere Serviceangebote <span aria-hidden="true">→</span></a></p>
+      </div>
+    </section>
+    <section class="home-band home-information-section" aria-label="Presse und Zuständigkeiten">
+      <div class="container home-information-grid">
+        <HomePressList releases={latestReleases} />
+        <HomeMinistryList ministries={ministries.slice(0, 4)} />
       </div>
     </section>
   </div>

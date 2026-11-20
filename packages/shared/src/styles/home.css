@@ -325,7 +325,7 @@
 
 .important-band__items {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
 }
 
 .important-band__item {
@@ -781,7 +781,7 @@
 .home-topic-list article {
   position: relative;
   min-width: 0;
-  padding: var(--space-4) var(--space-7) var(--space-4) var(--space-4);
+  padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -824,25 +824,6 @@
   -webkit-line-clamp: initial;
 }
 
-.home-topic-list__link {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  display: grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  margin-top: -1rem;
-  border-radius: 50%;
-  background: var(--color-info-green);
-  color: var(--color-secondary);
-}
-
-.home-topic-list__link .portal-icon {
-  width: 1rem;
-  height: 1rem;
-}
-
 .home-resource-section {
   background: var(--color-surface);
 }
@@ -853,9 +834,6 @@
   gap: var(--space-4);
 }
 
-.home-resource-grid--four {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
 
 .home-resource-card {
   position: relative;
@@ -985,9 +963,6 @@
     width: fit-content;
   }
 
-  .home-resource-grid--four {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 64rem) {
@@ -1165,11 +1140,6 @@
     grid-template-columns: 1fr;
   }
 
-  .home-resource-grid,
-  .home-resource-grid--four {
-    grid-template-columns: 1fr;
-  }
-
   .home-follow-row {
     grid-template-columns: 1fr;
   }
@@ -1225,5 +1195,21 @@
   .home-hero .eyebrow,
   .home-hero__lead {
     color: #000;
+  }
+}
+
+@media screen {
+  .home-band { padding-block: clamp(var(--space-5), 3.2vw, var(--space-7)); }
+  .home-hero, .home-hero__inner { min-height: 0; }
+  .home-hero__inner { padding-block: clamp(var(--space-6), 5vw, 4.75rem); }
+  .home-hero__content { width: min(100%, 40rem); }
+  .home-hero__lead { max-width: 42ch; }
+  .home-hero-search { padding: 0; border: 0; background: transparent; box-shadow: none; }
+  .home-hero-search > label { color: white; }
+  .home-hero-search__control button { background: var(--color-primary); border: 1px solid white; }
+  .home-resource-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  .home-information-grid { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+  @media (max-width: 48rem) {
+    .home-information-grid { grid-template-columns: minmax(0, 1fr); }
   }
 }

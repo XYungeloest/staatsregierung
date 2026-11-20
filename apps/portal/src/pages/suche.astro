@@ -6,7 +6,7 @@ import { getHomeUrl, getLawSearchUrl, getPortalSearchUrl } from '@ostrecht/share
 
 const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
 const lawIndexUrl = `${import.meta.env.BASE_URL}search-index-recht.json`;
-const sectionOptions = siteConfig.sections.filter((section) => section.key !== 'home' && section.key !== 'law');
+const sectionOptions = siteConfig.sections.filter((section) => section.key !== 'home' && section.key !== 'law' && section.key !== 'kreisreform');
 ---
 
 <BaseLayout

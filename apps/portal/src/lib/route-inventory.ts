@@ -133,7 +133,7 @@ function staticRoutes(): StaticRoute[] {
     },
     {
       path: getCabinetUrl(),
-      title: 'Staatsrat und Geschäftsbereiche',
+      title: 'Staatssekretariate und Geschäftsbereiche',
       section: 'government',
       description: 'Die Staatssekretariate des Staatsrates mit Leitung und Aufgaben.',
       searchText: 'Kabinett Staatssekretariate Ressorts Geschäftsbereiche Leitung Aufgaben Staatsrat',
@@ -148,20 +148,20 @@ function staticRoutes(): StaticRoute[] {
     {
       path: getCoalitionUrl(),
       title: 'Koalition',
-      section: 'government',
+      section: 'topics',
       description: 'Grundlagen und Vorhaben der tragenden Koalition.',
       searchText: 'Koalition Koalitionsvertrag Regierungsbündnis Fraktionen Vorhaben',
     },
     {
       path: getActionPlanUrl(),
       title: '15-Punkte-Plan II',
-      section: 'government',
+      section: 'topics',
       description: 'Umsetzungsstand der fünfzehn Vorhaben des Regierungsprogramms.',
       searchText: '15-Punkte-Plan Regierungsprogramm Vorhaben Umsetzung Fortschritt Maßnahmen',
     },
     {
       path: getPreviousCabinetsUrl(),
-      title: 'Frühere Kabinette',
+      title: 'Frühere Staatsregierungen',
       section: 'government',
       description: 'Übersicht der früheren Kabinette des Freistaates.',
       searchText: 'Frühere Kabinette Regierungsarchiv Honecker historische Regierungen',
@@ -169,7 +169,7 @@ function staticRoutes(): StaticRoute[] {
 
     {
       path: getTopicsUrl(),
-      title: 'Themen & Projekte',
+      title: 'Themen und Reformvorhaben',
       section: 'topics',
       landing: true,
       description: 'Alle Vorhaben des Freistaates nach Fachgebiet, mit Status, Zuständigkeit und Rechtsgrundlagen.',
@@ -195,7 +195,7 @@ function staticRoutes(): StaticRoute[] {
     {
       path: getKreisreformUrl(),
       title: 'Kreis- und Bezirksreform 2026',
-      section: 'kreisreform',
+      section: 'freestate',
       landing: true,
       description: 'Gemeinden, Kreise und Bezirke in der neuen Verwaltungsgliederung suchen und vergleichen.',
       searchText:

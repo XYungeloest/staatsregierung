@@ -1,182 +1,42 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import GovernmentMemberCard from '../../components/portal/GovernmentMemberCard.astro';
-import GovernmentNavigation from '../../components/portal/GovernmentNavigation.astro';
-import MinistryDirectory from '../../components/portal/MinistryDirectory.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import TopicCard from '../../components/portal/TopicCard.astro';
+import GovernmentNavigation from '../../components/portal/GovernmentNavigation.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
-import {
-  getActionPlanUrl,
-  getCabinetUrl,
-  getCoalitionUrl,
-  getGovernmentMembersUrl,
-  getHomeUrl,
-  getHoldingsUrl,
-  getMinisterPresidentUrl,
-  getPreviousCabinetsUrl,
-  getTopicsUrl,
-} from '@ostrecht/shared/lib/portal/index.ts';
-import {
-  loadCurrentGovernmentMembers,
-  loadCurrentGovernment,
-  loadMinistries,
-  loadTopics,
-} from '@ostrecht/shared/lib/portal/content.ts';
+import { getCabinetUrl, getCoalitionUrl, getGovernmentMemberUrl, getGovernmentMembersUrl, getHomeUrl, getMinisterPresidentUrl, getPreviousCabinetsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { loadCabinetPageContent, loadCurrentGovernment, loadCurrentGovernmentMembers } from '@ostrecht/shared/lib/portal/content.ts';
 
-const [members, topics, ministries, currentGovernment] = await Promise.all([
-  loadCurrentGovernmentMembers(),
-  loadTopics(),
-  loadMinistries(),
-  loadCurrentGovernment(),
-]);
-const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
-const headOfGovernment = members.find((member) => member.slug === currentGovernment.headPersonSlug);
-// Die Auswahl folgt der Mitgliedschaft aus dem Organisationsmodell: Beigeordnete Ämter wie die
-// Staatssekretäre stehen sonst unter der Überschrift „Mitglieder des Staatsrates“.
-const memberSlugs = new Set(currentGovernment.memberPersonSlugs);
-const featuredMembers = members.filter((member) => memberSlugs.has(member.slug)).slice(0, 6);
-const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
-const flagshipTopics = [
-  'wohnen-und-vergesellschaftung',
-  'gute-arbeit',
-  'energie-und-klima',
-].flatMap((slug) => {
-  const topic = topics.find((entry) => entry.slug === slug);
-  return topic ? [topic] : [];
-});
+const [government, members, cabinetPage] = await Promise.all([loadCurrentGovernment(), loadCurrentGovernmentMembers(), loadCabinetPageContent()]);
+const president = members.find((member) => member.slug === government.headPersonSlug);
+const breadcrumbs = [{ label: 'Startseite', href: getHomeUrl() }, { label: 'Staat & Behörden' }];
 ---
-
-<BaseLayout
-  title="Staatsrat"
-  description="Mitglieder, Staatssekretariate und Zuständigkeiten des Staatsrates des Ostdeutschen Freistaates."
->
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Staatsrat' }]} />
-
-  <SectionHero
-    eyebrow="Staatsrat"
-    title={currentGovernment.title}
-    lead="Der Staatsrat steht an der Spitze der vollziehenden Gewalt des Freistaates; seine Mitglieder werden von der Volkskammer gewählt."
-    variant="government"
+<BaseLayout title="Staatsrat" description="Politische Leitung, Zusammensetzung und Aufgaben des Staatsrates." {breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+  <SectionHero eyebrow="Staat & Behörden" title={government.title} variant="government"
+    lead="Die Volkskammer wählt die Mitglieder des Staatsrates. Als Spitze der vollziehenden Gewalt leitet er die Verwaltung und entscheidet über die Grundlinien der Regierungspolitik."
+    image={president ? { src: president.bild, alt: president.bildAlt ?? president.name, credit: president.bildnachweis, width: 352, height: 440, widths: [240, 360, 480], kind: 'portrait' } : undefined}
     facts={[
-      { label: 'Staatsorgan', value: currentGovernment.title },
-      { label: 'Staatspräsident', value: currentGovernment.headOfGovernment, href: getMinisterPresidentUrl() },
-      { label: 'Koalition', value: currentGovernment.coalitionShort, href: getCoalitionUrl() },
-      { label: 'Staatssekretariate', value: String(stateSecretariatCount), href: getCabinetUrl() },
-    ]}
-    actions={[
-      { label: 'Staatsrat und Staatssekretariate', href: getCabinetUrl(), primary: true },
-      { label: '15-Punkte-Plan', href: getActionPlanUrl() },
-    ]}
-    image={headOfGovernment ? {
-      src: headOfGovernment.bild,
-      alt: headOfGovernment.bildAlt ?? `Porträt von ${headOfGovernment.name}`,
-      credit: headOfGovernment.bildnachweis,
-      width: 352,
-      height: 440,
-      widths: [240, 360, 480],
-      kind: 'portrait',
-    } : undefined}
-  />
+      { label: 'Im Amt seit', value: siteConfig.date.formatLong(government.formedOn) },
+      { label: 'Regierungssitz', value: government.seatOfGovernment },
+      { label: 'Koalition', value: government.coalitionShort, href: getCoalitionUrl() },
+    ]} />
   <GovernmentNavigation />
-
   <div class="content-grid" data-visual-section="government-leadership-entrypoints">
     <section class="section">
-      <div class="section-header">
-        <h2>Leitung des Staatsrates</h2>
-      </div>
-      {headOfGovernment ? <GovernmentMemberCard member={headOfGovernment} /> : null}
-      <div class="body-copy">
-        <p>
-          Der Staatsrat steht an der Spitze der vollziehenden Gewalt. Er leitet und verwaltet den
-          Freistaat und beschließt über grundsätzliche Angelegenheiten seiner Geschäftsbereiche.
-        </p>
-        <p>
-          Seit dem <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time> führt
-          {` ${currentGovernment.headOfGovernment} `} den Staatsrat als Staatspräsident.
-          Stellvertretender Staatspräsident ist {currentGovernment.deputyHead}.
-        </p>
-        <p>
-          Dresden ist der Sitz des Staatsrates und der zentrale Ort für Staatsratsarbeit,
-          Koordinierung und ressortübergreifende Umsetzung.
-        </p>
-      </div>
+      <div class="section-header"><h2>Leitung des Staatsrates</h2></div>
+      {cabinetPage.politicalContext.map((paragraph) => <p>{paragraph}</p>)}
+      <dl class="meta-list">
+        <div><dt>Staatspräsident</dt><dd><a href={getMinisterPresidentUrl()}>{government.headOfGovernment}</a></dd></div>
+        <div><dt>Stellvertretung</dt><dd><a href={getGovernmentMemberUrl(government.deputyPersonSlug)}>{government.deputyHead}</a></dd></div>
+      </dl>
+      <p><a href={getGovernmentMembersUrl()}>Alle Mitglieder und ihre Ämter</a></p>
     </section>
-
-    <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Direkteinstiege</h2>
-      </div>
-      <nav class="link-list">
-        <a href={getMinisterPresidentUrl()}>Staatspräsident</a>
-        <a href={getCabinetUrl()}>Staatsrat und Geschäftsbereiche</a>
-        <a href={getHoldingsUrl()}>Beteiligungen und öffentliche Träger</a>
-        <a href={getCoalitionUrl()}>Koalition</a>
-        <a href={getActionPlanUrl()}>15-Punkte-Plan</a>
-        <a href={getGovernmentMembersUrl()}>Mitglieder des Staatsrates</a>
-        <a href={getPreviousCabinetsUrl()}>Frühere Kabinette</a>
-      </nav>
-    </aside>
+    <section id="ministerien" class="section section-muted" data-visual-section="government-direct-entrypoints">
+      <div class="section-header"><h2>Geschäftsbereiche</h2></div>
+      <p>Die Staatssekretariate bearbeiten die Fachaufgaben des Staatsrates. Im Verzeichnis finden Sie die Zuständigkeiten, Leitungen und Kontaktwege.</p>
+      <p><a href={getCabinetUrl()}>Zuständiges Staatssekretariat finden</a></p>
+      <p><a href={getPreviousCabinetsUrl()}>Frühere Staatsräte und Kabinette</a></p>
+    </section>
   </div>
-
-  <section class="section section-muted" data-visual-section="government-direct-entrypoints">
-    <div class="section-header">
-      <h2>Direkte Wege zur Arbeit des Staatsrates</h2>
-      <p>
-        Der Staatsrat wird als zusammenhängender Hauptbereich geführt und bindet personelle,
-        politische und thematische Ebenen sichtbar zusammen.
-      </p>
-    </div>
-    <ul class="direct-entry-list">
-      <li><strong>Politische Leitung</strong><span><a class="inline-link" href={getMinisterPresidentUrl()}>Staatspräsident und Büro des Staatspräsidenten</a></span></li>
-      <li><strong>Staatsrat</strong><span><a class="inline-link" href={getCabinetUrl()}>Staatssekretariate, Zuständigkeiten und Mitglieder</a></span></li>
-      <li><strong>Öffentliche Wirtschaft</strong><span><a class="inline-link" href={getHoldingsUrl()}>Beteiligungen, Rechtsnachfolge und neue Träger</a></span></li>
-      <li><strong>Arbeitsgrundlage</strong><span><a class="inline-link" href={getCoalitionUrl()}>Koalition</a> und <a class="inline-link" href={getActionPlanUrl()}>15-Punkte-Plan II</a></span></li>
-    </ul>
-  </section>
-
-  <section class="section" aria-labelledby="ministerien" data-visual-section="government-ministry-directory">
-    <div class="section-header">
-      <h2 id="ministerien">Staatssekretariate</h2>
-      <p>Leitung und zentrale Aufgaben der Geschäftsbereiche des Staatsrates.</p>
-    </div>
-    <MinistryDirectory ministries={ministries} />
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Politische Schwerpunkte</h2>
-      <p>
-        Diese Themen tragen die aktuelle Arbeit des Staatsrates und sind direkt mit
-        Ressorts und Rechtsgrundlagen verknüpft.
-      </p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {flagshipTopics.map((topic) => (
-        <TopicCard
-          topic={topic}
-          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
-        />
-      ))}
-    </div>
-    <p class="section-link-row">
-      <a class="inline-link" href={getTopicsUrl()}>Zu allen Themen & Projekte</a>
-    </p>
-  </section>
-
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Mitglieder des Staatsrates</h2>
-      <p>Die Profile stellen Amt, Zuständigkeiten, Lebenslauf und Kontakt übersichtlich zusammen.</p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {featuredMembers.map((member) => (
-        <GovernmentMemberCard member={member} variant="compact" />
-      ))}
-    </div>
-    <p class="section-link-row">
-      <a class="inline-link" href={getGovernmentMembersUrl()}>Alle Mitglieder anzeigen</a>
-    </p>
-  </section>
 </BaseLayout>

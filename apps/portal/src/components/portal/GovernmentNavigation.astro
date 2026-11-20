@@ -1,9 +1,8 @@
 ---
 import SectionNavigation from './SectionNavigation.astro';
 import {
-  getActionPlanUrl,
+  getPreviousCabinetsUrl,
   getCabinetUrl,
-  getCoalitionUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHoldingsUrl,
@@ -12,15 +11,14 @@ import {
 ---
 
 <SectionNavigation
-  label="Staatsrat"
+  label="Staat & Behörden"
   variant="government"
   items={[
-    { label: 'Überblick', href: getGovernmentUrl() },
-    { label: 'Staatsrat & Geschäftsbereiche', href: getCabinetUrl() },
+    { label: 'Staat & Behörden', href: getGovernmentUrl() },
+    { label: 'Geschäftsbereiche', href: getCabinetUrl() },
     { label: 'Beteiligungen', href: getHoldingsUrl() },
     { label: 'Mitglieder', href: getGovernmentMembersUrl() },
     { label: 'Staatspräsident', href: getMinisterPresidentUrl() },
-    { label: 'Koalition', href: getCoalitionUrl() },
-    { label: '15-Punkte-Plan', href: getActionPlanUrl() },
+    { label: 'Frühere Staatsregierungen', href: getPreviousCabinetsUrl() },
   ]}
 />

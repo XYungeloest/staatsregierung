@@ -44,6 +44,7 @@ interface Props {
   facts?: Fact[];
   actions?: Action[];
   image?: HeroImage;
+  density?: 'section' | 'dossier' | 'compact' | 'tool';
   titleSize?: 'default' | 'long';
   status?: string;
 }
@@ -56,6 +57,7 @@ const {
   facts = [],
   actions = [],
   image,
+  density = 'section',
   titleSize = 'default',
   status,
 } = Astro.props as Props;
@@ -65,7 +67,7 @@ const primaryActionIndex = actions.findIndex((action) => action.primary);
 
 <header
   class:list={[
-    'section-hero',
+    'section-hero', `section-hero--${density}`,
     `section-hero--${variant}`,
     image && 'section-hero--with-media',
     image?.kind === 'portrait' && 'section-hero--profile',

@@ -1,6 +1,6 @@
 ---
 import SectionNavigation from './SectionNavigation.astro';
-import { getFreestatePageUrl, getFreestateUrl } from '@ostrecht/shared/lib/portal/index.ts';
+import { getFreestatePageUrl, getFreestateUrl, getKreisreformUrl } from '@ostrecht/shared/lib/portal/index.ts';
 ---
 
 <SectionNavigation
@@ -12,6 +12,7 @@ import { getFreestatePageUrl, getFreestateUrl } from '@ostrecht/shared/lib/porta
     { label: 'Staatsaufbau', href: getFreestatePageUrl('staatsaufbau') },
     { label: 'Staatsreform', href: getFreestatePageUrl('grosse-staatsreform') },
     { label: 'Verfassung', href: getFreestatePageUrl('verfassung-und-staatsziele') },
+    { label: 'Gebietssuche', href: `${getKreisreformUrl()}#bezirk-suche` },
     { label: 'Bezirke', href: getFreestatePageUrl('bezirke') },
     { label: 'Berlin', href: getFreestatePageUrl('berlin') },
     { label: 'Hoheitszeichen', href: getFreestatePageUrl('landesfarben-und-hoheitszeichen') },

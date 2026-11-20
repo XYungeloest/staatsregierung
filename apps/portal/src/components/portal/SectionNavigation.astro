@@ -16,7 +16,9 @@ const currentPath = Astro.url.pathname.replace(/\/+$/u, '/') || '/';
 const pathFromHref = (href: string) => {
   if (href.startsWith('#')) return null;
   try {
-    return new URL(href, Astro.url).pathname.replace(/\/+$/u, '/') || '/';
+    const target = new URL(href, Astro.url);
+    if (target.origin !== Astro.url.origin || target.hash) return null;
+    return target.pathname.replace(/\/+$/u, '/') || '/';
   } catch {
     return null;
   }
