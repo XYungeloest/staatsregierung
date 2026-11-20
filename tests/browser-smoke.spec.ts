@@ -1,7 +1,7 @@
 import { expect, test, type APIRequestContext, type Locator, type Page } from '@playwright/test';
 
 import { legacyRoutes } from '../apps/portal/src/config/legacy-routes.mjs';
-import { lawPaths } from '../packages/shared/src/config/site-routing.ts';
+import { lawPaths, siteUrls } from '../packages/shared/src/config/site-routing.ts';
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
 import {
   currentDocuments,
@@ -591,7 +591,7 @@ siteTest(['portal', 'law'])('Kalender, Sitemaps und strukturierte Termindaten si
     expect(sitemapText).toContain('<loc>');
 
     await page.goto('/presse/termine/');
-    const firstEventLink = page.locator('a[href^="/presse/termine/"]:not([href$="kalender.ics"])').first();
+    const firstEventLink = page.locator('main .event-card h3 a').first();
     await expect(firstEventLink).toBeVisible();
     // Erst nach abgeschlossener Navigation lesen (Firefox liefert sonst die Skripte der alten Seite).
     await Promise.all([page.waitForURL(/\/presse\/termine\/[^/]+\/?$/u), firstEventLink.click()]);
@@ -1068,8 +1068,9 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await searchSettled(page);
   await expect(page.locator('select[name="sort"]')).toHaveValue('activity');
   await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
-  await expect(page.locator('[data-search-results] .search-hit .search-hit__ident').first()).toContainText('Gesetz');
   const filtered = await currentDocuments(request, '&type=gesetz');
+  const firstType = filtered[0].isAmendment ? filtered[0].typeLabel : 'Stammgesetz';
+  await expect(page.locator('[data-search-results] .search-hit .search-hit__ident').first()).toContainText(firstType);
   const filteredDates = filtered.map((entry) => entry.lastChangeDate ?? '');
   expect(filtered.every((entry) => entry.type === 'gesetz')).toBeTruthy();
   expect(filteredDates.every((date, index) => index === 0 || filteredDates[index - 1] >= date)).toBeTruthy();
@@ -2513,7 +2514,7 @@ siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape
     if (mobile) await page.locator('.mobile-nav > summary').press('Enter');
     const nav = page.getByRole('navigation', { name: mobile ? 'Mobile Hauptnavigation' : 'Hauptnavigation', exact: true });
     await expect(nav.getByRole('link', { name: 'Freistaat', exact: true })).toHaveAttribute('aria-current', 'location');
-    const trigger = nav.getByRole('button', { name: 'Unterseiten zu Freistaat' });
+    const trigger = nav.getByLabel('Unterseiten zu Freistaat', { exact: true });
     await trigger.press('Enter');
     const areaSearch = nav.getByRole('link', { name: 'Gebietssuche zur Kreisreform' });
     await expect(areaSearch).toBeVisible();
@@ -2521,7 +2522,7 @@ siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape
     await page.keyboard.press('Escape');
     await expect(trigger).toBeFocused();
     await expect(areaSearch).toBeHidden();
-    await expect(nav.getByRole('link', { name: 'OstRecht' })).toHaveAttribute('href', 'https://recht.freistaat-ostdeutschland.de/');
+    await expect(nav.getByRole('link', { name: 'OstRecht' })).toHaveAttribute('href', new URL('/', siteUrls.law).href);
   }
 });
 
