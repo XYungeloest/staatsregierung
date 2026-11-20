@@ -43,9 +43,17 @@ for (const fieldset of document.querySelectorAll<HTMLFieldSetElement>('.r-search
   Array.from(fieldset.children).filter((child) => child !== legend).forEach((child) => group.append(child));
   fieldset.append(group);
   const syncGroup = () => {
-    group.open = !smallScreen.matches || Boolean(group.querySelector('input:checked'));
+    const active = Array.from(group.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input, select')).some((field) => {
+      if (field instanceof HTMLSelectElement) {
+        const initial = Array.from(field.options).find((option) => option.defaultSelected) ?? field.options[0];
+        return field.value !== initial?.value;
+      }
+      return field.type === 'checkbox' || field.type === 'radio' ? field.checked : Boolean(field.value.trim());
+    });
+    group.open = !smallScreen.matches || active;
     legend.classList.toggle('visually-hidden', smallScreen.matches);
   };
+  fieldset.closest('form')?.addEventListener('search-state-restored', syncGroup);
   smallScreen.addEventListener('change', syncGroup);
   syncGroup();
 }

@@ -9,7 +9,7 @@ import { formatShortDate } from '../../lib/dates.ts';
 import { getNormVersionPdfPath } from '../../lib/norm-links.ts';
 import { versionListCitation } from '../../lib/norm-head.ts';
 import { formatSourceLabel } from '../../lib/source-labels.ts';
-import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
+import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL, versionKindLabel } from '../../lib/vocabulary.ts';
 
 /**
  * Seitenspalte der Normansicht (P3): Fassungen dieser Vorschrift als Zeitleiste, Zitieren der
@@ -22,15 +22,16 @@ interface Props {
   fullCitation: string;
   publicationReference?: NormPublicationReference;
   publication?: Verkuendung;
+  immutableLink?: boolean;
 }
 
-const { norm, version, origin, fullCitation, publicationReference, publication } = Astro.props;
+const { norm, version, origin, fullCitation, publicationReference, publication, immutableLink = false } = Astro.props;
 const identity = getNormVersionIdentity(norm, version);
 const abbr = toDisplayText(identity.abbr ?? '') || toDisplayText(identity.shortTitle);
 const entries = classifyNormVersions(norm)
   .map((entry) => ({ ...entry, isBaseline: entry.version.versionId === origin.baselineVersionId, isShown: entry.version.versionId === version.versionId }))
   .sort((left, right) => right.version.validFrom.localeCompare(left.version.validFrom));
-const immutable = entries.find((entry) => entry.isShown)?.kind !== 'current';
+const immutable = immutableLink || entries.find((entry) => entry.isShown)?.kind !== 'current';
 const citeSuffix = immutable
   ? version.validTo
     ? ` in der bis zum ${formatShortDate(version.validTo)} geltenden Fassung`
@@ -47,7 +48,7 @@ const currentEntry = entries.find((entry) => entry.kind === 'current');
 const versionsSummary = [
   `${entries.length} ${entries.length === 1 ? 'Fassung' : 'Fassungen'}`,
   shownEntry && shownEntry.kind !== 'current'
-    ? `angezeigt: ${shownEntry.kind === 'future' ? 'künftige' : 'historische'} Fassung vom ${formatShortDate(shownEntry.version.validFrom)}`
+    ? `angezeigt: ${versionKindLabel(shownEntry.kind)} vom ${formatShortDate(shownEntry.version.validFrom)}`
     : currentEntry ? `geltend seit ${formatShortDate(currentEntry.version.validFrom)}` : '',
 ].filter(Boolean);
 

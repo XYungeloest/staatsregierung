@@ -58,7 +58,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
     { label: `Fassung vom ${formatDate(version.validFrom)}` },
   ]}
 >
-  <NormHead norm={norm} version={version} model={model} officialPdf={publication?.pdf} fullCitation={fullCitation} />
+  <NormHead immutableLink norm={norm} version={version} model={model} officialPdf={publication?.pdf} fullCitation={fullCitation} />
   <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} versionId={version.versionId} active="text" /></div>
   <NormMiniHead norm={norm} version={version} />
   <NormOutlineSheet items={outline} summary={summary} changes={changes} />
@@ -74,7 +74,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
       </div>
     </article>
 
-    <NormAside norm={norm} version={version} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} publication={publication} />
+    <NormAside immutableLink norm={norm} version={version} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} publication={publication} />
   </div>
 
   <script>import '../../../../scripts/norm-page.ts';</script>

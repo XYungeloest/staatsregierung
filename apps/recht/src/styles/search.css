@@ -664,3 +664,6 @@
     grid-row: 10;
   }
 }
+
+.search-hit__title { min-width: 0; }
+.search-hit__title :is(h3, h4), .search-hit__long { overflow-wrap: anywhere; hyphens: auto; }
