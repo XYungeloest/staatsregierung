@@ -78,7 +78,9 @@ const visualPages: VisualPage[] = [
   { name: 'thema-kompakt', path: '/themen/sport/' },
   { name: 'thema-wirtschaftsdossier', path: '/themen/oeffentliche-wirtschaft-und-strukturwandel/' },
   { name: 'thema-volksbefragung', path: '/themen/volksbefragung-2026/' },
-  // Personenprofil; vertritt Staatsrat, Regierungsarchiv und die Ressortprofile.
+  // Politische Leitung mit zwei Fachspalten; sie müssen innerhalb der Seitenbreite bleiben.
+  { name: 'staatsrat', path: '/staatsregierung/' },
+  // Personenprofil; vertritt Regierungsarchiv und die Ressortprofile.
   { name: 'regierungsmitglied-max-peterson', path: '/staatsregierung/mitglieder/max-peterson/' },
   // Portalsuche: Formular und Bereichsgruppierung, anderes Muster als die Rechtssuche.
   { name: 'portalsuche', path: '/suche/', critical: true },

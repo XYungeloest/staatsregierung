@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
 import HoldingsCountryCards from '../../../components/portal/HoldingsCountryCards.astro';
 import HoldingsNavigator from '../../../components/portal/HoldingsNavigator.astro';
 import HoldingsSharedPositions from '../../../components/portal/HoldingsSharedPositions.astro';
@@ -49,7 +48,7 @@ const newSection = requireSection('neu-errichtet');
 const formatDate = (date: string) => siteConfig.date.formatLong(date);
 const getNormLink = (slug: string) => getNormUrl(slug);
 const csvUrl = `${import.meta.env.BASE_URL}staatsregierung/beteiligungen/daten.csv`;
-const heroFacts = [
+const inventoryFacts = [
   { label: 'Belegte Positionszeilen', value: String(inventory.totals.positionRows) },
   { label: 'Unmittelbar', value: String(inventory.totals.directRows) },
   { label: 'Mittelbar oder tiefer', value: String(inventory.totals.indirectAndSecondDegreeRows) },
@@ -78,18 +77,12 @@ const heroFacts = [
 
   <SectionHero
     density="tool"
-    eyebrow="Staatsrat"
+    eyebrow="Staat & Behörden"
     title="Beteiligungsnavigator des Freistaates"
     titleSize="long"
-    lead={overview.lead}
+    lead="Suchen Sie nach einem öffentlichen Unternehmen oder filtern Sie nach Herkunft, Beteiligungsstufe und Rechtsform."
     variant="government"
-    facts={heroFacts}
-    actions={[
-      { label: 'Beteiligungsdaten herunterladen', href: csvUrl, primary: true },
-      { label: 'Inventur durchsuchen', href: '#beteiligungsnavigator' },
-    ]}
   />
-  <GovernmentNavigation />
 
   <HoldingsNavigator {inventory} />
 
@@ -99,6 +92,7 @@ const heroFacts = [
         <div class="section-header">
           <h2>Einordnung</h2>
         </div>
+        <p>{overview.lead}</p>
         {overview.introduction.map((paragraph) => <p>{paragraph}</p>)}
       </div>
 
@@ -115,6 +109,7 @@ const heroFacts = [
             <dt>{siteConfig.vocabulary.dataAsOf}</dt>
             <dd><time datetime={overview.asOf}>{formatDate(overview.asOf)}</time></dd>
           </div>
+          {inventoryFacts.map(({ label, value }) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
           <div>
             <dt>Unterschiedliche Rechtsträger</dt>
             <dd>{inventory.totals.distinctNames}</dd>
