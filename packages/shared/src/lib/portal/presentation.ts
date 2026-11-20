@@ -1,33 +1,22 @@
-import type { Themenstatus } from '@ostrecht/shared/lib/portal/schema.ts';
+import { TOPIC_STATUS_LABELS, type Themenstatus } from '@ostrecht/shared/lib/portal/schema.ts';
 
 export function formatTopicStatus(status: Themenstatus): string {
-  switch (status) {
-    case 'geplant':
-      return 'Geplant';
-    case 'entwurf':
-      return 'Entwurf';
-    case 'im-gesetzgebungsverfahren':
-      return 'Im Gesetzgebungsverfahren';
-    case 'beschlossen':
-      return 'Beschlossen';
-    case 'in-umsetzung':
-      return 'In Umsetzung';
-    case 'abgeschlossen':
-      return 'Abgeschlossen';
-  }
+  return TOPIC_STATUS_LABELS[status];
 }
 
-export function getTopicStatusTone(status: Themenstatus): 'green' | 'blue' | 'amber' {
+export function getTopicStatusTone(status: Themenstatus): 'green' | 'blue' | 'amber' | 'muted' {
   switch (status) {
-    case 'abgeschlossen':
-      return 'green';
-    case 'beschlossen':
-    case 'in-umsetzung':
-      return 'blue';
+    case 'umgesetzt':
+    case 'abgeschlossen': return 'green';
+    case 'aufgehoben':
+    case 'eingestellt': return 'muted';
     case 'geplant':
+    case 'angekuendigt':
+    case 'in-vorbereitung':
     case 'entwurf':
-    case 'im-gesetzgebungsverfahren':
-      return 'amber';
+    case 'entwurf-vorgelegt':
+    case 'im-gesetzgebungsverfahren': return 'amber';
+    default: return 'blue';
   }
 }
 

@@ -10,7 +10,6 @@ export {
   formatEuroAmount,
   formatEuroCompact,
   formatTimelineEntryType,
-  getActionPlanStatusIcon,
   type ActionPlanItem,
   type ActionPlanReference,
   type ActionPlanStatus,

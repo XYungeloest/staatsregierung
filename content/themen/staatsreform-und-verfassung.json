@@ -1,7 +1,8 @@
 {
   "slug": "staatsreform-und-verfassung",
   "title": "Staatsreform & Verfassung",
-  "teaser": "Fünf Reformgesetze ordnen Staatswesen, Finanzverfassung, Staatsziele, Bildung und Religion neu und machen Ostdeutschland seit dem 12. September 2026 zum sozialistischen Freistaat.",
+  "pageType": "dossier",
+  "teaser": "Vom Landtag zur Volkskammer, vom Kabinett zum Staatsrat. Die Reform änderte die Staatsordnung im Juli und September 2026.",
   "status": "in-umsetzung",
   "cluster": "staat-demokratie",
   "priority": 94,
@@ -9,27 +10,25 @@
   "highlightFrom": "2026-09-08",
   "highlightUntil": "2026-12-31",
   "updatedAt": "2026-10-14",
+  "knowledgeProjectRefs": [
+    "project-staatsreform"
+  ],
   "relatedTopicSlugs": [
     "volksbefragung-2026",
     "transparenz-und-lobbyregister"
   ],
-  "knowledgeProjectRefs": [
-    "project-staatsreform"
-  ],
-  "hero": "Die vier Gesetze zur Großen Staatsreform gelten seit dem 21. Juli 2026. Das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens ist am 12. September 2026 verkündet worden und am selben Tag in Kraft getreten: Ostdeutschland ist ein sozialistischer Freistaat mit Recht auf Arbeit, Volkseigentum, Gesellschafts- und Wirtschaftsplan und einem verschärften Schutz gemeinwirtschaftlichen Vermögens.",
   "beschlossen": [
     "Die vier Reformgesetze wurden am 20. Juli 2026 verkündet und traten am 21. Juli 2026 in Kraft.",
-    "Die siebte Volkskammer ist die bisherige siebte Landtagswahlperiode; die bisherige Staatsregierung wurde übergangsweise zum ersten Staatsrat.",
-    "Die achte Volkskammer hat sich am 7. September 2026 konstituiert und den zweiten Staatsrat gewählt; der Organisationserlass 09/2026 grenzt seit demselben Tag vier Geschäftsbereiche ab und ordnet ihnen zehn Staatssekretariate zu.",
     "Die Volkskammer hat am 11. September 2026 das Fünfte Gesetz zur Großen Staatsreform beschlossen; es setzt das Ergebnis der Volksbefragung 2026 um, wurde am 12. September 2026 verkündet und gilt seit diesem Tag.",
+    "Beschäftigte wirken an Leitung und Kontrolle von Betrieben und öffentlichen Unternehmen mit; alle Bürger:innen haben das Recht, das politische, wirtschaftliche, soziale und kulturelle Leben mitzugestalten und Rechenschaft zu verlangen."
+  ],
+  "geltendesRecht": [
     "Die Verfassung gliedert sich seither in dreizehn Abschnitte. Neu sind die Abschnitte über die sozialen und die ökonomischen Grundlagen der sozialistischen Gesellschaft mit Recht auf Arbeit, sozialer Sicherheit, Volkseigentum, Genossenschaften, öffentlichen Unternehmen und einem fünfjährigen Gesellschafts- und Wirtschaftsplan.",
-    "Beschäftigte wirken an Leitung und Kontrolle von Betrieben und öffentlichen Unternehmen mit; jeder Bürger hat das Recht, das politische, wirtschaftliche, soziale und kulturelle Leben mitzugestalten und Rechenschaft zu verlangen.",
-    "Der Staatsrat kann gesetzesvertretende Rechtsverordnungen mit Gesetzeskraft erlassen, die Verfassung und Gesetze weder ändern noch ihnen widersprechen dürfen. Die Abschnitte über Rechtspflege, Verwaltung, Finanzwesen und Staatsvermögen, Bildungs- und Erziehungswesen sowie Weltanschauungsgemeinschaften wurden neu gefasst."
+    "Der Staatsrat kann gesetzesvertretende Rechtsverordnungen mit Gesetzeskraft erlassen, die Verfassung und Gesetze weder ändern noch ihnen widersprechen dürfen. Die Abschnitte über Rechtspflege, Verwaltung, Finanzwesen und Staatsvermögen, Bildungs- und Erziehungswesen sowie Weltanschauungsgemeinschaften wurden neu gefasst.",
+    "Am selben Tag sind drei besondere Gesetze in Kraft getreten, die die neuen Verfassungsaufträge ausfüllen: das Soziale Grundversorgungsgesetz, das Boden- und Naturvermögensgesetz mit dem Landesbodenfonds und das Gemeinvermögensschutzgesetz."
   ],
   "umgesetzt": [
-    "Die aktuelle Lesefassung der Verfassung bildet Volkskammer, Staatsrat, Staatspräsident, die neuen Rechtsetzungsregeln, die erweiterten Staatsziele und seit dem 12. September 2026 die sozialistische Verfassungsordnung ab.",
-    "Die fünf Reformgesetze bleiben im Rechtsportal getrennt und als gemeinsamer Reformkomplex verknüpft.",
-    "Am selben Tag sind drei besondere Gesetze in Kraft getreten, die die neuen Verfassungsaufträge ausfüllen: das Soziale Grundversorgungsgesetz, das Boden- und Naturvermögensgesetz mit dem Landesbodenfonds und das Gemeinvermögensschutzgesetz."
+    "Die achte Volkskammer hat sich am 7. September 2026 konstituiert und den zweiten Staatsrat gewählt; der Organisationserlass 09/2026 grenzt seit demselben Tag vier Geschäftsbereiche ab und ordnet ihnen zehn Staatssekretariate zu."
   ],
   "naechsteSchritte": [
     "Den ersten Gesellschafts- und Wirtschaftsplan 2027–2031 auf Grundlage des am 14. Oktober verkündeten Wirtschaftsplanungs- und Gemeinwirtschaftsgesetzes vorbereiten; das besondere Gesetz zur Wirtschaftsdemokratie und Mitbestimmung sowie Regeln für gesellschaftliche Schlichtungsstellen weiter ausgestalten.",
@@ -61,17 +60,17 @@
       "title": "Institutioneller Übergang",
       "intro": "Die Reform setzt bestehende Wahl- und Regierungsperioden fort, ordnet aber zentrale Verfassungsorgane neu.",
       "beforeLabel": "Bis 20. Juli 2026",
-      "afterLabel": "Seit 21. Juli 2026",
+      "afterLabel": "Entwicklung ab Juli 2026",
       "items": [
         {
           "label": "Parlament",
           "before": "Siebter Landtag",
-          "after": "Siebte Volkskammer; die Wahlperiode wird fortgeführt"
+          "after": "Ab 21. Juli siebte Volkskammer. Seit 7. September tagt die achte Volkskammer."
         },
         {
           "label": "Regierung",
           "before": "Staatsregierung",
-          "after": "Erster Staatsrat"
+          "after": "Am 21. Juli ging das Kabinett Honecker II in den ersten Staatsrat über. Seit 7. September amtiert der zweite Staatsrat."
         },
         {
           "label": "Staatsoberhaupt und Regierungsleitung",

@@ -1,35 +1,34 @@
 {
   "slug": "krankenhausfonds",
   "title": "Krankenhausfonds",
-  "teaser": "Der Fonds sichert Krankenhausstandorte und stärkt öffentliche Trägerschaft, damit die regionale Versorgung erhalten bleibt.",
-  "status": "in-umsetzung",
+  "pageType": "compact",
+  "teaser": "Der Krankenhausfonds kann gefährdete Standorte sichern und eine öffentliche Trägerschaft unterstützen.",
+  "status": "in-kraft",
   "cluster": "bildung-gesellschaft",
   "priority": 70,
   "featured": false,
   "updatedAt": "2026-09-12",
-  "relatedTopicSlugs": [
-    "familie-und-soziales",
-    "soziale-sicherheit-und-teilhabe"
-  ],
   "knowledgeProjectRefs": [
     "project-krankenhausfonds",
     "project-soziale-grundversorgung"
   ],
-  "hero": "Der Krankenhausfonds ist ein sozial- und strukturpolitisches Schlüsselvorhaben zur Sicherung der Gesundheitsversorgung im gesamten Freistaat.",
+  "relatedTopicSlugs": [
+    "familie-und-soziales",
+    "soziale-sicherheit-und-teilhabe"
+  ],
   "beschlossen": [
-    "Ein Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern wurde gesetzlich geschaffen.",
-    "Die Krankenhauspolitik wurde stärker auf öffentliche Steuerung und Versorgungssicherheit ausgerichtet.",
-    "Die zuvor erwogene flächendeckende unmittelbare Übernahme privater Krankenhäuser wurde zugunsten des Fondsmodells verworfen.",
-    "Seit dem 12. September 2026 verknüpft das Soziale Grundversorgungsgesetz die Krankenhausplanung mit regionalen Mindestversorgungsstandards: Wird eine bestehende oder drohende Unterdeckung festgestellt, prüft die Planungsbehörde nach dem neuen § 10b des Krankenhausgesetzes unverzüglich Sicherungsmaßnahmen, und der Fonds hat ein Verfahren von Amts wegen einzuleiten.",
-    "Das Fondsgesetz berichtet jährlich an die Volkskammer, verlangt bei strukturellen Entscheidungen die Beteiligung von Patienten- und Nutzerinteressen sowie der Beschäftigten und bindet Weiterübertragungen an nicht öffentlich beherrschte Träger an das Gemeinvermögensschutzgesetz."
+    "Der Freistaat hat einen Landesfonds für Einzelfälle eingerichtet. Eine flächendeckende Übernahme privater Krankenhäuser ist damit nicht beschlossen."
   ],
-  "umgesetzt": [
-    "Das Ostdeutsche Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz ist im Rechtsportal verfügbar.",
-    "Der Fonds ist ein eigenständiger Baustein der sozialstaatlichen Landespolitik. Einzelne Bewilligungen oder Rekommunalisierungen sind im vorhandenen Quellenstand noch nicht belegt."
+  "geltendesRecht": [
+    "Der Fonds berichtet der Volkskammer jährlich. Bei strukturellen Entscheidungen sind die Interessen der Patient:innen und der Beschäftigten zu beteiligen."
   ],
-  "naechsteSchritte": [
-    "Bewilligungen, Fondsvolumen und einzelne Rekommunalisierungen nach belastbaren Vollzugsnachweisen dokumentieren.",
-    "Stärkere Verbindung mit regionaler Landesentwicklung und Fachkräftesicherung."
+  "umgesetzt": [],
+  "naechsteSchritte": [],
+  "impacts": [
+    {
+      "text": "Stellt die Planungsbehörde eine bestehende oder drohende Unterversorgung fest, muss sie nach § 10b unverzüglich Sicherungsmaßnahmen prüfen. Der Fonds leitet ein Verfahren von Amts wegen ein. Eine Bewilligung erfordert eine eigene Entscheidung.",
+      "normSlug": "ostdeutsches-krankenhausgesetz"
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -53,16 +52,7 @@
       "normSlug": "gemeinvermoegensschutzgesetz"
     }
   ],
-  "faq": [
-    {
-      "question": "Warum ist der Krankenhausfonds ein Hauptprojekt?",
-      "answer": "Weil er öffentliche Daseinsvorsorge, regionale Stabilität und Gesundheitsversorgung unmittelbar zusammenführt."
-    },
-    {
-      "question": "Ist das nur ein Finanzinstrument?",
-      "answer": "Nein. Der Fonds ist zugleich ein strukturpolitisches Steuerungsinstrument für Versorgung, Trägerschaft und regionale Verlässlichkeit."
-    }
-  ],
+  "faq": [],
   "federfuehrendesRessort": "soziale-und-gesundheitliche-fuersorge",
   "mitzeichnungsressorts": [
     "kapitalakkumulation-des-fiskus",

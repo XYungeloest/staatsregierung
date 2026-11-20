@@ -1,63 +1,52 @@
 {
   "slug": "familie-und-soziales",
   "title": "Familie & Soziales",
-  "teaser": "Familien sollen bei Betreuung und Alltag entlastet werden; soziale Fürsorge und Teilhabe werden über öffentliche Angebote ausgebaut.",
+  "pageType": "compact",
+  "teaser": "Welche Beiträge für die Kita gelten und wann Familien ein zinsfreies Darlehen beantragen können.",
   "status": "in-umsetzung",
   "cluster": "bildung-gesellschaft",
   "priority": 62,
   "featured": false,
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-10-14",
   "knowledgeProjectRefs": [],
-  "hero": "Sozialpolitik wird im Freistaat als alltagsnahe Daseinsvorsorge verstanden und reicht von Familienentlastung bis zu Darlehens- und Teilhabeinstrumenten.",
+  "relatedTopicSlugs": [
+    "soziale-sicherheit-und-teilhabe",
+    "bildungsreform"
+  ],
   "beschlossen": [
-    "Ab 1. Januar 2027 ist die Kindertagesbetreuung beitragsfrei; bis dahin sind die Elternbeiträge seit dem 1. August 2026 auf höchstens 7,5 Prozent der angemessenen Personalkosten begrenzt.",
-    "Mit dem Familienstartdarlehen besteht ein ergänzendes Förderinstrument.",
-    "Sozialpolitische und menschenrechtliche Standards wurden in mehreren Bereichen vertieft.",
-    "Das Gesetz zur Stärkung der psychologischen, psychotherapeutischen und psychiatrischen Versorgung wurde am 20. Juli 2026 verkündet und trat am selben Tag in Kraft.",
-    "Seit dem 12. September 2026 gewährleistet die Verfassung das Recht auf Zugang zu einer bedarfsgerechten gesundheitlichen und pflegerischen Versorgung und das Recht auf soziale Sicherheit. Das Soziale Grundversorgungsgesetz verpflichtet zu Pflegeinfrastrukturplanung, Pflegestützpunkten und Gemeindepflege und sieht ein landesweit erreichbares Pflegenottelefon zur Beratung und Vermittlung in dringenden pflegerischen Versorgungslagen vor."
+    "Ab 1. Januar 2027 entfallen die Elternbeiträge für die Kindertagesbetreuung und die regelmäßige Verpflegung."
   ],
-  "umgesetzt": [
-    "Die Abschaffung des Elternbeitrags ist normativ abgesichert.",
-    "Die Förderrichtlinie Familienstartdarlehen liegt als operative Verwaltungsvorschrift vor.",
-    "Die Ressortstruktur für Gesundheits- und Sozialwesen ist als klarer Hauptakteur aufgebaut.",
-    "Seit dem 20. Juli 2026 verpflichtet § 14a des Ostdeutschen Krankenhausgesetzes dazu, die Gehälter der im öffentlichen Dienst des Freistaates und in kommunalen Einrichtungen beschäftigten Psycholog:innen, Psychotherapeut:innen und Ärzt:innen in der Psychiatrie durch regionale Strukturzulagen attraktiver zu gestalten, mit zusätzlicher Zuwendung für Tätigkeiten im ländlichen Raum und in Unterversorgungsgebieten. Eine Rechtsverordnung über Höhe und Ausgestaltung der Zulagen ist im Rechtsportal bislang nicht nachgewiesen."
+  "geltendesRecht": [
+    "Seit dem 1. August 2026 darf die Summe der Elternbeiträge höchstens 7,5 Prozent der angemessenen Personalkosten betragen. Die Grenze bezieht sich auf die Gesamtsumme."
   ],
-  "naechsteSchritte": [
-    "Umsetzung der neuen Versorgungs- und Planungsaufträge.",
-    "Weitere Entlastungsschritte für Familien und Sorgearbeit.",
-    "Stärkere Verzahnung von Gesundheit, Pflege und sozialer Sicherung.",
-    "Ausbau landesweiter Unterstützungsangebote in Stadt und Land."
+  "umgesetzt": [],
+  "naechsteSchritte": [],
+  "impacts": [
+    {
+      "text": "Familien können das zinsfreie Familienstartdarlehen innerhalb von zwölf Monaten nach Geburt oder Adoption des ersten Kindes beantragen. Es gelten Einkommensgrenzen und Wohnsitzvoraussetzungen. Mindestens eine antragstellende Person muss jünger als 35 Jahre sein. Ein Rechtsanspruch besteht nicht.",
+      "normSlug": "forderrichtlinie-des-staatsministeriums-fur-soziale-und-gesu-17lqyb5"
+    }
   ],
   "rechtsgrundlagen": [
     {
-      "label": "Soziale Grundversorgungsgesetz",
-      "normSlug": "soziale-grundversorgungsgesetz",
-      "note": "In Kraft seit 12. September 2026."
+      "label": "Gesetz zur Abschaffung des Elternbeitrags",
+      "normSlug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w"
     },
     {
-      "label": "Verfassung des Freistaates Ostdeutschland",
-      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
-      "note": "Artikel 7b Absatz 3 und Artikel 7e in der Fassung des Fünften Gesetzes zur Großen Staatsreform."
+      "label": "Förderrichtlinie Familienstartdarlehen",
+      "normSlug": "forderrichtlinie-des-staatsministeriums-fur-soziale-und-gesu-17lqyb5"
     },
     {
-      "label": "Gesetz zur Stärkung der psychologischen, psychotherapeutischen und psychiatrischen Versorgung",
-      "normSlug": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung"
-    },
-    { "label": "Gesetz zur Abschaffung des Elternbeitrags", "normSlug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w" },
-    { "label": "Förderrichtlinie Familienstartdarlehen", "normSlug": "forderrichtlinie-des-staatsministeriums-fur-soziale-und-gesu-17lqyb5" },
-    { "label": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen", "normSlug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq" },
-    { "label": "Bildungsfreistellungsgesetz", "normSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland", "note": "Relevant für Vereinbarkeit von Arbeit, Qualifikation und Teilhabe." }
-  ],
-  "faq": [
-    {
-      "question": "Warum gehört die Kita-Beitragsfreiheit zu diesem Themenfeld?",
-      "answer": "Weil sie Familien ab dem 1. Januar 2027 unmittelbar entlastet und soziale Teilhabe bereits im frühen Lebensalter stärkt."
+      "label": "Bildungsfreistellungsgesetz",
+      "normSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland",
+      "note": "Relevant für Vereinbarkeit von Arbeit, Qualifikation und Teilhabe."
     },
     {
-      "question": "Ist Familie & Soziales bereits abgeschlossen?",
-      "answer": "Nein. Die Grundrichtung ist gesetzt, aber das Themenfeld bleibt als Ausbauaufgabe der Daseinsvorsorge angelegt."
+      "label": "Gesetz über kostenfreie Kindheit und soziale Teilhabe",
+      "normSlug": "kostenfreie-kindheit-und-soziale-teilhabe"
     }
   ],
+  "faq": [],
   "federfuehrendesRessort": "soziale-und-gesundheitliche-fuersorge",
   "mitzeichnungsressorts": [
     "bildung-und-sportliche-ertuechtigung"

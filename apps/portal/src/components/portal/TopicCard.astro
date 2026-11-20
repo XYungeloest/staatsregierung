@@ -31,10 +31,10 @@ const showStatus = variant !== 'compact';
 ---
 
 <article id={anchorId} class:list={['panel', 'topic-card', `topic-card--${variant}`]}>
-  <div class="topic-card__header">
+  {showStatus && <div class="topic-card__header">
     {showStatus ? <StatusBadge status={topic.status} /> : null}
     <p class="topic-card__cluster">{TOPIC_CLUSTER_LABELS[topic.cluster]}</p>
-  </div>
+  </div>}
   <Heading><a href={getTopicUrl(topic.slug)}>{topic.title}</a></Heading>
   <p>{topic.teaser}</p>
   {nextDate ? (
@@ -46,5 +46,4 @@ const showStatus = variant !== 'compact';
     </p>
   ) : null}
   <p class="topic-card__updated">{siteConfig.vocabulary.portalContentAsOf} <time datetime={topic.updatedAt}>{siteConfig.date.formatLong(topic.updatedAt)}</time></p>
-  <a class="topic-card__link" href={getTopicUrl(topic.slug)} aria-label={`${topic.title} ansehen`}><PortalIcon name="arrow" /></a>
 </article>

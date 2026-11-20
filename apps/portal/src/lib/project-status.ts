@@ -44,7 +44,7 @@ export function projectPublicStatus(items: ActionPlanItem[], topics: Themenseite
       legalReferences: (item.references ?? []).map(publicReference),
       topic: topic ? {
         slug: topic.slug, title: topic.title, href: getTopicUrl(topic.slug), status: topic.status,
-        updatedAt: topic.updatedAt, beschlossen: topic.beschlossen, umgesetzt: topic.umgesetzt,
+        updatedAt: topic.updatedAt, beschlossen: topic.beschlossen, geltendesRecht: topic.geltendesRecht, umgesetzt: topic.umgesetzt,
         naechsteSchritte: topic.naechsteSchritte, legalReferences: topic.rechtsgrundlagen.map(publicReference),
         procedures: procedures.filter((procedure) => procedure.relatedTopics.includes(topic.slug)).map((procedure) => ({
           slug: procedure.slug, title: procedure.shortTitle, documentNumber: procedure.documentNumber,

@@ -1,27 +1,32 @@
 {
   "slug": "kreislaufwirtschaft",
   "title": "Kreislaufwirtschaft",
-  "teaser": "Die SERO-Verordnung ordnet die Sekundärrohstoff-Erfassung und den Aufbau einer landeseigenen Kreislaufwirtschaftsinfrastruktur.",
-  "status": "in-umsetzung",
+  "pageType": "compact",
+  "teaser": "Die SERO-Verordnung regelt, wie wiederverwertbare Rohstoffe erfasst werden sollen.",
+  "status": "in-kraft",
   "cluster": "umwelt-versorgung",
   "priority": 74,
   "featured": false,
   "updatedAt": "2026-09-12",
-  "relatedTopicSlugs": ["energie-und-klima"],
-  "knowledgeProjectRefs": ["project-sero"],
-  "hero": "Der Staatsrat schafft mit der SERO-Verordnung einen aktuellen Rechtsrahmen für Annahmestellen, Rücknahmesysteme und die landeseigene Kreislaufwirtschaftsinfrastruktur.",
-  "beschlossen": [
-    "Der Staatsrat erließ die SERO-Verordnung am 20. Juli 2026 auf Grundlage von Artikel 75a Absatz 1 der Staatsverfassung.",
-    "Die Verordnung wurde am 21. Juli 2026 verkündet und trat am Tag der Verkündung in Kraft.",
-    "Seit dem 12. September 2026 zählt die Verfassung die Kreislaufwirtschaft zu den Aufgaben der öffentlichen Daseinsvorsorge, die vorrangig durch öffentliche, kommunale, genossenschaftliche oder andere dauerhaft gemeinwohlgebundene Träger erfüllt werden."
+  "knowledgeProjectRefs": [
+    "project-sero"
   ],
-  "umgesetzt": [
-    "Die SERO-Verordnung ist im Rechtsportal mit Fundstelle und vollständigem Normtext veröffentlicht.",
-    "Die Zuständigkeit liegt seit dem 7. September 2026 beim Staatssekretariat für Nachhaltigkeit, Energie und Land-, Forst- und Küstenwirtschaft."
+  "relatedTopicSlugs": [
+    "energie-und-klima"
   ],
+  "beschlossen": [],
+  "geltendesRecht": [
+    "Die SERO-Verordnung regelt seit dem 21. Juli 2026 die landeseigene Sekundärrohstoff-Erfassung."
+  ],
+  "umgesetzt": [],
   "naechsteSchritte": [
-    "Aufbau der in der Verordnung vorgesehenen Erfassungs- und Rücknahmestrukturen.",
-    "Abstimmung der landeseigenen Infrastruktur mit kommunalen und bestehenden Entsorgungsstrukturen."
+    "Stationäre und mobile Annahmeangebote aufbauen."
+  ],
+  "impacts": [
+    {
+      "text": "Die Verordnung sieht mobile Annahmestellen für ländliche Räume und Menschen mit eingeschränkter Mobilität vor. Kommunale Einrichtungen können sich auf Grundlage einer Vereinbarung beteiligen.",
+      "normSlug": "sero-verordnung"
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -35,16 +40,7 @@
       "note": "Artikel 75a Absatz 1 in der bis zum 11. September 2026 geltenden Fassung (selbstständige Rechtsverordnungen des Staatsrates) ist die Ermächtigungsgrundlage der SERO-Verordnung; seit dem 12. September 2026 regelt Artikel 75a gesetzesvertretende Rechtsverordnungen. Artikel 7a Absatz 1 nennt die Kreislaufwirtschaft als Aufgabe der öffentlichen Daseinsvorsorge."
     }
   ],
-  "faq": [
-    {
-      "question": "Seit wann gilt die SERO-Verordnung?",
-      "answer": "Sie wurde am 21. Juli 2026 verkündet und trat nach ihrer Schlussvorschrift am Tag der Verkündung in Kraft."
-    },
-    {
-      "question": "Wo ist der vollständige Wortlaut abrufbar?",
-      "answer": "Der vollständige Verordnungstext ist im Rechtsportal mit der amtlichen Fundstelle veröffentlicht."
-    }
-  ],
+  "faq": [],
   "federfuehrendesRessort": "umwelt-energie-und-klimaschutz",
   "mitzeichnungsressorts": [
     "inneres-bau-und-kommunale-angelegenheiten"
