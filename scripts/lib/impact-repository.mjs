@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseNormHistory, parseNormMeta } from '@ostrecht/shared/lib/norms/schema.ts';
+import { parseNormHistory, parseNormMeta, parseNormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import { loadModel } from '../knowledge.mjs';
 
 export const repositoryRoot = fileURLToPath(new URL('../../', import.meta.url));
@@ -12,7 +12,8 @@ export const versionFile = (slug, id) => normFile(slug, 'versions/' + id + '.jso
 export function readVersion(slug, id, root = repositoryRoot) {
   if (!validId(slug) || !validId(id)) throw new Error('Ungültige Norm- oder Fassungskennung.');
   try {
-    const version = JSON.parse(readFileSync(join(root, versionFile(slug, id)), 'utf8'));
+    const file = versionFile(slug, id);
+    const version = parseNormVersion(JSON.parse(readFileSync(join(root, file), 'utf8')), file);
     if (version.versionId !== id) throw new Error('Fassungskennung weicht vom Dateinamen ab: ' + id);
     return version;
   } catch (error) {

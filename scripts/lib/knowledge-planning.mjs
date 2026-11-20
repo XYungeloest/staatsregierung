@@ -13,6 +13,10 @@ const heading = {
   'nicht-pruefbar': 'Im Bestand nicht prüfbar', verfallen: 'Abgelaufene Ermächtigungen',
 };
 
+export function evidenceNormVersions(label) {
+  return Array.from(label.matchAll(/(?:^|[\s(])(?:content\/normen\/)?([a-z0-9-]+)\/versions\/([a-z0-9-]+)\.json\b/gu), ([, normSlug, versionId]) => ({ normSlug, versionId }));
+}
+
 export function agendaItems(agenda) {
   return Object.keys(agendaGroups).flatMap((key) => Array.isArray(agenda[key]) ? agenda[key] : []);
 }
@@ -99,8 +103,7 @@ export function validatePlanning({ agenda, mandates, sources, ids, hasNorm, load
         errors.push(x.id + ': ungültiger Eintrag in evidence.');
         continue;
       }
-      for (const match of evidence.matchAll(/(?:^|[\s(])(?:content\/normen\/)?([a-z0-9-]+)\/versions\/([a-z0-9-]+)\.json\b/gu)) {
-        const [, slug, versionId] = match;
+      for (const { normSlug: slug, versionId } of evidenceNormVersions(evidence)) {
         const key = slug + '/' + versionId;
         if (!evidenceVersions.has(key)) evidenceVersions.set(key, loadVersion(slug, versionId)?.versionId === versionId);
         if (!evidenceVersions.get(key)) errors.push(x.id + ': Normfassung aus evidence fehlt: ' + key);

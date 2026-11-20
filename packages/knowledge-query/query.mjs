@@ -1,7 +1,8 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
-import { agendaItems } from '../../scripts/lib/knowledge-planning.mjs';
+import { agendaItems, evidenceNormVersions } from '../../scripts/lib/knowledge-planning.mjs';
 import { analyzeImpact } from '../../scripts/lib/content-impact.mjs';
 import { loadImpactRepository, normFile, readVersion, repositoryRoot, versionFile } from '../../scripts/lib/impact-repository.mjs';
 import { loadModel } from '../../scripts/knowledge.mjs';
@@ -54,7 +55,7 @@ function repositoryLegalState({ norm, version }, referenceDate) {
     return versions.map((id) => {
       const v = readVersion(norm, id);
       if (!v) throw new RangeError('Normfassung fehlt: ' + norm + '/' + id);
-      return { id: norm, versionId: id, title: meta.title, status: meta.status, temporalKind: classifyNormVersion({ meta }, v, referenceDate),
+      return { id: norm, versionId: id, title: getNormVersionIdentity({ meta }, v).title, status: meta.status, temporalKind: classifyNormVersion({ meta }, v, referenceDate),
         validFrom: v.validFrom, validTo: v.validTo, asOf: referenceDate,
         sources: [{ file: versionFile(norm, id), locator: v.citation ?? '/versionId' }, { file: metaFile, locator: '/status' }] };
     });
@@ -88,6 +89,8 @@ export function createKnowledgeQuery(model = loadModel(repositoryRoot), {
       stage: r.projectStage ?? r.stage ?? null, summary: r.summary ?? r.subject ?? null,
       file: r.file, locator: r.id,
       ...(r.type === 'proceeding' && { proceedingType: r.proceedingType, decision: r.decision, nextAction: r.nextAction }),
+      ...(r.type === 'open-question' && { question: r.question, questionStatus: r.questionStatus, requiredSource: r.requiredSource,
+        reason: r.reason, affectedIds: (r.affectedIds ?? []).slice(0, 8) }),
       sources: refs.slice(0, 5), sourceCount: refs.length,
       normRefs: normRefs(r).slice(0, 8), relatedIds: (r.relatedIds ?? []).slice(0, 8), conflictIds: conflicts(r).slice(0, 8),
       ...(r.type === 'implementation-mandate' && { tier: r.tier, obligation: r.obligation, provision: r.provision,
@@ -150,10 +153,16 @@ export function createKnowledgeQuery(model = loadModel(repositoryRoot), {
     trace_sources({ id }) {
       const row = find(id);
       return [...citations(row), ...normRefs(row).map((r) => ({ file: r.versionId ? versionFile(r.normSlug, r.versionId) : normFile(r.normSlug, 'meta.json'), locator: row.provision ?? r.normSlug })),
-        ...(row.evidence ?? []).map((label) => ({ file: row.file, locator: row.id + '.evidence', label }))];
+        ...(row.evidence ?? []).flatMap((label, index) => {
+          const versions = evidenceNormVersions(label);
+          return versions.length ? versions.map(({ normSlug, versionId }) => ({
+            file: versionFile(normSlug, versionId), locator: row.provision ?? versionId, label,
+          })) : [{ file: row.file, locator: row.id + '.evidence[' + index + ']', label }];
+        })];
     },
     list_source_conflicts() {
-      return entries.filter((r) => r.status === 'disputed' || (r.type === 'open-question' && questions.includes(r))).map(view);
+      return entries.filter((r) => r.status === 'disputed' || questions.includes(r)
+        || r.sourceRefs?.some((ref) => ref.role === 'conflicting')).map(view);
     },
     get_legal_state(params) { return legalState(params, referenceDate); },
     analyze_publication_impact({ publication }) { return impact(publication).findings; },
