@@ -6,7 +6,7 @@ import type { NormRelationKind, NormRelationView } from '@ostrecht/shared/lib/no
 import type { NormDerivedData } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getPressReleaseIndexUrl, getTopicsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { formatShortDate } from '../../lib/dates.ts';
-import { shortCitation } from '../../lib/norm-head.ts';
+import NormRelationList from './NormRelationList.astro';
 import { NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
 import { getNormHistoryUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 
@@ -36,6 +36,7 @@ const sections: Array<{ kind: NormRelationKind; heading: string }> = [
   { kind: 'part-of', heading: 'Bestandteil von' },
   { kind: 'contains', heading: 'Enthält als Artikel' },
 ];
+const visiblePerGroup = 5;
 const visibleSections = sections
   .map((section) => ({ ...section, entries: relations.filter((entry) => entry.kind === section.kind) }))
   .filter((section) => section.entries.length > 0);
@@ -49,21 +50,23 @@ const hasAnything = visibleSections.length > 0 || recommendations.length > 0 || 
   <aside class="norm-relations" id="rechtsbeziehungen" aria-labelledby="norm-relations-title">
     <h2 id="norm-relations-title" class="r-label r-label--rule">Rechtsbeziehungen</h2>
     {!hasAnything ? <p class="r-meta">Zu dieser Vorschrift sind keine Rechtsbeziehungen verzeichnet.</p> : null}
+    {visibleSections.length >= 3 && (
+      <nav aria-label="Beziehungsarten" class="norm-relations__index">
+        <ul>
+          {visibleSections.map((section) => <li><a href={`#norm-relation-${norm.meta.slug}-${section.kind}`}>{section.heading} ({section.entries.length})</a></li>)}
+        </ul>
+      </nav>
+    )}
     {visibleSections.map((section) => (
       <section class="norm-relations__group" aria-labelledby={`norm-relation-${norm.meta.slug}-${section.kind}`}>
         <h3 id={`norm-relation-${norm.meta.slug}-${section.kind}`} class="r-label">{section.heading}</h3>
-        <ul class="norm-relations__list">
-          {section.entries.map((relation) => (
-            <li>
-              <a class="norm-relations__title" href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle || relation.title)}</a>
-              <span class="r-meta norm-relations__detail">
-                {relation.date ? <span>Rechtsänderung am <time datetime={relation.date}>{formatShortDate(relation.date)}</time></span> : null}
-                {relation.citation ? <span>{shortCitation(relation.citation) || toDisplayText(relation.citation)}</span> : null}
-                {relation.resultingVersionUrl && relation.resultingVersionValidFrom ? <span>Entstandene Fassung: <a href={relation.resultingVersionUrl}><time datetime={relation.resultingVersionValidFrom}>{formatShortDate(relation.resultingVersionValidFrom)}</time></a></span> : null}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <NormRelationList entries={section.entries.slice(0, visiblePerGroup)} />
+        {section.entries.length > visiblePerGroup && (
+          <details class="norm-relations__more">
+            <summary>{section.entries.length - visiblePerGroup} weitere {section.entries.length - visiblePerGroup === 1 ? 'Beziehung' : 'Beziehungen'} anzeigen</summary>
+            <NormRelationList entries={section.entries.slice(visiblePerGroup)} />
+          </details>
+        )}
       </section>
     ))}
     {recommendations.length > 0 ? (

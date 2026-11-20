@@ -1857,7 +1857,19 @@ siteTest(['law'])('Bereichsseiten funktionieren ohne JavaScript und unbekannte F
     await page.locator('[data-norm-tab="facts"]').click();
     await expect(page.locator('.norm-facts')).toContainText('Historische Fassung');
     await page.locator('[data-norm-tab="relations"]').click();
-    await expect(page.locator('.norm-relations')).toBeVisible();
+    const relations = page.locator('.norm-relations');
+    await expect(relations).toBeVisible();
+    for (const link of await relations.getByRole('navigation', { name: 'Beziehungsarten' }).getByRole('link').all()) {
+      const target = await link.getAttribute('href');
+      await expect(relations.locator(target!)).toBeVisible();
+    }
+    for (const group of await relations.locator('.norm-relations__more').all()) {
+      const firstLink = group.getByRole('link', { includeHidden: true }).first();
+      await expect(firstLink).toBeHidden();
+      await group.locator('summary').focus();
+      await page.keyboard.press('Enter');
+      await expect(firstLink).toBeVisible();
+    }
     expect(new URL(page.url()).pathname).toBe(`/norm/${norm.slug}/version/${norm.historical.versionId}/beziehungen/`);
     await page.goto(lawUrl('/a-z/stichwortregister/?buchstabe=S'));
     await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('S');
