@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FreestateSummary from '../components/portal/FreestateSummary.astro';
 import HomeMinistryList from '../components/portal/HomeMinistryList.astro';
 import HomePressList from '../components/portal/HomePressList.astro';
+import { selectHomeNotices } from '../lib/home-notices.ts';
 import ImportantNoticeBand from '../components/portal/ImportantNoticeBand.astro';
 import PortalAccessCard from '../components/portal/PortalAccessCard.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
@@ -81,7 +82,7 @@ const budgetNewerText = budgetNewerPeriods
   .map((periode) => `${periode.bezeichnung} (${getPeriodeStatusInfo(periode).label})`)
   .join(', ');
 
-const importantItems = homeContent.importantItems.map((item) => ({
+const importantItems = selectHomeNotices(homeContent.importantItems, PORTAL_REFERENCE_DATE, currentGovernment.slug).map((item) => ({
   title: item.governmentSlug ? currentGovernment.title : item.title ?? '',
   description: item.governmentSlug
     ? `Im Amt seit ${siteConfig.date.formatLong(currentGovernment.formedOn)}`
@@ -161,9 +162,9 @@ if (showTeaser(campaign, Date.now())) {
       </div>
     </section>
 
-    <section class="home-band home-important-section">
+    {importantItems.length > 0 && <section class="home-band home-important-section">
       <div class="container"><ImportantNoticeBand items={importantItems} /></div>
-    </section>
+    </section>}
 
     <section class="home-band home-information-section" aria-label="Aktuelles, Staatssekretariate und Orientierung">
       <div class="container home-information-grid">

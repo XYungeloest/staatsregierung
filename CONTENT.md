@@ -339,6 +339,17 @@ erscheint im Quellenaudit als „ohne Rechtsvorschrift“ und nicht als mehrdeut
 
 Die folgenden Content-Typen liegen jeweils als einzelne JSON-Datei. Pflichtfelder sind die Felder, die der Parser erwartet. Optionale Felder sind gekennzeichnet.
 
+### Hinweise auf der Startseite
+
+Die Redaktion pflegt die Hinweise in `content/portal/home.json` unter `importantItems`.
+`validFrom` und `validUntil` schließen den angegebenen Kalendertag ein und beziehen sich auf
+den redaktionellen Stichtag. `enabled: false` blendet einen Hinweis aus. Ein `governmentSlug`
+bindet ihn an die amtierende Regierung. Mit `replaces` und der ID eines regulären Hinweises
+lässt sich ein freigegebener Ersatz hinterlegen. Er erscheint, sobald der reguläre Hinweis
+entfällt und der Ersatz selbst gültig ist. Die höhere `priority` (0 bis 100, standardmäßig 0)
+hat Vorrang. Bei Gleichstand gilt die redaktionelle Reihenfolge. Fehlt ein gültiger Ersatz,
+entfällt der Hinweis. Themenhervorhebungen folgen weiter ihrem eigenen Zeitraum.
+
 ### Themenseiten
 
 Pfad: `content/themen/[slug].json`

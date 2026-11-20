@@ -304,6 +304,11 @@ export interface HomeContent {
     id: string;
     title?: string;
     governmentSlug?: string;
+    validFrom?: string;
+    validUntil?: string;
+    priority?: number;
+    enabled?: boolean;
+    replaces?: string;
     description?: string;
     href: string;
     icon: PortalNoticeIcon;
@@ -1075,6 +1080,45 @@ export function parseHomeContent(value: unknown, path = 'content/portal/home.jso
   if (!Array.isArray(entry.portalAccesses) || !Array.isArray(entry.importantItems)) {
     throw new PortalContentValidationError(`${path}: portalAccesses und importantItems müssen Listen sein`);
   }
+  const importantItems = entry.importantItems.map((raw, index) => {
+    const itemPath = `${path}.importantItems[${index}]`;
+    const item = expectRecord(raw, itemPath);
+    const title = expectOptionalString(item.title, `${itemPath}.title`);
+    const governmentSlug = item.governmentSlug === undefined ? undefined : expectSlug(item.governmentSlug, `${itemPath}.governmentSlug`);
+    if (!title && !governmentSlug) throw new PortalContentValidationError(`${itemPath}: title oder governmentSlug ist erforderlich`);
+    const validFrom = expectOptionalDate(item.validFrom, `${itemPath}.validFrom`);
+    const validUntil = expectOptionalDate(item.validUntil, `${itemPath}.validUntil`);
+    for (const day of [validFrom, validUntil]) {
+      if (day && new Date(day + 'T00:00:00Z').toJSON()?.slice(0, 10) !== day) {
+        throw new PortalContentValidationError(`${itemPath}: ungültiger Kalendertag ${day}`);
+      }
+    }
+    if (validFrom && validUntil && validFrom > validUntil) {
+      throw new PortalContentValidationError(`${itemPath}: Ende liegt vor dem Beginn`);
+    }
+    return {
+      id: expectSlug(item.id, `${itemPath}.id`),
+      title,
+      governmentSlug,
+      description: expectOptionalString(item.description, `${itemPath}.description`),
+      href: expectString(item.href, `${itemPath}.href`),
+      icon: expectNoticeIcon(item.icon, `${itemPath}.icon`),
+      validFrom,
+      validUntil,
+      priority: item.priority === undefined ? undefined : expectIntegerInRange(item.priority, `${itemPath}.priority`, 0, 100),
+      enabled: item.enabled === undefined ? undefined : expectBoolean(item.enabled, `${itemPath}.enabled`),
+      replaces: item.replaces === undefined ? undefined : expectSlug(item.replaces, `${itemPath}.replaces`),
+    };
+  });
+  const primaryIds = new Set(importantItems.filter((item) => !item.replaces).map((item) => item.id));
+  if (new Set(importantItems.map((item) => item.id)).size !== importantItems.length) {
+    throw new PortalContentValidationError(`${path}: doppelte Hinweis-ID`);
+  }
+  for (const item of importantItems) {
+    if (item.replaces && !primaryIds.has(item.replaces)) {
+      throw new PortalContentValidationError(`${path}: ungültiger Ersatzbezug ${item.replaces}`);
+    }
+  }
   return {
     hero: {
       eyebrow: expectString(hero.eyebrow, `${path}.hero.eyebrow`),
@@ -1094,20 +1138,7 @@ export function parseHomeContent(value: unknown, path = 'content/portal/home.jso
         icon: expectEditorialIcon(item.icon, `${path}.portalAccesses[${index}].icon`),
       };
     }),
-    importantItems: entry.importantItems.map((raw, index) => {
-      const item = expectRecord(raw, `${path}.importantItems[${index}]`);
-      const title = expectOptionalString(item.title, `${path}.importantItems[${index}].title`);
-      const governmentSlug = item.governmentSlug === undefined ? undefined : expectSlug(item.governmentSlug, `${path}.importantItems[${index}].governmentSlug`);
-      if (!title && !governmentSlug) throw new PortalContentValidationError(`${path}.importantItems[${index}]: title oder governmentSlug ist erforderlich`);
-      return {
-        id: expectSlug(item.id, `${path}.importantItems[${index}].id`),
-        title,
-        governmentSlug,
-        description: expectOptionalString(item.description, `${path}.importantItems[${index}].description`),
-        href: expectString(item.href, `${path}.importantItems[${index}].href`),
-        icon: expectNoticeIcon(item.icon, `${path}.importantItems[${index}].icon`),
-      };
-    }),
+    importantItems,
   };
 }
 
