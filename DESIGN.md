@@ -811,6 +811,10 @@ gleichartigen Einheiten vorbehalten. Fehlerseiten beider Portale zeigen im eigen
 nicht gefunden“ mit Suche und Verzeichniszugängen; die englische Astro-Standardseite wird nie
 ausgeliefert.
 
+In der Themenübersicht stehen Titel, vollständige Kurzbeschreibung, gegebenenfalls Termin,
+Zuständigkeit und Stand innerhalb jeder Karte untereinander. Bei ausreichend Platz stehen zwei
+Karten nebeneinander.
+
 Lange Datenansichten blättern zu 25 Zeilen (`DEFAULT_PORTAL_PAGE_SIZE`). Beteiligungsnavigator und
 Kreistabelle teilen Rechnung (`getPageState`), Wortlaut und Leiste (`DataPagination.astro`); beide
 geben die erste Seite im HTML aus, laden den Rest aus ihrer Datendatei und nennen ohne JavaScript
