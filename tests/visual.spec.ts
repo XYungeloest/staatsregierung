@@ -1065,6 +1065,23 @@ portalTest('Messung: die Themenübersicht führt jedes Thema genau einmal als Ka
   }
 });
 
+portalTest('Messung: Themenkarten zeigen die vollständige Beschreibung und ein lesbares Datum', { tag: [CRITICAL_TAG] }, async ({ page }) => {
+  await preparePage(page);
+  await page.goto('/themen/#alle-themen');
+  await page.evaluate(() => document.fonts.ready);
+  const cards = page.locator('#alle-themen .topic-card');
+  await expect(cards.first()).toBeVisible();
+  const unreadable = await cards.evaluateAll((items) => items.flatMap((card) => {
+    const title = card.querySelector('h4')!;
+    const teaser = title.nextElementSibling!;
+    const date = card.querySelector('.topic-card__updated time')!;
+    const belowTitle = teaser.getBoundingClientRect().top >= title.getBoundingClientRect().bottom - 1;
+    const fullTeaser = teaser.scrollHeight <= teaser.clientHeight + 1;
+    return belowTitle && fullTeaser && date.getClientRects().length === 1 ? [] : [card.id];
+  }));
+  expect(unreadable, 'Beschreibung unter dem Titel vollständig sichtbar, Datum in einer Zeile').toEqual([]);
+});
+
 portalTest('Messung: jede Schriftgröße und Schriftfamilie stammt aus der Skala', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop-wide', 'Die Schriftinventur wird einmal bei 1440 Pixeln gemessen.');
   await preparePage(page);

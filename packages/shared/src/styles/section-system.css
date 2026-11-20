@@ -516,12 +516,10 @@
   margin: var(--space-xs) 0 0;
 }
 
-/* Themen & Projekte: redaktionelle Orientierung und modulare Detailseiten. Die Karte ergänzt die
-   gemeinsame Kartenbasis (.portal-card/.panel) nur um ihr eigenes Raster und den Grünrand; sie
-   war früher zweimal mit konkurrierenden Grundeigenschaften definiert. */
+/* Titel und Angaben einer Themenkarte folgen untereinander in Leserichtung. */
 .topic-card {
   position: relative;
-  grid-template-columns: minmax(0, 1fr) 2.75rem;
+  grid-template-columns: minmax(0, 1fr);
   align-content: start;
   padding: var(--space-4-plus);
   border-top: 3px solid var(--color-secondary);
@@ -577,11 +575,6 @@
   color: var(--color-secondary);
 }
 
-.topic-card__updated {
-  align-self: end;
-  padding-right: var(--space-7);
-}
-
 .topic-card--highlight {
   border-top-width: 5px;
   border-top-color: var(--color-gold);
@@ -597,13 +590,6 @@
 
 .topic-card--compact :is(h3, h4) {
   font-size: var(--text-md);
-}
-
-.topic-card--compact > p:not(.topic-card__date, .topic-card__meta, .topic-card__updated) {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .topic-briefing {
