@@ -58,6 +58,7 @@ test('Aktive Teil-Deployments, falsche PRs und unbestimmbare Deployments erhalte
 test('Nur das belegte Fehlen ist idempotent; Berechtigungen, unbekannte Konflikte und Fehler bleiben sichtbar', async () => {
   for (const [responses, expected] of [
     [[deployment(production), missing], 'missing'],
+    [[deployment(production), failure(404, 1000, 'workers.api.error.version_not_found')], 'missing'],
     [[deployment(production), info(first), missing], 'missing'],
     [[deployment(production), failure(403, 10000, 'Authentication error')], 'error'],
     [[deployment(production), failure(404, 7003, 'Unknown route')], 'error'],

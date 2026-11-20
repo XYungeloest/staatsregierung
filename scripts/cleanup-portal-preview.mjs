@@ -22,7 +22,8 @@ function requireSuccess(response) {
 
 function isMissingVersion(response) {
   return response.status === 404 && response.body?.success === false
-    && response.body.errors?.some(({ message }) => /version.*(?:not found|does not exist)|(?:not found|no such).*version/iu.test(message));
+    && response.body.errors?.some(({ message }) =>
+      /version.*(?:not found|does not exist)|(?:not found|no such|could not find).*version/iu.test(String(message).replace(/[_-]/gu, ' ')));
 }
 
 function isActive(id, response) {
