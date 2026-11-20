@@ -660,6 +660,12 @@ die Sitemap führt den Feed nicht.
 
 ### Rechtssuche
 
+Die Trefferzeile nennt Dokumentart und gegebenenfalls Abkürzung. Rechtsstatus und angezeigte
+Fassung folgen getrennt darunter. Bei einem Treffer im Wortlaut oder einer gesuchten Fundstelle
+führt der Abschnittslink direkt zur passenden Einheit. Bei einem Titeltreffer dient ein
+zusätzlicher Textauszug als Leseprobe. Auf schmalen Bildschirmen öffnen sich Filtergruppen mit
+bereits ausgewählten Werten auch nach Aufruf eines gespeicherten Suchlinks.
+
 Sichtbare H1 „Suche im Landesrecht“ in der Wegweiserschrift, Suchzeile mit Suchbereich, aktive Filter als Chips, „Weitere Filter · Erweiterte Suche“ als
 Aufklappbereich (P2b: exakte Wortfolge, Ausschluss, Ressort, Rechtsherkunft, Fassungsbereich,
 Geltungstag, Fundstelle, Änderungsvorschriften; alle bisherigen Parameter bleiben) und rechts die
@@ -794,8 +800,8 @@ Unterseiten folgen der Hierarchie Behördenkopf, bereichsbezogener Einstieg (`Se
 mit den Varianten `government`, `topics`, `law`, `budget`, `reform`, `press`, `service`, `freestate`,
 `plain`), lokale Orientierung, fachliche Module, Serviceband und Footer. Die fachliche Variante bestimmt Akzent und Medienanteil.
 Die Dichte richtet sich nach dem Zweck. `compact` führt mit kurzer Einführung zum Fachinhalt,
-`dossier` leitet zur aufklappbaren Inhaltsnavigation über, die auf schmalen Bildschirmen geschlossen beginnt. `tool` hält den Arbeitsweg zur Suche oder zum
-Verzeichnis kurz. `section` kennzeichnet den regulären Bereichseinstieg. Seitentitel stehen in
+`dossier` leitet zur aufklappbaren Inhaltsnavigation über, die auf schmalen Bildschirmen geschlossen
+beginnt. Bei `tool` folgt die Suche oder das Verzeichnis unmittelbar auf den Einstieg. `section` kennzeichnet den regulären Bereichseinstieg. Seitentitel stehen in
 `--text-title`, Langtitel in `--text-title-long`; im Einstieg gibt es höchstens eine primäre Aktion.
 Die Bereichsnavigation (`SectionNavigation`) bleibt ein semantisches `nav` mit echten Links und
 `aria-current`. Kennzahlenkarten sind echten Zahlenwerten vorbehalten; Karten bleiben wiederholten,

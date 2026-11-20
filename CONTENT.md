@@ -414,7 +414,7 @@ enthält belegte künftige Schritte. In `impacts` erhält eine konkrete Auswirku
 verständlichen Satz und den `normSlug` einer auf derselben Seite aufgeführten Rechtsgrundlage.
 Geltungsbeginn, anspruchsberechtigte Gruppe und Einschränkungen gehören zur Auskunft.
 
-Der Gesamtstand `status` kennt folgende Werte, je nach belegter Aussage:
+Die belegte Aussage bestimmt den Wert von `status`.
 
 | Aussage | Werte |
 | --- | --- |
