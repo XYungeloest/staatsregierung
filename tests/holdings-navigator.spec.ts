@@ -66,7 +66,9 @@ test('Sortierung, Paginierung, URL-Wiederherstellung und Konzernstruktur funktio
   await openNavigator(page);
   const firstName = page.locator('[data-holdings-table-body] tr').first().locator('td').first();
   const ascendingName = (await firstName.locator('strong').textContent()) ?? '';
-  await page.locator('[data-holdings-sort-direction]').click();
+  const direction = page.getByRole('button', { name: 'A–Z, Sortierreihenfolge aufsteigend' });
+  await direction.click();
+  await expect(page.getByRole('button', { name: 'Z–A, Sortierreihenfolge absteigend' })).toBeVisible();
   await expect(firstName.locator('strong')).not.toHaveText(ascendingName);
 
   await page.locator('[data-page-action="next"]').click();

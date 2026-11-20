@@ -233,7 +233,7 @@ siteTest(['portal'])('Kreisreform bleibt ohne Karte nutzbar: Tabellenfilter und 
   await page.locator('#kreisreform-table-query').fill('Berlin');
   await expect(page.locator('[data-kreisreform-table-status]')).toContainText('gefunden');
 
-  const input = page.locator('[data-kreisreform-search-input]');
+  const input = page.getByRole('search', { name: 'Gebiet suchen' }).getByRole('searchbox');
   await expect(input).toBeVisible();
   await input.fill('Abtsbessingen');
   await expect(page.locator('[data-kreisreform-search-result]')).toHaveCount(1, { timeout: 15_000 });
