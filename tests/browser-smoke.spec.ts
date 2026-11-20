@@ -1494,6 +1494,8 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
   const panel = await openNormFacts(page);
   await expect(panel.getByRole('heading', { name: 'Vorschriftendaten' })).toBeVisible();
   await expect(panel).toContainText(/Ostdeutsch neu geschaffen/u);
+  await expect(panel).toContainText('Für die selbst verfassten Teile dieser Vorschrift gilt CC BY-NC 4.0');
+  await expect(panel.getByRole('link', { name: 'CC BY-NC 4.0' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by-nc/4.0/deed.de');
   await expect(panel).toContainText(`Geltende Fassung, gültig ab ${formatGermanDate(original.validFrom)}`);
   await expect(panel).toContainText(`Rechtsstand vom ${formatGermanDate(editorialReferenceDate())}`);
   await expect(panel).not.toContainText('Stichtag');
@@ -1504,6 +1506,8 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
   await page.goto(lawUrl(amended.currentUrl));
   const amendedPanel = await openNormFacts(page);
   await expect(amendedPanel).toContainText(/Übernommen und ostdeutsch geändert/u);
+  await expect(amendedPanel).toContainText('Für die eigenen urheberrechtlich geschützten Änderungen gilt CC BY-NC 4.0');
+  await expect(amendedPanel).toContainText('dürfen auch kommerziell genutzt werden');
   // Änderungsvorschriften stehen mit Titel und Wirksamkeitstag, nicht als unbeschrifteter Verweis.
   await expect(amendedPanel).toContainText('Änderungsvorschriften');
   const amendmentLink = amendedPanel.locator('.norm-facts__amendment-table a').first();
@@ -1516,6 +1520,8 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
   const baseline = await openNormFacts(page);
   await expect(baseline).toContainText('Historische Fassung');
   await expect(baseline).toContainText('übernommene sächsische Ausgangsrechtsstand');
+  await expect(baseline).toContainText('dürfen auch kommerziell genutzt werden');
+  await expect(baseline.getByRole('link', { name: 'CC BY-NC 4.0' })).toHaveCount(0);
   await expect(baseline.getByRole('link', { name: 'Amtliche sächsische Quelle' })).toBeVisible();
 });
 

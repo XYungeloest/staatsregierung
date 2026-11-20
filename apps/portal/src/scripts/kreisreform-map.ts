@@ -135,7 +135,7 @@ async function initMap(container: HTMLElement): Promise<void> {
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap-Mitwirkende',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap-Mitwirkende</a>',
       maxZoom: 18,
     }).addTo(map);
 

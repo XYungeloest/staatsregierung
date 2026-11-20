@@ -10,6 +10,7 @@ const currentGovernment = await loadCurrentGovernment();
 const citizenPhoneHref = `tel:${contact.citizenService.phone.replace(/\s+/gu, '')}`;
 const pressPhoneHref = `tel:${contact.pressOffice.phone.replace(/\s+/gu, '')}`;
 const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
+const licenses = `${import.meta.env.BASE_URL}lizenzen/`;
 ---
 
 <BaseLayout title="Impressum" description="Impressum und Hinweise zum Internetangebot des Ostdeutschen Freistaates.">
@@ -67,9 +68,21 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <p>Dieses Internetangebot kann Verweise auf externe Internetseiten enthalten. Für Inhalte externer Seiten ist ausschließlich der jeweilige Anbieter verantwortlich. Der Staatsrat des Ostdeutschen Freistaates macht sich fremde Inhalte durch die Verlinkung nicht zu eigen.</p>
       <p>Zum Zeitpunkt der Verlinkung wurden externe Inhalte auf erkennbare Rechtsverstöße geprüft. Eine dauerhafte inhaltliche Kontrolle externer Seiten findet ohne konkreten Anlass nicht statt. Bei Bekanntwerden entsprechender Rechtsverletzungen werden betroffene Links entfernt.</p>
 
-      <h2>Urheberrecht und Nutzungsrechte</h2>
-      <p>Die auf diesem Internetangebot veröffentlichten Texte, Grafiken, Logos, Karten, Tabellen, Datenvisualisierungen, Bilder und sonstigen Inhalte unterliegen dem Urheberrecht, soweit sie nicht ausdrücklich als gemeinfrei oder unter einer freien Lizenz gekennzeichnet sind.</p>
-      <p>Eine Nutzung, Vervielfältigung, Bearbeitung oder Weiterverbreitung ist nur im Rahmen der jeweils angegebenen Lizenz oder mit Zustimmung der verantwortlichen Redaktion zulässig. Inhalte, die im Rahmen der politischen Simulation erstellt wurden, dürfen für Zwecke der Simulation, Berichterstattung und Dokumentation unter Nennung der Quelle verwendet werden, sofern keine abweichenden Hinweise angegeben sind.</p>
+      <h2 id="nutzungsrechte">Urheberrecht und Nutzungsrechte</h2>
+      <p>Die eigenen redaktionellen Texte des Staatsportals und von OstRecht sowie die selbst verfassten Simulationsnormen stehen unter{' '}
+        <a class="inline-link" href="https://creativecommons.org/licenses/by-nc/4.0/deed.de">Creative Commons Namensnennung – Nicht kommerziell 4.0 International (CC BY-NC 4.0)</a>.
+        Sie dürfen diese Texte für nichtkommerzielle Zwecke vervielfältigen, weitergeben und bearbeiten.
+        Nennen Sie bei der Weitergabe die angegebenen Urheber:innen und die Quelle, verweisen Sie auf die Lizenz und kennzeichnen Sie Änderungen.
+        Für eine kommerzielle Nutzung geschützter Texte benötigen Sie eine gesonderte Erlaubnis der Rechteinhaber:innen, soweit die Nutzung nicht bereits gesetzlich erlaubt ist.</p>
+      <p>Der amtliche Wortlaut sächsischer Gesetze und Verordnungen ist nach{' '}
+        <a class="inline-link" href="https://www.gesetze-im-internet.de/urhg/__5.html">§ 5 Abs. 1 UrhG</a> auch kommerziell nutzbar.
+        In übergeleiteten oder geänderten Fassungen gilt CC BY-NC 4.0 nur für die urheberrechtlich geschützten eigenen Textbeiträge.
+        Für übernommene Anlagen sowie für Karten, Bilder, Wappen, Logos und Wettbewerbsentwürfe gelten die Nutzungsrechte am jeweiligen Werk.
+        Bereits erteilte Nutzungsrechte und gesetzlich erlaubte Nutzungen wie Zitate bleiben unberührt.</p>
+      <p>Die eigene Portalsoftware steht unter der <a class="inline-link" href={`${licenses}mit.txt`}>MIT-Lizenz</a>.
+        Für die Schriftfamilien <a class="inline-link" href={`${licenses}jost.txt`}>Jost</a>,{' '}
+        <a class="inline-link" href={`${licenses}source-serif-4.txt`}>Source Serif 4</a> und{' '}
+        <a class="inline-link" href={`${licenses}ost-grotesk.txt`}>Ost Grotesk</a> gilt die SIL Open Font License 1.1.</p>
 
       <h2>Bildnachweise</h2>
       <p>Soweit Bilder, Karten, Symbole, Wappen, Logos oder sonstige grafische Elemente verwendet werden, erfolgen Bildnachweise unmittelbar am jeweiligen Inhalt, im Quellennachweis der Seite oder in einem gesonderten Bildnachweisbereich.</p>
@@ -86,7 +99,7 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <p>Da es sich um ein fiktives Internetangebot im Rahmen einer politischen Simulation handelt, nimmt der Staatsrat des Ostdeutschen Freistaates nicht an realen Streitbeilegungsverfahren vor Verbraucherschlichtungsstellen teil. Über dieses Portal werden keine entgeltlichen Leistungen gegenüber Verbraucher:innen angeboten.</p>
 
       <h2>Stand</h2>
-      <p>Stand dieses Impressums: <time datetime="2026-08-09">9. August 2026</time></p>
+      <p>Stand dieses Impressums: <time datetime="2026-11-20">20. November 2026</time></p>
     </section>
 
     <aside class="section meta-panel">

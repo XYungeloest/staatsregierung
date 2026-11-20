@@ -1,0 +1,39 @@
+name: Technischer Fehler oder Barriere
+description: Ein Problem im Staatsportal, in OstRecht oder bei der lokalen Entwicklung melden.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Sicherheitslücken bitte vertraulich nach [SECURITY.md](https://github.com/XYungeloest/staatsregierung/blob/main/SECURITY.md) melden.
+        Keine Zugangsdaten oder privaten Einreichungsdaten veröffentlichen.
+  - type: input
+    id: location
+    attributes:
+      label: Betroffene Seite oder Komponente
+      description: Öffentliche URL, Seitenname, Dateipfad oder lokaler Befehl. Für die private Fresswürfel-Sichtung genügt der Seitenname. Ihr Link enthält den Zugangsschlüssel.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zum Nachvollziehen
+      description: Was hast du getan? Bei einer Barriere auch die betroffene Bedienweise nennen.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Beobachtetes und erwartetes Verhalten
+      description: Was passiert, und was sollte stattdessen passieren?
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Umgebung
+      description: Falls bekannt Browser und Gerät, verwendete Hilfsmittel oder Node.js-Version.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Ergänzende Belege
+      description: Optional Screenshots oder bereinigte Fehlermeldungen hinzufügen. Verwende für Bilder aus privaten Ansichten die lokale Vorschau mit Testdaten.

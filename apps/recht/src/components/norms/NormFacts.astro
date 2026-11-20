@@ -3,6 +3,7 @@ import { LEGAL_BASELINE_DATE, type NormOriginInfo } from '@ostrecht/shared/lib/n
 import { classifyNormOriginVersion } from '@ostrecht/shared/lib/norms/origin-presentation.ts';
 import { getNormCompareSelectionUrl, getNormHistoryUrl, getNormUrl, getNormVersionUrl, getPublicationUrl, getSubjectUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
+import { getImprintUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { formatDate, getNormTitleBlock } from '@ostrecht/shared/lib/norms/display.ts';
 import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
@@ -38,6 +39,9 @@ const status = norm.meta.status;
 // „außer Kraft seit“ nennt den ersten Tag ohne Geltung, nicht den letzten Geltungstag (expiryDate).
 const outOfForceSinceDate = outOfForceSince(norm);
 const versionKind = classifyNormOriginVersion(origin, version);
+const textLicenseScope = versionKind === 'ostdeutsch-original'
+  ? 'Für die selbst verfassten Teile dieser Vorschrift gilt'
+  : versionKind === 'inherited-amended' ? 'Für die eigenen urheberrechtlich geschützten Änderungen gilt' : undefined;
 const immutableVersion = immutableLink || temporalKind !== 'current';
 const title = getNormTitleBlock({ title: norm.meta.title, shortTitle: norm.meta.shortTitle, abbr: norm.meta.abbr });
 
@@ -158,6 +162,16 @@ const scope = [
     <dd>
       <span class="r-strong">{formatNormOriginKind(origin.kind)}.</span> {originText}
       {originLinks.length > 0 ? <span class="norm-facts__links r-meta r-inline-list">{originLinks.map((link) => <a href={link.href}>{link.label}</a>)}</span> : null}
+    </dd>
+    <dt>Nachnutzung</dt>
+    <dd>
+      {textLicenseScope && <>{textLicenseScope} <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.de">CC BY-NC 4.0</a>.{' '}</>}
+      {versionKind === 'origin-unresolved'
+        ? 'Die Rechte am Text und an den Anlagen sind anhand der jeweiligen Quelle zu klären.'
+        : versionKind === 'ostdeutsch-original'
+          ? 'Für fremde Bestandteile gelten die Rechte am jeweiligen Werk.'
+          : 'Amtliche Texte im Sinne von § 5 Abs. 1 UrhG dürfen auch kommerziell genutzt werden.'}
+      {' '}<a href={`${getImprintUrl()}#nutzungsrechte`}>Nutzungshinweise im Impressum</a>
     </dd>
     {norm.meta.subjects.length > 0 ? (
       <><dt>Sachgebiete</dt><dd class="r-inline-list">{norm.meta.subjects.map((subject) => <a href={getSubjectUrl(subject)}>{formatSubjectLabel(toDisplayText(subject), { withNumber: true, short: true })}</a>)}</dd></>

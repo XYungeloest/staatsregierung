@@ -237,6 +237,7 @@ const kreisreformFaq = [
           <div class="status-notice kreisreform-map-notice">
             <h3>Hinweis zur Karte</h3>
             <p>{manifest.notice}</p>
+            {oldLayersAvailable && <p><a class="inline-link" href="#grenzdaten">Quellen und Nutzungsrechte der historischen Grenzdaten</a></p>}
           </div>
         </div>
 
@@ -430,13 +431,17 @@ const kreisreformFaq = [
         <strong>Ostdeutsches Bezirkseinführungsgesetz</strong>
         <span>Historische Grundlage der früheren acht Bezirke bis zum Ablauf des 31. Juli 2026.</span>
       </li>
-      <li class="record-list__item">
-        <strong>Digitale Grenzdaten</strong>
-        <span>
-          ergänzende anschauliche Darstellung; bisherige Kreise und Länder beruhen auf VG250 des
-          Bundesamtes für Kartographie und Geodäsie.
+      {oldLayersAvailable && <li id="grenzdaten" class="record-list__item">
+        <strong>Historische Grenzdaten</strong>
+        <span class="body-copy">
+          <a class="inline-link" href="https://gdz.bkg.bund.de/index.php/default/digitale-geodaten/verwaltungsgebiete/verwaltungsgebiete-1-250-000-stand-01-01-vg250-01-01.html">Verwaltungsgebiete 1:250 000 (VG250)</a>,
+          Stand 1. Januar 2025. © <a class="inline-link" href="https://www.bkg.bund.de/">BKG</a> (2026),{' '}
+          <a class="inline-link" href="https://www.govdata.de/dl-de/by-2-0">dl-de/by-2-0</a> (Daten verändert).
+          Die Grenzen wurden vereinfacht und für die früheren Bezirke zusammengefasst.{' '}
+          <a class="inline-link" href="https://sgx.geodatenzentrum.de/web_public/gdz/datenquellen/datenquellen_vg_nuts.pdf">Datenquellen des BKG (PDF)</a> ·{' '}
+          <a class="inline-link" href={`${base}data/kreisreform/quellennachweis-vg250.txt`}>Quellennachweis als Textdatei</a>
         </span>
-      </li>
+      </li>}
     </ul>
     <p class="section-link-row">
       <a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsportal</a>

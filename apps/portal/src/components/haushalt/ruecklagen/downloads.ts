@@ -628,9 +628,9 @@ function herausgeber(): string {
   return ressort.name;
 }
 
-/** Nutzungshinweis wie im Impressum („Urheberrecht und Nutzungsrechte“). */
+/** Textlizenz nur für die eigenen Erläuterungen im Datenpaket. */
 const NUTZUNGSHINWEIS =
-  'Inhalte, die im Rahmen der politischen Simulation erstellt wurden, dürfen für Zwecke der Simulation, Berichterstattung und Dokumentation unter Nennung der Quelle verwendet werden, sofern keine abweichenden Hinweise angegeben sind.';
+  'Für eigene redaktionelle Erläuterungen gilt CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Für übernommene Haushaltsunterlagen gelten die Rechte an der jeweiligen Quelle. Einzelne Zahlen und Tatsachen sind frei nutzbar.';
 
 function datenpaketJson(k: Kontext, dateien: readonly Datendatei[]): Entwurf {
   const meta = loadPeriodMeta(k.id);
