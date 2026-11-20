@@ -51,14 +51,25 @@ function addKnowledgeFindings(model, affected, sourcePaths, publications, add) {
     }
   }
   const directIds = new Set(linked);
+  const questionParents = new Map();
+  for (const collection of knowledge.collections) {
+    for (const row of collection.entries.filter((entry) => linked.has(entry.id))) {
+      for (const id of row.openQuestionIds ?? []) {
+        const parents = questionParents.get(id) ?? [];
+        parents.push(at(collection.file, row.id + '/openQuestionIds', id));
+        questionParents.set(id, parents);
+      }
+    }
+  }
   for (const c of knowledge.collections.filter((c) => ['project', 'proceeding', 'open-question'].includes(c.type))) {
     for (const row of c.entries) {
       const ids = [...new Set([...(row.relatedIds ?? []), ...(row.affectedIds ?? [])].filter((id) => directIds.has(id)))];
       const questionSource = c.type === 'open-question' && row.sourceRefs?.some((r) => sourcePaths.has(sources.get(r.sourceId)?.path));
-      if (linked.has(row.id) || (!ids.length && !questionSource)) continue;
+      const parents = questionParents.get(row.id) ?? [];
+      if (linked.has(row.id) || (!ids.length && !questionSource && !parents.length)) continue;
       linked.add(row.id);
       add(c.type, row.id, c.type === 'open-question' || uncertain.has(row.status) ? 'candidate' : 'derived',
-        [at(c.file, row.id), ...(row.sourceRefs ?? []).map((r) => at('knowledge/sources.json', r.sourceId, r.locator))],
+        [at(c.file, row.id), ...parents, ...(row.sourceRefs ?? []).map((r) => at('knowledge/sources.json', r.sourceId, r.locator))],
         row.question ?? 'Den über die Wissens-ID verknüpften Sachstand prüfen.', { relatedIds: ids, title: row.title, status: row.status });
     }
   }
@@ -67,6 +78,11 @@ function addKnowledgeFindings(model, affected, sourcePaths, publications, add) {
       [at('knowledge/sources.json', src.id), at(src.path, src.title)], 'Quellenverweis und Fundstellen bei der Einpflege zuordnen.');
   }
   for (const topic of model.topics) {
+    for (const [index, id] of (topic.knowledgeProjectRefs ?? []).entries()) {
+      if (linked.has(id)) add('public-topic', topic.slug, 'derived',
+        [at('content/themen/' + topic.slug + '.json', '/knowledgeProjectRefs/' + index, id)],
+        'Öffentlichen Themenstand mit dem verknüpften Projekt abgleichen.', { relatedId: id });
+    }
     for (const [index, ref] of (topic.rechtsgrundlagen ?? []).entries()) {
       if (affected.has(ref.normSlug) || publications.has(ref.publicationSlug)) add('public-topic', topic.slug, 'derived',
         [at('content/themen/' + topic.slug + '.json', '/rechtsgrundlagen/' + index, ref.label)], 'Freigegebene Rechtsgrundlage und Erläuterung prüfen.');

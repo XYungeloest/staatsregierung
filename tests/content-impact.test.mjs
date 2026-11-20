@@ -16,10 +16,10 @@ function fixture() {
   const change = { relatedNorm: 'mantel', date: from, affectingVersionId: from, citation: 'Testausgabe Art. 2' };
   const norms = [act, record('neufassung'), record('ziel-a', [{ ...change, type: 'amendment' }]),
     record('ziel-b', [{ ...change, type: 'amendment' }]), record('altnorm', [{ ...change, type: 'repeal', affectingVersionId: null }])];
-  const projects = [{ id: 'projekt', title: 'Verfahren', normRefs: [{ normSlug: 'ziel-a', versionId: from }] },
+  const projects = [{ id: 'projekt', title: 'Verfahren', openQuestionIds: ['einweg-frage'], normRefs: [{ normSlug: 'ziel-a', versionId: from }] },
     { id: 'aehnlicher-titel', title: 'mantel', normRefs: [] }];
   return {
-    norms, publications: [issue], topics: [{ slug: 'thema', rechtsgrundlagen: [{ normSlug: 'neufassung' }] }],
+    norms, publications: [issue], topics: [{ slug: 'thema', rechtsgrundlagen: [{ normSlug: 'neufassung' }] }, { slug: 'projekt-thema', knowledgeProjectRefs: ['projekt'] }],
     coverage: { projectCoverage: [{ id: 'projekt', publicPaths: ['/themen/thema/'] }] },
     consolidation: { targets: [{ canonicalSlug: 'ziel-b', title: 'Ziel B', status: 'blocked-source-conflict', problems: ['Zielanker offen'],
       enactingActs: [], amendmentActs: [{ slug: 'mantel' }], correctionActs: [], nextAction: 'Quellen vergleichen.' }], ambiguousFindings: [] },
@@ -28,7 +28,7 @@ function fixture() {
       sources: [{ id: 'quelle', path: 'content/verkuendungen/testausgabe.json', title: 'Druckausgabe' }],
       collections: [{ type: 'project', file: 'knowledge/projects.json', entries: projects },
         { type: 'proceeding', file: 'knowledge/proceedings.json', entries: [{ id: 'verfahren', relatedIds: ['projekt'] }] },
-        { type: 'open-question', file: 'knowledge/open-questions.json', entries: [{ id: 'frage', affectedIds: ['projekt'], question: 'Welcher Anker?' }] }] },
+        { type: 'open-question', file: 'knowledge/open-questions.json', entries: [{ id: 'frage', affectedIds: ['projekt'], question: 'Welcher Anker?' }, { id: 'einweg-frage', question: 'Welche Quelle?' }] }] },
     readVersion: (_slug, id) => ({ versionId: id, validFrom: from, validTo: null, body: [{ text: 'Der Bericht ist bis zum 1. Juni vorzulegen.' }] }),
   };
 }
@@ -50,7 +50,7 @@ test('Verkündung trennt Stammnorm, zwei Änderungen, Aufhebung und künftige Wi
 test('Projektbezüge folgen Kennungen und behalten strittige Konsolidierung und Vollzugsstatus bei', () => {
   const { findings } = analyzeImpact(fixture(), { publication: gazette });
   for (const [relation, id, confidence] of [
-    ['project', 'projekt', 'derived'], ['proceeding', 'verfahren', 'derived'],
+    ['project', 'projekt', 'derived'], ['open-question', 'einweg-frage', 'candidate'], ['public-topic', 'projekt-thema', 'derived'], ['proceeding', 'verfahren', 'derived'],
     ['public-topic', 'thema', 'derived'], ['public-page', '/themen/thema/', 'derived'],
     ['consolidation', 'ziel-b', 'candidate'], ['open-question', 'frage', 'candidate'],
     ['mandate', 'auftrag', 'derived'], ['source-reference', 'quelle', 'direct'],
