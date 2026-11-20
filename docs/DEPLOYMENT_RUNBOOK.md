@@ -81,6 +81,11 @@ sondern eine D1-Projektion. Die Buildartefakte liegen unter `apps/portal/dist/` 
 `apps/recht/dist/`; sie werden einmal gebaut, als Artefakt hochgeladen und vor Smokes und
 Deployment wieder unter `apps/` hergestellt.
 
+Das interne Paket `packages/knowledge-query/` erhält die Wissens- und Unit-Prüfung.
+Ändern sich im Root-Manifest ausschließlich die internen Agentenbefehle oder im Lockfile
+ausschließlich deren eigene SDK-Pakete, weist die CI dies am tatsächlichen Git-Diff nach.
+Gemeinsame Abhängigkeiten und ein unbekannter Vergleichsstand durchlaufen die regulären Gates.
+
 ## Regulärer Ablauf auf `main`
 
 ```text

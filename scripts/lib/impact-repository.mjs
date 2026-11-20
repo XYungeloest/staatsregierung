@@ -22,7 +22,7 @@ export function readVersion(slug, id, root = repositoryRoot) {
 }
 
 // Für Rückverweise genügen Metadaten und Historien. Nur tatsächlich betroffene Fassungen öffnen.
-export function loadImpactRepository(root = repositoryRoot) {
+export function loadImpactRepository(root = repositoryRoot, knowledge = loadModel(root)) {
   const read = (file) => JSON.parse(readFileSync(join(root, file), 'utf8'));
   const documents = (dir) => readdirSync(join(root, dir)).filter((f) => f.endsWith('.json')).sort()
     .map((file) => read(dir + '/' + file));
@@ -37,7 +37,7 @@ export function loadImpactRepository(root = repositoryRoot) {
   });
   return {
     norms, publications: documents('content/verkuendungen'), topics: documents('content/themen'),
-    coverage: read('content/portal/topic-coverage.json'), knowledge: loadModel(root),
+    coverage: read('content/portal/topic-coverage.json'), knowledge,
     consolidation: read('data/recht/consolidation-manifest.json'), readVersion: (slug, id) => readVersion(slug, id, root),
   };
 }

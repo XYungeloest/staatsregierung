@@ -20,6 +20,8 @@
     "content:check": "npm run images:check && npm run holdings:check && node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/revosax-snapshot.mjs audit && node scripts/audit-consolidation.mjs --check && node --experimental-strip-types scripts/check-organization.ts && node scripts/check-content.mjs && node scripts/audit-norm-metadata.mjs && node --experimental-strip-types scripts/audit-norm-derivations.ts && node scripts/audit-ost-residuals.mjs --quiet && node scripts/check-topic-coverage.mjs && node scripts/knowledge.mjs check && npm run haushalt:check",
     "haushalt:sync": "node scripts/haushalt-sync.mjs",
     "haushalt:check": "node --experimental-strip-types scripts/haushalt-check.mjs",
+    "knowledge:query": "node --experimental-strip-types packages/knowledge-query/cli.mjs",
+    "knowledge:mcp": "node --experimental-strip-types packages/knowledge-query/mcp.mjs",
     "knowledge:check": "node scripts/knowledge.mjs check",
     "docs:check": "node scripts/check-docs.mjs",
     "knowledge:build": "node scripts/knowledge.mjs build && npm run holdings:build",

@@ -1,5 +1,6 @@
 import { defineConfig, sessionDrivers } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
+import { internalKnowledgeGuard } from '../../scripts/lib/internal-knowledge.mjs';
 import { createBuildInfo } from '../../scripts/lib/release-info.mjs';
 
 const defaultPortalSiteUrl = 'https://freistaat-ostdeutschland.de';
@@ -32,6 +33,7 @@ export default defineConfig({
   site: process.env.SITE_URL ?? lawSiteUrl,
   base: normalizeBasePath(process.env.BASE_PATH),
   vite: {
+    plugins: [internalKnowledgeGuard()],
     define: {
       'import.meta.env.PORTAL_BUILD_COMMIT': JSON.stringify(buildInfo.commit),
       'import.meta.env.PORTAL_BUILD_INFO': JSON.stringify(buildInfo),

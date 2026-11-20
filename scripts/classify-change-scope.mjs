@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { execFileSync } from 'node:child_process';
+import { isDeepStrictEqual } from 'node:util';
 import { readFileSync } from 'node:fs';
 import { appendFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
@@ -49,6 +51,7 @@ const RUNTIME_BUILD_SCRIPTS = new Set([
   'scripts/stamp-build.mjs',
   'scripts/lib/build-commit.mjs',
   'scripts/lib/release-info.mjs',
+  'scripts/lib/internal-knowledge.mjs',
 ]);
 
 const UI_TEST_SUPPORT_SCRIPTS = new Set([
@@ -322,7 +325,50 @@ function scriptImpact(path, logicPaths) {
   return verificationImpact();
 }
 
+// Nur Änderungen an diesen internen Einstiegen können den Laufzeitvertrag des Root-Manifests
+// unverändert lassen. Andere Felder und gemeinsam benutzte Lockfile-Einträge werden vollständig verglichen.
+const internalCommands = new Set(['knowledge:query', 'knowledge:mcp', 'content:impact', 'docs:diagram']);
+const privatePackages = new Set(['@ostrecht/knowledge-query', '@modelcontextprotocol/server', '@modelcontextprotocol/core']);
+
+export function internalManifestChange(path, before, after) {
+  function publicPart(value) {
+    const copy = structuredClone(value);
+    if (path === 'package.json') {
+      for (const name of internalCommands) delete copy.scripts?.[name];
+    } else if (path === 'package-lock.json' && copy.packages) {
+      for (const key of Object.keys(copy.packages)) {
+        if (key === 'packages/knowledge-query' || key.startsWith('packages/knowledge-query/node_modules/')
+            || (key.startsWith('node_modules/') && privatePackages.has(key.slice('node_modules/'.length)))) delete copy.packages[key];
+      }
+      for (const entry of Object.values(copy.packages)) {
+        for (const field of ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies']) {
+          if (Object.keys(entry[field] ?? {}).some((name) => privatePackages.has(name))) return null;
+        }
+      }
+    } else return null;
+    return copy;
+  }
+  const a = publicPart(before);
+  const b = publicPart(after);
+  return a !== null && b !== null && isDeepStrictEqual(a, b);
+}
+
+function verifiedManifestPaths(paths, base, head) {
+  const verified = new Set();
+  if (![base, head].every((sha) => typeof sha === 'string' && /^[a-f0-9]{40}$/u.test(sha))) return verified;
+  for (const file of ['package.json', 'package-lock.json'].filter((p) => paths.includes(p))) {
+    try {
+      const read = (ref) => JSON.parse(execFileSync('git', ['show', ref + ':' + file], { encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }));
+      if (internalManifestChange(file, read(base), read(head))) verified.add(file);
+    } catch {
+      // Fehlender Vergleichsstand: reguläre Laufzeit- und Projektionsprüfungen verwenden.
+    }
+  }
+  return verified;
+}
+
 function pathImpact(path, logicPaths = null) {
+  if (path.startsWith('packages/knowledge-query/')) return verificationImpact({ knowledge: true });
   if (isRootDocumentation(path) || isKnowledgeDocumentation(path)) {
     return documentationImpact();
   }
@@ -470,11 +516,13 @@ export function classifyChangedPath(value, { logicPaths = null } = {}) {
  * @param {string[]} values geänderte Pfade
  * @param {{ logicPaths?: Set<string> | null }} options Code-Abschluss der Projektion (null = unbekannt, fail-closed Obermenge)
  */
-export function classifyChangeScope(values = [], { logicPaths = null } = {}) {
+export function classifyChangeScope(values = [], { logicPaths = null, base, head } = {}) {
   const paths = values.map(normalizeChangedPath).filter(Boolean);
   // Ohne bekannte Änderungsliste (z. B. erster Commit) konservativ: alles einschließlich Vollbestand.
   if (paths.length === 0) return resultFor([runtimeImpact(SITE_TARGETS, { content: true, d1Sync: true, fullCorpus: true })], paths, { closureKnown: Boolean(logicPaths) });
-  return resultFor(paths.map((path) => pathImpact(path, logicPaths)), paths, { closureKnown: Boolean(logicPaths) });
+  const internal = logicPaths ? verifiedManifestPaths(paths, base, head) : new Set();
+  return resultFor(paths.map((path) => internal.has(path) && !isD1ProjectionCodePath(path, logicPaths)
+    ? verificationImpact({ knowledge: true }) : pathImpact(path, logicPaths)), paths, { closureKnown: Boolean(logicPaths) });
 }
 
 /**
@@ -544,7 +592,7 @@ async function main() {
   const logicPaths = manualTarget || args.includes('--no-closure') ? null : await resolveLogicPaths({ ref: argumentValue(args, '--closure-ref') ?? null });
   const result = manualTarget
     ? classifyManualDeploy(manualTarget)
-    : classifyChangeScope(await readInput(args), { logicPaths });
+    : classifyChangeScope(await readInput(args), { logicPaths, base: process.env.SCOPE_BASE, head: process.env.SCOPE_HEAD });
   const outputPath = argumentValue(args, '--github-output') ?? process.env.GITHUB_OUTPUT;
   if (outputPath) {
     const lines = [

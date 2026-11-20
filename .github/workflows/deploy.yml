@@ -96,7 +96,7 @@ jobs:
             node scripts/classify-change-scope.mjs --manual-target "$INPUT_TARGET" --github-output "$GITHUB_OUTPUT"
           elif [ -n "$EVENT_BEFORE" ] && [ "$EVENT_BEFORE" != "0000000000000000000000000000000000000000" ]; then
             git diff --name-only "$EVENT_BEFORE" "$EVENT_SHA" > "$CHANGED_PATHS"
-            node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"
+            SCOPE_BASE="$EVENT_BEFORE" SCOPE_HEAD="$EVENT_SHA" node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"
           else
             git diff-tree --root --no-commit-id --name-only -r "$EVENT_SHA" > "$CHANGED_PATHS"
             node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"

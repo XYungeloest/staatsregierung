@@ -62,7 +62,7 @@ jobs:
         run: |
           CHANGED_PATHS="${RUNNER_TEMP}/changed-paths.txt"
           git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$CHANGED_PATHS"
-          node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"
+          SCOPE_BASE="$(git merge-base "$BASE_SHA" "$HEAD_SHA")" SCOPE_HEAD="$HEAD_SHA" node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"
           echo "playwright_version=$(node -e 'console.log(require("./package-lock.json").packages["node_modules/@playwright/test"].version)')" >> "$GITHUB_OUTPUT"
 
           output_value() {

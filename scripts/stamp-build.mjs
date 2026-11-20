@@ -5,6 +5,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { resolveBuildCommit, withBuildCommitHeader } from './lib/build-commit.mjs';
+import { checkKnowledgeAssets } from './lib/internal-knowledge.mjs';
 import { validateBuildInfo } from './lib/release-info.mjs';
 
 const commit = resolveBuildCommit();
@@ -26,6 +27,7 @@ for (const candidate of candidates) {
 }
 
 if (!headerPath) throw new Error('Erzeugte Cloudflare-_headers-Datei wurde nicht gefunden.');
+await checkKnowledgeAssets(dirname(headerPath));
 const headers = await readFile(headerPath, 'utf8');
 const infoPath = resolve(dirname(headerPath), 'build-info.json');
 const info = validateBuildInfo(JSON.parse(await readFile(infoPath, 'utf8')), target);
