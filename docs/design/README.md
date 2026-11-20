@@ -20,6 +20,10 @@ Neue Produktentwürfe sollen diese Fragen aus ihrem jeweiligen Nutzungskontext
 heraus neu beantworten können.
 
 
+Die umgesetzten Recherche- und Leseansichten sind in [DESIGN.md](../../DESIGN.md#normkopf-und-bereiche-der-vorschrift)
+beschrieben. Dort stehen die Regeln für Kurztitel und amtlichen Langtitel, Geltungsstatus,
+Fassungslinks, mobile Inhaltsübersicht und Druckansicht.
+
 ## 1. Zweck des Systems
 
 Das Design System unterscheidet drei Ebenen:

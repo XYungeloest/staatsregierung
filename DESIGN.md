@@ -208,21 +208,20 @@ strukturierte Listen; Fachabschnitte werden nicht ohne Grund zu schwebenden Kart
 
 ## Kopfbereiche
 
-Der Kopf des Staatsportals besteht aus Simulations-Hinweisleiste, Wortmarke mit Staatsflagge,
-Hauptnavigation mit `aria-current`, Portalsuche und den Einstiegen zu Leichter Sprache und
-Gebärdensprache. Er kennt drei Stufen: über 80 rem steht alles in einer Zeile; zwischen 48 und
-80 rem wird er zweizeilig — oben Wortmarke und Suchfeld, darunter die vollständige
-Hauptnavigation mit Trennlinie und 2,75 rem hohen Zielen —, und erst ab 48 rem abwärts weichen
-Navigation und Kopfwerkzeuge gemeinsam in das native, tastaturbedienbare Menü. Kein Zustand
-blendet die Navigation mit `!important` aus; `tests/visual.spec.ts` misst bei 1024, 1100, 1280 und
-1440 px sichtbare Navigationspunkte.
+Im Staatsportal stehen Wortmarke und Suche über der Bereichsnavigation. Die Hinweisleiste
+kennzeichnet das Angebot als politische Simulation. „Freistaat“, „Staat & Behörden“, „Politik &
+Vorhaben“, „Haushalt & Daten“, „Presse & Aktuelles“ und „Service“ führen auf ihre Übersichten.
+Der Pfeil daneben öffnet die jeweiligen Unterseiten. OstRecht hat einen direkten Link zur eigenen
+Domain. Bis 48 rem bleiben die Suche und ein beschrifteter Menüknopf sichtbar. Das mobile Menü
+bietet dieselben Bereiche, Unterseiten und zugänglichen Angebote.
 
-Die Hauptnavigation führt ausschließlich Bereichseinstiege. Bereichsname, Adresse und
-Kurzbeschreibung stehen als `PORTAL_SECTIONS` in `packages/shared/src/config/site.ts`; Navigation,
-Fehlerseite, Serviceübersicht und Suchfilter lesen sie dort. Der Bereich heißt „Staatsrat“, weil
-die Staatsverfassung das Organ an der Spitze der vollziehenden Gewalt so nennt; seine Adresse
-bleibt `/staatsregierung/`, weil sie das Politikfeld benennt, eingeführt ist und in
-`site-routing.ts` innerhalb des D1-Projektionsabschlusses liegt.
+Die Bereichsnamen und Stammpfade stehen in `packages/shared/src/config/site.ts`. Die
+Unterseiten und ihre fachliche Zuordnung verwaltet `apps/portal/src/lib/area-navigation.ts`.
+Beide Ansichten verwenden `AreaNavigation.astro`, native Links und aufklappbare `details`.
+Escape schließt das aktive Menü und gibt dessen Schalter den Fokus zurück. Die aktuelle Seite
+trägt `aria-current="page"`, ihr übergeordneter Bereich `aria-current="location"`. So gehört
+die Gebietssuche zu „Freistaat“ und das Regierungsprogramm zu „Politik & Vorhaben“, auch wenn
+ihre eingeführten URLs andere Pfade verwenden.
 
 OstRecht führt das Amtsband (`.law-header`): Wappen und Wortmarke „OstRecht · Rechtsportal des
 Freistaates“, ein kompaktes Suchfeld und die fünf Bereiche Sachgebiete, A–Z und Register, Amtliche
@@ -261,22 +260,22 @@ Das Staatsportal hat vier Breakpoints, alle als `max-width` in rem: **80 rem**, 
 verschiedenen Punkten umschalten. Einzige begründete Ausnahme ist das Amtsband: es wird bei genau
 1280 px zweizeilig, weil Wortmarke, Suchfeld und fünf Bereiche sonst überlaufen.
 
-- bis 80 rem (kleiner Desktop): in beiden Portalen wird der Kopf zweizeilig – Wortmarke und
-  Suchfeld oben, die Navigationsliste als zweite Zeile; das Menü bleibt geschlossen. Der
+- bis 80 rem (kleiner Desktop): das Amtsband von OstRecht wechselt zu zwei Zeilen. Im Staatsportal stehen
+  Wortmarke und Suche auf allen Desktopbreiten über der Bereichsnavigation. Der
   Seitenrand des Staatsportals geht von `--space-6` auf `--space-5`. Das Band der Startseite geht
   auf zwei Spalten, die Funktionskarte nimmt die volle Breite. Der Normarbeitsbereich geht von
   drei auf zwei Spalten: Text und Seitenspalte nebeneinander, die Inhaltsübersicht öffnet über
   „Inhalt“ im Kopf als modales Seitenblatt. Die Registeransichten bleiben einspaltig.
 - bis 64 rem (Tablet quer, Staatsportal): die Navigationszeile bleibt sichtbar, der Seitenrand
   geht auf `--space-4`, Kartenraster gehen auf zwei Spalten und die Bereichsnavigation klebt nicht
-  mehr; der Schnellzugriff geht auf drei Spalten (3 + 2, keine allein stehende Karte).
+  mehr; das Serviceband ordnet seine vier Ziele in zwei Spalten.
 - bis 60 rem (OstRecht): Suche und Bereiche weichen in das Menü „Bereiche“ des Amtsbands, dort
   bleiben sie erreichbar. Alle zweispaltigen Arbeitsbereiche mit Seitenspalte werden einspaltig:
   Filterspalte der Rechtssuche und der Verzeichnisse als Aufklappbereich über der Liste,
   Protokoll und Seitenspalte der Seite
   „Fassungen und Änderungen“ untereinander. Eine Tabelle neben einer 380 px breiten Seitenspalte
   braucht mehr als 768 px; deshalb liegt diese Grenze bei 60 rem und nicht bei 48 rem.
-- bis 48 rem (Tablet hoch): im Staatsportal weichen Navigation und Kopfwerkzeuge in das Menü, die
+- bis 48 rem (Tablet hoch): im Staatsportal öffnet der Menüknopf die Bereiche. Der Sucheinstieg bleibt sichtbar. Die
   Kartenraster werden einspaltig, der Seitenrand geht auf `--space-3`; in OstRecht wird der
   Normarbeitsbereich einspaltig (Kopf → Inhaltsübersicht geschlossen → Fassungsleiste → Text →
   Seitenspalte), die Fassungsleiste wird zum waagerechten Streifen, Filterleisten und
@@ -426,7 +425,8 @@ Wortlisten nicht; sie bleiben durchsuchbar. `/archiv/` bleibt eine dauerhafte We
 Fassung, „Fassungen und Änderungen“, Fassungsvergleich und Einzelfassung rendern denselben
 `NormHead.astro` aus dem Modell in `apps/recht/src/lib/norm-head.ts` (`buildNormHeadModel`): eine
 Kopfzeile (Bereich „Vorschrift“, Sachgebiet, Normtyp, Ausfertigung, Stammfundstelle), die
-Überschrift in der Dokumentschrift mit Langtitel und Abkürzung in Klammern, dann die Statuszeile
+Überschrift in der Dokumentschrift mit Kurztitel und Abkürzung in Klammern. Ein abweichender
+Langtitel steht darunter. Fehlt ein Kurztitel, trägt die Überschrift den amtlichen Titel. Es folgt die Statuszeile
 mit der Statusmarke: zuerst die angezeigte Fassung, danach die Vorschrift („Geltende Fassung seit …
 · Vorschrift in Kraft seit …“, bei gleichen Daten „Geltende Fassung · in Kraft seit …“, „zuletzt
 geändert durch … mit Wirkung vom …“ mit Fundstelle) und, falls verkündet, der künftige
@@ -441,7 +441,7 @@ ungeklärte Fassungen tragen ein Statusband über dem Kopf, das mit Wort, Farbe 
 geltenden Fassung unmissverständlich ist (P3b). Die Rechtsherkunft steht als nachgeordnete Zeile
 unter der Statuszeile (auf dem Smartphone nur in den Vorschriftendaten). Werkzeuge: „Inhalt“
 (unter 80 rem, öffnet die Inhaltsübersicht), „Vollzitat“ und „Link“ bzw. „Fassungslink“
-(kopieren mit Rückmeldung), „Drucken“, „Amtliches PDF“ oder „Als PDF“ (Portalfassung). Darunter
+(allgemeine Normadresse oder bei jeder ausdrücklich gewählten Fassung deren dauerhafte Adresse, jeweils mit Rückmeldung), „Drucken“, „Amtliches PDF“ oder „Als PDF“ (Portalfassung). Darunter
 führen die „Bereiche der Vorschrift“ (`NormSectionTabs.astro`) als Reiterzeile zu Text,
 Vorschriftendaten, Fassungen und Änderungen sowie Rechtsbeziehungen. Der Wechsel zwischen den
 Ansichten verändert den Kopf nicht. Auf dem Smartphone (unter 48 rem, wo die Inhaltsübersicht
@@ -747,19 +747,12 @@ redaktionelle Kurzbeschreibung bleibt die Zeile leer.
 
 ### Startseite
 
-Alle Hauptbänder der Startseite tragen denselben vertikalen Rhythmus (`--space-7`, unter 48 rem
-`--space-6`). Hinweisband und Informationsband sind ausdrücklich **ein** Band — gleiche Fläche,
-keine Farbgrenze —, deshalb steht zwischen ihnen der halbe Bandabstand statt einer zweiten
-Bandkante.
-
-Die Startseite folgt einer festen Hierarchie: Hero mit redaktionellem Staatskanzlei-Bild, H1 und
-Portalsuche; zentrale Portalpfade als Zugangskarten (`PortalAccessCard.astro`); wichtiges Hinweisband
-(`ImportantNoticeBand.astro`); Presse, aktuelle Ministerien und Freistaat-Kurzprofil
-(`HomePressList.astro`, `HomeMinistryList.astro`, `FreestateSummary.astro`); „Aktuelles
-Regierungshandeln“ mit einem Leitvorhaben als dunkler Karte (`home-lead-feature`) und bis zu zwei
-weiteren Vorhaben; Recht, Haushalt und weitere Serviceangebote; Serviceband und Footer. Suchvorschläge,
-Karten und Listen verweisen ausschließlich auf vorhandene Seiten. Hervorhebungen sind redaktionelle
-Entscheidungen aus den Themendaten; es gibt keine zweite manuelle Startseitenliste.
+Nach der Portalsuche folgen vier häufige Anliegen. Die Gebietssuche führt direkt zum
+Eingabefeld, die weiteren Zugänge zu Staatssekretariaten, Haushalt und OstRecht-Suche.
+Das Hinweisband zeigt redaktionell gültige Meldungen und den amtierenden Staatsrat.
+Die anschließenden Reformvorhaben stammen aus den datierten Hervorhebungen der Themendaten.
+Verkündungen, Haushaltsunterlagen und offene Stellen folgen vor den kurzen Listen zu Presse und
+Zuständigkeiten. Der gemeinsame Serviceabschluss bündelt Kontakt und zugängliche Angebote.
 
 ### Karten, Raster und Formulare
 
@@ -787,8 +780,10 @@ demselben Grundsatz mit `FilterForm.astro`. Es gibt nur `:focus-visible`-Regeln;
 
 Wiederkehrende Muster liegen als kleine Astro-Komponenten unter `apps/portal/src/components/portal/`;
 anwendungsübergreifende Grundbausteine (`PortalIcon.astro`, `ResponsivePicture.astro`,
-`SectionHero.astro`) unter `packages/shared/src/components/portal/`. Icons ergänzen Text, ersetzen
-ihn nicht. Bilder werden über absolute Pfade unter `/images/` referenziert, responsive Varianten
+`SectionHero.astro`) unter `packages/shared/src/components/portal/`. `PortalIcon` rendert einzeln importierte
+Lucide-Symbole als SVG direkt im HTML. Die Namen und Ressortsymbole stehen in
+`packages/shared/src/config/portal-icons.ts`. Dekorative Symbole sind für Screenreader ausgeblendet.
+Symbolschalter erhalten einen zugänglichen Namen. Bilder werden über absolute Pfade unter `/images/` referenziert, responsive Varianten
 liegen unter `public/images/generated/`; Alternativtexte beschreiben den Bildinhalt, Bildnachweise
 werden nur bei belastbarer Quelle als `figcaption` direkt an der Medienfläche ausgegeben; unterhalb
 des sichtbaren Einstiegs werden Bilder verzögert geladen.
@@ -797,8 +792,10 @@ des sichtbaren Einstiegs werden Bilder verzögert geladen.
 
 Unterseiten folgen der Hierarchie Behördenkopf, bereichsbezogener Einstieg (`SectionHero.astro`
 mit den Varianten `government`, `topics`, `law`, `budget`, `reform`, `press`, `service`, `freestate`,
-`plain`), lokale Orientierung, fachliche Module, Serviceband und Footer. Die Varianten unterscheiden
-sich nur durch zurückhaltende Akzente, Medienanteil und Zusatzinhalte. Seitentitel stehen in
+`plain`), lokale Orientierung, fachliche Module, Serviceband und Footer. Die fachliche Variante bestimmt Akzent und Medienanteil.
+Die Dichte richtet sich nach dem Zweck. `compact` führt mit kurzer Einführung zum Fachinhalt,
+`dossier` leitet zur Inhaltsnavigation über, `tool` hält den Arbeitsweg zur Suche oder zum
+Verzeichnis kurz. `section` kennzeichnet den regulären Bereichseinstieg. Seitentitel stehen in
 `--text-title`, Langtitel in `--text-title-long`; im Einstieg gibt es höchstens eine primäre Aktion.
 Die Bereichsnavigation (`SectionNavigation`) bleibt ein semantisches `nav` mit echten Links und
 `aria-current`. Kennzahlenkarten sind echten Zahlenwerten vorbehalten; Karten bleiben wiederholten,

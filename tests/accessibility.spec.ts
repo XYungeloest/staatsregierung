@@ -88,7 +88,7 @@ const auditTargets: AuditTarget[] = [
   { name: 'Beteiligungsnavigator', site: 'portal', resolve: staticPage('/staatsregierung/beteiligungen/') },
   { name: 'Kabinett', site: 'portal', resolve: staticPage('/staatsregierung/kabinett/') },
   { name: 'Ressortseite', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/kabinett\/[a-z0-9-]+\/"/u) },
-  { name: 'Regierungsmitglied', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u) },
+  { name: 'Regierungsmitglied', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/mitglieder/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u) },
   { name: 'Haushalt', site: 'portal', resolve: staticPage('/haushalt/') },
   { name: 'Haushaltsperiode 2025/2026', site: 'portal', resolve: staticPage('/haushalt/2025-2026/') },
   { name: 'Haushaltsperiode mit Datenbestand', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'start') },

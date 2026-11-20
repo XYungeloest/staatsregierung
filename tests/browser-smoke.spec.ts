@@ -147,7 +147,7 @@ siteTest(['portal'])('Startseite bietet Suche, Ministerien, mobile Navigation un
 
   await expect(page.locator('h1')).toBeVisible();
   await expect(page.locator('.home-ministry-list a')).not.toHaveCount(0);
-  await expect(page.locator('.home-resource-card', { hasText: 'Recht schnell finden' })).toBeVisible();
+  await expect(page.locator('.home-resource-card', { hasText: 'Neueste Verkündung' }).getByRole('link')).toBeVisible();
   await expect(page.locator('[data-visual-section="home-current-topics"]')).toBeVisible();
   await expect(page.locator('.service-band__item', { hasText: 'Behördennummer 115' })).toHaveAttribute('href', '/service/kontakt/');
 
@@ -161,7 +161,7 @@ siteTest(['portal'])('Startseite bietet Suche, Ministerien, mobile Navigation un
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const mobileMenu = page.locator('.mobile-nav');
-  await mobileMenu.locator('summary').click();
+  await mobileMenu.locator(':scope > summary').click();
   await expect(mobileMenu.locator('.mobile-nav__panel')).toBeVisible();
   await expect(mobileMenu.locator('#mobile-portal-search')).toBeVisible();
   await expect(mobileMenu.getByRole('link', { name: 'Leichte Sprache', exact: true })).toBeVisible();
@@ -529,9 +529,9 @@ siteTest(['portal'])('Haushalt: Tabellen, Titelanker, Suche und Fachseiten der P
 siteTest(['portal'])('Lokale Bereichsnavigation und Ministeriumsverzeichnis sind vollständig zugänglich', async ({ page }) => {
   await page.goto('/staatsregierung/kabinett/');
 
-  const navigation = page.getByRole('navigation', { name: 'Staatsrat' });
+  const navigation = page.getByRole('navigation', { name: 'Staat & Behörden', exact: true });
   await expect(navigation).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Staatsrat & Geschäftsbereiche' })).toHaveAttribute('aria-current', 'page');
+  await expect(navigation.getByRole('link', { name: 'Geschäftsbereiche', exact: true })).toHaveAttribute('aria-current', 'page');
 
   const directory = page.locator('[data-ministry-directory]');
   await expect(directory).toBeVisible();
@@ -540,7 +540,7 @@ siteTest(['portal'])('Lokale Bereichsnavigation und Ministeriumsverzeichnis sind
 });
 
 siteTest(['portal'])('Regierungsprofil verbindet Porträt, Amt, Status und Kontakt im sichtbaren Kopf; Bildnachweise bleiben beim Hero-Bild', async ({ page }) => {
-  const memberPath = await firstLink(page, '/staatsregierung/kabinett/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u);
+  const memberPath = await firstLink(page, '/staatsregierung/mitglieder/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u);
   const ministryPath = await firstLink(page, '/staatsregierung/kabinett/', /href="\/staatsregierung\/kabinett\/[a-z0-9-]+\/"/u);
   await page.goto(memberPath);
 
@@ -1780,7 +1780,7 @@ siteTest(['portal'])('Portalsuche gruppiert nach Bereichen und lädt den Rechtsb
   expect(requested, 'ohne Suchbegriff wird der Rechtsbestand nicht geladen').not.toContain('/search-index-recht.json');
 
   // Ein Bereichsname des Staatsportals führt zuerst auf dessen Einstieg.
-  const sectionLabel = await page.locator('.site-header__nav a').nth(1).innerText();
+  const sectionLabel = await page.locator('.site-header__nav .area-nav-link').first().innerText();
   await page.locator('[data-portal-search-query]').fill(sectionLabel);
   await expect(page.locator('#search-group-portal')).toBeVisible();
   await expect(page.locator('.search-group').first().locator('.search-hit').first()).toBeVisible();
@@ -2502,4 +2502,40 @@ siteTest(['law'])('Restpunkte 2: die Ansicht „Ausgaben“ nennt hinter der Aus
     expect(text).toMatch(/^\d+ (Seite|Seiten|Eintrag|Einträge)$/u);
   }
   expect(await extents.first().evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeLessThanOrEqual(13.5);
+});
+
+siteTest(['portal'])('Bereichsmenüs öffnen mit Tastatur, schließen mit Escape und ordnen Sonderwege ihrem Bereich zu', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  for (const width of [375, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/kreisreform/');
+    const mobile = width < 768;
+    if (mobile) await page.locator('.mobile-nav > summary').press('Enter');
+    const nav = page.getByRole('navigation', { name: mobile ? 'Mobile Hauptnavigation' : 'Hauptnavigation', exact: true });
+    await expect(nav.getByRole('link', { name: 'Freistaat', exact: true })).toHaveAttribute('aria-current', 'location');
+    const trigger = nav.getByRole('button', { name: 'Unterseiten zu Freistaat' });
+    await trigger.press('Enter');
+    const areaSearch = nav.getByRole('link', { name: 'Gebietssuche zur Kreisreform' });
+    await expect(areaSearch).toBeVisible();
+    await areaSearch.focus();
+    await page.keyboard.press('Escape');
+    await expect(trigger).toBeFocused();
+    await expect(areaSearch).toBeHidden();
+    await expect(nav.getByRole('link', { name: 'OstRecht' })).toHaveAttribute('href', 'https://recht.freistaat-ostdeutschland.de/');
+  }
+});
+
+siteTest(['law'])('Verfassungszugang leitet permanent weiter und explizite Fassungslinks bleiben dauerhaft', async ({ page, request }) => {
+  const redirect = await request.get(lawUrl('/verfassung/?ansicht=text'), { maxRedirects: 0 });
+  expect(redirect.status()).toBe(308);
+  expect(new URL(redirect.headers().location, lawUrl('/')).search).toBe('?ansicht=text');
+  const norm = await multiVersionNorm(request);
+  const path = `/norm/${norm.slug}/version/${norm.current.versionId}/`;
+  await page.goto(lawUrl(path));
+  for (const target of ['.norm-page-header [data-copy-url]', '.norm-aside [data-copy-url]']) {
+    await expect(page.locator(target).first()).toHaveAttribute('data-copy-href', path);
+  }
+  await page.goto(lawUrl(path + 'beziehungen/'));
+  await page.emulateMedia({ media: 'print' });
+  await expect(page.locator('.norm-relations')).toBeVisible();
 });

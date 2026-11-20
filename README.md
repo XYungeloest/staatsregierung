@@ -129,7 +129,11 @@ Bezeichnungen des Rechtsbestands erst, wenn der Bereichsfilter das Recht einschl
 
 Öffentliche Inhalte werden über validierte JSON-Dateien unter `content/` gepflegt; Formate und
 Pflegewege stehen in `CONTENT.md`. Ämter, Mitgliedschaften und Ressortleitungen werden nur aus
-`content/organisation/` abgeleitet.
+`content/organisation/` abgeleitet. „Staat & Behörden“ erschließt politische Leitung,
+Staatssekretariate, Personen und Archiv. Unter „Freistaat“ führt die Gebietssuche unmittelbar zur
+Kreisreform. „Politik & Vorhaben“ verbindet Themen, Reformdossiers und Regierungsprogramm.
+Die Seitentypen, Statusangaben und Quellen für konkrete Auswirkungen sind in
+[CONTENT.md](CONTENT.md#themenseiten) beschrieben.
 
 Normen liegen unter `content/normen/[slug]/` (`meta.json`, `history.json`, `versions/*.json`),
 Verkündungen unter `content/verkuendungen/[slug].json`, das redaktionelle Stichwortregister des
