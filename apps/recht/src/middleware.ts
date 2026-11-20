@@ -11,5 +11,6 @@ export const onRequest = defineMiddleware(async (_context, next) => {
   if (commit && !response.headers.has('X-Portal-Commit')) {
     response.headers.set('X-Portal-Commit', commit);
   }
+  response.headers.set('X-Portal-Build', import.meta.env.PORTAL_BUILD_INFO.buildId);
   return response;
 });

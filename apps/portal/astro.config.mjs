@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { defineConfig, sessionDrivers } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
-import { resolveBuildCommit } from '../../scripts/lib/build-commit.mjs';
+import { createBuildInfo } from '../../scripts/lib/release-info.mjs';
 import { haushaltVorschauIntegration, parseHaushaltVorschau } from '../../scripts/lib/haushalt/vorschau.mjs';
 import { legacyRedirects } from './src/config/legacy-routes.mjs';
 
@@ -9,7 +9,7 @@ const defaultPortalSiteUrl = 'https://freistaat-ostdeutschland.de';
 const defaultLawSiteUrl = 'https://recht.freistaat-ostdeutschland.de';
 const portalSiteUrl = process.env.PORTAL_SITE_URL ?? defaultPortalSiteUrl;
 const lawSiteUrl = process.env.LAW_SITE_URL ?? defaultLawSiteUrl;
-const buildCommit = resolveBuildCommit();
+const buildInfo = createBuildInfo('portal');
 // Vorschau nicht freigegebener Haushaltsperioden (apps/portal/src/lib/haushalt/perioden.ts). Nur
 // lokale Prüfungen und CI-Builds setzen HAUSHALT_VORSCHAU; Produktions- und Staging-Deploys
 // verweigern Vorschau-Builds (scripts/check-haushalt-release.mjs). Unbekannte Werte brechen ab.
@@ -38,7 +38,8 @@ export default defineConfig({
   base: normalizeBasePath(process.env.BASE_PATH),
   vite: {
     define: {
-      'import.meta.env.PORTAL_BUILD_COMMIT': JSON.stringify(buildCommit),
+      'import.meta.env.PORTAL_BUILD_COMMIT': JSON.stringify(buildInfo.commit),
+      'import.meta.env.PORTAL_BUILD_INFO': JSON.stringify(buildInfo),
       'import.meta.env.PORTAL_SITE_URL': JSON.stringify(portalSiteUrl),
       'import.meta.env.LAW_SITE_URL': JSON.stringify(lawSiteUrl),
       'import.meta.env.SITE_TARGET': JSON.stringify('portal'),

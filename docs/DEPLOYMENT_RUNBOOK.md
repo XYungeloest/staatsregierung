@@ -484,8 +484,35 @@ curl -fsSI https://recht.freistaat-ostdeutschland.de/ | sed -n '/^x-portal-commi
 curl -fsS https://recht.freistaat-ostdeutschland.de/ | grep -o 'meta name="build-commit" content="[0-9a-f]\{40\}"'
 ```
 
-Der öffentliche Stand gilt erst dann als bestätigt, wenn Header und HTML dieselbe vollständige
-Kennung ausgeben und sie dem freigegebenen Commit auf `main` entspricht.
+Für jedes Ziel liegt unter `/build-info.json` das Manifest mit Commit, Build-ID,
+UTC-Erzeugungszeit und redaktionellem Stichtag. OstRecht nennt zusätzlich den Fingerabdruck
+der erwarteten Vollprojektion, soweit ihr Code-Abschluss bestimmbar ist.
+`/api/projektionsstand.json` liefert den Fingerabdruck der abgeschlossenen Vollprojektion aus D1.
+Bei einer fehlenden oder laufenden Projektion antwortet die Route mit HTTP 503.
+
+Die Produktionsnachkontrolle vergleicht das Manifest mit dem heruntergeladenen Freigabeartefakt,
+die Kennungen in den Routenheadern mit dem HTML und bei OstRecht einmalig den aktuellen
+D1-Stand mit der erwarteten Projektion. Spätere reine Datensyncs haben einen eigenen Lebenszyklus.
+Je Ziel enthält das Actions-Artefakt `release-evidence-<Lauf>-<Versuch>` den geprüften Build,
+das Ergebnis und den Zeitpunkt der Beobachtung. Die Aufbewahrung beträgt 90 Tage.
+Bei gesetztem `SOURCE_DATE_EPOCH` verwendet ein lokaler Build die angegebene Unix-Zeit.
+
+Für einen späteren Vergleich kann `EXPECTED_PORTAL_BUILD` oder `EXPECTED_LAW_BUILD` auf
+das freigegebene Manifest oder den zugehörigen Nachweis zeigen. Die Prüfung verwendet den
+Stichtag aus diesem Artefakt. Beispiel für einen Portalvergleich mit dem lokalen Git-Stand:
+
+```sh
+PORTAL_SITE_URL=https://freistaat-ostdeutschland.de LAW_SITE_URL=https://recht.freistaat-ostdeutschland.de \
+DEPLOY_TARGETS=portal EXPECTED_PORTAL_BUILD=/pfad/zum/nachweis/portal.json \
+REPOSITORY_COMMIT="$(git rev-parse HEAD)" npm run test:deployment:production
+```
+
+`expected` bestätigt die Freigabe. `repository-pending` bestätigt dieselbe Freigabe und
+kennzeichnet einen nachweislich jüngeren Repository-Commit. `deployment-incomplete` meldet
+eine unerreichbare Route oder einen erkennbaren Vorgängerbuild. `inconsistent` meldet
+widersprüchliche Kennungen oder Daten. Die beiden letzten Zustände haben Exitcode 1.
+Für Abstammungsvergleiche müssen beide Commits in der lokalen Git-Historie vorliegen.
+`VERIFY_RELEASE_PROJECTION=1` schaltet den Vergleich mit der aktuellen D1-Projektion hinzu.
 
 ## Korrektur und Wiederanlauf
 

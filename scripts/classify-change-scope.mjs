@@ -48,6 +48,7 @@ const RUNTIME_BUILD_SCRIPTS = new Set([
   'scripts/prepare-site-public.mjs',
   'scripts/stamp-build.mjs',
   'scripts/lib/build-commit.mjs',
+  'scripts/lib/release-info.mjs',
 ]);
 
 const UI_TEST_SUPPORT_SCRIPTS = new Set([

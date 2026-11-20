@@ -580,9 +580,13 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          filter: blob:none
       - name: Node.js und Abhängigkeiten
         uses: ./.github/actions/setup-node-modules
       - name: Geprüften Release-Build laden
+        id: release_build
         uses: actions/download-artifact@v8
         with:
           name: site-build-${{ github.sha }}
@@ -610,10 +614,23 @@ jobs:
             fi
           fi
       - name: Produktionsstand der tatsächlich veröffentlichten Ziele prüfen
-        if: ${{ needs.build.outputs.deploy_env == 'production' }}
+        if: ${{ !cancelled() && steps.release_build.outcome == 'success' && needs.build.outputs.deploy_env == 'production' }}
         env:
+          EXPECTED_PORTAL_BUILD: apps/portal/dist/client/build-info.json
+          EXPECTED_LAW_BUILD: apps/recht/dist/client/build-info.json
+          VERIFY_RELEASE_PROJECTION: '1'
+          RELEASE_EVIDENCE_DIR: ${{ runner.temp }}/release-evidence
           PORTAL_SITE_URL: ${{ needs.build.outputs.portal_site_url }}
           LAW_SITE_URL: ${{ needs.build.outputs.law_site_url }}
           DEPLOY_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
           EXPECTED_COMMIT: ${{ github.sha }}
         run: npm run test:deployment:production
+
+      - name: Veröffentlichungsnachweis je Ziel aufbewahren
+        if: ${{ !cancelled() && steps.release_build.outcome == 'success' && needs.build.outputs.deploy_env == 'production' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/release-evidence/*.json
+          if-no-files-found: error
+          retention-days: 90
