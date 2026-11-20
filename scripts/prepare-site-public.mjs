@@ -3,6 +3,7 @@
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildLegacyLawRedirects } from '../apps/portal/src/config/legacy-routes.mjs';
 
 const target = process.argv[2];
 if (target !== 'portal' && target !== 'law') {
@@ -34,25 +35,7 @@ if (target === 'portal') {
     },
   });
 
-  const lawSiteUrl = (process.env.LAW_SITE_URL ?? 'https://recht.freistaat-ostdeutschland.de')
-    .replace(/\/+$/u, '');
-  const redirects = [
-    `/recht/suche/ ${lawSiteUrl}/suche/ 301`,
-    `/recht/archiv/ ${lawSiteUrl}/a-z/ 301`,
-    `/recht/sachgebiete/ ${lawSiteUrl}/sachgebiete/ 301`,
-    `/recht/foerderrichtlinien/ ${lawSiteUrl}/foerderrichtlinien/ 301`,
-    `/recht/fundstellen/ ${lawSiteUrl}/verkuendungen/?ansicht=eintraege 301`,
-    `/recht/verkuendungen/ ${lawSiteUrl}/verkuendungen/ 301`,
-    `/recht/verfassung/ ${lawSiteUrl}/norm/staatsverfassung-des-freistaates-ostdeutschland/ 301`,
-    `/recht/rechtsentwicklung/ ${lawSiteUrl}/suche/ 301`,
-    `/recht/hilfe/ ${lawSiteUrl}/hilfe/ 301`,
-    `/recht/verkuendungen/index.json ${lawSiteUrl}/verkuendungen/index.json 301`,
-    `/recht/norm/sachsische-landkreisordnung/ ${lawSiteUrl}/norm/saechsische-landkreisordnung/ 301`,
-    `/recht/norm/* ${lawSiteUrl}/norm/:splat 301`,
-    `/recht/verkuendungen/* ${lawSiteUrl}/verkuendungen/:splat 301`,
-    `/recht/sachgebiete/* ${lawSiteUrl}/sachgebiete/:splat 301`,
-  ].join('\n');
-  await writeFile(resolve(outputRoot, '_redirects'), `${redirects}\n`, 'utf8');
+  await writeFile(resolve(outputRoot, '_redirects'), buildLegacyLawRedirects(process.env.LAW_SITE_URL), 'utf8');
 } else {
   await Promise.all([
     copy('_headers'),

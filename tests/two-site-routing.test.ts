@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { buildLegacyLawRedirects } from '../apps/portal/src/config/legacy-routes.mjs';
 import test from 'node:test';
 
 import {
@@ -52,11 +51,7 @@ test('Portal-Routen verweisen zentral und ohne altes Präfix auf OstRecht', () =
 
 test('generische Altadressen werden permanent auf die konfigurierbare Rechts-Origin geleitet', () => {
   const configuredOrigin = 'https://recht.test.invalid';
-  execFileSync(process.execPath, ['scripts/prepare-site-public.mjs', 'portal'], {
-    cwd: process.cwd(),
-    env: { ...process.env, LAW_SITE_URL: configuredOrigin },
-  });
-  const redirects = readFileSync('apps/portal/.site-public/_redirects', 'utf8');
+  const redirects = buildLegacyLawRedirects(configuredOrigin);
 
   assert.match(redirects, new RegExp(`/recht/suche/ ${configuredOrigin}/suche/ 301`, 'u'));
   // Der alphabetische Zugang liegt unter /a-z/; das Staatsportal leitet ohne Zwischenschritt dorthin.
