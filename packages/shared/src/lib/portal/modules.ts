@@ -29,17 +29,6 @@ export function formatActionPlanStatus(status: ActionPlanStatus): string {
   }
 }
 
-export function getActionPlanStatusIcon(status: ActionPlanStatus): string {
-  switch (status) {
-    case 'umgesetzt':
-      return '✅';
-    case 'teilweise_umgesetzt':
-      return '🔄';
-    case 'angelegt':
-      return '📋';
-  }
-}
-
 export function formatTimelineEntryType(type: TimelineEntryType): string {
   switch (type) {
     case 'gesetz':

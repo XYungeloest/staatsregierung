@@ -1,3 +1,6 @@
 ---
-return Astro.redirect('/norm/staatsverfassung-des-freistaates-ostdeutschland/', 308);
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
+
+export const prerender = false;
+return Astro.redirect(lawSiteConfig.paths.constitution + Astro.url.search, 308);
 ---

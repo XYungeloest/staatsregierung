@@ -1,8 +1,9 @@
 {
   "slug": "sport",
   "title": "Sport",
-  "teaser": "Die Sportförderung soll mit landesweiten Strukturen, verlässlicher Finanzierung und klaren Zuständigkeiten neu geordnet werden.",
-  "status": "in-umsetzung",
+  "pageType": "compact",
+  "teaser": "Die Sportförderung regelt den Zugang zu Sportstätten und die Förderung von Leistungs- und Betriebssport.",
+  "status": "in-kraft",
   "cluster": "bildung-gesellschaft",
   "priority": 65,
   "featured": false,
@@ -11,18 +12,21 @@
     "project-sportneuordnung",
     "project-kostenfreie-kindheit-teilhabe"
   ],
-  "hero": "Die Neuordnung der Sportförderung verbindet Breiten-, Leistungs- und Nachwuchssport mit einer verlässlichen öffentlichen Förderung.",
   "beschlossen": [
-    "Das Sportneuordnungsgesetz wurde am 20. Juli 2026 verkündet und trat am 21. Juli 2026 in Kraft.",
-    "Mit dem Ostdeutschen Sportfördergesetz und den flankierenden Stammgesetzen bestehen neue Grundlagen für Sportförderung, Spitzensport, Athletenversorgung und Betriebssport.",
-    "Ab 1. Januar 2027 wird der Landessportpass Ost als Sportmodul des Teilhabepasses geführt. Der kostenfreie Zugang von Kindern und Jugendlichen zu landesgeförderten öffentlichen Sportstätten ist dann unabhängig von einer Vereinsmitgliedschaft."
+    "Zum Sportförderrecht gehören die Landesagentur für Spitzensport, die Athletenförderung und der Betriebssport."
   ],
-  "umgesetzt": [
-    "Die Aufgaben der Sportförderung werden durch das Staatssekretariat für Volksbildung und Wissenschaft wahrgenommen."
+  "geltendesRecht": [
+    "Das Sportneuordnungsgesetz ist seit dem 21. Juli 2026 in Kraft."
   ],
+  "umgesetzt": [],
   "naechsteSchritte": [
-    "Aufbau der Landesagentur für Spitzensport und der gesetzlich vorgesehenen Förderstrukturen.",
-    "Umsetzung der neuen Förder- und Versorgungsinstrumente."
+    "Die gesetzlich vorgesehene Landesagentur und ihre Förderstrukturen aufbauen."
+  ],
+  "impacts": [
+    {
+      "text": "Ab 1. Januar 2027 können unter 18-Jährige landesgeförderte öffentliche Sportstätten für nichtkommerzielle Zwecke kostenfrei nutzen. Eine Vereinsmitgliedschaft ist dafür nicht erforderlich.",
+      "normSlug": "ostdeutsches-sportfoerdergesetz"
+    }
   ],
   "keyDates": [
     {
@@ -78,11 +82,6 @@
       "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027."
     }
   ],
-  "faq": [
-    {
-      "question": "Ist die Neuordnung bereits beschlossen?",
-      "answer": "Ja. Das Sportneuordnungsgesetz wurde am 20. Juli 2026 beschlossen und verkündet und trat am 21. Juli 2026 in Kraft."
-    }
-  ],
+  "faq": [],
   "federfuehrendesRessort": "bildung-und-sportliche-ertuechtigung"
 }

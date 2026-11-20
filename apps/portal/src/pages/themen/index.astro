@@ -1,5 +1,5 @@
 ---
-import { campaign, campaignPath, campaignSummary } from '../../lib/fresswuerfel/config.ts';
+import { campaign, campaignPath, campaignSummary, showTeaser } from '../../lib/fresswuerfel/config.ts';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import StatusBadge from '../../components/portal/StatusBadge.astro';
@@ -10,10 +10,9 @@ import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import {
   getActionPlanUrl,
   getActiveTopicHighlights,
-  getFeaturedTopics,
   getHomeUrl,
   getKreisreformUrl,
-  getLawHomeUrl,
+  getLawHomeUrl, getTopicUrl, getCoalitionUrl,
   groupTopicsByCluster,
   TOPIC_CLUSTER_LABELS,
 } from '@ostrecht/shared/lib/portal/index.ts';
@@ -24,27 +23,18 @@ const [topics, ministries] = await Promise.all([loadTopics(), loadMinistries()])
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const currentTopics = getActiveTopicHighlights(topics, PORTAL_REFERENCE_DATE);
 const currentTopicSlugs = new Set(currentTopics.map((topic) => topic.slug));
-const focusTopics = getFeaturedTopics(topics).filter((topic) => !currentTopicSlugs.has(topic.slug));
+const focusTopics = topics.filter((topic) => topic.pageType === 'dossier').filter((topic) => !currentTopicSlugs.has(topic.slug));
 const topicGroups = groupTopicsByCluster(topics);
 ---
 
-<BaseLayout title="Themen & Projekte" description="Aktuelle Vorhaben, dauerhafte Schwerpunkte und alle Themen des Ostdeutschen Freistaates mit Rechtsstand und Zuständigkeit.">
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen & Projekte' }]} />
+<BaseLayout title="Politik & Vorhaben" description="Aktuelle Vorhaben, dauerhafte Schwerpunkte und alle Themen des Ostdeutschen Freistaates mit Rechtsstand und Zuständigkeit.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Politik & Vorhaben' }]} />
 
   <SectionHero
-    eyebrow="Themen & Projekte"
-    title="Was der Freistaat gestaltet"
-    lead="Aktuelle Entscheidungen, laufende Umsetzungen und dauerhafte Reformbereiche – geordnet nach Bedeutung, Fachgebiet und Rechtsstand."
+    eyebrow="Politik & Vorhaben"
+    title="Themen und Reformvorhaben"
+    lead="Beschlüsse, geltende Regelungen und die nächsten Schritte der politischen Vorhaben."
     variant="topics"
-    facts={[
-      { label: 'Aktuell hervorgehoben', value: String(currentTopics.length), href: '#aktuell' },
-      { label: 'Dauerhafte Schwerpunkte', value: String(focusTopics.length), href: '#schwerpunkte' },
-      { label: 'Alle Themen', value: String(topics.length), href: '#alle-themen' },
-    ]}
-    actions={[
-      { label: 'Aktuelle Vorhaben', href: '#aktuell', primary: true },
-      { label: 'Gebietssuche zur Kreisreform', href: `${getKreisreformUrl()}#bezirk-suche` },
-    ]}
   />
 
   <SectionNavigation
@@ -52,55 +42,47 @@ const topicGroups = groupTopicsByCluster(topics);
     variant="topics"
     items={[
       { label: 'Aktuell', href: '#aktuell' },
-      { label: 'Schwerpunkte', href: '#schwerpunkte' },
+      { label: 'Reformdossiers', href: '#schwerpunkte' },
       { label: 'Alle Themen', href: '#alle-themen' },
       { label: '15-Punkte-Plan', href: getActionPlanUrl() },
-      { label: 'Rechtsportal', href: getLawHomeUrl() },
+      { label: 'Koalition', href: getCoalitionUrl() },
+      { label: 'Gebietssuche', href: `${getKreisreformUrl()}#bezirk-suche` },
+      { label: 'OstRecht', href: getLawHomeUrl() },
     ]}
   />
 
-  <section class="section" aria-labelledby="campaign-heading">
-    <p class="eyebrow">Mitgestalten · Handelsorganisation Ost</p>
-    <h2 id="campaign-heading"><a href={campaignPath}>{campaignSummary(campaign).title}</a></h2>
-    <p>{campaign.phase === 'ergebnis' && campaign.result ? campaign.result.description : 'Eine eigene Figur für Fresswürfel: Informieren Sie sich über den Maskottchenwettbewerb und die Teilnahme.'}</p>
-    <a class="inline-link" href={campaignPath}>Zum Maskottchenwettbewerb</a>
-  </section>
-
-  <section id="aktuell" class="section topics-current" aria-labelledby="topics-current-title" data-visual-section="topics-current">
+  {currentTopics.length > 0 ? <section id="aktuell" class="section topics-current" aria-labelledby="topics-current-title" data-visual-section="topics-current">
     <div class="section-header topics-heading-row">
       <div>
         <p class="eyebrow">Aktuell</p>
         <h2 id="topics-current-title">Was jetzt wichtig ist</h2>
-        <p>Zeitkritische Vorhaben und jüngste Statusänderungen. Der Zeitraum wird direkt im jeweiligen Themendatensatz gepflegt.</p>
+
       </div>
       <p class="topics-reference-date">{siteConfig.vocabulary.portalContentAsOf} <time datetime={PORTAL_REFERENCE_DATE}>{siteConfig.date.formatLong(PORTAL_REFERENCE_DATE)}</time></p>
     </div>
-    {currentTopics.length > 0 ? (
+
       <ul class="topic-reference-list">
         {currentTopics.map((topic) => (
           <li class="topic-reference">
             <StatusBadge status={topic.status} />
-            <a class="inline-link" href={`#thema-${topic.slug}`}>{topic.title}</a>
+            <a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a>
             <span>{TOPIC_CLUSTER_LABELS[topic.cluster]}</span>
           </li>
         ))}
       </ul>
-    ) : (
-      <p class="status-notice">Derzeit ist kein Thema mit einem laufenden Hervorhebungszeitraum gekennzeichnet.</p>
-    )}
-  </section>
+  </section> : <span id="aktuell"></span>}
 
   <section id="schwerpunkte" class="section section-muted topics-focus" aria-labelledby="topics-focus-title">
     <div class="section-header">
       <p class="eyebrow">Schwerpunkte</p>
       <h2 id="topics-focus-title">Große Reformbereiche</h2>
-      <p>Dauerhafte politische und rechtliche Arbeitsfelder. Die vollständige Karte jedes Themas steht in der Übersicht darunter.</p>
+      <p>Die Dossiers erläutern Teilvorhaben, rechtliche Grundlagen und ihre Auswirkungen.</p>
     </div>
     <ul class="topic-reference-list">
       {focusTopics.map((topic) => (
         <li class="topic-reference">
           <StatusBadge status={topic.status} />
-          <a class="inline-link" href={`#thema-${topic.slug}`}>{topic.title}</a>
+          <a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a>
           <span>{TOPIC_CLUSTER_LABELS[topic.cluster]}</span>
         </li>
       ))}
@@ -111,7 +93,7 @@ const topicGroups = groupTopicsByCluster(topics);
     <div class="section-header">
       <p class="eyebrow">Vollständige Übersicht</p>
       <h2 id="topics-directory-title">Alle Themen nach Fachgebiet</h2>
-      <p>Jedes Thema steht hier genau einmal als vollständige Karte, geordnet nach Fachgebiet. Die Abschnitte darüber verweisen auf diese Karten.</p>
+
     </div>
     <nav class="topic-cluster-navigation" aria-label="Direkt zu einem Themenbereich">
       <ul>
@@ -134,4 +116,5 @@ const topicGroups = groupTopicsByCluster(topics);
       ))}
     </div>
   </section>
+  {(showTeaser(campaign, Date.now()) || campaign.phase === 'ergebnis' && campaign.result) && <p id="campaign-heading" class="section-link-row"><a href={campaignPath}>{campaignSummary(campaign).title}</a></p>}
 </BaseLayout>

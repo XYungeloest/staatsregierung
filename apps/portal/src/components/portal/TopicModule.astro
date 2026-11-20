@@ -13,7 +13,7 @@ const formatDateRange = (date: string, endDate?: string) => endDate && endDate !
   ? `${siteConfig.date.formatLong(date)} bis ${siteConfig.date.formatLong(endDate)}`
   : siteConfig.date.formatLong(date);
 const timelineState = (date: string, endDate?: string) => {
-  if ((endDate ?? date) < referenceDate) return { className: 'completed', label: 'Erreicht' };
+  if ((endDate ?? date) < referenceDate) return { className: 'completed', label: 'Vergangen' };
   if (date > referenceDate) return { className: 'upcoming', label: 'Bevorstehend' };
   return { className: 'current', label: 'Aktuell' };
 };

@@ -76,13 +76,16 @@ export interface Ministerium {
 
 export type MinisteriumProfil = Omit<Ministerium, 'leitung'>;
 
-export type Themenstatus =
-  | 'geplant'
-  | 'entwurf'
-  | 'im-gesetzgebungsverfahren'
-  | 'beschlossen'
-  | 'in-umsetzung'
-  | 'abgeschlossen';
+/** Gesamtstand eines Vorhabens. Geltung einzelner Normen wird separat aus OstRecht gelesen. */
+export const TOPIC_STATUS_LABELS = {
+  geplant: 'Geplant', angekuendigt: 'Angekündigt', 'in-vorbereitung': 'In Vorbereitung',
+  entwurf: 'Entwurf', 'entwurf-vorgelegt': 'Als Entwurf vorgelegt',
+  'im-gesetzgebungsverfahren': 'Im Gesetzgebungsverfahren', beschlossen: 'Beschlossen',
+  verkuendet: 'Verkündet', 'in-kraft': 'Rechtsrahmen in Kraft',
+  'in-umsetzung': 'In Umsetzung', 'im-vollzug': 'Im Vollzug', umgesetzt: 'Umgesetzt',
+  abgeschlossen: 'Abgeschlossen', aufgehoben: 'Aufgehoben', eingestellt: 'Eingestellt',
+} as const;
+export type Themenstatus = keyof typeof TOPIC_STATUS_LABELS;
 
 export const THEMENCLUSTER = [
   'staat-demokratie',
@@ -176,7 +179,14 @@ export type ThemenModul =
   | ThemenFaktenModul
   | ThemenVergleichsModul;
 
+export type TopicPageType = 'compact' | 'dossier' | 'application';
+export type TopicApplication = 'territory' | 'budget' | 'holdings';
+
 export interface Themenseite {
+  pageType?: TopicPageType;
+  application?: TopicApplication;
+  geltendesRecht?: string[];
+  impacts?: Array<{ text: string; normSlug: string }>;
   slug: string;
   title: string;
   teaser: string;
@@ -320,6 +330,7 @@ export interface CabinetPageContent {
   title: string;
   lead: string;
   politicalContext: string[];
+  organisation?: string;
   chronologyTitle: string;
   chronology: Array<{ date: string; text: string }>;
   topicHighlightSlugs: string[];
@@ -542,16 +553,7 @@ function expectOptionalSlugArray(value: unknown, path: string): string[] | undef
 
 function expectTopicStatus(value: unknown, path: string): Themenstatus {
   const status = expectString(value, path) as Themenstatus;
-  const allowedStatuses: Themenstatus[] = [
-    'geplant',
-    'entwurf',
-    'im-gesetzgebungsverfahren',
-    'beschlossen',
-    'in-umsetzung',
-    'abgeschlossen',
-  ];
-
-  if (!allowedStatuses.includes(status)) {
+  if (!Object.hasOwn(TOPIC_STATUS_LABELS, status)) {
     throw new PortalContentValidationError(`${path}: enthält einen unbekannten Themenstatus`);
   }
 
@@ -884,6 +886,27 @@ export function parseThemenseite(value: unknown, path: string): Themenseite {
     throw new PortalContentValidationError(`${path}.highlightUntil: darf nicht vor highlightFrom liegen`);
   }
 
+  const pageType = entry.pageType ?? 'compact';
+  if (pageType !== 'compact' && pageType !== 'dossier' && pageType !== 'application') {
+    throw new PortalContentValidationError(`${path}.pageType: unbekannter Seitentyp`);
+  }
+  const application = entry.application;
+  if (pageType === 'application' ? !['territory', 'budget', 'holdings'].includes(String(application)) : application !== undefined) {
+    throw new PortalContentValidationError(`${path}.application: Fachanwendung und Seitentyp müssen zusammenpassen`);
+  }
+  const rechtsgrundlagen = parseThemenRechtsgrundlagen(entry.rechtsgrundlagen, createPath(path, 'rechtsgrundlagen'));
+  if (entry.impacts !== undefined && !Array.isArray(entry.impacts)) {
+    throw new PortalContentValidationError(`${path}.impacts: Liste erwartet`);
+  }
+  const impacts = (entry.impacts ?? []).map((raw: unknown, index: number) => {
+    const itemPath = `${path}.impacts[${index}]`;
+    const item = expectRecord(raw, itemPath);
+    const normSlug = expectSlug(item.normSlug, `${itemPath}.normSlug`);
+    if (!rechtsgrundlagen.some((source) => source.normSlug === normSlug)) {
+      throw new PortalContentValidationError(`${itemPath}.normSlug: Rechtsgrundlage fehlt`);
+    }
+    return { text: expectString(item.text, `${itemPath}.text`), normSlug };
+  });
   return {
     slug: expectSlug(entry.slug, createPath(path, 'slug')),
     title: expectString(entry.title, createPath(path, 'title')),
@@ -896,10 +919,8 @@ export function parseThemenseite(value: unknown, path: string): Themenseite {
       entry.naechsteSchritte,
       createPath(path, 'naechsteSchritte'),
     ),
-    rechtsgrundlagen: parseThemenRechtsgrundlagen(
-      entry.rechtsgrundlagen,
-      createPath(path, 'rechtsgrundlagen'),
-    ),
+    pageType, application: application as TopicApplication | undefined, impacts, rechtsgrundlagen,
+    geltendesRecht: entry.geltendesRecht === undefined ? undefined : expectStringArray(entry.geltendesRecht, createPath(path, 'geltendesRecht')),
     faq: parseThemenFaq(entry.faq, createPath(path, 'faq')),
     federfuehrendesRessort: expectSlug(
       entry.federfuehrendesRessort,
@@ -1149,6 +1170,7 @@ export function parseCabinetPageContent(value: unknown, path = 'content/regierun
     slug: expectSlug(entry.slug, `${path}.slug`),
     title: expectString(entry.title, `${path}.title`),
     lead: expectString(entry.lead, `${path}.lead`),
+    organisation: expectOptionalString(entry.organisation, `${path}.organisation`),
     politicalContext: expectStringArray(entry.politicalContext, `${path}.politicalContext`),
     chronologyTitle: expectString(entry.chronologyTitle, `${path}.chronologyTitle`),
     chronology: entry.chronology.map((raw, index) => {

@@ -1,12 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import {
   getActionPlanUrl,
-  getGovernmentUrl,
   getHomeUrl,
   getTopicsUrl,
 } from '@ostrecht/shared/lib/portal/index.ts';
@@ -26,7 +24,7 @@ const priorities = [
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Politik & Vorhaben', href: getTopicsUrl() },
       { label: 'Koalition' },
     ]}
   />
@@ -44,7 +42,7 @@ const priorities = [
     ]}
     actions={[{ label: '15-Punkte-Plan II', href: getActionPlanUrl(), primary: true }]}
   />
-  <GovernmentNavigation />
+
 
   <section class="section section-muted">
     <div class="content-grid">

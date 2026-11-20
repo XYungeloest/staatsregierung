@@ -1,22 +1,22 @@
 {
   "slug": "oepnv-und-mobilitaet",
   "title": "ÖPNV & Mobilität",
-  "teaser": "Das 15-Euro-Ost-Ticket, ein sozialer Nulltarif, gemeinwirtschaftliche Betriebsgrundsätze und der Ostdeutschlandtakt bilden den neuen öffentlichen Mobilitätsrahmen.",
+  "pageType": "dossier",
+  "teaser": "Was das Ost-Ticket kostet, wer kostenfrei fahren kann und welche Linien noch in Planung sind.",
   "status": "in-umsetzung",
   "cluster": "infrastruktur-wohnen",
   "priority": 85,
   "featured": true,
   "updatedAt": "2026-09-12",
-  "relatedTopicSlugs": [
-    "oeffentliche-wirtschaft-und-strukturwandel",
-    "kommunen-regionen-und-berlin"
-  ],
   "knowledgeProjectRefs": [
     "project-eisenbahn-verkehr",
     "project-ovv-ticket",
     "project-boom-europe"
   ],
-  "hero": "Der Freistaat verbindet bezahlbare Tarife mit öffentlicher Verkehrsproduktion, verbindlicher Anschlusssicherung und einem landesweit abgestimmten Taktfahrplan.",
+  "relatedTopicSlugs": [
+    "oeffentliche-wirtschaft-und-strukturwandel",
+    "kommunen-regionen-und-berlin"
+  ],
   "beschlossen": [
     "Mobilität und Infrastruktur wurden als eigenständiger Schwerpunkt der Regierungsarbeit verankert.",
     "Planungs- und Finanzierungsfragen werden ressortübergreifend mit Landesentwicklung und Haushaltssteuerung gekoppelt.",
@@ -25,16 +25,15 @@
     "Für reimportierte DDR-Kleinkrafträder ist eine Verwaltungsvorschrift verkündet, die seit dem 9. September 2026 in Kraft ist. Sie regelt den Nachweis der ersten Inbetriebnahme, das erforderliche Gutachten und die Erteilung der Betriebserlaubnis.",
     "Seit dem 12. September 2026 sind Ausnahmen vom Privatisierungsverbot des Ostdeutschen Eisenbahngesetzes nur durch ein besonderes Einzelfallgesetz nach dem Gemeinvermögensschutzgesetz möglich; das gilt auch für das betriebsnotwendige Vermögen der Interflug."
   ],
-  "umgesetzt": [
-    "Die Ressortstruktur für Mobilität und regionale Entwicklung ist eingerichtet.",
-    "Landesplanung, Vergabe und Haushaltsgrundlagen bieten bereits einen belastbaren Rahmen für Ausbauprogramme.",
+  "geltendesRecht": [
     "Die gesetzlichen Grundlagen für die Ostdeutsche Eisenbahn und die Vergesellschaftung privater Verkehrsproduktionsmittel sind seit 21. Juli 2026 in Kraft.",
     "Die betriebsnotwendigen Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes zugunsten der Ostdeutschen Eisenbahn in Gemeineigentum überführt. Die ODEG wurde nicht als Unternehmen gekauft.",
     "Nicht vergesellschaftete private Verkehrsunternehmen, die öffentlich finanzierte Verkehrsleistungen erbringen, sind seit 21. Juli 2026 an gemeinwirtschaftliche Pflichten gebunden: OVV-Tarif, gemeinsamer Vertrieb, offene Kosten- und Erlösrechnung, Gewinnobergrenze in öffentlichen Dienstleistungsaufträgen. Überwiegend öffentlich finanzierte Fahrzeuge, Werkstätten und Vertriebsinfrastrukturen sollen Eigentum der Ostdeutschen Eisenbahn oder eines öffentlichen Aufgabenträgers werden.",
-    "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 landesweit 15 Euro im Monat; zu viel gezahlte Augustbeträge werden erstattet oder gutgeschrieben.",
     "Seit 1. September 2026 gelten der soziale Nulltarif und die grundsätzlich kostenfreie Fahrradmitnahme. Die Bekanntmachung regelt außerdem verbindliche Mindeststandards für Anschlusssicherung und Fahrgastinformation.",
-    "Mit DB Fernverkehr ist die Anerkennung von OVV-Fahrausweisen in IC- und ICE-Verbindungen vereinbart. Die konkret freigegebenen Verbindungen und Bedingungen werden gesondert veröffentlicht.",
     "Die gemeinwirtschaftlichen Betriebsgrundsätze der Ostdeutschen Eisenbahn und die Planungsgrundsätze für Landesnetz Ost und Ostdeutschlandtakt gelten seit 24. August 2026."
+  ],
+  "umgesetzt": [
+    "Mit DB Fernverkehr ist die Anerkennung von OVV-Fahrausweisen in IC- und ICE-Verbindungen vereinbart. Die konkret freigegebenen Verbindungen und Bedingungen werden gesondert veröffentlicht."
   ],
   "naechsteSchritte": [
     "Ostdeutsche Eisenbahn organisatorisch aufbauen und die gesetzlichen Überführungs- und Bindungsregeln praktisch umsetzen.",
@@ -42,6 +41,12 @@
     "Weiterentwicklung des Verkehrsverbundes zu einem Mobilitätskombinat Ost.",
     "Die konkret für die OVV-Ticketanerkennung freigegebenen IC- und ICE-Verbindungen und Bedingungen gesondert veröffentlichen.",
     "Landesnetz Ost und Ostdeutschlandtakt stufenweise umsetzen und barrierefreie Haltepunkte ausbauen. Die im März vorgeschlagenen Fernverkehrsreaktivierungen gelten erst nach Bestellungs- oder Betriebsnachweis als umgesetzt."
+  ],
+  "impacts": [
+    {
+      "text": "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 landesweit 15 Euro im Monat; zu viel gezahlte Augustbeträge werden erstattet oder gutgeschrieben.",
+      "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung"
+    }
   ],
   "modules": [
     {

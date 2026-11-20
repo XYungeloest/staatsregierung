@@ -33,7 +33,7 @@ const versionLabel = `Fassung vom ${formatDate(version.validFrom)}`;
     { label: sectionLabel },
   ]}
 >
-  <NormHead norm={norm} version={version} model={model} outlineHref={`${versionId ? getNormVersionUrl(norm.meta.slug, versionId) : getNormUrl(norm.meta.slug)}#norm-inhalt-mobil`} officialPdf={publication?.pdf} fullCitation={fullCitation} />
+  <NormHead immutableLink={Boolean(versionId)} norm={norm} version={version} model={model} outlineHref={`${versionId ? getNormVersionUrl(norm.meta.slug, versionId) : getNormUrl(norm.meta.slug)}#norm-inhalt-mobil`} officialPdf={publication?.pdf} fullCitation={fullCitation} />
   <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} versionId={versionId} active={section} /></div>
   <div class="norm-details norm-details--section">
     {section === 'facts'

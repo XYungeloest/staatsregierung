@@ -30,7 +30,8 @@
   .norm-page-header__feedback,
   .norm-unit__tools,
   .norm-facts__link-tools,
-  .norm-relations,
+  .norm-relations:not([data-standalone]),
+  .norm-relations__index,
   .r-search__aside,
   .r-search__advanced,
   .r-search__more,
@@ -95,6 +96,9 @@
     padding-bottom: 6pt;
     border-bottom: 1pt solid #000;
   }
+
+  .norm-relations__more::details-content { content-visibility: visible; }
+  .norm-relations__more summary { display: none; }
 
   .norm-workspace {
     display: block;

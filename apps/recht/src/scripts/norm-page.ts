@@ -103,6 +103,7 @@ for (const link of outlineLinks) {
 // Filter der Inhaltsübersicht: blendet Einträge aus, die den Text nicht enthalten; Gruppen mit
 // Treffern öffnen sich, Gruppen ohne Treffer verschwinden. Ohne Filter bleibt der Zustand.
 for (const input of document.querySelectorAll<HTMLInputElement>('[data-outline-search]')) {
+  input.closest<HTMLElement>('.norm-outline__filter')?.removeAttribute('hidden');
   input.addEventListener('input', () => {
     const nav = input.closest('nav');
     const query = input.value.trim().toLocaleLowerCase('de-DE');

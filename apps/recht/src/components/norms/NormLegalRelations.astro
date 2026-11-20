@@ -47,13 +47,15 @@ const hasAnything = visibleSections.length > 0 || recommendations.length > 0 || 
 ---
 
 {hasAnything || standalone ? (
-  <aside class="norm-relations" id="rechtsbeziehungen" aria-labelledby="norm-relations-title">
+  <aside class="norm-relations" data-standalone={standalone || undefined} id="rechtsbeziehungen" aria-labelledby="norm-relations-title">
     <h2 id="norm-relations-title" class="r-label r-label--rule">Rechtsbeziehungen</h2>
     {!hasAnything ? <p class="r-meta">Zu dieser Vorschrift sind keine Rechtsbeziehungen verzeichnet.</p> : null}
-    {visibleSections.length >= 3 && (
+    {visibleSections.length + Number(recommendations.length > 0) + Number(hasPortal) >= 3 && (
       <nav aria-label="Beziehungsarten" class="norm-relations__index">
         <ul>
           {visibleSections.map((section) => <li><a href={`#norm-relation-${norm.meta.slug}-${section.kind}`}>{section.heading} ({section.entries.length})</a></li>)}
+          {recommendations.length > 0 && <li><a href="#norm-related-title">Verwandte Vorschriften</a></li>}
+          {hasPortal && <li><a href="#norm-portal-title">Im Staatsportal</a></li>}
         </ul>
       </nav>
     )}
@@ -86,14 +88,16 @@ const hasAnything = visibleSections.length > 0 || recommendations.length > 0 || 
       <section class="norm-relations__group" data-visual-section="norm-portal-relations" aria-labelledby="norm-portal-title">
         <h3 id="norm-portal-title" class="r-label">Im Staatsportal</h3>
         {topics.length > 0 ? (
+          <><h4 class="r-meta norm-relations__directory"><a href={getTopicsUrl()}>Themen und Vorhaben</a></h4>
           <ul class="norm-relations__list">
-            {topics.map((topic) => <li><a class="norm-relations__title" href={topic.url}>{topic.title}</a><span class="r-meta norm-relations__detail"><span>Thema · <a href={getTopicsUrl()}>Themen und Projekte</a></span></span></li>)}
-          </ul>
+            {topics.map((topic) => <li><a class="norm-relations__title" href={topic.url}>{topic.title}</a></li>)}
+          </ul></>
         ) : null}
         {pressReleases.length > 0 ? (
+          <><h4 class="r-meta norm-relations__directory"><a href={getPressReleaseIndexUrl()}>Pressemitteilungen</a></h4>
           <ul class="norm-relations__list">
-            {pressReleases.map((release) => <li><a class="norm-relations__title" href={release.url}>{release.title}</a><span class="r-meta norm-relations__detail"><span>Pressemitteilung vom <time datetime={release.date}>{formatShortDate(release.date)}</time> · <a href={getPressReleaseIndexUrl()}>Alle Pressemitteilungen</a></span></span></li>)}
-          </ul>
+            {pressReleases.map((release) => <li><a class="norm-relations__title" href={release.url}>{release.title}</a><span class="r-meta norm-relations__detail"><span>Pressemitteilung vom <time datetime={release.date}>{formatShortDate(release.date)}</time></span></span></li>)}
+          </ul></>
         ) : null}
       </section>
     ) : null}

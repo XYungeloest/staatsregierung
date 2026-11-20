@@ -79,14 +79,17 @@ summary:focus-visible {
   box-shadow: 0 4px 16px rgba(10, 37, 71, 0.08);
 }
 
+/* Wortmarke und Suche bilden das Amtsband, die darunterliegende Zeile gehört den Bereichen. */
 .site-header__main {
   display: grid;
-  grid-template-columns: minmax(14.5rem, 16rem) minmax(0, 1fr) minmax(14rem, 16rem);
-  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 21rem);
+  grid-template-areas: 'brand tools' 'nav nav';
+  gap: var(--space-2) var(--space-4);
   align-items: center;
-  min-height: var(--header-height);
-  padding: var(--space-2) 0;
+  padding: var(--space-2) 0 0;
 }
+.site-branding { grid-area: brand; }
+.site-header__tools { grid-area: tools; }
 
 .site-wordmark {
   gap: var(--space-3);
@@ -117,46 +120,71 @@ summary:focus-visible {
 }
 
 .site-header__nav.site-nav {
+  grid-area: nav;
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  gap: 0;
-  min-height: 0;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0 var(--space-2);
+  border-top: 1px solid var(--color-border);
 }
-
-.site-header__nav.site-nav a {
-  min-height: 3rem;
-  padding: var(--space-2);
+.area-nav-item {
+  position: relative;
+  display: flex;
+  align-items: stretch;
   border-bottom: 3px solid transparent;
+}
+.area-nav-item[data-active] { border-color: var(--color-gold); }
+.area-navigation .area-nav-link, .area-navigation .area-law-link, .area-disclosure > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: var(--space-2);
+  border: 0;
   color: var(--color-primary-hover);
   font-size: var(--text-sm);
-  font-weight: 680;
-  white-space: nowrap;
-}
-
-.site-header__nav.site-nav a:hover {
-  background: var(--color-info-blue);
-  color: var(--color-primary-hover);
+  font-weight: 650;
   text-decoration: none;
 }
-
-.site-header__nav.site-nav a[aria-current='page'] {
-  background: transparent;
+.site-header__nav .area-nav-link[aria-current] { background: transparent; color: var(--color-primary-hover); }
+.area-navigation .area-law-link { border-left: 1px solid var(--color-border); padding-inline: var(--space-4); }
+.area-navigation a:focus-visible, .area-disclosure > summary:focus-visible { outline-offset: -3px; }
+.area-law-link svg { width: 1.15rem; }
+.area-disclosure > summary { width: 1.75rem; list-style: none; cursor: pointer; }
+.area-disclosure > summary::-webkit-details-marker { display: none; }
+.area-disclosure > summary svg { width: 1rem; height: 1rem; }
+.area-disclosure[open] > summary svg { transform: rotate(180deg); }
+.area-navigation a:hover, .area-disclosure > summary:hover, .area-disclosure[open] > summary {
+  background: var(--color-info-blue);
   color: var(--color-primary-hover);
-  border-bottom-color: var(--color-gold);
 }
-
-.site-header__nav .site-nav__home {
-  width: 2.75rem;
-  justify-content: center;
-  padding-inline: var(--space-2);
+.area-children {
+  position: absolute;
+  inset: 100% auto auto 0;
+  z-index: 2;
+  width: max-content;
+  max-width: min(22rem, 90vw);
+  margin: 0;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-secondary);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  list-style: none;
 }
-
-.site-header__nav .site-nav__home .portal-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+.area-nav-item:nth-last-child(-n+3) .area-children { inset-inline: auto 0; }
+.area-navigation .area-children a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  color: var(--color-heading);
+  line-height: var(--lh-heading);
+  text-decoration: none;
 }
-
+.area-children a[aria-current] { font-weight: 700; text-decoration: underline; }
 .site-header__tools {
   display: grid;
   gap: var(--space-xs);
@@ -299,7 +327,7 @@ summary:focus-visible {
 
 .service-band__grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .service-band__item {
@@ -441,45 +469,15 @@ summary:focus-visible {
     --page-gutter: var(--space-5);
   }
 
-  /* Zweizeiliger Kopf: oben Wortmarke und Werkzeuge, darunter die vollständige
-     Hauptnavigation als eigene Zeile. Erst ab 48 rem abwärts weicht sie in das Menü. */
-  .site-header__main {
-    grid-template-columns: minmax(0, 1fr) minmax(14rem, 21rem);
-    grid-template-areas:
-      'brand tools'
-      'nav nav';
-    gap: var(--space-2) var(--space-3);
-    min-height: 0;
-    padding: var(--space-2) 0 0;
-  }
-
-  .site-branding {
-    grid-area: brand;
-  }
-
-  .site-header__tools {
-    grid-area: tools;
-  }
-
-  .site-header__nav.site-nav {
-    grid-area: nav;
-    justify-content: flex-start;
-    border-top: 1px solid var(--color-border-soft);
-  }
-
-  .site-header__nav.site-nav a {
-    min-height: 2.75rem;
-  }
-
   .site-header__tools .header-access-links {
     display: none;
   }
 
   .service-band__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .service-band__item:nth-child(4) {
+  .service-band__item:nth-child(3) {
     border-left: 0;
   }
 
@@ -547,15 +545,26 @@ summary:focus-visible {
     display: none;
   }
 
-  .mobile-nav__summary span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+  .mobile-nav__links.area-navigation { display: grid; gap: 0; }
+  .area-nav-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2.75rem;
+    border-bottom: 1px solid var(--color-border);
   }
-
+  .area-nav-item[data-active] { box-shadow: inset 3px 0 var(--color-gold); }
+  .area-nav-item .area-nav-link { justify-content: flex-start; padding-inline: var(--space-3); }
+  .area-disclosure { display: contents; }
+  .area-disclosure > summary { width: 2.75rem; }
+  .area-children {
+    position: static;
+    grid-column: 1 / -1;
+    width: auto;
+    max-width: none;
+    border: 0;
+    background: var(--color-surface-muted);
+    box-shadow: none;
+  }
+  .area-navigation .area-law-link { justify-content: flex-start; border: 0; }
   .mobile-nav__panel {
     position: absolute;
     inset: calc(100% + 1px) 0 auto;
@@ -652,7 +661,7 @@ summary:focus-visible {
   }
 
   .service-band__item,
-  .service-band__item:nth-child(4) {
+  .service-band__item:nth-child(3) {
     min-height: 0;
     padding: var(--space-3) 0;
     border-right: 0;

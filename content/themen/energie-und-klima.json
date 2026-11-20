@@ -1,24 +1,23 @@
 {
   "slug": "energie-und-klima",
   "title": "Energie & Klima",
-  "teaser": "Seit Juli 2026 gelten die Gesetze für öffentliche Energie- und Wärmeinfrastruktur, Landesenergiewerke, Netzträger und die Finanzierung der Überführung.",
+  "pageType": "dossier",
+  "teaser": "Welche Grundbedarfstarife bei den Landesenergiewerken Ost gelten und wie der Freistaat die öffentliche Energieinfrastruktur aufbaut.",
   "status": "in-umsetzung",
   "cluster": "umwelt-versorgung",
   "priority": 88,
   "featured": true,
   "updatedAt": "2026-09-12",
-  "relatedTopicSlugs": [
-    "kreislaufwirtschaft",
-    "oeffentliche-wirtschaft-und-strukturwandel",
-    "nachbarschaft-und-europa"
-  ],
   "knowledgeProjectRefs": [
     "project-50hertz-acquisition",
     "project-energie-waerme",
     "project-gemeinvermoegensschutz",
     "project-sero"
   ],
-  "hero": "Der Freistaat ordnet Energie-, Wärme- und Kreislaufwirtschaft schrittweise gemeinwirtschaftlich. Der Rechtsrahmen ist in Kraft; seit 1. September 2026 gelten bei den Landesenergiewerken Ost gemeinwirtschaftliche Strom- und Wärmepreise mit vergünstigten Grundbedarfstarifen.",
+  "relatedTopicSlugs": [
+    "oeffentliche-wirtschaft-und-strukturwandel",
+    "kreislaufwirtschaft"
+  ],
   "beschlossen": [
     "Das Gesetzespaket errichtet den Rechtsrahmen für öffentliche Energie- und Wärmeinfrastrukturen, Landesenergiewerke, Netzträger und ein Sondervermögen.",
     "Wasser, Kreislaufwirtschaft, Reparaturstrukturen und Klimaanpassung werden als staatliche Schwerpunktfelder gesetzt.",
@@ -26,16 +25,21 @@
     "Das Gesetzespaket zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum wurde am 20. Juli 2026 verkündet.",
     "Seit dem 12. September 2026 sind Ausnahmen vom Reprivatisierungsverbot und von den Vermögensbindungen der Landesenergiewerke Ost und der Ostdeutschen Netze nur noch durch ein besonderes Einzelfallgesetz nach dem Gemeinvermögensschutzgesetz möglich. Öffentlicher Wald, Moore, Gewässer und Naturschätze stehen nach dem Boden- und Naturvermögensgesetz unter besonderem Schutz; gewerblicher Torfabbau auf öffentlichen Flächen ist unzulässig."
   ],
-  "umgesetzt": [
-    "Die Energie- und Wärmegesetze sowie die SERO-Verordnung sind seit 21. Juli 2026 in Kraft.",
+  "geltendesRecht": [
     "Landesenergiewerke Ost und Ostdeutsche Netze sind gesetzlich errichtet; der weitere operative Aufbau und die Überführung von Infrastruktur bleiben laufende Aufgaben.",
-    "Die Strom- und Wärmepreisleitlinien der Landesenergiewerke Ost wurden am 22. August 2026 veröffentlicht. Sie gelten seit 1. September 2026 und führen vergünstigte Grundbedarfstarife ein.",
-    "Die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz ist für 3,8 Milliarden Euro vereinbart. Die einzelnen Eigentumsübergänge werden nur nach datiertem Vollzugsnachweis fortgeschrieben."
+    "Die Strom- und Wärmepreisleitlinien der Landesenergiewerke Ost wurden am 22. August 2026 veröffentlicht. Sie gelten seit 1. September 2026 und führen vergünstigte Grundbedarfstarife ein."
+  ],
+  "umgesetzt": [
+    "Die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz ist für 3,8 Milliarden Euro vereinbart."
   ],
   "naechsteSchritte": [
-    "Landesenergiewerke Ost und Ostdeutsche Netze organisatorisch aufbauen und die gesetzlich vorgesehenen Überführungen vollziehen.",
-    "Umsetzung der SERO-Verordnung und Aufbau der landeseigenen Kreislaufwirtschaftsinfrastruktur.",
-    "Ausbau von Programmen für Wasserschutz, Reparatur und Klimaanpassung."
+    "Landesenergiewerke Ost und Ostdeutsche Netze aufbauen und die vorgesehenen Überführungen schrittweise vollziehen."
+  ],
+  "impacts": [
+    {
+      "text": "Für Kund:innen der Landesenergiewerke Ost gilt seit dem 1. September 2026 der Grundbedarfstarif für Strom. Die Gutschrift erfolgt spätestens mit der nächsten Verbrauchsabrechnung.",
+      "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie"
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -92,16 +96,7 @@
       "normSlug": "boden-und-naturvermoegensgesetz"
     }
   ],
-  "faq": [
-    {
-      "question": "Was gilt für die Energie- und Wärmeinfrastruktur bereits?",
-      "answer": "Das Gesetzespaket ist seit 21. Juli 2026 in Kraft. Es schafft öffentliche Träger- und Finanzierungsstrukturen; der praktische Aufbau und einzelne Überführungen laufen weiter."
-    },
-    {
-      "question": "Bleiben vorhandene Rechtsgrundlagen erreichbar?",
-      "answer": "Ja. Bereits veröffentlichte Normen bleiben im Rechtsportal mit aktuellen und historischen Fassungen erreichbar."
-    }
-  ],
+  "faq": [],
   "federfuehrendesRessort": "umwelt-energie-und-klimaschutz",
   "mitzeichnungsressorts": [
     "kapitalakkumulation-des-fiskus"

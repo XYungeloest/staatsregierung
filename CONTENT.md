@@ -379,6 +379,9 @@ Pflichtfelder:
 
 Optionale Felder:
 
+- `pageType` und bei Fachanwendungen `application`
+- `geltendesRecht`
+- `impacts`
 - `hero`
 - `mitzeichnungsressorts`
 - `highlightFrom`
@@ -395,16 +398,35 @@ dauerhaften Schwerpunkt. Ein Thema wird im Zeitraum von `highlightFrom` bis eins
 Fehlt `highlightUntil`, bleibt die Hervorhebung offen; das ist nur für tatsächlich dauerhaft
 aktuelle Vorhaben sinnvoll. `updatedAt` ist ein fachliches Redaktionsdatum, kein Build-Zeitpunkt.
 
-Erlaubte Werte für `status`:
+**Seitentyp und Gliederung.** `compact` (auch bei fehlendem `pageType`) eignet sich für
+abgegrenzte Fragen wie den Kulturpass. `dossier` bündelt mehrere Teilvorhaben mit
+Inhaltsnavigation und passenden Fachmodulen. Im Wirtschaftsdossier führen diese etwa zu
+Handel, Industrie, Rohstoffen und öffentlicher Mobilität. `application` verweist auf ein
+vorhandenes Werkzeug. `application: "territory"`, `"budget"` oder `"holdings"` wählt dafür
+Gebietssuche, Haushalt oder Beteiligungsnavigator. Die Daten der Anwendung bleiben an ihrem
+Fachort.
 
-```text
-geplant
-entwurf
-im-gesetzgebungsverfahren
-beschlossen
-in-umsetzung
-abgeschlossen
-```
+**Beschluss, Recht und Vollzug.** `beschlossen` nennt Entscheidungen, `geltendesRecht` die
+bereits wirksamen Bestimmungen und `umgesetzt` den durch Quellen belegten Vollzug. Ein leeres
+Array lässt den Abschnitt entfallen. Bei älteren Datensätzen ohne `geltendesRecht` erscheint
+`umgesetzt` unter der gemeinsamen Überschrift „Rechtslage und Praxis“. `naechsteSchritte`
+enthält belegte künftige Schritte. In `impacts` erhält eine konkrete Auswirkung einen
+verständlichen Satz und den `normSlug` einer auf derselben Seite aufgeführten Rechtsgrundlage.
+Geltungsbeginn, anspruchsberechtigte Gruppe und Einschränkungen gehören zur Auskunft.
+
+Die belegte Aussage bestimmt den Wert von `status`.
+
+| Aussage | Werte |
+| --- | --- |
+| Politische Absicht oder Vorbereitung | `geplant`, `angekuendigt`, `in-vorbereitung` |
+| Entwurf oder parlamentarisches Verfahren | `entwurf`, `entwurf-vorgelegt`, `im-gesetzgebungsverfahren` |
+| Entscheidung, Veröffentlichung oder Wirksamkeit | `beschlossen`, `verkuendet`, `in-kraft` |
+| Praktische Durchführung | `in-umsetzung`, `im-vollzug`, `umgesetzt` |
+| Ende eines Vorhabens | `abgeschlossen`, `aufgehoben`, `eingestellt` |
+
+Für ein gesetzlich errichtetes Unternehmen kann „Rechtsrahmen in Kraft“ bereits belegt sein.
+Der Beginn des Geschäftsbetriebs benötigt einen eigenen Nachweis. Unterschiedliche Stände von
+Teilmaßnahmen werden im jeweiligen Fachabschnitt erläutert.
 
 Format:
 
@@ -412,6 +434,7 @@ Format:
 {
   "slug": "beispielthema",
   "title": "Beispielthema",
+  "pageType": "compact",
   "teaser": "Kurzer Einstiegstext für Übersichten.",
   "status": "in-umsetzung",
   "cluster": "infrastruktur-wohnen",
@@ -422,7 +445,9 @@ Format:
   "updatedAt": "2026-08-09",
   "hero": "Ein längerer Einstieg für die Detailseite.",
   "beschlossen": ["Beschlossener Punkt."],
-  "umgesetzt": ["Umgesetzter Punkt."],
+  "geltendesRecht": ["Bereits wirksame Regelung."],
+  "umgesetzt": ["Belegte praktische Maßnahme."],
+  "impacts": [{ "text": "Auswirkung für die betroffene Gruppe.", "normSlug": "slug-der-norm" }],
   "naechsteSchritte": ["Nächster Schritt."],
   "rechtsgrundlagen": [
     {
@@ -1319,7 +1344,7 @@ Die statische API `/api/project-status.json` veröffentlicht die Planeinträge m
 redigierten Status und dem gemeinsamen `referenceDate`. `legalReferences` löst die Quellen
 jedes Punkts über Normkennung oder ausdrücklich benannte Ausgabe auf. Ein Themenpfad in
 `href` verbindet den Punkt mit dem öffentlichen Themenprofil unter `topic`. Dort stammen
-`beschlossen`, `umgesetzt` und `naechsteSchritte` aus der freigegebenen Themenseite.
+`beschlossen`, `geltendesRecht`, `umgesetzt` und `naechsteSchritte` aus der freigegebenen Themenseite.
 `procedures` nennt nur ausdrücklich zugehörige parlamentarische Verfahren und deren belegte
 Einzeldaten. Verkündungsdatum, Rechtswirksamkeit und Vollzug sind eigenständige Angaben.
 Fehlt ein passendes Themenprofil, ist `topic` gleich `null`.

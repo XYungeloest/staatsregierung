@@ -88,7 +88,7 @@ const auditTargets: AuditTarget[] = [
   { name: 'Beteiligungsnavigator', site: 'portal', resolve: staticPage('/staatsregierung/beteiligungen/') },
   { name: 'Kabinett', site: 'portal', resolve: staticPage('/staatsregierung/kabinett/') },
   { name: 'Ressortseite', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/kabinett\/[a-z0-9-]+\/"/u) },
-  { name: 'Regierungsmitglied', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u) },
+  { name: 'Regierungsmitglied', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/mitglieder/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u) },
   { name: 'Haushalt', site: 'portal', resolve: staticPage('/haushalt/') },
   { name: 'Haushaltsperiode 2025/2026', site: 'portal', resolve: staticPage('/haushalt/2025-2026/') },
   { name: 'Haushaltsperiode mit Datenbestand', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'start') },
@@ -122,7 +122,10 @@ const auditTargets: AuditTarget[] = [
   { name: 'Stichwortregister', site: 'law', resolve: lawPage('/a-z/stichwortregister/?buchstabe=S') },
   { name: 'Abkürzungen und Kurztitel', site: 'law', resolve: lawPage('/a-z/abkuerzungen/?buchstabe=A') },
   { name: 'Vorschriftendaten', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/daten/`) },
-  { name: 'Rechtsbeziehungen', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/beziehungen/`) },
+  { name: 'Rechtsbeziehungen', site: 'law', resolve: async (request) => {
+    const slug = process.env.OSTRECHT_D1_FIXTURE ? fixtureRole('portal-relations') : (await multiVersionNorm(request)).slug;
+    return lawUrl(`/norm/${slug}/beziehungen/`);
+  } },
   { name: 'Historische Vorschriftendaten', site: 'law', resolve: async (request) => lawUrl(`${(await multiVersionNorm(request)).historical.url}daten/`) },
   { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'Förderrichtlinien', site: 'law', resolve: lawPage('/foerderrichtlinien/') },

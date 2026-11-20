@@ -19,18 +19,19 @@ interface Props {
   model: NormHeadModel;
   /** Amtliche Ausgabe (PDF) der Verkündung dieser Fassung. */
   officialPdf?: string;
+  immutableLink?: boolean;
   /** Vollzitat für „Vollzitat kopieren“ (steht auch in den Vorschriftendaten). */
   fullCitation: string;
   /** Ziel des Links „Inhalt“ (mobile Inhaltsübersicht). */
   outlineHref?: string;
 }
 
-const { norm, version, model, officialPdf, fullCitation, outlineHref = '#norm-inhalt-mobil' } = Astro.props;
+const { norm, version, model, officialPdf, immutableLink = false, fullCitation, outlineHref = '#norm-inhalt-mobil' } = Astro.props;
 const identity = getNormVersionIdentity(norm, version);
 const title = getNormTitleBlock(identity);
 const kicker = normKicker(norm);
 const primarySubject = norm.meta.primarySubject ?? norm.meta.subjects[0];
-const immutable = model.temporalKind !== 'current';
+const immutable = immutableLink || model.temporalKind !== 'current';
 const linkLabel = immutable ? 'Fassungslink' : 'Link';
 const linkDone = immutable ? 'Link zu dieser Fassung wurde kopiert.' : 'Link zur Vorschrift wurde kopiert.';
 const bandLabels = { historical: 'HISTORISCHE FASSUNG', future: 'KÜNFTIGE FASSUNG', 'unknown-effective': 'INKRAFTTRETEN NICHT BELEGT' } as const;
@@ -52,7 +53,8 @@ const bandLabels = { historical: 'HISTORISCHE FASSUNG', future: 'KÜNFTIGE FASSU
     {kicker.documentDate ? <span>Ausfertigung {kicker.documentDate}</span> : null}
     {kicker.initialCitation ? <span>Stammfundstelle {kicker.initialCitation}</span> : null}
   </p>
-  <h1 class="norm-page-header__title">{title.heading}{title.abbr || title.longTitle ? <> <span class="norm-page-header__abbr">({[title.longTitle && title.longTitle !== title.heading ? title.longTitle : null, title.abbr].filter(Boolean).join(' – ')})</span></> : null}</h1>
+  <h1 class="norm-page-header__title">{title.heading}{title.abbr && <> <span class="norm-page-header__abbr">({title.abbr})</span></>}</h1>
+  {title.longTitle && title.longTitle !== title.heading && <p class="norm-page-header__long">{title.longTitle}</p>}
   <div class="norm-page-header__status">
     <StatusMark status={model.mark.status} label={model.mark.label} />
     <div class="norm-page-header__line">

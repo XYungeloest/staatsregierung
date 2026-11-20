@@ -26,7 +26,7 @@ const hasDivisions = items.some((entry) => entry.children.length > 0 && !/^(§|A
 
 {items.length > 0 ? (
   <nav class:list={['norm-outline', `norm-outline--${variant}`, hasDivisions ? 'norm-outline--grouped' : undefined]} aria-label={variant === 'sheet' ? 'Inhaltsübersicht (mobil)' : 'Inhaltsübersicht'} data-norm-outline>
-    <div class="norm-outline__filter">
+    <div class="norm-outline__filter" hidden>
       <label>
         <span class="visually-hidden">§ oder Stichwort in der Übersicht</span>
         <input class="r-input" type="search" placeholder="§ oder Stichwort in der Übersicht" data-outline-search />

@@ -12,7 +12,6 @@ import {
   getFreestatePageUrl,
   getHomeUrl,
   getLawHomeUrl,
-  getTopicsUrl,
 } from '@ostrecht/shared/lib/portal/index.ts';
 import {
   formatArea,
@@ -78,7 +77,7 @@ const kreisreformFaq = [
   description="Seit 1. August 2026 geltende Kreis- und Bezirksordnung mit Gebietssuche, Karte, Bezirken, Kreisen, historischen Vergleichen und Rechtsgrundlagen."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
-    { label: 'Themen & Projekte', href: getTopicsUrl() },
+    { label: 'Freistaat', href: getFreestateUrl() },
     { label: 'Kreis- und Bezirksreform' },
   ]}
   structuredData={buildFaqPageJsonLd(kreisreformFaq)}
@@ -86,7 +85,7 @@ const kreisreformFaq = [
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Themen & Projekte', href: getTopicsUrl() },
+      { label: 'Freistaat', href: getFreestateUrl() },
       { label: 'Kreis- und Bezirksreform' },
     ]}
   />
@@ -95,7 +94,7 @@ const kreisreformFaq = [
     eyebrow="Gebietsordnung"
     title="Kreis- und Bezirksreform 2026"
     lead="Suchen Sie Ihre Gemeinde und sehen Sie, welchem geltenden Kreis und Bezirk sie zugeordnet ist."
-    status="In Kraft seit 1. August 2026"
+    density="tool"
     variant="reform"
     facts={[
       { label: 'Bezirke', value: formatInteger(manifest.stats.neueBezirke) },
@@ -111,7 +110,7 @@ const kreisreformFaq = [
       data-base-url={base}
     >
       <h2 id="gebietssuche">Gebiet suchen</h2>
-      <p>Suchen Sie nach Gemeinde, Kreis oder Bezirk. Das Ergebnis steht auch ohne Kartenansicht bereit.</p>
+      <p>Die Zuordnung gilt seit dem 1. August 2026. Gemeindegrenzen und Postanschriften bleiben bestehen.</p>
       <label class="search-field kreisreform-search-field">
         <span>Gemeinde, Kreis oder Bezirk suchen</span>
         <input type="search" data-kreisreform-search-input autocomplete="off" placeholder="z. B. Leipzig, Lausitz, Potsdam" />

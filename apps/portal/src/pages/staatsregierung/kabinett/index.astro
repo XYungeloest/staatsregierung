@@ -1,114 +1,25 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
 import MinistryDirectory from '../../../components/portal/MinistryDirectory.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import TopicCard from '../../../components/portal/TopicCard.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
-import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
-import { isActiveInterval } from '@ostrecht/shared/lib/portal/organization.ts';
-import {
-  getGovernmentMembersUrl,
-  getGovernmentUrl,
-  getHomeUrl,
-  getPreviousCabinetsUrl,
-} from '@ostrecht/shared/lib/portal/index.ts';
-import {
-  loadCurrentGovernmentMembers,
-  loadCurrentGovernment,
-  loadCabinetPageContent,
-  loadMinistries,
-  loadOrganizationData,
-  loadTopics,
-} from '@ostrecht/shared/lib/portal/content.ts';
+import { getGovernmentMembersUrl, getGovernmentUrl, getHomeUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { loadCabinetPageContent, loadMinistries } from '@ostrecht/shared/lib/portal/content.ts';
 
-const [members, ministries, topics, currentGovernment, cabinetPage, organization] = await Promise.all([
-  loadCurrentGovernmentMembers(),
-  loadMinistries(),
-  loadTopics(),
-  loadCurrentGovernment(),
-  loadCabinetPageContent(),
-  loadOrganizationData(),
-]);
-// Die Mitgliederzahl folgt der Mitgliedschaft aus dem Organisationsmodell: Staatssekretäre und die
-// Leitung des Büros des Staatspräsidenten sind dem Staatsrat beigeordnet, aber keine Mitglieder.
-const memberSlugs = new Set(currentGovernment.memberPersonSlugs);
-const stateSecretarySlugs = new Set(
-  organization.assignments
-    .filter((entry) => entry.officeSlug === 'staatssekretaer' && isActiveInterval(entry.validFrom, entry.validTo, PORTAL_REFERENCE_DATE))
-    .map((entry) => entry.personSlug),
-);
-const stateCouncilMembers = members.filter((member) => memberSlugs.has(member.slug));
-const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
-const stateSecretaries = members.filter((member) => stateSecretarySlugs.has(member.slug));
-const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
-const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
-const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
-  const topic = topics.find((entry) => entry.slug === slug);
-  return topic ? [topic] : [];
-});
+const [ministries, cabinetPage] = await Promise.all([loadMinistries(), loadCabinetPageContent()]);
+const breadcrumbs = [{ label: 'Startseite', href: getHomeUrl() }, { label: 'Staat & Behörden', href: getGovernmentUrl() }, { label: 'Staatssekretariate und Geschäftsbereiche' }];
 ---
-
-<BaseLayout title="Staatsrat und Geschäftsbereiche" description="Mitglieder und Geschäftsbereiche des Staatsrates.">
-  <Breadcrumbs
-    items={[
-      { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
-      { label: 'Staatsrat und Geschäftsbereiche' },
-    ]}
-  />
-
-  <SectionHero
-    eyebrow="Staatsrat"
-    title={currentGovernment.title}
-    lead={cabinetPage.lead}
-    variant="government"
-    facts={[
-      { label: 'Im Amt seit', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
-      { label: 'Koalition', value: currentGovernment.coalitionShort },
-      { label: 'Leitung', value: currentGovernment.headOfGovernment },
-      { label: 'Regierungssitz', value: currentGovernment.seatOfGovernment },
-      { label: 'Staatssekretariate', value: String(stateSecretariatCount) },
-      { label: 'Koalitionssitze', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
-    ]}
-    actions={[{ label: 'Staatssekretariatsverzeichnis', href: '#ministerien', primary: true }]}
-  />
+<BaseLayout title="Staatssekretariate und Geschäftsbereiche" description={cabinetPage.lead} {breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+  <SectionHero eyebrow="Staat & Behörden" title="Staatssekretariate und Geschäftsbereiche" lead={cabinetPage.lead} variant="government" density="tool" />
   <GovernmentNavigation />
-
-  <div class="content-grid">
-    <section class="section">
-      <div class="section-header">
-        <h2>Politische Einordnung</h2>
-      </div>
-      <div class="body-copy">
-        {cabinetPage.politicalContext.map((paragraph) => <p>{paragraph}</p>)}
-      </div>
-    </section>
-
-    <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Daten des Staatsrates</h2>
-      </div>
-      <dl class="meta-list">
-        <div>
-          <dt>Im Amt seit</dt>
-          <dd><time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time></dd>
-        </div>
-        <div>
-          <dt>Vorgänger</dt>
-          <dd>{currentGovernment.predecessor}</dd>
-        </div>
-        <div>
-          <dt>Mitglieder des Staatsrates</dt>
-          <dd>{stateCouncilMembers.length}</dd>
-        </div>
-      </dl>
-      <p><a class="inline-link" href={getPreviousCabinetsUrl()}>Frühere Kabinette</a></p>
-    </aside>
-  </div>
-
+  <section id="ministerien" class="section" data-visual-section="cabinet-ministry-directory">
+    <div class="section-header"><h2>Verzeichnis der Staatssekretariate</h2></div>
+    {cabinetPage.organisation && <p>{cabinetPage.organisation}</p>}
+    <MinistryDirectory ministries={ministries} />
+  </section>
   <section class="section section-muted" aria-labelledby="kabinett-chronologie">
     <div class="section-header">
       <h2 id="kabinett-chronologie">{cabinetPage.chronologyTitle}</h2>
@@ -123,66 +34,5 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
     </ol>
   </section>
 
-  <section id="ministerien" class="section section-muted" data-visual-section="cabinet-ministry-directory">
-    <div class="section-header">
-      <h2>Verzeichnis der Staatssekretariate</h2>
-      <p>Alle Geschäftsbereiche und Leitungen werden aus den zentral gepflegten Ressortdaten übernommen.</p>
-    </div>
-    <MinistryDirectory ministries={ministries} />
-  </section>
-
-  <section class="section" data-visual-section="cabinet-members">
-    <div class="section-header">
-      <h2>Mitglieder des Staatsrates</h2>
-      <p>Die Profile bilden die aktuelle personelle Zusammensetzung des Staatsrates ab.</p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {stateCouncilMembers.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
-    </div>
-    <p class="detail-line">
-      <a class="inline-link" href={getGovernmentMembersUrl()}>Alle Mitglieder mit Profilen</a>
-    </p>
-  </section>
-
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Leitung des Büros des Staatspräsidenten</h2>
-      <p>Die Leitung des Büros des Staatspräsidenten wird getrennt von den Mitgliedern des Staatsrates ausgewiesen.</p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {chancelleryLeadership.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Staatssekretäre</h2>
-      <p>
-        Nach Artikel 59 Absatz 2 Satz 2 der Staatsverfassung sind dem Geschäftsbereich Frieden drei
-        Staatssekretäre beigeordnet. Sie gehören dem Staatsrat nicht als Mitglieder an.
-      </p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {stateSecretaries.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
-    </div>
-  </section>
-
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Vorhaben in der Struktur des Staatsrates</h2>
-      <p>
-        Themen und Projekte sind nicht losgelöst, sondern klar an federführende Ressorts und
-        Geschäftsbereiche angebunden.
-      </p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {topicHighlights.map((topic) => (
-        <TopicCard
-          topic={topic}
-          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
-        />
-      ))}
-    </div>
-  </section>
+  <p class="section-link-row"><a href={getGovernmentMembersUrl()}>Mitglieder und Personenprofile</a></p>
 </BaseLayout>

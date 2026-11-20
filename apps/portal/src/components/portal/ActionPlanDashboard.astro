@@ -3,7 +3,6 @@ import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { resolvePortalPath } from '@ostrecht/shared/lib/portal/routes.ts';
 import {
   formatActionPlanStatus,
-  getActionPlanStatusIcon,
   type ActionPlanItem,
 } from '@ostrecht/shared/lib/portal/modules.ts';
 
@@ -28,9 +27,9 @@ const summary = {
       <span>Status</span>
       <select data-action-plan-filter="status">
         <option value="">Alle</option>
-        <option value="umgesetzt">✅ Umgesetzt</option>
-        <option value="teilweise_umgesetzt">🔄 Teilweise umgesetzt</option>
-        <option value="angelegt">📋 Angelegt</option>
+        <option value="umgesetzt">Umgesetzt</option>
+        <option value="teilweise_umgesetzt">Teilweise umgesetzt</option>
+        <option value="angelegt">Angelegt</option>
       </select>
     </label>
     <label class="search-field">
@@ -46,15 +45,15 @@ const summary = {
 
   <div class="meta-grid meta-grid--compact">
     <div class="meta-card">
-      <span class="meta-label">✅ Umgesetzt</span>
+      <span class="meta-label">Umgesetzt</span>
       <strong>{summary.umgesetzt}</strong>
     </div>
     <div class="meta-card">
-      <span class="meta-label">🔄 Teilweise umgesetzt</span>
+      <span class="meta-label">Teilweise umgesetzt</span>
       <strong>{summary.teilweise_umgesetzt}</strong>
     </div>
     <div class="meta-card">
-      <span class="meta-label">📋 Angelegt</span>
+      <span class="meta-label">Angelegt</span>
       <strong>{summary.angelegt}</strong>
     </div>
     <div class="meta-card">
@@ -73,7 +72,6 @@ const summary = {
       >
         <div class="module-card__meta">
           <span class="module-status-pill">
-            <span aria-hidden="true">{getActionPlanStatusIcon(item.status)}</span>
             {formatActionPlanStatus(item.status)}
           </span>
           <span class="tag">{item.ressort}</span>

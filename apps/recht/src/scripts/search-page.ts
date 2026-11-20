@@ -282,6 +282,7 @@ function applyStateToForm(state: NormSearchState): void {
       element.value = value;
     }
   }
+  form.dispatchEvent(new Event('search-state-restored', { bubbles: true }));
 }
 
 const filterDefaults: Record<string, string> = {
@@ -492,9 +493,11 @@ function trimSnippet(value: string): string {
 function placesMarkup(hit: SearchHit): string {
   if (!hit.snippet && !hit.unitAnchor) return '';
   const prefixLabel = [hit.unitLabel, hit.unitTitle].filter(Boolean).join(' ') || hit.matchLabel;
-  const prefix = hit.unitAnchor
+  // Ein Titel kann den ersten Textausschnitt als Leseprobe mitbringen.
+  const unitMatch = hit.matchKind === 'reference' || hit.matchKind === 'body';
+  const prefix = unitMatch && hit.unitAnchor
     ? `<a class="search-hit__place" href="${escapeHtml(`${hit.url}#${hit.unitAnchor}`)}">${escapeHtml(prefixLabel)}</a>`
-    : `<span class="search-hit__place r-muted">${escapeHtml(prefixLabel)}</span>`;
+    : `<span class="search-hit__place r-muted">${escapeHtml(unitMatch ? prefixLabel : hit.matchLabel)}</span>`;
   return `<ul class="search-hit__places"><li data-search-match-kind="${escapeHtml(hit.matchKind)}">${prefix}<span class="search-hit__context">${hit.snippet ? escapeHtml(trimSnippet(hit.snippet)) : ''}</span></li></ul>`;
 }
 
@@ -509,7 +512,8 @@ function renderHit(hit: SearchHit, state: NormSearchState): string {
     ? `<a href="${escapeHtml(hit.publicationUrl)}">${escapeHtml(hit.publicationTitle)}</a>`
     : escapeHtml(hit.publication);
   const origin = originOf(hit);
-  const ident = [block.abbr, hit.typeLabel].filter(Boolean).join(' · ');
+  const documentType = hit.type === 'gesetz' && !hit.isAmendment ? 'Stammgesetz' : hit.typeLabel;
+  const ident = [documentType, block.abbr].filter(Boolean).join(' · ');
   const meta = [
     statusMarkup(hit),
     `<span>${escapeHtml(versionText(hit))}</span>`,

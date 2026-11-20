@@ -8,19 +8,19 @@ import {
   getGovernmentUrl,
   getHomeUrl,
 } from '@ostrecht/shared/lib/portal/index.ts';
-import { loadGovernmentMembers } from '@ostrecht/shared/lib/portal/content.ts';
+import { loadGovernmentMembers, loadCurrentGovernment } from '@ostrecht/shared/lib/portal/content.ts';
 import type { RegierungMitglied } from '@ostrecht/shared/lib/portal/index.ts';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 
 export async function getStaticPaths() {
-  const members = await loadGovernmentMembers();
+  const [members, government] = await Promise.all([loadGovernmentMembers(), loadCurrentGovernment()]);
   return members.map((member) => ({
     params: { slug: member.slug },
-    props: { member },
+    props: { member, onCouncil: government.memberPersonSlugs.includes(member.slug) },
   }));
 }
 
-const { member } = Astro.props as { member: RegierungMitglied };
+const { member, onCouncil } = Astro.props as { member: RegierungMitglied; onCouncil: boolean };
 const currentOfficeTitles = member.currentOffices.map((office) => office.title);
 ---
 
@@ -29,18 +29,18 @@ const currentOfficeTitles = member.currentOffices.map((office) => office.title);
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Staat & Behörden', href: getGovernmentUrl() },
         { label: 'Mitglieder', href: getGovernmentMembersUrl() },
         { label: member.name },
       ]}
     />
 
     <SectionHero
-      eyebrow={member.current ? 'Mitglied des Staatsrates' : 'Historisches Regierungsprofil'}
+      eyebrow={member.current ? 'Personenprofil' : 'Historisches Regierungsprofil'}
       title={member.name}
       titleSize="long"
       lead={currentOfficeTitles.length === 1 ? currentOfficeTitles[0] : member.current ? undefined : member.amt}
-      status={member.current ? 'Aktuelles Mitglied des Staatsrates' : `Aus dem Kabinett ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
+      status={member.current ? (onCouncil ? 'Mitglied des Staatsrates' : 'Beigeordnetes Amt') : `Ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
       variant="government"
       facts={[
         { label: 'Ressort', value: member.ressort },
@@ -85,18 +85,6 @@ const currentOfficeTitles = member.currentOffices.map((office) => office.title);
           <h2>Profil</h2>
         </div>
         <dl class="meta-list">
-          <div>
-            <dt>Amt</dt>
-            <dd>
-              {currentOfficeTitles.length > 0 ? (
-                <ul class="plain-list">{currentOfficeTitles.map((title) => <li>{title}</li>)}</ul>
-              ) : member.amt}
-            </dd>
-          </div>
-          <div>
-            <dt>Ressort</dt>
-            <dd>{member.ressort}</dd>
-          </div>
           {member.party ? (
             <div>
               <dt>Partei</dt>
@@ -155,7 +143,7 @@ const currentOfficeTitles = member.currentOffices.map((office) => office.title);
     description="Das angeforderte Regierungsprofil konnte nicht geladen werden."
     breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Staat & Behörden', href: getGovernmentUrl() },
       { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
       { label: 'Nicht gefunden' },
     ]}
@@ -163,7 +151,7 @@ const currentOfficeTitles = member.currentOffices.map((office) => office.title);
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Staat & Behörden', href: getGovernmentUrl() },
         { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
         { label: 'Nicht gefunden' },
       ]}

@@ -99,7 +99,10 @@ if (root) {
   let visibleCount = PAGE_SIZE;
 
   if (queryInput) queryInput.value = params.get('q') ?? '';
-  if (areaSelect) areaSelect.value = params.get('bereich') ?? '';
+  if (areaSelect) {
+    const area = params.get('bereich');
+    areaSelect.value = area === 'portal:kreisreform' ? 'portal:freestate' : area ?? '';
+  }
   if (sortSelect && params.get('sort') === 'latest') sortSelect.value = 'latest';
 
   const currentArea = () => areaSelect?.value ?? '';

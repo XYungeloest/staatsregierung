@@ -1,4 +1,5 @@
 ---
+import { ministryIcon } from '@ostrecht/shared/config/portal-icons.ts';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import { getMinistryUrl, type Ministerium } from '@ostrecht/shared/lib/portal/index.ts';
 
@@ -12,7 +13,7 @@ const { ministries } = Astro.props as Props;
 <div class="ministry-directory" data-ministry-directory>
   {ministries.map((ministry) => (
     <article class="ministry-directory__item">
-      <div class="ministry-directory__icon" aria-hidden="true"><PortalIcon name="ministry" /></div>
+      <div class="ministry-directory__icon" aria-hidden="true"><PortalIcon name={ministryIcon(ministry.slug)} /></div>
       <div class="ministry-directory__body">
         <p class="ministry-directory__shortname">{ministry.kurzname}</p>
         <h3><a href={getMinistryUrl(ministry.slug)}>{ministry.name}</a></h3>
@@ -27,9 +28,6 @@ const { ministries } = Astro.props as Props;
           </div>
         </dl>
       </div>
-      <a class="ministry-directory__link" href={getMinistryUrl(ministry.slug)} aria-label={`${ministry.name} öffnen`}>
-        <PortalIcon name="arrow" />
-      </a>
     </article>
   ))}
 </div>

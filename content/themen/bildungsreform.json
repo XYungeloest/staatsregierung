@@ -1,7 +1,8 @@
 {
   "slug": "bildungsreform",
   "title": "Bildungsreform",
-  "teaser": "Die Bildungsreform ordnet Schulen neu, entlastet Familien bei Kita-Beiträgen und stärkt verlässliche digitale Lernbedingungen.",
+  "pageType": "dossier",
+  "teaser": "Die Reform führt die polytechnische Schule ein. Sie regelt Schulwechsel, Abschlüsse und die künftige Entlastung bei den Kosten des Schulbesuchs.",
   "status": "in-umsetzung",
   "cluster": "bildung-gesellschaft",
   "priority": 86,
@@ -11,25 +12,28 @@
     "project-schulreform",
     "project-kostenfreie-kindheit-teilhabe"
   ],
-  "hero": "Das neue Schulrecht gilt: Polytechnische und Erweiterte Oberschule, zweiter Bildungsweg und die fachlichen Verwaltungsvorschriften bilden seit 1. September 2026 ein zusammenhängendes System.",
   "beschlossen": [
-    "Das Schulsystem wurde gesetzlich neu geordnet und organisatorisch auf den Freistaat zugeschnitten.",
-    "Ab 1. Januar 2027 werden Kindertagesbetreuung und die regelmäßige Kita-Verpflegung beitragsfrei. Kostenfreie Schulverpflegung, Schulveranstaltungen und grundlegende Hygieneartikel sind ebenfalls ab diesem Datum gesetzlich vorgesehen.",
-    "Die Schulordnungen für POS, EOS, Abendoberschule, Abendgymnasium, Kolleg, sorbische Schulen sowie Ethik- und freiwilligen Religionsunterricht sind amtlich verkündet; eine Änderungsverordnung stellt die Förderschulen seit 1. September 2026 auf Primar- und Sekundarstufenteil nach den Lehrplänen der Polytechnischen Oberschule um.",
-    "Sechzehn Verwaltungsvorschriften regeln unter anderem Stundentafeln, Prüfungen, Zeugnisse, sonderpädagogische Formulare und das Schuljahr 2026/2027.",
-    "Das Vierte Gesetz zur Großen Staatsreform trat am 21. Juli 2026 in Kraft.",
-    "Seit dem 12. September 2026 dient das Bildungswesen nach der Verfassung der Entwicklung allseitig gebildeter, solidarischer und verantwortungsbewusster Persönlichkeiten; die polytechnische Bildung verbindet wissenschaftliche, technische, gesellschaftliche und praktische Bildung, und die allgemeine Schulpflicht dauert zehn Jahre.",
+    "Die Schulordnungen regeln die polytechnische und die erweiterte Oberschule, den zweiten Bildungsweg, sorbische Schulen und den Ethik- und Religionsunterricht.",
+    "Für Förderschulen gelten seit September Lehrpläne der polytechnischen Oberschule für Primar- und Sekundarstufenteil.",
     "Seit dem 20. Juli 2026 sollen die Hochschulen ihr wissenschaftliches Personal durch Satzung verpflichten, dienstlich entstandene Beiträge aus mindestens zweimal jährlich erscheinenden Sammlungen sechs Monate nach der Erstveröffentlichung nichtkommerziell zweitzuveröffentlichen; Ausnahmen regelt die Satzung."
   ],
-  "umgesetzt": [
-    "Das Gesetz zur Neuordnung des Ostdeutschen Schulsystems ist als aktuelle Fassung verfügbar.",
-    "Das Umsetzungs- und Bereinigungspaket wurde vom 14. bis 16. August 2026 verkündet und gilt seit 1. September 2026 überwiegend.",
-    "Die bisherigen Schulordnungen für Grundschulen, Ober- und Abendoberschulen, Gemeinschaftsschulen und allgemeinbildende Gymnasien sind seit 1. September 2026 historisch abrufbar."
+  "geltendesRecht": [
+    "Die neuen Schulordnungen gelten überwiegend seit dem 1. September 2026. Für laufende Übergangsfälle gilt die schulrechtliche Bereinigungsverordnung.",
+    "Die allgemeine Schulpflicht dauert zehn Jahre. Sechzehn Verwaltungsvorschriften regeln unter anderem Stundentafeln, Prüfungen und Zeugnisse."
   ],
+  "umgesetzt": [],
   "naechsteSchritte": [
-    "Die Anwendung der neuen Vorschriften für Unterricht, Aufnahme- und Prüfungsverfahren fachlich begleiten; weitergehende Vollzugsschritte nur bei Nachweis ergänzen.",
-    "Übergangsfälle werden nach den besonderen Regeln der schulrechtlichen Bereinigungsverordnung abgeschlossen.",
-    "Die zum 1. Januar 2027 verkündeten Leistungen einschließlich Kostenausgleich und der erforderlichen Verordnungen vorbereiten."
+    "Für die Leistungen ab Januar 2027 sind Kostenausgleich und Ausführungsregelungen vorzubereiten."
+  ],
+  "impacts": [
+    {
+      "text": "An der Polytechnischen Oberschule lernen Schüler:innen von Klasse 1 bis 10. Der Übergang von Klasse 4 nach Klasse 5 erfordert keinen Schulartwechsel. Eltern erhalten Beratung zur Lernentwicklung.",
+      "normSlug": "schulordnung-polytechnische-oberschulen"
+    },
+    {
+      "text": "Ab 1. Januar 2027 sind die regelmäßige Schulverpflegung und Schulveranstaltungen kostenfrei. Für die Kindertagesbetreuung gelten die eigenen Regeln zur Beitragsfreiheit.",
+      "normSlug": "kostenfreie-kindheit-und-soziale-teilhabe"
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -116,16 +120,7 @@
       "note": "Teilweise seit 15. Oktober 2026 in Kraft, im Übrigen ab 1. Januar 2027."
     }
   ],
-  "faq": [
-    {
-      "question": "Ist die Bildungsreform bereits vollständig abgeschlossen?",
-      "answer": "Die zentralen gesetzlichen Grundlagen stehen bereits. Organisatorische und fachliche Anpassungen laufen aber fortlaufend weiter."
-    },
-    {
-      "question": "Welche Rolle spielt die Kita-Beitragsfreiheit?",
-      "answer": "Sie ist ein sozial- und bildungspolitischer Kernbestandteil der Reform und entlastet Familien ab dem 1. Januar 2027 unmittelbar."
-    }
-  ],
+  "faq": [],
   "federfuehrendesRessort": "bildung-und-sportliche-ertuechtigung",
   "mitzeichnungsressorts": [
     "soziale-und-gesundheitliche-fuersorge"

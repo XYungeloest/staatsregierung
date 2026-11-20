@@ -269,8 +269,9 @@ Die tragenden Regeln in Kurzform:
 - Jost als Schrift
 - ruhige Blau-Weiß-Grün-Anmutung
 - Inhaltsklarheit vor Effekten
-- Startseiteninhalte klar priorisieren: Einstieg, zentrale Portalpfade, aktueller Regierungsstand, Reformen, Recht sowie Presse und Service.
-- Die Kreisreform ist ein zentraler Portalweg unter `/kreisreform/`, in der Hauptnavigation, auf der Startseite und in den Themen-Einstiegen sichtbar.
+- Die Startseite priorisiert Suche, häufige Anliegen, gültige Hinweise und aktuelle Reformen vor Veröffentlichungen, Presse und Zuständigkeiten.
+- Themenseiten verwenden `compact`, `dossier` oder `application`. Beschluss, geltendes Recht und belegter Vollzug werden einzeln gepflegt. Auskünfte zu konkreten Auswirkungen benötigen eine zugeordnete Rechtsgrundlage (siehe `CONTENT.md`).
+- Die Kreisreform gehört in der Hauptnavigation zu „Freistaat“. Die Startseite und die Themenübersicht führen direkt zur Gebietssuche unter `/kreisreform/#bezirk-suche`.
 - Interaktive Karten, Tabellen und Filter müssen auf kleinen Bildschirmen ohne unkontrolliertes horizontales Scrollen nutzbar bleiben.
 - Die Kreisreform-Suche muss ohne geöffnete Karte ein textliches Ergebnis liefern; die Karte startet
   auf kleinen Bildschirmen nur nach ausdrücklichem Öffnen.

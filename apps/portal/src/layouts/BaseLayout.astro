@@ -3,6 +3,8 @@ import '@ostrecht/shared/styles/global.css';
 import AnalyticsConsentBanner from '@ostrecht/shared/components/analytics/AnalyticsConsentBanner.astro';
 import PageHead from '@ostrecht/shared/components/PageHead.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+import AreaNavigation from '../components/portal/AreaNavigation.astro';
+import { portalAreas } from '../lib/area-navigation.ts';
 import ServiceBand from '../components/portal/ServiceBand.astro';
 import { isAnalyticsEnabled } from '@ostrecht/shared/config/analytics.ts';
 import { lawSiteConfig, siteConfig } from '@ostrecht/shared/config/site.ts';
@@ -62,34 +64,6 @@ function isActivePath(targetPath: string, exact = false): boolean {
     : currentPath === targetPath || currentPath.startsWith(targetPath);
 }
 
-const mainNavTargets = siteConfig.mainNavigation.map((entry) => {
-  const href = getSiteUrl(entry.pathKey);
-
-  return {
-    href,
-    label: entry.label,
-    pathname: getPathname(href),
-  };
-});
-const activeMainNavPath = mainNavTargets
-  .filter((link) => isActivePath(link.pathname))
-  .sort((left, right) => right.pathname.length - left.pathname.length)[0]?.pathname;
-const mainNavLinks = mainNavTargets.map(({ pathname, ...link }) => ({
-  ...link,
-  isActive: pathname === activeMainNavPath,
-}));
-
-const serviceLinks = [
-  { href: getHomeUrl(), label: 'Startseite' },
-  ...siteConfig.serviceNavigation.map((entry) => ({
-    href: getSiteUrl(entry.pathKey),
-    label: entry.label,
-  })),
-].map((entry) => ({
-  ...entry,
-  isActive: isActivePath(getPathname(entry.href), true),
-}));
-
 const utilityNavLinks = siteConfig.serviceNavigation.map((entry) => {
   const href = getSiteUrl(entry.pathKey);
 
@@ -104,13 +78,7 @@ const headerAccessLinks = utilityNavLinks.filter((link) =>
   ['Leichte Sprache', 'Gebärdensprache'].includes(link.label),
 );
 
-const homeNavLink = {
-  href: getHomeUrl(),
-  label: 'Startseite',
-  isActive: currentPath === '/',
-};
-
-const footerPortalLinks = mainNavLinks;
+const footerPortalLinks = portalAreas.map((area) => ({ ...area, isActive: currentPath === area.href }));
 
 const footerServiceLinks = [
   { href: getPortalSearchUrl(), label: 'Portalsuche' },
@@ -120,7 +88,6 @@ const footerServiceLinks = [
   { href: getSiteUrl('publications'), label: 'Publikationen' },
   { href: getSiteUrl('easyLanguage'), label: 'Leichte Sprache' },
   { href: getSiteUrl('signLanguage'), label: 'Gebärdensprache' },
-  { href: getSiteUrl('accessibility'), label: 'Barrierefreiheit' },
 ].map((entry) => ({
   ...entry,
   isActive: isActivePath(getPathname(entry.href), true),
@@ -180,21 +147,7 @@ const footerLegalLinks = [
                 </a>
               </div>
 
-              <nav class="site-header__nav site-nav" aria-label="Hauptnavigation">
-                <a
-                  class="site-nav__home"
-                  href={homeNavLink.href}
-                  aria-label={homeNavLink.label}
-                  aria-current={homeNavLink.isActive ? 'page' : undefined}
-                >
-                  <PortalIcon name="home" />
-                </a>
-                {mainNavLinks.map((link) => (
-                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
+              <AreaNavigation />
 
               <div class="site-header__tools">
                 <form
@@ -248,16 +201,12 @@ const footerLegalLinks = [
                     </form>
                     <div class="mobile-nav__group">
                       <p class="eyebrow">Hauptbereiche</p>
-                      <nav class="mobile-nav__links" aria-label="Mobile Hauptnavigation">
-                        {[homeNavLink, ...mainNavLinks].map((link) => (
-                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
-                        ))}
-                      </nav>
+                      <AreaNavigation mobile />
                     </div>
                     <div class="mobile-nav__group">
                       <p class="eyebrow">Service & Hilfe</p>
                       <nav class="mobile-nav__links mobile-nav__links--utility" aria-label="Mobile Servicenavigation">
-                        {serviceLinks.slice(1).map((link) => (
+                        {headerAccessLinks.map((link) => (
                           <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
                         ))}
                       </nav>

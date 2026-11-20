@@ -74,9 +74,13 @@ const visualPages: VisualPage[] = [
   { name: 'startseite', path: '/', critical: true, schmal: true },
   // Kartenraster mit Bereichsnavigation; vertritt Kabinett, Staatsregierung, Presse und Service.
   { name: 'themen', path: '/themen/', critical: true },
-  // Detailtemplate mit Hero, Briefing und Modulen; vertritt alle Themenseiten.
+  // Kompakte Auskunft und Dossier mit eigener Inhaltsnavigation verwenden verschiedene Einstiege.
+  { name: 'thema-kompakt', path: '/themen/sport/' },
+  { name: 'thema-wirtschaftsdossier', path: '/themen/oeffentliche-wirtschaft-und-strukturwandel/' },
   { name: 'thema-volksbefragung', path: '/themen/volksbefragung-2026/' },
-  // Personenprofil; vertritt Staatsrat, Regierungsarchiv und die Ressortprofile.
+  // Politische Leitung mit zwei Fachspalten; sie müssen innerhalb der Seitenbreite bleiben.
+  { name: 'staatsrat', path: '/staatsregierung/' },
+  // Personenprofil; vertritt Regierungsarchiv und die Ressortprofile.
   { name: 'regierungsmitglied-max-peterson', path: '/staatsregierung/mitglieder/max-peterson/' },
   // Portalsuche: Formular und Bereichsgruppierung, anderes Muster als die Rechtssuche.
   { name: 'portalsuche', path: '/suche/', critical: true },
@@ -479,8 +483,8 @@ const componentVisualPages: ComponentVisualPage[] = [
   {
     // Eintragskomponente der Ministeriumsverzeichnisse; ein Ort statt zwei gleichen.
     name: 'staatsregierung-module',
-    path: '/staatsregierung/',
-    shots: [['regierung-ministerium', '[data-visual-section="government-ministry-directory"] .ministry-directory__item:first-child']],
+    path: '/staatsregierung/kabinett/',
+    shots: [['regierung-ministerium', '[data-visual-section="cabinet-ministry-directory"] .ministry-directory__item:first-child']],
   },
   {
     // Bildfläche mit Nachweiszeile und die Meta-Tafel; letztere vertritt alle `.meta-panel`.
@@ -1056,7 +1060,8 @@ portalTest('Messung: die Themenübersicht führt jedes Thema genau einmal als Ka
   expect(new Set(cards).size, 'jede Karte steht genau einmal').toBe(cards.length);
   expect(cards.every((id) => id.startsWith('thema-')), 'jede Karte trägt ein Sprungziel').toBe(true);
   for (const href of references) {
-    expect(cards, `Verweis ${href} zeigt auf eine Karte`).toContain(href.slice(1));
+    const slug = href.match(/^\/themen\/([^/]+)\/$/u)?.[1];
+    expect(cards, `Direktzugang ${href} gehört zu einem verzeichneten Thema`).toContain(`thema-${slug}`);
   }
 });
 

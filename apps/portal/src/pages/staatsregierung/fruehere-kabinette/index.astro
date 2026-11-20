@@ -32,20 +32,20 @@ const archiveUrl = (slug: string) => `${getPreviousCabinetsUrl()}${slug}/`;
 ---
 
 <BaseLayout
-  title="Frühere Kabinette"
+  title="Frühere Staatsregierungen"
   description="Archiv früherer Staatsregierungen des Ostdeutschen Freistaates."
 >
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsrat', href: getGovernmentUrl() },
-      { label: 'Frühere Kabinette' },
+      { label: 'Staat & Behörden', href: getGovernmentUrl() },
+      { label: 'Frühere Staatsregierungen' },
     ]}
   />
 
   <SectionHero
     eyebrow="Regierungsarchiv"
-    title="Frühere Kabinette"
+    title="Frühere Staatsregierungen"
     lead="Abgeschlossene Staatsregierungen mit Amtszeit, Zusammensetzung und politischen Schwerpunkten."
     variant="government"
     facts={[

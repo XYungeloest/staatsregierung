@@ -1,4 +1,4 @@
-import { isLawSite, lawPaths, portalPaths, siteTarget, siteUrls } from '@ostrecht/shared/config/site-routing.ts';
+import { isLawSite, lawPaths, portalPaths, siteUrls } from '@ostrecht/shared/config/site-routing.ts';
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import type { NormStatus } from '@ostrecht/shared/lib/norms/schema.ts';
 import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
@@ -12,25 +12,7 @@ import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts
 export { isLawSite, siteTarget, siteUrls } from '@ostrecht/shared/config/site-routing.ts';
 export type { LawSitePathKey, SitePathKey } from '@ostrecht/shared/config/site-routing.ts';
 
-/**
- * Die Bereiche des Staatsportals: Bezeichnung, Adresse und Kurzbeschreibung stehen genau einmal
- * hier. Hauptnavigation, Brotkrumen, Serviceübersicht, `sitemap.xml`, Suchindex und Fehlerseite
- * lesen sie; niemand formuliert einen Bereichsnamen selbst (Befund „Bereichsname und Adresse“ der
- * Designprüfung vom 6. September 2026).
- *
- * Die Hauptnavigation führt ausschließlich Bereichseinstiege. Einzelne Themen — etwa das
- * Schulsystem — sind über die Themenseite, die Startseite und die Suche erreichbar, nicht als
- * zehnter Punkt neben acht Bereichen. Die Kreisreform bleibt ein eigener Bereich, weil sie nach
- * `AGENTS.md` ein zentraler Portalweg mit eigener Adresse ist.
- *
- * Der Bereich heißt „Staatsrat“, weil die Staatsverfassung das Organ an der Spitze der
- * vollziehenden Gewalt so nennt (Artikel „Der Staatsrat“). Seine Adresse bleibt
- * `/staatsregierung/`: sie benennt das Politikfeld, ist die eingeführte öffentliche Adresse und
- * liegt in `site-routing.ts` innerhalb des D1-Projektionsabschlusses — eine Umbenennung machte
- * aus einer reinen Darstellungsänderung eine Projektionsfreigabe, ohne dass Nutzende etwas
- * gewinnen. Titelzusatz und Brotkrume kommen aus `authorityName` beziehungsweise aus dieser
- * Liste, sodass Name, Adresse und Beschriftung nicht mehr auseinanderlaufen können.
- */
+/** Öffentliche Bereiche und Filter. Die Hauptnavigation fasst Kreisreform und Recht fachlich ein. */
 export const PORTAL_SECTIONS = [
   {
     key: 'home',
@@ -45,23 +27,23 @@ export const PORTAL_SECTIONS = [
     label: 'Freistaat',
     pathKey: 'freestate',
     path: portalPaths.freestate,
-    description: 'Staatsaufbau, Bezirke, Hoheitszeichen und Geschichte.',
+    description: 'Staatsaufbau, Bezirke, Gebietssuche, Hoheitszeichen und Geschichte.',
     navigation: true,
   },
   {
     key: 'government',
-    label: 'Staatsrat',
+    label: 'Staat & Behörden',
     pathKey: 'government',
     path: portalPaths.government,
-    description: 'Mitglieder, Geschäftsbereiche, Beteiligungen und Regierungsprogramm.',
+    description: 'Staatsrat, Staatssekretariate, Zuständigkeiten und öffentliche Beteiligungen.',
     navigation: true,
   },
   {
     key: 'topics',
-    label: 'Themen',
+    label: 'Politik & Vorhaben',
     pathKey: 'topics',
     path: portalPaths.topics,
-    description: 'Vorhaben und Reformbereiche mit Stand, Zuständigkeit und Rechtsgrundlagen.',
+    description: 'Regierungsprogramm, Vorhaben und Reformdossiers mit Stand und Rechtsgrundlagen.',
     navigation: true,
   },
   {
@@ -70,7 +52,7 @@ export const PORTAL_SECTIONS = [
     pathKey: 'lawBridge',
     path: portalPaths.lawBridge,
     description: 'Zugang zum Rechtsportal OstRecht.',
-    navigation: true,
+    navigation: false,
   },
   {
     key: 'kreisreform',
@@ -78,11 +60,11 @@ export const PORTAL_SECTIONS = [
     pathKey: 'kreisreform',
     path: portalPaths.kreisreform,
     description: 'Neue Kreise und Bezirke mit Gebietssuche und Tabellen.',
-    navigation: true,
+    navigation: false,
   },
   {
     key: 'budget',
-    label: 'Haushalt',
+    label: 'Haushalt & Daten',
     pathKey: 'budget',
     path: portalPaths.budget,
     description: 'Doppelhaushalt, Einzelpläne und Sondervermögen.',
@@ -90,7 +72,7 @@ export const PORTAL_SECTIONS = [
   },
   {
     key: 'press',
-    label: 'Presse',
+    label: 'Presse & Aktuelles',
     pathKey: 'press',
     path: portalPaths.press,
     description: 'Pressemitteilungen, Reden und Termine.',
