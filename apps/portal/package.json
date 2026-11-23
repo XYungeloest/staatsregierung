@@ -17,10 +17,10 @@
     "deploy:staging": "node ../../scripts/check-haushalt-release.mjs --staging && node ../../scripts/write-staging-wrangler-config.mjs . && wrangler deploy --config dist/server/wrangler.staging.json --env=\"\" && wrangler deploy --config wrangler.fresswuerfel-cleanup.jsonc --env staging"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.4.7",
+    "@astrojs/cloudflare": "^14.4.9",
     "@cf-wasm/photon": "^0.4.0",
     "@ostrecht/shared": "^0.0.1",
-    "astro": "^7.4.11",
+    "astro": "^7.4.13",
     "image-size": "^2.1.0",
     "leaflet": "^1.9.4"
   },
